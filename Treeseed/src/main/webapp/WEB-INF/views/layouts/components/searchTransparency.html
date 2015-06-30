@@ -1,0 +1,56 @@
+<div >
+<div class="bg-light lter b-b wrapper-md" >
+  <h1 class="m-n font-thin h3"><i class="icon-magnifier i-sm m-r-sm"></i> Reporte de trasnparencia de {{ong}}</h1>
+</div>
+<br>
+<br>
+<div >
+  <form  class="m-b-md form-validation" ng-submit="search()">
+    <div >
+      <div class="form-group">
+          <input ui-jq="daterangepicker" ui-options="{
+                format: 'YYYY-MM-DD',
+                startDate: '2015/03/01',
+                endDate: '2015/06/10'
+              }" class="form-control w-md" required />
+        </div>
+        <span class="input-group-btn">
+        <button class="btn btn-lg btn-success" type="submit">Search</button>
+      </span>
+      </div>
+  </form>
+</div>
+  <div ng-hide="resul">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  </div>
+  <div ng-show="resul">
+    <p class="m-b-md" ><strong>3</strong> resultados han sido encontrados.</p>
+      <ul class="list-group no-borders pull-in m-b-none">
+        <li class="list-group-item">
+          <a href="#" class="h4 text-primary m-b-sm m-t-sm block">Reporte de transparencia de Marzo del 2015 </a>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+        </li>
+        <li class="list-group-item">
+          <a href="#" class="h4 text-primary m-b-sm m-t-sm block">Reporte de transparencia de Abril del 2015 </a>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+        </li>
+        <li class="list-group-item">
+          <a href="#" class="h4 text-primary m-b-sm m-t-sm block">Reporte de transparencia de Mayo del 2015</a>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+        </li>
+      </ul>
+    </div>
+</div>
