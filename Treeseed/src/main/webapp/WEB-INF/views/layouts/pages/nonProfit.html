@@ -1,0 +1,161 @@
+
+
+
+<div class="wrapper-md" >
+	<!-- stats -->
+	<div class="row">
+        <div class="col-md-12">
+        	 <img src="img/perro.jpg" alt="" class="cover-image" >
+    	</div>
+    	
+	</div>
+	<div class="row">
+		 <div class="col-md-12">
+		 	<div class="col-md-3">
+	 			<div class="row">
+	 				<div class="col-md-12">
+						<img src="img/territorio.jpg" alt="" class="non-profit-profile" >
+					</div>
+ 				</div>
+ 				<div class="row">
+ 					<div class="col-md-12">
+ 						<b>territoriozaguates@gmail.com</b>
+ 						<br>
+ 						<b>territoriozaguates.com</b>
+ 						<br>
+ 						<b>Donantes:</b> 100
+ 						<br>
+ 						<b>Dinero recaudado:</b> 1000
+ 						<br>
+ 						<b>Campañas:</b> 80
+ 						<br>
+ 						<b>Campañas:</b> 40
+ 						<br>
+
+ 					<div ng-controller="DonationCtrl">
+			            <script type="text/ng-template" id="myModalContent.html">
+			            <div class="modal-header">
+			              <h3 class="modal-title">Realizar Donacion</h3>
+			            </div>
+			            <div class="modal-body">
+			              <div class="form-group">
+			                <label for="credit-card" class="control-label">Tarjeta de Credito</label>
+			                <input type="text" class="form-control" id="credit-card" required>
+			              </div>
+			              <div class="form-group">
+			                <label for="safety-number" class="control-label">Codigo de seguridad</label>
+			                <input type="text" class="form-control" id="safety-number" required>
+			              </div>
+			              <div class="form-group">
+			                <label for="exp-date" class="control-label">Fecha de vencimiento</label>
+			                <input type="text" class="form-control" id="exp-date" required>
+			              </div>
+			              <div class="form-group">
+			                <label for="amount" class="control-label">Monto a donar</label>
+			                <input type="text" class="form-control" id="amount" required>
+			              </div>
+			              <div class="form-group">
+			                <label for="recurrentAmount" class="control-label">Realizar donacion recurrente</label>        
+			                <input type="checkbox" value="">
+			             </div>  
+			            </div>
+			            <div class="modal-footer">
+			                <button class="btn btn-primary" ng-click="ok()">Donar</button>
+			                <button class="btn" ng-click="cancel()">Cancel</button>
+			            </div>
+			            <div ng-show="status" class="alert alert-success" role="alert">{{correcto}}</div>
+			          </script>
+				        <div ng-controller="showToUserController">
+				          <button ng-show="view()" class="btn btn-default" ng-click="open()">Realizar Donacion</button>
+				     	</div>
+		          	</div>  	
+
+ 					</div>
+ 				</div>
+	 		</div>
+	 		<div class="col-md-8">
+	 			
+ 				<tabset class="tab-container">
+				    <tab>
+				      <tab-heading>
+				        Perfil
+				      </tab-heading>
+				      <ul class="list-group no-borders pull-in m-b-none">
+				        <li class="list-group-item">
+				          <h2>Territorio de Zaguates</h2>
+			          	  <hr>
+			          	  <br>
+
+			          	  <h3>Cuentanos un poco de lo que haces</h3>
+
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+
+				          <br>
+
+			          	  <h3>Destino de los fondos</h3>
+			          	  
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          
+				          <br>
+
+			          	  <h3>Razón</h3>
+			          	  
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          
+				        </li>
+				      </ul>
+				    </tab>
+    				
+    				 <tab>
+				      <tab-heading>
+				        Campañas
+				      </tab-heading>
+				      <ul class="list-group no-borders pull-in m-b-none">
+				        <li class="list-group-item">
+				        	<a ui-sref="treeSeed.campaingViewer"  class="h4 text-primary m-b-sm m-t-sm block">Territorio de Zaguates busca incluir a los Gatitos</a>
+			          	  
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+
+				         <a  class="h4 text-primary m-b-sm m-t-sm block">Castración</a>
+
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+
+				          <br>
+
+			          	  <a  class="h4 text-primary m-b-sm m-t-sm block">Desparacitación</a>
+			          	  
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          
+				         
+				          
+				        </li>
+				      </ul>
+				    </tab>
+
+				     <tab>
+				      <tab-heading>
+				        Actualizaciones
+				      </tab-heading>
+				      <ul class="list-group no-borders pull-in m-b-none">
+				        <li class="list-group-item">
+				          <h3>Ya casi alcanzamos la meta</h3>
+
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+
+				          <br>
+
+			          	  <h3>1000 perritos savados</h3>
+			          	  
+				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          
+				        </li>
+				      </ul>
+				    </tab>
+      
+  				</tabset>
+	 		</div>
+	 		<div class="col-md-1">
+	 		</div>
+		 </div>
+	</div>
+</div>
