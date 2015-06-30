@@ -5,9 +5,9 @@ var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.ser
 treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
     $scope.getMenu=function(){
       if($sharedData.getUserType() == "ONG"){
-          return  "../layouts/components/aside.html";
+          return  "layouts/components/aside.html";
       }else{
-          return "../layouts/components/asideDonor.html" ;
+          return "layouts/components/asideDonor.html" ;
       }
     }
     

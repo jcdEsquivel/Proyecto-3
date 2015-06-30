@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.cenfotec.cenfoteca">
+	<logger name="com.treeseed">
 		<level value="info" />
 	</logger>
 	

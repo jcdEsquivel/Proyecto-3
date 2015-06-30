@@ -24,13 +24,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-            registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+            registry.addResourceHandler("/layouts/**").addResourceLocations("/WEB-INF/views/layouts/");
     }
 	
 	 @Bean
 	 public ViewResolver getViewResolver(){
 		 InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		 resolver.setPrefix("/WEB-INF/views/");
+		 resolver.setPrefix("/WEB-INF/views/layouts/");
 		 resolver.setSuffix(".jsp");
 		 return resolver;
 	    }
