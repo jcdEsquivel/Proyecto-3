@@ -1,0 +1,245 @@
+package com.treeseed.ejb;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the donor database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Donor.findAll", query="SELECT d FROM Donor d")
+public class Donor implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
+	private String country;
+
+	private String description;
+
+	private String lastName;
+
+	private String name;
+
+	private String profilePicture;
+
+	private String type;
+
+	private String webPage;
+
+	//bi-directional many-to-one association to Donor
+	@ManyToOne
+	@JoinColumn(name="father")
+	private Donor donor;
+
+	//bi-directional many-to-one association to Donor
+	@OneToMany(mappedBy="donor")
+	private List<Donor> donors;
+
+	//bi-directional many-to-one association to Donorsetting
+	@OneToMany(mappedBy="donor")
+	private List<Donorsetting> donorsettings;
+
+	//bi-directional many-to-one association to Notificationdonor
+	@OneToMany(mappedBy="donor")
+	private List<Notificationdonor> notificationdonors;
+
+	//bi-directional many-to-one association to Recurrabledonation
+	@OneToMany(mappedBy="donor")
+	private List<Recurrabledonation> recurrabledonations;
+
+	//bi-directional many-to-one association to Usergeneral
+	@OneToMany(mappedBy="donor")
+	private List<Usergeneral> usergenerals;
+
+	public Donor() {
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCountry() {
+		return this.country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getProfilePicture() {
+		return this.profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getWebPage() {
+		return this.webPage;
+	}
+
+	public void setWebPage(String webPage) {
+		this.webPage = webPage;
+	}
+
+	public Donor getDonor() {
+		return this.donor;
+	}
+
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
+
+	public List<Donor> getDonors() {
+		return this.donors;
+	}
+
+	public void setDonors(List<Donor> donors) {
+		this.donors = donors;
+	}
+
+	public Donor addDonor(Donor donor) {
+		getDonors().add(donor);
+		donor.setDonor(this);
+
+		return donor;
+	}
+
+	public Donor removeDonor(Donor donor) {
+		getDonors().remove(donor);
+		donor.setDonor(null);
+
+		return donor;
+	}
+
+	public List<Donorsetting> getDonorsettings() {
+		return this.donorsettings;
+	}
+
+	public void setDonorsettings(List<Donorsetting> donorsettings) {
+		this.donorsettings = donorsettings;
+	}
+
+	public Donorsetting addDonorsetting(Donorsetting donorsetting) {
+		getDonorsettings().add(donorsetting);
+		donorsetting.setDonor(this);
+
+		return donorsetting;
+	}
+
+	public Donorsetting removeDonorsetting(Donorsetting donorsetting) {
+		getDonorsettings().remove(donorsetting);
+		donorsetting.setDonor(null);
+
+		return donorsetting;
+	}
+
+	public List<Notificationdonor> getNotificationdonors() {
+		return this.notificationdonors;
+	}
+
+	public void setNotificationdonors(List<Notificationdonor> notificationdonors) {
+		this.notificationdonors = notificationdonors;
+	}
+
+	public Notificationdonor addNotificationdonor(Notificationdonor notificationdonor) {
+		getNotificationdonors().add(notificationdonor);
+		notificationdonor.setDonor(this);
+
+		return notificationdonor;
+	}
+
+	public Notificationdonor removeNotificationdonor(Notificationdonor notificationdonor) {
+		getNotificationdonors().remove(notificationdonor);
+		notificationdonor.setDonor(null);
+
+		return notificationdonor;
+	}
+
+	public List<Recurrabledonation> getRecurrabledonations() {
+		return this.recurrabledonations;
+	}
+
+	public void setRecurrabledonations(List<Recurrabledonation> recurrabledonations) {
+		this.recurrabledonations = recurrabledonations;
+	}
+
+	public Recurrabledonation addRecurrabledonation(Recurrabledonation recurrabledonation) {
+		getRecurrabledonations().add(recurrabledonation);
+		recurrabledonation.setDonor(this);
+
+		return recurrabledonation;
+	}
+
+	public Recurrabledonation removeRecurrabledonation(Recurrabledonation recurrabledonation) {
+		getRecurrabledonations().remove(recurrabledonation);
+		recurrabledonation.setDonor(null);
+
+		return recurrabledonation;
+	}
+
+	public List<Usergeneral> getUsergenerals() {
+		return this.usergenerals;
+	}
+
+	public void setUsergenerals(List<Usergeneral> usergenerals) {
+		this.usergenerals = usergenerals;
+	}
+
+	public Usergeneral addUsergeneral(Usergeneral usergeneral) {
+		getUsergenerals().add(usergeneral);
+		usergeneral.setDonor(this);
+
+		return usergeneral;
+	}
+
+	public Usergeneral removeUsergeneral(Usergeneral usergeneral) {
+		getUsergenerals().remove(usergeneral);
+		usergeneral.setDonor(null);
+
+		return usergeneral;
+	}
+
+}
