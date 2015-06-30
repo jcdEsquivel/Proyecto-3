@@ -1,0 +1,59 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Crear Campaña</h1>
+</div>
+<div class="wrapper-md">
+  <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false, step3:false}">
+    <tab heading="Informacion Básica" active="steps.step1" select="steps.percent=10">
+      <p class="m-b">Ingresa la informacion necesaria para crear una campaña.</p>
+      <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+      <h4>Validate Form</h4>
+      <form name="step1" class="form-validation">
+        <p>Nombre:</p>
+        <input type="text" name="nombre"   class="form-control" ng-model="nombre" required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent=10)">
+       
+      <p>Meta de donación:</p>
+        <input type="number" class="form-control"ng-model="g.d" required >
+
+
+        <p class="m-t">Descripcion:</p>
+         <div ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px" ></div>
+        <div class="m-t m-b">
+          <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Siguiente</button>
+        </div>
+      </form>
+    </tab>
+    <tab heading="Imágenes" disabled="step1.$invalid" active="steps.step2" select="steps.percent=30">
+      <form name="step2" class="form-validation">
+        <p class="m-b">Debe seleccionar a menos 1 imágen para la campaña</p>
+        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+        <p>Imágen 1</p>
+        <input type="file" nv-file-select uploader="uploader" required>
+        <br>
+        <p>Imágen 2</p>
+        <input type="file" nv-file-select uploader="uploader">
+         <br>
+        <p>Imágen 2</p>
+        <input type="file" nv-file-select uploader="uploader">
+
+        <div class="m-t m-b">
+          <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Anterior</button>
+          <button type="submit" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step3=true">Siguiente</button>
+        </div>
+      </form>
+    </tab>
+    <tab heading="Terminar y crear" disabled="step2.$invali" active="steps.step3" select="steps.percent=60">
+      <p class="m-b">Ingrese el periodo de la campaña</p>
+      <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+       <p>Rango de Fechas:</p>
+       <input ui-jq="daterangepicker" ui-options="{
+                format: 'YYYY-MM-DD',
+                startDate: '2015/03/01',
+                endDate: '2015/06/10'
+              }" class="form-control w-md" required />
+      <div class="m-t m-b">
+        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Anterior</button>
+        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Finalizar</button>
+      </div>
+    </tab>
+  </tabset>
+</div>

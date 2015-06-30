@@ -1,0 +1,125 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Visualizar Campaña</h1>
+</div>
+<div class="wrapper-md">
+  <tabset class="tab-container">
+    <tab>
+      <tab-heading>
+        Informacion <span class="badge badge-sm m-l-xs"></span>
+      </tab-heading>
+      <!-- service -->
+      <div class="panel hbox hbox-auto-xs no-border">
+        <div class="col wrapper">
+          <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
+          <h4 class="font-thin m-t-none m-b-none text-primary-lt">Informacion</h4>
+          <div ng-controller="CarouselDemoCtrl" class="panel b-a" set-ng-animate="false">
+        <div class="panel-heading">
+          Carousel
+        </div>
+        <carousel interval="myInterval">
+          <slide ng-repeat="slide in slides" active="slide.active">
+            <img ng-src="{{slide.image}}" class="img-full">
+            <div class="carousel-caption">
+              <h4>Slide {{$index}}</h4>
+              <p>{{slide.text}}</p>
+            </div>
+          </slide>
+        </carousel>
+        <div class="panel-footer">
+          <button type="button" class="btn btn-default m-r" ng-click="addSlide()">Add Slide</button>
+          Interval: <input type="number" class="form-control w-sm inline" ng-model="myInterval"> ms          
+        </div>
+      </div>
+          <span class="m-b block text-sm text-muted"></span>
+          
+        </div>
+        <div class="col wrapper-lg w-lg bg-light dk r-r">
+          <h4 class="font-thin m-t-none m-b">Resumen</h4>
+          <div class="">
+            <div class="">
+              <span class="pull-right text-primary">1960</span>
+              <span>Cantidad de Donadores</span>
+            </div>
+            <progressbar value="60" class="progress-xs m-t-sm bg-white" animate="true" type="primary"></progressbar>
+            <div class="">
+              <span class="pull-right text-info">$19,000</span>
+              <span>Ingresos Mensuales</span>
+            </div>
+            <progressbar value="35" class="progress-xs m-t-sm bg-white" animate="true" type="info"></progressbar>
+            <div class="">
+              <span class="pull-right text-warning">$200,000</span>
+              <span>Meta Anual</span>
+            </div>
+            <progressbar value="25" class="progress-xs m-t-sm bg-white" animate="true" type="warning"></progressbar>
+          </div>
+          <br> 
+          <div ng-controller="DonationCtrl">
+            <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+              <h3 class="modal-title">Realizar Donacion</h3>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="credit-card" class="control-label">Tarjeta de Credito</label>
+                <input type="text" class="form-control" id="credit-card" required>
+              </div>
+              <div class="form-group">
+                <label for="safety-number" class="control-label">Codigo de seguridad</label>
+                <input type="text" class="form-control" id="safety-number" required>
+              </div>
+              <div class="form-group">
+                <label for="exp-date" class="control-label">Fecha de vencimiento</label>
+                <input type="text" class="form-control" id="exp-date" required>
+              </div>
+              <div class="form-group">
+                <label for="amount" class="control-label">Monto a donar</label>
+                <input type="text" class="form-control" id="amount" required>
+              </div>
+              <div class="form-group">
+                <label for="recurrentAmount" class="control-label">Realizar donacion recurrente</label>        
+                <input type="checkbox" value="">
+             </div>  
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">Donar</button>
+                <button class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+            <div ng-show="status" class="alert alert-success" role="alert">{{correcto}}</div>
+          </script>
+          <div ng-controller="showToUserController">
+                  <button ng-show="view()" class="btn btn-default" ng-click="open()">Realizar Donacion</button>
+              </div>
+          </div>  
+
+          <br><br>
+          <p class="text-muted">Recuerde cada vez final de mes realizar su reporte de trasnparencia. Gracias...</p>
+        </div>
+      </div>
+    </tab>
+    <tab>
+      <tab-heading>
+        Actualizaciones <span class="badge bg-danger badge-sm m-l-xs"></span>
+      </tab-heading>
+      <ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+        <li class="list-group-item">
+          <a href="#" class="pull-left thumb-md m-r">
+            <img src="img/a0.jpg" alt="..." class="img-circle">
+          </a>
+          <div class="clear">
+            <a href="#" class="h4 text-primary m-b-sm block">Jone Dosh <span class="label label-sm bg-info">Donador</span></a>
+            <div>Lorem ipsum dolor <span></span>it amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a href="#" class="pull-left thumb-md m-r">
+            <img src="img/a1.jpg" alt="..." class="img-circle">
+          </a>
+          <div class="clear">
+            <a href="#" class="h4 text-primary m-b-sm block">Miya Soe <span class="label label-sm bg-danger">Administrador</span></a>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
+          </div>
+        </li>
+      </ul>
+    </tab>
+  </tabset>
+</div>
