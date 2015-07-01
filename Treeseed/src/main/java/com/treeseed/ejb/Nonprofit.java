@@ -21,8 +21,6 @@ public class Nonprofit implements Serializable {
 
 	private String banckAccount;
 
-	private String country;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_time")
 	private Date dateTime;
@@ -45,10 +43,15 @@ public class Nonprofit implements Serializable {
 	@OneToMany(mappedBy="nonprofit")
 	private List<Campaign> campaigns;
 
-	//bi-directional many-to-one association to Cause
+	//bi-directional many-to-one association to Catalog
 	@ManyToOne
 	@JoinColumn(name="cause")
-	private Cause causeBean;
+	private Catalog catalog1;
+
+	//bi-directional many-to-one association to Catalog
+	@ManyToOne
+	@JoinColumn(name="country")
+	private Catalog catalog2;
 
 	//bi-directional many-to-one association to Nonprofitsetting
 	@OneToMany(mappedBy="nonprofit")
@@ -91,14 +94,6 @@ public class Nonprofit implements Serializable {
 
 	public void setBanckAccount(String banckAccount) {
 		this.banckAccount = banckAccount;
-	}
-
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public Date getDateTime() {
@@ -187,12 +182,20 @@ public class Nonprofit implements Serializable {
 		return campaign;
 	}
 
-	public Cause getCauseBean() {
-		return this.causeBean;
+	public Catalog getCatalog1() {
+		return this.catalog1;
 	}
 
-	public void setCauseBean(Cause causeBean) {
-		this.causeBean = causeBean;
+	public void setCatalog1(Catalog catalog1) {
+		this.catalog1 = catalog1;
+	}
+
+	public Catalog getCatalog2() {
+		return this.catalog2;
+	}
+
+	public void setCatalog2(Catalog catalog2) {
+		this.catalog2 = catalog2;
 	}
 
 	public List<Nonprofitsetting> getNonprofitsettings() {

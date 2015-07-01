@@ -18,8 +18,6 @@ public class Donor implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private String country;
-
 	private String description;
 
 	private String lastName;
@@ -28,9 +26,12 @@ public class Donor implements Serializable {
 
 	private String profilePicture;
 
-	private String type;
-
 	private String webPage;
+
+	//bi-directional many-to-one association to Catalog
+	@ManyToOne
+	@JoinColumn(name="country")
+	private Catalog catalog1;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne
@@ -40,6 +41,11 @@ public class Donor implements Serializable {
 	//bi-directional many-to-one association to Donor
 	@OneToMany(mappedBy="donor")
 	private List<Donor> donors;
+
+	//bi-directional many-to-one association to Catalog
+	@ManyToOne
+	@JoinColumn(name="type")
+	private Catalog catalog2;
 
 	//bi-directional many-to-one association to Donorsetting
 	@OneToMany(mappedBy="donor")
@@ -66,14 +72,6 @@ public class Donor implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public String getDescription() {
@@ -108,20 +106,20 @@ public class Donor implements Serializable {
 		this.profilePicture = profilePicture;
 	}
 
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getWebPage() {
 		return this.webPage;
 	}
 
 	public void setWebPage(String webPage) {
 		this.webPage = webPage;
+	}
+
+	public Catalog getCatalog1() {
+		return this.catalog1;
+	}
+
+	public void setCatalog1(Catalog catalog1) {
+		this.catalog1 = catalog1;
 	}
 
 	public Donor getDonor() {
@@ -152,6 +150,14 @@ public class Donor implements Serializable {
 		donor.setDonor(null);
 
 		return donor;
+	}
+
+	public Catalog getCatalog2() {
+		return this.catalog2;
+	}
+
+	public void setCatalog2(Catalog catalog2) {
+		this.catalog2 = catalog2;
 	}
 
 	public List<Donorsetting> getDonorsettings() {
