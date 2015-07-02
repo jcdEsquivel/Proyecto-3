@@ -55,12 +55,16 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/createCampaing.html'
             //resolve: load(['js/controllers/chart.js'])
         })
-         .state('treeSeed.campaingViewer', {
+        .state('treeSeed.campaingViewer', {
             url: '/campaingViewer',
             templateUrl: 'layouts/pages/campaingViewer.html'
             //resolve: load(['js/controllers/chart.js'])
         })
-        
+        .state('treeSeed.registerDonor', {
+            url: '/registerDonor',
+            templateUrl: 'layouts/pages/registerDonor.html'
+            //resolve: load(['js/controllers/chart.js'])
+        })
 }]);
 
 /*.config(function($routeProvider, $locationProvider, $urlRouterProvider) {
