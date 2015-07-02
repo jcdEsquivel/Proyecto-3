@@ -36,12 +36,13 @@ public class WSFilter implements Filter {
 	    HttpSession currentSession = servletRequest.getSession();
 	    
 	    System.out.println("Session Object ------> " + currentSession.getAttribute("idUser"));
-		if (currentSession.getAttribute("idUser") != null) {
+	    chain.doFilter(servletRequest, servletResponse);
+		/*if (currentSession.getAttribute("idUser") != null) {
 			chain.doFilter(servletRequest, servletResponse);
 		} else {
 			logger.debug("Rejected: " + servletRequest.toString());
 			servletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		}
+		}*/
 	}
 
 	@Override

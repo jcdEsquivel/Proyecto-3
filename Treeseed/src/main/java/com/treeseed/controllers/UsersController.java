@@ -14,10 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.contracts.UserGeneralRequest;
+import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.contracts.UsersRequest;
 import com.treeseed.contracts.UsersResponse;
-import com.treeseed.ejb.Usuario;
-import com.treeseed.pojo.UsuarioPOJO;
+import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.services.UserGeneralService;
+import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.services.UsersServiceInterface;
 import com.treeseed.utils.PojoUtils;
 
@@ -30,7 +37,7 @@ import com.treeseed.utils.PojoUtils;
 public class UsersController {
 	
 	@Autowired
-	UsersServiceInterface usersService;
+	UserGeneralServiceInterface usersService;
 	
 	//Codigo comentado para usar como base
 	/*
@@ -74,21 +81,22 @@ public class UsersController {
 		return us;		
 	}
 	
-
+*/
 	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
-	public UsersResponse nonProfitCreate(@RequestBody UsersRequest ur){	
+	public UserGeneralResponse nonProfitCreate(@RequestBody UserGeneralRequest ur){	
 		
-		UsersResponse us = new UsersResponse();
-		TipoUsuario tp = generalService.getTipoUsuarioById(ur.getUser().getIdTipoUsuario());
+		UserGeneralResponse us = new UserGeneralResponse();
 		
-		Usuario user = new Usuario();
-		user.setFirstname(ur.getUser().getFirstname());
-		user.setLastname(ur.getUser().getLastname());
-		user.setEmail(ur.getUser().getEmail());
-		user.setPassword("resetPasswordTodo");
-		user.setTipoUsuario(tp);
+		UserGeneral user = new UserGeneral();
+		Nonprofit nonProfit = new Nonprofit();
 		
-		Boolean state = usersService.saveUser(user);
+		user.setEmail(ur.getUserGeneral().getEmail());
+		user.setPassword(ur.getUserGeneral().getPassword());
+		nonProfit.setName(ur.getUserGeneral().getNonProfit().getName());
+		
+		user.setNonprofit(nonProfit);
+		
+		Boolean state = usersService.saveUserGeneral(user);
 		if(state){
 			us.setCode(200);
 			us.setCodeMessage("user created succesfully");
@@ -96,7 +104,7 @@ public class UsersController {
 		return us;
 		
 	}
-	
+	/*
 	@RequestMapping(value ="/create", method = RequestMethod.POST)
 	public UsersResponse create(@RequestBody UsersRequest ur){	
 		
