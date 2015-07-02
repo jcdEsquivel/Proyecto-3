@@ -23,14 +23,14 @@ public class Postcampaign implements Serializable {
 
 	private String description;
 
-	private byte isActive;
+	private Object isActive;
 
 	private String picture;
 
 	private String tittle;
 
 	//bi-directional many-to-one association to Campaign
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idCampaign")
 	private Campaign campaign;
 
@@ -61,11 +61,11 @@ public class Postcampaign implements Serializable {
 		this.description = description;
 	}
 
-	public byte getIsActive() {
+	public Object getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Object isActive) {
 		this.isActive = isActive;
 	}
 

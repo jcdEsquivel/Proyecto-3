@@ -19,7 +19,7 @@ public class Nonprofit implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private String banckAccount;
+	private String banKAccount;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_time")
@@ -43,15 +43,15 @@ public class Nonprofit implements Serializable {
 	@OneToMany(mappedBy="nonprofit")
 	private List<Campaign> campaigns;
 
-	//bi-directional many-to-one association to Catalog
-	@ManyToOne
+	//uni-directional many-to-one association to Catalog
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cause")
-	private Catalog catalog1;
+	private Catalog cause;
 
-	//bi-directional many-to-one association to Catalog
-	@ManyToOne
+	//uni-directional many-to-one association to Catalog
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="country")
-	private Catalog catalog2;
+	private Catalog conutry;
 
 	//bi-directional many-to-one association to Nonprofitsetting
 	@OneToMany(mappedBy="nonprofit")
@@ -88,12 +88,12 @@ public class Nonprofit implements Serializable {
 		this.id = id;
 	}
 
-	public String getBanckAccount() {
-		return this.banckAccount;
+	public String getBanKAccount() {
+		return this.banKAccount;
 	}
 
-	public void setBanckAccount(String banckAccount) {
-		this.banckAccount = banckAccount;
+	public void setBanKAccount(String banKAccount) {
+		this.banKAccount = banKAccount;
 	}
 
 	public Date getDateTime() {
@@ -182,20 +182,20 @@ public class Nonprofit implements Serializable {
 		return campaign;
 	}
 
-	public Catalog getCatalog1() {
-		return this.catalog1;
+	public Catalog getCause() {
+		return this.cause;
 	}
 
-	public void setCatalog1(Catalog catalog1) {
-		this.catalog1 = catalog1;
+	public void setCause(Catalog cause) {
+		this.cause = cause;
 	}
 
-	public Catalog getCatalog2() {
-		return this.catalog2;
+	public Catalog getConutry() {
+		return this.conutry;
 	}
 
-	public void setCatalog2(Catalog catalog2) {
-		this.catalog2 = catalog2;
+	public void setConutry(Catalog conutry) {
+		this.conutry = conutry;
 	}
 
 	public List<Nonprofitsetting> getNonprofitsettings() {

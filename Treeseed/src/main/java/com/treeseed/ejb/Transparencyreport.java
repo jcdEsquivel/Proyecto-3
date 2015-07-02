@@ -28,10 +28,8 @@ public class Transparencyreport implements Serializable {
 
 	private String description;
 
-	private String password;
-
 	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
@@ -76,14 +74,6 @@ public class Transparencyreport implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Nonprofit getNonprofit() {

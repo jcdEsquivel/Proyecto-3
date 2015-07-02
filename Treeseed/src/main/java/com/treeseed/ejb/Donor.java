@@ -28,24 +28,24 @@ public class Donor implements Serializable {
 
 	private String webPage;
 
-	//bi-directional many-to-one association to Catalog
-	@ManyToOne
+	//uni-directional many-to-one association to Catalog
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="country")
-	private Catalog catalog1;
+	private Catalog country;
 
-	//bi-directional many-to-one association to Donor
-	@ManyToOne
-	@JoinColumn(name="father")
-	private Donor donor;
-
-	//bi-directional many-to-one association to Donor
-	@OneToMany(mappedBy="donor")
-	private List<Donor> donors;
-
-	//bi-directional many-to-one association to Catalog
-	@ManyToOne
+	//uni-directional many-to-one association to Catalog
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="type")
-	private Catalog catalog2;
+	private Catalog type;
+
+	//bi-directional many-to-one association to Donor
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="father")
+	private Donor father;
+
+	//bi-directional many-to-one association to Donor
+	@OneToMany(mappedBy="father")
+	private List<Donor> sons;
 
 	//bi-directional many-to-one association to Donorsetting
 	@OneToMany(mappedBy="donor")
@@ -114,50 +114,50 @@ public class Donor implements Serializable {
 		this.webPage = webPage;
 	}
 
-	public Catalog getCatalog1() {
-		return this.catalog1;
+	public Catalog getCountry() {
+		return this.country;
 	}
 
-	public void setCatalog1(Catalog catalog1) {
-		this.catalog1 = catalog1;
+	public void setCountry(Catalog country) {
+		this.country = country;
 	}
 
-	public Donor getDonor() {
-		return this.donor;
+	public Catalog getType() {
+		return this.type;
 	}
 
-	public void setDonor(Donor donor) {
-		this.donor = donor;
+	public void setType(Catalog type) {
+		this.type = type;
 	}
 
-	public List<Donor> getDonors() {
-		return this.donors;
+	public Donor getFather() {
+		return this.father;
 	}
 
-	public void setDonors(List<Donor> donors) {
-		this.donors = donors;
+	public void setFather(Donor father) {
+		this.father = father;
 	}
 
-	public Donor addDonor(Donor donor) {
-		getDonors().add(donor);
-		donor.setDonor(this);
-
-		return donor;
+	public List<Donor> getSons() {
+		return this.sons;
 	}
 
-	public Donor removeDonor(Donor donor) {
-		getDonors().remove(donor);
-		donor.setDonor(null);
-
-		return donor;
+	public void setSons(List<Donor> sons) {
+		this.sons = sons;
 	}
 
-	public Catalog getCatalog2() {
-		return this.catalog2;
+	public Donor addSon(Donor son) {
+		getSons().add(son);
+		son.setFather(this);
+
+		return son;
 	}
 
-	public void setCatalog2(Catalog catalog2) {
-		this.catalog2 = catalog2;
+	public Donor removeSon(Donor son) {
+		getSons().remove(son);
+		son.setFather(null);
+
+		return son;
 	}
 
 	public List<Donorsetting> getDonorsettings() {

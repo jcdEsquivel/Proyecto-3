@@ -24,15 +24,15 @@ public class Recurrabledonation implements Serializable {
 	@Column(name="date_time")
 	private Date dateTime;
 
-	private byte isActive;
+	private Object isActive;
 
 	//bi-directional many-to-one association to Donor
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="donorId")
 	private Donor donor;
 
 	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="nonProfitId")
 	private Nonprofit nonprofit;
 
@@ -63,11 +63,11 @@ public class Recurrabledonation implements Serializable {
 		this.dateTime = dateTime;
 	}
 
-	public byte getIsActive() {
+	public Object getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Object isActive) {
 		this.isActive = isActive;
 	}
 
