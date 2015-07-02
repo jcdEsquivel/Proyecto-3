@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Nonprofitaudit.findAll", query="SELECT n FROM Nonprofitaudit n")
-public class Nonprofitaudit implements Serializable {
+@NamedQuery(name="NonprofitAudit.findAll", query="SELECT n FROM NonprofitAudit n")
+public class NonprofitAudit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,7 +34,9 @@ public class Nonprofitaudit implements Serializable {
 
 	private String state;
 
-	public Nonprofitaudit() {
+	private boolean isActive;
+	
+	public NonprofitAudit() {
 	}
 
 	public int getId() {
@@ -99,6 +101,14 @@ public class Nonprofitaudit implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

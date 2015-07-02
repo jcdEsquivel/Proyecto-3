@@ -9,8 +9,8 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Notificationnonprofit.findAll", query="SELECT n FROM Notificationnonprofit n")
-public class Notificationnonprofit implements Serializable {
+@NamedQuery(name="NotificationNonprofit.findAll", query="SELECT n FROM NotificationNonprofit n")
+public class NotificationNonprofit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,7 +27,9 @@ public class Notificationnonprofit implements Serializable {
 	@JoinColumn(name="idNotifcation")
 	private Notification notification;
 
-	public Notificationnonprofit() {
+	private boolean isActive;
+	
+	public NotificationNonprofit() {
 	}
 
 	public int getId() {
@@ -52,6 +54,14 @@ public class Notificationnonprofit implements Serializable {
 
 	public void setNotification(Notification notification) {
 		this.notification = notification;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

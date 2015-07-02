@@ -34,6 +34,9 @@ public class Campaign implements Serializable {
 	private String name;
 
 	private String picture;
+	
+	private boolean isActive;
+
 
 	//bi-directional many-to-one association to Nonprofit
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -42,7 +45,7 @@ public class Campaign implements Serializable {
 
 	//bi-directional many-to-one association to Postcampaign
 	@OneToMany(mappedBy="campaign")
-	private List<Postcampaign> postcampaigns;
+	private List<PostCampaign> postCampaigns;
 
 	public Campaign() {
 	}
@@ -119,22 +122,31 @@ public class Campaign implements Serializable {
 		this.nonprofit = nonprofit;
 	}
 
-	public List<Postcampaign> getPostcampaigns() {
-		return this.postcampaigns;
+	public List<PostCampaign> getPostcampaigns() {
+		return this.postCampaigns;
 	}
 
-	public void setPostcampaigns(List<Postcampaign> postcampaigns) {
-		this.postcampaigns = postcampaigns;
+	public void setPostcampaigns(List<PostCampaign> postcampaigns) {
+		this.postCampaigns = postcampaigns;
+	}
+	
+	
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public Postcampaign addPostcampaign(Postcampaign postcampaign) {
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public PostCampaign addPostcampaign(PostCampaign postcampaign) {
 		getPostcampaigns().add(postcampaign);
 		postcampaign.setCampaign(this);
 
 		return postcampaign;
 	}
 
-	public Postcampaign removePostcampaign(Postcampaign postcampaign) {
+	public PostCampaign removePostcampaign(PostCampaign postcampaign) {
 		getPostcampaigns().remove(postcampaign);
 		postcampaign.setCampaign(null);
 

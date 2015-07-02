@@ -9,8 +9,8 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Donorsetting.findAll", query="SELECT d FROM Donorsetting d")
-public class Donorsetting implements Serializable {
+@NamedQuery(name="DonorSetting.findAll", query="SELECT d FROM DonorSetting d")
+public class DonorSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -18,6 +18,8 @@ public class Donorsetting implements Serializable {
 	private int id;
 
 	private String value;
+	
+	private boolean isActive;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -29,7 +31,7 @@ public class Donorsetting implements Serializable {
 	@JoinColumn(name="idSetting")
 	private Setting setting;
 
-	public Donorsetting() {
+	public DonorSetting() {
 	}
 
 	public int getId() {
@@ -62,6 +64,14 @@ public class Donorsetting implements Serializable {
 
 	public void setSetting(Setting setting) {
 		this.setting = setting;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

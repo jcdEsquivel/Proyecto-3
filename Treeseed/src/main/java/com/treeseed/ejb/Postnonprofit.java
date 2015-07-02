@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Postnonprofit.findAll", query="SELECT p FROM Postnonprofit p")
-public class Postnonprofit implements Serializable {
+@NamedQuery(name="PostNonprofit.findAll", query="SELECT p FROM PostNonprofit p")
+public class PostNonprofit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,7 +23,7 @@ public class Postnonprofit implements Serializable {
 
 	private String description;
 
-	private Object isActive;
+	private boolean isActive;
 
 	private String picture;
 
@@ -34,7 +34,7 @@ public class Postnonprofit implements Serializable {
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
-	public Postnonprofit() {
+	public PostNonprofit() {
 	}
 
 	public int getId() {
@@ -61,11 +61,11 @@ public class Postnonprofit implements Serializable {
 		this.description = description;
 	}
 
-	public Object getIsActive() {
+	public boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(Object isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 

@@ -38,6 +38,8 @@ public class Nonprofit implements Serializable {
 	private String reason;
 
 	private String webPage;
+	
+	private boolean isActive;
 
 	//bi-directional many-to-one association to Campaign
 	@OneToMany(mappedBy="nonprofit")
@@ -51,31 +53,31 @@ public class Nonprofit implements Serializable {
 	//uni-directional many-to-one association to Catalog
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="country")
-	private Catalog conutry;
+	private Catalog country;
 
 	//bi-directional many-to-one association to Nonprofitsetting
 	@OneToMany(mappedBy="nonprofit")
-	private List<Nonprofitsetting> nonprofitsettings;
+	private List<NonprofitSetting> nonprofitSettings;
 
 	//bi-directional many-to-one association to Notificationnonprofit
 	@OneToMany(mappedBy="nonprofit")
-	private List<Notificationnonprofit> notificationnonprofits;
+	private List<NotificationNonprofit> notificationNonprofits;
 
 	//bi-directional many-to-one association to Postnonprofit
 	@OneToMany(mappedBy="nonprofit")
-	private List<Postnonprofit> postnonprofits;
+	private List<PostNonprofit> postNonprofits;
 
 	//bi-directional many-to-one association to Recurrabledonation
 	@OneToMany(mappedBy="nonprofit")
-	private List<Recurrabledonation> recurrabledonations;
+	private List<RecurrableDonation> recurrableDonations;
 
 	//bi-directional many-to-one association to Transparencyreport
 	@OneToMany(mappedBy="nonprofit")
-	private List<Transparencyreport> transparencyreports;
+	private List<TransparencyReport> transparencyReports;
 
 	//bi-directional many-to-one association to Usergeneral
 	@OneToMany(mappedBy="nonprofit")
-	private List<Usergeneral> usergenerals;
+	private List<UserGeneral> userGenerals;
 
 	public Nonprofit() {
 	}
@@ -191,143 +193,151 @@ public class Nonprofit implements Serializable {
 	}
 
 	public Catalog getConutry() {
-		return this.conutry;
+		return this.country;
 	}
 
 	public void setConutry(Catalog conutry) {
-		this.conutry = conutry;
+		this.country = conutry;
 	}
 
-	public List<Nonprofitsetting> getNonprofitsettings() {
-		return this.nonprofitsettings;
+	public List<NonprofitSetting> getNonprofitsettings() {
+		return this.nonprofitSettings;
 	}
 
-	public void setNonprofitsettings(List<Nonprofitsetting> nonprofitsettings) {
-		this.nonprofitsettings = nonprofitsettings;
+	public void setNonprofitsettings(List<NonprofitSetting> nonprofitsettings) {
+		this.nonprofitSettings = nonprofitsettings;
 	}
 
-	public Nonprofitsetting addNonprofitsetting(Nonprofitsetting nonprofitsetting) {
+	public NonprofitSetting addNonprofitsetting(NonprofitSetting nonprofitsetting) {
 		getNonprofitsettings().add(nonprofitsetting);
 		nonprofitsetting.setNonprofit(this);
 
 		return nonprofitsetting;
 	}
 
-	public Nonprofitsetting removeNonprofitsetting(Nonprofitsetting nonprofitsetting) {
+	public NonprofitSetting removeNonprofitsetting(NonprofitSetting nonprofitsetting) {
 		getNonprofitsettings().remove(nonprofitsetting);
 		nonprofitsetting.setNonprofit(null);
 
 		return nonprofitsetting;
 	}
 
-	public List<Notificationnonprofit> getNotificationnonprofits() {
-		return this.notificationnonprofits;
+	public List<NotificationNonprofit> getNotificationnonprofits() {
+		return this.notificationNonprofits;
 	}
 
-	public void setNotificationnonprofits(List<Notificationnonprofit> notificationnonprofits) {
-		this.notificationnonprofits = notificationnonprofits;
+	public void setNotificationnonprofits(List<NotificationNonprofit> notificationnonprofits) {
+		this.notificationNonprofits = notificationnonprofits;
 	}
 
-	public Notificationnonprofit addNotificationnonprofit(Notificationnonprofit notificationnonprofit) {
+	public NotificationNonprofit addNotificationnonprofit(NotificationNonprofit notificationnonprofit) {
 		getNotificationnonprofits().add(notificationnonprofit);
 		notificationnonprofit.setNonprofit(this);
 
 		return notificationnonprofit;
 	}
 
-	public Notificationnonprofit removeNotificationnonprofit(Notificationnonprofit notificationnonprofit) {
+	public NotificationNonprofit removeNotificationnonprofit(NotificationNonprofit notificationnonprofit) {
 		getNotificationnonprofits().remove(notificationnonprofit);
 		notificationnonprofit.setNonprofit(null);
 
 		return notificationnonprofit;
 	}
 
-	public List<Postnonprofit> getPostnonprofits() {
-		return this.postnonprofits;
+	public List<PostNonprofit> getPostnonprofits() {
+		return this.postNonprofits;
 	}
 
-	public void setPostnonprofits(List<Postnonprofit> postnonprofits) {
-		this.postnonprofits = postnonprofits;
+	public void setPostnonprofits(List<PostNonprofit> postnonprofits) {
+		this.postNonprofits = postnonprofits;
 	}
 
-	public Postnonprofit addPostnonprofit(Postnonprofit postnonprofit) {
+	public PostNonprofit addPostnonprofit(PostNonprofit postnonprofit) {
 		getPostnonprofits().add(postnonprofit);
 		postnonprofit.setNonprofit(this);
 
 		return postnonprofit;
 	}
 
-	public Postnonprofit removePostnonprofit(Postnonprofit postnonprofit) {
+	public PostNonprofit removePostnonprofit(PostNonprofit postnonprofit) {
 		getPostnonprofits().remove(postnonprofit);
 		postnonprofit.setNonprofit(null);
 
 		return postnonprofit;
 	}
 
-	public List<Recurrabledonation> getRecurrabledonations() {
-		return this.recurrabledonations;
+	public List<RecurrableDonation> getRecurrabledonations() {
+		return this.recurrableDonations;
 	}
 
-	public void setRecurrabledonations(List<Recurrabledonation> recurrabledonations) {
-		this.recurrabledonations = recurrabledonations;
+	public void setRecurrabledonations(List<RecurrableDonation> recurrabledonations) {
+		this.recurrableDonations = recurrabledonations;
 	}
 
-	public Recurrabledonation addRecurrabledonation(Recurrabledonation recurrabledonation) {
+	public RecurrableDonation addRecurrabledonation(RecurrableDonation recurrabledonation) {
 		getRecurrabledonations().add(recurrabledonation);
 		recurrabledonation.setNonprofit(this);
 
 		return recurrabledonation;
 	}
 
-	public Recurrabledonation removeRecurrabledonation(Recurrabledonation recurrabledonation) {
+	public RecurrableDonation removeRecurrabledonation(RecurrableDonation recurrabledonation) {
 		getRecurrabledonations().remove(recurrabledonation);
 		recurrabledonation.setNonprofit(null);
 
 		return recurrabledonation;
 	}
 
-	public List<Transparencyreport> getTransparencyreports() {
-		return this.transparencyreports;
+	public List<TransparencyReport> getTransparencyreports() {
+		return this.transparencyReports;
 	}
 
-	public void setTransparencyreports(List<Transparencyreport> transparencyreports) {
-		this.transparencyreports = transparencyreports;
+	public void setTransparencyreports(List<TransparencyReport> transparencyreports) {
+		this.transparencyReports = transparencyreports;
 	}
 
-	public Transparencyreport addTransparencyreport(Transparencyreport transparencyreport) {
+	public TransparencyReport addTransparencyreport(TransparencyReport transparencyreport) {
 		getTransparencyreports().add(transparencyreport);
 		transparencyreport.setNonprofit(this);
 
 		return transparencyreport;
 	}
 
-	public Transparencyreport removeTransparencyreport(Transparencyreport transparencyreport) {
+	public TransparencyReport removeTransparencyreport(TransparencyReport transparencyreport) {
 		getTransparencyreports().remove(transparencyreport);
 		transparencyreport.setNonprofit(null);
 
 		return transparencyreport;
 	}
 
-	public List<Usergeneral> getUsergenerals() {
-		return this.usergenerals;
+	public List<UserGeneral> getUsergenerals() {
+		return this.userGenerals;
 	}
 
-	public void setUsergenerals(List<Usergeneral> usergenerals) {
-		this.usergenerals = usergenerals;
+	public void setUsergenerals(List<UserGeneral> usergenerals) {
+		this.userGenerals = usergenerals;
 	}
 
-	public Usergeneral addUsergeneral(Usergeneral usergeneral) {
+	public UserGeneral addUsergeneral(UserGeneral usergeneral) {
 		getUsergenerals().add(usergeneral);
 		usergeneral.setNonprofit(this);
 
 		return usergeneral;
 	}
 
-	public Usergeneral removeUsergeneral(Usergeneral usergeneral) {
+	public UserGeneral removeUsergeneral(UserGeneral usergeneral) {
 		getUsergenerals().remove(usergeneral);
 		usergeneral.setNonprofit(null);
 
 		return usergeneral;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 }

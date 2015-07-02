@@ -29,6 +29,8 @@ public class Donation implements Serializable {
 	private int donorId;
 
 	private int nonProfitId;
+	
+	private boolean isActive;
 
 	public Donation() {
 	}
@@ -81,4 +83,11 @@ public class Donation implements Serializable {
 		this.nonProfitId = nonProfitId;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 }

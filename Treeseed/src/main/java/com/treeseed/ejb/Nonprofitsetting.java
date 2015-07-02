@@ -9,8 +9,8 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Nonprofitsetting.findAll", query="SELECT n FROM Nonprofitsetting n")
-public class Nonprofitsetting implements Serializable {
+@NamedQuery(name="NonprofitSetting.findAll", query="SELECT n FROM NonprofitSetting n")
+public class NonprofitSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,8 +26,10 @@ public class Nonprofitsetting implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idSetting")
 	private Setting setting;
+	
+	private boolean isActive;
 
-	public Nonprofitsetting() {
+	public NonprofitSetting() {
 	}
 
 	public int getId() {
@@ -52,6 +54,14 @@ public class Nonprofitsetting implements Serializable {
 
 	public void setSetting(Setting setting) {
 		this.setting = setting;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

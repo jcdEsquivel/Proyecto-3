@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Transparencyreport.findAll", query="SELECT t FROM Transparencyreport t")
-public class Transparencyreport implements Serializable {
+@NamedQuery(name="TransparencyReport.findAll", query="SELECT t FROM TransparencyReport t")
+public class TransparencyReport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,7 +33,7 @@ public class Transparencyreport implements Serializable {
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
-	public Transparencyreport() {
+	public TransparencyReport() {
 	}
 
 	public int getId() {

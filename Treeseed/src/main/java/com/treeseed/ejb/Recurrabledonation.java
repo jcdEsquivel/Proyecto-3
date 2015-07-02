@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Recurrabledonation.findAll", query="SELECT r FROM Recurrabledonation r")
-public class Recurrabledonation implements Serializable {
+@NamedQuery(name="RecurrableDonation.findAll", query="SELECT r FROM RecurrableDonation r")
+public class RecurrableDonation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,7 +24,7 @@ public class Recurrabledonation implements Serializable {
 	@Column(name="date_time")
 	private Date dateTime;
 
-	private Object isActive;
+	private boolean isActive;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -36,7 +36,7 @@ public class Recurrabledonation implements Serializable {
 	@JoinColumn(name="nonProfitId")
 	private Nonprofit nonprofit;
 
-	public Recurrabledonation() {
+	public RecurrableDonation() {
 	}
 
 	public int getId() {
@@ -63,11 +63,11 @@ public class Recurrabledonation implements Serializable {
 		this.dateTime = dateTime;
 	}
 
-	public Object getIsActive() {
+	public boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(Object isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 

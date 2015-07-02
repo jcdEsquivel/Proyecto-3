@@ -20,6 +20,8 @@ public class Setting implements Serializable {
 	private String setting;
 
 	private String settingGroup;
+	
+	private boolean isActive;
 
 	public Setting() {
 	}
@@ -46,6 +48,14 @@ public class Setting implements Serializable {
 
 	public void setSettingGroup(String settingGroup) {
 		this.settingGroup = settingGroup;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

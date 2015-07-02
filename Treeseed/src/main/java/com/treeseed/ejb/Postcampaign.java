@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Postcampaign.findAll", query="SELECT p FROM Postcampaign p")
-public class Postcampaign implements Serializable {
+@NamedQuery(name="PostCampaign.findAll", query="SELECT p FROM PostCampaign p")
+public class PostCampaign implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,18 +23,18 @@ public class Postcampaign implements Serializable {
 
 	private String description;
 
-	private Object isActive;
-
 	private String picture;
 
 	private String tittle;
+	
+	private boolean isActive;
 
 	//bi-directional many-to-one association to Campaign
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idCampaign")
 	private Campaign campaign;
 
-	public Postcampaign() {
+	public PostCampaign() {
 	}
 
 	public int getId() {
@@ -61,11 +61,11 @@ public class Postcampaign implements Serializable {
 		this.description = description;
 	}
 
-	public Object getIsActive() {
-		return this.isActive;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setIsActive(Object isActive) {
+	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
