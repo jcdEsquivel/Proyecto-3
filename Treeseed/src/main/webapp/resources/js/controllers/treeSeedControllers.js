@@ -7,10 +7,10 @@ var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.ser
 
 
 
-
 treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
-    $scope.getMenu=function(){
-      if($sharedData.getUserType() == "ONG"){
+ 
+	$scope.getMenu=function(){
+      if($sharedData.getUserType() == ""){
           return  "layouts/components/aside.html";
       }else{
           return "layouts/components/asideDonor.html" ;
@@ -24,7 +24,7 @@ treeSeedAppControllers.controller('menuController', function($state, $location,$
 treeSeedAppControllers.controller('showToUserController', function($state, $location,$sharedData, $scope) {
    
    $scope.view=function(){
-      if($sharedData.getUserType()=="ONG"){
+      if($sharedData.getUserType()==""){
        return false;
     }else{
         return true;
@@ -37,7 +37,7 @@ treeSeedAppControllers.controller('showToUserController', function($state, $loca
 
 treeSeedAppControllers.controller('searchTransparecyReportController', function($state, $location,$sharedData, $scope) {
       
-    if($sharedData.getLoged()==true){
+    if($sharedData.getLoged()!=true){
       $scope.resul = false;
       $scope.ong=$sharedData.getOngName();
 
@@ -52,21 +52,18 @@ treeSeedAppControllers.controller('searchTransparecyReportController', function(
 ;
 
 
-treeSeedAppControllers.controller('userController', function($state, $location,$sharedData, $scope) {
+treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,$sharedData, $scope) {
         $scope.nom=$sharedData.getLoggedUser();
         $scope.img= $sharedData.getImg();
+        $scope.isUserLogged = $sharedData.isUserLogged();
 })
 ;
 
 treeSeedAppControllers.controller('indexController', function($state, $location,$sharedData, $scope) {
-  if($sharedData.getLoged()==true){
-    $scope.report=function(){
-      $state.go('treeSeed.searchTransReport');
-    }
-  }else{
-    $state.go('signin');
-  }
-  })
+  
+	  console.log('test');
+  
+ })
 ;
 
 treeSeedAppControllers.controller('logoutController', function($sharedData, $location, $scope,$state) {
@@ -140,8 +137,8 @@ treeSeedAppControllers.controller('SigninFormController', function($scope, $http
 })
 ;
 
-treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
-     if($sharedData.getLoged()==true){
+treeSeedAppControllers.controller('HeaderCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
+     
     $scope.selected = undefined;
     $scope.states = ['Territorio de Zaguates'];
     // Any function returning a promise object can be used to load values asynchronously
@@ -159,9 +156,7 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
         return addresses;
       });
     };
-    }else{
-      $state.go('signin');
-    }
+   
   }])
   ; 
 

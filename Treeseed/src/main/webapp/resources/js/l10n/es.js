@@ -1,18 +1,5 @@
 {
- "MENU": {
-    	"NGO": "Nonprofit",
-    	"SEARCH_NGO": "Search for a Nonprofit",
-    	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "Search for a campaign",
-    	"DONOR": "Donor",
-    	"SEARCH_DONOR": "Search for a donor",
-    	"SEARCH": "Search",
-    	"LENGUAGE": "Lenguaje",
-    	"CONFIGURATION": "Configuration",
-    	"PROFIL": "Profil",
-    	"HELP": "Help",
-    	"SIGN_OUT": "Sign out"	    	
-    },
+
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
@@ -23,8 +10,15 @@
       "USER" : "User",
       "EMAIL" : "Email"
     },
-    "NOTIFICATIONS" : "Notifications"
-   
+    "NOTIFICATIONS" : "Notifications",
+    "MENU": {
+    	"ONG": "ONG",
+    	"SEARCH_ONG": "Search for a Nonprofit",
+    	"CAMPAIGN": "Campaign",
+    	"SEARCH_CAMPAING": "Search for a campaign",
+    	"DONOR": "Donor",
+    	"SEARCH_DONOR": "Search for a donor"
+    }
   }
 },
 "aside" : {
@@ -81,7 +75,7 @@
   },
   "MILESTONE" : "Milestone",
   "RELEASE" : "Release",
-  "TITLE": "For a better world"
+  "TITLE": "Por un mundo mejor"
 }
 
 }

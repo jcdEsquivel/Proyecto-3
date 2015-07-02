@@ -13,9 +13,9 @@ angular.module('treeSeed')
       function ($stateProvider,   $urlRouterProvider, JQ_CONFIG, MODULE_CONFIG) {
 
 
-    $urlRouterProvider.otherwise('/signin');
+    $urlRouterProvider.otherwise('/index');
     $stateProvider
-        .state('treeSeed',{
+	    .state('treeSeed',{
             abstract: true,
             url: '/treeseed.org',
             templateUrl: 'layouts/pages/main.html'

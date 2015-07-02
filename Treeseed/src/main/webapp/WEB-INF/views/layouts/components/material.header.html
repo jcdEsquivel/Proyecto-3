@@ -1,3 +1,4 @@
+<div ng-controller="headerMenuCtrl">
 <!-- navbar header -->
       <div class="navbar-header">
         <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
@@ -29,36 +30,36 @@
             <div class="dropdown-menu wrapper w-full bg-white">
               <div class="row">
                 <div class="col-sm-4">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold">ONG</div>
+                  <div class="m-l-xs m-t-xs m-b-xs font-bold"><span  translate="MENU.NGO">ONG</span></div>
                   <div class="row">
                     <div class="col-xs-6">
                       <ul class="list-unstyled l-h-2x">
                         <li>
-                          <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Busqueda de ONG</a>
+                          <a href  translate="MENU.SEARCH_NGO"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Busqueda de ONG</a>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-4 b-l b-light">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold">Donantes</div>
+                  <div class="m-l-xs m-t-xs m-b-xs font-bold" translate="MENU.DONOR">Donantes</div>
                   <div class="row">
                     <div class="col-xs-6">
                       <ul class="list-unstyled l-h-2x">
                         <li>
-                          <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Busqueda de Donantes</a>
+                          <a href translate="MENU.SEARCH_DONOR"><i class="fa fa-fw fa-angle-right text-muted m-r-xs" ></i>Busqueda de Donantes</a>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold">Campañas</div>
+                  <div class="m-l-xs m-t-xs m-b-xs font-bold" translate="MENU.CAMPAIGN">Campa�as</div>
                   <div class="row">
                     <div class="col-xs-6">
                       <ul class="list-unstyled l-h-2x">
                         <li>
-                          <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Busqueda de Campañas</a>
+                          <a href translate="MENU.SEARCH_CAMPAING"><i class="fa fa-fw fa-angle-right text-muted m-r-xs" ></i>Busqueda de Campañas</a>
                         </li>
                       </ul>
                     </div>
@@ -71,10 +72,10 @@
         <!-- / link and dropdown -->
 
         <!-- search form -->
-        <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="TypeaheadDemoCtrl">
+        <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="HeaderCtrl">
           <div class="form-group">
             <div class="input-group">
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="Buscar"> 
+              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="{{'MENU.SEARCH'| translate}}"> 
               <span class="input-group-btn">
                 <button type="submit" class="btn  bg-light rounded" ui-sref="treeSeed.nonProfit"><i class="fa fa-search" ></i></button>
               </span>
@@ -86,7 +87,7 @@
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>
-            <a href class="dropdown-toggle" dropdown-toggle>
+            <a href class="dropdown-toggle" dropdown-toggle translate="MENU.LENGUAGE">
              Lenguajes <b class="caret"></b>
             </a>
             <!-- dropdown -->
@@ -108,33 +109,11 @@
             </a>
             <!-- dropdown -->
             <div class="dropdown-menu w-xl animated fadeInUp">
-              <div class="panel bg-white">
-                <div class="panel-heading b-light bg-light">
-                  <strong>Usted tiene <span>2</span> notificaciones</strong>
-                </div>
-                <div class="list-group">
-                  <a href class="list-group-item">
-                    <span class="clear block m-b-none">
-                      1 Nuevo donante atraido al sistema<br>
-                      <small class="text-muted">Hace 10 minutos</small>
-                    </span>
-                  </a>
-                  <a href class="list-group-item">
-                    <span class="clear block m-b-none">
-                     Reporte de transparencia de "Territorio se Zaguates"<br>
-                      <small class="text-muted">Hace 1 hora</small>
-                    </span>
-                  </a>
-                </div>
-                <div class="panel-footer text-sm">
-                  <a href class="pull-right"><i class="fa fa-cog"></i></a>
-                  <a href="#notes" data-toggle="class:show animated fadeInRight">Ver todas las notificaciones</a>
-                </div>
-              </div>
+            
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown" ng-controller="userController" dropdown>
+          <li class="dropdown"  dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img ng-src="resources/img/{{img}}" alt="...">
@@ -144,28 +123,23 @@
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
-              <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
-                <div>
-                  <p>100$ donados de 200$</p>
-                </div>
-                <progressbar value="60" class="progress-xs m-b-none bg-white"></progressbar>
-              </li>
+             
               <li>
                 <a href>
-                  <span>Configuracion</span>
+                  <span translate="MENU.CONFIGURATION">Configuracion</span>
                 </a>
               </li>
               <li>
-                <a ng-click='navigateDonor()'>Perfil</a>
+                <a ng-click='navigateDonor()' translate="MENU.PROFIL">Perfil</a>
               </li>
               <li>
-                <a ui-sref="app.docs">
+                <a ui-sref="app.docs" translate="MENU.HELP">
                   Ayuda
                 </a>
               </li>
               <li class="divider"></li>
               <li ng-controller='logoutController'>
-                <a ng-click='logout()'>Cerrar Sesion</a>
+                <a ng-click='logout()' translate="MENU.SIGN_OUT">Cerrar Sesion</a>
               </li>
             </ul>
             <!-- / dropdown -->
@@ -175,3 +149,4 @@
 
       </div>
       <!-- / navbar collapse -->
+</div>
