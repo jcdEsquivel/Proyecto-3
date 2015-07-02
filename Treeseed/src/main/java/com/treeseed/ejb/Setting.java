@@ -2,7 +2,6 @@ package com.treeseed.ejb;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -21,14 +20,6 @@ public class Setting implements Serializable {
 	private String setting;
 
 	private String settingGroup;
-
-	//bi-directional many-to-one association to Donorsetting
-	@OneToMany(mappedBy="setting")
-	private List<Donorsetting> donorsettings;
-
-	//bi-directional many-to-one association to Nonprofitsetting
-	@OneToMany(mappedBy="setting")
-	private List<Nonprofitsetting> nonprofitsettings;
 
 	public Setting() {
 	}
@@ -55,50 +46,6 @@ public class Setting implements Serializable {
 
 	public void setSettingGroup(String settingGroup) {
 		this.settingGroup = settingGroup;
-	}
-
-	public List<Donorsetting> getDonorsettings() {
-		return this.donorsettings;
-	}
-
-	public void setDonorsettings(List<Donorsetting> donorsettings) {
-		this.donorsettings = donorsettings;
-	}
-
-	public Donorsetting addDonorsetting(Donorsetting donorsetting) {
-		getDonorsettings().add(donorsetting);
-		donorsetting.setSetting(this);
-
-		return donorsetting;
-	}
-
-	public Donorsetting removeDonorsetting(Donorsetting donorsetting) {
-		getDonorsettings().remove(donorsetting);
-		donorsetting.setSetting(null);
-
-		return donorsetting;
-	}
-
-	public List<Nonprofitsetting> getNonprofitsettings() {
-		return this.nonprofitsettings;
-	}
-
-	public void setNonprofitsettings(List<Nonprofitsetting> nonprofitsettings) {
-		this.nonprofitsettings = nonprofitsettings;
-	}
-
-	public Nonprofitsetting addNonprofitsetting(Nonprofitsetting nonprofitsetting) {
-		getNonprofitsettings().add(nonprofitsetting);
-		nonprofitsetting.setSetting(this);
-
-		return nonprofitsetting;
-	}
-
-	public Nonprofitsetting removeNonprofitsetting(Nonprofitsetting nonprofitsetting) {
-		getNonprofitsettings().remove(nonprofitsetting);
-		nonprofitsetting.setSetting(null);
-
-		return nonprofitsetting;
 	}
 
 }

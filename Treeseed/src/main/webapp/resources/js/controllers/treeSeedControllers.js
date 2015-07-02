@@ -2,6 +2,32 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.services']);
 
 
+treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope){
+	
+	$scope.requestObject.user = {};
+	
+	$scope.create = function(event) {
+	
+	if(this.createUserForm.$valid){
+		this.onError = false;
+		
+		$http.post('rest/protected/users/nonProfit/create', $scope.requestObject)
+		.success(function(response) {
+
+			if(response.code === 200){
+				$modalInstance.close();
+			}
+			
+		});
+		
+		}else{
+			this.onError = true;
+		}
+	};
+});
+
+
+
 
 /**************************************************Prototype Controllers*******************************************/
 

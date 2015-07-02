@@ -60,6 +60,11 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/campaingViewer.html'
             //resolve: load(['js/controllers/chart.js'])
         })
+        .state('treeSeed.createNonProfile', {
+            url: '/createNonProfile',
+            templateUrl: 'layouts/pages/createNonProfitProfile.jsp',
+            controller: "nonProfitRegistrationController"
+        })
         
 }]);
 

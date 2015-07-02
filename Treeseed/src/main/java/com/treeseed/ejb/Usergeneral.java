@@ -19,17 +19,17 @@ public class Usergeneral implements Serializable {
 
 	private String email;
 
-	private byte isActive;
+	private Object isActive;
 
 	private String password;
 
 	//bi-directional many-to-one association to Donor
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idDonor")
 	private Donor donor;
 
 	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
@@ -52,11 +52,11 @@ public class Usergeneral implements Serializable {
 		this.email = email;
 	}
 
-	public byte getIsActive() {
+	public Object getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Object isActive) {
 		this.isActive = isActive;
 	}
 

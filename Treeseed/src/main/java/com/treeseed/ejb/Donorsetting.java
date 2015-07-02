@@ -20,12 +20,12 @@ public class Donorsetting implements Serializable {
 	private String value;
 
 	//bi-directional many-to-one association to Donor
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idDonor")
 	private Donor donor;
 
-	//bi-directional many-to-one association to Setting
-	@ManyToOne
+	//uni-directional many-to-one association to Setting
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idSetting")
 	private Setting setting;
 

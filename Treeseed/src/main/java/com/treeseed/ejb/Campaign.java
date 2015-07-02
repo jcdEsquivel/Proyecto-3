@@ -36,7 +36,7 @@ public class Campaign implements Serializable {
 	private String picture;
 
 	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 

@@ -18,12 +18,12 @@ public class Notificationdonor implements Serializable {
 	private int id;
 
 	//bi-directional many-to-one association to Donor
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idDonor")
 	private Donor donor;
 
-	//bi-directional many-to-one association to Notification
-	@ManyToOne
+	//uni-directional many-to-one association to Notification
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idNotifcation")
 	private Notification notification;
 

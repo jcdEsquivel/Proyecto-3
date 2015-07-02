@@ -18,12 +18,12 @@ public class Nonprofitsetting implements Serializable {
 	private int id;
 
 	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
-	//bi-directional many-to-one association to Setting
-	@ManyToOne
+	//uni-directional many-to-one association to Setting
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idSetting")
 	private Setting setting;
 

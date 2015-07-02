@@ -24,13 +24,13 @@ public class Nonprofitaudit implements Serializable {
 	@Column(name="data_time")
 	private Date dataTime;
 
-	private int donorId;
-
 	private String entity;
 
 	private String iP;
 
 	private String lastState;
+
+	private int nonProfitId;
 
 	private String state;
 
@@ -61,14 +61,6 @@ public class Nonprofitaudit implements Serializable {
 		this.dataTime = dataTime;
 	}
 
-	public int getDonorId() {
-		return this.donorId;
-	}
-
-	public void setDonorId(int donorId) {
-		this.donorId = donorId;
-	}
-
 	public String getEntity() {
 		return this.entity;
 	}
@@ -91,6 +83,14 @@ public class Nonprofitaudit implements Serializable {
 
 	public void setLastState(String lastState) {
 		this.lastState = lastState;
+	}
+
+	public int getNonProfitId() {
+		return this.nonProfitId;
+	}
+
+	public void setNonProfitId(int nonProfitId) {
+		this.nonProfitId = nonProfitId;
 	}
 
 	public String getState() {
