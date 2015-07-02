@@ -2,6 +2,12 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.services']);
 
 
+
+/**************************************************Prototype Controllers*******************************************/
+
+
+
+
 treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
     $scope.getMenu=function(){
       if($sharedData.getUserType() == "ONG"){
