@@ -22,6 +22,8 @@ public class Notification implements Serializable {
 	private String message;
 
 	private String name;
+	
+	private boolean isActive;
 
 	public Notification() {
 	}
@@ -56,6 +58,14 @@ public class Notification implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

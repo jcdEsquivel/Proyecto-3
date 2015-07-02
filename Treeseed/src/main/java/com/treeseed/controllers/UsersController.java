@@ -28,12 +28,13 @@ import com.treeseed.utils.PojoUtils;
 @RestController
 @RequestMapping(value ="rest/protected/users")
 public class UsersController {
-	
+
 	@Autowired
 	UsersServiceInterface usersService;
 	
 	//Codigo comentado para usar como base
-	/*@Autowired
+	/*
+	@Autowired
 	GeneralServiceInterface generalService;
 	
 	@Autowired
@@ -71,6 +72,28 @@ public class UsersController {
 		
 		us.setUsuarios(viewUsers);
 		return us;		
+	}
+	
+	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
+	public UsersResponse nonProfitCreate(@RequestBody UsersRequest ur){	
+		
+		UsersResponse us = new UsersResponse();
+		TipoUsuario tp = generalService.getTipoUsuarioById(ur.getUser().getIdTipoUsuario());
+		
+		Usuario user = new Usuario();
+		user.setFirstname(ur.getUser().getFirstname());
+		user.setLastname(ur.getUser().getLastname());
+		user.setEmail(ur.getUser().getEmail());
+		user.setPassword("resetPasswordTodo");
+		user.setTipoUsuario(tp);
+		
+		Boolean state = usersService.saveUser(user);
+		if(state){
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+		}
+		return us;
+		
 	}
 	
 	@RequestMapping(value ="/create", method = RequestMethod.POST)

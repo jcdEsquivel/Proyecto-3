@@ -5,12 +5,12 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the notificationnonprofit database table.
+ * The persistent class for the nonprofitsetting database table.
  * 
  */
 @Entity
-@NamedQuery(name="Notificationnonprofit.findAll", query="SELECT n FROM Notificationnonprofit n")
-public class Notificationnonprofit implements Serializable {
+@NamedQuery(name="NonprofitSetting.findAll", query="SELECT n FROM NonprofitSetting n")
+public class NonprofitSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,12 +22,14 @@ public class Notificationnonprofit implements Serializable {
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
-	//uni-directional many-to-one association to Notification
+	//uni-directional many-to-one association to Setting
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idNotifcation")
-	private Notification notification;
+	@JoinColumn(name="idSetting")
+	private Setting setting;
+	
+	private boolean isActive;
 
-	public Notificationnonprofit() {
+	public NonprofitSetting() {
 	}
 
 	public int getId() {
@@ -46,12 +48,20 @@ public class Notificationnonprofit implements Serializable {
 		this.nonprofit = nonprofit;
 	}
 
-	public Notification getNotification() {
-		return this.notification;
+	public Setting getSetting() {
+		return this.setting;
 	}
 
-	public void setNotification(Notification notification) {
-		this.notification = notification;
+	public void setSetting(Setting setting) {
+		this.setting = setting;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

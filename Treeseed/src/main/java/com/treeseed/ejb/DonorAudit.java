@@ -10,8 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Donoraudit.findAll", query="SELECT d FROM Donoraudit d")
-public class Donoraudit implements Serializable {
+@NamedQuery(name="DonorAudit.findAll", query="SELECT d FROM DonorAudit d")
+public class DonorAudit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,7 +34,7 @@ public class Donoraudit implements Serializable {
 
 	private String state;
 
-	public Donoraudit() {
+	public DonorAudit() {
 	}
 
 	public int getId() {

@@ -26,6 +26,8 @@ public class Catalog implements Serializable {
 	private String spanish;
 
 	private String type;
+	
+	private boolean isActive;
 
 	public Catalog() {
 	}
@@ -76,6 +78,14 @@ public class Catalog implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }
