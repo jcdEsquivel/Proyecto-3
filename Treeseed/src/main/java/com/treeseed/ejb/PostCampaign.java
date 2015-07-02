@@ -6,12 +6,12 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the postnonprofit database table.
+ * The persistent class for the postcampaign database table.
  * 
  */
 @Entity
-@NamedQuery(name="Postnonprofit.findAll", query="SELECT p FROM Postnonprofit p")
-public class Postnonprofit implements Serializable {
+@NamedQuery(name="PostCampaign.findAll", query="SELECT p FROM PostCampaign p")
+public class PostCampaign implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,18 +23,18 @@ public class Postnonprofit implements Serializable {
 
 	private String description;
 
-	private Object isActive;
-
 	private String picture;
 
 	private String tittle;
+	
+	private boolean isActive;
 
-	//bi-directional many-to-one association to Nonprofit
+	//bi-directional many-to-one association to Campaign
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idNonProfit")
-	private Nonprofit nonprofit;
+	@JoinColumn(name="idCampaign")
+	private Campaign campaign;
 
-	public Postnonprofit() {
+	public PostCampaign() {
 	}
 
 	public int getId() {
@@ -61,11 +61,11 @@ public class Postnonprofit implements Serializable {
 		this.description = description;
 	}
 
-	public Object getIsActive() {
-		return this.isActive;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setIsActive(Object isActive) {
+	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
@@ -85,12 +85,12 @@ public class Postnonprofit implements Serializable {
 		this.tittle = tittle;
 	}
 
-	public Nonprofit getNonprofit() {
-		return this.nonprofit;
+	public Campaign getCampaign() {
+		return this.campaign;
 	}
 
-	public void setNonprofit(Nonprofit nonprofit) {
-		this.nonprofit = nonprofit;
+	public void setCampaign(Campaign campaign) {
+		this.campaign = campaign;
 	}
 
 }

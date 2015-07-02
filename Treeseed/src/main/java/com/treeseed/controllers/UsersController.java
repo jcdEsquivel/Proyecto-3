@@ -28,11 +28,12 @@ import com.treeseed.utils.PojoUtils;
 @RestController
 @RequestMapping(value ="rest/protected/users")
 public class UsersController {
-	/*
+	
 	@Autowired
 	UsersServiceInterface usersService;
 	
 	//Codigo comentado para usar como base
+	/*
 	@Autowired
 	GeneralServiceInterface generalService;
 	
@@ -73,8 +74,7 @@ public class UsersController {
 		return us;		
 	}
 	
-	
-	
+
 	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
 	public UsersResponse nonProfitCreate(@RequestBody UsersRequest ur){	
 		

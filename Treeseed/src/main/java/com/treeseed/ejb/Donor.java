@@ -27,6 +27,8 @@ public class Donor implements Serializable {
 	private String profilePicture;
 
 	private String webPage;
+	
+	private boolean isActive;
 
 	//uni-directional many-to-one association to Catalog
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -49,19 +51,19 @@ public class Donor implements Serializable {
 
 	//bi-directional many-to-one association to Donorsetting
 	@OneToMany(mappedBy="donor")
-	private List<Donorsetting> donorsettings;
+	private List<DonorSetting> donorSettings;
 
 	//bi-directional many-to-one association to Notificationdonor
 	@OneToMany(mappedBy="donor")
-	private List<Notificationdonor> notificationdonors;
+	private List<NotificationDonor> notificationDonors;
 
 	//bi-directional many-to-one association to Recurrabledonation
 	@OneToMany(mappedBy="donor")
-	private List<Recurrabledonation> recurrabledonations;
+	private List<RecurrableDonation> recurrableDonations;
 
 	//bi-directional many-to-one association to Usergeneral
 	@OneToMany(mappedBy="donor")
-	private List<Usergeneral> usergenerals;
+	private List<UserGeneral> userGenerals;
 
 	public Donor() {
 	}
@@ -160,92 +162,100 @@ public class Donor implements Serializable {
 		return son;
 	}
 
-	public List<Donorsetting> getDonorsettings() {
-		return this.donorsettings;
+	public List<DonorSetting> getDonorsettings() {
+		return this.donorSettings;
 	}
 
-	public void setDonorsettings(List<Donorsetting> donorsettings) {
-		this.donorsettings = donorsettings;
+	public void setDonorsettings(List<DonorSetting> donorsettings) {
+		this.donorSettings = donorsettings;
 	}
 
-	public Donorsetting addDonorsetting(Donorsetting donorsetting) {
+	public DonorSetting addDonorsetting(DonorSetting donorsetting) {
 		getDonorsettings().add(donorsetting);
 		donorsetting.setDonor(this);
 
 		return donorsetting;
 	}
 
-	public Donorsetting removeDonorsetting(Donorsetting donorsetting) {
+	public DonorSetting removeDonorsetting(DonorSetting donorsetting) {
 		getDonorsettings().remove(donorsetting);
 		donorsetting.setDonor(null);
 
 		return donorsetting;
 	}
 
-	public List<Notificationdonor> getNotificationdonors() {
-		return this.notificationdonors;
+	public List<NotificationDonor> getNotificationdonors() {
+		return this.notificationDonors;
 	}
 
-	public void setNotificationdonors(List<Notificationdonor> notificationdonors) {
-		this.notificationdonors = notificationdonors;
+	public void setNotificationdonors(List<NotificationDonor> notificationdonors) {
+		this.notificationDonors = notificationdonors;
 	}
 
-	public Notificationdonor addNotificationdonor(Notificationdonor notificationdonor) {
+	public NotificationDonor addNotificationdonor(NotificationDonor notificationdonor) {
 		getNotificationdonors().add(notificationdonor);
 		notificationdonor.setDonor(this);
 
 		return notificationdonor;
 	}
 
-	public Notificationdonor removeNotificationdonor(Notificationdonor notificationdonor) {
+	public NotificationDonor removeNotificationdonor(NotificationDonor notificationdonor) {
 		getNotificationdonors().remove(notificationdonor);
 		notificationdonor.setDonor(null);
 
 		return notificationdonor;
 	}
 
-	public List<Recurrabledonation> getRecurrabledonations() {
-		return this.recurrabledonations;
+	public List<RecurrableDonation> getRecurrabledonations() {
+		return this.recurrableDonations;
 	}
 
-	public void setRecurrabledonations(List<Recurrabledonation> recurrabledonations) {
-		this.recurrabledonations = recurrabledonations;
+	public void setRecurrabledonations(List<RecurrableDonation> recurrabledonations) {
+		this.recurrableDonations = recurrabledonations;
 	}
 
-	public Recurrabledonation addRecurrabledonation(Recurrabledonation recurrabledonation) {
+	public RecurrableDonation addRecurrabledonation(RecurrableDonation recurrabledonation) {
 		getRecurrabledonations().add(recurrabledonation);
 		recurrabledonation.setDonor(this);
 
 		return recurrabledonation;
 	}
 
-	public Recurrabledonation removeRecurrabledonation(Recurrabledonation recurrabledonation) {
+	public RecurrableDonation removeRecurrabledonation(RecurrableDonation recurrabledonation) {
 		getRecurrabledonations().remove(recurrabledonation);
 		recurrabledonation.setDonor(null);
 
 		return recurrabledonation;
 	}
 
-	public List<Usergeneral> getUsergenerals() {
-		return this.usergenerals;
+	public List<UserGeneral> getUsergenerals() {
+		return this.userGenerals;
 	}
 
-	public void setUsergenerals(List<Usergeneral> usergenerals) {
-		this.usergenerals = usergenerals;
+	public void setUsergenerals(List<UserGeneral> usergenerals) {
+		this.userGenerals = usergenerals;
 	}
 
-	public Usergeneral addUsergeneral(Usergeneral usergeneral) {
+	public UserGeneral addUsergeneral(UserGeneral usergeneral) {
 		getUsergenerals().add(usergeneral);
 		usergeneral.setDonor(this);
 
 		return usergeneral;
 	}
 
-	public Usergeneral removeUsergeneral(Usergeneral usergeneral) {
+	public UserGeneral removeUsergeneral(UserGeneral usergeneral) {
 		getUsergenerals().remove(usergeneral);
 		usergeneral.setDonor(null);
 
 		return usergeneral;
+	}
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

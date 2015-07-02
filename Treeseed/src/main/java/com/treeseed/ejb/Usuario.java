@@ -27,12 +27,10 @@ public class Usuario implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to TipoUsuario
-	/*@ManyToOne
-	@JoinColumn(name="tipo_usuario_idTipoUsuario")
-	private TipoUsuario tipoUsuario;
+	
 
 	//bi-directional many-to-many association to Alquiler
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(
 		name="usuario_has_alquiler"
 		, joinColumns={
@@ -42,8 +40,8 @@ public class Usuario implements Serializable {
 			@JoinColumn(name="alquiler_idAlquiler")
 			}
 		)
-	private List<Alquiler> alquilers;*/
-
+	//private List<Alquiler> alquilers;
+*/
 	public Usuario() {
 	}
 
@@ -87,5 +85,20 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
+/*	public TipoUsuario getTipoUsuario() {
+		return this.tipoUsuario;
+	}
 
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public List<Alquiler> getAlquilers() {
+		return this.alquilers;
+	}
+
+	public void setAlquilers(List<Alquiler> alquilers) {
+		this.alquilers = alquilers;
+	}
+*/
 }

@@ -9,8 +9,8 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Usergeneral.findAll", query="SELECT u FROM Usergeneral u")
-public class Usergeneral implements Serializable {
+@NamedQuery(name="UserGeneral.findAll", query="SELECT u FROM UserGeneral u")
+public class UserGeneral implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,7 +19,7 @@ public class Usergeneral implements Serializable {
 
 	private String email;
 
-	private Object isActive;
+	private boolean isActive;
 
 	private String password;
 
@@ -33,7 +33,7 @@ public class Usergeneral implements Serializable {
 	@JoinColumn(name="idNonProfit")
 	private Nonprofit nonprofit;
 
-	public Usergeneral() {
+	public UserGeneral() {
 	}
 
 	public int getId() {
@@ -52,11 +52,11 @@ public class Usergeneral implements Serializable {
 		this.email = email;
 	}
 
-	public Object getIsActive() {
+	public boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(Object isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 

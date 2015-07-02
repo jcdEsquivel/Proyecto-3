@@ -202,7 +202,7 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
 ;
 
 
-treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$sharedData', function($scope, $http,  $sharedData) {
+treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$sharedData', function($state, $scope, $http,  $sharedData) {
   if($sharedData.getLoged()==true){
     $scope.myInterval = 5000;
     var slides = $scope.slides = [];
