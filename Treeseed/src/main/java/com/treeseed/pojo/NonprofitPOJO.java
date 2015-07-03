@@ -31,6 +31,8 @@ public class NonprofitPOJO {
 
 	private String webPage;
 	
+	private UserGeneralPOJO userGeneral;
+	
 	private boolean isActive;
 	public int getId() {
 		return id;
@@ -118,6 +120,14 @@ public class NonprofitPOJO {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public UserGeneralPOJO getUserGeneral() {
+		return userGeneral;
+	}
+
+	public void setUserGeneral(UserGeneralPOJO userGeneral) {
+		this.userGeneral = userGeneral;
 	}
 
 }

@@ -1,10 +1,14 @@
 package com.treeseed.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javassist.expr.NewArray;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
@@ -23,6 +28,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.services.UsersServiceInterface;
@@ -37,7 +43,8 @@ import com.treeseed.utils.PojoUtils;
 public class UsersController {
 	
 	@Autowired
-	UserGeneralServiceInterface usersService;
+	NonprofitServiceInterface nonProfitService;
+	UserGeneralServiceInterface userGeneralService;
 	
 	//Codigo comentado para usar como base
 	/*
@@ -82,21 +89,57 @@ public class UsersController {
 	}
 	
 */
+	//@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
+	public NonprofitResponse nonProfitCreate(@RequestBody NonprofitRequest ur){	
+		
+		NonprofitResponse us = new NonprofitResponse();
+		UserGeneral userGeneral = new UserGeneral();
+		Nonprofit user = new Nonprofit();
+		Date fechaActual = new Date();
+		
+		user.setName(ur.getNonprofit().getName());
+		user.setDescription(ur.getNonprofit().getDescription());
+		user.setDateTime(fechaActual);
+		user.setActive(true);
+		user.setMainPicture(ur.getNonprofit().getMainPicture());
+		user.setMision(ur.getNonprofit().getMision());
+		user.setBanKAccount(ur.getNonprofit().getBanKAccount());
+		user.setProfilePicture(ur.getNonprofit().getProfilePicture());
+		user.setReason(ur.getNonprofit().getReason());
+		user.setWebPage(ur.getNonprofit().getWebPage());
+		
+		
+		
+		Boolean state = nonProfitService.saveNonprofit(user);
+
+		if(state){
+			UserGeneralRequest ug = new UserGeneralRequest();
+			ug.setUserGeneral(ur.getNonprofit().getUserGeneral());
+			//userGeneralCreate(ug, user);
+			
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+		}
+		return us;
+		
+	}
 	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
-	public UserGeneralResponse nonProfitCreate(@RequestBody UserGeneralRequest ur){	
+	public UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur){	
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
-		UserGeneral user = new UserGeneral();
-		Nonprofit nonProfit = new Nonprofit();
+		UserGeneral userGeneral = new UserGeneral();
+		List<UserGeneral> generals= new ArrayList<UserGeneral>();
 		
-		user.setEmail(ur.getUserGeneral().getEmail());
-		user.setPassword(ur.getUserGeneral().getPassword());
-		nonProfit.setName(ur.getUserGeneral().getNonProfit().getName());
+
+		userGeneral.setEmail(ur.getUserGeneral().getEmail());
+		userGeneral.setPassword(ur.getUserGeneral().getPassword());
+		userGeneral.setIsActive(true);
+		userGeneral.setDonor(null);
+		userGeneral.setNonprofit(null);
 		
-		user.setNonprofit(nonProfit);
 		
-		Boolean state = usersService.saveUserGeneral(user);
+		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
 		if(state){
 			us.setCode(200);
 			us.setCodeMessage("user created succesfully");

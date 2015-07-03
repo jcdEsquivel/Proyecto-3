@@ -7,19 +7,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.treeseed.contracts.UserGeneralRequest;
-import com.treeseed.ejb.UserGeneral;
-import com.treeseed.repositories.UserGeneralRepository;
+import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.ejb.Nonprofit;
+import com.treeseed.repositories.NonprofitRepository;
 
 @Service
-public class UserGeneralService implements UserGeneralServiceInterface{
+public class NonprofitService implements NonprofitServiceInterface{
 
 	@Autowired
-	UserGeneralRepository usersRepository;
+	NonprofitRepository nonprofitsRepository;
 
 	@Override
 	@Transactional
-	public Page<UserGeneral> getAll(UserGeneralRequest ur) {
+	public Page<Nonprofit> getAll(NonprofitRequest ur) {
 	
 		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
@@ -36,19 +36,19 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 					ur.getPageSize());
 		}
 		
-		Page<UserGeneral> result = null;
+		Page<Nonprofit> result = null;
 		
 		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = usersRepository.findAll(pr);
+			result = nonprofitsRepository.findAll(pr);
 		}else if(ur.getSearchColumn().toLowerCase().
 				equals("firstname")){
-			//result = usersRepository.
+			//result = nonprofitsRepository.
 					//findByEmailAndPassword(ur.getSearchTerm())(ur.getSearchTerm(),pr);
 		} else if(ur.getSearchColumn().toLowerCase().equals("lastname")){
 			//result = usersRepository.
 					//findByEmailAndPassword(ur.getSearchTerm(),pr);
 		}else{
-			result = usersRepository.findAll(pr);
+			result = nonprofitsRepository.findAll(pr);
 		}
 
 		return result;
@@ -57,9 +57,9 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveUserGeneral(UserGeneral userGeneral) {
+	public Boolean saveNonprofit(Nonprofit nonProfit) {
 		
-		UserGeneral nuser = usersRepository.save(userGeneral);
+		Nonprofit nuser = nonprofitsRepository.save(nonProfit);
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
@@ -69,14 +69,7 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	}
 
 	@Override
-	public UserGeneral getSessionUserGeneral(int idUserGeneral) {
-		return usersRepository.findOne(idUserGeneral);
+	public Nonprofit getSessionNonprofit(int idNonprofit) {
+		return nonprofitsRepository.findOne(idNonprofit);
 	}
-
-	@Override
-	public UserGeneral getUserByEmailAndPassword(String ur, String pas) {
-		return  usersRepository.findByEmailAndPassword(ur, pas);
-	}
-
-
 }

@@ -11,22 +11,26 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject.sortBy = [];
 	$scope.requestObject.searchColumn = "";
 	$scope.requestObject.searchTerm = "";
+	/*
+	$scope.requestObject.Nonprofit = {};
+	$scope.requestObject.Nonprofit.UserGeneral = {};
+	$scope.requestObject.Nonprofit.UserGeneral.email = "";
+	$scope.requestObject.Nonprofit.UserGeneral.password = "";
+	$scope.requestObject.Nonprofit.name = "";
+	$scope.requestObject.Nonprofit.mision = "";
+	$scope.requestObject.Nonprofit.reason = "";
+	$scope.requestObject.Nonprofit.description = "";
+	$scope.requestObject.Nonprofit.webPage = "";
+	$scope.requestObject.Nonprofit.profilePicture = "";
+	$scope.requestObject.Nonprofit.mainPicture = "";
+	$scope.requestObject.Nonprofit.cause = "";
+	$scope.requestObject.Nonprofit.country = "";
+	$scope.requestObject.Nonprofit.banKAccount = "";
+	*/
 	
-	$scope.requestObject.userGeneral = {};
-	$scope.requestObject.userGeneral.email = "";
-	$scope.requestObject.userGeneral.password = "";
-	$scope.requestObject.userGeneral.nonProfit = {};
-	$scope.requestObject.userGeneral.nonProfit.name = "";
-	$scope.requestObject.userGeneral.nonProfit.mision = "";
-	$scope.requestObject.userGeneral.nonProfit.reason = "";
-	$scope.requestObject.userGeneral.nonProfit.description = "";
-	$scope.requestObject.userGeneral.nonProfit.webPage = "";
-	$scope.requestObject.userGeneral.nonProfit.profileImage = "";
-	$scope.requestObject.userGeneral.nonProfit.mainImage = "";
-	$scope.requestObject.userGeneral.nonProfit.cause = "";
-	$scope.requestObject.userGeneral.nonProfit.country = "";
-	$scope.requestObject.userGeneral.nonProfit.bankAccount = "";
-	
+	$scope.requestObject.UserGeneral = {};
+	$scope.requestObject.UserGeneral.email = "";
+	$scope.requestObject.UserGeneral.password = "";
 	$scope.create = function(event) {
 	
 	if(this.registerNonProfit.$valid){

@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.treeseed.ejb.Nonprofit;
 
-public interface NonProfitRepository extends 
+public interface NonprofitRepository extends 
 	CrudRepository<Nonprofit,Integer> {
 	
 	public static final int PAGE_SIZE = 5;
@@ -14,5 +14,5 @@ public interface NonProfitRepository extends
 	Page<Nonprofit> findAll(Pageable pageable);
 	Page<Nonprofit> findByNameContaining(String firstName,
 			Pageable pageable);
-;
+
 }

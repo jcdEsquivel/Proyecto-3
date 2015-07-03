@@ -12,5 +12,8 @@ public interface UserGeneralServiceInterface {
 	Boolean saveUserGeneral(UserGeneral userGeneral);
 
 	UserGeneral getSessionUserGeneral(int idUserGeneral);
+	
+	UserGeneral getUserByEmailAndPassword(String ur, String pas );
+
 
 }
