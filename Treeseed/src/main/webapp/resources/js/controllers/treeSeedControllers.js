@@ -5,9 +5,6 @@ var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.ser
 
 /**************************************************Prototype Controllers*******************************************/
 
-
-
-
 treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
     $scope.getMenu=function(){
       if($sharedData.getUserType() == "ONG"){
@@ -17,8 +14,6 @@ treeSeedAppControllers.controller('menuController', function($state, $location,$
       }
     }
     
-
-
 });
 
 treeSeedAppControllers.controller('showToUserController', function($state, $location,$sharedData, $scope) {
@@ -36,18 +31,12 @@ treeSeedAppControllers.controller('showToUserController', function($state, $loca
 });
 
 treeSeedAppControllers.controller('searchTransparecyReportController', function($state, $location,$sharedData, $scope) {
-      
-    if($sharedData.getLoged()==true){
       $scope.resul = false;
       $scope.ong=$sharedData.getOngName();
 
       $scope.search = function(){
         $scope.resul = true;  
       };
-
-    }else{
-      $state.go('signin');
-    }
   })
 ;
 
@@ -141,7 +130,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope, $http
 ;
 
 treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
-     if($sharedData.getLoged()==true){
+     
     $scope.selected = undefined;
     $scope.states = ['Territorio de Zaguates'];
     // Any function returning a promise object can be used to load values asynchronously
@@ -159,16 +148,8 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
         return addresses;
       });
     };
-    }else{
-      $state.go('signin');
-    }
   }])
   ; 
-
-
-
-
-
 
   treeSeedAppControllers.controller('NonProfitController', function($scope, $http, $state,  $sharedData, $location) {
    
@@ -177,7 +158,7 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
 
 
 treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$sharedData', function($state, $scope, $http,  $sharedData) {
-  if($sharedData.getLoged()==true){
+  
     $scope.myInterval = 5000;
     var slides = $scope.slides = [];
     $scope.addSlide = function() {
@@ -191,11 +172,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
     for (var i=0; i<4; i++) {
       $scope.addSlide();
     }
-    }else{
-      $state.go('signin');
-    }
-  }])
-  ; 
+  }]);
 
   
   treeSeedAppControllers.controller('DonationCtrl', function($state, $location, $sharedData, $scope, $modal, $log) {

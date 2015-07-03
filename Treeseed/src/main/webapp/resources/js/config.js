@@ -62,8 +62,8 @@ angular.module('treeSeed')
         })
         .state('treeSeed.registerDonor', {
             url: '/registerDonor',
-            templateUrl: 'layouts/pages/registerDonor.html'
-            //resolve: load(['js/controllers/chart.js'])
+            templateUrl: 'layouts/pages/registerDonor.html',
+            controller: "donorRegistrationController"
         })
 }]);
 

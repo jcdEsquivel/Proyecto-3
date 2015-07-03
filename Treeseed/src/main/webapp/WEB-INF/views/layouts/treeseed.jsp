@@ -21,6 +21,7 @@
   <script src="resources/js/directives/treeSeedDirectives.js"></script>
   <script src="resources/js/config.js"></script>
   <script src="resources/js/controllers/treeSeedApp.js"></script>
+  <script src="resources/js/controllers/userController.js"></script>
   
 <body  layout="row" ng-controller="AppCtrl" >
  
