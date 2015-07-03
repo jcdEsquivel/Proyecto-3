@@ -11,7 +11,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject.sortBy = [];
 	$scope.requestObject.searchColumn = "";
 	$scope.requestObject.searchTerm = "";
-	/*
+	
 	$scope.requestObject.Nonprofit = {};
 	$scope.requestObject.Nonprofit.UserGeneral = {};
 	$scope.requestObject.Nonprofit.UserGeneral.email = "";
@@ -26,11 +26,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject.Nonprofit.cause = "";
 	$scope.requestObject.Nonprofit.country = "";
 	$scope.requestObject.Nonprofit.banKAccount = "";
-	*/
 	
-	$scope.requestObject.UserGeneral = {};
-	$scope.requestObject.UserGeneral.email = "";
-	$scope.requestObject.UserGeneral.password = "";
 	$scope.create = function(event) {
 	
 	if(this.registerNonProfit.$valid){
@@ -40,7 +36,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		.success(function(response) {
 
 			if(response.code === 200){
-				$modalInstance.close();
+				
 			}
 			
 		});

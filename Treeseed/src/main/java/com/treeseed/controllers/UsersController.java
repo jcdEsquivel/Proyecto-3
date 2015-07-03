@@ -1,5 +1,8 @@
 package com.treeseed.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.treeseed.utils.Utils;
 
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
@@ -44,6 +48,7 @@ public class UsersController {
 	
 	@Autowired
 	NonprofitServiceInterface nonProfitService;
+	@Autowired
 	UserGeneralServiceInterface userGeneralService;
 	
 	//Codigo comentado para usar como base
@@ -89,10 +94,11 @@ public class UsersController {
 	}
 	
 */
-	//@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
+	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestBody NonprofitRequest ur){	
 		
 		NonprofitResponse us = new NonprofitResponse();
+
 		UserGeneral userGeneral = new UserGeneral();
 		Nonprofit user = new Nonprofit();
 		Date fechaActual = new Date();
@@ -108,14 +114,13 @@ public class UsersController {
 		user.setReason(ur.getNonprofit().getReason());
 		user.setWebPage(ur.getNonprofit().getWebPage());
 		
-		
-		
+
 		Boolean state = nonProfitService.saveNonprofit(user);
 
 		if(state){
 			UserGeneralRequest ug = new UserGeneralRequest();
 			ug.setUserGeneral(ur.getNonprofit().getUserGeneral());
-			//userGeneralCreate(ug, user);
+			userGeneralCreate(ug, user);
 			
 			us.setCode(200);
 			us.setCodeMessage("user created succesfully");
@@ -123,8 +128,8 @@ public class UsersController {
 		return us;
 		
 	}
-	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
-	public UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur){	
+	
+	private UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, Nonprofit user){	
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
@@ -135,9 +140,9 @@ public class UsersController {
 		userGeneral.setEmail(ur.getUserGeneral().getEmail());
 		userGeneral.setPassword(ur.getUserGeneral().getPassword());
 		userGeneral.setIsActive(true);
-		userGeneral.setDonor(null);
-		userGeneral.setNonprofit(null);
 		
+		user.setUsergenerals(generals);
+		userGeneral.setNonprofit(user);
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
 		if(state){
