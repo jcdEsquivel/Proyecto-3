@@ -1,17 +1,30 @@
 {
- "MENU": {
+ "MENU-HEADER": {
     	"NGO": "Nonprofit",
-    	"SEARCH_NGO": "Search for a Nonprofit",
+    	"EXPLORE": "Explore",
+    	"ADVANCE_SEARCH": "Advance Search",
+    	"SEARCH_NGO": "For Nonprofits",
     	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "Search for a campaign",
+    	"SEARCH_CAMPAING": "For Campaigns",
     	"DONOR": "Donor",
-    	"SEARCH_DONOR": "Search for a donor",
+    	"SEARCH_DONOR": "For Donors",
     	"SEARCH": "Search",
-    	"LENGUAGE": "Lenguaje",
+    	"LENGUAGE": "Language",
     	"CONFIGURATION": "Configuration",
-    	"PROFIL": "Profil",
+    	"PROFILE": "ProfilE",
     	"HELP": "Help",
     	"SIGN_OUT": "Sign out"	    	
+    },
+    "LEFT-MENU":{
+    	"NAVIGATION": "Navigation",
+    	"PROFILE": " Profile",
+    	"CREATE-CAMPAIGN": " Create Campaign",
+    	"SEE-CAMPAIGNS": " See Campaigns",
+    	"DONATIONS-REPORT": " Donations Report",
+    	"TRANSPARENCY-REPORT": " Transparency Report",
+    	"CONFIGURATION": " Configuration",
+    	"DONATION-RECEIPTS": "Receipts",
+    	"PORTFOLIO": "Portfolio"
     },
 "header" : {
   "navbar" : {

@@ -8,7 +8,7 @@
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/treeseed.org" class="navbar-brand text-lt">
+        <a href="#/treeseed.org/index" class="navbar-brand text-lt">
          
           <img src="resources/img/a0.jpg" alt="." class="hide">
           <span class="hidden-folded m-l-xs">{{app.name}}</span>
@@ -21,52 +21,30 @@
       <div class="collapse navbar-collapse box-shadow blue" ng-controller='navigateController'>
 
         <!-- link and dropdown -->
+           
         <ul class="nav navbar-nav hidden-sm">
-          <li class="dropdown pos-stc" dropdown>
+          <li class="dropdown" dropdown>
             <a href class="dropdown-toggle" dropdown-toggle>
-              <span>Explorar</span> 
-              <span class="caret"></span>
+              <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+              <span translate="MENU-HEADER.EXPLORE">Explore</span> <span class="caret"></span>
             </a>
-            <div class="dropdown-menu wrapper w-full bg-white">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold"><span  translate="MENU.NGO">ONG</span></div>
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <ul class="list-unstyled l-h-2x">
-                        <li>
-                          <a href  translate="MENU.SEARCH_NGO"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Busqueda de ONG</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 b-l b-light">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold" translate="MENU.DONOR">Donantes</div>
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <ul class="list-unstyled l-h-2x">
-                        <li>
-                          <a href translate="MENU.SEARCH_DONOR"><i class="fa fa-fw fa-angle-right text-muted m-r-xs" ></i>Busqueda de Donantes</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="m-l-xs m-t-xs m-b-xs font-bold" translate="MENU.CAMPAIGN">Campañas</div>
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <ul class="list-unstyled l-h-2x">
-                        <li>
-                          <a href translate="MENU.SEARCH_CAMPAING"><i class="fa fa-fw fa-angle-right text-muted m-r-xs" ></i>Busqueda de CampaÃ±as</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href>
+                  <span translate="MENU-HEADER.SEARCH_NGO">SEARCH_NGO</span>
+                </a>
+              </li>
+              <li>
+                <a href>
+                  <span translate="MENU-HEADER.SEARCH_DONOR">SEARCH_DONOR</span>
+                </a>
+              </li>
+               <li>
+                <a href>
+                  <span translate="MENU-HEADER.SEARCH_CAMPAING">SEARCH_CAMPAING</span>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
         <!-- / link and dropdown -->
@@ -75,7 +53,7 @@
         <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="HeaderCtrl">
           <div class="form-group">
             <div class="input-group">
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="{{'MENU.SEARCH'| translate}}"> 
+              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> 
               <span class="input-group-btn">
                 <button type="submit" class="btn  bg-light rounded" ui-sref="treeSeed.nonProfit"><i class="fa fa-search" ></i></button>
               </span>
@@ -87,8 +65,8 @@
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>
-            <a href class="dropdown-toggle" dropdown-toggle translate="MENU.LENGUAGE">
-             Lenguajes <b class="caret"></b>
+            <a href class="dropdown-toggle" dropdown-toggle translate="MENU-HEADER.LENGUAGE">
+             Languajes <b class="caret"></b>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
@@ -101,7 +79,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown>
+          <li class="dropdown" dropdown ng-show="isUserLogged">
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
@@ -113,7 +91,7 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown"  dropdown>
+          <li class="dropdown"  dropdown ng-show="isUserLogged">
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img ng-src="resources/img/{{img}}" alt="...">
@@ -126,20 +104,20 @@
              
               <li>
                 <a href>
-                  <span translate="MENU.CONFIGURATION">Configuracion</span>
+                  <span translate="MENU-HEADER.CONFIGURATION">Configuration</span>
                 </a>
               </li>
               <li>
-                <a ng-click='navigateDonor()' translate="MENU.PROFIL">Perfil</a>
+                <a ng-click='navigateDonor()' translate="MENU-HEADER-HEADER.PROFIL">Profil</a>
               </li>
               <li>
-                <a ui-sref="app.docs" translate="MENU.HELP">
-                  Ayuda
+                <a ui-sref="app.docs" translate="MENU-HEADER-HEADER.HELP">
+                  help
                 </a>
               </li>
               <li class="divider"></li>
               <li ng-controller='logoutController'>
-                <a ng-click='logout()' translate="MENU.SIGN_OUT">Cerrar Sesion</a>
+                <a ng-click='logout()' translate="MENU-HEADER-HEADER.SIGN_OUT">Sign out</a>
               </li>
             </ul>
             <!-- / dropdown -->
