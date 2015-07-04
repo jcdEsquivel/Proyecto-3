@@ -37,7 +37,9 @@ import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.services.UsersServiceInterface;
 import com.treeseed.utils.PojoUtils;
-
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.ParentUserWrapper;
 
 /**
  * Handles requests for the application home page.
@@ -94,13 +96,13 @@ public class UsersController {
 	}
 	
 */
-	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
+	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestBody NonprofitRequest ur){	
 		
 		NonprofitResponse us = new NonprofitResponse();
-
-		UserGeneral userGeneral = new UserGeneral();
-		Nonprofit user = new Nonprofit();
+		
+		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+		NonprofitWrapper user = new NonprofitWrapper();
 		Date fechaActual = new Date();
 		
 		user.setName(ur.getNonprofit().getName());
@@ -129,20 +131,34 @@ public class UsersController {
 		
 	}
 	
-	private UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, Nonprofit user){	
+	private UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, ParentUserWrapper user){	
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
-		UserGeneral userGeneral = new UserGeneral();
-		List<UserGeneral> generals= new ArrayList<UserGeneral>();
-		
-
+		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+		//List<UserGeneral> generals= new ArrayList<UserGeneral>();
 		userGeneral.setEmail(ur.getUserGeneral().getEmail());
-		userGeneral.setPassword(ur.getUserGeneral().getPassword());
+		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
+		String file_string="";
+		
+		for(int i = 0; i < hash.length; i++)
+	    {
+	        file_string += (char)hash[i];
+	    }		
+		
+		userGeneral.setPassword(file_string);
 		userGeneral.setIsActive(true);
 		
-		user.setUsergenerals(generals);
-		userGeneral.setNonprofit(user);
+		if(user instanceof NonprofitWrapper){
+			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
+			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
+		}else{
+			//DonorWrapper userDonor = (DonorWrapper)user;
+			//userGeneral.setNonprofit(userDonor.getWrapperObject());
+		}
+		
+		//userNonprofit.setUsergenerals(generals);
+		
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
 		if(state){

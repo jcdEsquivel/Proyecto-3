@@ -32,7 +32,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	if(this.registerNonProfit.$valid){
 		this.onError = false;
 		
-		$http.post('rest/protected/users/nonProfit/create', $scope.requestObject)
+		$http.post('rest/protected/users/registerNonProfit', $scope.requestObject)
 		.success(function(response) {
 
 			if(response.code === 200){

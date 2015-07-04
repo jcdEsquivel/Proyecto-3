@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
 
 @Service
@@ -57,9 +58,9 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveUserGeneral(UserGeneral userGeneral) {
+	public Boolean saveUserGeneral(UserGeneralWrapper userGeneral) {
 		
-		UserGeneral nuser = usersRepository.save(userGeneral);
+		UserGeneral nuser = usersRepository.save(userGeneral.getWrapperObject());
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
