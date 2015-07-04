@@ -16,3 +16,64 @@
 	width: 88%;
 	height: 20%;
 }
+
+
+
+/****/
+
+
+.landing-header-image{
+    background-image: url('../images/landing-treeseed1.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align: center;
+}
+
+
+.let-it-grow-button{
+	font-size: 18px;
+	font-weight: bold;
+	
+}
+
+
+.let-it-grow-icon{
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.landing-header-text{
+   font-size:70px;
+   font-weight:bold;
+}
+
+.landing-header-parragraph{
+   font-size:20px;
+   margin-top:15px;
+}
+
+.landing-welcome-div{
+	text-align: center;
+	background-color: white;
+	margin-top:20px;
+}
+
+.landing-welcome-parragraph{
+   font-size:20px;
+   margin-top:px;
+   padding-left: 15%;
+padding-right: 15%;
+}
+
+.landing-welcome-header{
+   font-size:45px;
+   margin-top:15px;
+}
+
+.landing-header-botton{
+   margin-bottom: 80px;
+   margin-top:30px;
+}
