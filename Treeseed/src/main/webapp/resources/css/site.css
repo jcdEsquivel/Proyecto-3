@@ -21,6 +21,9 @@
 
 /****/
 
+.main{
+	background-color: white;
+}
 
 .landing-header-image{
     background-image: url('../images/landing-treeseed1.jpg') ;
@@ -55,20 +58,21 @@
    margin-top:15px;
 }
 
-.landing-welcome-div{
+.landing-info-div{
 	text-align: center;
 	background-color: white;
-	margin-top:20px;
+	margin-top:30px;
+	margin-bottom: 30px;
 }
 
-.landing-welcome-parragraph{
+.landing-info-parragraph{
    font-size:20px;
    margin-top:px;
    padding-left: 15%;
 padding-right: 15%;
 }
 
-.landing-welcome-header{
+.landing-info-header{
    font-size:45px;
    margin-top:15px;
 }
@@ -77,3 +81,57 @@ padding-right: 15%;
    margin-bottom: 80px;
    margin-top:30px;
 }
+
+
+.landing-events-image1{
+    background-image: url('../images/landing-kid2.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align:  left;
+	height: 600px;
+	padding-top: 70px;
+padding-left: 70px;
+padding-right: 70px;
+	
+}
+
+.landing-events-image2{
+    background-image: url('../images/landing-ngo2.jpg') ;
+   -webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	color:white;
+	text-align: left;
+	height: 300px;
+	padding-left: 25px;
+padding-right: 25px;
+}
+
+.landing-events-image3{
+    background-image: url('../images/landing-ngo4.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align:  left;
+	height: 300px;
+	padding-left: 25px;
+padding-right: 25px;
+}
+
+.landing-events-header{
+	font-size: 60px;
+	font-weight: bold;
+}
+
+.landing-events-text{
+	font-size: 19px;
+	font-weight: bold;
+}
+
+
