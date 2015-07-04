@@ -5,12 +5,33 @@ import java.util.List;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.DonorSetting;
+import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.NotificationDonor;
 import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejb.UserGeneral;
 
-class DonorWrapper {
+public class DonorWrapper extends ParentUserWrapper{
+	
+
 	private Donor wrapperObject;
+
+	public DonorWrapper() {
+		super();
+		setWrapperObject(new Donor());
+	}
+	
+	public DonorWrapper(Donor donor) {
+		super();
+		setWrapperObject(donor);
+	}
+
+	public Donor getWrapperObject() {
+		return wrapperObject;
+	}
+
+	public void setWrapperObject(Donor wrapperObject) {
+		this.wrapperObject = wrapperObject;
+	}
 
 	public int hashCode() {
 		return wrapperObject.hashCode();

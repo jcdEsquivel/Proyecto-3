@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
 @Service
@@ -57,8 +58,8 @@ public class DonorService implements DonorServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveDonor(Donor user) {
-		Donor nuser = DonorRepository.save(user);
+	public Boolean saveDonor(DonorWrapper user) {
+		Donor nuser = DonorRepository.save(user.getWrapperObject());
 		Boolean result = true;
 		if(nuser == null){
 			result = false;

@@ -18,11 +18,19 @@ public class DonorPOJO {
 	
 	private int country;
 	
-	private Donor father;
+	private DonorPOJO father;
 	
 	private int type;
 	
+	private UserGeneralPOJO userGeneral;
+	
+	public UserGeneralPOJO getUserGeneral() {
+	  return userGeneral;
+	 }
 
+	 public void setUserGeneral(UserGeneralPOJO userGeneral) {
+	  this.userGeneral = userGeneral;
+	 }
 	
 	public int getType() {
 		return type;
@@ -36,11 +44,11 @@ public class DonorPOJO {
 		return country;
 	}
 
-	public Donor getFatherDonor() {
+	public DonorPOJO getFatherDonor() {
 		return father;
 	}
 
-	public void setFatherDonor(Donor fatherDonor) {
+	public void setFatherDonor(DonorPOJO fatherDonor) {
 		this.father = fatherDonor;
 	}
 
@@ -49,7 +57,6 @@ public class DonorPOJO {
 	}
 
 	public DonorPOJO() {
-		System.out.println("test");
 	}
 
 	public int getId() {

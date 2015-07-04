@@ -31,6 +31,11 @@ public class Catalog implements Serializable {
 
 	public Catalog() {
 	}
+	
+	public Catalog(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public int getId() {
 		return this.id;

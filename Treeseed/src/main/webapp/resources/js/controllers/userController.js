@@ -2,16 +2,9 @@
  * 
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
-treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope){
+treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $location){
 	
 	$scope.requestObject = {};
-	$scope.requestObject.pageNumber = 1;
-	$scope.requestObject.pageSize = 10;
-	$scope.requestObject.direction = "DESC";
-	$scope.requestObject.sortBy = [];
-	$scope.requestObject.searchColumn = "ALL";
-	$scope.requestObject.searchTerm = "";
-	
 	$scope.requestObject.donor = {};
 	$scope.requestObject.donor.name = "";
 	$scope.requestObject.donor.lastName = "";
@@ -21,17 +14,20 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.requestObject.donor.country = "";
 	$scope.requestObject.donor.type = "";
 	
+	$scope.requestObject.donor.userGeneral = {};
+	$scope.requestObject.donor.userGeneral.email = "";
+	$scope.requestObject.donor.userGeneral.password = "";
 		
 	$scope.create = function() {
 		
 		//if(this.createUserForm.$valid){
 			//this.onError = false;
 			
-			$http.post('rest/protected/donor/registerDonor',$scope.requestObject)
+			$http.post('rest/protected/users/registerDonor',$scope.requestObject)
 			.success(function(response) {
-
 				if(response.code === 200){
-					$modalInstance.close();
+					//$modalInstance.close();
+					$location.path('/donor');
 				}
 			});
 			
@@ -40,5 +36,19 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		//}
 	};
 	
+	 $scope.searcher = {};
+	 $scope.searcher.first = '';
+	
+	$scope.getCountries = function(){
+        return $http.post('rest/protected/users/getAllCountries')
+                    .then(function(response){
+                     $scope.selectSortOptions = response.data;
+                     $scope.searcher.first = response.data[0].id;
+                    }); 
+	 };
+	 
+	 $scope.getCountries();
+  
 });
+
 	

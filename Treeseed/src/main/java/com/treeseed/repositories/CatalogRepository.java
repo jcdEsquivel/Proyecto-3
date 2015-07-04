@@ -12,4 +12,5 @@ public interface CatalogRepository extends CrudRepository<Catalog,Integer> {
 		
 		Page<Catalog> findByNameContaining(String name,
 				Pageable pageable);
+		
 }
