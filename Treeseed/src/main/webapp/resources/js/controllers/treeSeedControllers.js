@@ -260,10 +260,13 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 				ajaxRowOptions: { contentType: "application/json; charset=utf-8", dataType: "json" },
 				postData: JSON.stringify($scope.requestObject),*/
 		    	
-		    	
+		    	$scope.myData = [];
 		    	$scope.data = $http.post('rest/protected/searches/getAllNonprofits', $scope.requestObject)
 		    	.success(function(mydata, status){
-		    		$scope.gridoptions = mydata;
+		    		for (data in mydata.nonprofits){
+		    			$scope.myData.push(data);
+		    		}
+		    		$scope.all = { data: "myData" };
 		    	}).error(function(mydata, status){
 		    		alert(mydata);
 		    		alert(status);
