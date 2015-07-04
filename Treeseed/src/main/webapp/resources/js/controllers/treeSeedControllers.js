@@ -37,7 +37,7 @@ treeSeedAppControllers.controller('showToUserController', function($state, $loca
 
 treeSeedAppControllers.controller('searchTransparecyReportController', function($state, $location,$sharedData, $scope) {
       
-    if($sharedData.getLoged()==true){
+    
       $scope.resul = false;
       $scope.ong=$sharedData.getOngName();
 
@@ -45,9 +45,7 @@ treeSeedAppControllers.controller('searchTransparecyReportController', function(
         $scope.resul = true;  
       };
 
-    }else{
-      $state.go('signin');
-    }
+ 
   })
 ;
 
@@ -59,13 +57,10 @@ treeSeedAppControllers.controller('userController', function($state, $location,$
 ;
 
 treeSeedAppControllers.controller('indexController', function($state, $location,$sharedData, $scope) {
-  if($sharedData.getLoged()==true){
     $scope.report=function(){
       $state.go('treeSeed.searchTransReport');
     }
-  }else{
-    $state.go('signin');
-  }
+  
   })
 ;
 
@@ -94,7 +89,6 @@ treeSeedAppControllers.controller('navigateController', function($state, $locati
 ;
 
 treeSeedAppControllers.controller('SigninFormController', function($scope, $http, $state, $userData, $sharedData, $location) {
-    if($sharedData.getLoged()==false){
       $scope.authError = null;
       $scope.users = $userData.getUsers();
       $scope.login = function() {
@@ -134,14 +128,12 @@ treeSeedAppControllers.controller('SigninFormController', function($scope, $http
               $sharedData.setLoged(false);
           }
       };
-    }else{
-      $state.go('treeSeed.index');
-    }
+   
 })
 ;
 
 treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
-     if($sharedData.getLoged()==true){
+     
     $scope.selected = undefined;
     $scope.states = ['Territorio de Zaguates'];
     // Any function returning a promise object can be used to load values asynchronously
@@ -159,9 +151,7 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
         return addresses;
       });
     };
-    }else{
-      $state.go('signin');
-    }
+    
   }])
   ; 
 
@@ -177,7 +167,6 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
 
 
 treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$sharedData', function($state, $scope, $http,  $sharedData) {
-  if($sharedData.getLoged()==true){
     $scope.myInterval = 5000;
     var slides = $scope.slides = [];
     $scope.addSlide = function() {
@@ -191,9 +180,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
     for (var i=0; i<4; i++) {
       $scope.addSlide();
     }
-    }else{
-      $state.go('signin');
-    }
+   
   }])
   ; 
 
@@ -233,6 +220,103 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
   };
 
   })
+;
+ 
+ treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log) {
+		    $scope.filterOptions = {
+		        filterText: "",
+		        useExternalFilter: true
+		    }; 
+		    $scope.totalServerItems = 0;
+		    $scope.pagingOptions = {
+		        pageSizes: [250, 500, 1000],
+		        pageSize: 250,
+		        currentPage: 1
+		    };  
+		    $scope.setPagingData = function(data, page, pageSize){  
+		        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+		        $scope.myData = pagedData;
+		        $scope.totalServerItems = data.length;
+		        if (!$scope.$$phase) {
+		            $scope.$apply();
+		        }
+		    };
+		    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
+		    	
+
+		    	$scope.requestObject = {};
+		    	$scope.requestObject.pageNumber = 1;
+		    	$scope.requestObject.pageSize = 10;
+		    	$scope.requestObject.direction = "DESC";
+		    	$scope.requestObject.sortBy = [];
+		    	$scope.requestObject.searchColumn = "ALL";
+		    	$scope.requestObject.searchTerm = "";
+		    	
+		    	
+		    	/*url : 'rest/protected/users/getAll',
+				datatype: "json",
+				mtype: "POST",
+				ajaxGridOptions: { contentType: 'application/json; charset=utf-8' },
+				ajaxRowOptions: { contentType: "application/json; charset=utf-8", dataType: "json" },
+				postData: JSON.stringify($scope.requestObject),*/
+		    	
+		    	$scope.data = $http.get({
+		    		url:'rest/protected/searches/getAllNonprofits',
+		    		method:'GET'
+		    	}).success(function(mydata, status){
+		    		$scope.gridoptions = {data: 'mydata'};
+		    	}).error(function(mydata, status){
+		    		alert(mydata);
+		    		alert(status);
+		    	});
+		    	
+		        /*setTimeout(function () {
+		            var data;
+		            if (searchText) {
+		                var ft = searchText.toLowerCase();
+		                $http.get('js/controllers/largeLoad.json').success(function (largeLoad) {    
+		                    data = largeLoad.filter(function(item) {
+		                        return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+		                    });
+		                    $scope.setPagingData(data,page,pageSize);
+		                });            
+		            } else {
+		                $http.get('js/controllers/largeLoad.json').success(function (largeLoad) {
+		                    $scope.setPagingData(largeLoad,page,pageSize);
+		                });
+		            }*
+		        }, 100);*/
+		    };
+
+		    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+		    $scope.$watch('pagingOptions', function (newVal, oldVal) {
+		        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+		          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+		        }
+		    }, true);
+		    $scope.$watch('filterOptions', function (newVal, oldVal) {
+		        if (newVal !== oldVal) {
+		          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+		        }
+		    }, true);
+
+		  
+		    
+		    $scope.gridOptions = {
+		        data: 'myData',
+		        enablePaging: true,
+		        showFooter: true,
+		        rowHeight: 36,
+		        headerRowHeight: 36,
+		        totalServerItems: 'totalServerItems',
+		        pagingOptions: $scope.pagingOptions,
+		        filterOptions: $scope.filterOptions
+		    };
+		
+	 
+	 
+	})
 ;
 
  

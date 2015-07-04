@@ -60,7 +60,12 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/campaingViewer.html'
             //resolve: load(['js/controllers/chart.js'])
         })
-        
+        .state('treeSeed.nonProfitSearch', {
+            url: '/nonProfitSearch',
+            templateUrl: 'layouts/pages/nonProfitSearch.html',
+            controller: "nonProfitSearchController"
+            //resolve: load(['js/controllers/chart.js'])
+        })
 }]);
 
 /*.config(function($routeProvider, $locationProvider, $urlRouterProvider) {

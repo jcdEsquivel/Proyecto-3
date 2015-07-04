@@ -1,0 +1,40 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Busqueda de ONG</h1>
+</div>
+<div class="container">
+ <div class="row">
+ 
+  <form class="navbar-form navbar-left" role="search">
+       
+   <div class="form-group">
+    <div class="btn-group searchBtnGroup" data-toggle="buttons-radio">
+     <button type="button" class="btn btn-default active" ng-click="setSearchColumn('all',$event)">All</button>
+     <button type="button" class="btn btn-default" ng-click="setSearchColumn('firstName',$event)">First Name</button>
+     <button type="button" class="btn btn-default" ng-click="setSearchColumn('lastName',$event)">Last Name</button>
+    </div>
+   </div>
+     
+     
+       
+   <div class="form-group">
+     <input type="text" class="form-control" placeholder="Search" ng-model="requestObject.searchTerm">
+   </div>
+        
+        <button type="submit" class="btn btn-default" ng-click="search()">
+         <i class="glyphicon glyphicon-search"></i>
+        </button>
+        
+     </form>
+     
+  </div>
+   
+</div>
+<div class="wrapper-md" ng-controller="nonProfitSearchController">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    </div>
+    <div class="table-responsive">
+      <div ng-grid="gridOptions" style="min-height:420px"></div>
+    </div>
+  </div>
+</div>
