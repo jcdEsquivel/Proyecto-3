@@ -11,7 +11,7 @@ public interface NonprofitRepository extends
 	
 	public static final int PAGE_SIZE = 10;
 	
-	Page<Nonprofit> findAll();
+	Page<Nonprofit> findAll(Pageable pageable);
 	Page<Nonprofit> findByNameContaining(String name,
 			Pageable pageable);
 	Page<Nonprofit> findByReasonContaining(String name,

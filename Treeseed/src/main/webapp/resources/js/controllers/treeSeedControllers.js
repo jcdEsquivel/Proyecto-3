@@ -223,7 +223,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 ;
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log) {
-		    $scope.filterOptions = {
+		    /*$scope.filterOptions = {
 		        filterText: "",
 		        useExternalFilter: true
 		    }; 
@@ -243,7 +243,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		    };
 		    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
 		    	
-
+*/
 		    	$scope.requestObject = {};
 		    	$scope.requestObject.pageNumber = 1;
 		    	$scope.requestObject.pageSize = 10;
@@ -252,19 +252,18 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		    	$scope.requestObject.searchColumn = "ALL";
 		    	$scope.requestObject.searchTerm = "";
 		    	
-		    	
-		    	/*url : 'rest/protected/users/getAll',
+		    	/*
+		    	url : 'rest/protected/users/getAll',
 				datatype: "json",
 				mtype: "POST",
 				ajaxGridOptions: { contentType: 'application/json; charset=utf-8' },
 				ajaxRowOptions: { contentType: "application/json; charset=utf-8", dataType: "json" },
 				postData: JSON.stringify($scope.requestObject),*/
 		    	
-		    	$scope.data = $http.get({
-		    		url:'rest/protected/searches/getAllNonprofits',
-		    		method:'GET'
-		    	}).success(function(mydata, status){
-		    		$scope.gridoptions = {data: 'mydata'};
+		    	
+		    	$scope.data = $http.post('rest/protected/searches/getAllNonprofits', $scope.requestObject)
+		    	.success(function(mydata, status){
+		    		$scope.gridoptions = mydata;
 		    	}).error(function(mydata, status){
 		    		alert(mydata);
 		    		alert(status);
@@ -285,7 +284,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		                    $scope.setPagingData(largeLoad,page,pageSize);
 		                });
 		            }*
-		        }, 100);*/
+		        }, 100);
 		    };
 
 		    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
@@ -314,7 +313,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		        filterOptions: $scope.filterOptions
 		    };
 		
-	 
+	 */
 	 
 	})
 ;
