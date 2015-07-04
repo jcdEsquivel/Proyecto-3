@@ -38,19 +38,21 @@ public class SearchController {
 	@Autowired
 	HttpServletRequest request;
 	
-	@RequestMapping(value ="/getAllNonprofits", method = RequestMethod.GET)
+	@RequestMapping(value ="/getAllNonprofits", method = RequestMethod.POST)
 	@Transactional
-	public NonprofitResponse getAllNonprofits(){	
+	public NonprofitResponse getAllNonprofits(@RequestBody NonprofitRequest ur){	
+		
+		ur.setPageNumber(ur.getPageNumber() - 1);
+		Page<Nonprofit> viewNonprofits = nonProfitService.getAll(ur);
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
 		nps.setCode(200);
 		nps.setCodeMessage("nonprofits fetch success");
-		//nps.setTotalElements(nonprofits.getTotalElements());
-		//nps.setTotalPages(nonprofits.getTotalPages());
 		
-		List<Nonprofit> viewNonprofits = new ArrayList<Nonprofit>();
-		viewNonprofits= nonProfitService.getAll();
+		
+		nps.setTotalElements(viewNonprofits.getTotalElements());
+		nps.setTotalPages(viewNonprofits.getTotalPages());
 		
 		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
 		
@@ -64,8 +66,8 @@ public class SearchController {
 		};
 		
 		nps.setNonprofits(viewNonprofitsPOJO);
-		return nps;	
-		
+		nps.setCode(200);
+		return nps;		
 	}
 	
 	@RequestMapping(value ="/getNonprofitsByName", method = RequestMethod.POST)

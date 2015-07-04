@@ -21,9 +21,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public List<Nonprofit> getAll() {
+	public Page<Nonprofit> getAll(NonprofitRequest ur) {
 	
-		/*PageRequest pr;
+		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
 		if(ur.getDirection().equals("ASC")){
 			direction = Sort.Direction.ASC;
@@ -54,9 +54,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 		} else{
 			result = nonprofitsRepository.findAll(pr);
 		}
-		 */
+		 
 		
-		return (List <Nonprofit>) nonprofitsRepository.findAll() ;
+		return result ;
 		
 	}
 

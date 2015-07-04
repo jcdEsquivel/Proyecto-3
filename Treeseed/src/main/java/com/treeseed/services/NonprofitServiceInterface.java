@@ -9,7 +9,7 @@ import com.treeseed.ejb.Nonprofit;
 
 public interface NonprofitServiceInterface {
 
-	List<Nonprofit> getAll();
+	Page<Nonprofit> getAll(NonprofitRequest ur);
 
 	Boolean saveNonprofit(Nonprofit nonprofit);
 
