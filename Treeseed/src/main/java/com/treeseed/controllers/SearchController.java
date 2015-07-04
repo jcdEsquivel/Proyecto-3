@@ -64,7 +64,8 @@ public class SearchController {
 		};
 		
 		nps.setNonprofits(viewNonprofitsPOJO);
-		return nps;		
+		return nps;	
+		
 	}
 	
 	@RequestMapping(value ="/getNonprofitsByName", method = RequestMethod.POST)
