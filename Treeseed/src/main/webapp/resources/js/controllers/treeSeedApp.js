@@ -41,7 +41,7 @@ angular.module('treeSeed')
         $localStorage.settings = $scope.app.settings;
       }
       $scope.$watch('app.settings', function(){
-        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed ){
+        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed){
           // aside dock and fixed must set the header fixed.
           $scope.app.settings.headerFixed = true;
         }

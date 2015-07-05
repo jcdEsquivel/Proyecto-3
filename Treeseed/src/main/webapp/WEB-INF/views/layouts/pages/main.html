@@ -1,12 +1,12 @@
 
-	<div  ng-init="app.settings.container = false;" class="md-navbar navbar blue md-whiteframe-z1" 
+	<div  ng-init="app.settings.container = false; app.settings.headerFixed = true;" class="app-header navbar  blue md-whiteframe-z1" 
 			ng-controller="headerMenuCtrl"
 			data-ng-include=" 'layouts/components/headerMenu.html' " >
 	</div>
 	
 	 <div layout="row">
 	 	 <!-- menu -->
-	  		<div flex class="bg-white md-whiteframe-z0 md-aside md-content hidden-xs" 
+	  		<div flex class="bg-white-opacity md-whiteframe-z0 md-aside md-content hidden-xs" 
 	  		ng-controller="leftMenuCtrl"
 	  		data-ng-include="getMenu()">
 	  		</div>
