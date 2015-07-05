@@ -1,5 +1,7 @@
 package com.treeseed.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +22,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public Page<Nonprofit> getAll(NonprofitRequest ur) {
+	public Page<NonprofitWrapper> getAll(NonprofitRequest ur) {
 	
 		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
@@ -37,20 +39,30 @@ public class NonprofitService implements NonprofitServiceInterface{
 					ur.getPageSize());
 		}
 		
-		Page<Nonprofit> result = null;
+		Page<Nonprofit> nonProfits = null;
 		
 		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = nonprofitsRepository.findAll(pr);
+			nonProfits = nonprofitsRepository.findAll(pr);
 		}else if(ur.getSearchColumn().toLowerCase().
 				equals("firstname")){
-			//result = nonprofitsRepository.
+			//nonProfits = nonprofitsRepository.
 					//findByEmailAndPassword(ur.getSearchTerm())(ur.getSearchTerm(),pr);
 		} else if(ur.getSearchColumn().toLowerCase().equals("lastname")){
-			//result = usersRepository.
+			//nonProfits = usersRepository.
 					//findByEmailAndPassword(ur.getSearchTerm(),pr);
 		}else{
-			result = nonprofitsRepository.findAll(pr);
+			nonProfits = nonprofitsRepository.findAll(pr);
 		}
+		
+		Page<NonprofitWrapper> result = null;
+		
+		ArrayList<NonprofitWrapper> array=new ArrayList();
+		
+		for(Nonprofit nonProfit:nonProfits){
+			array.add(new NonprofitWrapper(nonProfit));
+		}
+		
+		result=(Page<NonprofitWrapper>)array;
 
 		return result;
 		

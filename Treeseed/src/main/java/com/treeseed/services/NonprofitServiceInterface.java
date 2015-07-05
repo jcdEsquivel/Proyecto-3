@@ -8,7 +8,7 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 
 public interface NonprofitServiceInterface {
 
-	Page<Nonprofit> getAll(NonprofitRequest ur);
+	Page<NonprofitWrapper> getAll(NonprofitRequest ur);
 
 	Boolean saveNonprofit(NonprofitWrapper nonprofit);
 

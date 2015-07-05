@@ -1,25 +1,55 @@
-<form id="registerNonProfit" name="registerNonProfit">
-	<label class="col-sm-2 control-label">Nombre</label>
-	<div class="col-sm-10">
-	  <input type="text" ng-model="requestObject.nonprofit.name" class="form-control">
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+<form name="registerNonProfit" class="box">
+	<div class="col-sm-1"></div>
+	<div  class="col-sm-5 md-whiteframe-treeseed">
+		<div class="col-sm-12">
+	       <div class="md-form-group float-label">
+	         <input class="md-input" ng-model="requestObject.nonprofit.name" required>
+	         <label>Nombre de la ONG</label>
+	       </div>
+	     </div>
+		 <div class="col-sm-6">
+	        <div class="md-form-group float-label">
+	          <input class="md-input" ng-model="requestObject.nonprofit.userGeneral.email" required>
+	          <label>Email</label>
+	        </div>
+	      </div>
+	      <div class="col-sm-6 ">
+	        <div class="md-form-group float-label ">
+	          <input class="md-input" ng-model="requestObject.nonprofit.userGeneral.password" required>
+	          <label>Contrase&ntilde;a</label>
+	        </div>
+	      </div>
+	      <div class="col-sm-6">
+	          <label class="labels-dropdowns">Causa</label>
+	          <md-select ng-model="requestObject.nonprofit.cause" placeholder="Elegir causa de ONG">
+	          	<md-option ng-value="opt" >{{ opt }}</md-option>
+	          </md-select>
+	      </div>
+	      <div class="col-sm-6 ">
+	      	<div>
+	          <label class="labels-dropdowns">Pa&iacute;s</label>
+	          <md-select ng-model="requestObject.nonprofit.country" placeholder="Elegir paÃ­s de ONG">
+	          	<md-option ng-value="opt" >{{ opt }}</md-option>
+	          </md-select>
+	      	</div>
+		</div>
+		
 	</div>
-	<label class="col-sm-2 control-label">Email</label>
-	<div class="col-sm-10">
-	  <input type="text" ng-model="requestObject.nonprofit.userGeneral.email" class="form-control">
+	<div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+		<div over-class="b-danger" class="b-a b-2x b-dashed wrapper-lg lter text-center "  imagedrop on-image-drop="imageDropped()">
+			<p ng-hide="showImage">Imagen de Perfil</p>
+			<img ng-show="showImage" src="{{image}}">
+		</div>
+		
+		<div class="col-sm-offset-10 col-sm-2">
+	      <button type="submit" class="btn btn-sm btn-info" ng-click="create($event)">Registrar</button>
+	    </div>
 	</div>
-	<label class="col-sm-2 control-label">Contraseña</label>
-	<div class="col-sm-10">
-	  <input type="text" ng-model="requestObject.nonprofit.userGeneral.password" class="form-control">
-	</div>
-	<label class="col-sm-2 control-label">Imagen de Perfil</label>
-	<div class="col-sm-10">
-	  <input type="text" ng-model="requestObject.nonprofit.profilePicture" class="form-control">
-	</div>
-	<label class="col-sm-2 control-label">Pais</label>
-	<div class="col-sm-10">
-	  <input type="text" ng-model="requestObject.nonprofit.country" class="form-control">
-	</div>
-	<div class="col-lg-offset-10 col-lg-2">
-      <button type="submit" class="btn btn-sm btn-info" ng-click="create($event)">Sign in</button>
-    </div>
+	<div class="col-sm-1"></div>
 </form>

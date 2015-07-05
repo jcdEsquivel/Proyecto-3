@@ -1,11 +1,14 @@
 package com.treeseed.controllers;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.ServletContext;
 
 import javassist.expr.NewArray;
 
@@ -19,7 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.treeseed.utils.Utils;
 
 import com.treeseed.contracts.NonprofitRequest;
@@ -52,6 +58,8 @@ public class UsersController {
 	NonprofitServiceInterface nonProfitService;
 	@Autowired
 	UserGeneralServiceInterface userGeneralService;
+	@Autowired
+	ServletContext servletContext;
 	
 	//Codigo comentado para usar como base
 	/*
@@ -97,36 +105,49 @@ public class UsersController {
 	
 */
 	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
-	public NonprofitResponse nonProfitCreate(@RequestBody NonprofitRequest ur){	
+	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			@RequestParam("country") String country,
+			@RequestParam("cause") String cause,
+			@RequestParam("file") MultipartFile file){	
 		
 		NonprofitResponse us = new NonprofitResponse();
+		String resultFileName = Utils.writeToFile(file,servletContext);
+		
 		
 		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 		NonprofitWrapper user = new NonprofitWrapper();
 		Date fechaActual = new Date();
 		
-		user.setName(ur.getNonprofit().getName());
-		user.setDescription(ur.getNonprofit().getDescription());
-		user.setDateTime(fechaActual);
-		user.setActive(true);
-		user.setMainPicture(ur.getNonprofit().getMainPicture());
-		user.setMision(ur.getNonprofit().getMision());
-		user.setBanKAccount(ur.getNonprofit().getBanKAccount());
-		user.setProfilePicture(ur.getNonprofit().getProfilePicture());
-		user.setReason(ur.getNonprofit().getReason());
-		user.setWebPage(ur.getNonprofit().getWebPage());
 		
-
-		Boolean state = nonProfitService.saveNonprofit(user);
-
-		if(state){
-			UserGeneralRequest ug = new UserGeneralRequest();
-			ug.setUserGeneral(ur.getNonprofit().getUserGeneral());
-			userGeneralCreate(ug, user);
+		
+		if(!resultFileName.equals("")){
+			user.setName(name);
+			user.setDateTime(fechaActual);
+			user.setActive(true);
+			//user.setCause(cause);
+			//user.setConutry(country);
+			user.setProfilePicture(resultFileName);
 			
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
+			Boolean state = nonProfitService.saveNonprofit(user);
+
+			if(state){
+				UserGeneralRequest ug = new UserGeneralRequest();
+				UserGeneralPOJO userG=new UserGeneralPOJO();
+				userG.setEmail(email);
+				userG.setPassword(password);
+				ug.setUserGeneral(userG);
+				userGeneralCreate(ug, user);
+				
+				us.setCode(200);
+				us.setCodeMessage("user created succesfully");
+			}
+		}else{
+			us.setCode(409);
+			us.setErrorMessage("No imagen de perfil");
 		}
+		
 		return us;
 		
 	}
@@ -157,8 +178,6 @@ public class UsersController {
 			//userGeneral.setNonprofit(userDonor.getWrapperObject());
 		}
 		
-		//userNonprofit.setUsergenerals(generals);
-		
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
 		if(state){
@@ -168,6 +187,7 @@ public class UsersController {
 		return us;
 		
 	}
+	
 	/*
 	@RequestMapping(value ="/create", method = RequestMethod.POST)
 	public UsersResponse create(@RequestBody UsersRequest ur){	

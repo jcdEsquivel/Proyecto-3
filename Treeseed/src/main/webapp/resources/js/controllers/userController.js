@@ -2,7 +2,8 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
-treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope){
+treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state){
+$scope.uploadImage=false;
 	
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = "";
@@ -12,38 +13,50 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject.searchColumn = "";
 	$scope.requestObject.searchTerm = "";
 	
-	$scope.requestObject.Nonprofit = {};
-	$scope.requestObject.Nonprofit.UserGeneral = {};
-	$scope.requestObject.Nonprofit.UserGeneral.email = "";
-	$scope.requestObject.Nonprofit.UserGeneral.password = "";
-	$scope.requestObject.Nonprofit.name = "";
-	$scope.requestObject.Nonprofit.mision = "";
-	$scope.requestObject.Nonprofit.reason = "";
-	$scope.requestObject.Nonprofit.description = "";
-	$scope.requestObject.Nonprofit.webPage = "";
-	$scope.requestObject.Nonprofit.profilePicture = "";
-	$scope.requestObject.Nonprofit.mainPicture = "";
-	$scope.requestObject.Nonprofit.cause = "";
-	$scope.requestObject.Nonprofit.country = "";
-	$scope.requestObject.Nonprofit.banKAccount = "";
+	$scope.requestObject.nonprofit = {};
+	$scope.requestObject.nonprofit.userGeneral = {};
+	$scope.requestObject.nonprofit.userGeneral.email = "";
+	$scope.requestObject.nonprofit.userGeneral.password = "";
+	$scope.requestObject.nonprofit.name = "";
+	$scope.requestObject.nonprofit.cause = "";
+	$scope.requestObject.nonprofit.country = "";
+	
+	
+	
+	$scope.$on('profilePicture', function(event, args){
+		$scope.image = args;
+		$scope.uploadImage=true;
+	});
 	
 	$scope.create = function(event) {
 	
 	if(this.registerNonProfit.$valid){
 		this.onError = false;
 		
-		$http.post('rest/protected/users/registerNonProfit', $scope.requestObject)
-		.success(function(response) {
-
-			if(response.code === 200){
-				
-			}
+		if($scope.uploadImage==true){
+			$scope.upload = $upload.upload({
+				url : 'rest/protected/users/registerNonProfit',
+				data : {
+					email:$scope.requestObject.nonprofit.userGeneral.email,
+					password:$scope.requestObject.nonprofit.userGeneral.password,
+					name:$scope.requestObject.nonprofit.name,
+					cause:$scope.requestObject.nonprofit.cause,
+					country:$scope.requestObject.nonprofit.country
+				},
+				file : $scope.image,
+			}).success(function(){
+				$state.go('treeSeed.nonProfit');
+			})			
 			
-		});
+		}else{
+			this.onError = true;
+			
+		}
 		
 		}else{
 			this.onError = true;
 		}
+	
 	};
 });
 
