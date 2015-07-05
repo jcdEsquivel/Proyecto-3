@@ -221,6 +221,31 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 
+	 $scope.currentPage = 1;
+	 $scope.pageSize = 2;
+	 $scope.meals = [];
+	 
+	 $scope.requestObject = {};
+	 $scope.requestObject.pageNumber = 1;
+	 $scope.requestObject.pageSize = 10;
+	 $scope.requestObject.direction = "DESC";
+	 $scope.requestObject.sortBy = [];
+	 $scope.requestObject.searchColumn = "ALL";
+	 $scope.requestObject.searchTerm = "";
+	 
+	 $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+		.success(function(mydata, status){
+			console.log(mydata);
+			$scope.nonprofits = mydata.nonprofits; 	
+		}).error(function(mydata, status){
+			alert(mydata);
+			alert(status);
+		});
+	 
+	 $scope.pageChangeHandler = function(num) {
+		 console.log('going to page ' + num);
+	 };
+	  
 	/*
 	 * $scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
@@ -249,7 +274,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	//console.log($scope.dataObject);
 	*/
 	 
-	 $scope.requestObject = {};
+	/* $scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
@@ -301,11 +326,11 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		           
 				}
 		         
-			};
+			};*/
 	 
 	
 	
-	 $scope.searchNonProfit = function () {
+	 /*$scope.searchNonProfit = function () {
 	 	
 		 
 		 
@@ -334,7 +359,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 				alert(status);
 			});
  
-	 };
+	 };*/
 	 
 	 
 	/* $scope.getCountries = function(){

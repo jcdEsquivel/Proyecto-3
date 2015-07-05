@@ -5,37 +5,46 @@
  <div class="row">
  
   <form class="navbar-form navbar-left" role="search">
-       
-   <div class="form-group">
-    <div class="btn-group searchBtnGroup" data-toggle="buttons-radio">
-     <button type="button" class="btn btn-default active" ng-click="setSearchColumn('all',$event)">All</button>
-     <button type="button" class="btn btn-default" ng-click="setSearchColumn('firstName',$event)">First Name</button>
-     <button type="button" class="btn btn-default" ng-click="setSearchColumn('lastName',$event)">Last Name</button>
-    </div>
-   </div>
-     
-     
-       
-   <div class="form-group">
-     <input type="text" class="form-control" placeholder="Search" ng-model="requestObject.searchTerm">
-   </div>
+	       
+	   <div class="form-group">
+	    <div class="btn-group searchBtnGroup" data-toggle="buttons-radio">
+	     <button type="button" class="btn btn-default active" ng-click="setSearchColumn('all',$event)">All</button>
+	     <button type="button" class="btn btn-default" ng-click="setSearchColumn('firstName',$event)">First Name</button>
+	     <button type="button" class="btn btn-default" ng-click="setSearchColumn('lastName',$event)">Last Name</button>
+	    </div>
+	   </div>
+	   <div class="form-group">
+	     <input type="text" class="form-control" placeholder="Search" ng-model="requestObject.searchTerm">
+	   </div>
+	   </br>
+	   <div class="panel panel-default">
+            <div class="panel-body">
+              <ul>
+                <li dir-paginate="nonprofit in nonprofits | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ nonprofit.name }}</li>           
+              </ul>
+            </div>
+       </div>
+	   <div class="other-controller">
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+          </dir-pagination-controls>
+          </div>
+        </div>  
+	   <!--<button type="submit" class="btn btn-default" ng-click="search()">	
+	        <i class="glyphicon glyphicon-search"></i>
+	   </button> -->
         
-        <button type="submit" class="btn btn-default" ng-click="search()">
-         <i class="glyphicon glyphicon-search"></i>
-        </button>
-        
-     </form>
+   </form>
      
   </div>
    
 </div>
 
+ <!--
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Non Profit Search</h1>
 </div>
 
-
- 
  <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Scroll</h1>
 </div>
@@ -53,6 +62,6 @@
 
 
 <button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
-
+ -->
 
  

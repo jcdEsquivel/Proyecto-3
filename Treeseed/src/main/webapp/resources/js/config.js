@@ -64,7 +64,7 @@ angular.module('treeSeed')
             url: '/nonProfitSearch',
             templateUrl: 'layouts/pages/nonProfitSearch.html',
             //controller: "nonProfitSearchController",
-            resolve: load(['ui.grid', 'resources/js/controllers/treeSeedControllers.js']),
+            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/treeSeedControllers.js']),
             controller: "nonProfitSearchController"
         });
         
@@ -207,6 +207,13 @@ angular.module('treeSeed').config(
     }
   )
   angular.module('treeSeed').constant('MODULE_CONFIG', [
+	  {
+	      name: 'angularUtils.directives.dirPagination',
+	      files: [
+	          'resources/js/libs/angular/dirPagination/dirPagination.js',
+	          'resources/js/libs/angular/dirPagination/dirPagination.tpl.html'
+	    ]
+	  },
       {
           name: 'ngGrid',
           files: [
