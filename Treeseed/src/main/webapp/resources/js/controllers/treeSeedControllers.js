@@ -275,9 +275,9 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		$scope.requestObject.direction = "DESC";
 		$scope.requestObject.sortBy = [];
 		$scope.requestObject.searchColumn = "ALL";
-		$scope.requestObject.Name = $scope.name;
-		$scope.requestObject.Country = $scope.country;
-		$scope.requestObject.Cause = $scope.cause;
+		$scope.requestObject.name = $scope.name;
+		$scope.requestObject.country = $scope.country;
+		$scope.requestObject.cause = $scope.cause;
 			
 		 
 		 $scope.dataObject = $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
@@ -296,16 +296,16 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	 };
 	 
 	 
-	 $scope.getCountries = function(){
+	/* $scope.getCountries = function(){
 		 	
-	        return $http.post('rest/protected/users/getAllCountries')
+	        return $http.post('rest/protected/searches/getAllCountries')
 	                    .then(function(response){
 	                     $scope.selectSortOptions = response.data;
 	                     $scope.searcher.first = response.data[0].id;
 	                    }); 
 		 };
 		 
-		 $scope.getCountries();
+		 $scope.getCountries();*/
 		    	
 	 
 	})

@@ -138,7 +138,7 @@ public class SearchController {
 		
 	}
 	
-	@Autowired
+	/*@Autowired
     JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
@@ -152,6 +152,6 @@ public class SearchController {
 		return list;
 
 	}
-	
+	*/
 	
 }

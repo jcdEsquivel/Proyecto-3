@@ -1,8 +1,12 @@
 package com.treeseed.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
@@ -11,12 +15,14 @@ public interface NonprofitRepository extends
 	CrudRepository<Nonprofit,Integer> {
 	
 	public static final int PAGE_SIZE = 10;
-	
-	String queryString = "select * from nonprofit p where ( :nombreNull is null or p.nombre like :nombre) and "+
-            "( :apellido1Null is null or p.apellido1 like :apellido1) and "+
-            "( :apellido2Null is null or p.apellido2 like :apellido2) and";
-           
 
+	@Query("SELECT p FROM Nonprofit p WHERE ( :nombreNull is null or p.name like :nombre)")
+	   public List<Nonprofit> find(@Param("nombreNull") String nombreNull, @Param("nombre") String nombre);
+	
+	@Query("SELECT p FROM Nonprofit p WHERE ( p.name like :nombre)")
+	   public List<Nonprofit> findName(@Param("nombre") String nombre);
+	
+	
 	
 	
 	Page<Nonprofit> findAll(Pageable pageable);
