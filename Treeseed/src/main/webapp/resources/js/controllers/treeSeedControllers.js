@@ -221,7 +221,8 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 
-	/*$scope.requestObject = {};
+	/*
+	 * $scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
@@ -246,32 +247,50 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	});
 	
 	//console.log($scope.dataObject);
-	
-	$scope.datasource = {
-		get : function(index, count, success) {
-
-	            console.log(index +' '+ count);
-	            return $timeout(function() {
-	                var i, result, _i, _ref;
-	                result = [];
-	                
-	                for (i = _i = index, _ref = index + count - 1; index <= _ref ? _i <= _ref : _i >= _ref; i = index <= _ref ? ++_i : --_i) {
-	                	result.push('item #' + i);
-	                	   
-	                }
-	                return success(result);
-	            }, 100);
-	         }
-		};
-	    
 	*/
+	 
+	 $scope.requestObject = {};
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 2;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+	 
+	 $scope.datasource = {
+				get : function(index, count, success) {
+					
+		               console.log('1');
+						
+						
+	            	  $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+		  				.success(function(mydata, status){
+		  					
+		  					console.log(mydata);
+		  					$scope.requestObject.pageNumber++;
+		  					 return success(mydata.nonprofits);
+
+		  					
+		  				}).error(function(e, mydata, status){
+		  					alert(e);
+		  					alert(status);
+		  				});
+		               
+		          
+		           
+				}
+		         
+			};
+	
+	
+	
 	 $scope.searchNonProfit = function () {
 	 	
-		 console.log('esoooo');
+		 
 		 
 		$scope.requestObject = {};
 		$scope.requestObject.pageNumber = 1;
-		$scope.requestObject.pageSize = 10;
+		$scope.requestObject.pageSize = 1;
 		$scope.requestObject.direction = "DESC";
 		$scope.requestObject.sortBy = [];
 		$scope.requestObject.searchColumn = "ALL";
@@ -280,8 +299,9 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		$scope.requestObject.cause = $scope.cause;
 			
 		 
-		 $scope.dataObject = $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+		 $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 			.success(function(mydata, status){
+				
 				console.log(mydata);
 				
 				$scope.dataObject = mydata.nonprofits

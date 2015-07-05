@@ -80,6 +80,7 @@ public class SearchController {
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
 		
 		npr.setPageNumber(npr.getPageNumber() - 1);
+		
 		Page<Nonprofit> viewNonprofits = nonProfitService.getNonProfit(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
@@ -93,7 +94,7 @@ public class SearchController {
 		
 		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
 		
-		for(Nonprofit objeto:viewNonprofits)
+		for(Nonprofit objeto:viewNonprofits.getContent())
 		{
 			NonprofitPOJO nnonprofit = new NonprofitPOJO();
 			nnonprofit.setName(objeto.getName());

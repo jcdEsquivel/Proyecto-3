@@ -17,10 +17,7 @@ public interface NonprofitRepository extends
 	public static final int PAGE_SIZE = 10;
 
 	@Query("SELECT p FROM Nonprofit p WHERE ( :nombreNull is null or p.name like :nombre)")
-	   public List<Nonprofit> find(@Param("nombreNull") String nombreNull, @Param("nombre") String nombre);
-	
-	@Query("SELECT p FROM Nonprofit p WHERE ( p.name like :nombre)")
-	   public List<Nonprofit> findName(@Param("nombre") String nombre);
+	   public Page<Nonprofit> find(@Param("nombreNull") String nombreNull, @Param("nombre") String nombre, Pageable pageable);
 	
 	
 	

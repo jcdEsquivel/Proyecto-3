@@ -38,15 +38,12 @@ public class NonprofitService implements NonprofitServiceInterface{
 					ur.getPageSize());
 		}
 		
-		List<Nonprofit> resultado = null;
+		Page<Nonprofit> pageResult = null;
+		String filterName = ur.getName();
 		
-		resultado = nonprofitsRepository.findName("%"+"Agua"+"%");
-		
-		Page<Nonprofit> result = null;
-		
-	
+		pageResult = nonprofitsRepository.find(filterName, "%"+filterName+"%", pr);
 
-		return result ;
+		return pageResult ;
 		
 	}
 	

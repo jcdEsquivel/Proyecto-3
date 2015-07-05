@@ -33,78 +33,17 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Non Profit Search</h1>
 </div>
-<div class="wrapper-md">
-  <h4>Advanced Search</h4>
-    <div class="table-responsive m-b-lg">
-      <div ui-grid="gridOptions"></div>
-    </div>
-</div>
 
-
-
-
-
-
-
-
-
-
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"><i class="icon-magnifier i-sm m-r-sm"></i> Search</h1>
-</div>
-<div class="wrapper-md">
-  <form action="#" class="m-b-md">
-    <div class="input-group">
-      <input type="text" class="form-control input-lg" placeholder="Type keyword">
-      <span class="input-group-btn">
-        <button class="btn btn-lg btn-default" type="button">Search</button>
-      </span>
-    </div>
-  </form>
-  <p class="m-b-md"><strong>23</strong> Results found for: <strong>Keyword</strong></p>
-  <tabset class="tab-container">
-    <tab>
-      <tab-heading>
-        Non Profits 
-      </tab-heading>
-       <ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-        <li class="list-group-item" ng-repeat="data in ">
-          <a href="#" class="pull-left thumb-md m-r">
-            <img src="img/a0.jpg" alt="..." class="img-circle">
-          </a>
-          <div class="clear">
-            <a href="#" class="h4 text-primary m-b-sm block">Jone Dosh <span class="label label-sm bg-info">Editor</span></a>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
-          </div>
-        </li>
-       </ul>
-      
-      
-      <ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-        <li class="list-group-item">
-          <a href="#" class="pull-left thumb-md m-r">
-            <img src="img/a0.jpg" alt="..." class="img-circle">
-          </a>
-          <div class="clear">
-            <a href="#" class="h4 text-primary m-b-sm block">Jone Dosh <span class="label label-sm bg-info">Editor</span></a>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
-          </div>
-        </li>
-      </ul>
-    </tab>
-
-  </tabset>
-</div>
 
  
  <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Scroll</h1>
 </div>
 <div class="wrapper-md">
-  <div ui-scroll-viewport class="row" style="height:400px;overflow-y: auto;" >
+  <div ui-scroll-viewport class="row" style="height:200px;overflow-y: auto;" >
       <div ui-scroll="item in datasource" class="col-sm-12">
       	<div class="panel wrapper-md">
-      		{{item}}
+      		{{item.name}}
       	</div>
       </div>
   </div>
