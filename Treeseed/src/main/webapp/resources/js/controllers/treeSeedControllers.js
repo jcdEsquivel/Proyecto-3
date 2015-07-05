@@ -249,51 +249,43 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	//console.log($scope.dataObject);
 	*/
 	 
-	 $scope.requestObject = {};
+	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
-	$scope.requestObject.pageSize = 2;
+	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
 	$scope.requestObject.sortBy = [];
 	$scope.requestObject.searchColumn = "ALL";
-	$scope.requestObject.searchTerm = "";
+	$scope.requestObject.name = $scope.name;
+	$scope.requestObject.country = $scope.country;
+	$scope.requestObject.cause = $scope.cause;
 	 
 	 $scope.datasource = {
-				get : function(index, count, success) {
-					
-		               console.log('1');
-						
-						
-	            	  $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-		  				.success(function(mydata, status){
-		  					
-		  					console.log(mydata);
-		  					$scope.requestObject.pageNumber++;
-		  					 return success(mydata.nonprofits);
+		get : function(index, count, success) {
+           $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+			.success(function(mydata, status){
+				
+				console.log(mydata);
+				$scope.requestObject.pageNumber++;
+				 return success(mydata.nonprofits);
 
-		  					
-		  				}).error(function(e, mydata, status){
-		  					alert(e);
-		  					alert(status);
-		  				});
-		               
-		          
-		           
-				}
-		         
-			};
+				
+			}).error(function(e, mydata, status){
+				alert(e);
+				alert(status);
+			});    
+		}
+         
+	};
 	
 	
 	
+	 
 	 $scope.searchNonProfit = function () {
 	 	
+		console.log($scope.name) 
+		console.log($scope.country) 
+		console.log($scope.cause) 
 		 
-		 
-		$scope.requestObject = {};
-		$scope.requestObject.pageNumber = 1;
-		$scope.requestObject.pageSize = 1;
-		$scope.requestObject.direction = "DESC";
-		$scope.requestObject.sortBy = [];
-		$scope.requestObject.searchColumn = "ALL";
 		$scope.requestObject.name = $scope.name;
 		$scope.requestObject.country = $scope.country;
 		$scope.requestObject.cause = $scope.cause;
@@ -314,20 +306,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 			});
  
 	 };
-	 
-	 
-	/* $scope.getCountries = function(){
-		 	
-	        return $http.post('rest/protected/searches/getAllCountries')
-	                    .then(function(response){
-	                     $scope.selectSortOptions = response.data;
-	                     $scope.searcher.first = response.data[0].id;
-	                    }); 
-		 };
-		 
-		 $scope.getCountries();*/
-		    	
-	 
+	 	 
 	})
 ;
 
