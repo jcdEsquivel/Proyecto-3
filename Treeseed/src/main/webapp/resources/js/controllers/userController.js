@@ -2,7 +2,7 @@
  * 
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
-treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $location){
+treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $upload, $state){
 	
 	$scope.requestObject = {};
 	$scope.requestObject.donor = {};
@@ -18,37 +18,64 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.requestObject.donor.userGeneral.email = "";
 	$scope.requestObject.donor.userGeneral.password = "";
 		
-	$scope.create = function() {
+	$scope.$on('profilePicture', function(event, args){
+		$scope.image = args;
+		$scope.uploadImage=true;	
 		
-		//if(this.createUserForm.$valid){
-			//this.onError = false;
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+		
+	});
+	
+	$scope.create = function(event) {
+
+		if($scope.uploadImage==true){
+			$scope.upload = $upload.upload({
+				url : 'rest/protected/users/registerDonor',
+				data : {
+					email:$scope.requestObject.donor.userGeneral.email,
+					password:$scope.requestObject.donor.userGeneral.password,
+					name:$scope.requestObject.donor.name,
+					lastName:$scope.requestObject.donor.lastName,
+					country:$scope.requestObject.donor.country
+				},
+				file : $scope.image,
+			}).success(function(){
+				$state.go('treeSeed.donor');
+			})			
 			
-			$http.post('rest/protected/users/registerDonor',$scope.requestObject)
-			.success(function(response) {
-				if(response.code === 200){
-					//$modalInstance.close();
-					$location.path('/donor');
-				}
-			});
-			
-		//}else{
-			//this.onError = true;
-		//}
+		}else{
+			this.onError = true;	
+		}
+		
 	};
 	
-	 $scope.searcher = {};
-	 $scope.searcher.first = '';
+	$scope.searcher = {};
+	$scope.searcher.first = '';
 	
 	$scope.getCountries = function(){
         return $http.post('rest/protected/users/getAllCountries')
                     .then(function(response){
                      $scope.selectSortOptions = response.data;
-                     $scope.searcher.first = response.data[0].id;
+                     $scope.requestObject.donor.country = response.data[0].id;
                     }); 
 	 };
 	 
-	 $scope.getCountries();
-  
+	 $scope.getCountries();  
 });
 
 	

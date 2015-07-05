@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.CatalogResponse;
 import com.treeseed.contracts.DonorRequest;
@@ -31,10 +34,12 @@ import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.CatalogRepository;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorService;
 import com.treeseed.services.DonorServiceInterface;
+import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
 import com.treeseed.utils.Utils;
@@ -58,37 +63,48 @@ public class UsersController {
 	//UserGeneralServiceInterface userGeneralService;
 	
 	@Autowired
+	 NonprofitServiceInterface nonProfitService;
+	 @Autowired
+	 ServletContext servletContext;
+	
+	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
 	
 	@Autowired
 	HttpServletRequest request;	
 		
 	@RequestMapping(value ="/registerDonor", method = RequestMethod.POST)
-	public DonorResponse create(@RequestBody DonorRequest ur){	
+	public DonorResponse create(@RequestParam("name") String name, 
+								@RequestParam("lastName") String lastName,
+							    @RequestParam("email") String email,
+							    @RequestParam("password") String password,
+							    @RequestParam("country") String country, 
+							    @RequestParam("file") MultipartFile file){	
 		
 		DonorResponse us = new DonorResponse();
 	
-		Catalog type = new Catalog();
-		type.setId(2);
-		type.setActive(true);
-		type.setDescription("Person type donor");
-		type.setEnglish("Person");
-		type.setSpanish("Persona");
-		type.setName("Person");
-		type.setType("DonorType");
-	
+		Catalog Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
+		Catalog userType = catalogService.getAllCatalogByType("DonorType").get(0);
+		
+		String resultFileName = Utils.writeToFile(file,servletContext);
+		
 		DonorWrapper user = new DonorWrapper();
-		user.setName(ur.getDonor().getName());
-		user.setLastName(ur.getDonor().getLastName());
-		user.setType(type);
-	
+		user.setName(name);
+		user.setLastName(lastName);
+		user.setActive(true);
+		user.setProfilePicture(resultFileName);
+		user.setCountry(Countrytype);
+		user.setType(userType);
 		
 		Boolean state = donorService.saveDonor(user);
 		if(state){
 			
 			UserGeneralRequest ug = new UserGeneralRequest();
-			ug.setUserGeneral(ur.getDonor().getUserGeneral());
-			userGeneralCreate(ug,user);
+		    UserGeneralPOJO userG=new UserGeneralPOJO();
+		    userG.setEmail(email);
+		    userG.setPassword(password);
+		    ug.setUserGeneral(userG);
+		    userGeneralCreate(ug, user);
 			
 			us.setCode(200);
 			us.setCodeMessage("Donor registered succesfully");
@@ -97,40 +113,51 @@ public class UsersController {
 		
 	}
 	
-	
-	@RequestMapping(value ="/nonProfit/create", method = RequestMethod.POST)
-	public NonprofitResponse nonProfitCreate(@RequestBody NonprofitRequest ur){	
-		
-		NonprofitResponse us = new NonprofitResponse();
+	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
+	 public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
+	   @RequestParam("email") String email,
+	   @RequestParam("password") String password,
+	   @RequestParam("country") String country,
+	   @RequestParam("cause") String cause,
+	   @RequestParam("file") MultipartFile file){ 
+	  
+	  NonprofitResponse us = new NonprofitResponse();
+	  String resultFileName = Utils.writeToFile(file,servletContext);
+	  
+	  
+	  UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+	  NonprofitWrapper user = new NonprofitWrapper();
+	  Date fechaActual = new Date();
+	  
+	  if(!resultFileName.equals("")){
+	   user.setName(name);
+	   user.setDateTime(fechaActual);
+	   user.setActive(true);
+	   //user.setCause(cause);
+	   //user.setConutry(country);
+	   user.setProfilePicture(resultFileName);
+	   
+	   Boolean state = nonProfitService.saveNonprofit(user);
 
-		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-		NonprofitWrapper user = new NonprofitWrapper();
-		Date fechaActual = new Date();
-		
-		user.setName(ur.getNonprofit().getName());
-		user.setDescription(ur.getNonprofit().getDescription());
-		user.setDateTime(fechaActual);
-		user.setActive(true);
-		user.setMainPicture(ur.getNonprofit().getMainPicture());
-		user.setMision(ur.getNonprofit().getMision());
-		user.setBanKAccount(ur.getNonprofit().getBanKAccount());
-		user.setProfilePicture(ur.getNonprofit().getProfilePicture());
-		user.setReason(ur.getNonprofit().getReason());
-		user.setWebPage(ur.getNonprofit().getWebPage());
-		
-
-		/*Boolean state = nonProfitService.saveNonprofit(user);
-		if(state){
-			UserGeneralRequest ug = new UserGeneralRequest();
-			ug.setUserGeneral(ur.getNonprofit().getUserGeneral());
-			userGeneralCreate(ug, user);
-			
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
-		}*/
-		return us;
-		
-	}
+	   if(state){
+	    UserGeneralRequest ug = new UserGeneralRequest();
+	    UserGeneralPOJO userG=new UserGeneralPOJO();
+	    userG.setEmail(email);
+	    userG.setPassword(password);
+	    ug.setUserGeneral(userG);
+	    userGeneralCreate(ug, user);
+	    
+	    us.setCode(200);
+	    us.setCodeMessage("user created succesfully");
+	   }
+	  }else{
+	   us.setCode(409);
+	   us.setErrorMessage("No imagen de perfil");
+	  }
+	  
+	  return us;
+	  
+	 }
 	
 	private UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, ParentUserWrapper user){	
 		
@@ -173,14 +200,9 @@ public class UsersController {
 	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
 	public List<Catalog> getAllCountries(){	
 	
-		List<Catalog> list = jdbcTemplate.query(
-                "SELECT id, name FROM catalog WHERE type = ?", new Object[] { "Country" },
-                (rs, rowNum) -> new Catalog(rs.getInt("id"), rs.getString("name"))
-        );
-
+		List<Catalog> list = catalogService.getAllCatalogByType("Country");
 		return list;
 
 	}
-	
-	
+
 }

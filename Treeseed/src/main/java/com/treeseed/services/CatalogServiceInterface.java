@@ -3,6 +3,7 @@ package com.treeseed.services;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+
 import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.ejb.Catalog;
 
@@ -15,4 +16,9 @@ public interface CatalogServiceInterface {
 	Catalog getSessionCatalog(int idUser);
 
 	Page<Catalog> getAll();
+	
+	List<Catalog> getAllCatalogByType(String type);
+
+	Catalog findCatalogById(int id);
 }
+
