@@ -30,6 +30,7 @@ import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.contracts.UsersResponse;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
@@ -83,8 +84,8 @@ public class UsersController {
 		
 		DonorResponse us = new DonorResponse();
 	
-		Catalog Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
-		Catalog userType = catalogService.getAllCatalogByType("DonorType").get(0);
+		CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
+		CatalogWrapper userType = catalogService.getAllCatalogByType("DonorType").get(0);
 		
 		String resultFileName = Utils.writeToFile(file,servletContext);
 		
@@ -93,8 +94,8 @@ public class UsersController {
 		user.setLastName(lastName);
 		user.setActive(true);
 		user.setProfilePicture(resultFileName);
-		user.setCountry(Countrytype);
-		user.setType(userType);
+		user.setCountry(Countrytype.getWrapperObject());
+		user.setType(userType.getWrapperObject());
 		
 		Boolean state = donorService.saveDonor(user);
 		if(state){
@@ -123,7 +124,6 @@ public class UsersController {
 	  
 	  NonprofitResponse us = new NonprofitResponse();
 	  String resultFileName = Utils.writeToFile(file,servletContext);
-	  
 	  
 	  UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 	  NonprofitWrapper user = new NonprofitWrapper();
@@ -198,9 +198,9 @@ public class UsersController {
     JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
-	public List<Catalog> getAllCountries(){	
+	public List<CatalogWrapper> getAllCountries(){	
 	
-		List<Catalog> list = catalogService.getAllCatalogByType("Country");
+		List<CatalogWrapper> list = catalogService.getAllCatalogByType("Country");
 		return list;
 
 	}

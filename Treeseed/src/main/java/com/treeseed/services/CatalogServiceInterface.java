@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.ejb.Catalog;
+import com.treeseed.ejbWrapper.CatalogWrapper;
 
 public interface CatalogServiceInterface {
 		
@@ -17,8 +18,8 @@ public interface CatalogServiceInterface {
 
 	Page<Catalog> getAll();
 	
-	List<Catalog> getAllCatalogByType(String type);
+	List<CatalogWrapper> getAllCatalogByType(String type);
 
-	Catalog findCatalogById(int id);
+	CatalogWrapper findCatalogById(int id);
 }
 
