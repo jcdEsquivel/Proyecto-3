@@ -63,9 +63,42 @@ angular.module('treeSeed')
         .state('treeSeed.nonProfitSearch', {
             url: '/nonProfitSearch',
             templateUrl: 'layouts/pages/nonProfitSearch.html',
+            //controller: "nonProfitSearchController",
+            resolve: load(['ui.grid', 'resources/js/controllers/treeSeedControllers.js']),
             controller: "nonProfitSearchController"
-            //resolve: load(['js/controllers/chart.js'])
-        })
+        });
+        
+        function load(srcs, callback) {
+            return {
+                deps: ['$ocLazyLoad', '$q',
+                  function( $ocLazyLoad, $q ){
+                    var deferred = $q.defer();
+                    var promise  = false;
+                    srcs = angular.isArray(srcs) ? srcs : srcs.split(/\s+/);
+                    if(!promise){
+                      promise = deferred.promise;
+                    }
+                    angular.forEach(srcs, function(src) {
+                      console.log(src);
+                      promise = promise.then( function(){
+                        if(JQ_CONFIG[src]){
+                          return $ocLazyLoad.load(JQ_CONFIG[src]);
+                        }
+                        angular.forEach(MODULE_CONFIG, function(module) {
+                          if( module.name == src){
+                            name = module.name;
+                          }else{
+                            name = src;
+                          }
+                        });
+                        return $ocLazyLoad.load(name);
+                      } );
+                    });
+                    deferred.resolve();
+                    return callback ? promise.then(function(){ return callback(); }) : promise;
+                }]
+            }
+          }
 }]);
 
 /*.config(function($routeProvider, $locationProvider, $urlRouterProvider) {
@@ -308,4 +341,6 @@ angular.module('treeSeed').config(
           modules: MODULE_CONFIG
       });
   }])
+  
+  
 ;

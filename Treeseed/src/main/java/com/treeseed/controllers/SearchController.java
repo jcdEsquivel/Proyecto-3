@@ -60,10 +60,13 @@ public class SearchController {
 		{
 			NonprofitPOJO nnonprofit = new NonprofitPOJO();
 			nnonprofit.setName(objeto.getName());
+			nnonprofit.setMision(objeto.getMision());
 			nnonprofit.setReason(objeto.getReason());
+			nnonprofit.setWebPage(objeto.getWebPage());
 			nnonprofit.setMainPicture(objeto.getMainPicture());
 			viewNonprofitsPOJO.add(nnonprofit);
 		};
+		
 		
 		nps.setNonprofits(viewNonprofitsPOJO);
 		nps.setCode(200);
@@ -75,11 +78,34 @@ public class SearchController {
 	public NonprofitResponse getNonprofitsByName(@RequestBody NonprofitRequest npr){	
 		
 		npr.setPageNumber(npr.getPageNumber() - 1);
-		Page<Nonprofit> nonprofits = nonProfitService.getByName(npr);
+		Page<Nonprofit> viewNonprofits = nonProfitService.getAll(npr);
 		
-		NonprofitResponse response = setNonProfitResults(nonprofits);
+		NonprofitResponse nps = new NonprofitResponse();
 		
-		return response;
+		nps.setCode(200);
+		nps.setCodeMessage("nonprofits fetch success");
+		
+		
+		nps.setTotalElements(viewNonprofits.getTotalElements());
+		nps.setTotalPages(viewNonprofits.getTotalPages());
+		
+		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
+		
+		for(Nonprofit objeto:viewNonprofits)
+		{
+			NonprofitPOJO nnonprofit = new NonprofitPOJO();
+			nnonprofit.setName(objeto.getName());
+			nnonprofit.setMision(objeto.getMision());
+			nnonprofit.setReason(objeto.getReason());
+			nnonprofit.setWebPage(objeto.getWebPage());
+			nnonprofit.setMainPicture(objeto.getMainPicture());
+			viewNonprofitsPOJO.add(nnonprofit);
+		};
+		
+		
+		nps.setNonprofits(viewNonprofitsPOJO);
+		nps.setCode(200);
+		return nps;
 			
 	}
 	

@@ -43,8 +43,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 		if(ur.getSearchColumn().toLowerCase().equals("all")){
 			result = nonprofitsRepository.findAll(pr);
 		}else if(ur.getSearchColumn().toLowerCase().equals("name")){
-			//result = nonprofitsRepository.
-					//findByNameContaining(ur.getSearchTerm())(ur.getSearchTerm(),pr);
+			result = nonprofitsRepository.findByNameContaining(ur.getSearchTerm(),pr);
 		} else if(ur.getSearchColumn().toLowerCase().equals("reason")){
 			//result = nonprofitsRepository.
 					//findByReasonContaining(ur.getSearchTerm(),pr);

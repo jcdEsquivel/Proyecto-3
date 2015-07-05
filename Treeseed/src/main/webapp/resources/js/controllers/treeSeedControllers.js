@@ -5,9 +5,6 @@ var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.ser
 
 /**************************************************Prototype Controllers*******************************************/
 
-
-
-
 treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
     $scope.getMenu=function(){
       if($sharedData.getUserType() == "ONG"){
@@ -222,101 +219,85 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
   })
 ;
  
- treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log) {
-		    /*$scope.filterOptions = {
-		        filterText: "",
-		        useExternalFilter: true
-		    }; 
-		    $scope.totalServerItems = 0;
-		    $scope.pagingOptions = {
-		        pageSizes: [250, 500, 1000],
-		        pageSize: 250,
-		        currentPage: 1
-		    };  
-		    $scope.setPagingData = function(data, page, pageSize){  
-		        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-		        $scope.myData = pagedData;
-		        $scope.totalServerItems = data.length;
-		        if (!$scope.$$phase) {
-		            $scope.$apply();
-		        }
-		    };
-		    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-		    	
-*/
-		    	$scope.requestObject = {};
-		    	$scope.requestObject.pageNumber = 1;
-		    	$scope.requestObject.pageSize = 10;
-		    	$scope.requestObject.direction = "DESC";
-		    	$scope.requestObject.sortBy = [];
-		    	$scope.requestObject.searchColumn = "ALL";
-		    	$scope.requestObject.searchTerm = "";
-		    	
-		    	/*
-		    	url : 'rest/protected/users/getAll',
-				datatype: "json",
-				mtype: "POST",
-				ajaxGridOptions: { contentType: 'application/json; charset=utf-8' },
-				ajaxRowOptions: { contentType: "application/json; charset=utf-8", dataType: "json" },
-				postData: JSON.stringify($scope.requestObject),*/
-		    	
-		    	$scope.myData = [];
-		    	$scope.data = $http.post('rest/protected/searches/getAllNonprofits', $scope.requestObject)
-		    	.success(function(mydata, status){
-		    		for (data in mydata.nonprofits){
-		    			$scope.myData.push(data);
-		    		}
-		    		$scope.all = { data: "myData" };
-		    	}).error(function(mydata, status){
-		    		alert(mydata);
-		    		alert(status);
-		    	});
-		    	
-		        /*setTimeout(function () {
-		            var data;
-		            if (searchText) {
-		                var ft = searchText.toLowerCase();
-		                $http.get('js/controllers/largeLoad.json').success(function (largeLoad) {    
-		                    data = largeLoad.filter(function(item) {
-		                        return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-		                    });
-		                    $scope.setPagingData(data,page,pageSize);
-		                });            
-		            } else {
-		                $http.get('js/controllers/largeLoad.json').success(function (largeLoad) {
-		                    $scope.setPagingData(largeLoad,page,pageSize);
-		                });
-		            }*
-		        }, 100);
-		    };
+ treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 
-		    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+	$scope.requestObject = {};
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
 
-		    $scope.$watch('pagingOptions', function (newVal, oldVal) {
-		        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-		          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-		        }
-		    }, true);
-		    $scope.$watch('filterOptions', function (newVal, oldVal) {
-		        if (newVal !== oldVal) {
-		          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-		        }
-		    }, true);
-
-		  
-		    
-		    $scope.gridOptions = {
-		        data: 'myData',
-		        enablePaging: true,
-		        showFooter: true,
-		        rowHeight: 36,
-		        headerRowHeight: 36,
-		        totalServerItems: 'totalServerItems',
-		        pagingOptions: $scope.pagingOptions,
-		        filterOptions: $scope.filterOptions
-		    };
+    $scope.dataObject= [];
+    	
+/*	$scope.dataObject = $http.post('rest/protected/searches/getAllNonprofits', $scope.requestObject)
+	.success(function(mydata, status){
+		console.log(mydata);
 		
-	 */
+		$scope.dataObject = mydata.nonprofits
+	    	
+		console.log($scope.dataObject[1].name);
+		
+	}).error(function(mydata, status){
+		alert(mydata);
+		alert(status);
+	});*/
+	
+	
+	
+	$scope.dataObject = $http.post('rest/protected/searches/getNonprofitsByName', $scope.requestObject)
+	.success(function(mydata, status){
+		console.log(mydata);
+		
+		$scope.dataObject = mydata.nonprofits
+	    	
+		console.log($scope.dataObject);
+		
+	}).error(function(mydata, status){
+		alert(mydata);
+		alert(status);
+	});
+	
+	/*console.log($scope.dataObject);
+	
+	$scope.datasource = {
+		get : function(index, count, success) {
+
+	            console.log(index +' '+ count);
+	            return $timeout(function() {
+	                var i, result, _i, _ref;
+	                result = [];
+	                
+	                for (i = _i = index, _ref = index + count - 1; index <= _ref ? _i <= _ref : _i >= _ref; i = index <= _ref ? ++_i : --_i) {
+	                	result.push('item #' + i);
+	                	   
+	                }
+	                return success(result);
+	            }, 100);
+	         }
+		};
+	    
+	*/
+	 $scope.searchNonProfit = function () {
+		 $scope.requestObject.searchColumn = "ALL";
+		 $scope.requestObject.searchTerm = $scope.searchterm;
+		 
+		 $scope.dataObject = $http.post('rest/protected/searches/getNonprofitsByName', $scope.requestObject)
+			.success(function(mydata, status){
+				console.log(mydata);
+				
+				$scope.dataObject = mydata.nonprofits
+			    	
+				console.log($scope.dataObject);
+				
+			}).error(function(mydata, status){
+				alert(mydata);
+				alert(status);
+			});
+ 
+	 };
+		    	
 	 
 	})
 ;

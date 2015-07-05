@@ -257,4 +257,5 @@ var treeSeedAppDirectives = angular.module('treeSeed.directives',[]);
         });
       }
     };
-  }]);
+  }])
+  ;
