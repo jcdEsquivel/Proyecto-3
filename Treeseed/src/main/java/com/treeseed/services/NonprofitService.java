@@ -21,7 +21,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public Page<Nonprofit> getAll(NonprofitRequest ur) {
+	public Page<Nonprofit> getNonProfit(NonprofitRequest ur) {
 	
 		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
@@ -36,28 +36,53 @@ public class NonprofitService implements NonprofitServiceInterface{
 		}else{
 			pr = new PageRequest(ur.getPageNumber(),
 					ur.getPageSize());
-		}
-		
+		}	
 		Page<Nonprofit> result = null;
-		
-		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = nonprofitsRepository.findAll(pr);
-		}else if(ur.getSearchColumn().toLowerCase().equals("name")){
-			result = nonprofitsRepository.findByNameContaining(ur.getSearchTerm(),pr);
-		} else if(ur.getSearchColumn().toLowerCase().equals("reason")){
-			//result = nonprofitsRepository.
-					//findByReasonContaining(ur.getSearchTerm(),pr);
-		} else if(ur.getSearchColumn().toLowerCase().equals("country")){
-			//result = nonprofitsRepository.
-					//findByCountryContaining(ur.getSearchTerm(),pr);
-		} else{
-			result = nonprofitsRepository.findAll(pr);
-		}
-		 
-		
+			
+		result = nonprofitsRepository.findAll(pr);
+
 		return result ;
 		
 	}
+	
+	
+	/*public Page<Donor> getAll(DonorRequest dr) {
+		 
+		  PageRequest pr;
+		    Sort.Direction direction = Sort.Direction.DESC;
+		    
+		    if(dr.getDirection().equals("ASC")){    
+		     direction = Sort.Direction.ASC;
+		    }
+		    
+		    if(dr.getSortBy().size() > 0){
+		      Sort sort = new Sort(direction,dr.getSortBy());
+		      pr = new PageRequest(dr.getPageNumber(),
+		      dr.getPageSize(),sort);
+		      
+		    }else{ 
+		      pr = new PageRequest(dr.getPageNumber(),
+		      dr.getPageSize());
+		    }
+		    
+		    Page<Donor> result = null;
+		    
+		    if(dr.getSearchColumn().toLowerCase().equals("all")){
+		     result = donorRepository.findAll(pr);
+		    }else if(dr.getSearchColumn().toLowerCase().
+		       equals("firstname")){
+		    } else if(dr.getSearchColumn().toLowerCase().equals("lastname")){
+		      //nonProfits = usersRepository.
+		      //findByEmailAndPassword(ur.getSearchTerm(),pr);
+		    }else{
+		     result = donorRepository.findAll(pr);
+		    }
+		    
+		    
+
+		    return result;
+		  
+		 }*/
 
 	@Override
 	@Transactional

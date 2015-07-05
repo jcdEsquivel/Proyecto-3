@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.NonprofitServiceInterface;
@@ -37,7 +39,7 @@ public class SearchController {
 	
 	@Autowired
 	HttpServletRequest request;
-	
+	/*
 	@RequestMapping(value ="/getAllNonprofits", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getAllNonprofits(@RequestBody NonprofitRequest ur){	
@@ -72,13 +74,13 @@ public class SearchController {
 		nps.setCode(200);
 		return nps;		
 	}
-	
-	@RequestMapping(value ="/getNonprofitsByName", method = RequestMethod.POST)
+	*/
+	@RequestMapping(value ="/getNonprofits", method = RequestMethod.POST)
 	@Transactional
-	public NonprofitResponse getNonprofitsByName(@RequestBody NonprofitRequest npr){	
+	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
 		
 		npr.setPageNumber(npr.getPageNumber() - 1);
-		Page<Nonprofit> viewNonprofits = nonProfitService.getAll(npr);
+		Page<Nonprofit> viewNonprofits = nonProfitService.getNonProfit(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
@@ -109,31 +111,7 @@ public class SearchController {
 			
 	}
 	
-	@RequestMapping(value ="/getNonprofitsByCause", method = RequestMethod.POST)
-	@Transactional
-	public NonprofitResponse getNonprofitsByCause(@RequestBody NonprofitRequest npr){	
-		
-		npr.setPageNumber(npr.getPageNumber() - 1);
-		Page<Nonprofit> nonprofits = nonProfitService.getByCause(npr);
-		
-		NonprofitResponse response = setNonProfitResults(nonprofits);
-		
-		return response;
-			
-	}
 	
-	@RequestMapping(value ="/getNonprofitsByCountry", method = RequestMethod.POST)
-	@Transactional
-	public NonprofitResponse getNonprofitsByCountry(@RequestBody NonprofitRequest npr){	
-		
-		npr.setPageNumber(npr.getPageNumber() - 1);
-		Page<Nonprofit> nonprofits = nonProfitService.getByCountry(npr);
-		
-		NonprofitResponse response = setNonProfitResults(nonprofits);
-		
-		return response;
-			
-	}
 	
 	
 	public NonprofitResponse setNonProfitResults(Page<Nonprofit> nonprofits){
@@ -158,6 +136,21 @@ public class SearchController {
 		nps.setNonprofits(viewNonprofits);
 		return nps;		
 		
+	}
+	
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+	
+	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
+	public List<Catalog> getAllCountries(){	
+	
+		List<Catalog> list = jdbcTemplate.query(
+                "SELECT id, name FROM catalog WHERE type = ?", new Object[] { "Country" },
+                (rs, rowNum) -> new Catalog(rs.getInt("id"), rs.getString("name"))
+        );
+
+		return list;
+
 	}
 	
 	

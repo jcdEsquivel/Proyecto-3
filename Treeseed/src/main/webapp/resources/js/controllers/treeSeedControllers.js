@@ -221,7 +221,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 
-	$scope.requestObject = {};
+	/*$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
@@ -229,23 +229,9 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.requestObject.searchColumn = "ALL";
 	$scope.requestObject.searchTerm = "";
 
-    $scope.dataObject= [];
-    	
-/*	$scope.dataObject = $http.post('rest/protected/searches/getAllNonprofits', $scope.requestObject)
-	.success(function(mydata, status){
-		console.log(mydata);
-		
-		$scope.dataObject = mydata.nonprofits
-	    	
-		console.log($scope.dataObject[1].name);
-		
-	}).error(function(mydata, status){
-		alert(mydata);
-		alert(status);
-	});*/
-	
-	
-	
+    
+	$scope.dataObject= [];
+
 	$scope.dataObject = $http.post('rest/protected/searches/getNonprofitsByName', $scope.requestObject)
 	.success(function(mydata, status){
 		console.log(mydata);
@@ -259,7 +245,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		alert(status);
 	});
 	
-	/*console.log($scope.dataObject);
+	//console.log($scope.dataObject);
 	
 	$scope.datasource = {
 		get : function(index, count, success) {
@@ -280,10 +266,21 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	    
 	*/
 	 $scope.searchNonProfit = function () {
-		 $scope.requestObject.searchColumn = "ALL";
-		 $scope.requestObject.searchTerm = $scope.searchterm;
+	 	
+		 console.log('esoooo');
 		 
-		 $scope.dataObject = $http.post('rest/protected/searches/getNonprofitsByName', $scope.requestObject)
+		$scope.requestObject = {};
+		$scope.requestObject.pageNumber = 1;
+		$scope.requestObject.pageSize = 10;
+		$scope.requestObject.direction = "DESC";
+		$scope.requestObject.sortBy = [];
+		$scope.requestObject.searchColumn = "ALL";
+		$scope.requestObject.Name = $scope.name;
+		$scope.requestObject.Country = $scope.country;
+		$scope.requestObject.Cause = $scope.cause;
+			
+		 
+		 $scope.dataObject = $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 			.success(function(mydata, status){
 				console.log(mydata);
 				
@@ -297,6 +294,18 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 			});
  
 	 };
+	 
+	 
+	 $scope.getCountries = function(){
+		 	
+	        return $http.post('rest/protected/users/getAllCountries')
+	                    .then(function(response){
+	                     $scope.selectSortOptions = response.data;
+	                     $scope.searcher.first = response.data[0].id;
+	                    }); 
+		 };
+		 
+		 $scope.getCountries();
 		    	
 	 
 	})
