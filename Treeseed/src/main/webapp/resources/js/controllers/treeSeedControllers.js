@@ -251,37 +251,58 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	 
 	 $scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
-	$scope.requestObject.pageSize = 2;
+	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
 	$scope.requestObject.sortBy = [];
 	$scope.requestObject.searchColumn = "ALL";
 	$scope.requestObject.searchTerm = "";
 	 
-	 $scope.datasource = {
-				get : function(index, count, success) {
-					
-		               console.log('1');
-						
-						
-	            	  $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-		  				.success(function(mydata, status){
-		  					
-		  					console.log(mydata);
-		  					$scope.requestObject.pageNumber++;
-		  					 return success(mydata.nonprofits);
+	
+	$scope.data = {};
 
-		  					
-		  				}).error(function(e, mydata, status){
-		  					alert(e);
-		  					alert(status);
-		  				});
+	 $scope.datasource = {
+			
+				get : function(index, count, success) {
+					 console.log('index: '+index+"   Page:"+$scope.requestObject.pageNumber);
+					tempCalculation = Math.ceil( index / $scope.requestObject.pageSize);
+					
+					if(tempCalculation <1){
+						tempCalculation = $scope.requestObject.pageNumber;
+					}
+	
+		               console.log('Page to get: '+tempCalculation);
+		               
+			               return $timeout(function() {
+			            	   
+			            	   $scope.requestObject.pageNumber = tempCalculation;
+			            	   
+			            	   $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+				  				.success(function(mydata, status){
+				  					
+				  					
+				  					if(mydata.nonprofits.length > 0){
+				  						$scope.data = mydata.nonprofits;
+				  					}else{
+				  						console.log('100');
+				  						return [];
+				  					}
+				  					
+				  				}).error(function(e, mydata, status){
+				  					alert(e);
+				  					alert(status);
+				  				});
+	
+			                   return success($scope.data);
+			               }, 100);
+						
+	            	  
 		               
 		          
 		           
 				}
 		         
 			};
-	
+	 
 	
 	
 	 $scope.searchNonProfit = function () {
