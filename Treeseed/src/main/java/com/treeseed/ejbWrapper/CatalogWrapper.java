@@ -15,18 +15,20 @@ public class CatalogWrapper extends ParentUserWrapper {
 	public CatalogWrapper(int id, String description, String english, String name,
 			String spanish, String type, boolean isActive) {
 		super();		
-		this.setWrapperObject(new Catalog());
-		this.setId(id);
-		this.setDescription(description);
-		this.setEnglish(english);
-		this.setName(name);
-		this.setSpanish(spanish);
-		this.setType(type);
-		this.setActive(isActive);
+		setWrapperObject(new Catalog());
+		setId(id);
+		setDescription(description);
+		setEnglish(english);
+		setName(name);
+		setSpanish(spanish);
+		setType(type);
+		setActive(isActive);
 	}
 
 
 	public CatalogWrapper(int id, String name) {
+		super();	
+		setWrapperObject(new Catalog());
 		this.setId(id);
 		this.setName(name);
 	}
