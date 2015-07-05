@@ -259,25 +259,46 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.cause = $scope.cause;
 	 
-	 $scope.datasource = {
-		get : function(index, count, success) {
-           $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-			.success(function(mydata, status){
-				
-				console.log(mydata);
-				$scope.requestObject.pageNumber++;
-				 return success(mydata.nonprofits);
+	
+	$scope.data = {};
 
-				
-			}).error(function(e, mydata, status){
-				alert(e);
-				alert(status);
-			});    
-		}
-         
+	 $scope.datasource = {
+		 get : function(index, count, success) {
+			 console.log('index: '+index+"   Page:"+$scope.requestObject.pageNumber);
+			 tempCalculation = Math.ceil( index / $scope.requestObject.pageSize);
+			
+			if(tempCalculation <1){
+				tempCalculation = $scope.requestObject.pageNumber;
+			}
+	
+           console.log('Page to get: '+tempCalculation);
+           
+           return $timeout(function() {
+        	   
+        	   $scope.requestObject.pageNumber = tempCalculation;
+        	   
+        	   $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+  				.success(function(mydata, status){
+  					
+  					
+  					if(mydata.nonprofits.length > 0){
+  						$scope.data = mydata.nonprofits;
+  					}else{
+  						console.log('100');
+  						return [];
+  					}
+  					
+  				}).error(function(e, mydata, status){
+  					alert(e);
+  					alert(status);
+  				});
+
+               return success($scope.data);
+           }, 100);
+		}	         
 	};
-	
-	
+	 
+
 	
 	 
 	 $scope.searchNonProfit = function () {
