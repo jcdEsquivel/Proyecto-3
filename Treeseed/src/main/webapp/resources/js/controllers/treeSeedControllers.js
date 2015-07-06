@@ -288,5 +288,63 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	})
 	
 ;
+ 
+ treeSeedAppControllers.controller('donorSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
+		
+	$scope.itemPerPage =[10,25,50,100]; 
+	$scope.currentPage = 1;
+	$scope.totalItems= 5;
+	
+	$scope.requestObject = {};
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+	$scope.requestObject.name = $scope.name;
+	$scope.requestObject.country = $scope.country;
+	$scope.requestObject.lastName = $scope.lastName;
+	  
+	$scope.searchDonor = function (page) {
+	 	
+		console.log($scope.name) 
+		console.log($scope.country) 
+		console.log($scope.lastName) 
+		
+		$scope.requestObject.pageNumber = page;
+		$scope.requestObject.name = $scope.name;
+		$scope.requestObject.country = $scope.country;
+		$scope.requestObject.lastName = $scope.lastName;
+		 
+		$http.post('rest/protected/searches/getDonors', $scope.requestObject)
+		.success(function(mydata, status){
+			console.log(mydata);
+			console.log(mydata.totalElements);
+			$scope.donors = mydata.donor; 
+			$scope.totalItems= mydata.totalElements;
+		}).error(function(mydata, status){
+			alert(mydata);
+			alert(status);
+		});
+	 
+		$scope.pageChangeHandler = function(num) {
+			$scope.searchDonor(num);
+	 	};
+ 
+	 };
+	 
+	 
+	 $scope.countryType = "Country";
+	 
+	 $scope.getCatalogCountry = function(){
+        return $http.post('rest/protected/catalog/getAllCatalog', $scope.countryType)
+                .then(function(response){
+                 $scope.selectSortOptionsCountries = response.data.catalogs;
+                }); 
+	 };
+	 $scope.getCatalogCountry(); 	 
+	})	
+;
 
  

@@ -1,39 +1,59 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Busqueda de donante</h1>
+  <h1 class="m-n font-thin h3" translate="DONORSEARCH.HEADER-TITLE"></h1>
 </div>
 <div class="container">
- <div class="row">
- 
-  <form class="navbar-form navbar-left" role="search">
-	       
-	   <div class="form-group">
-	    <div class="btn-group searchBtnGroup" data-toggle="buttons-radio">
-	     <button type="button" class="btn btn-default active" ng-click="setSearchColumn('all',$event)">All</button>
-	     <button type="button" class="btn btn-default" ng-click="setSearchColumn('firstName',$event)">First Name</button>
-	     <button type="button" class="btn btn-default" ng-click="setSearchColumn('lastName',$event)">Last Name</button>
+ 	<div class="panel-body">
+	 	<div class="form-group">
+		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
+		    <div class="col-sm-12">
+		      <div class="row">
+		        <div class="col-md-3">
+	        		<input type="text" name="name" class="form-control" ng-model="name" placeholder="{{'GENERALSEARCH.NAME-FILTER' | translate}}">
+		        </div>
+		        <div class="col-md-3">
+		          	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
+		          		<option value="" selected disabled translate="GENERALSEARCH.COUNTRY-FILTER"></option>
+		          	</select>
+		        </div>
+		        <div class="col-md-3">
+	        		<input type="text" name="lastName" class="form-control" ng-model="lastName" placeholder="{{'GENERALSEARCH.LAST-NAME-FILTER' | translate}}">
+		        </div>
+		         <div class="col-md-3">
+		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchDonor(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+		        </div>
+		      </div>
+		      <br>
+		      <div class="row">
+		      	<div class="col-md-3">
+	        		<select ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
+		        </div>
+		      </div>
+		    </div>
 	    </div>
-	   </div>
-	   <div class="form-group">
-	     <input type="text" class="form-control" placeholder="Search" ng-model="requestObject.searchTerm">
-	   </div>
-	   </br>
-	   <div class="panel panel-default">
-            <div class="panel-body">
-              <ul>
-                <li dir-paginate="donor in donors | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ donor.name }}</li>           
-              </ul>
-            </div>
-       </div>
-	   <div>
-          <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
-          </dir-pagination-controls>
-          </div>
-        </div>  
-        
-   </form>
-     
+	</div>
+    <tabset class="tab-container">
+	   	<tab>
+     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
+		         
+	      	</tab-heading>
+	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+	        	<li class="list-group-item" dir-paginate="donor in donors | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
+	          		<a href="#" class="pull-left thumb-md m-r">
+	            		<img src= {{donor.picture}} alt="..." class="img-circle">
+		          	</a>
+		          	<div class="clear">
+		            	<a href="#" class="h4 text-primary m-b-sm block"> {{donor.name}}</a>
+		            	<div> {{donor.description}}</div>
+		            	<div> {{donor.webPage}}</div>
+		          	</div>
+		        </li>	        
+      		</ul>
+      		<div class="other-controller">
+		    	<div class="text-center">
+		      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+		      		</dir-pagination-controls>
+		      	</div>
+			</div>  
+	    </tab>
+	</tabset>    
   </div>
-   
-</div>
- 

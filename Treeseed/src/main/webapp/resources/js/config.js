@@ -66,6 +66,13 @@ angular.module('treeSeed')
             //controller: "nonProfitSearchController",
             resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/treeSeedControllers.js']),
             controller: "nonProfitSearchController"
+        })
+        .state('treeSeed.donorSearch', {
+            url: '/donorSearch',
+            templateUrl: 'layouts/pages/donorSearch.html',
+            //controller: "nonProfitSearchController",
+            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/treeSeedControllers.js']),
+            controller: "donorSearchController"
         });
         
         function load(srcs, callback) {
