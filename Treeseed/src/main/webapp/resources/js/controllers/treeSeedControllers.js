@@ -221,9 +221,9 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 	
+	$scope.itemPerPage =[10,25,50,100]; 
 	$scope.currentPage = 1;
-	$scope.pageSize = 5;
-	$scope.meals = [];
+	$scope.totalItems= 5;
 	
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
@@ -235,53 +235,31 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.cause = $scope.cause;
-	 
-	/*$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-	.success(function(mydata, status){
-		console.log(mydata);
-		$scope.nonprofits = mydata.nonprofits; 	
-	}).error(function(mydata, status){
-		alert(mydata);
-		alert(status);
-	});
- 
-	 $scope.pageChangeHandler = function(num) {
-		 console.log('going to page ' + num);
-	 };
-*/
-	
-	 
-	 $scope.searchNonProfit = function () {
+	  
+	$scope.searchNonProfit = function (page) {
 	 	
 		console.log($scope.name) 
 		console.log($scope.country) 
 		console.log($scope.cause) 
-		 
+		
+		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.name;
 		$scope.requestObject.country = $scope.country;
 		$scope.requestObject.cause = $scope.cause;
-			
-		 
-		/* $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-			.success(function(mydata, status){
-				console.log(mydata);
-				$scope.dataObject = mydata.nonprofits
-			}).error(function(mydata, status){
-				alert(mydata);
-				alert(status);
-			});*/
 		 
 		$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 		.success(function(mydata, status){
 			console.log(mydata);
-			$scope.nonprofits = mydata.nonprofits; 	
+			console.log(mydata.totalElements);
+			$scope.nonprofits = mydata.nonprofits; 
+			$scope.totalItems= mydata.totalElements;
 		}).error(function(mydata, status){
 			alert(mydata);
 			alert(status);
 		});
 	 
 		$scope.pageChangeHandler = function(num) {
-			console.log('going to page ' + num);
+			$scope.searchNonProfit(num);
 	 	};
  
 	 };
