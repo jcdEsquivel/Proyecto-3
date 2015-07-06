@@ -17,7 +17,7 @@ private List<CatalogPOJO> catalogs;
 		return catalogs;
 	}
 
-	public void setUsuarios(List<CatalogPOJO> catalogs) {
+	public void setCatalogs(List<CatalogPOJO> catalogs) {
 		this.catalogs = catalogs;
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.contracts.CatalogResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
@@ -35,6 +36,7 @@ import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.CatalogRepository;
 import com.treeseed.services.CatalogServiceInterface;
@@ -198,11 +200,24 @@ public class UsersController {
     JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
-	public List<CatalogWrapper> getAllCountries(){	
+	public CatalogResponse getAllCountries(@RequestBody CatalogRequest country){	
 	
-		List<CatalogWrapper> list = catalogService.getAllCatalogByType("Country");
-		return list;
-
+		CatalogResponse us = new CatalogResponse();
+		
+		List<CatalogWrapper> list = catalogService.getAllCatalogByType(country.getType());
+		
+	    List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
+	  
+	    for(CatalogWrapper objeto:list)
+	    {
+		  CatalogPOJO catalog = new CatalogPOJO();
+		  catalog.setId(objeto.getId());
+		  catalog.setName(objeto.getName());
+		  viewCatalogPOJO.add(catalog);
+	    };
+		
+		us.setCatalogs(viewCatalogPOJO);
+		return us;
 	}
 
 }

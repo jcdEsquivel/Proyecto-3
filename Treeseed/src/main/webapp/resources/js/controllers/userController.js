@@ -63,18 +63,17 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		}
 		
 	};
-	
-	$scope.searcher = {};
-	$scope.searcher.first = '';
+    
+	$scope.requestObject.lenguaje = 
+	$scope.requestObject.type = 'Country';
 	
 	$scope.getCountries = function(){
-        return $http.post('rest/protected/users/getAllCountries')
+        return $http.post('rest/protected/users/getAllCountries',$scope.requestObject)
                     .then(function(response){
-                     $scope.selectSortOptions = response.data;
-                     $scope.requestObject.donor.country = response.data[0].id;
+                     $scope.selectSortOptions = response.data.catalogs;
+                     $scope.requestObject.donor.country = response.data.catalogs[0].id;
                     }); 
 	 };
-	 
 	 $scope.getCountries();  
 });
 

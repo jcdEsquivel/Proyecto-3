@@ -1,35 +1,36 @@
 <div class="panel panel-default">
     <div class="panel-heading font-bold">
-      Register Donor
+      <h1 class="m-n font-thin h3">Register Donor</h1>
     </div>
     <div class="panel-body">
       <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" role="form">
 	  <div  class="col-sm-5 md-whiteframe-treeseed">
       	<md-input-container flex>
           <label>Name</label>
-          <input type="text" ng-model="requestObject.donor.name" class="form-control">   
+          <input type="text" ng-model="requestObject.donor.name" class="form-control" required>   
         </md-input-container>
         <md-input-container flex>
           <label>Last Name</label>
-         <input type="text" ng-model="requestObject.donor.lastName" class="form-control">  
+         <input type="text" ng-model="requestObject.donor.lastName" class="form-control" required>  
         </md-input-container>
         <md-input-container flex>
           <label>Email</label>
-          <input type="text" ng-model="requestObject.donor.userGeneral.email" class="form-control">   
+          <input type="email" ng-model="requestObject.donor.userGeneral.email" class="form-control" required>   
         </md-input-container>
         <md-input-container flex>
           <label>Password</label>
-         <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control">  
+         <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
         </md-input-container>
-        
         <md-input-container flex> 
         <label>Country</label>
-        <select ng-model="requestObject.donor.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptions"></select>  	
         </md-input-container>
+        <select ng-model="requestObject.donor.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptions"></select>  	
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+        <md-input-container flex> 
         <label>Picture Image</label>
+         </md-input-container>
         <div class="panel wrapper">
 	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
 	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">

@@ -4,8 +4,11 @@ import com.treeseed.pojo.CatalogPOJO;
 
 public class CatalogRequest {
 	
-private CatalogPOJO catalog;
+	private CatalogPOJO catalog;
 	
+	private String lenguage;
+	private String type;
+
 	public CatalogRequest() {
 		super();
 	}
@@ -14,13 +17,30 @@ private CatalogPOJO catalog;
 		return catalog;
 	}
 	
-	public void setUser(CatalogPOJO user) {
-		this.catalog = user;
+	public void setCatalog(CatalogPOJO catalog) {
+		this.catalog = catalog;
 	}
 
 	@Override
 	public String toString() {
-		return "UsersRequest [user=" + catalog + "]";
+		return "CatalogRequest [catalog=" + catalog + "]";
 	}
+	
+	public String getLenguage() {
+		return lenguage;
+	}
+
+	public void setLenguage(String lenguage) {
+		this.lenguage = lenguage;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 
 }
