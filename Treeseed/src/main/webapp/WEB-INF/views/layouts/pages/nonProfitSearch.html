@@ -27,16 +27,34 @@
      </form>
      
   </div>
-   
-</div>
+  
+  	<div class="panel-body">
+      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" role="form">
+	  <div  class="col-sm-5 md-whiteframe-treeseed">
+      	<md-input-container flex>
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" ng-model="name">
+        </md-input-container>  
+        <md-input-container flex> 
+        <label>Country</label>
+        </md-input-container>
+      	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
+      	<md-input-container flex> 
+        <label>Cause</label>
+        </md-input-container>
+      	<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>
+      	<div>
+      		<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
+      	</div>>
+      </div>
+      </form>
+     </div>
 
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Non Profit Search</h1>
 </div>
 
 
  
- <div class="bg-light lter b-b wrapper-md">
+ <!-- <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Scroll</h1>
 </div>
 <div class="wrapper-md">
@@ -48,12 +66,18 @@
       	</div>
       </div>
   </div>
-</div>
+</div>  
 
+<md-input-container> 
+   	<label>Country</label>
+    <select ng-model="requestObject.nonprofit.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
+    <label>Country</label>
+    <select ng-model="requestObject.nonprofit.cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>  	
+		<label>Cause</label>
+	<input type="text" name="name" class="form-control" ng-model="name">Nombre de la ONG</input>
+	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
+</md-input-container>
 
-<input type="text" name="name" class="form-control" ng-model="name">Nombre de la ONG</input>
-<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
-
-
+-->
 
  

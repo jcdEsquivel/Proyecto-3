@@ -220,34 +220,6 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 ;
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
-
-	/*
-	 * $scope.requestObject = {};
-	$scope.requestObject.pageNumber = 1;
-	$scope.requestObject.pageSize = 10;
-	$scope.requestObject.direction = "DESC";
-	$scope.requestObject.sortBy = [];
-	$scope.requestObject.searchColumn = "ALL";
-	$scope.requestObject.searchTerm = "";
-
-    
-	$scope.dataObject= [];
-
-	$scope.dataObject = $http.post('rest/protected/searches/getNonprofitsByName', $scope.requestObject)
-	.success(function(mydata, status){
-		console.log(mydata);
-		
-		$scope.dataObject = mydata.nonprofits
-	    	
-		console.log($scope.dataObject);
-		
-	}).error(function(mydata, status){
-		alert(mydata);
-		alert(status);
-	});
-	
-	//console.log($scope.dataObject);
-	*/
 	 
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
@@ -262,7 +234,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	
 	$scope.data = {};
 
-	 $scope.datasource = {
+	$scope.datasource = {
 		 get : function(index, count, success) {
 			 console.log('index: '+index+"   Page:"+$scope.requestObject.pageNumber);
 			 tempCalculation = Math.ceil( index / $scope.requestObject.pageSize);
@@ -271,30 +243,30 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 				tempCalculation = $scope.requestObject.pageNumber;
 			}
 	
-           console.log('Page to get: '+tempCalculation);
-           
-           return $timeout(function() {
-        	   
-        	   $scope.requestObject.pageNumber = tempCalculation;
-        	   
-        	   $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-  				.success(function(mydata, status){
-  					
-  					
-  					if(mydata.nonprofits.length > 0){
-  						$scope.data = mydata.nonprofits;
-  					}else{
-  						console.log('100');
-  						return [];
-  					}
-  					
-  				}).error(function(e, mydata, status){
-  					alert(e);
-  					alert(status);
-  				});
-
-               return success($scope.data);
-           }, 100);
+	       console.log('Page to get: '+tempCalculation);
+	       
+	       return $timeout(function() {
+	    	   
+	    	   $scope.requestObject.pageNumber = tempCalculation;
+	    	   
+	    	   $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+				.success(function(mydata, status){
+					
+					
+					if(mydata.nonprofits.length > 0){
+						$scope.data = mydata.nonprofits;
+					}else{
+						console.log('100');
+						return [];
+					}
+					
+				}).error(function(e, mydata, status){
+					alert(e);
+					alert(status);
+				});
+	
+	           return success($scope.data);
+	       }, 100);
 		}	         
 	};
 	 
@@ -327,8 +299,30 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 			});
  
 	 };
+	 
+	 
+	 $scope.countryType = "Country";
+	 $scope.causeType = "Cause";
+	 
+	 $scope.getCatalogCountry = function(){
+        return $http.post('rest/protected/catalog/getAllCatalog', $scope.countryType)
+                .then(function(response){
+                 $scope.selectSortOptionsCountries = response.data.catalogs;
+                }); 
+	 };
+	 $scope.getCatalogCountry();
+	 
+	 $scope.getCatalogCause = function(){
+	        return $http.post('rest/protected/catalog/getAllCatalog', $scope.causeType)
+	                .then(function(response){
+	                 $scope.selectSortOptionsCauses = response.data.catalogs; 
+	                }); 
+	 };	 
+	 $scope.getCatalogCause();
+	 
 	 	 
 	})
+	
 ;
 
  
