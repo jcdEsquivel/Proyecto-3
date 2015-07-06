@@ -21,7 +21,13 @@
 		          	</select>
 		        </div>
 		         <div class="col-md-3">
-		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+		        </div>
+		      </div>
+		      <br>
+		      <div class="row">
+		      	<div class="col-md-3">
+	        		<select ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
 		        </div>
 		      </div>
 		    </div>
@@ -33,7 +39,7 @@
 		         
 	      	</tab-heading>
 	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-	        	<li class="list-group-item" dir-paginate="nonprofit in nonprofits | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+	        	<li class="list-group-item" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 	          		<a href="#" class="pull-left thumb-md m-r">
 	            		<img src= {{nonprofit.mainpicture}} alt="..." class="img-circle">
 		          	</a>
