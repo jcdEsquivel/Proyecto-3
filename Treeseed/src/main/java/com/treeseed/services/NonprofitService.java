@@ -39,10 +39,23 @@ public class NonprofitService implements NonprofitServiceInterface{
 		}
 		
 		Page<Nonprofit> pageResult = null;
-		String filterName = ur.getName();
+		Page<Nonprofit> pageResultado = null;
 		
-		pageResult = nonprofitsRepository.find(filterName, "%"+filterName+"%", pr);
-
+		String filterName = ur.getName();
+		int filterCause= 0;
+		int filterCountry= 0;
+		
+		
+		if(ur.getCause()!=null){
+			filterCause = Integer.parseInt(ur.getCause());
+		}else if(ur.getCountry()!=null){
+			filterCountry = Integer.parseInt(ur.getCountry());
+		}
+		
+		
+		
+		pageResult = nonprofitsRepository.findConTodo(filterName, "%"+filterName+"%",filterCountry,filterCause, pr);
+		
 		return pageResult ;
 		
 	}

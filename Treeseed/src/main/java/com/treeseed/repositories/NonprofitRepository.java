@@ -16,11 +16,23 @@ public interface NonprofitRepository extends
 	
 	public static final int PAGE_SIZE = 10;
 
-	@Query("SELECT p FROM Nonprofit p WHERE ( :nombreNull is null or p.name like :nombre)")
-	   public Page<Nonprofit> find(@Param("nombreNull") String nombreNull, @Param("nombre") String nombre, Pageable pageable);
+	@Query("SELECT p FROM Nonprofit p WHERE ( :nameNull is null or p.name like :name)")
+	   public Page<Nonprofit> find(@Param("nameNull") String nameNull, @Param("name") String name,
+			   Pageable pageable);
 	
 	
+	@Query("SELECT p FROM Nonprofit p inner join p.cause c inner join p.country d WHERE ( :nameNull is null or p.name like :name) and "
+			+ "( :country = 0 or d.id = :country) and "
+			+ "( :cause = 0 or c.id = :cause)")
+	   public Page<Nonprofit> findConTodo(@Param("nameNull") String nameNull, @Param("name") String name,
+			   @Param("country") int country,
+			   @Param("cause") int cause,
+			   Pageable pageable);
 	
+	
+	@Query("SELECT p FROM Nonprofit p WHERE ( :nameNull is null or p.name like :name) and "
+			+ "( :countryNull is null or p.country like :country) and "
+			+ "( :causeNull is null or p.cause like :cause)")
 	
 	Page<Nonprofit> findAll(Pageable pageable);
 	Page<Nonprofit> findByNameContaining(String name,
