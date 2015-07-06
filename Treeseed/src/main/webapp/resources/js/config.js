@@ -210,8 +210,7 @@ angular.module('treeSeed').config(
 	  {
 	      name: 'angularUtils.directives.dirPagination',
 	      files: [
-	          'resources/js/libs/angular/dirPagination/dirPagination.js',
-	          'resources/js/libs/angular/dirPagination/dirPagination.tpl.html'
+	          'resources/js/libs/angular/dirPagination/dirPagination.js'
 	    ]
 	  },
       {

@@ -9,9 +9,29 @@ import com.treeseed.ejb.NotificationDonor;
 import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejb.UserGeneral;
 
-class DonorWrapper {
+public class DonorWrapper extends ParentUserWrapper{
 	
 	private Donor wrapperObject;
+
+	public DonorWrapper() {
+		super();
+		setWrapperObject(new Donor());
+		// TODO Auto-generated constructor stub
+	}
+	
+	public DonorWrapper(Donor donor) {
+		super();
+		setWrapperObject(donor);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Donor getWrapperObject() {
+		return wrapperObject;
+	}
+
+	public void setWrapperObject(Donor wrapperObject) {
+		this.wrapperObject = wrapperObject;
+	}
 
 	public int hashCode() {
 		return wrapperObject.hashCode();

@@ -222,8 +222,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
 
 	 $scope.currentPage = 1;
-	 $scope.pageSize = 2;
-	 $scope.meals = [];
+	 $scope.pageSize = 5;
 	 
 	 $scope.requestObject = {};
 	 $scope.requestObject.pageNumber = 1;
