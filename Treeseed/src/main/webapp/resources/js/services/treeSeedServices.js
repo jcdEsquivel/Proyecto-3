@@ -5,11 +5,19 @@ treeSeedAppServices.value('version', '0.1');
 
 treeSeedAppServices.service('$sharedData', function(){
     var loggedUser = "";
-    var type = "";
+    var type = "Donor";
     var img="";
-    var loged = false;
+    var loged = true;
+    var isUserLogged = true;
+    var lenguaje = "";
     var ongName = "Territorio de Zaguates"
     return {
+    	isUserLogged: function(){
+    		return isUserLogged;
+    	},
+    	setUserLogged : function(value){
+    		isUserLogged =  value ;
+        },
         getLoggedUser : function(){
             return loggedUser;
         },
@@ -39,6 +47,12 @@ treeSeedAppServices.service('$sharedData', function(){
         },
         setImg  : function(value){
             img =  value ;
+        },
+        getLenguaje : function(){
+            return lenguaje;
+        },
+        setLenguaje  : function(value){
+        	lenguaje =  value ;
         }
     }
 });
@@ -57,7 +71,7 @@ treeSeedAppServices.service('$userData', function(){
                 Name: "Aramis",
                 Email: "Aramis@hola",
                 Password: "test456",
-                Type: "donor",
+                Type: "Donor",
                 Imagen: ""
             },
             {
@@ -86,7 +100,7 @@ treeSeedAppServices.service('$userData', function(){
                 Name: "Territorio de Zaguates",
                 Email: "territoriodezaguates@gmail.com",
                 Password: "12345",
-                Type: "ONG",
+                Type: "NGO",
                 Imagen: "territorio.jpg"
             }
         ];

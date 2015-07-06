@@ -98,8 +98,7 @@ public class SearchController {
 		{
 			NonprofitPOJO nnonprofit = new NonprofitPOJO();
 			nnonprofit.setName(objeto.getName());
-			nnonprofit.setMision(objeto.getMision());
-			nnonprofit.setReason(objeto.getReason());
+			nnonprofit.setDescription(objeto.getDescription());
 			nnonprofit.setWebPage(objeto.getWebPage());
 			nnonprofit.setMainPicture(objeto.getMainPicture());
 			viewNonprofitsPOJO.add(nnonprofit);

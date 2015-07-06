@@ -1,48 +1,63 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Busqueda de ONG</h1>
+  <h1 class="m-n font-thin h3" translate="NONPROFITSEARCH.HEADER-TITLE"></h1>
 </div>
 <div class="container">
- 
-  	<div class="panel-body">
-      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" role="form">
-	  	<div  class="col-sm-5 md-whiteframe-treeseed">
-	      	<md-input-container flex>
-	          	<label>Name</label>
-	          	<input type="text" name="name" class="form-control" ng-model="name">
-	        </md-input-container>  
-	        <md-input-container flex> 
-	        	<label>Country</label>
-	        </md-input-container>
-	      		<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
-	      	<md-input-container flex> 
-	        	<label>Cause</label>
-	        </md-input-container>
-	      		<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>
-	      	<div>
-	      		<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button>
-      		</div>
-      	</div>    
-      </form>
+ 	<div class="panel-body">
+	 	<div class="form-group">
+		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
+		    <div class="col-sm-12">
+		      <div class="row">
+		        <div class="col-md-3">
+	        		<input type="text" name="name" class="form-control" ng-model="name" placeholder="{{'GENERALSEARCH.NAME-FILTER' | translate}}">
+		        </div>
+		        <div class="col-md-3">
+		          	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
+		          		<option value="" selected disabled translate="GENERALSEARCH.COUNTRY-FILTER"></option>
+		          	</select>
+		        </div>
+		        <div class="col-md-3">
+		          	<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses">
+		          		<option value="" selected disabled translate="GENERALSEARCH.CAUSE-FILTER"></option>
+		          	</select>
+		        </div>
+		         <div class="col-md-3">
+		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+		        </div>
+		      </div>
+		    </div>
+	    </div>
 	</div>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <ul>
-          <li dir-paginate="nonprofit in nonprofits | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ nonprofit.name }}</li>           
-        </ul>
-       </div>
-	</div>
- 	<div class="other-controller">
-      <div class="text-center">
-      <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
-      </dir-pagination-controls>
-      </div>
-	</div>  
+    <tabset class="tab-container">
+	   	<tab>
+     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
+		         
+	      	</tab-heading>
+	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+	        	<li class="list-group-item" dir-paginate="nonprofit in nonprofits | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+	          		<a href="#" class="pull-left thumb-md m-r">
+	            		<img src= {{nonprofit.mainpicture}} alt="..." class="img-circle">
+		          	</a>
+		          	<div class="clear">
+		            	<a href="#" class="h4 text-primary m-b-sm block"> {{nonprofit.name}}</a>
+		            	<div> {{nonprofit.description}}</div>
+		            	<div> {{nonprofit.webPage}}</div>
+		          	</div>
+		        </li>
+		        
+      		</ul>
+      		<div class="other-controller">
+		    	<div class="text-center">
+		      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+		      		</dir-pagination-controls>
+		      	</div>
+			</div>  
+	    </tab>
+    
+	</tabset>
       
       
       
-     </div>
-
-</div>
+  </div>
 
 
  
