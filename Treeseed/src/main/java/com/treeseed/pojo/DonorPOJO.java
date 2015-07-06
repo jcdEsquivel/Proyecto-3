@@ -3,7 +3,9 @@ package com.treeseed.pojo;
 import java.sql.Date;
 
 public class DonorPOJO {
-	
+	public DonorPOJO() {
+		super();
+	}
 	private int id;
 
 	private String name;

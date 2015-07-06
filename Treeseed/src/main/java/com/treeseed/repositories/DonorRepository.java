@@ -1,14 +1,11 @@
 package com.treeseed.repositories;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-
-import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
 
 public interface DonorRepository extends 
@@ -16,14 +13,29 @@ public interface DonorRepository extends
 	
 	public static final int PAGE_SIZE = 10;
 
-	@Query("SELECT p FROM Donor p WHERE ( :nombreNull is null or p.name like :nombre)")
-	   public Page<Donor> find(@Param("nombreNull") String nombreNull, @Param("nombre") String nombre, Pageable pageable);
+	@Query("SELECT p FROM Donor p WHERE ( :nameNull is null or p.name like :name)")
+	   public Page<Donor> find(@Param("nameNull") String nameNull, @Param("name") String name,
+			   Pageable pageable);
 	
 	
+	@Query("SELECT p FROM Donor p inner join p.country d WHERE ( :nameNull is null or p.name like :name) and "
+			+ "( :country = 0 or d.id = :country) and "
+			+ "( :lastNameNull is null or p.lastName like :lastName)")
+	   public Page<Donor> findConTodo(@Param("nameNull") String nameNull, @Param("name") String name,
+			   @Param("country") int country,
+			   @Param("lastNameNull") String lastNameNull,
+			   @Param("lastName") String lastName,
+			   Pageable pageable);
 	
+	
+	@Query("SELECT p FROM Donor p WHERE ( :nameNull is null or p.name like :name) and "
+			+ "( :countryNull is null or p.country like :country) and "
+			+ "( :lastNameNull is null or p.lastName like :lastName)")
 	
 	Page<Donor> findAll(Pageable pageable);
 	Page<Donor> findByNameContaining(String name,
+			Pageable pageable);
+	Page<Donor> findByLastNameContaining(String lastName,
 			Pageable pageable);
 	Page<Donor> findByCountryContaining(String name,
 			Pageable pageable);

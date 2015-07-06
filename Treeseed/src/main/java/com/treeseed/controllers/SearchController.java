@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Catalog;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.utils.PojoUtils;
 
@@ -35,7 +40,8 @@ public class SearchController {
 	
 	@Autowired
 	NonprofitServiceInterface nonProfitService;
-	
+	@Autowired
+	DonorServiceInterface donorService;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -136,6 +142,72 @@ public class SearchController {
 		
 		nps.setNonprofits(viewNonprofits);
 		return nps;		
+		
+	}
+	
+	@RequestMapping(value ="/getDonors", method = RequestMethod.POST)
+	@Transactional
+	public DonorResponse getDonors(@RequestBody DonorRequest dr){	
+		
+		dr.setPageNumber(dr.getPageNumber() - 1);
+		
+		Page<Donor> viewDonors = donorService.getDonor(dr);
+		
+		DonorResponse ds = new DonorResponse();
+		
+		ds.setCode(200);
+		ds.setCodeMessage("donors fetch success");
+		
+		
+		ds.setTotalElements(viewDonors.getTotalElements());
+		ds.setTotalPages(viewDonors.getTotalPages());
+		
+		List<DonorPOJO> viewDonorsPOJO = new ArrayList<DonorPOJO>();
+		
+		for(Donor objeto:viewDonors.getContent())
+		{
+			DonorPOJO ndonor = new DonorPOJO();
+			ndonor.setName(objeto.getName());
+			ndonor.setWebPage(objeto.getWebPage());
+			ndonor.setLastName(objeto.getLastName());
+			ndonor.setProfilePicture(objeto.getLastName());
+			ndonor.setDescription(objeto.getDescription());
+			viewDonorsPOJO.add(ndonor);
+		};
+		
+		
+		ds.setDonor(viewDonorsPOJO);
+		ds.setCode(200);
+		return ds;
+			
+	}
+	
+	
+	
+	
+	public DonorResponse setDonorsResults(Page<Donor> donors){
+		DonorResponse ds = new DonorResponse();
+	
+		ds.setCode(200);
+		ds.setCodeMessage("nonprofits fetch success");
+		ds.setTotalElements(ds.getTotalElements());
+		ds.setTotalPages(ds.getTotalPages());
+		
+		
+		List<DonorPOJO> viewDonors = new ArrayList<DonorPOJO>();
+		
+		donors.getContent().forEach(np->{
+			DonorPOJO ndonor = new DonorPOJO();
+			ndonor.setName(np.getName());
+			ndonor.setWebPage(np.getWebPage());
+			ndonor.setLastName(np.getLastName());
+			ndonor.setProfilePicture(np.getLastName());
+			ndonor.setDescription(np.getDescription());
+			viewDonors.add(ndonor);
+		});
+		
+		ds.setDonor(viewDonors);
+		return ds;		
 		
 	}
 	
