@@ -6,7 +6,7 @@
 	
 	 <div layout="row">
 	 	 <!-- menu -->
-	  		<div flex class="bg-white-opacity md-whiteframe-z0 md-aside md-content hidden-xs" 
+	  		<div  ng-init="app.settings.asideFixed = true;" flex class="bg-white-opacity md-whiteframe-z0 md-aside md-content hidden-xs" 
 	  		ng-controller="leftMenuCtrl"
 	  		data-ng-include="getMenu()">
 	  		</div>
