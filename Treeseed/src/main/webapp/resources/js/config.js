@@ -207,6 +207,13 @@ angular.module('treeSeed').config(
     }
   )
   angular.module('treeSeed').constant('MODULE_CONFIG', [
+        {
+  	      name: 'angularUtils.directives.dirPagination',
+  	      files: [
+  	          'resources/js/libs/angular/dirPagination/dirPagination.js',
+  	          'resources/js/libs/angular/dirPagination/dirPagination.tpl.html'
+  	    ]
+  	  },
       {
           name: 'ngGrid',
           files: [
