@@ -4,52 +4,68 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
 </script>
 <![endif]-->
-<form name="registerNonProfit" class="box">
-	<div class="col-sm-1"></div>
-	<div  class="col-sm-5 md-whiteframe-treeseed">
-		<div class="col-sm-12">
-	       <div class="md-form-group float-label">
-	         <input class="md-input" ng-model="requestObject.nonprofit.name" required>
-	         <label>Nombre de la ONG</label>
-	       </div>
-	     </div>
-		 <div class="col-sm-6">
-	        <div class="md-form-group float-label">
-	          <input class="md-input" ng-model="requestObject.nonprofit.userGeneral.email" required>
-	          <label>Email</label>
-	        </div>
-	      </div>
-	      <div class="col-sm-6 ">
-	        <div class="md-form-group float-label ">
-	          <input class="md-input" ng-model="requestObject.nonprofit.userGeneral.password" required>
-	          <label>Contrase&ntilde;a</label>
-	        </div>
-	      </div>
-	      <div class="col-sm-6">
-	          <label class="labels-dropdowns">Causa</label>
-	          <md-select ng-model="requestObject.nonprofit.cause" placeholder="Elegir causa de ONG">
-	          	<md-option ng-value="opt" >{{ opt }}</md-option>
-	          </md-select>
-	      </div>
-	      <div class="col-sm-6 ">
-	      	<div>
-	          <label class="labels-dropdowns">Pa&iacute;s</label>
-	          <md-select ng-model="requestObject.nonprofit.country" placeholder="Elegir país de ONG">
-	          	<md-option ng-value="opt" >{{ opt }}</md-option>
-	          </md-select>
-	      	</div>
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+      Registrar ONG
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="registerNonProfit" role="form"required>
+	  <div  class="col-sm-5 md-whiteframe-treeseed">
+      	<div class="col-sm-12">
+      		<div class="col-sm-12">
+      		<md-input-container flex>
+	          <label>Name</label>
+	          <input type="text" ng-model="nonprofit.name" class="form-control"required>   
+       		 </md-input-container>
+       		 </div>
+       		 <div class="col-sm-6">
+		        <md-input-container  flex>
+		          <label>Email</label>
+		          <input  type="email" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
+		        </md-input-container>
+			 </div>
+			 <div class="col-sm-6">
+		        <md-input-container flex>
+		         <label>Password</label>
+		        <input type="password" ng-model="nonprofit.userGeneral.password" class="form-control"required>  
+		       </md-input-container>
+			 </div>
+			 <div class="col-sm-6">
+			 	<md-input-container flex>
+			          <label>Causa</label>
+			          	<md-select style="width:100%; " ng-model="nonprofit.cause" >
+				          <md-option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.name }}</md-option>
+				        </md-select>
+				</md-input-container>
+			 </div>
+		      <div class="col-sm-6 ">
+		      <md-input-container flex>
+	        	<label >País</label> 	
+		      	<div>
+		          	<md-select style="width:100%; " ng-model="nonprofit.country" >
+			          <md-option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.name }}</md-option>
+			        </md-select>
+		      	</div>
+		      	</md-input-container>
+			</div>
 		</div>
-		
-	</div>
-	<div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
-		<div over-class="b-danger" class="b-a b-2x b-dashed wrapper-lg lter text-center "  imagedrop on-image-drop="imageDropped()">
-			<p ng-hide="showImage">Imagen de Perfil</p>
-			<img ng-show="showImage" src="{{image}}">
 		</div>
-		
-		<div class="col-sm-offset-10 col-sm-2">
-	      <button type="submit" class="btn btn-sm btn-info" ng-click="create($event)">Registrar</button>
-	    </div>
-	</div>
-	<div class="col-sm-1"></div>
-</form>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+        <label>Picture Image</label>
+        <div class="panel wrapper">
+	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
+	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">
+	    		Drop an image here to upload.
+			</div>
+		</div> 	
+		</div>
+		<div class="form-group">
+          <div class="col-sm-12 col-sm-offset-9">
+            <button type="submit" class="btn btn-default">Cancel</button>
+            <button type="submit" ng-click="create()" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>    
+</div>    

@@ -48,10 +48,10 @@
     opacity:1
 }
 
-divIm.dragOver #file-drop{
+dragnDrop.dragOver #file-drop{
 	display:block;
 } /* During drag */
-divIm #file-drop{
+dragnDrop #file-drop{
 	z-index:1000;
 	position:fixed;
 	top:0;
@@ -59,7 +59,6 @@ divIm #file-drop{
 	width:100%;
 	height:100%;
 	display:none;
-	color: blue;
 } /* No drag */
 
 .md-whiteframe-treeseed {
@@ -74,13 +73,23 @@ divIm #file-drop{
     padding-bottom: 20px;
     padding-right: 20px
 }
+ .md-select-label {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  font-size: 1.6rem;
+  line-height: 0.8em;
+  position: relative;
+  box-sizing: border-box;
+  min-width: inherit; }
 
 
-
- .wrapper-lg,
- .wrapper-md {
- 
-    padding:80px
 }
-
+  
   

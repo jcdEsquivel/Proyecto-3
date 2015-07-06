@@ -38,12 +38,14 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.services.UsersServiceInterface;
 import com.treeseed.utils.PojoUtils;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 
@@ -60,6 +62,8 @@ public class UsersController {
 	UserGeneralServiceInterface userGeneralService;
 	@Autowired
 	ServletContext servletContext;
+	@Autowired
+	CatalogServiceInterface catalogService;
 	
 	//Codigo comentado para usar como base
 	/*
@@ -112,6 +116,9 @@ public class UsersController {
 			@RequestParam("cause") String cause,
 			@RequestParam("file") MultipartFile file){	
 		
+		CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
+		CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
+		
 		NonprofitResponse us = new NonprofitResponse();
 		String resultFileName = Utils.writeToFile(file,servletContext);
 		
@@ -120,33 +127,33 @@ public class UsersController {
 		NonprofitWrapper user = new NonprofitWrapper();
 		Date fechaActual = new Date();
 		
-		
-		
 		if(!resultFileName.equals("")){
-			user.setName(name);
-			user.setDateTime(fechaActual);
-			user.setActive(true);
-			//user.setCause(cause);
-			//user.setConutry(country);
 			user.setProfilePicture(resultFileName);
-			
-			Boolean state = nonProfitService.saveNonprofit(user);
-
-			if(state){
-				UserGeneralRequest ug = new UserGeneralRequest();
-				UserGeneralPOJO userG=new UserGeneralPOJO();
-				userG.setEmail(email);
-				userG.setPassword(password);
-				ug.setUserGeneral(userG);
-				userGeneralCreate(ug, user);
-				
-				us.setCode(200);
-				us.setCodeMessage("user created succesfully");
-			}
 		}else{
-			us.setCode(409);
-			us.setErrorMessage("No imagen de perfil");
+			user.setProfilePicture("");
 		}
+		
+		user.setName(name);
+		user.setDateTime(fechaActual);
+		user.setActive(true);
+		user.setCause(causeW.getWrapperObject());
+		user.setConutry(countryW.getWrapperObject());
+		
+		Boolean state = nonProfitService.saveNonprofit(user);
+
+		if(state){
+			UserGeneralRequest ug = new UserGeneralRequest();
+			UserGeneralPOJO userG=new UserGeneralPOJO();
+			userG.setEmail(email);
+			userG.setPassword(password);
+			ug.setUserGeneral(userG);
+			userGeneralCreate(ug, user);
+			
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+		}
+		us.setCode(409);
+		us.setErrorMessage("No imagen de perfil");
 		
 		return us;
 		
