@@ -3,6 +3,8 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
 treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state){
+	
+	
 	$scope.nonprofit={};
 	$scope.uploadImage=false;
 	$scope.nonprofit.country ="";
@@ -12,27 +14,25 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.nonprofit.userGeneral.email ="";
 	$scope.nonprofit.userGeneral.password = "";
 	$scope.requestObject1={};
-	$scope.requestObject1.lenguage=navigator.language || navigator.userLanguage;
 	$scope.requestObject2={};
-	$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
+	
+	
 	
 	$scope.init = function(){
+		$scope.requestObject1.lenguage=$scope.selectLang;
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
 		    .then(function(response){
 		     $scope.selectSortOptionsCountry =  response.data.catalogs;
 		     $scope.nonprofit.country =  response.data.catalogs[0];
 		});
+		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
 		$scope.requestObject2.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
 		    .then(function(response){
 		     $scope.selectSortOptionsCause =  response.data.catalogs;
 		     $scope.nonprofit.cause =  response.data.catalogs[0];
 		});
-		 
-		 //$scope.selectSortOptionsCountry.forEach(function(country){
-		//	 
-		 //})
 	}
 	
 	$scope.init();
