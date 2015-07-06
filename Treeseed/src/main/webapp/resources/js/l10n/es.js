@@ -1,81 +1,55 @@
 {
-
-"header" : {
-  "navbar" : {
-    "UPLOAD" : "Upload",
-    "new" : {
-      "NEW" : "New",
-      "PROJECT" : "Projects",
-      "TASK" : "Task",
-      "USER" : "User",
-      "EMAIL" : "Email"
+ "MENU-HEADER": {
+    	"NGO": "ONG",
+    	"EXPLORE": "Explorar",
+    	"ADVANCE_SEARCH": "Búsqueda Avanzada",
+    	"SEARCH_NGO": "ONG",
+    	"CAMPAIGN": "Campaña",
+    	"SEARCH_CAMPAING": "Campañas",
+    	"DONOR": "Donante",
+    	"SEARCH_DONOR": "Donantes",
+    	"SEARCH": "Buscar",
+    	"LENGUAGE": "Lenguaje",
+    	"CONFIGURATION": "Configuración",
+    	"PROFILE": "Perfil",
+    	"HELP": "Ayuda",
+    	"SIGN_OUT": "Cerrar Sesión"	    	
     },
-    "NOTIFICATIONS" : "Notifications",
-    "MENU": {
-    	"ONG": "ONG",
-    	"SEARCH_ONG": "Search for a Nonprofit",
-    	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "Search for a campaign",
-    	"DONOR": "Donor",
-    	"SEARCH_DONOR": "Search for a donor"
-    }
-  }
-},
-"aside" : {
-  "nav" : {
-    "HEADER" : "Navigation",
-    "DASHBOARD" : "Dashboard",
-    "CALENDAR" : "Calendar",
-    "EMAIL" : "Email",
-    "WIDGETS" : "Widgets",
-    "components" : {
-      "COMPONENTS" : "Components",
-      "ui_kits" : {
-        "UI_KITS" : "UI Kits",
-        "BUTTONS" : "Buttons",
-        "ICONS" : "Icons",
-        "GRID" : "Grid",
-        "BOOTSTRAP" : "Bootstrap",
-        "SORTABLE" : "Sortable",
-        "PORTLET" : "Portlet",
-        "TIMELINE" : "Timeline",
-        "VECTOR_MAP" : "Vector Map"
-      },
-      "table" : {
-        "TABLE" : "Table",
-        "TABLE_STATIC" : "Table static",
-        "DATATABLE" : "Datatable",
-        "FOOTABLE" : "Footable"
-      },
-      "form" : {
-        "FORM" : "Form",
-        "FORM_ELEMENTS" : "Form elements",
-        "FORM_VALIDATION" : "Form validation",
-        "FORM_WIZARD" : "Form wizard"
-      },
-      "CHART" : "Chart",
-      "pages" : {
-        "PAGES" : "Pages",
-        "PROFILE" : "Profile",
-        "POST" : "Post",
-        "SEARCH" : "Search",
-        "INVOICE" : "Invoice",
-        "LOCK_SCREEN" : "Lock screen",
-        "SIGNIN" : "Signin",
-        "SIGNUP" : "Signup",
-        "FORGOT_PASSWORD" : "Forgot password",
-        "404" : "404"
-      }
+    "LEFT-MENU":{
+    	"NAVIGATION": "Navegación",
+    	"PROFILE": " Perfil",
+    	"CREATE-CAMPAIGN": "Crear Campaña",
+    	"SEE-CAMPAIGNS": "Ver Campañas",
+    	"DONATIONS-REPORT": "Reporte de Donaciones",
+    	"TRANSPARENCY-REPORT": "Reportes de Transparencia",
+    	"CONFIGURATION": " Configuración",
+    	"DONATION-RECEIPTS": "Recibos",
+    	"PORTFOLIO": "Portafolio"
     },
-    "your_stuff" : {
-      "YOUR_STUFF": "Your Stuff",
-      "PROFILE" : "Profile",
-      "DOCUMENTS" : "Documents"
+    "LANDING":{
+    	"HEADER-TITLE": "Para un mundo mejor!",
+    	"HEADER-TEXT" : " Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    	"HEADER-BUTTON": "DEJALO CRECER",
+    	"WELCOME-TITLE": "Un bonito mensaje de bienvenida",
+    	"WELCOME-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"STORIES-TITLE": "Nuestras Historias",
+    	"STORIES-TEXT1": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"STORIES-TEXT2": "Español Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"EVENTS-TITLE": "Eventos",
+    	"EVENTS-TEXT1": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+    	"EVENTS-TEXT2": "Español Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"OUR-TEAM-TITLE": "Nuestro Equipo",
+    	"OUR-TEAM-TEXT1": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"OUR-TEAM-TEXT2": " EspañolLorem ipsum dolor sit amet, consectetur adipiscing eli. ",
+    	"HOW-WOKS-TITLE": "¿Como funciona?",
+    	"HOW-WORKS-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"EXPLORE": "Explorar",
+    	"SUPPORT":"Soporte",
+    	"SHARE": "Compartir",
+    	"TESTIMONIAL-HEADER": "Testimonio",
+    	"TESTIMONIAL-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"THINK-YOU-GOT": "¿CREES TENER LO QUE SE NECESITA?",
+    	"CREATE-ACCOUNT": "CREAR CUENTA"
     }
-  },
-  "MILESTONE" : "Milestone",
-  "RELEASE" : "Release",
-  "TITLE": "Por un mundo mejor"
-}
 
 }

@@ -33,6 +33,7 @@
   background-size: cover;
 	color:white;
 	text-align: center;
+	background-size: 100% 100%;
 }
 
 
@@ -96,7 +97,7 @@ padding-right: 15%;
 padding-left: 70px;
 padding-right: 70px;
 
-
+background-size: 100% 100%;
 	
 }
 
@@ -111,6 +112,7 @@ padding-right: 70px;
 	height: 300px;
 	padding-left: 25px;
 padding-right: 25px;
+background-size: 100% 100%;
 }
 
 .landing-events-image3{
@@ -124,6 +126,7 @@ padding-right: 25px;
 	height: 300px;
 	padding-left: 25px;
 padding-right: 25px;
+background-size: 100% 100%;
 }
 
 .landing-events-header{
