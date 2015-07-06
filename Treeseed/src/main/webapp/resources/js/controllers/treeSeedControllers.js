@@ -220,56 +220,34 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 ;
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
-	 
+	
+	$scope.currentPage = 1;
+	$scope.pageSize = 2;
+	$scope.meals = [];
+	
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
 	$scope.requestObject.sortBy = [];
 	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.cause = $scope.cause;
 	 
-	
-	$scope.data = {};
-
-	$scope.datasource = {
-		 get : function(index, count, success) {
-			 console.log('index: '+index+"   Page:"+$scope.requestObject.pageNumber);
-			 tempCalculation = Math.ceil( index / $scope.requestObject.pageSize);
-			
-			if(tempCalculation <1){
-				tempCalculation = $scope.requestObject.pageNumber;
-			}
-	
-	       console.log('Page to get: '+tempCalculation);
-	       
-	       return $timeout(function() {
-	    	   
-	    	   $scope.requestObject.pageNumber = tempCalculation;
-	    	   
-	    	   $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-				.success(function(mydata, status){
-					
-					
-					if(mydata.nonprofits.length > 0){
-						$scope.data = mydata.nonprofits;
-					}else{
-						console.log('100');
-						return [];
-					}
-					
-				}).error(function(e, mydata, status){
-					alert(e);
-					alert(status);
-				});
-	
-	           return success($scope.data);
-	       }, 100);
-		}	         
-	};
-	 
+	$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
+	.success(function(mydata, status){
+		console.log(mydata);
+		$scope.nonprofits = mydata.nonprofits; 	
+	}).error(function(mydata, status){
+		alert(mydata);
+		alert(status);
+	});
+ 
+	 $scope.pageChangeHandler = function(num) {
+		 console.log('going to page ' + num);
+	 };
 
 	
 	 
@@ -286,13 +264,8 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		 
 		 $http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 			.success(function(mydata, status){
-				
 				console.log(mydata);
-				
 				$scope.dataObject = mydata.nonprofits
-			    	
-				console.log($scope.dataObject);
-				
 			}).error(function(mydata, status){
 				alert(mydata);
 				alert(status);

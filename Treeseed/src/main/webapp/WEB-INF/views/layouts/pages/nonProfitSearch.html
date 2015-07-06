@@ -2,52 +2,44 @@
   <h1 class="m-n font-thin h3">Busqueda de ONG</h1>
 </div>
 <div class="container">
- <div class="row">
  
-  <form class="navbar-form navbar-left" role="search">
-       
-   <div class="form-group">
-    <div class="btn-group searchBtnGroup" data-toggle="buttons-radio">
-     <button type="button" class="btn btn-default active" ng-click="setSearchColumn('all',$event)">All</button>
-     <button type="button" class="btn btn-default" ng-click="setSearchColumn('firstName',$event)">First Name</button>
-     <button type="button" class="btn btn-default" ng-click="setSearchColumn('lastName',$event)">Last Name</button>
-    </div>
-   </div>
-     
-     
-       
-   <div class="form-group">
-     <input type="text" class="form-control" placeholder="Search" ng-model="requestObject.searchTerm">
-   </div>
-        
-        <button type="submit" class="btn btn-default" ng-click="search()">
-         <i class="glyphicon glyphicon-search"></i>
-        </button>
-        
-     </form>
-     
-  </div>
-  
   	<div class="panel-body">
       <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" role="form">
-	  <div  class="col-sm-5 md-whiteframe-treeseed">
-      	<md-input-container flex>
-          <label>Name</label>
-          <input type="text" name="name" class="form-control" ng-model="name">
-        </md-input-container>  
-        <md-input-container flex> 
-        <label>Country</label>
-        </md-input-container>
-      	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
-      	<md-input-container flex> 
-        <label>Cause</label>
-        </md-input-container>
-      	<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>
-      	<div>
-      		<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
-      	</div>>
-      </div>
+	  	<div  class="col-sm-5 md-whiteframe-treeseed">
+	      	<md-input-container flex>
+	          	<label>Name</label>
+	          	<input type="text" name="name" class="form-control" ng-model="name">
+	        </md-input-container>  
+	        <md-input-container flex> 
+	        	<label>Country</label>
+	        </md-input-container>
+	      		<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
+	      	<md-input-container flex> 
+	        	<label>Cause</label>
+	        </md-input-container>
+	      		<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>
+	      	<div>
+	      		<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button>
+      		</div>
+      	</div>    
       </form>
+	</div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul>
+          <li dir-paginate="nonprofit in nonprofits | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ nonprofit.name }}</li>           
+        </ul>
+       </div>
+	</div>
+ 	<div class="other-controller">
+      <div class="text-center">
+      <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+      </dir-pagination-controls>
+      </div>
+	</div>  
+      
+      
+      
      </div>
 
 </div>
