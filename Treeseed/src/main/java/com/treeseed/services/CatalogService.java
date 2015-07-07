@@ -69,8 +69,8 @@ public class CatalogService implements CatalogServiceInterface{
 	public List<CatalogWrapper> getAllByType(String type){	
 		
 		List<CatalogWrapper> list = jdbcTemplate.query(
-                "SELECT id, name FROM catalog WHERE type = ?", new Object[] { type },
-                (rs, rowNum) -> new CatalogWrapper(rs.getInt("id"), rs.getString("name"))
+                "SELECT id, english, spanish  FROM catalog WHERE type = ?", new Object[] { type },
+                (rs, rowNum) -> new CatalogWrapper(rs.getInt("id"), rs.getString("english"),rs.getString("spanish"))
         );
 
 		return list;

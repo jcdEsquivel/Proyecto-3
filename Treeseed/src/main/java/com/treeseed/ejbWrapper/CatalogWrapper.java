@@ -30,10 +30,11 @@ public class CatalogWrapper{
 	}
 
 
-	public CatalogWrapper(int id, String name) {
+	public CatalogWrapper(int id, String english, String spanish) {
 		setWrapperObject(new Catalog());
 		this.setId(id);
-		this.setName(name);
+		this.setEnglish(english);
+		this.setSpanish(spanish);
 	}
 	
 	

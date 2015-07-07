@@ -220,7 +220,32 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 ;
  
  treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
+
+ 	$scope.nonprofit={};
+	$scope.nonprofit.country ="";
+	$scope.nonprofit.cause = "";
+	$scope.requestObject1={};
+	$scope.requestObject2={};
 	
+	$scope.init = function(){
+		$scope.requestObject1.lenguage=$scope.selectLang;
+		console.log($scope.selectLang);
+		$scope.requestObject1.type = "country";
+		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
+		    .then(function(response){
+		     $scope.selectSortOptionsCountry =  response.data.catalogs;
+		});
+		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
+		$scope.requestObject2.type = "cause";
+		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
+		    .then(function(response){
+		     $scope.selectSortOptionsCause =  response.data.catalogs;
+		    
+		});
+	}
+		
+	$scope.init();
+	 
 	$scope.itemPerPage =[10,25,50,100]; 
 	$scope.currentPage = 1;
 	$scope.totalItems= 5;
@@ -241,11 +266,13 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		console.log($scope.name) 
 		console.log($scope.country) 
 		console.log($scope.cause) 
+		console.log($scope.nonprofit.country.id)
+		console.log($scope.nonprofit.cause.id)
 		
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.name;
-		$scope.requestObject.country = $scope.country;
-		$scope.requestObject.cause = $scope.cause;
+		$scope.requestObject.country = $scope.nonprofit.country.id;
+		$scope.requestObject.cause = $scope.nonprofit.cause.id;
 		 
 		$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 		.success(function(mydata, status){
@@ -263,57 +290,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	 	};
  
 	 };
-	 
-	 
-	 
-	 $scope.requestObject1={};
-	 $scope.requestObject2={};
-
-	$scope.init = function(){
-		$scope.requestObject1.lenguage=$scope.selectLang;
-		$scope.requestObject1.type = "country";
-		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
-		    .then(function(response){
-		     $scope.selectSortOptionsCountry =  response.data.catalogs;
-		     $scope.nonprofit.country =  response.data.catalogs[0];
-		});
-		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
-		$scope.requestObject2.type = "cause";
-		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
-		    .then(function(response){
-		     $scope.selectSortOptionsCause =  response.data.catalogs;
-		     $scope.nonprofit.cause =  response.data.catalogs[0];
-		});
-	}
-		
-	$scope.init();
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 /*
-	 $scope.countryType = "Country";
-	 $scope.causeType = "Cause";
-	 
-	 $scope.getCatalogCountry = function(){
-        return $http.post('rest/protected/catalog/getAllCatalog', $scope.countryType)
-                .then(function(response){
-                 $scope.selectSortOptionsCountries = response.data.catalogs;
-                }); 
-	 };
-	 $scope.getCatalogCountry();
-	 
-	 $scope.getCatalogCause = function(){
-	        return $http.post('rest/protected/catalog/getAllCatalog', $scope.causeType)
-	                .then(function(response){
-	                 $scope.selectSortOptionsCauses = response.data.catalogs; 
-	                }); 
-	 };	 
-	 $scope.getCatalogCause();
-	 */
+	
 	 	 
 	})
 	
