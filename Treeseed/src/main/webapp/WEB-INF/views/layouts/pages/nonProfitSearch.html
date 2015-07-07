@@ -3,22 +3,41 @@
 </div>
 <div class="container">
  	<div class="panel-body">
-	 	<div class="form-group">
+	 	<div class="form-group md-whiteframe-treeseed">
 		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
 		    <div class="col-sm-12">
 		      <div class="row">
 		        <div class="col-md-3">
-	        		<input type="text" name="name" class="form-control" ng-model="name" placeholder="{{'GENERALSEARCH.NAME-FILTER' | translate}}">
+		        	<md-input-container flex>
+		        		<label translate="GENERALSEARCH.NAME-FILTER">Name</label>
+	        			<input type="text" class="form-control" ng-model="name">
+		        	</md-input-container>
 		        </div>
 		        <div class="col-md-3">
-		          	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
+		        	 <label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label> 
+				     <md-input-container flex>	
+			      		<div>
+			          		<md-select style="width:100%; " ng-model="nonprofit.country" >
+				          		<md-option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.message }}</md-option>
+					        </md-select>
+				      	</div>
+			      	</md-input-container>
+		          	<!--  <select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
 		          		<option value="" selected disabled translate="GENERALSEARCH.COUNTRY-FILTER"></option>
-		          	</select>
+		          	</select>  -->
 		        </div>
 		        <div class="col-md-3">
-		          	<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses">
-		          		<option value="" selected disabled translate="GENERALSEARCH.CAUSE-FILTER"></option>
-		          	</select>
+	        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
+				 	<md-input-container flex>
+			          	<md-select style="width:100%; " ng-model="nonprofit.cause" >
+			          		<md-option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
+			        	</md-select>
+					</md-input-container>
+			          	
+			          	<!--<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses">
+			          		<option value="" selected disabled translate="GENERALSEARCH.CAUSE-FILTER"></option>
+			          	</select>-->
+			        
 		        </div>
 		         <div class="col-md-3">
 		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
@@ -41,7 +60,7 @@
 	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
 	        	<li class="list-group-item" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 	          		<a href="#" class="pull-left thumb-md m-r">
-	            		<img src= {{nonprofit.mainpicture}} alt="..." class="img-circle">
+	            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle">
 		          	</a>
 		          	<div class="clear">
 		            	<a href="#" class="h4 text-primary m-b-sm block"> {{nonprofit.name}}</a>
@@ -58,39 +77,8 @@
 		      	</div>
 			</div>  
 	    </tab>
-    
-	</tabset>
-      
-      
-      
+	</tabset>      
   </div>
 
-
- 
- <!-- <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Scroll</h1>
-</div>
-<div class="wrapper-md">
-  <div ui-scroll-viewport class="row" style="height:300px;overflow-y: auto;" >
-      <div ui-scroll="item in datasource" buffer-size="10" class="col-sm-12">
-      	<div class="panel wrapper-md">
-      		{{item.name}}
-      		
-      	</div>
-      </div>
-  </div>
-</div>  
-
-<md-input-container> 
-   	<label>Country</label>
-    <select ng-model="requestObject.nonprofit.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries"></select>
-    <label>Country</label>
-    <select ng-model="requestObject.nonprofit.cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses"></select>  	
-		<label>Cause</label>
-	<input type="text" name="name" class="form-control" ng-model="name">Nombre de la ONG</input>
-	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit()">Buscar</button></div>
-</md-input-container>
-
--->
 
  
