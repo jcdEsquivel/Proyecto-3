@@ -54,6 +54,10 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
     },
+    "DONORSEARCH":{
+    	"HEADER-TITLE": "Búsqueda Avanzada de donantes",
+    	"LAST-NAME": "Apellido"
+    },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
     	"FILTERS": "Filtros",

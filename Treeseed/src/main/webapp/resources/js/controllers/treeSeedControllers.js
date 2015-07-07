@@ -1,255 +1,262 @@
+var treeSeedAppControllers = angular.module('treeSeed.controller',
+		[ 'treeSeed.services' ]);
 
-var treeSeedAppControllers = angular.module('treeSeed.controller',['treeSeed.services']);
+/**
+ * ************************************************Prototype
+ * Controllers******************************************
+ */
 
-
-
-/**************************************************Prototype Controllers*******************************************/
-
-treeSeedAppControllers.controller('menuController', function($state, $location,$sharedData, $scope) {
-    $scope.getMenu=function(){
-      if($sharedData.getUserType() == "ONG"){
-          return  "layouts/components/aside.html";
-      }else{
-          return "layouts/components/asideDonor.html" ;
-      }
-    }
-    
-
-
-});
-
-treeSeedAppControllers.controller('showToUserController', function($state, $location,$sharedData, $scope) {
-   
-   $scope.view=function(){
-      if($sharedData.getUserType()=="ONG"){
-       return false;
-    }else{
-        return true;
-    }
-   } 
-    
-
+treeSeedAppControllers.controller('menuController', function($state, $location,
+		$sharedData, $scope) {
+	$scope.getMenu = function() {
+		if ($sharedData.getUserType() == "ONG") {
+			return "layouts/components/aside.html";
+		} else {
+			return "layouts/components/asideDonor.html";
+		}
+	}
 
 });
 
-treeSeedAppControllers.controller('searchTransparecyReportController', function($state, $location,$sharedData, $scope) {
-      
-    
-      $scope.resul = false;
-      $scope.ong=$sharedData.getOngName();
+treeSeedAppControllers.controller('showToUserController', function($state,
+		$location, $sharedData, $scope) {
 
-      $scope.search = function(){
-        $scope.resul = true;  
-      };
+	$scope.view = function() {
+		if ($sharedData.getUserType() == "ONG") {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
- 
-  })
-;
+});
 
+treeSeedAppControllers.controller('searchTransparecyReportController',
+		function($state, $location, $sharedData, $scope) {
 
-treeSeedAppControllers.controller('userController', function($state, $location,$sharedData, $scope) {
-        $scope.nom=$sharedData.getLoggedUser();
-        $scope.img= $sharedData.getImg();
-})
-;
+			$scope.resul = false;
+			$scope.ong = $sharedData.getOngName();
 
-treeSeedAppControllers.controller('indexController', function($state, $location,$sharedData, $scope) {
-    $scope.report=function(){
-      $state.go('treeSeed.searchTransReport');
-    }
-  
-  })
-;
+			$scope.search = function() {
+				$scope.resul = true;
+			};
 
-treeSeedAppControllers.controller('logoutController', function($sharedData, $location, $scope,$state) {
-    $scope.logout=function(){
-        $sharedData.setLoggedUser('');
-        $sharedData.setLoged(false);
-        $state.go('signin');
-    }
-  })
-;
+		});
 
-treeSeedAppControllers.controller('navigateController', function($state, $location,$sharedData, $scope) {
-    $scope.navigateDonor=function(){
-      $state.go('treeSeed.donor');
-    }
+treeSeedAppControllers.controller('userController', function($state, $location,
+		$sharedData, $scope) {
+	$scope.nom = $sharedData.getLoggedUser();
+	$scope.img = $sharedData.getImg();
+});
 
-    $scope.navigateONG=function(){
-      $state.go('treeSeed.nonProfit');
-    }
+treeSeedAppControllers.controller('indexController', function($state,
+		$location, $sharedData, $scope) {
+	$scope.report = function() {
+		$state.go('treeSeed.searchTransReport');
+	}
 
-    $scope.navigateCampaing=function(){
-      $state.go('treeSeed.campaingViewer');
-    }
-  })
-;
+});
 
-treeSeedAppControllers.controller('SigninFormController', function($scope, $http, $state, $userData, $sharedData, $location) {
-      $scope.authError = null;
-      $scope.users = $userData.getUsers();
-      $scope.login = function() {
-        var totalUsers = $scope.users.length;
-          var usernameTyped = $scope.user.name;
-          var useremail = $scope.user.email;
-          var passwordTyped = $scope.user.password;
-          var name = "";
-          var img = "";
-          var userType = "";
-          var loggedin= false;
-          
-         for(i=0; i < totalUsers; i++ ) {
-              if( $scope.users[i].email == usernameTyped && $scope.users[i].Password == passwordTyped) {
-                  loggedin=true;
-                  userType = $scope.users[i].Type;
-                  img = $scope.users[i].Imagen;
-                  name = $scope.users[i].Name;
-                  }
-          }
+treeSeedAppControllers.controller('logoutController', function($sharedData,
+		$location, $scope, $state) {
+	$scope.logout = function() {
+		$sharedData.setLoggedUser('');
+		$sharedData.setLoged(false);
+		$state.go('signin');
+	}
+});
 
-          if( loggedin === true ) {
-              $sharedData.setLoggedUser(name);
-              $sharedData.setLoged(true);
-               $sharedData.setUserType(userType);
-               $sharedData.setImg(img);
+treeSeedAppControllers.controller('navigateController', function($state,
+		$location, $sharedData, $scope) {
+	$scope.navigateDonor = function() {
+		$state.go('treeSeed.donor');
+	}
 
-              if(userType == "ONG"){
-                   $state.go('treeSeed.nonProfit');
-              }else{
-                  $state.go('treeSeed.index');
-              }
-              
+	$scope.navigateONG = function() {
+		$state.go('treeSeed.nonProfit');
+	}
 
-          } else {
-              $scope.authError="Email o contraseña incorrecta";
-              $sharedData.setLoged(false);
-          }
-      };
-   
-})
-;
+	$scope.navigateCampaing = function() {
+		$state.go('treeSeed.campaingViewer');
+	}
+});
 
-treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
-     
-    $scope.selected = undefined;
-    $scope.states = ['Territorio de Zaguates'];
-    // Any function returning a promise object can be used to load values asynchronously
-    $scope.getLocation = function(val) {
-      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: val,
-          sensor: false
-        }
-      }).then(function(res){
-        var addresses = [];
-        angular.forEach(res.data.results, function(item){
-          addresses.push(item.formatted_address);
-        });
-        return addresses;
-      });
-    };
-    
-  }])
-  ; 
+treeSeedAppControllers.controller('SigninFormController', function($scope,
+		$http, $state, $userData, $sharedData, $location) {
+	$scope.authError = null;
+	$scope.users = $userData.getUsers();
+	$scope.login = function() {
+		var totalUsers = $scope.users.length;
+		var usernameTyped = $scope.user.name;
+		var useremail = $scope.user.email;
+		var passwordTyped = $scope.user.password;
+		var name = "";
+		var img = "";
+		var userType = "";
+		var loggedin = false;
 
+		for (i = 0; i < totalUsers; i++) {
+			if ($scope.users[i].email == usernameTyped
+					&& $scope.users[i].Password == passwordTyped) {
+				loggedin = true;
+				userType = $scope.users[i].Type;
+				img = $scope.users[i].Imagen;
+				name = $scope.users[i].Name;
+			}
+		}
 
+		if (loggedin === true) {
+			$sharedData.setLoggedUser(name);
+			$sharedData.setLoged(true);
+			$sharedData.setUserType(userType);
+			$sharedData.setImg(img);
 
+			if (userType == "ONG") {
+				$state.go('treeSeed.nonProfit');
+			} else {
+				$state.go('treeSeed.index');
+			}
 
+		} else {
+			$scope.authError = "Email o contraseña incorrecta";
+			$sharedData.setLoged(false);
+		}
+	};
 
+});
 
-  treeSeedAppControllers.controller('NonProfitController', function($scope, $http, $state,  $sharedData, $location) {
-   
-})
-;
+treeSeedAppControllers.controller('TypeaheadDemoCtrl', [
+		'$scope',
+		'$http',
+		'$sharedData',
+		'$state',
+		function($scope, $http, $sharedData, $state) {
 
+			$scope.selected = undefined;
+			$scope.states = [ 'Territorio de Zaguates' ];
+			// Any function returning a promise object can be used to load
+			// values asynchronously
+			$scope.getLocation = function(val) {
+				return $http.get(
+						'http://maps.googleapis.com/maps/api/geocode/json', {
+							params : {
+								address : val,
+								sensor : false
+							}
+						}).then(function(res) {
+					var addresses = [];
+					angular.forEach(res.data.results, function(item) {
+						addresses.push(item.formatted_address);
+					});
+					return addresses;
+				});
+			};
 
-treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$sharedData', function($state, $scope, $http,  $sharedData) {
-    $scope.myInterval = 5000;
-    var slides = $scope.slides = [];
-    $scope.addSlide = function() {
-      var newWidth = 600 + slides.length + 1;
-      slides.push({
-        image: 'http://placekitten.com/' + newWidth + '/300',
-        text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-          ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-      });
-    };
-    for (var i=0; i<4; i++) {
-      $scope.addSlide();
-    }
-   
-  }])
-  ; 
+		} ]);
 
-  
-  treeSeedAppControllers.controller('DonationCtrl', function($state, $location, $sharedData, $scope, $modal, $log) {
-      $scope.animationsEnabled = true;
+treeSeedAppControllers.controller('NonProfitController', function($scope,
+		$http, $state, $sharedData, $location) {
 
-      $scope.open = function () {
+});
 
-        var modalInstance = $modal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'myModalContent.html',
-          controller: 'ModalDonationCtrl',
-        });
-      };
+treeSeedAppControllers
+		.controller(
+				'CarouselDemoCtrl',
+				[
+						'$scope',
+						'$http',
+						'$sharedData',
+						function($state, $scope, $http, $sharedData) {
+							$scope.myInterval = 5000;
+							var slides = $scope.slides = [];
+							$scope.addSlide = function() {
+								var newWidth = 600 + slides.length + 1;
+								slides
+										.push({
+											image : 'http://placekitten.com/'
+													+ newWidth + '/300',
+											text : [ 'More', 'Extra',
+													'Lots of', 'Surplus' ][slides.length % 4]
+													+ ' '
+													+ [ 'Cats', 'Kittys',
+															'Felines', 'Cutes' ][slides.length % 4]
+										});
+							};
+							for (var i = 0; i < 4; i++) {
+								$scope.addSlide();
+							}
 
-      $scope.toggleAnimation = function () {
-        $scope.animationsEnabled = !$scope.animationsEnabled;
-      };
-  })
-;
+						} ]);
 
+treeSeedAppControllers.controller('DonationCtrl', function($state, $location,
+		$sharedData, $scope, $modal, $log) {
+	$scope.animationsEnabled = true;
 
+	$scope.open = function() {
 
- treeSeedAppControllers.controller('ModalDonationCtrl', function($state, $location,$sharedData, $scope, $modalInstance, $timeout) {
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'myModalContent.html',
+			controller : 'ModalDonationCtrl',
+		});
+	};
 
-  $scope.ok = function () {
+	$scope.toggleAnimation = function() {
+		$scope.animationsEnabled = !$scope.animationsEnabled;
+	};
+});
 
-    $scope.correcto = "Donacion Realizada Correctamente!";
-    $scope.status=true;
-    $timeout(function () { $modalInstance.close();}, 3000);
-    
-  };
+treeSeedAppControllers.controller('ModalDonationCtrl', function($state,
+		$location, $sharedData, $scope, $modalInstance, $timeout) {
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+	$scope.ok = function() {
 
-  })
-;
- 
- treeSeedAppControllers.controller('nonProfitSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
+		$scope.correcto = "Donacion Realizada Correctamente!";
+		$scope.status = true;
+		$timeout(function() {
+			$modalInstance.close();
+		}, 3000);
 
- 	$scope.nonprofit={};
-	$scope.nonprofit.country ="";
+	};
+
+	$scope.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+
+});
+
+treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
+		$http, $location, $modal, $log, $timeout) {
+
+	$scope.nonprofit = {};
+	$scope.nonprofit.country = "";
 	$scope.nonprofit.cause = "";
-	$scope.requestObject1={};
-	$scope.requestObject2={};
-	
-	$scope.init = function(){
-		$scope.requestObject1.lenguage=$scope.selectLang;
+	$scope.requestObject1 = {};
+	$scope.requestObject2 = {};
+
+	$scope.init = function() {
+		$scope.requestObject1.lenguage = $scope.selectLang;
 		console.log($scope.selectLang);
 		$scope.requestObject1.type = "country";
-		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
-		    .then(function(response){
-		     $scope.selectSortOptionsCountry =  response.data.catalogs;
+		$http.post('rest/protected/catalog/getAllCatalog',
+				$scope.requestObject1).then(function(response) {
+			$scope.selectSortOptionsCountry = response.data.catalogs;
 		});
-		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
+		$scope.requestObject2.lenguage = $scope.requestObject1.lenguage;
 		$scope.requestObject2.type = "cause";
-		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
-		    .then(function(response){
-		     $scope.selectSortOptionsCause =  response.data.catalogs;
-		    
+		$http.post('rest/protected/catalog/getAllCatalog',
+				$scope.requestObject2).then(function(response) {
+			$scope.selectSortOptionsCause = response.data.catalogs;
+
 		});
 	}
-		
+
 	$scope.init();
-	 
-	$scope.itemPerPage =[10,25,50,100]; 
+
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
-	$scope.totalItems= 5;
-	
+	$scope.totalItems = 5;
+
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
@@ -260,48 +267,65 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.cause = $scope.cause;
-	  
-	$scope.searchNonProfit = function (page) {
-	 	
-		console.log($scope.name) 
-		console.log($scope.country) 
-		console.log($scope.cause) 
+
+	$scope.searchNonProfit = function(page) {
+
+		console.log($scope.name)
+		console.log($scope.country)
+		console.log($scope.cause)
 		console.log($scope.nonprofit.country.id)
 		console.log($scope.nonprofit.cause.id)
-		
+
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.name;
 		$scope.requestObject.country = $scope.nonprofit.country.id;
 		$scope.requestObject.cause = $scope.nonprofit.cause.id;
-		 
-		$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
-		.success(function(mydata, status){
+
+		$http.post('rest/protected/searches/getNonprofits',
+				$scope.requestObject).success(function(mydata, status) {
 			console.log(mydata);
 			console.log(mydata.totalElements);
-			$scope.nonprofits = mydata.nonprofits; 
-			$scope.totalItems= mydata.totalElements;
-		}).error(function(mydata, status){
+			$scope.nonprofits = mydata.nonprofits;
+			$scope.totalItems = mydata.totalElements;
+		}).error(function(mydata, status) {
 			alert(mydata);
 			alert(status);
 		});
-	 
+
 		$scope.pageChangeHandler = function(num) {
 			$scope.searchNonProfit(num);
-	 	};
- 
-	 };
-	
-	 	 
-	})
-	
+		};
+
+	};
+
+})
+
 ;
- 
- treeSeedAppControllers.controller('donorSearchController', function($scope, $http,$location,$modal,$log, $timeout) {
-		
-	$scope.itemPerPage =[10,25,50,100]; 
+
+treeSeedAppControllers.controller('donorSearchController', function($scope,
+		$http, $location, $modal, $log, $timeout) {
+
+	$scope.donor = {};
+	$scope.donor.country = "";
+	$scope.donor.lastName = "";
+	$scope.requestObject1 = {};
+
+	$scope.init = function() {
+		$scope.requestObject1.lenguage = $scope.selectLang;
+		console.log($scope.selectLang);
+		$scope.requestObject1.type = "country";
+		$http.post('rest/protected/catalog/getAllCatalog',
+				$scope.requestObject1).then(function(response) {
+			$scope.selectSortOptionsCountry = response.data.catalogs;
+		});
+	}
+
+	$scope.init();
+
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
-	$scope.totalItems= 5;
-	
+	$scope.totalItems = 5;
+
 	$scope.requestObject = {};
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
@@ -312,46 +336,29 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.lastName = $scope.lastName;
-	  
-	$scope.searchDonor = function (page) {
-	 	
-		console.log($scope.name) 
-		console.log($scope.country) 
-		console.log($scope.lastName) 
-		
+
+	$scope.searchDonor = function(page) {
+
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.name;
-		$scope.requestObject.country = $scope.country;
+		$scope.requestObject.country = $scope.donor.country.id;
 		$scope.requestObject.lastName = $scope.lastName;
-		 
-		$http.post('rest/protected/searches/getDonors', $scope.requestObject)
-		.success(function(mydata, status){
+
+		$http.post('rest/protected/searches/getDonors',
+				$scope.requestObject).success(function(mydata, status) {
 			console.log(mydata);
 			console.log(mydata.totalElements);
-			$scope.donors = mydata.donor; 
-			$scope.totalItems= mydata.totalElements;
-		}).error(function(mydata, status){
+			$scope.donors = mydata.donor;
+			$scope.totalItems = mydata.totalElements;
+		}).error(function(mydata, status) {
 			alert(mydata);
 			alert(status);
 		});
-	 
-		$scope.pageChangeHandler = function(num) {
-			$scope.searchDonor(num);
-	 	};
- 
-	 };
-	 
-	 
-	 $scope.countryType = "Country";
-	 
-	 $scope.getCatalogCountry = function(){
-        return $http.post('rest/protected/catalog/getAllCatalog', $scope.countryType)
-                .then(function(response){
-                 $scope.selectSortOptionsCountries = response.data.catalogs;
-                }); 
-	 };
-	 $scope.getCatalogCountry(); 	 
-	})	
-;
 
- 
+		$scope.pageChangeHandler = function(num) {
+			$scope.searchNonProfit(num);
+		};
+
+	};
+
+});

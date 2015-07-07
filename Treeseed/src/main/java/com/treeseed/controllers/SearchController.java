@@ -134,7 +134,7 @@ public class SearchController {
 			ndonor.setName(objeto.getName());
 			ndonor.setWebPage(objeto.getWebPage());
 			ndonor.setLastName(objeto.getLastName());
-			ndonor.setProfilePicture(objeto.getLastName());
+			ndonor.setProfilePicture(objeto.getProfilePicture());
 			ndonor.setDescription(objeto.getDescription());
 			viewDonorsPOJO.add(ndonor);
 		};

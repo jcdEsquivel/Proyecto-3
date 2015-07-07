@@ -54,6 +54,10 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
+    "DONORSEARCH":{
+    	"HEADER-TITLE": "Donors Avanced Search",
+    	"LAST-NAME": "Last Name"
+    },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
     	"FILTERS": "Filters",
