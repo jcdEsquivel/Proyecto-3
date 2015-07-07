@@ -14,14 +14,30 @@
 		        	</md-input-container>
 		        </div>
 		        <div class="col-md-3">
-		          	<select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
+		        	 <label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label> 
+				     <md-input-container flex>	
+			      		<div>
+			          		<md-select style="width:100%; " ng-model="nonprofit.country" >
+				          		<md-option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.message }}</md-option>
+					        </md-select>
+				      	</div>
+			      	</md-input-container>
+		          	<!--  <select ng-model="country" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCountries">
 		          		<option value="" selected disabled translate="GENERALSEARCH.COUNTRY-FILTER"></option>
-		          	</select>
+		          	</select>  -->
 		        </div>
 		        <div class="col-md-3">
-		          	<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses">
-		          		<option value="" selected disabled translate="GENERALSEARCH.CAUSE-FILTER"></option>
-		          	</select>
+	        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
+				 	<md-input-container flex>
+			          	<md-select style="width:100%; " ng-model="nonprofit.cause" >
+			          		<md-option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
+			        	</md-select>
+					</md-input-container>
+			          	
+			          	<!--<select ng-model="cause" class="form-control" ng-options="s.id as s.name for s in selectSortOptionsCauses">
+			          		<option value="" selected disabled translate="GENERALSEARCH.CAUSE-FILTER"></option>
+			          	</select>-->
+			        
 		        </div>
 		         <div class="col-md-3">
 		          	<button type="button" class="btn btn-default btn-rounded" ng-click="searchNonProfit(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>

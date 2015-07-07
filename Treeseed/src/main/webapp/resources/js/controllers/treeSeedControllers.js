@@ -265,6 +265,36 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	 };
 	 
 	 
+	 
+	 $scope.requestObject1={};
+	 $scope.requestObject2={};
+
+	$scope.init = function(){
+		$scope.requestObject1.lenguage=$scope.selectLang;
+		$scope.requestObject1.type = "country";
+		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
+		    .then(function(response){
+		     $scope.selectSortOptionsCountry =  response.data.catalogs;
+		     $scope.nonprofit.country =  response.data.catalogs[0];
+		});
+		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
+		$scope.requestObject2.type = "cause";
+		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
+		    .then(function(response){
+		     $scope.selectSortOptionsCause =  response.data.catalogs;
+		     $scope.nonprofit.cause =  response.data.catalogs[0];
+		});
+	}
+		
+	$scope.init();
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 /*
 	 $scope.countryType = "Country";
 	 $scope.causeType = "Cause";
 	 
@@ -283,7 +313,7 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	                }); 
 	 };	 
 	 $scope.getCatalogCause();
-	 
+	 */
 	 	 
 	})
 	

@@ -53,19 +53,25 @@ public class CatalogController {
     JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value ="/getAllCatalog", method = RequestMethod.POST)
-	public CatalogResponse getCatalogByType(@RequestBody String type){
-		
+	public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){		
 		CatalogResponse us = new CatalogResponse();
 		
-		List<CatalogWrapper> list = catalogService.getAllByType(type);
+		List<CatalogWrapper> list = catalogService.getAllByType(prams.getType().toLowerCase());
 		
 		List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
-		  
 		for(CatalogWrapper objeto:list)
 		  {
 			  CatalogPOJO catalog = new CatalogPOJO();
-			  catalog.setId(objeto.getId());
-			  catalog.setName(objeto.getName());
+			  if(prams.getLenguage().equals("English")){
+				  catalog.setId(objeto.getId());
+				  catalog.setMessage(objeto.getEnglish());
+			  }else if(prams.getLenguage().equals("Español")){
+				  catalog.setId(objeto.getId());
+				  catalog.setMessage(objeto.getSpanish());
+			  }else{
+				  
+			  }
+			 
 			  viewCatalogPOJO.add(catalog);
 		  };
 		
