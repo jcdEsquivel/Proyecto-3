@@ -181,40 +181,39 @@ public class UsersController {
 		UserGeneralResponse us = new UserGeneralResponse();
 		
 		
-				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-				//List<UserGeneral> generals= new ArrayList<UserGeneral>();
-				userGeneral.setEmail(ur.getUserGeneral().getEmail());
-				byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-				String file_string="";
-				
-				for(int i = 0; i < hash.length; i++)
-			    {
-			        file_string += (char)hash[i];
-			    }		
-				
-				userGeneral.setPassword(file_string);
-				userGeneral.setIsActive(true);
-				
-				if(user instanceof NonprofitWrapper){
-					NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
-					userGeneral.setNonprofit(userNonprofit.getWrapperObject());
-				}else{
-					//DonorWrapper userDonor = (DonorWrapper)user;
-					//userGeneral.setNonprofit(userDonor.getWrapperObject());
-				}
-				
-				
-				Boolean state = userGeneralService.saveUserGeneral(userGeneral);
-				if(state){
-					us.setCode(200);
-					us.setCodeMessage("user created succesfully");
-				}else{
-					
-				}
-			
-		return us;
+		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+		//List<UserGeneral> generals= new ArrayList<UserGeneral>();
+		userGeneral.setEmail(ur.getUserGeneral().getEmail());
+		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
+		String file_string="";
 		
-	}
+		for(int i = 0; i < hash.length; i++)
+	    {
+	        file_string += (char)hash[i];
+	    }		
+		
+		userGeneral.setPassword(file_string);
+		userGeneral.setIsActive(true);
+		
+		if(user instanceof NonprofitWrapper){
+			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
+			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
+		}else{
+			//DonorWrapper userDonor = (DonorWrapper)user;
+			//userGeneral.setNonprofit(userDonor.getWrapperObject());
+		}
+		
+		
+		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
+		if(state){
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+		}else{
+			
+		}
+	
+		return us;
+}
 	
 	
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
