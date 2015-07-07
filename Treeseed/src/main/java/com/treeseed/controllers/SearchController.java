@@ -39,42 +39,7 @@ public class SearchController {
 	
 	@Autowired
 	HttpServletRequest request;
-	/*
-	@RequestMapping(value ="/getAllNonprofits", method = RequestMethod.POST)
-	@Transactional
-	public NonprofitResponse getAllNonprofits(@RequestBody NonprofitRequest ur){	
-		
-		ur.setPageNumber(ur.getPageNumber() - 1);
-		Page<Nonprofit> viewNonprofits = nonProfitService.getAll(ur);
-		
-		NonprofitResponse nps = new NonprofitResponse();
-		
-		nps.setCode(200);
-		nps.setCodeMessage("nonprofits fetch success");
-		
-		
-		nps.setTotalElements(viewNonprofits.getTotalElements());
-		nps.setTotalPages(viewNonprofits.getTotalPages());
-		
-		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
-		
-		for(Nonprofit objeto:viewNonprofits)
-		{
-			NonprofitPOJO nnonprofit = new NonprofitPOJO();
-			nnonprofit.setName(objeto.getName());
-			nnonprofit.setMision(objeto.getMision());
-			nnonprofit.setReason(objeto.getReason());
-			nnonprofit.setWebPage(objeto.getWebPage());
-			nnonprofit.setMainPicture(objeto.getMainPicture());
-			viewNonprofitsPOJO.add(nnonprofit);
-		};
-		
-		
-		nps.setNonprofits(viewNonprofitsPOJO);
-		nps.setCode(200);
-		return nps;		
-	}
-	*/
+	
 	@RequestMapping(value ="/getNonprofits", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
