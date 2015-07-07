@@ -1,72 +1,66 @@
 {
-
-"header" : {
-  "navbar" : {
-    "UPLOAD" : "Upload",
-    "new" : {
-      "NEW" : "New",
-      "PROJECT" : "Projects",
-      "TASK" : "Task",
-      "USER" : "User",
-      "EMAIL" : "Email"
+ "MENU-HEADER": {
+    	"NGO": "Nonprofit",
+    	"EXPLORE": "Explore",
+    	"ADVANCE_SEARCH": "Advance Search",
+    	"SEARCH_NGO": "For Nonprofits",
+    	"CAMPAIGN": "Campaign",
+    	"SEARCH_CAMPAING": "For Campaigns",
+    	"DONOR": "Donor",
+    	"SEARCH_DONOR": "For Donors",
+    	"SEARCH": "Search",
+    	"LENGUAGE": "Language",
+    	"CONFIGURATION": "Configuration",
+    	"PROFILE": "ProfilE",
+    	"HELP": "Help",
+    	"SIGN_OUT": "Sign out"	    	
     },
-    "NOTIFICATIONS" : "Notifications"
-  }
-},
-"aside" : {
-  "nav" : {
-    "HEADER" : "Navigation",
-    "DASHBOARD" : "Dashboard",
-    "CALENDAR" : "Calendar",
-    "EMAIL" : "Email",
-    "WIDGETS" : "Widgets",
-    "components" : {
-      "COMPONENTS" : "Components",
-      "ui_kits" : {
-        "UI_KITS" : "UI Kits",
-        "BUTTONS" : "Buttons",
-        "ICONS" : "Icons",
-        "GRID" : "Grid",
-        "BOOTSTRAP" : "Bootstrap",
-        "SORTABLE" : "Sortable",
-        "PORTLET" : "Portlet",
-        "TIMELINE" : "Timeline",
-        "VECTOR_MAP" : "Vector Map"
-      },
-      "table" : {
-        "TABLE" : "Table",
-        "TABLE_STATIC" : "Table static",
-        "DATATABLE" : "Datatable",
-        "FOOTABLE" : "Footable"
-      },
-      "form" : {
-        "FORM" : "Form",
-        "FORM_ELEMENTS" : "Form elements",
-        "FORM_VALIDATION" : "Form validation",
-        "FORM_WIZARD" : "Form wizard"
-      },
-      "CHART" : "Chart",
-      "pages" : {
-        "PAGES" : "Pages",
-        "PROFILE" : "Profile",
-        "POST" : "Post",
-        "SEARCH" : "Search",
-        "INVOICE" : "Invoice",
-        "LOCK_SCREEN" : "Lock screen",
-        "SIGNIN" : "Signin",
-        "SIGNUP" : "Signup",
-        "FORGOT_PASSWORD" : "Forgot password",
-        "404" : "404"
-      }
+    "LEFT-MENU":{
+    	"NAVIGATION": "Navigation",
+    	"PROFILE": " Profile",
+    	"CREATE-CAMPAIGN": " Create Campaign",
+    	"SEE-CAMPAIGNS": " See Campaigns",
+    	"DONATIONS-REPORT": " Donations Report",
+    	"TRANSPARENCY-REPORT": " Transparency Report",
+    	"CONFIGURATION": " Configuration",
+    	"DONATION-RECEIPTS": "Receipts",
+    	"PORTFOLIO": "Portfolio"
     },
-    "your_stuff" : {
-      "YOUR_STUFF": "Your Stuff",
-      "PROFILE" : "Profile",
-      "DOCUMENTS" : "Documents"
-    }
-  },
-  "MILESTONE" : "Milestone",
-  "RELEASE" : "Release"
-}
-
+    "LANDING":{
+    	"HEADER-TITLE": "For a Better World!",
+    	"HEADER-TEXT" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    	"HEADER-BUTTON": "LET IT GROW",
+    	"WELCOME-TITLE": "A very nice welcome message",
+    	"WELCOME-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"STORIES-TITLE": "Our Stories",
+    	"STORIES-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"STORIES-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"EVENTS-TITLE": "Events",
+    	"EVENTS-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+    	"EVENTS-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"OUR-TEAM-TITLE": "Our Team",
+    	"OUR-TEAM-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"OUR-TEAM-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli. ",
+    	"HOW-WOKS-TITLE": "How it works?",
+    	"HOW-WORKS-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"EXPLORE": "Explore",
+    	"SUPPORT":"Support",
+    	"SHARE": "Share",
+    	"TESTIMONIAL-HEADER": "Testimonial",
+    	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
+    	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
+    },
+    "REGISTER-NONPROFIT": {
+    	"TITLE": "Nonprofit Registration",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "CAUSE": "Cause",
+        "COUNTRY": "Country",
+        "PICTUREIMAGE": "Profile Picture",
+        "DROPIMAGE" : "Drop an image here to upload.",
+        "REGISTER-BUTTON": "Register",
+        "CANCEL-BUTTON": "Cancel"
+       }
 }

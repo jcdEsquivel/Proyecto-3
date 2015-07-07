@@ -80,6 +80,17 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	public UserGeneral getUserByEmailAndPassword(String ur, String pas) {
 		return  usersRepository.findByEmailAndPassword(ur, pas);
 	}
+	
+	@Override
+	public Boolean userExist(String email) {
+		Boolean exist = false;
+		UserGeneral response= usersRepository.findByEmail(email);
+		if(response!=null){
+			exist=true;
+		}
+		
+		return exist;
+	}
 
 	@Override
 	public Boolean isEmailUnique(String email){

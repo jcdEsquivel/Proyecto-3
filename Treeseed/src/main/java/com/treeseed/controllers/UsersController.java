@@ -15,6 +15,7 @@ import javassist.expr.NewArray;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
@@ -65,6 +67,7 @@ public class UsersController {
 	ServletContext servletContext;
 	@Autowired
 	CatalogServiceInterface catalogService;
+	EmailValidator validator = EmailValidator.getInstance();
 	
 	//Codigo comentado para usar como base
 	/*
@@ -116,45 +119,58 @@ public class UsersController {
 			@RequestParam("country") String country,
 			@RequestParam("cause") String cause,
 			@RequestParam("file") MultipartFile file){	
-		
-		CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
-		CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
-		
 		NonprofitResponse us = new NonprofitResponse();
-		String resultFileName = Utils.writeToFile(file,servletContext);
+		Boolean alreadyUser=userGeneralService.userExist(email);
+		email = email.toLowerCase();
 		
+		if(validator.isValid(email)){
+			if(!alreadyUser){
 		
-		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-		NonprofitWrapper user = new NonprofitWrapper();
-		Date fechaActual = new Date();
-		
-		if(!resultFileName.equals("")){
-			user.setProfilePicture(resultFileName);
-		}else{
-			user.setProfilePicture("");
-		}
-		
-		user.setName(name);
-		user.setDateTime(fechaActual);
-		user.setActive(true);
-		user.setCause(causeW.getWrapperObject());
-		user.setConutry(countryW.getWrapperObject());
-		
-		Boolean state = nonProfitService.saveNonprofit(user);
-
-		if(state){
-			UserGeneralRequest ug = new UserGeneralRequest();
-			UserGeneralPOJO userG=new UserGeneralPOJO();
-			userG.setEmail(email);
-			userG.setPassword(password);
-			ug.setUserGeneral(userG);
-			userGeneralCreate(ug, user);
+				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
+				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
+				
+				
+				String resultFileName = Utils.writeToFile(file,servletContext);
+				
+				
+				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+				NonprofitWrapper user = new NonprofitWrapper();
+				Date fechaActual = new Date();
+				
+				if(!resultFileName.equals("")){
+					user.setProfilePicture(resultFileName);
+				}else{
+					user.setProfilePicture("");
+				}
+				
+				user.setName(name);
+				user.setDateTime(fechaActual);
+				user.setActive(true);
+				user.setCause(causeW.getWrapperObject());
+				user.setConutry(countryW.getWrapperObject());
+				
+				Boolean state = nonProfitService.saveNonprofit(user);
 			
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
+				if(state){
+					UserGeneralRequest ug = new UserGeneralRequest();
+					UserGeneralPOJO userG=new UserGeneralPOJO();
+					userG.setEmail(email);
+					userG.setPassword(password);
+					ug.setUserGeneral(userG);
+					userGeneralCreate(ug, user);
+					
+					us.setCode(200);
+					us.setCodeMessage("user created succesfully");
+				}
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("EMAIL ALREADY IN USE");
+			}
+			
+		}else{
+			us.setCode(400);
+			us.setCodeMessage("BAD EMAIL");
 		}
-		us.setCode(409);
-		us.setErrorMessage("No imagen de perfil");
 		
 		return us;
 		
@@ -164,34 +180,38 @@ public class UsersController {
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
-		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-		//List<UserGeneral> generals= new ArrayList<UserGeneral>();
-		userGeneral.setEmail(ur.getUserGeneral().getEmail());
-		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-		String file_string="";
 		
-		for(int i = 0; i < hash.length; i++)
-	    {
-	        file_string += (char)hash[i];
-	    }		
-		
-		userGeneral.setPassword(file_string);
-		userGeneral.setIsActive(true);
-		
-		if(user instanceof NonprofitWrapper){
-			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
-			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
-		}else{
-			//DonorWrapper userDonor = (DonorWrapper)user;
-			//userGeneral.setNonprofit(userDonor.getWrapperObject());
-		}
-		
-		
-		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
-		if(state){
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
-		}
+				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+				//List<UserGeneral> generals= new ArrayList<UserGeneral>();
+				userGeneral.setEmail(ur.getUserGeneral().getEmail());
+				byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
+				String file_string="";
+				
+				for(int i = 0; i < hash.length; i++)
+			    {
+			        file_string += (char)hash[i];
+			    }		
+				
+				userGeneral.setPassword(file_string);
+				userGeneral.setIsActive(true);
+				
+				if(user instanceof NonprofitWrapper){
+					NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
+					userGeneral.setNonprofit(userNonprofit.getWrapperObject());
+				}else{
+					//DonorWrapper userDonor = (DonorWrapper)user;
+					//userGeneral.setNonprofit(userDonor.getWrapperObject());
+				}
+				
+				
+				Boolean state = userGeneralService.saveUserGeneral(userGeneral);
+				if(state){
+					us.setCode(200);
+					us.setCodeMessage("user created succesfully");
+				}else{
+					
+				}
+			
 		return us;
 		
 	}
