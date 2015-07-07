@@ -64,7 +64,8 @@
     	"NAME-FILTER": "Name",
     	"COUNTRY-FILTER": "Select a country",
     	"CAUSE-FILTER": "Select a cause",
-    	"SEARCH-RESULTS": "Search results:"
+    	"SEARCH-RESULTS": "Search results:",
+    	"BLANK-OPTION": "Select:"
     }
     
 
