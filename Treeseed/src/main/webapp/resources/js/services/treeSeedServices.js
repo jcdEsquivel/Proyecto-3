@@ -9,7 +9,6 @@ treeSeedAppServices.service('$sharedData', function(){
     var img="";
     var loged = true;
     var isUserLogged = true;
-    var lenguaje = "";
     var ongName = "Territorio de Zaguates"
     return {
     	isUserLogged: function(){
@@ -47,12 +46,6 @@ treeSeedAppServices.service('$sharedData', function(){
         },
         setImg  : function(value){
             img =  value ;
-        },
-        getLenguaje : function(){
-            return lenguaje;
-        },
-        setLenguaje  : function(value){
-        	lenguaje =  value ;
         }
     }
 });
