@@ -55,7 +55,7 @@ public class CatalogController {
 	public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){
 		CatalogResponse us = new CatalogResponse();
 		
-		List<CatalogWrapper> list = catalogService.getAllByType(prams.getType());
+		List<CatalogWrapper> list = catalogService.getAllByType(prams.getType().toLowerCase());
 		
 		  List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
 		  for(CatalogWrapper objeto:list)

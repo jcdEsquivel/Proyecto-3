@@ -6,7 +6,6 @@ treeSeedAppControllers.controller('dragnDropController', function($scope){
 	$scope.imageDropped = function(){
 	    $scope.$emit('profilePicture', $scope.uploadedFile);
 	    
-	    alert($scope.uploadedFile)
 	    $scope.image=$scope.uploadedFile;
 	    
 	    $scope.showImage=true;

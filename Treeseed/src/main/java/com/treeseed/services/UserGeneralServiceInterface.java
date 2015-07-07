@@ -16,5 +16,5 @@ public interface UserGeneralServiceInterface {
 	
 	UserGeneral getUserByEmailAndPassword(String ur, String pas );
 
-
+	Boolean userExist(String email);
 }

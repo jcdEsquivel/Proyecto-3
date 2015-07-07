@@ -77,7 +77,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 					country:$scope.nonprofit.country.id
 			    },
 			    file : $scope.image,
-			   }).success(function(){
+			   }).success(function(response){
 			    $state.go('treeSeed.nonProfit');
 			   }) 
 		}
