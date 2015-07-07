@@ -7,10 +7,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
+
 
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
@@ -80,6 +82,17 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	}
 	
 	@Override
+	public Boolean userExist(String email) {
+		Boolean exist = false;
+		UserGeneral response= usersRepository.findByEmail(email);
+		if(response!=null){
+			exist=true;
+		}
+		
+		return exist;
+	}
+
+	@Override
 	public Boolean isEmailUnique(String email){
 		UserGeneral user = usersRepository.findByEmail(email.toLowerCase());
 			
@@ -89,6 +102,5 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 			return true;
 		}
 	}
-
 
 }

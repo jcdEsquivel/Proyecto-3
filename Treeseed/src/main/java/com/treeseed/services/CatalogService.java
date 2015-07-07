@@ -22,12 +22,12 @@ import com.treeseed.repositories.CatalogRepository;
 public class CatalogService implements CatalogServiceInterface{
 	
 	@Autowired
-	CatalogRepository catalog;
+	CatalogRepository catalogRepository;
 	
 	@Override
 	@Transactional
 	public Boolean saveCatalog(Catalog user) {
-		Catalog nuser = catalog.save(user);
+		Catalog nuser = catalogRepository.save(user);
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
@@ -62,32 +62,27 @@ public class CatalogService implements CatalogServiceInterface{
 		return null;
 	}
 	
+	
 	@Autowired
     JdbcTemplate jdbcTemplate;
 	@Transactional
-	public List<CatalogWrapper> getAllCatalogByType(String type){	
+	public List<CatalogWrapper> getAllByType(String type){	
 		
 		List<CatalogWrapper> list = jdbcTemplate.query(
-                "SELECT id, name FROM catalog WHERE type = ?", new Object[] { type },
-                (rs, rowNum) -> new CatalogWrapper(rs.getInt("id"), rs.getString("name"))
+                "SELECT id, english, spanish  FROM catalog WHERE type = ?", new Object[] { type },
+                (rs, rowNum) -> new CatalogWrapper(rs.getInt("id"), rs.getString("english"),rs.getString("spanish"))
         );
 
 		return list;
 
 	}	
 	
-	public CatalogWrapper findCatalogById(int id){	
-		List<CatalogWrapper> catalogList = jdbcTemplate.query(
-                "SELECT id, description, english, name, spanish, type, is_active FROM catalog WHERE id = ?", new Object[] { id },
-                (rs, rowNum) -> new CatalogWrapper(rs.getInt("id"), 
-                							rs.getString("description"),
-                							rs.getString("english"),
-                							rs.getString("name"),
-                							rs.getString("spanish"),
-                							rs.getString("type"),
-                							rs.getBoolean("is_active")));
-		CatalogWrapper result = catalogList.get(0);
-		return result;
+	public CatalogWrapper findCatalogById(int id){
+		
+		List<Catalog> listCat = catalogRepository.findById(id);
+		CatalogWrapper resul = new CatalogWrapper(listCat.get(0));
+		
+		return resul;
 
 	}
 	

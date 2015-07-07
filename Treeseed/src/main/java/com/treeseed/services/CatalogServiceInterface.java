@@ -18,7 +18,7 @@ public interface CatalogServiceInterface {
 
 	Page<Catalog> getAll();
 	
-	List<CatalogWrapper> getAllCatalogByType(String type);
+	List<CatalogWrapper> getAllByType(String type);
 
 	CatalogWrapper findCatalogById(int id);
 }

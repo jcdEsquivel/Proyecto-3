@@ -1,4 +1,6 @@
 package com.treeseed.repositories;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -13,4 +15,5 @@ public interface CatalogRepository extends CrudRepository<Catalog,Integer> {
 		Page<Catalog> findByNameContaining(String name,
 				Pageable pageable);
 		
+		List<Catalog> findById(int id);
 }

@@ -20,7 +20,7 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		
 	$scope.$on('profilePicture', function(event, args){
 		$scope.image = args;
-		$scope.uploadImage=true;	m
+		$scope.uploadImage=true;
 		
 		var file = args;	
 		var imageType = /image.*/;
@@ -64,11 +64,11 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		
 	};
     
-	$scope.requestObject.lenguaje = 
+	$scope.requestObject.lenguage = $scope.selectLang;
 	$scope.requestObject.type = 'Country';
 	
 	$scope.getCountries = function(){
-        return $http.post('rest/protected/users/getAllCountries',$scope.requestObject)
+        return $http.post('rest/protected/users/getAllCatalog',$scope.requestObject)
                     .then(function(response){
                      $scope.selectSortOptions = response.data.catalogs;
                      $scope.requestObject.donor.country = response.data.catalogs[0].id;

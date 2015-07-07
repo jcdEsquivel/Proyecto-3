@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,6 +61,7 @@ public class UsersController {
 	DonorServiceInterface donorService;
 	@Autowired
 	CatalogServiceInterface catalogService;
+	EmailValidator validator = EmailValidator.getInstance();
 	
 	//@Autowired
 	//NonprofitServiceInterface nonProfitService;
@@ -86,9 +88,15 @@ public class UsersController {
 							    @RequestParam("file") MultipartFile file){	
 		
 		DonorResponse us = new DonorResponse();
-	
+		
+		Boolean alreadyUser=userGeneralService.userExist(email);
+		  email = email.toLowerCase();
+		  
+	  if(validator.isValid(email)){
+	   if(!alreadyUser){
+			   
 		CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
-		CatalogWrapper userType = catalogService.getAllCatalogByType("DonorType").get(0);
+		CatalogWrapper userType = catalogService.getAllByType("DonorType").get(0);
 		
 		String resultFileName = Utils.writeToFile(file,servletContext);
 		
@@ -113,6 +121,15 @@ public class UsersController {
 			us.setCode(200);
 			us.setCodeMessage("Donor registered succesfully");
 		}
+		
+	   }else{
+		    us.setCode(400);
+		    us.setCodeMessage("EMAIL ALREADY IN USE");
+		   }	   
+	  }else{
+	   us.setCode(400);
+	   us.setCodeMessage("BAD EMAIL");
+	  }
 		return us;
 		
 	}
@@ -200,26 +217,32 @@ public class UsersController {
 	@Autowired
     JdbcTemplate jdbcTemplate;
 	
-	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
-	public CatalogResponse getAllCountries(@RequestBody CatalogRequest country){	
-	
-		CatalogResponse us = new CatalogResponse();
-		
-		List<CatalogWrapper> list = catalogService.getAllCatalogByType(country.getType());
-		
-	    List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
+	@RequestMapping(value ="/getAllCatalog", method = RequestMethod.POST)
+	 public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){
+	  CatalogResponse us = new CatalogResponse();
 	  
+	  List<CatalogWrapper> list = catalogService.getAllByType(prams.getType().toLowerCase());
+	  
+	    List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
 	    for(CatalogWrapper objeto:list)
 	    {
-		  CatalogPOJO catalog = new CatalogPOJO();
-		  catalog.setId(objeto.getId());
-		  catalog.setName(objeto.getName());
-		  viewCatalogPOJO.add(catalog);
+	     CatalogPOJO catalog = new CatalogPOJO();
+	     if(prams.getLenguage().equals("English")){
+	      catalog.setId(objeto.getId());
+	      catalog.setMessage(objeto.getEnglish());
+	     }else if(prams.getLenguage().equals("Español")){
+	      catalog.setId(objeto.getId());
+	      catalog.setMessage(objeto.getSpanish());
+	     }else{
+	      
+	     }
+	    
+	     viewCatalogPOJO.add(catalog);
 	    };
-		
-		us.setCatalogs(viewCatalogPOJO);
-		return us;
-	}
+	  
+	  us.setCatalogs(viewCatalogPOJO);
+	  return us;
+	 }
 	
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
 		public BaseResponse create(@RequestBody String email){	

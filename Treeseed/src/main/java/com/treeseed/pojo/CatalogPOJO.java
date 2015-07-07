@@ -17,6 +17,8 @@ public class CatalogPOJO {
 		private String type;
 		
 		private boolean isActive;
+		
+		private String message;
 
 		public CatalogPOJO() {
 		}
@@ -75,5 +77,13 @@ public class CatalogPOJO {
 
 		public void setActive(boolean isActive) {
 			this.isActive = isActive;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String menssage) {
+			this.message = menssage;
 		}
 }

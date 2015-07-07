@@ -3,7 +3,7 @@ package com.treeseed.ejbWrapper;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 
-public class CatalogWrapper extends ParentUserWrapper {
+public class CatalogWrapper{
 	
 	private Catalog wrapperObject;
 
@@ -24,13 +24,17 @@ public class CatalogWrapper extends ParentUserWrapper {
 		setType(type);
 		setActive(isActive);
 	}
+	
+	public CatalogWrapper(Catalog catalog) {
+		setWrapperObject(catalog);
+	}
 
 
-	public CatalogWrapper(int id, String name) {
-		super();	
+	public CatalogWrapper(int id, String english, String spanish) {
 		setWrapperObject(new Catalog());
 		this.setId(id);
-		this.setName(name);
+		this.setEnglish(english);
+		this.setSpanish(spanish);
 	}
 	
 	

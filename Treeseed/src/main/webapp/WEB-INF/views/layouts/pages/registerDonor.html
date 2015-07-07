@@ -23,10 +23,14 @@
           <label translate="REGISTER-DONOR.PASSWORD">Password</label>
          <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
         </md-input-container>
+        <label class="labels-dropdowns"  translate="REGISTER-DONOR.COUNTRY"></label> 
         <md-input-container flex> 
-        <label translate="REGISTER-DONOR.COUNTRY">Country</label>
-        </md-input-container>
-        <select ng-model="requestObject.donor.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptions"></select>  	
+         <div>
+             <md-select style="width:100%; " ng-model="requestObject.donor.country" >
+             <md-option ng-value="country" ng-repeat="country in selectSortOptions">{{ country.message }}</md-option>
+           </md-select>
+         </div>
+         </md-input-container>  	
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
