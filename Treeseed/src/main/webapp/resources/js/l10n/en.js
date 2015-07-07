@@ -50,6 +50,18 @@
     	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
+    },
+    "REGISTER-DONOR": {
+    	"NAME": "Name",
+    	"LASTNAME": "Last Name",
+    	"EMAIL": "Email",
+    	"PASSWORD": "Password",
+    	"CAMPAIGN": "Campaign",
+    	"COUNTRY": "Country",
+    	"PICTUREIMAGE": "Picture Image",
+    	"DROPIMAGE" : "Drop an image here to upload.",
+    	"TITTLE" : "Register Donor",
+    	"REGISTER" : "Register",
+        "CANCEL" : "Cancel"
     }
-
 }

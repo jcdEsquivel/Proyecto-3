@@ -20,7 +20,7 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		
 	$scope.$on('profilePicture', function(event, args){
 		$scope.image = args;
-		$scope.uploadImage=true;	
+		$scope.uploadImage=true;	m
 		
 		var file = args;	
 		var imageType = /image.*/;
@@ -74,7 +74,30 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
                      $scope.requestObject.donor.country = response.data.catalogs[0].id;
                     }); 
 	 };
-	 $scope.getCountries();  
+	 $scope.getCountries(); 
+	 
+	 $scope.validateEmail = function() 
+	 {
+		 var emailFormat = $scope.requestObject.donor.userGeneral.email;
+		 if (emailFormat == "")
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value";
+		 }
+		 var result = validateEmail(emailFormat);
+		 if (result == true)
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-has-value"; 
+		 }
+		 else
+	     {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value"; 
+	     }
+	 }
+
+	 function validateEmail(email) {
+		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		    return re.test(email);
+	 }	 
 });
 
 	

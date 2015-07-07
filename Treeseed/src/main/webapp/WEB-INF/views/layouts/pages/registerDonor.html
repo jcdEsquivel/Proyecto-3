@@ -1,47 +1,49 @@
 <div class="panel panel-default">
     <div class="panel-heading font-bold">
-      <h1 class="m-n font-thin h3">Register Donor</h1>
+      <h1 class="m-n font-thin h3" translate="REGISTER-DONOR.TITTLE">Register Donor</h1>
     </div>
     <div class="panel-body">
-      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" role="form">
+      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="createDonorForm" name="registerForm" role="form">
 	  <div  class="col-sm-5 md-whiteframe-treeseed">
       	<md-input-container flex>
-          <label>Name</label>
+          <label translate="REGISTER-DONOR.NAME">Name</label>
           <input type="text" ng-model="requestObject.donor.name" class="form-control" required>   
         </md-input-container>
         <md-input-container flex>
-          <label>Last Name</label>
+          <label translate="REGISTER-DONOR.LASTNAME">Last Name</label>
          <input type="text" ng-model="requestObject.donor.lastName" class="form-control" required>  
         </md-input-container>
-        <md-input-container flex>
-          <label>Email</label>
-          <input type="email" ng-model="requestObject.donor.userGeneral.email" class="form-control" required>   
+        <md-input-container flex id="emailValidate">
+          <label translate="REGISTER-DONOR.EMAIL">Email</label>
+          <input type="text" is-email-unique="" name="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="requestObject.donor.userGeneral.email" class="form-control" required >   
         </md-input-container>
+        <span class="" ng-show="registerForm.email.$error.unique">Correo ya registrado
+		</span>
         <md-input-container flex>
-          <label>Password</label>
+          <label translate="REGISTER-DONOR.PASSWORD">Password</label>
          <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
         </md-input-container>
         <md-input-container flex> 
-        <label>Country</label>
+        <label translate="REGISTER-DONOR.COUNTRY">Country</label>
         </md-input-container>
         <select ng-model="requestObject.donor.country" class="form-control" ng-options="s.id as s.name for s in selectSortOptions"></select>  	
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
         <md-input-container flex> 
-        <label>Picture Image</label>
+        <label translate="REGISTER-DONOR.PICTUREIMAGE">Picture Image</label>
          </md-input-container>
         <div class="panel wrapper">
 	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
 	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">
-	    		Drop an image here to upload.
+	    		<a translate="REGISTER-DONOR.DROPIMAGE">Drop an image here to upload.</a>
 			</div>
 		</div> 	
 		</div>
 		<div class="form-group">
           <div class="col-sm-12 col-sm-offset-9">
-            <button type="submit" class="btn btn-default">Cancel</button>
-            <button type="submit" ng-click="create()" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-default" translate="REGISTER-DONOR.CANCEL">Cancel</button>
+            <button type="submit" ng-click="create()" class="btn btn-primary" translate="REGISTER-DONOR.REGISTER">Register</button>
           </div>
         </div>
       </form>

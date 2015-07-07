@@ -3,6 +3,25 @@ var treeSeedAppServices = angular.module('treeSeed.services', []);
 
 treeSeedAppServices.value('version', '0.1');
 
+treeSeedAppServices.service('$uniqueDataService', function($http){
+	  
+    return {
+        isEmailUnique : function(email){
+        
+        	return $http.post('rest/protected/users/isEmailUnique', email)
+		    	.then(function(response){
+		    	console.log(response.data.codeMessage);
+		    	
+		    		if(response.data.codeMessage == 'UNIQUE'){
+		    			return true;
+		    		}else{
+		    			return false;
+		    		}	
+		    });
+        }      
+    }
+});
+
 treeSeedAppServices.service('$sharedData', function(){
     var loggedUser = "";
     var type = "";
@@ -42,6 +61,30 @@ treeSeedAppServices.service('$sharedData', function(){
         }
     }
 });
+
+
+
+
+treeSeedAppServices.service('$uniqueDataService', function($http){
+  
+    return {
+        isEmailNull : function(email){
+        	$http.get('rest/protected/users/isEmailUnique', email)
+		    	.then(function(response){
+		    		if(response.codeMessage == 'UNIQUE'){
+		    			return true;
+		    		}else{
+		    			return false;
+		    		}
+		    		
+		    });
+        }
+      
+    }
+});
+
+
+
 
 treeSeedAppServices.service('$userData', function(){
     var users = [

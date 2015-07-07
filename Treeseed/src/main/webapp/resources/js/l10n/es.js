@@ -50,6 +50,19 @@
     	"TESTIMONIAL-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "¿CREES TENER LO QUE SE NECESITA?",
     	"CREATE-ACCOUNT": "CREAR CUENTA"
+    },
+    "REGISTER-DONOR": {
+    	"NAME": "Nombre",
+    	"LASTNAME": "Apellido",
+    	"EMAIL": "Correo",
+    	"PASSWORD": "Contraseña",
+    	"CAMPAIGN": "Campaña",
+    	"COUNTRY": "Pais",
+    	"PICTUREIMAGE": "Image de Perfil",
+    	"DROPIMAGE" : "Arrastrar imagen aqui.",
+        "TITTLE" : "Registrar Donante",
+        "REGISTER" : "Registrar",
+        "CANCEL" : "Cancelar"
     }
 
 }

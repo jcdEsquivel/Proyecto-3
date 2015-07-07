@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.contracts.CatalogResponse;
 import com.treeseed.contracts.DonorRequest;
@@ -219,5 +220,19 @@ public class UsersController {
 		us.setCatalogs(viewCatalogPOJO);
 		return us;
 	}
-
+	
+	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
+		public BaseResponse create(@RequestBody String email){	
+	
+			Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
+			BaseResponse response = new BaseResponse();
+			response.setCode(200);
+			
+			if(isEmailUnique){
+				response.setCodeMessage("UNIQUE");
+			}else{
+				response.setCodeMessage("NOT-UNIQUE");
+			}
+			return response;
+	}
 }

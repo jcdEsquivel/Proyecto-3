@@ -8,9 +8,7 @@ treeSeedAppControllers.controller('dragnDropController', function($scope){
 	    
 	    //alert($scope.uploadedFile)
 	    $scope.image=$scope.uploadedFile;
-	    
-	    
-	    
+	   
 	    $scope.showImage=true;
 	    
 	    //Clear the uploaded file

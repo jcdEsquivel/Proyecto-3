@@ -78,6 +78,17 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	public UserGeneral getUserByEmailAndPassword(String ur, String pas) {
 		return  usersRepository.findByEmailAndPassword(ur, pas);
 	}
+	
+	@Override
+	public Boolean isEmailUnique(String email){
+		UserGeneral user = usersRepository.findByEmail(email.toLowerCase());
+			
+		if(user != null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 
 }

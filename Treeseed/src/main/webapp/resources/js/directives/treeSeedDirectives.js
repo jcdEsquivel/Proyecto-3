@@ -3,6 +3,27 @@
 
 var treeSeedAppDirectives = angular.module('treeSeed.directives',[]);
 
+treeSeedAppDirectives.directive("isEmailUnique", function ($http,  $uniqueDataService) {
+	  return {
+		        restrict: 'A',
+		        require: 'ngModel',
+		        link: function (scope, element, attrs, ngModel) {
+		        	
+		            element.bind('blur', function (e) {//blur-> after input losses focus
+		          
+		                var currentValue = element.val();
+		                 
+		                	$uniqueDataService.isEmailUnique(currentValue).then(function(value){
+		                		
+		                		console.log('restuldo: '+value);
+		                		ngModel.$setValidity('unique', value);
+		     	            	
+		                });     
+		            });
+		        }
+	        }
+		});
+
 treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {
     return {
         restrict: "A",
