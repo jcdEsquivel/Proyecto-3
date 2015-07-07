@@ -226,10 +226,20 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 	$scope.nonprofit.cause = "";
 	$scope.requestObject1={};
 	$scope.requestObject2={};
+	$scope.itemPerPage =[10,25,50,100]; 
+	$scope.currentPage = 1;
+	$scope.totalItems= 5;
+	$scope.requestObject = {};
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+	
 	
 	$scope.init = function(){
 		$scope.requestObject1.lenguage=$scope.selectLang;
-		console.log($scope.selectLang);
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
 		    .then(function(response){
@@ -246,29 +256,10 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		
 	$scope.init();
 	 
-	$scope.itemPerPage =[10,25,50,100]; 
-	$scope.currentPage = 1;
-	$scope.totalItems= 5;
 	
-	$scope.requestObject = {};
-	$scope.requestObject.pageNumber = 1;
-	$scope.requestObject.pageSize = 10;
-	$scope.requestObject.direction = "DESC";
-	$scope.requestObject.sortBy = [];
-	$scope.requestObject.searchColumn = "ALL";
-	$scope.requestObject.searchTerm = "";
-	$scope.requestObject.name = $scope.name;
-	$scope.requestObject.country = $scope.country;
-	$scope.requestObject.cause = $scope.cause;
 	  
 	$scope.searchNonProfit = function (page) {
 	 	
-		console.log($scope.name) 
-		console.log($scope.country) 
-		console.log($scope.cause) 
-		console.log($scope.nonprofit.country.id)
-		console.log($scope.nonprofit.cause.id)
-		
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.name;
 		$scope.requestObject.country = $scope.nonprofit.country.id;
@@ -276,12 +267,9 @@ treeSeedAppControllers.controller('CarouselDemoCtrl', ['$scope', '$http','$share
 		 
 		$http.post('rest/protected/searches/getNonprofits', $scope.requestObject)
 		.success(function(mydata, status){
-			console.log(mydata);
-			console.log(mydata.totalElements);
 			$scope.nonprofits = mydata.nonprofits; 
 			$scope.totalItems= mydata.totalElements;
 		}).error(function(mydata, status){
-			alert(mydata);
 			alert(status);
 		});
 	 
