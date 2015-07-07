@@ -84,6 +84,29 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	
 	};
 	
+	$scope.validateEmail = function() 
+	 {
+		 var emailFormat = $scope.nonprofit.userGeneral.email;
+		 if (emailFormat == "")
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value";
+		 }
+		 var result = validateEmail(emailFormat);
+		 if (result == true)
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-has-value"; 
+		 }
+		 else
+	     {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value"; 
+	     }
+	 };
+
+	 function validateEmail(email) {
+		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		    return re.test(email);
+	 };
+	
 	
 });
 

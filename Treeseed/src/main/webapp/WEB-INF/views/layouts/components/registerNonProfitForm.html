@@ -18,9 +18,9 @@
        		 </md-input-container>
        		 </div>
        		 <div class="col-sm-6">
-		        <md-input-container  flex>
+		        <md-input-container  flex id="emailValidate">
 		          <label translate="REGISTER-NONPROFIT.EMAIL"></label>
-		          <input is-email-unique="" name="email" type="email" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
+		          <input is-email-unique="" name="email" type="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
 		        </md-input-container>
 		        <span class="" 
      				ng-show="registerForm.email.$error.unique">Correo ya registrado</span>
