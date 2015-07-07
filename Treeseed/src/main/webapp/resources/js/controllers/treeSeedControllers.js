@@ -100,10 +100,10 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 		$scope.authError = null;
 		$scope.users = $userData.getUsers();
 		$scope.login = function() {
-			console.log('tes');
+			
 			var totalUsers = $scope.users.length;
-			var usernameTyped = $scope.user.name;
-			var useremail = $scope.user.email;
+			var userNameTyped = $scope.user.name;
+			var userEmail = $scope.user.email;
 			var passwordTyped = $scope.user.password;
 			var name = "";
 			var img = "";
@@ -111,7 +111,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			var loggedin = false;
 
 			for (i = 0; i < totalUsers; i++) {
-				if ($scope.users[i].email == usernameTyped
+				if ($scope.users[i].email == userNameTyped
 						&& $scope.users[i].Password == passwordTyped) {
 					loggedin = true;
 					userType = $scope.users[i].Type;
