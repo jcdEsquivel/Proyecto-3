@@ -62,30 +62,6 @@ treeSeedAppServices.service('$sharedData', function(){
     }
 });
 
-
-
-
-treeSeedAppServices.service('$uniqueDataService', function($http){
-  
-    return {
-        isEmailNull : function(email){
-        	$http.get('rest/protected/users/isEmailUnique', email)
-		    	.then(function(response){
-		    		if(response.codeMessage == 'UNIQUE'){
-		    			return true;
-		    		}else{
-		    			return false;
-		    		}
-		    		
-		    });
-        }
-      
-    }
-});
-
-
-
-
 treeSeedAppServices.service('$userData', function(){
     var users = [
             {

@@ -3,33 +3,12 @@
 
 var treeSeedAppDirectives = angular.module('treeSeed.directives',[]);
 
-treeSeedAppDirectives.directive("isEmailUnique", function ($http,  $uniqueDataService) {
-	  return {
-		        restrict: 'A',
-		        require: 'ngModel',
-		        link: function (scope, element, attrs, ngModel) {
-		        	
-		            element.bind('blur', function (e) {//blur-> after input losses focus
-		          
-		                var currentValue = element.val();
-		                 
-		                	$uniqueDataService.isEmailUnique(currentValue).then(function(value){
-		                		
-		                		console.log('restuldo: '+value);
-		                		ngModel.$setValidity('unique', value);
-		     	            	
-		                });     
-		            });
-		        }
-	        }
-		});
-
 treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {
     return {
         restrict: "A",
         link: function (scope, element, attrs) {
             var onImageDrop = $parse(attrs.onImageDrop);
-
+            		
             //When an item is dragged over the document
             var onDragOver = function (e) {
                 e.preventDefault();
@@ -314,4 +293,26 @@ treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {
         });
       }
     };
+   
   }]);
+  
+  treeSeedAppDirectives.directive("isEmailUnique", function ($http,  $uniqueDataService) {
+	  return {
+		        restrict: 'A',
+		        require: 'ngModel',
+		        link: function (scope, element, attrs, ngModel) {
+		        	
+		            element.bind('blur', function (e) {//blur-> after input losses focus
+		          
+		                var currentValue = element.val();
+		                 
+		                	$uniqueDataService.isEmailUnique(currentValue).then(function(value){
+		                		
+		                		console.log('restuldo: '+value);
+		                		ngModel.$setValidity('unique', value);
+		     	            	
+		                    });     
+		            });
+		        }
+	        }
+		});
