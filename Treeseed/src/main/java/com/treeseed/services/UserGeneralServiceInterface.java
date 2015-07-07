@@ -16,5 +16,6 @@ public interface UserGeneralServiceInterface {
 	
 	UserGeneral getUserByEmailAndPassword(String ur, String pas );
 
+	Boolean isEmailUnique(String email);
 	Boolean userExist(String email);
 }

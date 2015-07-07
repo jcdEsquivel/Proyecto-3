@@ -6,11 +6,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
+import com.treeseed.repositories.UsersRepository;
 
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
@@ -90,5 +92,15 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		return exist;
 	}
 
+	@Override
+	public Boolean isEmailUnique(String email){
+		UserGeneral user = usersRepository.findByEmail(email.toLowerCase());
+			
+		if(user != null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 }

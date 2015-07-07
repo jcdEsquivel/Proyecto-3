@@ -14,5 +14,6 @@ public interface NonprofitRepository extends
 	Page<Nonprofit> findAll(Pageable pageable);
 	Page<Nonprofit> findByNameContaining(String firstName,
 			Pageable pageable);
+	
 
 }
