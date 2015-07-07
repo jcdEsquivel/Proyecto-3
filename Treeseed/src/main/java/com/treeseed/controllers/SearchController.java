@@ -65,7 +65,7 @@ public class SearchController {
 			nnonprofit.setName(objeto.getName());
 			nnonprofit.setDescription(objeto.getDescription());
 			nnonprofit.setWebPage(objeto.getWebPage());
-			nnonprofit.setMainPicture(objeto.getMainPicture());
+			nnonprofit.setProfilePicture(objeto.getProfilePicture());
 			viewNonprofitsPOJO.add(nnonprofit);
 		};
 		
