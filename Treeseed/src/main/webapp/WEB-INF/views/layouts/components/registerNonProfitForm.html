@@ -9,7 +9,7 @@
       Registrar ONG
     </div>
     <div class="panel-body">
-      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="registerNonProfit" role="form"required>
+      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="registerNonProfit" name="registerForm" role="form"required>
 	  <div  class="col-sm-5 md-whiteframe-treeseed">
       	<div class="col-sm-12">
       		<div class="col-sm-12">
@@ -21,8 +21,10 @@
        		 <div class="col-sm-6">
 		        <md-input-container  flex>
 		          <label>Email</label>
-		          <input  type="email" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
+		          <input is-email-unique="" name="email" type="email" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
 		        </md-input-container>
+		        <span class="" 
+     				ng-show="registerForm.email.$error.unique">Correo ya registrado</span>
 			 </div>
 			 <div class="col-sm-6">
 		        <md-input-container flex>

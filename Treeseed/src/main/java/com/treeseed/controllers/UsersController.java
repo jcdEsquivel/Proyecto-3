@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import javassist.expr.NewArray;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.utils.Utils;
-
+import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
@@ -195,26 +196,20 @@ public class UsersController {
 		
 	}
 	
-	/*
-	@RequestMapping(value ="/create", method = RequestMethod.POST)
-	public UsersResponse create(@RequestBody UsersRequest ur){	
+	
+	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
+	public BaseResponse create(@RequestBody String email){	
+
+		Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
+		BaseResponse response = new BaseResponse();
+		response.setCode(200);
 		
-		UsersResponse us = new UsersResponse();
-		TipoUsuario tp = generalService.getTipoUsuarioById(ur.getUser().getIdTipoUsuario());
-		
-		Usuario user = new Usuario();
-		user.setFirstname(ur.getUser().getFirstname());
-		user.setLastname(ur.getUser().getLastname());
-		user.setEmail(ur.getUser().getEmail());
-		user.setPassword("resetPasswordTodo");
-		user.setTipoUsuario(tp);
-		
-		Boolean state = usersService.saveUser(user);
-		if(state){
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
+		if(isEmailUnique){
+			response.setCodeMessage("UNIQUE");
+		}else{
+			response.setCodeMessage("NOT-UNIQUE");
 		}
-		return us;
+		return response;
 		
-	}*/
+	}
 }
