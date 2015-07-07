@@ -1,5 +1,4 @@
-var treeSeedAppControllers = angular.module('treeseed.controller',
-		[ 'treeSeed.services' ]);
+var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$http, $location, $modal, $log, $timeout) {
@@ -59,4 +58,5 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 
 	};
 
-});
+})
+;
