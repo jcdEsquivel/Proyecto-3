@@ -29,7 +29,8 @@
     "LANDING":{
     	"HEADER-TITLE": "For a Better World!",
     	"HEADER-TEXT" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    	"HEADER-BUTTON": "LET IT GROW",
+    	"HEADER-BUTTON-NGO": "Register as NGO",
+    	"HEADER-BUTTON-DONOR": "Register as Donor",
     	"WELCOME-TITLE": "A very nice welcome message",
     	"WELCOME-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"STORIES-TITLE": "Our Stories",
@@ -50,17 +51,20 @@
     	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
-    },
+    }
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
         "NAME": "Name",
         "EMAIL": "Email",
         "PASSWORD": "Password",
+        "PASSWORD-CONFIRM": "Confirm password",
         "CAUSE": "Cause",
         "COUNTRY": "Country",
         "PICTUREIMAGE": "Profile Picture",
         "DROPIMAGE" : "Drop an image here to upload.",
         "REGISTER-BUTTON": "Register",
-        "CANCEL-BUTTON": "Cancel"
+        "CANCEL-BUTTON": "Cancel",
+        "PASSWORD-MESSAGE": "Password do not match",
+        "EMAIL-MESSAGE": "Email already in use"
        }
 }

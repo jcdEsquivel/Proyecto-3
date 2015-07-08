@@ -3,20 +3,23 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
 treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state){
-	
+
 	
 	$scope.nonprofit={};
 	$scope.uploadImage=false;
-	$scope.nonprofit.country ="";
-	$scope.nonprofit.cause = "";
 	$scope.nonprofit.name = "";
 	$scope.nonprofit.userGeneral = {};
 	$scope.nonprofit.userGeneral.email ="";
 	$scope.nonprofit.userGeneral.password = "";
+	$scope.nonprofit.country="";
+	$scope.selectSortOptionsCountry="";
+	$scope.nonprofit.cause = "";
+	$scope.selectSortOptionsCause="";
+	$scope.confirm_password=$scope.nonprofit.userGeneral.password;
 	$scope.requestObject1={};
 	$scope.requestObject2={};
-	
-	
+	$scope.confirmPassword = "";
+	$scope.image = "";
 	
 	$scope.init = function(){
 		$scope.requestObject1.lenguage=$scope.selectLang;
@@ -35,8 +38,12 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		});
 	}
 	
+	$scope.refresh=function(){
+		$scope.nonprofit.country =$scope.nonprofit.countrySelect;
+	}
+	
 	$scope.init();
-		
+	
 	$scope.$on('profilePicture', function(event, args){
 		$scope.image = args;
 		$scope.uploadImage=true;	
@@ -64,9 +71,6 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	
 		this.onError = false;
 		
-		
-		
-		if($scope.uploadImage==true){
 			   $scope.upload = $upload.upload({
 			    url : 'rest/protected/users/registerNonProfit',
 			    data : {
@@ -80,9 +84,31 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 			   }).success(function(response){
 			    $state.go('treeSeed.nonProfit');
 			   }) 
-		}
 	
 	};
+	
+	$scope.validateEmail = function() 
+	 {
+		 var emailFormat = $scope.nonprofit.userGeneral.email;
+		 if (emailFormat == "")
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value";
+		 }
+		 var result = validateEmail(emailFormat);
+		 if (result == true)
+		 {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-has-value"; 
+		 }
+		 else
+	     {
+			 document.getElementById("emailValidate").className = "md-default-theme md-input-invalid md-input-has-value"; 
+	     }
+	 };
+
+	 function validateEmail(email) {
+		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		    return re.test(email);
+	 };
 	
 	
 });

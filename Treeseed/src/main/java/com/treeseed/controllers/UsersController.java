@@ -118,7 +118,8 @@ public class UsersController {
 			@RequestParam("password") String password,
 			@RequestParam("country") String country,
 			@RequestParam("cause") String cause,
-			@RequestParam("file") MultipartFile file){	
+			@RequestParam(value ="file", required=false) MultipartFile file){
+		String resultFileName = null;
 		NonprofitResponse us = new NonprofitResponse();
 		Boolean alreadyUser=userGeneralService.userExist(email);
 		email = email.toLowerCase();
@@ -129,9 +130,11 @@ public class UsersController {
 				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
 				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
 				
-				
-				String resultFileName = Utils.writeToFile(file,servletContext);
-				
+				if(file!=null){
+					resultFileName = Utils.writeToFile(file,servletContext);
+				}else{
+					resultFileName = "resources/file-storage/1436319975812.jpg";
+				}
 				
 				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 				NonprofitWrapper user = new NonprofitWrapper();
@@ -181,40 +184,39 @@ public class UsersController {
 		UserGeneralResponse us = new UserGeneralResponse();
 		
 		
-				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-				//List<UserGeneral> generals= new ArrayList<UserGeneral>();
-				userGeneral.setEmail(ur.getUserGeneral().getEmail());
-				byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-				String file_string="";
-				
-				for(int i = 0; i < hash.length; i++)
-			    {
-			        file_string += (char)hash[i];
-			    }		
-				
-				userGeneral.setPassword(file_string);
-				userGeneral.setIsActive(true);
-				
-				if(user instanceof NonprofitWrapper){
-					NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
-					userGeneral.setNonprofit(userNonprofit.getWrapperObject());
-				}else{
-					//DonorWrapper userDonor = (DonorWrapper)user;
-					//userGeneral.setNonprofit(userDonor.getWrapperObject());
-				}
-				
-				
-				Boolean state = userGeneralService.saveUserGeneral(userGeneral);
-				if(state){
-					us.setCode(200);
-					us.setCodeMessage("user created succesfully");
-				}else{
-					
-				}
-			
-		return us;
+		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+		//List<UserGeneral> generals= new ArrayList<UserGeneral>();
+		userGeneral.setEmail(ur.getUserGeneral().getEmail());
+		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
+		String file_string="";
 		
-	}
+		for(int i = 0; i < hash.length; i++)
+	    {
+	        file_string += (char)hash[i];
+	    }		
+		
+		userGeneral.setPassword(file_string);
+		userGeneral.setIsActive(true);
+		
+		if(user instanceof NonprofitWrapper){
+			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
+			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
+		}else{
+			//DonorWrapper userDonor = (DonorWrapper)user;
+			//userGeneral.setNonprofit(userDonor.getWrapperObject());
+		}
+		
+		
+		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
+		if(state){
+			us.setCode(200);
+			us.setCodeMessage("user created succesfully");
+		}else{
+			
+		}
+	
+		return us;
+}
 	
 	
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)

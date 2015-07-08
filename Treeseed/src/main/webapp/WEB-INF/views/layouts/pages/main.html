@@ -1,20 +1,31 @@
-	<div ng-init="app.settings.container = false; app.settings.headerFixed = false; app.settings.asideFolded = false; app.settings.asideDock = false;" class="md-navbar navbar blue md-whiteframe-z1" data-ng-include=" 'layouts/components/material.header.html' " >
+
+	<div  ng-init="app.settings.container = false; app.settings.headerFixed = true;" class="app-header navbar  blue md-whiteframe-z1" 
+			ng-controller="headerMenuCtrl"
+			data-ng-include=" 'layouts/components/headerMenu.html' " >
 	</div>
 	
-	<div ng-controller="menuController">
-	 <!-- menu 
-	  <div    class="app-aside hidden-xs {{app.settings.asideColor}}">
-	  </div>-->
-	  <div flex class="app-aside hidden-xs {{app.settings.asideColor}}" data-ng-include="getMenu()">
-	  </div>
-	  <!-- / menu -->
-	</div>
+	 <div layout="row">
+	 	 <!-- menu -->
+	  		<div  ng-init="app.settings.asideFixed = true;" flex class="bg-white-opacity md-whiteframe-z0 md-aside md-content hidden-xs" 
+	  		ng-controller="leftMenuCtrl"
+	  		data-ng-include="getMenu()">
+	  		</div>
+	  	<!-- / menu -->
+	  	
+	  	
+	  	 <!-- view -->
+	  		<div flex layout="column">
+	  			<div ui-butterbar></div>
+    			<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".md-aside" ></a>
+	  			<div class="md-content main" ui-view></div>
+	  		</div>
+	  <!-- / view -->
+	 </div>
+	 
+	 
+	 
+	  
 
-	<div class="app-content">
-    	<div ui-butterbar></div>
-		<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a>
-		<div class="app-content-body fade-in-up" ui-view></div>
-  	</div>
 
 	<div ng-init="app.settings.container = false;" class="text-muted" data-ng-include=" 'layouts/components/page_footer.html' " >
 	</div>
