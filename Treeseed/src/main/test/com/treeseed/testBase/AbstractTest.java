@@ -1,4 +1,4 @@
-package treeseed.testBase;
+package com.treeseed.testBase;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
