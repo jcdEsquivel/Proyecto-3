@@ -104,13 +104,10 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 
 		$http.post('rest/protected/searches/getDonors',
 				$scope.requestObject).success(function(mydata, status) {
-			console.log(mydata);
-			console.log(mydata.totalElements);
 			$scope.donors = mydata.donor;
 			$scope.totalItems = mydata.totalElements;
 		}).error(function(mydata, status) {
-			alert(mydata);
-			alert(status);
+
 		});
 
 		$scope.pageChangeHandler = function(num) {
