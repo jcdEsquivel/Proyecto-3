@@ -1,4 +1,4 @@
-package treeseed.tests.sprint1;
+package com.treeseed.sprint1;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import treeseed.testBase.AbstractTestController;
+import com.treeseed.testBase.AbstractTestController;
 
 import com.mongodb.util.JSON;
 import com.treeseed.contracts.BaseResponse;

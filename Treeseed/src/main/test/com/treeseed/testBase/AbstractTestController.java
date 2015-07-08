@@ -1,4 +1,4 @@
-package treeseed.testBase;
+package com.treeseed.testBase;
 
 import java.io.IOException;
 import java.util.ArrayList;
