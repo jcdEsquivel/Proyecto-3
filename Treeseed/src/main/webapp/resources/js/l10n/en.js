@@ -57,6 +57,11 @@
     "DONORSEARCH":{
     	"HEADER-TITLE": "Donors Avanced Search",
     	"LAST-NAME": "Last Name"
+    	"DONATIONS-REPORT": " Donations Report",
+    	"TRANSPARENCY-REPORT": " Transparency Report",
+    	"CONFIGURATION": " Configuration",
+    	"DONATION-RECEIPTS": "Receipts",
+    	"PORTFOLIO": "Portfolio"
     },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
@@ -66,6 +71,23 @@
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:"
+    	"STORIES-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"STORIES-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"EVENTS-TITLE": "Events",
+    	"EVENTS-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+    	"EVENTS-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
+    	"OUR-TEAM-TITLE": "Our Team",
+    	"OUR-TEAM-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"OUR-TEAM-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli. ",
+    	"HOW-WOKS-TITLE": "How it works?",
+    	"HOW-WORKS-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"EXPLORE": "Explore",
+    	"SUPPORT":"Support",
+    	"SHARE": "Share",
+    	"TESTIMONIAL-HEADER": "Testimonial",
+    	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+    	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
+    	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
     }
     
 
