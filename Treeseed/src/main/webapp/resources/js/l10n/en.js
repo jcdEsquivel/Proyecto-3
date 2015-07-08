@@ -56,11 +56,14 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PASSWORD": "Password",
+        "PASSWORD-CONFIRM": "Confirm password",
         "CAUSE": "Cause",
         "COUNTRY": "Country",
         "PICTUREIMAGE": "Profile Picture",
         "DROPIMAGE" : "Drop an image here to upload.",
         "REGISTER-BUTTON": "Register",
-        "CANCEL-BUTTON": "Cancel"
+        "CANCEL-BUTTON": "Cancel",
+        "PASSWORD-MESSAGE": "Password do not match",
+        "EMAIL-MESSAGE": "Email already in use"
        }
 }

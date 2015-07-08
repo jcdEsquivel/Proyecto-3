@@ -118,7 +118,8 @@ public class UsersController {
 			@RequestParam("password") String password,
 			@RequestParam("country") String country,
 			@RequestParam("cause") String cause,
-			@RequestParam("file") MultipartFile file){	
+			@RequestParam(value ="file", required=false) MultipartFile file){
+		String resultFileName = null;
 		NonprofitResponse us = new NonprofitResponse();
 		Boolean alreadyUser=userGeneralService.userExist(email);
 		email = email.toLowerCase();
@@ -129,9 +130,11 @@ public class UsersController {
 				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
 				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
 				
-				
-				String resultFileName = Utils.writeToFile(file,servletContext);
-				
+				if(file!=null){
+					resultFileName = Utils.writeToFile(file,servletContext);
+				}else{
+					resultFileName = "resources/file-storage/1436319975812.jpg";
+				}
 				
 				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 				NonprofitWrapper user = new NonprofitWrapper();

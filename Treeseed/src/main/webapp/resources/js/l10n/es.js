@@ -56,11 +56,15 @@
         "NAME": "Nombre",
         "EMAIL": "Correo",
         "PASSWORD": "Contraseña",
+        "PASSWORD-CONFIRM": "Confirmar contraseña",
         "CAUSE": "Causa",
         "COUNTRY": "País",
         "PICTUREIMAGE": "Image de Perfil",
         "DROPIMAGE" : "Arrastrar imagen aqui.",
         "REGISTER-BUTTON": "Registrar",
-        "CANCEL-BUTTON": "Cancelar"
+        "CANCEL-BUTTON": "Cancelar",
+        "PASSWORD-MESSAGE": "La contraseña no coincide",
+        "EMAIL-MESSAGE": "Email ya registrado"
+        	
        }
 }
