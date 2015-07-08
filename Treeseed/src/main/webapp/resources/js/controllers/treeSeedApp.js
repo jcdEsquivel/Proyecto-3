@@ -27,7 +27,7 @@ angular.module('treeSeed')
           navbarCollapseColor: 'bg-white-only',
           asideColor: 'bg-black',
           headerFixed: true,
-          asideFixed: false,
+          asideFixed: true,
           asideFolded: false,
           asideDock: false,
           container: false
@@ -41,7 +41,7 @@ angular.module('treeSeed')
         $localStorage.settings = $scope.app.settings;
       }
       $scope.$watch('app.settings', function(){
-        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed ){
+        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed){
           // aside dock and fixed must set the header fixed.
           $scope.app.settings.headerFixed = true;
         }
@@ -53,7 +53,7 @@ angular.module('treeSeed')
 
       // angular translate
       $scope.lang = { isopen: false };
-      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
+      $scope.langs = {en:'English', es:'Español'};
       $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
       $scope.setLang = function(langKey, $event) {
         // set the current lang

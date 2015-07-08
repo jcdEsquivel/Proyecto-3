@@ -8212,7 +8212,7 @@ url("../fonts/Material-Design-Icons.svg?-g7cqhn#Material-Design-Icons") format("
 .md-input.focus~label {
     top:0!important;
     font-size:.85em!important;
-    color:#7266ba;
+    color:#00ff80;
     opacity:1
 }
 .float-label .md-input~label {
