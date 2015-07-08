@@ -29,6 +29,8 @@
     "LANDING":{
     	"HEADER-TITLE": "For a Better World!",
     	"HEADER-TEXT" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    	"HEADER-BUTTON-NGO": "Register as NGO",
+    	"HEADER-BUTTON-DONOR": "Register as Donor",
     	"HEADER-BUTTON": "LET IT GROW",
     	"WELCOME-TITLE": "A very nice welcome message",
     	"WELCOME-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
@@ -56,7 +58,7 @@
     },
     "DONORSEARCH":{
     	"HEADER-TITLE": "Donors Avanced Search",
-    	"LAST-NAME": "Last Name"
+    	"LAST-NAME": "Last Name",
     	"DONATIONS-REPORT": " Donations Report",
     	"TRANSPARENCY-REPORT": " Transparency Report",
     	"CONFIGURATION": " Configuration",
@@ -70,7 +72,7 @@
     	"COUNTRY-FILTER": "Select a country",
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
-    	"BLANK-OPTION": "Select:"
+    	"BLANK-OPTION": "Select:",
     	"STORIES-TEXT1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"STORIES-TEXT2": "Lorem ipsum dolor sit amet, consectetur adipiscing eli.",
     	"EVENTS-TITLE": "Events",
