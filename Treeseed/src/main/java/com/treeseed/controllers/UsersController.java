@@ -85,7 +85,20 @@ public class UsersController {
 							    @RequestParam("email") String email,
 							    @RequestParam("password") String password,
 							    @RequestParam("country") String country, 
-							    @RequestParam("file") MultipartFile file){	
+							    @RequestParam(value ="file", required=false) MultipartFile file)
+																								{	
+		
+		
+		String resultFileName = "";
+		
+		if (file == null)
+		{
+			resultFileName = "resources/file-storage/1436319975812.jpg";
+		}
+		else
+		{
+			resultFileName = Utils.writeToFile(file,servletContext);
+		}
 		
 		DonorResponse us = new DonorResponse();
 		
@@ -97,9 +110,7 @@ public class UsersController {
 				   
 				CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
 				CatalogWrapper userType = catalogService.getAllByType("DonorType").get(0);
-			
-				String resultFileName = Utils.writeToFile(file,servletContext);
-			
+		
 				DonorWrapper user = new DonorWrapper();
 				user.setName(name);
 				user.setLastName(lastName);
@@ -140,6 +151,7 @@ public class UsersController {
 											   @RequestParam("country") String country,
 											   @RequestParam("cause") String cause,
 											   @RequestParam("file") MultipartFile file){ 
+		
 	  
 		  NonprofitResponse us = new NonprofitResponse();
 		  String resultFileName = Utils.writeToFile(file,servletContext);
@@ -211,7 +223,7 @@ public class UsersController {
 		
 	}
 	
-	@Autowired
+	/*@Autowired
     JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value ="/getAllCatalog", method = RequestMethod.POST)
@@ -238,7 +250,7 @@ public class UsersController {
 	  
 	  us.setCatalogs(viewCatalogPOJO);
 	  return us;
-	 }
+	 }*/
 	
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
 		public BaseResponse create(@RequestBody String email){	

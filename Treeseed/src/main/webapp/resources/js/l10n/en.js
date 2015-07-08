@@ -62,6 +62,8 @@
     	"DROPIMAGE" : "Drop an image here to upload.",
     	"TITTLE" : "Register Donor",
     	"REGISTER" : "Register",
-        "CANCEL" : "Cancel"
+        "CANCEL" : "Cancel",
+        "PASSWORD-MESSAGE" : "Passwords do not match.",
+    	"PASSWORD-CONFIRM" : "Confirm password"
     }
 }

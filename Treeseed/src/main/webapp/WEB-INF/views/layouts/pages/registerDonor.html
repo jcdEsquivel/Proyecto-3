@@ -23,14 +23,24 @@
           <label translate="REGISTER-DONOR.PASSWORD">Password</label>
          <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
         </md-input-container>
-        <label class="labels-dropdowns"  translate="REGISTER-DONOR.COUNTRY"></label> 
+        
+        <md-input-container flex>
+       <label  translate="REGISTER-DONOR.PASSWORD-CONFIRM"></label>
+       <input type="password" class="form-control" name="confirm_password" required ng-model="confirm_password" ui-validate=" '$value==requestObject.donor.userGeneral.password' " ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
+        </md-input-container>               
+         <span ng-show='registerForm.confirm_password.$error.validator' translate="REGISTER-DONOR.PASSWORD-MESSAGE"></span>
+        
+        <label class="labels-dropdowns" translate="REGISTER-DONOR.COUNTRY"></label> 
         <md-input-container flex> 
          <div>
-             <md-select style="width:100%; " ng-model="requestObject.donor.country" >
-             <md-option ng-value="country" ng-repeat="country in selectSortOptions">{{ country.message }}</md-option>
-           </md-select>
+         <md-select style="width:100%;" ng-model="requestObject.donor.country">
+		    <md-select-label value="requestObject.donor.country">{{ requestObject.donor.country.message }}</md-select-label>
+		    <md-option ng-repeat="country in selectSortOptions"
+		               ng-value="country">
+		        {{ country.message  }}
+		    </md-option>
          </div>
-         </md-input-container>  	
+         </md-input-container>  	    
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
@@ -47,7 +57,7 @@
 		<div class="form-group">
           <div class="col-sm-12 col-sm-offset-9">
             <button type="submit" class="btn btn-default" translate="REGISTER-DONOR.CANCEL">Cancel</button>
-            <button type="submit" ng-click="create()" class="btn btn-primary" translate="REGISTER-DONOR.REGISTER">Register</button>
+            <button type="submit" ng-click="create()" class="btn btn-primary" ng-disabled="registerForm.$invalid" translate="REGISTER-DONOR.REGISTER">Register</button>
           </div>
         </div>
       </form>

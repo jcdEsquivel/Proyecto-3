@@ -57,12 +57,14 @@
     	"EMAIL": "Correo",
     	"PASSWORD": "Contraseña",
     	"CAMPAIGN": "Campaña",
-    	"COUNTRY": "Pais",
-    	"PICTUREIMAGE": "Image de Perfil",
-    	"DROPIMAGE" : "Arrastrar imagen aqui.",
+    	"COUNTRY": "País",
+    	"PICTUREIMAGE": "Imagen de Perfil",
+    	"DROPIMAGE" : "Arrastrar imagen aquí.",
         "TITTLE" : "Registrar Donante",
         "REGISTER" : "Registrar",
-        "CANCEL" : "Cancelar"
+        "CANCEL" : "Cancelar",
+        "PASSWORD-MESSAGE" : "Contraseñas no coinciden.",
+        "PASSWORD-CONFIRM" : "Confirmar contraseña"
     }
 
 }
