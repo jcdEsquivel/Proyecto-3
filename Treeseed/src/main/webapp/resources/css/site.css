@@ -93,3 +93,215 @@ dragnDrop #file-drop{
 }
 
   
+}
+
+
+
+/****/
+
+.main{
+	background-color: white;
+}
+
+.landing-header-image{
+    background-image: url('../images/landing-treeseed1.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align: center;
+	background-size: 100% 100%;
+}
+
+
+.let-it-grow-button{
+	font-size: 18px;
+	font-weight: bold;
+	
+}
+
+
+.let-it-grow-icon{
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.landing-header-text{
+   font-size:70px;
+   font-weight:bold;
+}
+
+.landing-header-parragraph{
+   font-size:20px;
+   margin-top:15px;
+}
+
+.landing-info-div{
+	text-align: center;
+	background-color: white;
+	margin-top:30px;
+	margin-bottom: 30px;
+}
+
+.landing-info-parragraph{
+   font-size:20px;
+   margin-top:px;
+   padding-left: 15%;
+padding-right: 15%;
+}
+
+.landing-info-header{
+   font-size:45px;
+   margin-top:15px;
+}
+
+.landing-header-botton{
+   margin-bottom: 80px;
+   margin-top:30px;
+}
+
+
+.landing-events-image1{
+    background-image: url('../images/landing-kid2.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align:  left;
+	height: 600px;
+	padding-top: 70px;
+padding-left: 70px;
+padding-right: 70px;
+
+background-size: 100% 100%;
+	
+}
+
+.landing-events-image2{
+    background-image: url('../images/landing-ngo2.jpg') ;
+   -webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	color:white;
+	text-align: left;
+	height: 300px;
+	padding-left: 25px;
+padding-right: 25px;
+background-size: 100% 100%;
+}
+
+.landing-events-image3{
+    background-image: url('../images/landing-ngo7.jpg') ;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	color:white;
+	text-align:  left;
+	height: 300px;
+	padding-left: 25px;
+padding-right: 25px;
+background-size: 100% 100%;
+}
+
+.landing-events-header{
+	font-size: 45px;
+	font-weight: bold;
+}
+
+.landing-events-text{
+	font-size: 19px;
+}
+
+.landing-icons-div{
+	text-align: center;
+	margin-bottom:40px;
+}
+
+.landing-icons-div i{
+	font-size: 100;
+}
+
+.landing-icons-div .explore{
+	color: #0a5c2d;
+}
+
+.landing-icons-div  .support{
+	color: #f00fa2;
+}
+
+.landing-icons-div  .share{
+	color: #fb8d44;
+}
+
+.landing-icons-div  span{
+	font-weight: bold;
+font-size: 18px;
+}
+
+.landing-testimonial-info{
+	padding-left: 100px;
+	padding-right: 60px;
+	padding-top: 60px;
+}
+
+.landing-testimonial-header{
+	color: white;
+	font-size: 30px;
+	font-weight:bold;
+}
+.landing-testimonial-text{
+	color:white;
+	font-size:18px;
+}
+
+
+.circular-image {
+	width: 400px;
+	height: 400px;
+	border-radius: 200px;
+	-webkit-border-radius: 200px;
+	-moz-border-radius: 200px;
+	background: url(../images/landing-ngo6.jpg) ;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	margin-left: auto;
+margin-right: auto;
+margin-top: 15px;
+margin-bottom: 15px;
+	}
+	
+.landing-page-footer{
+	height: 90px;
+	text-align: right;
+padding-top: 15px;
+padding-right: 15px;
+}
+
+
+.btn-icon.btn-sm.landing{
+	width: 60px;
+	height: 60px;
+}
+
+.btn-icon.btn-sm i.landing{
+	font-size: 30px;
+margin-top: 15px;
+}
+
+.linkedin {
+	display: inline-block;
+	margin-top: 5;
+	font-size: 30px;
+font-weight: bold;
+}
+
+
