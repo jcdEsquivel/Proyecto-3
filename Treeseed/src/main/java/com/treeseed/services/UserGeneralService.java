@@ -14,9 +14,6 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.repositories.UsersRepository;
 
-@Service
-public class UserGeneralService implements UserGeneralServiceInterface{
-
 	@Autowired
 	UserGeneralRepository usersRepository;
 
@@ -57,7 +54,13 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		return result;
 		
 	}
-
+<<<<<<< .mine		return result;
+		
+	}
+=======
+	@Override
+	@Transactional
+>>>>>>> .theirs
 	@Override
 	@Transactional
 	public Boolean saveUserGeneral(UserGeneralWrapper userGeneral) {

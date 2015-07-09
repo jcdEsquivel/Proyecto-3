@@ -60,13 +60,19 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/campaingViewer.html'
             //resolve: load(['js/controllers/chart.js'])
         })
+        .state('treeSeed.nonProfitSearch', {
+            url: '/nonProfitSearch',
+            templateUrl: 'layouts/pages/nonProfitSearch.html',
+            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
+            controller: "nonProfitSearchController"
+        })
         .state('treeSeed.registerNonProfile', {
             url: '/registerNonProfile',
             templateUrl: 'layouts/pages/registerNonProfitProfile.html',
             controller: "nonProfitRegistrationController"
         });
         
-    function load(srcs, callback) {
+<<<<<<< .mine    function load(srcs, callback) {
     return {
 	        deps: ['$ocLazyLoad', '$q',
 	          function( $ocLazyLoad, $q ){
@@ -97,7 +103,38 @@ angular.module('treeSeed')
 	        }]
 	    }
     }    
-}]);
+=======        function load(srcs, callback) {
+            return {
+                deps: ['$ocLazyLoad', '$q',
+                  function( $ocLazyLoad, $q ){
+                    var deferred = $q.defer();
+                    var promise  = false;
+                    srcs = angular.isArray(srcs) ? srcs : srcs.split(/\s+/);
+                    if(!promise){
+                      promise = deferred.promise;
+                    }
+                    angular.forEach(srcs, function(src) {
+                      console.log(src);
+                      promise = promise.then( function(){
+                        if(JQ_CONFIG[src]){
+                          return $ocLazyLoad.load(JQ_CONFIG[src]);
+                        }
+                        angular.forEach(MODULE_CONFIG, function(module) {
+                          if( module.name == src){
+                            name = module.name;
+                          }else{
+                            name = src;
+                          }
+                        });
+                        return $ocLazyLoad.load(name);
+                      } );
+                    });
+                    deferred.resolve();
+                    return callback ? promise.then(function(){ return callback(); }) : promise;
+                }]
+            }
+          }
+>>>>>>> .theirs}]);
 
 
 
@@ -188,6 +225,13 @@ angular.module('treeSeed').config(
 	          'resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js'
 	      ]
 	  },
+        {
+  	      name: 'angularUtils.directives.dirPagination',
+  	      files: [
+  	          'resources/js/libs/angular/dirPagination/dirPagination.js',
+  	          'resources/js/libs/angular/dirPagination/dirPagination.tpl.html'
+  	    ]
+  	  },
       {
           name: 'ngGrid',
           files: [
@@ -322,4 +366,6 @@ angular.module('treeSeed').config(
           modules: MODULE_CONFIG
       });
   }])
+  
+  
 ;

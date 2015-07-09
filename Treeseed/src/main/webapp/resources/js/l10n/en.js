@@ -51,6 +51,20 @@
     	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
+
+    	},
+    "NONPROFITSEARCH":{
+    	"HEADER-TITLE": "Non Profits Advanced Search"
+    },
+    "GENERALSEARCH":{
+    	"SEARCH-BUTTON": "Search",
+    	"FILTERS": "Filters",
+    	"NAME-FILTER": "Name",
+    	"COUNTRY-FILTER": "Select a country",
+    	"CAUSE-FILTER": "Select a cause",
+    	"SEARCH-RESULTS": "Search results:",
+    	"BLANK-OPTION": "Select:"
+
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",

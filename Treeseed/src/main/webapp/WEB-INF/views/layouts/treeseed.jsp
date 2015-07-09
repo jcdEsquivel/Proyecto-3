@@ -21,6 +21,7 @@
   <script src="resources/js/app.js"></script>
   <script src="resources/js/services/treeSeedServices.js"></script>
   <script src="resources/js/controllers/treeSeedControllers.js"></script>
+  <script src="resources/js/controllers/searchControllers.js"></script>
   <script src="resources/js/filters/treeSeedFilters.js"></script>
   <script src="resources/js/directives/treeSeedDirectives.js"></script>
   <script src="resources/js/config.js"></script>

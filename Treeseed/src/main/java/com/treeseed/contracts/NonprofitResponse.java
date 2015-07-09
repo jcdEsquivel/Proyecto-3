@@ -17,8 +17,8 @@ public class NonprofitResponse extends BaseResponse{
 		return nonprofits;
 	}
 
-	public void setNonprofits(List<NonprofitPOJO> usuarios) {
-		this.nonprofits = usuarios;
+	public void setNonprofits(List<NonprofitPOJO> nonprofits) {
+		this.nonprofits = nonprofits;
 	}
 
 }
