@@ -53,7 +53,7 @@
     	"CREATE-ACCOUNT": "CREAR CUENTA"
     }
 
-}
+},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
         "NAME": "Nombre",
