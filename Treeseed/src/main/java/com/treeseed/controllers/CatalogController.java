@@ -8,13 +8,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import javassist.expr.NewArray;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.mapping.Array;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,11 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.treeseed.utils.Utils;
 import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.contracts.CatalogResponse;
+import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.services.CatalogServiceInterface;
-
 import com.treeseed.utils.PojoUtils;
 
 /**
@@ -48,17 +48,18 @@ public class CatalogController {
 	
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
 	@Autowired
     JdbcTemplate jdbcTemplate;
-		
+	
 	@RequestMapping(value ="/getAllCatalog", method = RequestMethod.POST)
-	public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){
+	public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){		
 		CatalogResponse us = new CatalogResponse();
 		
 		List<CatalogWrapper> list = catalogService.getAllByType(prams.getType().toLowerCase());
 		
-		  List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
-		  for(CatalogWrapper objeto:list)
+		List<CatalogPOJO> viewCatalogPOJO = new ArrayList<CatalogPOJO>();
+		for(CatalogWrapper objeto:list)
 		  {
 			  CatalogPOJO catalog = new CatalogPOJO();
 			  if(prams.getLenguage().equals("English")){

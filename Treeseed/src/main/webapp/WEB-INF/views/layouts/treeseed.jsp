@@ -17,6 +17,7 @@
   <script src="resources/js/app.js"></script>
   <script src="resources/js/services/treeSeedServices.js"></script>
   <script src="resources/js/controllers/treeSeedControllers.js"></script>
+  <script src="resources/js/controllers/searchControllers.js"></script>
   <script src="resources/js/filters/treeSeedFilters.js"></script>
   <script src="resources/js/directives/treeSeedDirectives.js"></script>
   <script src="resources/js/config.js"></script>
@@ -29,7 +30,6 @@
   
 <body  layout="row" ng-controller="AppCtrl" >
  
-
   <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
 
   <!-- jQuery -->

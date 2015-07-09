@@ -78,7 +78,7 @@ public class CatalogPOJO {
 		public void setActive(boolean isActive) {
 			this.isActive = isActive;
 		}
-
+		
 		public String getMessage() {
 			return message;
 		}
