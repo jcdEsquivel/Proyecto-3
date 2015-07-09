@@ -17,6 +17,78 @@
 	height: 20%;
 }
 
+.labels-dropdowns{
+	position:relative;
+    top:0;
+    left:0;
+    z-index:0;
+    display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+    font-size:.85em;
+    opacity:.5;
+    -webkit-transition:all .2s;
+    transition:all .2s
+}
+
+.md-input:focus,
+.md-input .focus {
+    padding-bottom:1px;
+    border-color:#2196f3;
+    border-bottom-width:2px
+}
+.md-input:focus~label,
+.md-input .focus~label {
+    top:0!important;
+    font-size:.85em!important;
+    color:#2196f3;
+    opacity:1
+}
+
+dragnDrop.dragOver #file-drop{
+	display:block;
+} /* During drag */
+dragnDrop #file-drop{
+	z-index:1000;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	display:none;
+} /* No drag */
+
+.md-whiteframe-treeseed {
+    box-shadow:0 2px 5px 0 rgba(0,
+    0,
+    0,
+    0.26);
+    min-height:250px;
+    min-width: 300px;
+    padding-top: 20px;
+    background-color: white;
+    padding-bottom: 20px;
+    padding-right: 20px
+}
+
+ .md-select-label {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  font-size: 1.6rem;
+  line-height: 0.8em;
+  position: relative;
+  box-sizing: border-box;
+  min-width: inherit; }
 
 
 /****/

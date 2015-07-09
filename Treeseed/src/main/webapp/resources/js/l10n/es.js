@@ -51,6 +51,22 @@
     	"TESTIMONIAL-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "¿CREES TENER LO QUE SE NECESITA?",
     	"CREATE-ACCOUNT": "CREAR CUENTA"
+    },
+
+
+
+    "NONPROFITSEARCH":{
+    	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
+    },
+     "GENERALSEARCH":{
+    	"SEARCH-BUTTON": "Buscar",
+    	"FILTERS": "Filtros",
+    	"NAME-FILTER": "Nombre",
+    	"COUNTRY-FILTER": "Escoja un país",
+    	"CAUSE-FILTER": "Escoja una causa",
+    	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
+    	"BLANK-OPTION": "Seleccione:"	
     }
+    
 
 }
