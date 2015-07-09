@@ -4,13 +4,18 @@ import org.springframework.data.domain.Page;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 
 public interface UserGeneralServiceInterface {
 
 	Page<UserGeneral> getAll(UserGeneralRequest ur);
 
-	Boolean saveUserGeneral(UserGeneral userGeneral);
+	Boolean saveUserGeneral(UserGeneralWrapper userGeneral);
 
 	UserGeneral getSessionUserGeneral(int idUserGeneral);
+	
+	UserGeneral getUserByEmailAndPassword(String ur, String pas );
 
+	Boolean isEmailUnique(String email);
+	Boolean userExist(String email);
 }

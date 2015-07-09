@@ -51,6 +51,7 @@
     	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
+
     	},
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
@@ -63,7 +64,21 @@
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:"
-    }
-    
 
+    },
+    "REGISTER-NONPROFIT": {
+    	"TITLE": "Nonprofit Registration",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "PASSWORD-CONFIRM": "Confirm password",
+        "CAUSE": "Cause",
+        "COUNTRY": "Country",
+        "PICTUREIMAGE": "Profile Picture",
+        "DROPIMAGE" : "Drop an image here to upload.",
+        "REGISTER-BUTTON": "Register",
+        "CANCEL-BUTTON": "Cancel",
+        "PASSWORD-MESSAGE": "Password do not match",
+        "EMAIL-MESSAGE": "Email already in use"
+       }
 }

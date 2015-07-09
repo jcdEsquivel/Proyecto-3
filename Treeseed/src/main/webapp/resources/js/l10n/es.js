@@ -51,6 +51,7 @@
     	"TESTIMONIAL-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "¿CREES TENER LO QUE SE NECESITA?",
     	"CREATE-ACCOUNT": "CREAR CUENTA"
+
     },
 
 
@@ -66,7 +67,22 @@
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
     	"BLANK-OPTION": "Seleccione:"	
-    }
-    
 
+    },
+    "REGISTER-NONPROFIT": {
+    	"TITLE": "Registrar ONG",
+        "NAME": "Nombre",
+        "EMAIL": "Correo",
+        "PASSWORD": "Contraseña",
+        "PASSWORD-CONFIRM": "Confirmar contraseña",
+        "CAUSE": "Causa",
+        "COUNTRY": "País",
+        "PICTUREIMAGE": "Image de Perfil",
+        "DROPIMAGE" : "Arrastrar imagen aqui.",
+        "REGISTER-BUTTON": "Registrar",
+        "CANCEL-BUTTON": "Cancelar",
+        "PASSWORD-MESSAGE": "La contraseña no coincide",
+        "EMAIL-MESSAGE": "Email ya registrado"
+        	
+       }
 }

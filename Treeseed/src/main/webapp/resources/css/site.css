@@ -73,7 +73,6 @@ dragnDrop #file-drop{
     padding-bottom: 20px;
     padding-right: 20px
 }
-
  .md-select-label {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -89,6 +88,13 @@ dragnDrop #file-drop{
   position: relative;
   box-sizing: border-box;
   min-width: inherit; }
+
+
+}
+
+  
+}
+
 
 
 /****/
