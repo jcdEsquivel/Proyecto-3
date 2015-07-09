@@ -159,9 +159,7 @@ public class UsersController {
 					UserGeneralPOJO userG=new UserGeneralPOJO();
 					userG.setEmail(email);
 					userG.setPassword(password);
-					ug.setUserGeneral(userG);
-					userGeneralCreate(ug, user);
-					
+					ug.setUserGeneral(userG);					
 					if(userGeneralCreate(ug, user).getCode()==200){
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
