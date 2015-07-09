@@ -20,6 +20,6 @@ var treeSeedApp = angular.module('treeSeed', ['treeSeed.services',
     'ui.jq',
     'oc.lazyLoad',
     'pascalprecht.translate',
-    'angularFileUpload',
-    'ngMaterial']);
+    'ngMaterial',
+    'angularFileUpload']);
 

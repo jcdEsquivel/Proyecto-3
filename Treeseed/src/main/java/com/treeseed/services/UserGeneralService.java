@@ -6,17 +6,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
-
+import com.treeseed.repositories.UsersRepository;
 
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
-
 	@Autowired
 	UserGeneralRepository usersRepository;
 
@@ -55,9 +54,7 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		}
 
 		return result;
-		
 	}
-
 	@Override
 	@Transactional
 	public Boolean saveUserGeneral(UserGeneralWrapper userGeneral) {

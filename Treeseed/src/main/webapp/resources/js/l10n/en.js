@@ -65,5 +65,34 @@
         "CANCEL" : "Cancel",
         "PASSWORD-MESSAGE" : "Passwords do not match.",
     	"PASSWORD-CONFIRM" : "Confirm password"
+    },
+    "NONPROFITSEARCH":{
+    	"HEADER-TITLE": "Non Profits Advanced Search"
+    },
+    "GENERALSEARCH":{
+    	"SEARCH-BUTTON": "Search",
+    	"FILTERS": "Filters",
+    	"NAME-FILTER": "Name",
+    	"COUNTRY-FILTER": "Select a country",
+    	"CAUSE-FILTER": "Select a cause",
+    	"SEARCH-RESULTS": "Search results:",
+    	"BLANK-OPTION": "Select:"
+
+    },
+    "REGISTER-NONPROFIT": {
+    	"TITLE": "Nonprofit Registration",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "PASSWORD-CONFIRM": "Confirm password",
+        "CAUSE": "Cause",
+        "COUNTRY": "Country",
+        "PICTUREIMAGE": "Profile Picture",
+        "DROPIMAGE" : "Drop an image here to upload.",
+        "REGISTER-BUTTON": "Register",
+        "CANCEL-BUTTON": "Cancel",
+        "PASSWORD-MESSAGE": "Password do not match",
+        "EMAIL-MESSAGE": "Email already in use"
     }
 }
+

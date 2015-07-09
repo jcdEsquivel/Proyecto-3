@@ -1,5 +1,7 @@
 package com.treeseed.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,6 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.NonprofitRepository;
-
 @Service
 public class NonprofitService implements NonprofitServiceInterface{
 
@@ -20,7 +21,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public Page<Nonprofit> getAll(NonprofitRequest ur) {
+	public Page<Nonprofit> getNonProfit(NonprofitRequest ur) {
 	
 		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
@@ -37,24 +38,66 @@ public class NonprofitService implements NonprofitServiceInterface{
 					ur.getPageSize());
 		}
 		
-		Page<Nonprofit> result = null;
+		Page<Nonprofit> pageResult = null;
+		Page<Nonprofit> pageResultado = null;
 		
-		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = nonprofitsRepository.findAll(pr);
-		}else if(ur.getSearchColumn().toLowerCase().
-				equals("firstname")){
-			//result = nonprofitsRepository.
-					//findByEmailAndPassword(ur.getSearchTerm())(ur.getSearchTerm(),pr);
-		} else if(ur.getSearchColumn().toLowerCase().equals("lastname")){
-			//result = usersRepository.
-					//findByEmailAndPassword(ur.getSearchTerm(),pr);
-		}else{
-			result = nonprofitsRepository.findAll(pr);
+		String filterName = ur.getName();
+		int filterCause= 0;
+		int filterCountry= 0;
+		
+		
+		if(ur.getCause()!=null){
+			filterCause = Integer.parseInt(ur.getCause());
+		}else if(ur.getCountry()!=null){
+			filterCountry = Integer.parseInt(ur.getCountry());
 		}
-
-		return result;
+		
+		
+		
+		pageResult = nonprofitsRepository.findConTodo(filterName, "%"+filterName+"%",filterCountry,filterCause, pr);
+		
+		return pageResult ;
 		
 	}
+	
+	
+	/*public Page<Donor> getAll(DonorRequest dr) {
+		 
+		  PageRequest pr;
+		    Sort.Direction direction = Sort.Direction.DESC;
+		    
+		    if(dr.getDirection().equals("ASC")){    
+		     direction = Sort.Direction.ASC;
+		    }
+		    
+		    if(dr.getSortBy().size() > 0){
+		      Sort sort = new Sort(direction,dr.getSortBy());
+		      pr = new PageRequest(dr.getPageNumber(),
+		      dr.getPageSize(),sort);
+		      
+		    }else{ 
+		      pr = new PageRequest(dr.getPageNumber(),
+		      dr.getPageSize());
+		    }
+		    
+		    Page<Donor> result = null;
+		    
+		    if(dr.getSearchColumn().toLowerCase().equals("all")){
+		     result = donorRepository.findAll(pr);
+		    }else if(dr.getSearchColumn().toLowerCase().
+		       equals("firstname")){
+		    } else if(dr.getSearchColumn().toLowerCase().equals("lastname")){
+		      //nonProfits = usersRepository.
+		      //findByEmailAndPassword(ur.getSearchTerm(),pr);
+		    }else{
+		     result = donorRepository.findAll(pr);
+		    }
+		    
+		    
+
+		    return result;
+		  
+		 }*/
 
 	@Override
 	@Transactional
@@ -69,8 +112,27 @@ public class NonprofitService implements NonprofitServiceInterface{
 		
 	}
 
+
 	@Override
 	public Nonprofit getSessionNonprofit(int idNonprofit) {
 		return nonprofitsRepository.findOne(idNonprofit);
+	}
+
+	@Override
+	public Page<Nonprofit> getByName(NonprofitRequest ur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Nonprofit> getByCountry(NonprofitRequest ur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Nonprofit> getByCause(NonprofitRequest ur) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
