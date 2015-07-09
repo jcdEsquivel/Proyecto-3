@@ -155,22 +155,92 @@ angular
 							}
 						} ]);
 
-/*
- * .config(function($routeProvider, $locationProvider, $urlRouterProvider) {
- * 
- * $routeProvider.when('/signin', { templateUrl: '/layouts/main.html',
- * controller: 'SigninFormController' } ); $routeProvider.when('/', {
- * emplateUrl: '/layouts/main.html' //controller: 'moviesController' } );
- * $routeProvider.when('/donor', { templateUrl: '/layouts/donor.html'
- * //controller: 'moviesController' } ); $routeProvider.when('/nonProfit', {
- * templateUrl: '/layouts/nonProfit.html' //controller: 'seatsController' } );
- * $routeProvider.when('/donate', { templateUrl: '/layouts/donate.html'
- * //controller: 'confirmationController' } );
- * 
- * //$locationProvider.html5Mode(true);
- * 
- * });
- */
+    $urlRouterProvider.otherwise('/signin');
+    $stateProvider
+	    .state('treeSeed',{
+            abstract: true,
+            url: '/treeseed.org',
+            templateUrl: 'layouts/pages/main.html'
+        })    
+        .state('signin',{
+            url: '/signin',
+            templateUrl: 'layouts/components/page_signin.html',
+            controller: 'SigninFormController'
+        })
+        .state('treeSeed.index', {
+              url: '/index',
+              templateUrl: 'layouts/pages/index.html',
+              controller: 'indexController'
+        })    
+        .state('treeSeed.donor', {
+              url: '/donor',
+              templateUrl: 'layouts/pages/donor.html'
+              //controller: 'TypeaheadDemoCtrl'
+        })
+        .state('treeSeed.nonProfit', {
+             url: '/nonProfit',
+             templateUrl: 'layouts/pages/nonProfit.html'
+             //resolve: load(['js/controllers/chart.js'])
+        })
+        .state('treeSeed.donate', {
+            url: '../donate',
+            templateUrl: 'layouts/pages/donate.html'
+            //resolve: load(['js/controllers/chart.js'])
+        })
+        .state('treeSeed.searchTransReport', {
+            url: '/str',
+            templateUrl: 'layouts/pages/transparencyReportSearch.html',
+            controller: "searchTransparecyReportController"
+        })
+        .state('treeSeed.createCampaing', {
+            url: '/createCampaing',
+            templateUrl: 'layouts/pages/createCampaing.html'
+            //resolve: load(['js/controllers/chart.js'])
+        })
+         .state('treeSeed.campaingViewer', {
+            url: '/campaingViewer',
+            templateUrl: 'layouts/pages/campaingViewer.html'
+            //resolve: load(['js/controllers/chart.js'])
+        })
+        .state('treeSeed.nonProfitSearch', {
+            url: '/nonProfitSearch',
+            templateUrl: 'layouts/pages/nonProfitSearch.html',
+            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
+            controller: "nonProfitSearchController"
+        });
+        
+        function load(srcs, callback) {
+            return {
+                deps: ['$ocLazyLoad', '$q',
+                  function( $ocLazyLoad, $q ){
+                    var deferred = $q.defer();
+                    var promise  = false;
+                    srcs = angular.isArray(srcs) ? srcs : srcs.split(/\s+/);
+                    if(!promise){
+                      promise = deferred.promise;
+                    }
+                    angular.forEach(srcs, function(src) {
+                      console.log(src);
+                      promise = promise.then( function(){
+                        if(JQ_CONFIG[src]){
+                          return $ocLazyLoad.load(JQ_CONFIG[src]);
+                        }
+                        angular.forEach(MODULE_CONFIG, function(module) {
+                          if( module.name == src){
+                            name = module.name;
+                          }else{
+                            name = src;
+                          }
+                        });
+                        return $ocLazyLoad.load(name);
+                      } );
+                    });
+                    deferred.resolve();
+                    return callback ? promise.then(function(){ return callback(); }) : promise;
+                }]
+            }
+          }
+}]);
 
 angular.module('treeSeed').config(
 		[
