@@ -1,6 +1,6 @@
 angular.module('treeSeed')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$sharedData', 
+    function(              $scope,   $translate,   $localStorage,   $window, $sharedData ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -55,9 +55,11 @@ angular.module('treeSeed')
       $scope.lang = { isopen: false };
       $scope.langs = {en:'English', es:'Español'};
       $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
+      //$sharedData.setLenguaje($scope.selectLang);
       $scope.setLang = function(langKey, $event) {
         // set the current lang
         $scope.selectLang = $scope.langs[langKey];
+        //$sharedData.setLenguaje($scope.selectLang);
         // You can change the language during runtime
         $translate.use(langKey);
         $scope.lang.isopen = !$scope.lang.isopen;

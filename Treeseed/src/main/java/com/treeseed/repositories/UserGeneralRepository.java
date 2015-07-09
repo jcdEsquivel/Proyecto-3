@@ -15,4 +15,6 @@ public interface UserGeneralRepository extends
 			String password);
 	
 	Page<UserGeneral> findAll(Pageable pageable);
+	
+	UserGeneral findByEmail(String email);
 }

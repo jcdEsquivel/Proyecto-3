@@ -1,6 +1,6 @@
 package com.treeseed.services;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.NonprofitRepository;
-
 @Service
 public class NonprofitService implements NonprofitServiceInterface{
 
@@ -101,9 +101,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveNonprofit(Nonprofit nonProfit) {
+	public Boolean saveNonprofit(NonprofitWrapper nonProfit) {
 		
-		Nonprofit nuser = nonprofitsRepository.save(nonProfit);
+		Nonprofit nuser = nonprofitsRepository.save(nonProfit.getWrapperObject());
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
@@ -111,6 +111,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return result;
 		
 	}
+
 
 	@Override
 	public Nonprofit getSessionNonprofit(int idNonprofit) {

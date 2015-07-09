@@ -6,14 +6,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
+import com.treeseed.repositories.UsersRepository;
 
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
-
 	@Autowired
 	UserGeneralRepository usersRepository;
 
@@ -52,14 +54,12 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		}
 
 		return result;
-		
 	}
-
 	@Override
 	@Transactional
-	public Boolean saveUserGeneral(UserGeneral userGeneral) {
+	public Boolean saveUserGeneral(UserGeneralWrapper userGeneral) {
 		
-		UserGeneral nuser = usersRepository.save(userGeneral);
+		UserGeneral nuser = usersRepository.save(userGeneral.getWrapperObject());
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
@@ -72,4 +72,32 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	public UserGeneral getSessionUserGeneral(int idUserGeneral) {
 		return usersRepository.findOne(idUserGeneral);
 	}
+
+	@Override
+	public UserGeneral getUserByEmailAndPassword(String ur, String pas) {
+		return  usersRepository.findByEmailAndPassword(ur, pas);
+	}
+	
+	@Override
+	public Boolean userExist(String email) {
+		Boolean exist = false;
+		UserGeneral response= usersRepository.findByEmail(email);
+		if(response!=null){
+			exist=true;
+		}
+		
+		return exist;
+	}
+
+	@Override
+	public Boolean isEmailUnique(String email){
+		UserGeneral user = usersRepository.findByEmail(email.toLowerCase());
+			
+		if(user != null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 }

@@ -110,15 +110,28 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			var userType = "";
 			var loggedin = false;
 
-			for (i = 0; i < totalUsers; i++) {
-				if ($scope.users[i].email == userNameTyped
-						&& $scope.users[i].Password == passwordTyped) {
-					loggedin = true;
-					userType = $scope.users[i].Type;
-					img = $scope.users[i].Imagen;
-					name = $scope.users[i].Name;
-				}
-			}
+treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
+
+    $scope.selected = undefined;
+    $scope.states = ['Territorio de Zaguates'];
+    // Any function returning a promise object can be used to load values asynchronously
+    $scope.getLocation = function(val) {
+      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: val,
+          sensor: false
+        }
+      }).then(function(res){
+        var addresses = [];
+        angular.forEach(res.data.results, function(item){
+          addresses.push(item.formatted_address);
+        });
+        return addresses;
+      });
+    };
+
+  }])
+  ; 
 
 			if (loggedin === true) {
 				$sharedData.setLoggedUser(name);

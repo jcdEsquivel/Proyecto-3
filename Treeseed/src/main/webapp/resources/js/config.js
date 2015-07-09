@@ -65,9 +65,14 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/nonProfitSearch.html',
             resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
             controller: "nonProfitSearchController"
+        })
+        .state('treeSeed.registerNonProfile', {
+            url: '/registerNonProfile',
+            templateUrl: 'layouts/pages/registerNonProfitProfile.html',
+            controller: "nonProfitRegistrationController"
         });
-        
-        function load(srcs, callback) {
+    
+           function load(srcs, callback) {
             return {
                 deps: ['$ocLazyLoad', '$q',
                   function( $ocLazyLoad, $q ){
@@ -97,35 +102,11 @@ angular.module('treeSeed')
                     return callback ? promise.then(function(){ return callback(); }) : promise;
                 }]
             }
-          }
-}]);
+           }
+          }]);
 
-/*.config(function($routeProvider, $locationProvider, $urlRouterProvider) {
 
-    $routeProvider.when('/signin', {
-                templateUrl: '/layouts/main.html', 
-                controller: 'SigninFormController'                    
-            } );
-    $routeProvider.when('/', {
-                emplateUrl: '/layouts/main.html' 
-                //controller: 'moviesController'                    
-            } );
-    $routeProvider.when('/donor', {
-                templateUrl: '/layouts/donor.html' 
-                //controller: 'moviesController'
-            } );
-    $routeProvider.when('/nonProfit', {
-                templateUrl: '/layouts/nonProfit.html'                    
-                //controller: 'seatsController'
-            } );
-    $routeProvider.when('/donate', {
-                templateUrl: '/layouts/donate.html' 
-                //controller: 'confirmationController'
-            } );
 
-    //$locationProvider.html5Mode(true);
-
-});*/
 
 angular.module('treeSeed').config(
     [        '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
@@ -205,7 +186,14 @@ angular.module('treeSeed').config(
                       
     }
   )
-  angular.module('treeSeed').constant('MODULE_CONFIG', [
+  angular.module('treeSeed').constant('MODULE_CONFIG', [    
+	  {
+	      name: 'angularUpload',
+	      files: [
+	          'resources/js/libs/angular/angular-upload/angular-file-upload.min.js',
+	          'resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js'
+	      ]
+	  },
         {
   	      name: 'angularUtils.directives.dirPagination',
   	      files: [

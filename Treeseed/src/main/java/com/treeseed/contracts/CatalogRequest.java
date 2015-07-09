@@ -24,7 +24,7 @@ private String type;
 	public String toString() {
 		return "CatalogRequest [Catalog=" + catalog + "]";
 	}
-	
+
 	public String getLenguage() {
 		return lenguage;
 	}

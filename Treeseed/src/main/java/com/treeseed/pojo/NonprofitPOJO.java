@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NonprofitPOJO {
 	public NonprofitPOJO() {
 		super();
@@ -32,6 +34,7 @@ public class NonprofitPOJO {
 	private String webPage;
 	
 	private UserGeneralPOJO userGeneral;
+	
 	
 	private boolean isActive;
 	public int getId() {
@@ -129,5 +132,8 @@ public class NonprofitPOJO {
 	public void setUserGeneral(UserGeneralPOJO userGeneral) {
 		this.userGeneral = userGeneral;
 	}
+
+
+
 
 }
