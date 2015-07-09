@@ -162,8 +162,13 @@ public class UsersController {
 					ug.setUserGeneral(userG);
 					userGeneralCreate(ug, user);
 					
-					us.setCode(200);
-					us.setCodeMessage("user created succesfully");
+					if(userGeneralCreate(ug, user).getCode()==200){
+						us.setCode(200);
+						us.setCodeMessage("user created succesfully");
+					}else{
+						us.setCode(400);
+						us.setCodeMessage("general User does not create");
+					}
 				}
 			}else{
 				us.setCode(400);
@@ -212,7 +217,8 @@ public class UsersController {
 			us.setCode(200);
 			us.setCodeMessage("user created succesfully");
 		}else{
-			
+			us.setCode(400);
+			us.setCodeMessage("general User does not create");
 		}
 	
 		return us;

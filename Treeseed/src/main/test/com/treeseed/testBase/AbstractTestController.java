@@ -23,6 +23,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.ParentUserWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
@@ -192,6 +193,7 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		nonprofit.setReason("Reason");
 		nonprofit.setWebPage("www.test.com");
 		
+		
 		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
 		
 		serviceNonProfit.saveNonprofit(wrapper);
@@ -226,7 +228,7 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	        
 	        userWrapper.setIsActive(true);
 	        userWrapper.setPassword(file_string);
-	        userWrapper.setEmail(random+"@test.com");
+	        userWrapper.setEmail("prueba1@prueba1.com");
 			
 			serviceUserGeneral.saveUserGeneral(userWrapper);
 			
