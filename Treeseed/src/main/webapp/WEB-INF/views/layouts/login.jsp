@@ -1,26 +1,34 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<head><title>Cenfoteca | Login</title></head>
+<html lang="en" data-ng-app="treeSeed">
+<head>
+  <meta charset="utf-8" />
+  <title>TreeSeed</title>
+  <meta name="description" content="Angularjs, Html5, Music, Landing, 4 in 1 ui kits package" />
+  <meta name="keywords" content="AngularJS, angular, bootstrap, admin, dashboard, panel, app, charts, components,flat, responsive, layout, kit, ui, route, web, app, widgets" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Sign in to continue to Cenfoteca</h1>
-            <div class="account-wall">
-                <img class="profile-img" src="resources/images/loginPhoto.jpg"
-                    alt="">
-                <form class="form-signin">
-                <input type="text" class="form-control" placeholder="Email" autofocus ng-model="user.email">
-                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-                <button class="btn btn-lg btn-primary btn-block" ng-click="checkLogin()">
-                    Sign in</button>
-                <label class="checkbox pull-left">
-                    <input type="checkbox" value="remember-me">
-                    Remember me
-                </label>
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                </form>
-            </div>
-            <a href="#" class="text-center new-account">Create an account </a>
-        </div>
-    </div>
-</div>
+  <link rel="stylesheet" href="resources/js/libs/assets/animate.css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="resources/js/libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="resources/js/libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+  <link rel="stylesheet" href="resources/js/libs/angular/angular-material/angular-material.css" type="text/css" />
+  <link rel="stylesheet" href="resources/css/app.css" type="text/css" />
+  <link rel="stylesheet" href="resources/css/site.css" type="text/css" />
+
+  <script src="resources/js/libs.js"></script>
+  <script src="resources/js/app.js"></script>
+  <script src="resources/js/controllers/loginControllers.js"></script>
+  <script src="resources/js/filters/treeSeedFilters.js"></script>
+  <script src="resources/js/directives/treeSeedDirectives.js"></script>
+  <script src="resources/js/services/treeSeedServices.js"></script>
+  <script src="resources/js/config.js"></script>
+  <script src="resources/js/controllers/treeSeedApp.js"></script>
+  
+<body  layout="row" ng-controller="AppCtrl" >
+ 
+  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
+
+  <!-- jQuery -->
+  
+
+  <!-- Lazy loading -->
+</body>
+</html>

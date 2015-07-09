@@ -12,8 +12,8 @@ angular.module('treeSeed')
         version: '2.0.2',
         // for chart colors
         color: {
-          primary: '#7266ba',
-          info:    '#23b7e5',
+          primary: '#23b7e5',
+          info:    '#7266ba',
           success: '#27c24c',
           warning: '#fad733',
           danger:  '#f05050',

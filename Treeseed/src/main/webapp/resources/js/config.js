@@ -65,7 +65,13 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/nonProfitSearch.html',
             resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
             controller: "nonProfitSearchController"
-        });
+        })
+		.state('treeSeed.registerNonProfit', {
+		    url: '/registerNonProfit',
+		    templateUrl: 'layouts/pages/registerNonProfitProfile.html',
+		    controller: "nonProfitRegistrationController"
+		});
+	    
         
         function load(srcs, callback) {
             return {
@@ -206,6 +212,13 @@ angular.module('treeSeed').config(
     }
   )
   angular.module('treeSeed').constant('MODULE_CONFIG', [
+	        {
+	  	      name: 'angularUpload',
+	  	      files: [
+	  	          'resources/js/libs/angular/angular-upload/angular-file-upload.min.js',
+	  	          'resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js'
+	  	      ]
+	  	  },
         {
   	      name: 'angularUtils.directives.dirPagination',
   	      files: [

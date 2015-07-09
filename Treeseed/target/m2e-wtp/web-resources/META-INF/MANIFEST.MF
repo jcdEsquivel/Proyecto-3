@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: treeseed.org
 Implementation-Version: 1.0.0-BUILD-SNAPSHOT
-Built-By: Ricardenho
+Built-By: Fabian
 Implementation-Vendor-Id: com.treeseed
 Build-Jdk: 1.8.0_45
 Created-By: Maven Integration for Eclipse
