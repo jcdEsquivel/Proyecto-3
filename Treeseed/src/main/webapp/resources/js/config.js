@@ -87,18 +87,27 @@ angular
 											{
 												url : '/nonProfitSearch',
 												templateUrl : 'layouts/pages/nonProfitSearch.html',
-            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
-														'angularUtils.directives.dirPagination',
-														'resources/js/controllers/searchControllers.js' ]),
+												resolve: load([
+												        'angularUtils.directives.dirPagination',
+												        'resources/js/controllers/searchControllers.js']),
 												controller : "nonProfitSearchController"
-        })
-        .state('treeSeed.registerNonProfile', {
-            url: '/registerNonProfile',
-            templateUrl: 'layouts/pages/registerNonProfitProfile.html',
-            controller: "nonProfitRegistrationController"
+									        })
+									.state(
+											'treeSeed.donorSearch',
+											{
+												url : '/donorSearch',
 												templateUrl : 'layouts/pages/donorSearch.html',
-												// controller:
-												// "nonProfitSearchController",
+												resolve: load([
+												        'angularUtils.directives.dirPagination',
+												        'resources/js/controllers/searchControllers.js']),
+												controller : "nonProfitSearchController"
+									        })
+									.state('treeSeed.registerNonProfile', 
+											{
+									            url: '/registerNonProfile',
+									            templateUrl: 'layouts/pages/registerNonProfitProfile.html',
+									            controller: "nonProfitRegistrationController",
+												templateUrl : 'layouts/pages/donorSearch.html',
 												resolve : load([
 														'angularUtils.directives.dirPagination',
 														'resources/js/controllers/searchControllers.js' ]),
