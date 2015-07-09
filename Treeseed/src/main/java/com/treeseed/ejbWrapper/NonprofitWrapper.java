@@ -13,10 +13,27 @@ import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejb.TransparencyReport;
 import com.treeseed.ejb.UserGeneral;
 
-class NonprofitWrapper {
-
+public class NonprofitWrapper extends ParentUserWrapper{
 	private Nonprofit wrapperObject;
 
+	public NonprofitWrapper() {
+		super();
+		setWrapperObject(new Nonprofit());
+	}
+	
+	public NonprofitWrapper(Nonprofit nonProfit) {
+		super();
+		setWrapperObject(nonProfit);
+	}
+
+	public Nonprofit getWrapperObject() {
+		return wrapperObject;
+	}
+
+	public void setWrapperObject(Nonprofit wrapperObject) {
+		this.wrapperObject = wrapperObject;
+	}
+	
 	public int hashCode() {
 		return wrapperObject.hashCode();
 	}

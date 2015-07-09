@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+<div class="panel panel-default">
+	<h1 class="m-n font-thin h3" translate="REGISTER-NONPROFIT.TITLE"></h1>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal col-sm-12 col-sm-offset-0" id="registerNonProfit" name="registerForm" role="form"required>
+	  <div  class="col-sm-5 md-whiteframe-treeseed" class="form-control">
+      	<div class="col-sm-12">
+      		<div class="col-sm-12">
+      		<md-input-container flex>
+	          <label translate="REGISTER-NONPROFIT.NAME"></label>
+	          <input type="text" ng-model="nonprofit.name" class="form-control"required>   
+       		 </md-input-container>
+       		 </div>
+       		 <div class="col-sm-12">
+		        <md-input-container  flex id="emailValidate">
+		          <label translate="REGISTER-NONPROFIT.EMAIL"></label>
+		          <input is-email-unique="" name="email" type="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="nonprofit.userGeneral.email" class="form-control"required>   
+		        </md-input-container>
+		        <span class="" 
+     				ng-show="registerForm.email.$error.unique" translate="REGISTER-NONPROFIT.EMAIL-MESSAGE"></span>
+			 </div>
+			 <div class="col-sm-6">
+		        <md-input-container flex>
+		         <label  translate="REGISTER-NONPROFIT.PASSWORD"></label>
+		        <input type="password" ng-model="nonprofit.userGeneral.password" name="password" class="form-control"required>  
+		       </md-input-container>
+			 </div>
+			 <div class="col-sm-6">
+		        <md-input-container flex>
+		        <label  translate="REGISTER-NONPROFIT.PASSWORD-CONFIRM"></label>
+		         <input ng-messages="translate='REGISTER-NONPROFIT.PASSWORD-MESSAGE'" type="password" class="form-control" name="confirm_password" required ng-model="confirm_password" ui-validate=" '$value==nonprofit.userGeneral.password' " ui-validate-watch=" 'nonprofit.userGeneral.password' ">
+				 </md-input-container>               
+                 <span ng-show='registerForm.confirm_password.$error.validator' translate="REGISTER-NONPROFIT.PASSWORD-MESSAGE"></span>  
+		       
+			 </div>
+			 <div class="col-sm-6">
+			 <label class="labels-dropdowns"  translate="REGISTER-NONPROFIT.CAUSE"></label>
+			 <md-input-container flex> 
+		        <div>
+		        	<md-select style="width:100%;" ng-model="nonprofit.cause">
+					     <md-select-label value="nonprofit.cause">{{ nonprofit.cause.message }}</md-select-label>
+					     <md-option ng-repeat="cause in selectSortOptionsCause" ng-value="cause">{{ cause.message  }}</md-option>
+					</md-select>
+			        
+		        </div>
+        	 </md-input-container>
+			 </div>
+		      <div class="col-sm-6 ">
+		      <label class="labels-dropdowns"  translate="REGISTER-NONPROFIT.COUNTRY" ng-required></label> 
+		      <md-input-container flex>	
+		      	<div>
+			        <md-select style="width:100%;" ng-model="nonprofit.country">
+					     <md-select-label value="nonprofit.country">{{ nonprofit.country.message }}</md-select-label>
+					     <md-option ng-repeat="country in selectSortOptionsCountry" ng-value="country">{{ country.message  }} </md-option>
+					</md-select>
+		        </div>
+		      	</md-input-container>
+			</div>
+		</div>
+		</div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+        <label class="labels-dropdowns" translate="REGISTER-NONPROFIT.PICTUREIMAGE"></label>
+        <div class="panel wrapper" layout-align="center center">
+	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
+	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()"  translate="REGISTER-NONPROFIT.DROPIMAGE">
+	    		Drop an image here to upload.
+			</div>
+		</div> 	
+		</div>
+		<div class="form-group">
+          <div class="col-sm-12 col-sm-offset-9">
+            <button type="submit" class="btn btn-default" translate="REGISTER-NONPROFIT.CANCEL-BUTTON">Cancel</button>
+            <button type="submit" ng-disabled="registerForm.$invalid" ng-click="create()" class="btn btn-primary" translate="REGISTER-NONPROFIT.REGISTER-BUTTON"></button>
+          </div>
+        </div>
+      </form>
+    </div>    
+</div>    
