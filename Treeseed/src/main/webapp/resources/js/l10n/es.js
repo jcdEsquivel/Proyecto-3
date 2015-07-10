@@ -51,14 +51,11 @@
     	"TESTIMONIAL-TEXT": "Español Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "¿CREES TENER LO QUE SE NECESITA?",
     	"CREATE-ACCOUNT": "CREAR CUENTA"
-
     },
-<<<<<<< HEAD
-
     "DONORSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de donantes",
     	"LAST-NAME": "Apellido"
-=======
+    },
     "REGISTER-DONOR": {
     	"NAME": "Nombre",
     	"LASTNAME": "Apellido",
@@ -73,7 +70,6 @@
         "CANCEL" : "Cancelar",
         "PASSWORD-MESSAGE" : "Contraseñas no coinciden.",
         "PASSWORD-CONFIRM" : "Confirmar contraseña"
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
@@ -82,20 +78,15 @@
     	"SEARCH-BUTTON": "Buscar",
     	"FILTERS": "Filtros",
     	"NAME-FILTER": "Nombre",
-<<<<<<< HEAD
-    	"COUNTRY-FILTEhttps://www.youtube.com/watch?v=AkNqLNup-7gR": "Escoja un país",
+    	"COUNTRY-FILTER": "Escoja un país",
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
-    	"BLANK-OPTION": "Seleccione:"	
-     },
-=======
+    	"BLANK-OPTION": "Seleccione:",	
     	"COUNTRY-FILTER": "Escoja un país",
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
     	"BLANK-OPTION": "Seleccione:"	
-
     },
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
         "NAME": "Nombre",
@@ -109,7 +100,6 @@
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
         "PASSWORD-MESSAGE": "La contraseña no coincide",
-        "EMAIL-MESSAGE": "Email ya registrado"
-        	
-       }
+        "EMAIL-MESSAGE": "Email ya registrado"  	
+     }
 }

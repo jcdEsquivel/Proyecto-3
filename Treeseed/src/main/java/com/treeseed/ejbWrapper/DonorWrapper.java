@@ -18,19 +18,13 @@ public class DonorWrapper extends ParentUserWrapper{
 	public DonorWrapper() {
 		super();
 		setWrapperObject(new Donor());
-<<<<<<< HEAD
 		// TODO Auto-generated constructor stub
-=======
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 	}
 	
 	public DonorWrapper(Donor donor) {
 		super();
 		setWrapperObject(donor);
-<<<<<<< HEAD
 		// TODO Auto-generated constructor stub
-=======
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 	}
 
 	public Donor getWrapperObject() {
@@ -217,9 +211,6 @@ public class DonorWrapper extends ParentUserWrapper{
 	public String toString() {
 		return wrapperObject.toString();
 	}
-<<<<<<< HEAD
-	
 }
-=======
-}
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
+
+

@@ -109,10 +109,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			var img = "";
 			var userType = "";
 			var loggedin = false;
-<<<<<<< HEAD
-=======
-			
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
+
 			if (loggedin === true) {
 				$sharedData.setLoggedUser(name);
 				$sharedData.setLoged(true);
@@ -131,11 +128,10 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			}
 		};
 	} else {
-<<<<<<< HEAD
+
 		$state.go('treeSeed.index');
-=======
 		//$state.go('treeSeed.index');
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
+
 	}
 });
 
@@ -162,11 +158,6 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
   }])
   ; 
 
-<<<<<<< HEAD
-=======
-			
-
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',
 		'$http',

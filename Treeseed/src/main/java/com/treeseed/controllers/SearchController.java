@@ -82,9 +82,6 @@ public class SearchController {
 			
 	}
 	
-	
-	
-	
 	public NonprofitResponse setNonProfitResults(Page<Nonprofit> nonprofits){
 		NonprofitResponse nps = new NonprofitResponse();
 	
@@ -105,8 +102,7 @@ public class SearchController {
 		});
 		
 		nps.setNonprofits(viewNonprofits);
-		return nps;		
-		
+		return nps;			
 	}
 	
 	@RequestMapping(value ="/getDonors", method = RequestMethod.POST)
@@ -115,14 +111,13 @@ public class SearchController {
 		
 		dr.setPageNumber(dr.getPageNumber() - 1);
 		
-		Page<Donor> viewDonors = donorService.getDonor(dr);
+		Page<Donor> viewDonors = donorService.getAll(dr);
 		
 		DonorResponse ds = new DonorResponse();
 		
 		ds.setCode(200);
 		ds.setCodeMessage("donors fetch success");
-		
-		
+				
 		ds.setTotalElements(viewDonors.getTotalElements());
 		ds.setTotalPages(viewDonors.getTotalPages());
 		
@@ -142,12 +137,8 @@ public class SearchController {
 		
 		ds.setDonor(viewDonorsPOJO);
 		ds.setCode(200);
-		return ds;
-			
+		return ds;	
 	}
-	
-	
-	
 	
 	public DonorResponse setDonorsResults(Page<Donor> donors){
 		DonorResponse ds = new DonorResponse();
@@ -155,8 +146,7 @@ public class SearchController {
 		ds.setCode(200);
 		ds.setCodeMessage("nonprofits fetch success");
 		ds.setTotalElements(ds.getTotalElements());
-		ds.setTotalPages(ds.getTotalPages());
-		
+		ds.setTotalPages(ds.getTotalPages());	
 		
 		List<DonorPOJO> viewDonors = new ArrayList<DonorPOJO>();
 		
@@ -171,24 +161,6 @@ public class SearchController {
 		});
 		
 		ds.setDonor(viewDonors);
-		return ds;		
-		
+		return ds;				
 	}
-	
-	/*@Autowired
-    JdbcTemplate jdbcTemplate;
-	
-	@RequestMapping(value ="/getAllCountries", method = RequestMethod.POST)
-	public List<Catalog> getAllCountries(){	
-	
-		List<Catalog> list = jdbcTemplate.query(
-                "SELECT id, name FROM catalog WHERE type = ?", new Object[] { "Country" },
-                (rs, rowNum) -> new Catalog(rs.getInt("id"), rs.getString("name"))
-        );
-
-		return list;
-
-	}
-	*/
-	
 }

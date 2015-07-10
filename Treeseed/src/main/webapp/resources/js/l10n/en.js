@@ -31,10 +31,7 @@
     	"HEADER-TEXT" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     	"HEADER-BUTTON-NGO": "Register as NGO",
     	"HEADER-BUTTON-DONOR": "Register as Donor",
-<<<<<<< HEAD
-=======
     	"HEADER-BUTTON": "LET IT GROW",
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
     	"WELCOME-TITLE": "A very nice welcome message",
     	"WELCOME-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"STORIES-TITLE": "Our Stories",
@@ -55,9 +52,7 @@
     	"TESTIMONIAL-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
-<<<<<<< HEAD
-
-    	},
+    },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
@@ -69,8 +64,6 @@
     	"CONFIGURATION": " Configuration",
     	"DONATION-RECEIPTS": "Receipts",
     	"PORTFOLIO": "Portfolio"
-    },
-=======
     },
     "REGISTER-DONOR": {
     	"NAME": "Name",
@@ -90,7 +83,6 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
     	"FILTERS": "Filters",
@@ -99,12 +91,7 @@
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:"
-<<<<<<< HEAD
-    	},
-=======
-
     },
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
         "NAME": "Name",
@@ -119,12 +106,5 @@
         "CANCEL-BUTTON": "Cancel",
         "PASSWORD-MESSAGE": "Password do not match",
         "EMAIL-MESSAGE": "Email already in use"
-<<<<<<< HEAD
        }
-
 }
-=======
-    }
-}
-
->>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
