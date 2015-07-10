@@ -14,14 +14,13 @@
   <link rel="stylesheet" href="resources/css/site.css" type="text/css" />
 
   <script src="resources/js/libs.js"></script>
-  <script src="resources/js/app.js"></script>
-  <script src="resources/js/controllers/loginControllers.js"></script>
+  <script src="resources/js/appLogin.js"></script>
+  <script src="resources/js/controllers/loginController.js"></script>
+  <script src="resources/js/controllers/treeSeedApp.js"></script>
   <script src="resources/js/filters/treeSeedFilters.js"></script>
   <script src="resources/js/directives/treeSeedDirectives.js"></script>
   <script src="resources/js/services/treeSeedServices.js"></script>
-  <script src="resources/js/config.js"></script>
-  <script src="resources/js/controllers/treeSeedApp.js"></script>
-  
+  <script src="resources/js/configLogin.js"></script>
 <body  layout="row" ng-controller="AppCtrl" >
  
   <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>

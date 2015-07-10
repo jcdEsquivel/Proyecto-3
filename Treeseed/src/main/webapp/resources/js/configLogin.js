@@ -13,64 +13,13 @@ angular.module('treeSeed')
       function ($stateProvider,   $urlRouterProvider, JQ_CONFIG, MODULE_CONFIG) {
 
 
-    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.otherwise('/');
     $stateProvider
-	    .state('treeSeed',{
-            abstract: true,
+	    .state('treeSeedLogin',{
             url: '/',
-            templateUrl: 'layouts/pages/main.html'
-        })    
-        .state('signin',{
-            url: '/signin',
             templateUrl: 'layouts/components/page_signin.html',
             controller: 'SigninFormController'
-        })
-        .state('treeSeed.index', {
-              url: 'index',
-              templateUrl: 'layouts/pages/index.html',
-              controller: 'indexController'
-        })    
-        .state('treeSeed.donor', {
-              url: 'donor',
-              templateUrl: 'layouts/pages/donor.html'
-              //controller: 'TypeaheadDemoCtrl'
-        })
-        .state('treeSeed.nonProfit', {
-             url: 'nonProfit',
-             templateUrl: 'layouts/pages/nonProfit.html'
-             //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.donate', {
-            url: '../donate',
-            templateUrl: 'layouts/pages/donate.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.searchTransReport', {
-            url: 'str',
-            templateUrl: 'layouts/pages/transparencyReportSearch.html',
-            controller: "searchTransparecyReportController"
-        })
-        .state('treeSeed.createCampaing', {
-            url: 'createCampaing',
-            templateUrl: 'layouts/pages/createCampaing.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-         .state('treeSeed.campaingViewer', {
-            url: 'campaingViewer',
-            templateUrl: 'layouts/pages/campaingViewer.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.nonProfitSearch', {
-            url: 'nonProfitSearch',
-            templateUrl: 'layouts/pages/nonProfitSearch.html',
-            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
-            controller: "nonProfitSearchController"
-        })
-		.state('treeSeed.registerNonProfit', {
-		    url: 'registerNonProfit',
-		    templateUrl: 'layouts/pages/registerNonProfitProfile.html',
-		    controller: "nonProfitRegistrationController"
-		});
+        });
 	    
     
            function load(srcs, callback) {
