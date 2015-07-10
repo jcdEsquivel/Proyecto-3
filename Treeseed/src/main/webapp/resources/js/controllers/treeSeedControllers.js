@@ -69,7 +69,7 @@ treeSeedAppControllers.controller('indexController',  function($state, $location
 
         var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'layouts/components/page_signin.html',
+          templateUrl: 'layouts/components/page_login.html',
           controller: 'SigninFormController',
         });
       };
@@ -78,7 +78,7 @@ treeSeedAppControllers.controller('indexController',  function($state, $location
           $scope.animationsEnabled = !$scope.animationsEnabled;
         };
         
-        $scope.open('lg');
+       
 });
 
 treeSeedAppControllers.controller('logoutController', function($sharedData,

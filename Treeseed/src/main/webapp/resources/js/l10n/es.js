@@ -96,5 +96,17 @@
         "PASSWORD-MESSAGE": "La contraseña no coincide",
         "EMAIL-MESSAGE": "Email ya registrado"
         	
+       },
+    "LOGIN": {
+    	"EMAIL": "Email", 
+    	"PASSWORD": "Constraseña",
+    	"LOGIN-BUTTON": "Iniciar Sesión",
+    	"REMEMBER": "Recordarme",
+    	"FORGET-PASSWORD":"¿Perdió su contraseña?",
+    	"FACEBOOK": "Iniciar con Facebook",
+    	"TWITTER": "Iniciar con Twitter",
+    	"LINKEDIN": "Inciar con Linkedin",
+    	"DO-YOU": "¿No tienes una cuenta?",
+    	"CREATE": "Crear una cuenta"
        }
 }

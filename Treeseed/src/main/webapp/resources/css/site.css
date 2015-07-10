@@ -305,4 +305,95 @@ margin-top: 15px;
 font-weight: bold;
 }
 
+ .btn-primary {
+    color:#fff!important;
+    background-color:#2196f3;
+    border-color:#2196f3
+}
+
+.btn-facebook {
+     color:#fff!important;
+    background-color:#3f51b5!important;
+    border-color:#3f51b5!important
+}
+
+ .btn-primary:focus,
+ .btn-primary:active,
+ .btn-primary.active,
+ .btn-primary:hover{
+ color:#fff!important;
+ background-color:#3f51b5;
+ border-color:#3f51b5
+ }
+
+
+
+ .btn-primary.disabled,
+ .btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+ .btn-primary.disabled:hover,
+ .btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+ .btn-primary.disabled:focus,
+ .btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+ .btn-primary.disabled:active,
+ .btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+ .btn-primary.disabled.active,
+ .btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+    background-color:#2196f3;
+    border-color:#2196f3
+}
+
+
+.verticalLine {
+    border-left:  solid #2196f3;
+   	border-left-width: 2px
+}
+ .md-input:focus,
+ .md-input.focus {
+    padding-bottom:1px;
+    border-color:#2196f3;
+    border-bottom-width:2px
+}
+
+.divAround{
+	{
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-flow: row wrap; /* Safari 6.1+ */
+    -webkit-align-content: space-around; /* Safari 7.0+ */
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-around;
+    height: 100%;
+  	margin-top: 0;
+ 	margin-bottom: 0;
+    
+}
+.inside-full-height {
+  /*
+  // if you want to give content full height give him height: 100%;
+  // with content full height you can't apply margins to the content
+  // content full height does not work in ie http://stackoverflow.com/questions/27384433/ie-display-table-cell-child-ignores-height-100
+  */
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+.col-sm-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+
+
+
 
