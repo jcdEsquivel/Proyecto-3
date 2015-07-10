@@ -69,7 +69,7 @@
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
     	"BLANK-OPTION": "Seleccione:"	
-
+     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
         "NAME": "Nombre",

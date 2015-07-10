@@ -109,6 +109,27 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			var img = "";
 			var userType = "";
 			var loggedin = false;
+			if (loggedin === true) {
+				$sharedData.setLoggedUser(name);
+				$sharedData.setLoged(true);
+				$sharedData.setUserType(userType);
+				$sharedData.setImg(img);
+
+				if (userType == "ONG") {
+					$state.go('treeSeed.nonProfit');
+				} else {
+					$state.go('treeSeed.index');
+				}
+
+			} else {
+				$scope.authError = "Email o contraseña incorrecta";
+				$sharedData.setLoged(false);
+			}
+		};
+	} else {
+		$state.go('treeSeed.index');
+	}
+});
 
 treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
 
@@ -132,28 +153,6 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
 
   }])
   ; 
-
-			if (loggedin === true) {
-				$sharedData.setLoggedUser(name);
-				$sharedData.setLoged(true);
-				$sharedData.setUserType(userType);
-				$sharedData.setImg(img);
-
-				if (userType == "ONG") {
-					$state.go('treeSeed.nonProfit');
-				} else {
-					$state.go('treeSeed.index');
-				}
-
-			} else {
-				$scope.authError = "Email o contraseña incorrecta";
-				$sharedData.setLoged(false);
-			}
-		};
-	} else {
-		$state.go('treeSeed.index');
-	}
-});
 
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',
