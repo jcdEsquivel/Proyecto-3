@@ -20,7 +20,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 		$sharedData, $scope) {
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
-	$scope.isUserLogged = $sharedData.isUserLogged();
+	//$scope.isUserLogged = $sharedData.isUserLogged();
 
 });
 
@@ -139,7 +139,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			}
 		};
 	} else {
-		$state.go('treeSeed.index');
+		//$state.go('treeSeed.index');
 	}
 });
 

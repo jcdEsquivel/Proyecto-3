@@ -53,9 +53,21 @@
     	"CREATE-ACCOUNT": "CREAR CUENTA"
 
     },
-
-
-
+    "REGISTER-DONOR": {
+    	"NAME": "Nombre",
+    	"LASTNAME": "Apellido",
+    	"EMAIL": "Correo",
+    	"PASSWORD": "Contraseña",
+    	"CAMPAIGN": "Campaña",
+    	"COUNTRY": "País",
+    	"PICTUREIMAGE": "Imagen de Perfil",
+    	"DROPIMAGE" : "Arrastrar imagen aquí.",
+        "TITTLE" : "Registrar Donante",
+        "REGISTER" : "Registrar",
+        "CANCEL" : "Cancelar",
+        "PASSWORD-MESSAGE" : "Contraseñas no coinciden.",
+        "PASSWORD-CONFIRM" : "Confirmar contraseña"
+    },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
     },

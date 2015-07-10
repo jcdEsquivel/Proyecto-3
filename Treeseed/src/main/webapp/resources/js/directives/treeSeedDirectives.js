@@ -3,7 +3,6 @@
 
 var treeSeedAppDirectives = angular.module('treeSeedDirectives',[]);
 
-
 treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {
     return {
         restrict: "A",
@@ -294,32 +293,22 @@ treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {
         });
       }
     };
+   
   }]);
   
-  
-  
-  
-treeSeedAppDirectives.directive("isEmailUnique", function ($http,  $uniqueDataService) {
+  treeSeedAppDirectives.directive("isEmailUnique", function ($http,  $uniqueDataService) {
 	  return {
-	        restrict: 'A',
-	    require: 'ngModel',
-	    link: function (scope, element, attrs, ngModel) {
-	    	
-	        element.bind('blur', function (e) {//blur-> after input losses focus
-	      
-	            var currentValue = element.val();
-	             
-	            	$uniqueDataService.isEmailUnique(currentValue).then(function(value){
-	            		
-	            		console.log('restuldo: '+value);
-	            		ngModel.$setValidity('unique', value);
-	 	            	
-	            });
-	        });
-	    }
-	}
-});
-
-  
-  
-  
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {	        	
+            element.bind('blur', function (e) {//blur-> after input losses focus
+                var currentValue = element.val();
+                	$uniqueDataService.isEmailUnique(currentValue).then(function(value){
+                		console.log('restuldo: '+value);
+                		ngModel.$setValidity('unique', value);
+     	            	
+                    });     
+            	});
+        	}
+	   }
+  	});

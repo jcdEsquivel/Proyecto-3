@@ -12,7 +12,6 @@ import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
-import com.treeseed.repositories.UsersRepository;
 
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
