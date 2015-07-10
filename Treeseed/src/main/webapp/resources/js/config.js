@@ -70,6 +70,11 @@ angular.module('treeSeed')
             url: 'registerNonProfile',
             templateUrl: 'layouts/pages/registerNonProfitProfile.html',
             controller: "nonProfitRegistrationController"
+        })
+        .state('treeSeed.registerDonor', {
+            url: 'registerDonor',
+            templateUrl: 'layouts/pages/registerDonor.html',
+            controller: "donorRegistrationController"
         });
     
            function load(srcs, callback) {

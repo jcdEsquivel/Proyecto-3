@@ -44,11 +44,12 @@ import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
-import com.treeseed.services.UsersServiceInterface;
 import com.treeseed.utils.PojoUtils;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
@@ -67,25 +68,11 @@ public class UsersController {
 	CatalogServiceInterface catalogService;
 	EmailValidator validator = EmailValidator.getInstance();
 	@Autowired
-	NonprofitServiceInterface nonProfitService;
-	@Autowired
-	UserGeneralServiceInterface userGeneralService;
-	@Autowired
-	ServletContext servletContext;
-	
-	//@Autowired
-	//NonprofitServiceInterface nonProfitService;
-	//@Autowirede
-	//UserGeneralServiceInterface userGeneralService;
-	
-	@Autowired
 	 NonprofitServiceInterface nonProfitService;
 	 @Autowired
 	 ServletContext servletContext;
-	
 	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
-	
 	@Autowired
 	HttpServletRequest request;	
 		
@@ -154,7 +141,6 @@ public class UsersController {
 		
 	}
 	
-*/
 	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
 			@RequestParam("email") String email,
@@ -262,16 +248,6 @@ public class UsersController {
 	
 		return us;
 }
-	
-	
-	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
-	public BaseResponse create(@RequestBody String email){	
-
-		Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
-		BaseResponse response = new BaseResponse();
-		response.setCode(200);
-		
-	}
 	
 		
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
