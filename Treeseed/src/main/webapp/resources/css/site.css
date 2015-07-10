@@ -87,7 +87,7 @@ dragnDrop #file-drop{
   line-height: 0.8em;
   position: relative;
   box-sizing: border-box;
-  min-width: inherit; }
+  min-width: inherit; 
 
 
 }
