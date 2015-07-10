@@ -1,5 +1,5 @@
-angular.module('treeSeed')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$sharedData', 
+var treeSeedAppMainControllers = angular.module('treeSeedMainController',[]);
+treeSeedAppMainControllers.controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$sharedData', 
     function(              $scope,   $translate,   $localStorage,   $window, $sharedData ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);

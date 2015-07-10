@@ -1,10 +1,11 @@
 'use strict';
 var treeSeedAppLogin = {};
 
-var treeSeedAppLogin = angular.module('treeSeed', ['treeSeed.loginController',
-    'treeSeed.services',
-    'treeSeed.directives',
-    'treeSeed.filters',
+var treeSeedAppLogin = angular.module('treeSeedLogin', ['treeSeed.loginController',
+   'treeSeedServices',
+   'treeSeedMainController',
+   'treeSeedDirectives',
+   'treeSeedFilters',
     'ngAnimate',
     'ngAria',
     'ngCookies',

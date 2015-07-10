@@ -1,5 +1,5 @@
 'use strict';
-var treeSeedAppServices = angular.module('treeSeed.services', []);
+var treeSeedAppServices = angular.module('treeSeedServices', []);
 
 treeSeedAppServices.value('version', '0.1');
 

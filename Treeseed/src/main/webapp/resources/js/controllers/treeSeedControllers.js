@@ -1,5 +1,5 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller',
-		[ 'treeSeed.services' ]);
+		[ 'treeSeedServices', 'ui.bootstrap', 'treeSeedMainController' ]);
 
 /**
  * ************************************************Prototype
@@ -63,15 +63,30 @@ treeSeedAppControllers.controller('searchTransparecyReportController',
 
 
 
-treeSeedAppControllers.controller('indexController', function($state,
-		$location, $sharedData, $scope) {
+treeSeedAppControllers.controller('indexController',  ['$scope', '$modal', function($state,
+		$location, $sharedData, $scope, $modal) {
+
+		var modalInstance = $modal.open({
+			templateUrl: 'layouts/components/page_signin.html',
+			controller: 'SigninFormController',
+			resolve: {
+				items: function () {
+					return $scope.items;
+				}
+			}
+		});
+
+	    modalInstance.result.then(function () {
+	    	//$(grid_selector).setGridParam({'postData':JSON.stringify($scope.requestObject)}).trigger("reloadGrid");
+	    },function () {
+	      //$log.info('Modal dismissed at: ' + new Date());	      
+	    });
 
 
-
-});
+}]);
 
 treeSeedAppControllers.controller('logoutController', function($sharedData,
-		$location, $scope, $state) {
+		$location, $scope, $state, $modal) {
 	$scope.logout = function() {
 		$sharedData.setLoggedUser('');
 		$sharedData.setLoged(false);

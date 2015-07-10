@@ -1,7 +1,7 @@
 
 'use strict';
 
-var treeSeedAppDirectives = angular.module('treeSeed.directives',[]);
+var treeSeedAppDirectives = angular.module('treeSeedDirectives',[]);
 
 
 treeSeedAppDirectives.directive("imagedrop", function ($parse, $document) {

@@ -1,5 +1,5 @@
 var treeSeedAppLoginControllers = angular.module('treeSeed.loginController',
-		[ 'treeSeed.services' ]);
+		[ 'treeSeedServices' ]);
 
 treeSeedAppLoginControllers.controller('SigninFormController', function($scope, $http, $state, $userData, $sharedData, $location) {
     if($sharedData.getLoged()==false){
