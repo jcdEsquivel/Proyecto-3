@@ -29,6 +29,8 @@
     "LANDING":{
     	"HEADER-TITLE": "For a Better World!",
     	"HEADER-TEXT" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    	"HEADER-BUTTON-NGO": "Register as NGO",
+    	"HEADER-BUTTON-DONOR": "Register as Donor",
     	"HEADER-BUTTON": "LET IT GROW",
     	"WELCOME-TITLE": "A very nice welcome message",
     	"WELCOME-TEXT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
