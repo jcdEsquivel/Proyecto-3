@@ -93,7 +93,7 @@ dragnDrop #file-drop{
 }
 
   
-}
+
 
 
 
@@ -222,7 +222,7 @@ background-size: 100% 100%;
 }
 
 .landing-icons-div i{
-	font-size: 100;
+	font-size: 100px;
 }
 
 .landing-icons-div .explore{
