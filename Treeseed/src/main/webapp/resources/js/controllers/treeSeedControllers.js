@@ -1,5 +1,4 @@
-var treeSeedAppControllers = angular.module('treeSeed.controller',
-		[ 'treeSeedServices', 'ui.bootstrap', 'treeSeedMainController' ]);
+var treeSeedAppControllers = angular.module('treeSeed.controller',[ 'treeSeedServices']);
 
 /**
  * ************************************************Prototype
@@ -63,27 +62,24 @@ treeSeedAppControllers.controller('searchTransparecyReportController',
 
 
 
-treeSeedAppControllers.controller('indexController',  ['$scope', '$modal', function($state,
-		$location, $sharedData, $scope, $modal) {
+treeSeedAppControllers.controller('indexController',  function($state, $location, $sharedData, $scope, $modal) {
 
-		var modalInstance = $modal.open({
-			templateUrl: 'layouts/components/page_signin.html',
-			controller: 'SigninFormController',
-			resolve: {
-				items: function () {
-					return $scope.items;
-				}
-			}
-		});
+	$scope.animationsEnabled = true;
+	$scope.open = function () {
 
-	    modalInstance.result.then(function () {
-	    	//$(grid_selector).setGridParam({'postData':JSON.stringify($scope.requestObject)}).trigger("reloadGrid");
-	    },function () {
-	      //$log.info('Modal dismissed at: ' + new Date());	      
-	    });
-
-
-}]);
+        var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'layouts/components/page_signin.html',
+          controller: 'SigninFormController',
+        });
+      };
+      
+      $scope.toggleAnimation = function () {
+          $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
+        
+        $scope.open('lg');
+});
 
 treeSeedAppControllers.controller('logoutController', function($sharedData,
 		$location, $scope, $state, $modal) {
