@@ -7,19 +7,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.treeseed.contracts.UsersRequest;
-import com.treeseed.ejb.Usuario;
-import com.treeseed.repositories.UsersRepository;
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.repositories.DonorRepository;
 
 @Service
-public class UsersService implements UsersServiceInterface{
+public class DonorService implements DonorServiceInterface{
 
 	@Autowired
-	UsersRepository usersRepository;
+	DonorRepository DonorRepository;
 	
 	@Override
 	@Transactional
-	public Page<Usuario> getAll(UsersRequest ur) {
+	public Page<Donor> getAll(DonorRequest ur) {
 	
 		PageRequest pr;
 		Sort.Direction direction = Sort.Direction.DESC;
@@ -36,20 +37,20 @@ public class UsersService implements UsersServiceInterface{
 					ur.getPageSize());
 		}
 		
-		Page<Usuario> result;
+		Page<Donor> result;
 		
 		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = usersRepository.findAll(pr);
+			result = DonorRepository.findAll(pr);
 		}else if(ur.getSearchColumn().toLowerCase().
-				equals("firstname")){
-			result = usersRepository.
-					findByFirstnameContaining(
+				equals("name")){
+			result = DonorRepository.
+					findByNameContaining(
 							ur.getSearchTerm(),pr);
-		} else if(ur.getSearchColumn().toLowerCase().equals("lastname")){
-			result = usersRepository.
-					findByLastnameContaining(ur.getSearchTerm(),pr);
+		} else if(ur.getSearchColumn().toLowerCase().equals("lastName")){
+			result = DonorRepository.
+					findByLastNameContaining(ur.getSearchTerm(),pr);
 		}else{
-			result = usersRepository.findAll(pr);
+			result = DonorRepository.findAll(pr);
 		}
 		return result;
 		
@@ -57,19 +58,19 @@ public class UsersService implements UsersServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveUser(Usuario user) {
-		
-		Usuario nuser = usersRepository.save(user);
+	public Boolean saveDonor(DonorWrapper user) {
+		Donor nuser = DonorRepository.save(user.getWrapperObject());
 		Boolean result = true;
 		if(nuser == null){
 			result = false;
 		}
 		return result;
-		
 	}
 
 	@Override
-	public Usuario getSessionUser(int idUser) {
-		return usersRepository.findOne(idUser);
+	@Transactional
+	public Donor getSessionDonor(int idUser) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

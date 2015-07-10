@@ -3,20 +3,32 @@ var treeSeedAppServices = angular.module('treeSeed.services', []);
 
 treeSeedAppServices.value('version', '0.1');
 
+treeSeedAppServices.service('$uniqueDataService', function($http){
+	  
+    return {
+        isEmailUnique : function(email){
+        
+        	return $http.post('rest/protected/users/isEmailUnique', email)
+		    	.then(function(response){
+		    	console.log(response.data.codeMessage);
+		    	
+		    		if(response.data.codeMessage == 'UNIQUE'){
+		    			return true;
+		    		}else{
+		    			return false;
+		    		}	
+		    });
+        }      
+    }
+});
+
 treeSeedAppServices.service('$sharedData', function(){
     var loggedUser = "";
-    var type = "Donor";
+    var type = "";
     var img="";
-    var loged = true;
-    var isUserLogged = true;
+    var loged = false;
     var ongName = "Territorio de Zaguates"
     return {
-    	isUserLogged: function(){
-    		return isUserLogged;
-    	},
-    	setUserLogged : function(value){
-    		isUserLogged =  value ;
-        },
         getLoggedUser : function(){
             return loggedUser;
         },
@@ -88,7 +100,7 @@ treeSeedAppServices.service('$userData', function(){
                 Name: "Aramis",
                 Email: "Aramis@hola",
                 Password: "test456",
-                Type: "Donor",
+                Type: "donor",
                 Imagen: ""
             },
             {
@@ -117,7 +129,7 @@ treeSeedAppServices.service('$userData', function(){
                 Name: "Territorio de Zaguates",
                 Email: "territoriodezaguates@gmail.com",
                 Password: "12345",
-                Type: "NGO",
+                Type: "ONG",
                 Imagen: "territorio.jpg"
             }
         ];

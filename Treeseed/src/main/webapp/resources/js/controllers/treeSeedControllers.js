@@ -21,7 +21,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 		$sharedData, $scope) {
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
-	$scope.isUserLogged = $sharedData.isUserLogged();
+	//$scope.isUserLogged = $sharedData.isUserLogged();
 
 });
 

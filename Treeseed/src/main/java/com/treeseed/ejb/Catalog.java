@@ -1,6 +1,7 @@
 package com.treeseed.ejb;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -31,7 +32,8 @@ public class Catalog implements Serializable {
 
 	public Catalog() {
 	}
-
+	
+	
 	public int getId() {
 		return this.id;
 	}
