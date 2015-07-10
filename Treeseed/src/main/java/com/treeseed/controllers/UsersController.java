@@ -19,6 +19,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,25 +30,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.treeseed.utils.Utils;
 import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
-import com.treeseed.contracts.UsersRequest;
-import com.treeseed.contracts.UsersResponse;
+import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
-import com.treeseed.services.UsersServiceInterface;
 import com.treeseed.utils.PojoUtils;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
@@ -60,58 +63,84 @@ import com.treeseed.ejbWrapper.ParentUserWrapper;
 public class UsersController {
 	
 	@Autowired
-	NonprofitServiceInterface nonProfitService;
-	@Autowired
-	UserGeneralServiceInterface userGeneralService;
-	@Autowired
-	ServletContext servletContext;
+	DonorServiceInterface donorService;
 	@Autowired
 	CatalogServiceInterface catalogService;
 	EmailValidator validator = EmailValidator.getInstance();
-	
-	//Codigo comentado para usar como base
-	/*
 	@Autowired
-	GeneralServiceInterface generalService;
-	
+	 NonprofitServiceInterface nonProfitService;
+	 @Autowired
+	 ServletContext servletContext;
 	@Autowired
-	RentServiceInterface rentService;
-	
+	 UserGeneralServiceInterface userGeneralService;
 	@Autowired
-	HttpServletRequest request;
-	
-	@RequestMapping(value ="/getAll", method = RequestMethod.POST)
-	@Transactional
-	public UsersResponse getAll(@RequestBody UsersRequest ur){	
+	HttpServletRequest request;	
 		
-		ur.setPageNumber(ur.getPageNumber() - 1);
-		Page<Usuario> users = usersService.getAll(ur);
-		
-		UsersResponse us = new UsersResponse();
-		
-		us.setCode(200);
-		us.setCodeMessage("users fetch success");
-		us.setTotalElements(users.getTotalElements());
-		us.setTotalPages(users.getTotalPages());
+	@RequestMapping(value ="/registerDonor", method = RequestMethod.POST)
+	public DonorResponse create(@RequestParam("name") String name, 
+								@RequestParam("lastName") String lastName,
+							    @RequestParam("email") String email,
+							    @RequestParam("password") String password,
+							    @RequestParam("country") String country, 
+							    @RequestParam(value ="file", required=false) MultipartFile file)
+																								{	
 		
 		
-		List<UsuarioPOJO> viewUsers = new ArrayList<UsuarioPOJO>();
+		String resultFileName = "";
 		
-		users.getContent().forEach(u->{
-			UsuarioPOJO nuser = new UsuarioPOJO();
-			nuser.setEmail(u.getEmail());
-			nuser.setFirstname(u.getFirstname());
-			nuser.setIdTipoUsuario(u.getTipoUsuario().getIdTipoUsuario());
-			nuser.setIdUsuario(u.getIdUsuario());
-			nuser.setLastname(u.getLastname());
-			viewUsers.add(nuser);
-		});
+		if (file == null)
+		{
+			resultFileName = "resources/file-storage/1436319975812.jpg";
+		}
+		else
+		{
+			resultFileName = Utils.writeToFile(file,servletContext);
+		}
 		
-		us.setUsuarios(viewUsers);
-		return us;		
+		DonorResponse us = new DonorResponse();
+		
+		Boolean alreadyUser=userGeneralService.userExist(email);
+		  email = email.toLowerCase();
+		  
+	   if(validator.isValid(email)){
+		   if(!alreadyUser){
+				   
+				CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
+				CatalogWrapper userType = catalogService.getAllByType("DonorType").get(0);
+		
+				DonorWrapper user = new DonorWrapper();
+				user.setName(name);
+				user.setLastName(lastName);
+				user.setActive(true);
+				user.setProfilePicture(resultFileName);
+				user.setCountry(Countrytype.getWrapperObject());
+				user.setType(userType.getWrapperObject());
+			
+				Boolean state = donorService.saveDonor(user);
+				if(state){
+					
+					UserGeneralRequest ug = new UserGeneralRequest();
+				    UserGeneralPOJO userG=new UserGeneralPOJO();
+				    userG.setEmail(email);
+				    userG.setPassword(password);
+				    ug.setUserGeneral(userG);
+				    userGeneralCreate(ug, user);
+					
+					us.setCode(200);
+					us.setCodeMessage("Donor registered succesfully");
+				}	
+		   	}else{
+			    us.setCode(400);
+			    us.setCodeMessage("EMAIL ALREADY IN USE");
+			}	   
+		}else{
+		   us.setCode(400);
+		   us.setCodeMessage("BAD EMAIL");
+		}
+		return us;
+		
 	}
 	
-*/
 	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
 			@RequestParam("email") String email,
@@ -186,18 +215,17 @@ public class UsersController {
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
-		
 		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-		//List<UserGeneral> generals= new ArrayList<UserGeneral>();
 		userGeneral.setEmail(ur.getUserGeneral().getEmail());
+		
 		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-		String file_string="";
-		
-		for(int i = 0; i < hash.length; i++)
-	    {
-	        file_string += (char)hash[i];
-	    }		
-		
+		  String file_string="";
+		  
+		  for(int i = 0; i < hash.length; i++)
+		     {
+		         file_string += (char)hash[i];
+		     }  
+		  
 		userGeneral.setPassword(file_string);
 		userGeneral.setIsActive(true);
 		
@@ -205,10 +233,9 @@ public class UsersController {
 			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
 			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
 		}else{
-			//DonorWrapper userDonor = (DonorWrapper)user;
-			//userGeneral.setNonprofit(userDonor.getWrapperObject());
+			DonorWrapper userDonor = (DonorWrapper)user;
+			userGeneral.setDonor(userDonor.getWrapperObject());
 		}
-		
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
 		if(state){
@@ -222,20 +249,19 @@ public class UsersController {
 		return us;
 }
 	
-	
+		
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
-	public BaseResponse create(@RequestBody String email){	
-
-		Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
-		BaseResponse response = new BaseResponse();
-		response.setCode(200);
-		
-		if(isEmailUnique){
-			response.setCodeMessage("UNIQUE");
-		}else{
-			response.setCodeMessage("NOT-UNIQUE");
-		}
-		return response;
-		
+		public BaseResponse create(@RequestBody String email){	
+	
+			Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
+			BaseResponse response = new BaseResponse();
+			response.setCode(200);
+			
+			if(isEmailUnique){
+				response.setCodeMessage("UNIQUE");
+			}else{
+				response.setCodeMessage("NOT-UNIQUE");
+			}
+			return response;
 	}
 }

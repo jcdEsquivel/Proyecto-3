@@ -1,16 +1,24 @@
 package com.treeseed.repositories;
 
+<<<<<<< HEAD
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+=======
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
+
+>>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 import com.treeseed.ejb.Donor;
 
 public interface DonorRepository extends 
 	CrudRepository<Donor,Integer> {
 	
+<<<<<<< HEAD
 	public static final int PAGE_SIZE = 10;
 
 	@Query("SELECT p FROM Donor p WHERE ( :nameNull is null or p.name like :name)")
@@ -33,13 +41,22 @@ public interface DonorRepository extends
 			+ "( :lastNameNull is null or p.lastName like :lastName)")
 	
 	Page<Donor> findAll(Pageable pageable);
+=======
+	public static final int PAGE_SIZE = 5;
+		
+	Page<Donor> findAll(Pageable pageable);
+	
+>>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 	Page<Donor> findByNameContaining(String name,
 			Pageable pageable);
 	Page<Donor> findByLastNameContaining(String lastName,
 			Pageable pageable);
+<<<<<<< HEAD
 	Page<Donor> findByCountryContaining(String name,
 			Pageable pageable);
 	
 	
 ;
+=======
+>>>>>>> 7f78fdbd2956e596ee831c8915fe96ef48982f75
 }
