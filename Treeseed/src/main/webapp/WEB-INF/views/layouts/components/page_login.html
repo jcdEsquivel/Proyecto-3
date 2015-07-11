@@ -1,4 +1,4 @@
-<div class="w-auto-xs">
+<div class="w-auto-xs" >
 	<div>
 		<div class="wrapper text-center">
 			<img src="resources/images/Captura.jpg">
@@ -40,7 +40,7 @@
 
 				</div>
 				<div class="col-sm-6  col-sm-height verticalLine">
-					<form name="form"
+					<form name="form" ng-submit="login(credentials)"
 						class="bs-example form-horizontal form-validation inside-full-height">
 						<div class="form-group">
 							<div class="text-danger wrapper" ng-show="authError">
@@ -48,12 +48,11 @@
 
 							<md-input-container flex class="col-sm-offset-1">
 							<label translate="LOGIN.EMAIL"></label> <input type="text"
-								ng-model="nonprofit.name" class="form-control"> </md-input-container>
+								ng-model="credentials.username" class="form-control"> </md-input-container>
 
 							<md-input-container flex class="col-sm-offset-1">
 							<label translate="LOGIN.PASSWORD"></label> <input type="password"
-								ng-model="nonprofit.userGeneral.password" name="password"
-								class="form-control"> </md-input-container>
+								ng-model="credentials.password" class="form-control"> </md-input-container>
 						</div>
 						<div class="col-sm-offset-1 form-group">
 							<div class="col-sm-12 ">
@@ -70,8 +69,7 @@
 						</div>
 
 						<div class=" col-sm-12">
-							<button type="submit" class="btn btn-sm btn-info"
-								ng-click="login()"  translate="LOGIN.LOGIN-BUTTON"></button>
+							<button type="submit" class="btn btn-sm btn-info"  translate="LOGIN.LOGIN-BUTTON"></button>
 						</div>
 
 					</form>

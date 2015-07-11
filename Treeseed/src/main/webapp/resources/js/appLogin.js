@@ -1,7 +1,7 @@
 'use strict';
 var treeSeedAppLogin = {};
 
-var treeSeedAppLogin = angular.module('treeSeedLogin', ['treeSeed.loginController',
+var treeSeedAppLogin = angular.module('treeSeedLogin', ['treeSeedLoginController',
    'treeSeedServices',
    'treeSeedMainController',
    'treeSeedDirectives',

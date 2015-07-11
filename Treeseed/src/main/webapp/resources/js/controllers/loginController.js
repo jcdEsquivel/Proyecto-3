@@ -1,9 +1,8 @@
-var treeSeedAppLoginControllers = angular.module('treeSeed.loginController',
-		[ 'treeSeedServices' ]);
+var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
-treeSeedAppLoginControllers.controller('SigninFormController', function($scope, $http, $state, $userData, $sharedData, $location) {
+treeSeedAppLoginControllers.controller('loginController', function($scope, $state, $userData, $sharedData, AUTH_EVENTS, AuthService) {
     if($sharedData.getLoged()==false){
-      $scope.authError = null;
+      $scope.authError = "entre";
       $scope.users = $userData.getUsers();
       $scope.login = function() {
         var totalUsers = $scope.users.length;

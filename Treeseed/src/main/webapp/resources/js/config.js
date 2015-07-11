@@ -191,7 +191,7 @@ angular.module('treeSeed').config(
                       
     }
   )
-  angular.module('treeSeed').constant('MODULE_CONFIG', [    
+  angular.module('treeSeed').constant('MODULE_CONFIG', [  
 	  {
 	      name: 'angularUpload',
 	      files: [
