@@ -1,47 +1,141 @@
 <div class="wrapper-md">
-  <div class="page-header">
-    <h1>Treeseed.org</h1>
-  </div>
   <div class="row">
-    <div class="col-sm-9">
-      <div class="blog-post">                   
-        <div class="panel">
-          <h2 class="m-t-none"><a href>Por un Mundo Mejor</a></h2>
-          <div class="wrapper-lg">
-            <div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. 
-              <br><br>
-              Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>
-            </div>
-            </div>
-        </div>
-        <div class="panel">
-          <div ng-controller='navigateController'> 
-            <h2 class="m-t-none"><a ng-click='navigateCampaing()'>Territorio de Zaguates busca incluir a los Gatitos</a></h2>
-            <div class="wrapper-lg">
-              <div>
- 	              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat.</p>
-              </div>
-              <h3>Campañas de castracion</h3>
-              <p>
-              Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis 
-              <div class="panel hbox hbox-auto-xs no-border">
-                <div class="col wrapper">
-                  <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
-                  <div ng-controller="CarouselDemoCtrl" class="panel b-a" set-ng-animate="false">
-                    <carousel interval="myInterval">
-                      <slide ng-repeat="slide in slides" active="slide.active">
-                        <img ng-src="{{slide.image}}" class="img-full">
-                        <div class="carousel-caption">
-                          <h4>Slide {{$index}}</h4>
-                          <p>{{slide.text}}</p>
-                        </div>
-                      </slide>
-                    </carousel>    
-	               </div>
-	             </div>
-	           </div>
-	         </div>
-        </div>
-	   </div>
-	</div>
+  	<div class="col-md-12 landing-header-image">
+  		<div class="row">
+  			<div class="col-md-12">
+  				<h1 class="landing-header-text" translate="LANDING.HEADER-TITLE">HEADER-</h1>
+  				
+		  		<p class="landing-header-parragraph" translate="LANDING.HEADER-TEXT">
+			  		HEADER-TEXT
+		  		 </p>
+  			</div>
+  		</div>
+  		<div class="row landing-header-botton">
+  			<div class="col-md-12">
+  				<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button" >
+	  			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
+	  			 	<span translate="LANDING.HEADER-BUTTON-NGO" ui-sref="treeSeed.registerNonProfile">HEADER-BUTTON</span>
+			 	</button>
+			 	<br><br>
+			 	<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button" >
+	  			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
+	  			 	<span translate="LANDING.HEADER-BUTTON-DONOR" ui-sref="treeSeed.registerDonor">HEADER-BUTTON</span>
+			 	</button>
+  			</div>
+  		</div>
+  	</div>	
+  </div>  
+  <div class="row">
+  		<div class="col-md-12 landing-info-div">
+  			<h1 class="landing-info-header" translate="LANDING.WELCOME-TITLE">WELCOME-TITLE</h1>
+  			<p class="landing-info-parragraph" translate="LANDING.WELCOME-TEXT">
+			  		WELCOME-TEXT
+	  		 </p>
+  		</div>
+  </div> 
+  <div class="row">
+ 		<div class="col-md-6 landing-events-image1">
+ 			
+ 			<h1 class="landing-events-header text-u-c" translate="LANDING.STORIES-TITLE">STORIES-TITLE</h1>
+ 					<p class="landing-events-text m-t-lg" translate="LANDING.STORIES-TEXT1">
+ 						STORIES-TEXT1
+ 					</p>
+ 					
+ 					<p class="landing-events-text" translate="LANDING.STORIES-TEXT2">
+ 						STORIES-TEXT2
+ 					</p>
+ 					
+			
+ 		</div>
+ 		<div class="col-md-6">
+ 			<div class="row">
+ 				<div class="col-md-12 landing-events-image2 ">
+ 					<h1 class="landing-events-header text-u-c" translate="LANDING.EVENTS-TITLE">EVENTS-TITLE</h1>
+ 					<p class="landing-events-text m-t-lg" translate="LANDING.EVENTS-TEXT1">
+ 						EVENTS-TEXT1
+ 					</p>
+ 					
+ 					<p class="landing-events-text" translate="LANDING.EVENTS-TEXT2">
+ 						EVENTS-TEXT2
+ 					</p>
+ 				
+ 				</div>
+ 			</div>
+ 			<div class="row">
+ 				<div class="col-md-12 landing-events-image3">
+ 					<h1 class="landing-events-header text-u-c" translate="LANDING.OUR-TEAM-TITLE">OUR-TEAM-TITLE</h1>
+ 					<p class="landing-events-text m-t-lg" translate="LANDING.OUR-TEAM-TEXT1">
+ 						OUR-TEAM-TEXT1
+ 					</p>
+ 					
+ 					<p class="landing-events-text m-t-lg" translate="LANDING.OUR-TEAM-TEXT2">
+ 						OUR-TEAM-TEXT2
+ 					</p>
+ 					
+ 				</div>
+ 			</div>
+ 			 
+ 		</div>
+  </div>
+  		<div class="row">
+	  		<div class="col-md-12 landing-info-div">
+	  			<h1 class="landing-info-header" translate="LANDING.HOW-WOKS-TITLE">HOW-WOKS-TITLE</h1>
+	  			<p class="landing-info-parragraph" translate="LANDING.HOW-WORKS-TEXT">
+				  		HOW-WORKS-TEXT
+		  		 </p>
+	  		</div>
+	  </div> 
+	  <div class="row landing-icons-div">
+	  	<div class="col-md-4">
+	  		
+          		<i class="icon-rocket explore"></i>
+      			<br><br>
+      			<span translate="LANDING.EXPLORE">EXPLORE</span>
+	  	</div>
+	  	<div class="col-md-4">
+	  		 
+          		<i class="icon-bubbles support"></i>
+          		<br><br>
+      			<span translate="LANDING.SUPPORT">SUPPORT</span>
+             
+	  	</div>
+	  	<div class="col-md-4">
+	  		
+          		<i class="icon-share share"></i>
+          		<br><br>
+      			<span translate="LANDING.SHARE">SHARE</span>
+             
+	  	</div>
+  	</div>
+  	<div class="row pink-500">
+  		<div class="col-md-6 landing-testimonial-info">
+  			<h1 class="landing-testimonial-header text-u-c" translate="LANDING.TESTIMONIAL-HEADER">TESTIMONIAL-HEADER</h1>
+  			<p class="landing-testimonial-text" translate="LANDING.TESTIMONIAL-TEXT">
+  				 TESTIMONIAL-TEXT
+  			</p>
+  		</div>
+  		<div class="col-md-6">
+  			<div class="circular-image"></div>
+  		</div>
+  	</div>
+  	
+  	<div class="row">
+	  		<div class="col-md-12 landing-info-div">
+	  			<h1 class="landing-info-header text-u-c" translate="LANDING.THINK-YOU-GOT">THINK-YOU-GOT</h1>
+	  			
+	  			<br>
+	  			
+	  		<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button" >
+  			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
+  			 	<span translate="LANDING.CREATE-ACCOUNT" ui-sref="treeSeed.registerNonProfile">CREATE-ACCOUNT</span>
+			 </button>
+	  		</div>
+	  </div> 
+	  <div class="row green-200 landing-page-footer">
+	   		<p class="m-b">
+                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon landing"><i class="fa fa-twitter landing"></i></a>
+                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon landing"><i class="fa fa-facebook landing"></i></a>
+                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon landing"><span class="linkedin">in</span></i></a>
+            </p>
+	  </div>
+</div>
