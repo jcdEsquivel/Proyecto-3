@@ -21,4 +21,6 @@ public interface NonprofitServiceInterface {
 	Page<Nonprofit> getByCountry(NonprofitRequest ur);
 	
 	Page<Nonprofit> getByCause(NonprofitRequest ur);
+	
+	NonprofitWrapper getNonProfitByID(NonprofitRequest ur);
 }

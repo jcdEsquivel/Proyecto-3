@@ -151,6 +151,55 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 	};
 
 })
+
+treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout) {
+
+	/*$scope.nonprofit={};
+	$scope.nonprofit.name = "";
+	$scope.nonprofit.description = "";
+	$scope.nonprofit.mission = "";
+	$scope.nonprofit.reason = "";
+	$scope.nonprofit.webpage = "";
+	$scope.nonprofit.country="";
+	$scope.nonprofit.cause = "";
+	$scope.nonprofit.profilepicture = "";
+	$scope.nonprofit.mainpicture = "";
+	$scope.nonprofit.userGeneral = {};
+	$scope.nonprofit.userGeneral.email ="";
+	$scope.session=false;
+	*/
+	
+	$scope.nonprofit = {};
+	$scope.nonprofit.name = "";
+	$scope.nonprofit.description = "";
+	$scope.nonprofit.mission = "";
+	$scope.nonprofit.reason = "";
+	$scope.nonprofit.country = "";
+	$scope.nonprofit.cause = "";
+	$scope.requestObject = {};
+	
+	$scope.init = function() {
+		
+			$scope.requestObject.id = 3;
+			
+			console.log('esooo')
+			
+			$http.post('rest/protected/nonprofit/getNonProfitProfile',
+					$scope.requestObject).success(function(mydata, status) {
+				$scope.nonprofit = mydata.nonprofit;
+				console.log(mydata.nonprofit)
+			}).error(function(mydata, status) {
+				alert(status);
+			});		
+	}
+
+	$scope.init();
+
+	
+	
+
+})
 ;
 
  

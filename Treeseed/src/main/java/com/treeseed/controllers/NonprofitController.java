@@ -183,4 +183,32 @@ public class NonprofitController extends UserGeneralController{
 		return nps;
 			
 	}
+	
+	@RequestMapping(value ="/getNonProfitProfile", method = RequestMethod.POST)
+	@Transactional
+	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	
+		
+		NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
+		
+		NonprofitResponse nps = new NonprofitResponse();
+		
+		nps.setCode(200);
+		nps.setCodeMessage("nonprofit fetch success");
+			
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+		
+		nonprofitPOJO.setName(nonprofit.getName());
+		nonprofitPOJO.setDescription(nonprofit.getDescription());
+		nonprofitPOJO.setWebPage(nonprofit.getWebPage());
+		nonprofitPOJO.setProfilePicture(nonprofit.getProfilePicture());
+		nonprofitPOJO.setMainPicture(nonprofit.getMainPicture());
+		nonprofitPOJO.setMision(nonprofit.getMision());
+		nonprofitPOJO.setReason(nonprofit.getReason());
+			
+		
+		nps.setNonprofit(nonprofitPOJO);
+		nps.setCode(200);
+		return nps;
+			
+	}
 }

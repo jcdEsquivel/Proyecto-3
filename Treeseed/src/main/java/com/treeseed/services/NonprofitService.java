@@ -95,4 +95,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public NonprofitWrapper getNonProfitByID(NonprofitRequest ur) {
+		return nonprofitsRepository.findByid(ur.getId());
+	}
 }
