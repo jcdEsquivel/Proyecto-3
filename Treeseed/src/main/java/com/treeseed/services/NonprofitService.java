@@ -1,7 +1,5 @@
 package com.treeseed.services;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +11,7 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.NonprofitRepository;
+
 @Service
 public class NonprofitService implements NonprofitServiceInterface{
 
@@ -59,45 +58,6 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return pageResult ;
 		
 	}
-	
-	
-	/*public Page<Donor> getAll(DonorRequest dr) {
-		 
-		  PageRequest pr;
-		    Sort.Direction direction = Sort.Direction.DESC;
-		    
-		    if(dr.getDirection().equals("ASC")){    
-		     direction = Sort.Direction.ASC;
-		    }
-		    
-		    if(dr.getSortBy().size() > 0){
-		      Sort sort = new Sort(direction,dr.getSortBy());
-		      pr = new PageRequest(dr.getPageNumber(),
-		      dr.getPageSize(),sort);
-		      
-		    }else{ 
-		      pr = new PageRequest(dr.getPageNumber(),
-		      dr.getPageSize());
-		    }
-		    
-		    Page<Donor> result = null;
-		    
-		    if(dr.getSearchColumn().toLowerCase().equals("all")){
-		     result = donorRepository.findAll(pr);
-		    }else if(dr.getSearchColumn().toLowerCase().
-		       equals("firstname")){
-		    } else if(dr.getSearchColumn().toLowerCase().equals("lastname")){
-		      //nonProfits = usersRepository.
-		      //findByEmailAndPassword(ur.getSearchTerm(),pr);
-		    }else{
-		     result = donorRepository.findAll(pr);
-		    }
-		    
-		    
-
-		    return result;
-		  
-		 }*/
 
 	@Override
 	@Transactional

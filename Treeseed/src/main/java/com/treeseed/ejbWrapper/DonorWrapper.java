@@ -18,11 +18,13 @@ public class DonorWrapper extends ParentUserWrapper{
 	public DonorWrapper() {
 		super();
 		setWrapperObject(new Donor());
+		// TODO Auto-generated constructor stub
 	}
 	
 	public DonorWrapper(Donor donor) {
 		super();
 		setWrapperObject(donor);
+		// TODO Auto-generated constructor stub
 	}
 
 	public Donor getWrapperObject() {
@@ -210,3 +212,5 @@ public class DonorWrapper extends ParentUserWrapper{
 		return wrapperObject.toString();
 	}
 }
+
+

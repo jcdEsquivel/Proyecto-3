@@ -53,6 +53,18 @@
     	"THINK-YOU-GOT": "THINK YOU'VE GOT WHAT IT TAKES?",
     	"CREATE-ACCOUNT": "CREATE AN ACCOUNT"
     },
+    "NONPROFITSEARCH":{
+    	"HEADER-TITLE": "Non Profits Advanced Search"
+    },
+    "DONORSEARCH":{
+    	"HEADER-TITLE": "Donors Avanced Search",
+    	"LAST-NAME": "Last Name",
+    	"DONATIONS-REPORT": " Donations Report",
+    	"TRANSPARENCY-REPORT": " Transparency Report",
+    	"CONFIGURATION": " Configuration",
+    	"DONATION-RECEIPTS": "Receipts",
+    	"PORTFOLIO": "Portfolio"
+    },
     "REGISTER-DONOR": {
     	"NAME": "Name",
     	"LASTNAME": "Last Name",
@@ -79,7 +91,6 @@
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:"
-
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
@@ -95,6 +106,5 @@
         "CANCEL-BUTTON": "Cancel",
         "PASSWORD-MESSAGE": "Password do not match",
         "EMAIL-MESSAGE": "Email already in use"
-    }
+       }
 }
-

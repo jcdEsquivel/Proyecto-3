@@ -109,7 +109,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			var img = "";
 			var userType = "";
 			var loggedin = false;
-			
+
 			if (loggedin === true) {
 				$sharedData.setLoggedUser(name);
 				$sharedData.setLoged(true);
@@ -128,7 +128,10 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 			}
 		};
 	} else {
+
+		$state.go('treeSeed.index');
 		//$state.go('treeSeed.index');
+
 	}
 });
 
@@ -154,8 +157,6 @@ treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$shar
 
   }])
   ; 
-
-			
 
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',

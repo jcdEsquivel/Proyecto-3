@@ -4,6 +4,29 @@ var treeSeedAppServices = angular.module('treeSeed.services', []);
 treeSeedAppServices.value('version', '0.1');
 
 treeSeedAppServices.service('$uniqueDataService', function($http){
+  
+    return {isEmailUnique : function(email){
+        
+        	return $http.post('rest/protected/users/isEmailUnique', email)
+		    	.then(function(response){
+		    	console.log(response.data.codeMessage);
+		    	
+	    		if(response.data.codeMessage == 'UNIQUE'){
+	    			return true;
+	    		}else{
+	    			return false;
+	    		}	
+		    });
+        }
+    }
+});
+
+'use strict';
+var treeSeedAppServices = angular.module('treeSeed.services', []);
+
+treeSeedAppServices.value('version', '0.1');
+
+treeSeedAppServices.service('$uniqueDataService', function($http){
 	  
     return {
         isEmailUnique : function(email){
@@ -142,4 +165,3 @@ treeSeedAppServices.service('$userData', function(){
         }
     } 
 });
-

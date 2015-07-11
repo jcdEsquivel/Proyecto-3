@@ -39,21 +39,16 @@ public class DonorService implements DonorServiceInterface{
 		
 		Page<Donor> result;
 		
-		if(ur.getSearchColumn().toLowerCase().equals("all")){
-			result = DonorRepository.findAll(pr);
-		}else if(ur.getSearchColumn().toLowerCase().
-				equals("name")){
-			result = DonorRepository.
-					findByNameContaining(
-							ur.getSearchTerm(),pr);
-		} else if(ur.getSearchColumn().toLowerCase().equals("lastName")){
-			result = DonorRepository.
-					findByLastNameContaining(ur.getSearchTerm(),pr);
-		}else{
-			result = DonorRepository.findAll(pr);
-		}
-		return result;
+		String filterName = ur.getName();
+		String filterLastName = ur.getLastName();
+		int filterCountry = 0;
 		
+		if(ur.getCountry()!=null){
+			filterCountry = Integer.parseInt(ur.getCountry());
+		}
+		
+		result = DonorRepository.findAll(filterName, "%"+filterName+"%", filterCountry, filterLastName, "%"+filterLastName+"%", pr);
+		return result;
 	}
 
 	@Override
