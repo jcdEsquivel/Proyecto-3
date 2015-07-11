@@ -33,22 +33,16 @@
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
 <script src="resources/js/controllers/generalControllers.js"></script>
-<script src="resources/js/controllers/searchControllers.js"></script>
 <script src="resources/js/filters/treeSeedFilters.js"></script>
 <script src="resources/js/directives/treeSeedDirectives.js"></script>
 <script src="resources/js/config.js"></script>
+<script src="resources/js/configLogin.js"></script>
 <script src="resources/js/controllers/treeSeedApp.js"></script>
-<script src="resources/js/controllers/userController.js"></script>
 <script src="resources/js/controllers/utilitiesControllers.js"></script>
-  <script src="resources/js/controllers/nonprofitController.js"></script>
-  <script src="resources/js/controllers/donorController.js"></script>
-  <script src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
-	<script src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
-  
-  
-<body  layout="row" ng-controller="AppCtrl" >
- 
-  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
+<script src="resources/js/controllers/nonprofitController.js"></script>
+<script src="resources/js/controllers/donorController.js"></script>
+<script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
+<script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 
 
 <body layout="row" ng-controller="AppCtrl">

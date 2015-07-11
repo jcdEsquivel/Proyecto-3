@@ -100,7 +100,7 @@
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
         "PASSWORD-MESSAGE": "La contraseña no coincide",
-        	
+        "EMAIL-MESSAGE": "Email ya registrado"
        },
     "LOGIN": {
     	"EMAIL": "Email", 
