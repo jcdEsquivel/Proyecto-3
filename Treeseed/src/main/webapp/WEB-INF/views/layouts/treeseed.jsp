@@ -40,10 +40,15 @@
 <script src="resources/js/controllers/treeSeedApp.js"></script>
 <script src="resources/js/controllers/userController.js"></script>
 <script src="resources/js/controllers/utilitiesControllers.js"></script>
-<script
-	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
-<script
-	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
+  <script src="resources/js/controllers/nonprofitController.js"></script>
+  <script src="resources/js/controllers/donorController.js"></script>
+  <script src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
+	<script src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
+  
+  
+<body  layout="row" ng-controller="AppCtrl" >
+ 
+  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
 
 
 <body layout="row" ng-controller="AppCtrl">

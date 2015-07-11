@@ -54,13 +54,7 @@ public class NonprofitWrapper extends ParentUserWrapper{
 		wrapperObject.setBanKAccount(banKAccount);
 	}
 
-	public Date getDateTime() {
-		return wrapperObject.getDateTime();
-	}
-
-	public void setDateTime(Date dateTime) {
-		wrapperObject.setDateTime(dateTime);
-	}
+	
 
 	public String getDescription() {
 		return wrapperObject.getDescription();

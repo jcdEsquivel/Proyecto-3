@@ -1,7 +1,5 @@
 package com.treeseed.pojo;
 
-import com.treeseed.ejb.Donor;
-
 public class DonorPOJO {
 	
 	private int id;
