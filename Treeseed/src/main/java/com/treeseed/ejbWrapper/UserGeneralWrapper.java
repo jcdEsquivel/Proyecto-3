@@ -1,5 +1,7 @@
 package com.treeseed.ejbWrapper;
 
+import java.util.Date;
+
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
@@ -43,6 +45,14 @@ public class UserGeneralWrapper {
 
 	public void setEmail(String email) {
 		wrapperObject.setEmail(email);
+	}
+	
+	public Date getDateTime() {
+		return wrapperObject.getDateTime();
+	}
+
+	public void setDateTime(Date dateTime) {
+		wrapperObject.setDateTime(dateTime);
 	}
 
 	public boolean getIsActive() {

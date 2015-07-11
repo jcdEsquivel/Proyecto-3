@@ -17,7 +17,7 @@ public class NonprofitPOJO {
 
 	private String banKAccount;
 
-	private Date dateTime;
+	
 
 	private String description;
 
@@ -51,14 +51,6 @@ public class NonprofitPOJO {
 
 	public void setBanKAccount(String banKAccount) {
 		this.banKAccount = banKAccount;
-	}
-
-	public Date getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
 	}
 
 	public String getDescription() {

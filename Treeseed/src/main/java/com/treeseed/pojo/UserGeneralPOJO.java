@@ -1,5 +1,7 @@
 package com.treeseed.pojo;
 
+import java.util.Date;
+
 public class UserGeneralPOJO {
 	
 	public UserGeneralPOJO() {
@@ -11,6 +13,7 @@ public class UserGeneralPOJO {
 	private String password;
 	private boolean isActive;
 	private NonprofitPOJO nonProfit;
+	private Date dateTime;
 	
 	public int getId() {
 		return id;
@@ -24,6 +27,15 @@ public class UserGeneralPOJO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public Date getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
+	}
+	
 	public String getPassword() {
 		return password;
 	}

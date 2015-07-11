@@ -21,9 +21,7 @@ public class Nonprofit implements Serializable {
 
 	private String banKAccount;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_time")
-	private Date dateTime;
+	
 
 	private String description;
 
@@ -98,13 +96,6 @@ public class Nonprofit implements Serializable {
 		this.banKAccount = banKAccount;
 	}
 
-	public Date getDateTime() {
-		return this.dateTime;
-	}
-
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
-	}
 
 	public String getDescription() {
 		return this.description;

@@ -186,7 +186,6 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		Nonprofit nonprofit = new Nonprofit();
 		
 		nonprofit.setActive(true);
-		nonprofit.setDateTime(new Date());
 		nonprofit.setDescription("description");
 		nonprofit.setMision("Mision");
 		nonprofit.setName("NGO TEST");

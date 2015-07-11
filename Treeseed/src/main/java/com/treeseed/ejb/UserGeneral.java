@@ -1,6 +1,8 @@
 package com.treeseed.ejb;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -18,10 +20,14 @@ public class UserGeneral implements Serializable {
 	private int id;
 
 	private String email;
+	
+	private String password;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_time")
+	private Date dateTime;
 
 	private boolean isActive;
-
-	private String password;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -50,6 +56,14 @@ public class UserGeneral implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Date getDateTime() {
+		return this.dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public boolean getIsActive() {

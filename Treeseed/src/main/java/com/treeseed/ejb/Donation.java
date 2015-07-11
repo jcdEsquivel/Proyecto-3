@@ -20,6 +20,7 @@ public class Donation implements Serializable {
 
 	private double amount;
 
+	@Column(nullable = true)
 	private int campaingId;
 
 	@Temporal(TemporalType.TIMESTAMP)

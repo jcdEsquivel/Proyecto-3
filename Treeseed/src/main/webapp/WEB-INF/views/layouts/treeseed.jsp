@@ -21,12 +21,12 @@
   <script src="resources/js/app.js"></script>
   <script src="resources/js/services/treeSeedServices.js"></script>
   <script src="resources/js/controllers/treeSeedControllers.js"></script>
-  <script src="resources/js/controllers/searchControllers.js"></script>
   <script src="resources/js/filters/treeSeedFilters.js"></script>
   <script src="resources/js/directives/treeSeedDirectives.js"></script>
   <script src="resources/js/config.js"></script>
   <script src="resources/js/controllers/treeSeedApp.js"></script>
-  <script src="resources/js/controllers/userController.js"></script>
+  <script src="resources/js/controllers/nonprofitController.js"></script>
+  <script src="resources/js/controllers/donorController.js"></script>
   <script src="resources/js/controllers/utilitiesControllers.js"></script>
   <script src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 	<script src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
