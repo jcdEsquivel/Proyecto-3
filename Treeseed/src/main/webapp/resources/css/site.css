@@ -314,5 +314,8 @@ font-weight: bold;
   margin-right: auto;
   margin-left: auto;
 }
+textarea {
+  resize: none;
+}
 
 
