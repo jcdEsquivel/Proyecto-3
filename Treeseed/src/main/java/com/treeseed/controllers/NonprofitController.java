@@ -188,7 +188,7 @@ public class NonprofitController extends UserGeneralController{
 	@Transactional
 	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	
 		
-		NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
+		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		

@@ -34,7 +34,7 @@ public interface NonprofitRepository extends
 	Page<Nonprofit> findByCountryContaining(String name,
 			Pageable pageable);
 	
-	NonprofitWrapper findByid(int id);
+	Nonprofit findByid(int id);
 	
 	
 ;

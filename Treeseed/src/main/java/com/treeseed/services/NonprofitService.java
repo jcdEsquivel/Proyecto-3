@@ -97,7 +97,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 	}
 	
 	@Override
-	public NonprofitWrapper getNonProfitByID(NonprofitRequest ur) {
+	public Nonprofit getNonProfitByID(NonprofitRequest ur) {
 		return nonprofitsRepository.findByid(ur.getId());
 	}
 }
