@@ -7,6 +7,7 @@ import com.treeseed.pojo.NonprofitPOJO;
 public class NonprofitResponse extends BaseResponse{
 	
 	private List<NonprofitPOJO> nonprofits;
+	private NonprofitPOJO nonprofit;
 
 	public NonprofitResponse() {
 		super();
@@ -19,6 +20,15 @@ public class NonprofitResponse extends BaseResponse{
 
 	public void setNonprofits(List<NonprofitPOJO> nonprofits) {
 		this.nonprofits = nonprofits;
+	}
+	
+	public void setNonprofit(NonprofitPOJO nonprofit) {
+		this.nonprofit = nonprofit;
+	}
+	
+
+	public NonprofitPOJO getNonprofit() {
+		return nonprofit;
 	}
 
 }

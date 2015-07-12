@@ -101,5 +101,13 @@
         "CANCEL-BUTTON": "Cancelar",
         "PASSWORD-MESSAGE": "La contraseña no coincide",
         "EMAIL-MESSAGE": "Email ya registrado"  	
+     },
+      "NONPROFIT-PROFILE": {
+    	"PROFILE": "Perfil",
+        "MISSION": "Misión",
+        "REASON": "Razón",
+        "DESCRIPTION": "Descripción",
+        "CAMPAIGNS": "Campañas",
+        "UPDATES": "Actualizaciones"
      }
 }

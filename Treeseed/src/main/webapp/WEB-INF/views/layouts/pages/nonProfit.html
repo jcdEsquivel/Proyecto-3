@@ -4,8 +4,8 @@
 <div class="wrapper-md" >
 	<!-- stats -->
 	<div class="row">
-        <div class="col-md-12">
-        	 <img src="resources/img/perro.jpg" alt="" class="cover-image" >
+        <div class="col-md-12 ">
+        	 <img ng-src="{{nonprofit.mainPicture}}" alt="" class="cover-image" >
     	</div>
     	
 	</div>
@@ -13,13 +13,18 @@
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
 	 			<div class="row">
-	 				<div class="col-md-12">
-						<img src="resources/img/territorio.jpg" alt="" class="non-profit-profile" >
+	 				<div class="site-wrapper">
+					  <div class="site-wrapper-inner">
+					    	<div class="cover-container">	
+								<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >
+							</div>
+						</div>
 					</div>
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>territoriozaguates@gmail.com</b>
+ 						<b>{{nonprofit.usergeneral.email}}</b>
+ 						
  						<br>
  						<b>territoriozaguates.com</b>
  						<br>
@@ -66,7 +71,7 @@
 			            <div ng-show="status" class="alert alert-success" role="alert">{{correcto}}</div>
 			          </script>
 				        <div ng-controller="showToUserController">
-				          <button ng-show="view()" class="btn btn-default" ng-click="open()">Realizar Donacion</button>
+				          <button ng-show="view()" class="btn btn-default" ng-click="open()" translate="DONATION.CREATE"></button>
 				     	</div>
 		          	</div>  	
 
@@ -77,38 +82,38 @@
 	 			
  				<tabset class="tab-container">
 				    <tab>
-				      <tab-heading>
-				        Perfil
+				      <tab-heading translate="NONPROFIT-PROFILE.PROFILE">
+				        
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
-				          <h2>Territorio de Zaguates</h2>
+				          <h2>{{nonprofit.name}}</h2>
 			          	  <hr>
 			          	  <br>
 
-			          	  <h3>Cuentanos un poco de lo que haces</h3>
+			          	  <h3 translate="NONPROFIT-PROFILE.MISSION"></h3>
 
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          <p>{{nonprofit.mision}}</p>
 
 				          <br>
 
-			          	  <h3>Destino de los fondos</h3>
+			          	  <h3 translate="NONPROFIT-PROFILE.DESCRIPTION"></h3>
 			          	  
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          <p>{{nonprofit.description}}</p>
 				          
 				          <br>
 
-			          	  <h3>Razón</h3>
+			          	  <h3 translate="NONPROFIT-PROFILE.REASON"></h3>
 			          	  
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
+				          <p>{{nonprofit.reason}}</p>
 				          
 				        </li>
 				      </ul>
 				    </tab>
     				
     				 <tab>
-				      <tab-heading>
-				        Campañas
+				      <tab-heading translate="NONPROFIT-PROFILE.CAMPAIGNS">
+				        
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
@@ -133,8 +138,7 @@
 				    </tab>
 
 				     <tab>
-				      <tab-heading>
-				        Actualizaciones
+				      <tab-heading translate="NONPROFIT-PROFILE.UPDATES">  
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">

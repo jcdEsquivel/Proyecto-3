@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 
 public interface NonprofitRepository extends 
 	CrudRepository<Nonprofit,Integer> {
@@ -32,6 +33,8 @@ public interface NonprofitRepository extends
 			Pageable pageable);
 	Page<Nonprofit> findByCountryContaining(String name,
 			Pageable pageable);
+	
+	Nonprofit findByid(int id);
 	
 	
 ;

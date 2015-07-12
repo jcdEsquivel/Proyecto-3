@@ -42,10 +42,10 @@ angular.module('treeSeed')
 									.state(
 											'treeSeed.nonProfit',
 											{
-												url : 'nonProfit',
-												templateUrl : 'layouts/pages/nonProfit.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
+												url : 'nonProfit/:nonProfitId',
+												templateUrl : 'layouts/pages/nonProfit.html',
+												controller: "getNonProfitProfileController",
+												params: {nonProfitId: null}
 											})
 									.state(
 											'treeSeed.donate',
