@@ -35,7 +35,8 @@ angular.module('treeSeed')
 											'treeSeed.donor',
 											{
 												url : 'donor',
-												templateUrl : 'layouts/pages/donor.html'
+												templateUrl : 'layouts/pages/donor.html',
+												controller: "getDonorProfileController"
 											// controller: 'TypeaheadDemoCtrl'
 											})
 									.state(
