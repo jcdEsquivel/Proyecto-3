@@ -3,5 +3,3 @@
 <c:set var="now" value="<%=new java.util.Date().getTime()%>" />
 
 
-<script src="resources/js/appLogin.js"></script>
-<script src="resources/js/controllers/loginControllers.js"></script>

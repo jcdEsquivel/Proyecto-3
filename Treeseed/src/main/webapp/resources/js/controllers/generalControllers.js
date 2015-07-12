@@ -21,9 +21,15 @@ treeSeedAppControllers.controller('indexController', function($state, $location,
 
 
 treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
-		$sharedData, $scope) {
-	$scope.nom = $sharedData.getLoggedUser();
-	$scope.img = $sharedData.getImg();
+		$sharedData, $scope, AUTH_EVENTS) {
+	
+	$scope.$on(AUTH_EVENTS.loginSuccess,function(){
+		$scope.user =  $scope.currentUser()
+		$scope.name = $scope.user.name;
+		$scope.img = $scope.user.img;
+	});
+	
+	
 	//$scope.isUserLogged = $sharedData.isUserLogged();
 
 });

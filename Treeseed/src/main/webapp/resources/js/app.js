@@ -2,6 +2,7 @@
 var treeSeedApp = {};
 
 var treeSeedApp = angular.module('treeSeed', ['treeSeedMainController', 'treeSeedLogin',
+    'treeSeedConstants',
     'treeSeedServices',
     'treeSeed.controller',
     'treeSeedDirectives',

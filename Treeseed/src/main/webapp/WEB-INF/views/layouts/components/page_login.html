@@ -40,8 +40,8 @@
 
 				</div>
 				<div class="col-sm-6  col-sm-height verticalLine">
-					<form name="form" ng-submit="login(credentials)"
-						class="bs-example form-horizontal form-validation inside-full-height">
+					<form name="form" ng-submit="login(credentials)" action="WEB-INF/view/layouts/pages/utils.html" target="sink" method="post"
+						class="bs-example form-horizontal form-validation inside-full-height" form-autofill-fix>
 						<div class="form-group">
 							<div class="text-danger wrapper" ng-show="authError">
 								{{authError}}</div>
@@ -69,7 +69,7 @@
 						</div>
 
 						<div class=" col-sm-12">
-							<button type="submit" class="btn btn-sm btn-info"  translate="LOGIN.LOGIN-BUTTON"></button>
+							<button type="submit" class="btn btn-sm btn-primary"  translate="LOGIN.LOGIN-BUTTON"></button>
 						</div>
 
 					</form>

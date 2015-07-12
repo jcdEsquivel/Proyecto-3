@@ -2,10 +2,11 @@
 var treeSeedAppLogin = {};
 
 var treeSeedAppLogin = angular.module('treeSeedLogin', ['treeSeedLoginController',
-   'treeSeedServices',
-   'treeSeedMainController',
-   'treeSeedDirectives',
-   'treeSeedFilters',
+    'treeSeedConstants',
+    'treeSeedServices',
+    'treeSeedMainController',
+    'treeSeedDirectives',
+    'treeSeedFilters',
     'ngAnimate',
     'ngAria',
     'ngCookies',

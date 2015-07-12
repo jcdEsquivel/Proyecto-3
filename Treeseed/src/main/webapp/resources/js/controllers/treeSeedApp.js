@@ -1,11 +1,23 @@
 var treeSeedAppMainControllers = angular.module('treeSeedMainController',[]);
 treeSeedAppMainControllers.controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$sharedData', 
-    function(              $scope,   $translate,   $localStorage,   $window, $sharedData ) {
+    function(              $scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
-
+      //Session management
+      $scope.isLoginPage=false;
+      
+      
+      $scope.currentUser = null;
+      $scope.userRoles = USER_ROLES;
+      //$scope.isAuthorized = AuthService.isAuthorized;
+      
+      
+      $scope.setCurrentUser = function (user) {
+    	    $scope.currentUser = user;
+    	  };
+      
       // config
       $scope.app = {
         name: 'TreeSeed.org',

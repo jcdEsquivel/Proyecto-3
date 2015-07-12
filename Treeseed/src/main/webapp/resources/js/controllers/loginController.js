@@ -1,6 +1,6 @@
 var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
-treeSeedAppLoginControllers.controller('loginController', function($scope, $state, $userData, $sharedData, AUTH_EVENTS) {
+treeSeedAppLoginControllers.controller('loginController', function($scope, $state, $rootScope, AUTH_EVENTS, AuthService) {
 	$scope.credentials = {
 		    username: '',
 		    password: ''

@@ -1,20 +1,36 @@
 angular.module('treeSeed')
 		.run(
 				[ '$rootScope', '$state', '$stateParams',
-				   function($rootScope, $state, $stateParams) {
+				   function($rootScope, $state, $stateParams, AUTH_EVENTS, AuthService) {
 							$rootScope.$state = $state;
 							$rootScope.$stateParams = $stateParams;
-						}
-				]
-			)
+							
+							/*$rootScope.$on('$stateChangeStart', function (event, next) {
+						    var authorizedRoles = next.data.authorizedRoles;
+						    if (!AuthService.isAuthorized(authorizedRoles)) {
+						      event.preventDefault();
+						      if (AuthService.isAuthenticated()) {
+						        // user is not allowed
+						        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+						      } else {
+						        // user is not logged in
+						        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+						      }
+						    }
+						});*/
+				}])
+		.config(function ($httpProvider) {
+			  $httpProvider.interceptors.push([
+			    '$injector',
+			    function ($injector) {
+			      return $injector.get('AuthInterceptor');
+			    }
+			  ]);
+			})
 		.config(
-				[
-						'$stateProvider',
-						'$urlRouterProvider',
-						'JQ_CONFIG',
-						'MODULE_CONFIG',
+				['$stateProvider','$urlRouterProvider',	'JQ_CONFIG','MODULE_CONFIG',
 						function($stateProvider, $urlRouterProvider, JQ_CONFIG,
-								MODULE_CONFIG) {
+								MODULE_CONFIG, USER_ROLES) {
 
 
     $urlRouterProvider.otherwise('/index');
@@ -80,15 +96,15 @@ angular.module('treeSeed')
             templateUrl: 'layouts/pages/registerDonor.html',
             controller: "donorRegistrationController"
         })
-									.state(
-											'treeSeed.donorSearch',
-											{
-												url : 'donorSearch',
-												templateUrl : 'layouts/pages/donorSearch.html',
-												resolve: load([
-												        'angularUtils.directives.dirPagination']),
-												controller : "donorSearchController"
-									        });
+		.state(
+				'treeSeed.donorSearch',
+				{
+					url : 'donorSearch',
+					templateUrl : 'layouts/pages/donorSearch.html',
+					resolve: load([
+					        'angularUtils.directives.dirPagination']),
+					controller : "donorSearchController"
+		        });
     
            function load(srcs, callback) {
 								return {
