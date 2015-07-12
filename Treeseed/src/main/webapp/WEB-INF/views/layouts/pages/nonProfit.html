@@ -5,21 +5,17 @@
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12 ">
-        	 <img ng-src="{{nonprofit.mainPicture}}" alt="" class="cover-image" >
+        	<div class="cover-image">
+        		 <img ng-src="{{nonprofit.mainPicture}}" class="cover-container" >
+        	 </div>
     	</div>
     	
 	</div>
 	<div class="row">
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
-	 			<div class="row">
-	 				<div class="site-wrapper">
-					  <div class="site-wrapper-inner">
-					    	<div class="cover-container">	
-								<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >
-							</div>
-						</div>
-					</div>
+	 			<div class="row">		
+					<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >	
  				</div>
  				<div class="row">
  					<div class="col-md-12">
@@ -36,45 +32,6 @@
  						<br>
  						<b>Campañas:</b> 40
  						<br>
-
- 					<div ng-controller="DonationCtrl">
-			            <script type="text/ng-template" id="myModalContent.html">
-			            <div class="modal-header">
-			              <h3 class="modal-title">Realizar Donacion</h3>
-			            </div>
-			            <div class="modal-body">
-			              <div class="form-group">
-			                <label for="credit-card" class="control-label">Tarjeta de Credito</label>
-			                <input type="text" class="form-control" id="credit-card" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="safety-number" class="control-label">Codigo de seguridad</label>
-			                <input type="text" class="form-control" id="safety-number" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="exp-date" class="control-label">Fecha de vencimiento</label>
-			                <input type="text" class="form-control" id="exp-date" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="amount" class="control-label">Monto a donar</label>
-			                <input type="text" class="form-control" id="amount" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="recurrentAmount" class="control-label">Realizar donacion recurrente</label>        
-			                <input type="checkbox" value="">
-			             </div>  
-			            </div>
-			            <div class="modal-footer">
-			                <button class="btn btn-primary" ng-click="ok()">Donar</button>
-			                <button class="btn" ng-click="cancel()">Cancel</button>
-			            </div>
-			            <div ng-show="status" class="alert alert-success" role="alert">{{correcto}}</div>
-			          </script>
-				        <div ng-controller="showToUserController">
-				          <button ng-show="view()" class="btn btn-default" ng-click="open()" translate="DONATION.CREATE"></button>
-				     	</div>
-		          	</div>  	
-
  					</div>
  				</div>
 	 		</div>

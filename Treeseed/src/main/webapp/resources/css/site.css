@@ -311,8 +311,9 @@ font-weight: bold;
   vertical-align: top;
 }
 .cover-container {
-  margin-right: auto;
-  margin-left: auto;
+	height:300px;
+	width:100%
+  
 }
 textarea {
   resize: none;
