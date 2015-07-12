@@ -106,5 +106,13 @@
         "CANCEL-BUTTON": "Cancel",
         "PASSWORD-MESSAGE": "Password do not match",
         "EMAIL-MESSAGE": "Email already in use"
-       }
+   	},
+   	"NONPROFIT-PROFILE": {
+   		"PROFILE": "Profile",
+   		"MISSION": "Mission",
+   		"REASON": "Reason",
+   		"DESCRIPTION": "Description",
+   		"CAMPAIGNS": "Campaigns",
+   		"UPDATES": "Updates"  	
+    }
 }

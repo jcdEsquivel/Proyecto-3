@@ -96,6 +96,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$http, $location, $modal, $log, $timeout) {
 
 	$scope.nonprofit = {};
+	$scope.nonprofit.id="";
 	$scope.nonprofit.country = "";
 	$scope.nonprofit.cause = "";
 	$scope.requestObject1 = {};
@@ -140,6 +141,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 				$scope.requestObject).success(function(mydata, status) {
 			$scope.nonprofits = mydata.nonprofits;
 			$scope.totalItems = mydata.totalElements;
+			console.log($scope.nonprofits[1].id)
 		}).error(function(mydata, status) {
 			alert(status);
 		});
@@ -153,7 +155,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 })
 
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout) {
+		$http, $location, $modal, $log, $timeout, $stateParams) {
 
 	/*$scope.nonprofit={};
 	$scope.nonprofit.name = "";
@@ -170,25 +172,32 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.session=false;
 	*/
 	
+	
+	
 	$scope.nonprofit = {};
+	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.nonprofit.name = "";
 	$scope.nonprofit.description = "";
 	$scope.nonprofit.mission = "";
 	$scope.nonprofit.reason = "";
 	$scope.nonprofit.country = "";
 	$scope.nonprofit.cause = "";
+	$scope.nonprofit.profilepicture = "";
+	$scope.nonprofit.mainpicture = "";
 	$scope.requestObject = {};
 	
 	$scope.init = function() {
 		
-			$scope.requestObject.id = 3;
+		
 			
-			console.log('esooo')
+		 
+		 $scope.requestObject.id = $scope.nonprofit.id;
+			
+			
 			
 			$http.post('rest/protected/nonprofit/getNonProfitProfile',
 					$scope.requestObject).success(function(mydata, status) {
 				$scope.nonprofit = mydata.nonprofit;
-				console.log(mydata.nonprofit)
 			}).error(function(mydata, status) {
 				alert(status);
 			});		

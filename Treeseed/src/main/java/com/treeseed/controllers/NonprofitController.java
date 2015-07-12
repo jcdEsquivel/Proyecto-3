@@ -170,6 +170,7 @@ public class NonprofitController extends UserGeneralController{
 		for(Nonprofit objeto:viewNonprofits.getContent())
 		{
 			NonprofitPOJO nnonprofit = new NonprofitPOJO();
+			nnonprofit.setId(objeto.getId());
 			nnonprofit.setName(objeto.getName());
 			nnonprofit.setDescription(objeto.getDescription());
 			nnonprofit.setWebPage(objeto.getWebPage());
@@ -196,7 +197,8 @@ public class NonprofitController extends UserGeneralController{
 		nps.setCodeMessage("nonprofit fetch success");
 			
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-		
+
+		nonprofitPOJO.setId(nonprofit.getId());
 		nonprofitPOJO.setName(nonprofit.getName());
 		nonprofitPOJO.setDescription(nonprofit.getDescription());
 		nonprofitPOJO.setWebPage(nonprofit.getWebPage());
