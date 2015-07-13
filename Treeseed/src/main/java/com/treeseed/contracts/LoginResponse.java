@@ -40,11 +40,11 @@ public class LoginResponse extends BaseResponse {
 		super();
 	}
 	
-	public int getIdUsuario() {
+	public int getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUser(int idUsuario) {
 		this.idUser = idUsuario;
 	}
 

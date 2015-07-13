@@ -10,7 +10,6 @@ treeSeedAppConstants.constant('AUTH_EVENTS', {
 	});
 
 treeSeedAppConstants.constant('USER_ROLES', {
-	  all: '*',
 	  nonprofit: 'nonprofit',
 	  donor: 'donor',
 	  guest: 'guest'

@@ -13,7 +13,8 @@
     	"CONFIGURATION": "Configuración",
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
-    	"SIGN_OUT": "Cerrar Sesión"	    	
+    	"SIGN_OUT": "Cerrar Sesión"	 ,
+    	"LOG_IN": "Iniciar Sesión"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",

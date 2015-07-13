@@ -157,6 +157,7 @@ treeSeedAppServices.service('$userData', function() {
 /******************************************************Factories***********************************************/
 
 treeSeedAppServices.service('Session', function() {
+	
 	this.create = function(sessionId, userId, userRole) {
 		this.id = sessionId;
 		this.userId = userId;
@@ -170,19 +171,34 @@ treeSeedAppServices.service('Session', function() {
 })
 
 
-treeSeedAppServices.factory('AuthService', function($http, Session) {
+treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES) {
 	var authService = {};
 
 	authService.login = function(credentials) {
 		return $http.post('rest/login/checkuser', credentials).then(function(res) {
-			Session.create(res.data.idSession, res.data.idUser, res.data.type);
-			return res.data.user;
+			if(res.data.code=="200"){
+				if(res.data.type=="nonprofit"){
+					Session.destroy();
+					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.nonprofit);
+					
+				}else if(res.data.type=="donor"){
+					Session.destroy();
+					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.donor);
+				}
+				
+			}
+			
+			return res.data;
 		});
 	};
 
 	authService.isAuthenticated = function() {
 		return !!Session.userId;
 	};
+	
+	authService.guestSession = function() {
+		 Session.create("0","0",USER_ROLES.guest);
+	}
 
 	authService.isAuthorized = function(authorizedRoles) {
 		if (!angular.isArray(authorizedRoles)) {

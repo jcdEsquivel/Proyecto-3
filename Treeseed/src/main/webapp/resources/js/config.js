@@ -1,112 +1,152 @@
-angular.module('treeSeed')
+angular
+		.module('treeSeed')
 		.run(
 				[ '$rootScope', '$state', '$stateParams',
-				   function($rootScope, $state, $stateParams, AUTH_EVENTS, AuthService) {
+						function($rootScope, $state, $stateParams) {
 							$rootScope.$state = $state;
 							$rootScope.$stateParams = $stateParams;
-							
-							/*$rootScope.$on('$stateChangeStart', function (event, next) {
-						    var authorizedRoles = next.data.authorizedRoles;
-						    if (!AuthService.isAuthorized(authorizedRoles)) {
-						      event.preventDefault();
-						      if (AuthService.isAuthenticated()) {
-						        // user is not allowed
-						        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-						      } else {
-						        // user is not logged in
-						        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-						      }
-						    }
-						});*/
-				}])
-		.config(function ($httpProvider) {
-			  $httpProvider.interceptors.push([
-			    '$injector',
-			    function ($injector) {
-			      return $injector.get('AuthInterceptor');
-			    }
-			  ]);
-			})
-		.config(
-				['$stateProvider','$urlRouterProvider',	'JQ_CONFIG','MODULE_CONFIG',
-						function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+
+						} ])
+		.run(function($rootScope, AUTH_EVENTS, AuthService) {
+			$rootScope.$on('$stateChangeStart', function(event, next) {
+				var authorizedRoles = next.data.authorizedRoles;
+				if (!AuthService.isAuthorized(authorizedRoles)) {
+					event.preventDefault();
+					if (AuthService.isAuthenticated()) {
+						// user is not allowed
+						$rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+					} else {
+						// user is not logged in
+						$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+					}
+				}
+			});
+		})
+
+		.config(function($httpProvider) {
+			$httpProvider.interceptors.push( function($injector) {
+				return $injector.get('AuthInterceptor');
+			} );
+		})
+		.config(function($stateProvider, $urlRouterProvider, JQ_CONFIG,
 								MODULE_CONFIG, USER_ROLES) {
 
+							$urlRouterProvider.otherwise('/index');
+							$stateProvider
+									.state('treeSeed', {
+										abstract : true,
+										url : '/',
+										templateUrl : 'layouts/pages/main.html'/*
+																				 * ,
+																				 * resolve: {
+																				 * auth:
+																				 * function
+																				 * resolveAuthentication(AuthResolver) {
+																				 * return
+																				 * AuthResolver.resolve(); } }
+																				 */
+									})
+									.state(
+											'signin',
+											{
+												url : '/signin',
+												templateUrl : 'layouts/components/page_signin.html',
+												controller : 'SigninFormController'
+											})
+									.state(
+											'treeSeed.index',
+											{
+												url : 'index',
+												templateUrl : 'layouts/pages/index.html',
+												controller : 'indexController',
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ],
+												
+												}
+											})
+									.state(
+											'treeSeed.donor',
+											{
+												url : 'donor',
+												templateUrl : 'layouts/pages/donor.html'
+											// controller: 'TypeaheadDemoCtrl'
+											})
+									.state(
+											'treeSeed.nonProfit',
+											{
+												url : 'nonProfit',
+												templateUrl : 'layouts/pages/nonProfit.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.donate',
+											{
+												url : '../donate',
+												templateUrl : 'layouts/pages/donate.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.searchTransReport',
+											{
+												url : 'str',
+												templateUrl : 'layouts/pages/transparencyReportSearch.html',
+												controller : "searchTransparecyReportController"
+											})
+									.state(
+											'treeSeed.createCampaing',
+											{
+												url : 'createCampaing',
+												templateUrl : 'layouts/pages/createCampaing.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.campaingViewer',
+											{
+												url : 'campaingViewer',
+												templateUrl : 'layouts/pages/campaingViewer.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.nonProfitSearch',
+											{
+												url : 'nonProfitSearch',
+												templateUrl : 'layouts/pages/nonProfitSearch.html',
+												resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/searchControllers.js' ]),
+												controller : "nonProfitSearchController"
+											})
+									.state(
+											'treeSeed.registerNonProfit',
+											{
+												url : 'registerNonProfit',
+												templateUrl : 'layouts/pages/registerNonProfitProfile.html',
+												controller : "nonProfitRegistrationController"
+											})
+									.state(
+											'treeSeed.registerDonor',
+											{
+												url : 'registerDonor',
+												templateUrl : 'layouts/pages/registerDonor.html',
+												controller : "donorRegistrationController"
+											})
+									.state(
+											'treeSeed.donorSearch',
+											{
+												url : 'donorSearch',
+												templateUrl : 'layouts/pages/donorSearch.html',
+												resolve : load([ 'angularUtils.directives.dirPagination' ]),
+												controller : "donorSearchController"
+											});
 
-    $urlRouterProvider.otherwise('/index');
-    $stateProvider
-	    .state('treeSeed',{
-            abstract: true,
-            url: '/',
-            templateUrl: 'layouts/pages/main.html'
-        })    
-        .state('signin',{
-            url: '/signin',
-            templateUrl: 'layouts/components/page_signin.html',
-            controller: 'SigninFormController'
-        })
-        .state('treeSeed.index', {
-              url: 'index',
-              templateUrl: 'layouts/pages/index.html',
-              controller: 'indexController'
-        })    
-        .state('treeSeed.donor', {
-              url: 'donor',
-              templateUrl: 'layouts/pages/donor.html'
-              //controller: 'TypeaheadDemoCtrl'
-        })
-        .state('treeSeed.nonProfit', {
-             url: 'nonProfit',
-             templateUrl: 'layouts/pages/nonProfit.html'
-             //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.donate', {
-            url: '../donate',
-            templateUrl: 'layouts/pages/donate.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.searchTransReport', {
-            url: 'str',
-            templateUrl: 'layouts/pages/transparencyReportSearch.html',
-            controller: "searchTransparecyReportController"
-        })
-        .state('treeSeed.createCampaing', {
-            url: 'createCampaing',
-            templateUrl: 'layouts/pages/createCampaing.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-         .state('treeSeed.campaingViewer', {
-            url: 'campaingViewer',
-            templateUrl: 'layouts/pages/campaingViewer.html'
-            //resolve: load(['js/controllers/chart.js'])
-        })
-        .state('treeSeed.nonProfitSearch', {
-            url: 'nonProfitSearch',
-            templateUrl: 'layouts/pages/nonProfitSearch.html',
-            resolve: load(['angularUtils.directives.dirPagination', 'resources/js/controllers/searchControllers.js']),
-            controller: "nonProfitSearchController"
-        })
-		.state('treeSeed.registerNonProfit', {
-		    url: 'registerNonProfit',
-		    templateUrl: 'layouts/pages/registerNonProfitProfile.html',
-		    controller: "nonProfitRegistrationController"
-		})
-        .state('treeSeed.registerDonor', {
-            url: 'registerDonor',
-            templateUrl: 'layouts/pages/registerDonor.html',
-            controller: "donorRegistrationController"
-        })
-		.state(
-				'treeSeed.donorSearch',
-				{
-					url : 'donorSearch',
-					templateUrl : 'layouts/pages/donorSearch.html',
-					resolve: load([
-					        'angularUtils.directives.dirPagination']),
-					controller : "donorSearchController"
-		        });
-    
-           function load(srcs, callback) {
+							function load(srcs, callback) {
 								return {
 									deps : [
 											'$ocLazyLoad',
@@ -153,9 +193,8 @@ angular.module('treeSeed')
 														}) : promise;
 											} ]
 								}
-           }
-          }]);
-
+							}
+						} );
 
 angular.module('treeSeed').config(
 		[
@@ -255,14 +294,17 @@ angular
 							'resources/js/libs/jquery/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' ]
 
 				})
-  angular.module('treeSeed').constant('MODULE_CONFIG', [  
-	  {
-	      name: 'angularUpload',
-	      files: [
-	          'resources/js/libs/angular/angular-upload/angular-file-upload.min.js',
-	          'resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js'
-	      ]
-	  },
+angular
+		.module('treeSeed')
+		.constant(
+				'MODULE_CONFIG',
+				[
+						{
+							name : 'angularUpload',
+							files : [
+									'resources/js/libs/angular/angular-upload/angular-file-upload.min.js',
+									'resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js' ]
+						},
 						{
 							name : 'angularUtils.directives.dirPagination',
 							files : [

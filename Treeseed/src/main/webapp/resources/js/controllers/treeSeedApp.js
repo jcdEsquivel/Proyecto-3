@@ -1,21 +1,28 @@
-var treeSeedAppMainControllers = angular.module('treeSeedMainController',[]);
-treeSeedAppMainControllers.controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$sharedData', 
-    function(              $scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService ) {
+var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants']);
+treeSeedAppMainControllers.controller('AppCtrl', function( $scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
       //Session management
-      $scope.isLoginPage=false;
+      AuthService.guestSession();
       
       
-      $scope.currentUser = null;
       $scope.userRoles = USER_ROLES;
-      //$scope.isAuthorized = AuthService.isAuthorized;
       
       
-      $scope.setCurrentUser = function (user) {
-    	    $scope.currentUser = user;
+     
+      $scope.isAuthorized = AuthService.isAuthorized;
+      
+      
+      $scope.setCurrentUser = function (idUser, userName, userImage) {
+    	  $scope.currentUser = {};
+    	    $scope.currentUser.idUser = idUser;
+    	    $scope.currentUser.userName = userName;
+    	    $scope.currentUser.userImage = userImage;
+    	  };
+	  $scope.logout = function () {
+    	  $scope.currentUser = null;
     	  };
       
       // config
@@ -85,4 +92,4 @@ treeSeedAppMainControllers.controller('AppCtrl', ['$scope', '$translate', '$loca
           return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
       }
 
-  }]);
+  });

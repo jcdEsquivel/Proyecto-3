@@ -48,7 +48,7 @@ public class LoginController {
 		LoginResponse response = new LoginResponse();
 		HttpSession currentSession = request.getSession();
 		
-		if(loggedUser == null){
+		if(loggedUser.getWrapperObject() == null){
 			response.setCode(401);
 			response.setErrorMessage("Unauthorized User");
 		}else{
@@ -57,13 +57,13 @@ public class LoginController {
 			response.setCode(200);
 			response.setCodeMessage("User authorized");
 			if(loggedUser.getDonor()!=null){
-				response.setIdUsuario(loggedUser.getDonor().getId());
+				response.setIdUser(loggedUser.getDonor().getId());
 				response.setFirstName(loggedUser.getDonor().getName());
 				response.setLastName(loggedUser.getDonor().getLastName());
 				response.setImg(loggedUser.getDonor().getProfilePicture());
 				response.setType("donor");
 			}else if(loggedUser.getNonprofit()!=null){
-				response.setIdUsuario(loggedUser.getNonprofit().getId());
+				response.setIdUser(loggedUser.getNonprofit().getId());
 				response.setFirstName(loggedUser.getNonprofit().getName());
 				response.setImg(loggedUser.getNonprofit().getProfilePicture());
 				response.setType("nonprofit");

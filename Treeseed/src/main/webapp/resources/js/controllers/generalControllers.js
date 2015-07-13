@@ -1,48 +1,79 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller',[ 'treeSeedServices']);
 
-
-treeSeedAppControllers.controller('indexController', function($state, $location, $sharedData, $scope, $modal) {
-
-	
-	$scope.animationsEnabled = true;
-		$scope.open = function () {
-
-        var modalInstance = $modal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'layouts/components/page_login.html',
-          controller: 'loginController'
-        });
-      };
-      
-      $scope.toggleAnimation = function () {
-          $scope.animationsEnabled = !$scope.animationsEnabled;
-        };  
+treeSeedAppControllers.controller('logoutController', function($state, $location, $sharedData, $scope, Session, AUTH_EVENTS,AuthService) {
+	$scope.logout=function(){
+		AuthService.guestSession()
+		$scope.logout();
+		$state.go("treeSeed.index");
+	}
 });
 
 
-treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
-		$sharedData, $scope, AUTH_EVENTS) {
+treeSeedAppControllers.controller('indexController', function($state, $location, $sharedData, $scope, Session, AUTH_EVENTS) {
+	$scope.ro= Session.userRole;
+	$scope.rolesroles = $scope.userRoles.guest;
+	$scope.$on(AUTH_EVENTS.loginSuccess,function(){
+		$scope.ro= {id:Session.id,userId:Session.userId,role: Session.userRole};
+	})
+});
+
+
+treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, $rootScope,
+		$sharedData, $scope, AUTH_EVENTS, Session , $modal) {
+	if(Session.userRole == $scope.userRoles.guest){
+		$scope.logButton=true;
+		$scope.logged=false;
+	}else{
+		$scope.logged=true;
+		$scope.logButton=false;
+	}
+	
 	
 	$scope.$on(AUTH_EVENTS.loginSuccess,function(){
-		$scope.user =  $scope.currentUser()
-		$scope.name = $scope.user.name;
-		$scope.img = $scope.user.img;
+		
+		$scope.logged=true;
+		$scope.logButton=false;
+		
+		$scope.user =  $scope.currentUser;
+		$scope.name = $scope.user.userName;
+		$scope.img = $scope.user.userImage;
 	});
 	
+	$scope.animationsEnabled = true;
+	$scope.open = function () {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'layouts/components/page_login.html',
+      controller: 'loginController',
+      resolve: {
+    	  setCurrentUser: function(){
+    		  return $scope.setCurrentUser;
+    	  }
+      }
+    	 
+    })
+  };
+  
+  
+  
+  $scope.toggleAnimation = function () {
+      $scope.animationsEnabled = !$scope.animationsEnabled;
+    };  
 	
 	//$scope.isUserLogged = $sharedData.isUserLogged();
 
 });
 
 treeSeedAppControllers.controller('leftMenuCtrl', function($state,
-		$location, $sharedData, $scope) {
-	$scope.getMenu = function() {
-		if ($sharedData.getUserType() == "NGO") {
-			return "layouts/components/nGOMenu.html";
-		} else if($sharedData.getUserType() == "Donor") {
-			return "layouts/components/donorMenu.html";
+		$location, $sharedData, $scope, AUTH_EVENTS, Session ) {
+	$scope.$on(AUTH_EVENTS.loginSuccess,function(){
+		if (Session.userRole == $scope.userRoles.nonprofit) {
+			$scope.menu= "layouts/components/nGOMenu.html";
+		} else if(Session.userRole == $scope.userRoles.donor) {
+			$scope.menu= "layouts/components/donorMenu.html";
 		}
-	}
+	})
 });
 
 

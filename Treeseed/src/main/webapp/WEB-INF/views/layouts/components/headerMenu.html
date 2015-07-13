@@ -79,7 +79,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-show="isUserLogged">
+          <li class="dropdown" dropdown ng-if="logged">
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
@@ -91,7 +91,10 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown"  dropdown ng-show="isUserLogged">
+          <li ng-if="isAuthorized(userRoles.guest)" >
+          		<button class="btn m-b-xs  btn-success btn-rounded" ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
+          </li>
+          <li class="dropdown"  ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img ng-src="{{img}}" alt="...">

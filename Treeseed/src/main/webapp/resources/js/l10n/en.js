@@ -13,7 +13,8 @@
     	"CONFIGURATION": "Configuration",
     	"PROFILE": "ProfilE",
     	"HELP": "Help",
-    	"SIGN_OUT": "Sign out"	    	
+    	"SIGN_OUT": "Sign out",
+    	"LOG_IN": "Login"
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navigation",
