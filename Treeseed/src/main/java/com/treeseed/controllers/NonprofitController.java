@@ -206,7 +206,14 @@ public class NonprofitController extends UserGeneralController{
 		nonprofitPOJO.setMainPicture(nonprofit.getMainPicture());
 		nonprofitPOJO.setMision(nonprofit.getMision());
 		nonprofitPOJO.setReason(nonprofit.getReason());
-			
+		
+		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+		UserGeneral userGeneral;
+		userGeneral= nonprofit.getUsergenerals().get(0);
+		
+		userGeneralPOJO.setEmail(userGeneral.getEmail());
+		
+		nonprofitPOJO.setUserGeneral(userGeneralPOJO);	
 		
 		nps.setNonprofit(nonprofitPOJO);
 		nps.setCode(200);
