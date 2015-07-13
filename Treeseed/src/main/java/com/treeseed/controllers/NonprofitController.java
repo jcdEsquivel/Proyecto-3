@@ -195,7 +195,7 @@ public class NonprofitController extends UserGeneralController{
 		NonprofitResponse nps = new NonprofitResponse();
 		
 		nps.setCode(200);
-		nps.setCodeMessage("nonprofit fetch success");
+		nps.setCodeMessage("nonprofit search success");
 			
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 
