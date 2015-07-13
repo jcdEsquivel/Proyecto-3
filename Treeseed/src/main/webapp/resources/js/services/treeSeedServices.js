@@ -1,5 +1,5 @@
 'use strict';
-var treeSeedAppServices = angular.module('treeSeed.services', []);
+var treeSeedAppServices = angular.module('treeSeed.services', ['ngCookies']);
 
 treeSeedAppServices.value('version', '0.1');
 
@@ -171,7 +171,7 @@ treeSeedAppServices.service('Session', function() {
 })
 
 
-treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES) {
+treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES, $cookies) {
 	var authService = {};
 
 	authService.login = function(credentials) {
@@ -180,11 +180,16 @@ treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES) 
 				if(res.data.type=="nonprofit"){
 					Session.destroy();
 					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.nonprofit);
-					
+					$cookies.put('userRoleTree', USER_ROLES.nonprofit);
 				}else if(res.data.type=="donor"){
 					Session.destroy();
 					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.donor);
+					$cookies.put('userRoleTree', USER_ROLES.donor);
 				}
+				
+				$cookies.put('idSessionTree', res.data.idSession);
+				$cookies.put('idUserTree', res.data.idSession);
+				
 				
 			}
 			
@@ -198,6 +203,9 @@ treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES) 
 	
 	authService.guestSession = function() {
 		 Session.create("0","0",USER_ROLES.guest);
+		 $cookies.put('idSessionTree', "0");
+		 $cookies.put('idUserTree', "0");
+		 $cookies.put('userRoleTree', USER_ROLES.guest);
 	}
 
 	authService.isAuthorized = function(authorizedRoles) {

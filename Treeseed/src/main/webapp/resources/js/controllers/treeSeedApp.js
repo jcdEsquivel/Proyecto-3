@@ -1,13 +1,23 @@
-var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants']);
-treeSeedAppMainControllers.controller('AppCtrl', function( $scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
+var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies']);
+treeSeedAppMainControllers.controller('AppCtrl', function( $cookies,$scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
       //Session management
-      AuthService.guestSession();
+      
+      if($cookies.get['userIdTree']!='0'||typeof $cookies.get['userIdTree']!= "undefined"){
+    	  $scope.currentUser={};    	 
+    	  $scope.currentUser.idUser = $cookies.get['userIdTree'];
+  	      $scope.currentUser.userName = $cookies.get['userNameTree'];
+  	      $scope.currentUser.userImage = $cookies.get['userImageTree'];
+  	      Session.create( $cookies.get['idSessionTree'],$cookies.get['idUserTree'],$cookies.get['userRoleTree']);
+      }else{
+    	  AuthService.guestSession();
+      }
       
       
+      $scope.currentUser = null;
       $scope.userRoles = USER_ROLES;
       
       
@@ -20,10 +30,11 @@ treeSeedAppMainControllers.controller('AppCtrl', function( $scope,   $translate,
     	    $scope.currentUser.idUser = idUser;
     	    $scope.currentUser.userName = userName;
     	    $scope.currentUser.userImage = userImage;
-    	  };
-	  $scope.logout = function () {
-    	  $scope.currentUser = null;
-    	  };
+    	    $cookies.put('userName', userName);
+    	    $cookies.put('userImage', userImage);
+    	    
+      };
+	  
       
       // config
       $scope.app = {

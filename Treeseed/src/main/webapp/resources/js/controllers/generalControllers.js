@@ -1,11 +1,13 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller',[ 'treeSeedServices']);
 
-treeSeedAppControllers.controller('logoutController', function($state, $location, $sharedData, $scope, Session, AUTH_EVENTS,AuthService) {
+treeSeedAppControllers.controller('logoutController', function($rootScope,$state, $location, $sharedData, $scope, Session, AUTH_EVENTS,AuthService) {
 	$scope.logout=function(){
 		AuthService.guestSession()
-		$scope.logout();
+		$scope.currentUser=null;
 		$state.go("treeSeed.index");
+		$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
 	}
+	
 });
 
 
@@ -74,6 +76,9 @@ treeSeedAppControllers.controller('leftMenuCtrl', function($state,
 			$scope.menu= "layouts/components/donorMenu.html";
 		}
 	})
+	$scope.$on(AUTH_EVENTS.logoutSuccess,function(){
+		$scope.menu="";
+	})
 });
 
 
@@ -122,13 +127,7 @@ treeSeedAppControllers.controller('HeaderCtrl', [
 
 		} ]);
 
-treeSeedAppControllers.controller('logoutController', function($sharedData,
-		$location, $scope, $state, $modal) {
-	$scope.logout = function() {
-		$sharedData.setLoggedUser('');
-		$sharedData.setLoged(false);
-		$state.go('signin');
-	}
-});
+
+
 
 

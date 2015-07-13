@@ -46,10 +46,10 @@ public class TestLoginController extends AbstractTestController{
 		    String email=userGeneral.getEmail();
 		    String password=userGeneral.getPassword();
 		   
-		    LoginRequest req = new LoginRequest(email, password);
+		    LoginRequest req = new LoginRequest(email, "123456789");
 		    String jsonObject = mapToJson(req);
 			
-	        String uri = "rest/login/checkuser";
+	        String uri = "/rest/login/checkuser";
 	               
 	       
 	        
@@ -73,10 +73,10 @@ public class TestLoginController extends AbstractTestController{
 		    String email=userGeneral.getEmail();
 		    String password=userGeneral.getPassword();
 		   
-		    LoginRequest req = new LoginRequest(email+"5", password);
+		    LoginRequest req = new LoginRequest(email+"5", "123456789");
 			
 			
-	        String uri = "rest/login/checkuser";
+	        String uri = "/rest/login/checkuser";
 	               
 	        String jsonObject = mapToJson(req);
 	        
@@ -89,7 +89,7 @@ public class TestLoginController extends AbstractTestController{
 	        
 	        LoginResponse response = mapFromJson(content, LoginResponse.class);
 	        
-	        Assert.assertEquals("Unauthorized User", response.getCodeMessage());
+	        Assert.assertEquals("Unauthorized User", response.getErrorMessage());
 	      
 
 	    }
@@ -101,10 +101,10 @@ public class TestLoginController extends AbstractTestController{
 		    String email=userGeneral.getEmail();
 		    String password=userGeneral.getPassword();
 		   
-		    LoginRequest req = new LoginRequest(email, password+"5");
+		    LoginRequest req = new LoginRequest(email, "123456789"+"5");
 			
 			
-	        String uri = "rest/login/checkuser";
+	        String uri = "/rest/login/checkuser";
 	               
 	        String jsonObject = mapToJson(req);
 	        
@@ -116,7 +116,7 @@ public class TestLoginController extends AbstractTestController{
 	        String content = result.getResponse().getContentAsString();
 	        LoginResponse response = mapFromJson(content, LoginResponse.class);
 	        
-	        Assert.assertEquals("Unauthorized User", response.getCodeMessage());
+	        Assert.assertEquals("Unauthorized User", response.getErrorMessage());
 	      
 
 	    }
