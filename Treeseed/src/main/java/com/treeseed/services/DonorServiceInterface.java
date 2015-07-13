@@ -12,4 +12,6 @@ public interface DonorServiceInterface {
 	Boolean saveDonor(DonorWrapper user);
 
 	Donor getSessionDonor(int idUser);
+	
+	Donor getDonorProfileByID(DonorRequest dr);
 }

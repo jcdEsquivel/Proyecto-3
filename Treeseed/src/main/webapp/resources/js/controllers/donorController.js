@@ -179,9 +179,33 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 });
 
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout) {
+		$http, $location, $modal, $log, $timeout, $stateParams) {
+
+	//Declaration of donor object
+	$scope.donor = {};
+	$scope.donor.id = $stateParams.donorId;
+	$scope.donor.name = "";
+	$scope.donor.description = "";
+	$scope.donor.country = "";
+	$scope.donor.profilepicture = "";
+	$scope.donor.mainpicture = "";
+	$scope.requestObject = {};
+
+	//init function, calls the java controller
+	$scope.init = function() {
+		 $scope.requestObject.id = $scope.donor.id;
+			$http.post('rest/protected/donor/getDonorProfile',
+					$scope.requestObject).success(function(mydata, status) {
+						$scope.donor = mydata.donor;
+						console.log($scope.donor);
+			}).error(function(mydata, status) {
+				alert(status);
+			});		
+	}
+	$scope.init();
 
 	//Controllers for Edit Buttons
+	//If it's the profile owner the edit buttons will be available
 	$scope.isOwner = true;
 
 	$scope.name = "El Doc";

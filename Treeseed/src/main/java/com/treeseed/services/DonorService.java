@@ -68,4 +68,9 @@ public class DonorService implements DonorServiceInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Donor getDonorProfileByID(DonorRequest dr) {
+		return DonorRepository.findByid(dr.getId());
+	}
 }

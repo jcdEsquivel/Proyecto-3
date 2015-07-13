@@ -6,6 +6,7 @@ import com.treeseed.pojo.DonorPOJO;
 public class DonorResponse extends BaseResponse {
 	
 	private List<DonorPOJO> donors;
+	private DonorPOJO donor;
 	
 	public DonorResponse() {
 		super();
@@ -14,6 +15,10 @@ public class DonorResponse extends BaseResponse {
 	
 	public List<DonorPOJO> getDonor() {
 		return donors;
+	}
+
+	public void setDonor(DonorPOJO donor) {
+		this.donor = donor;
 	}
 
 	public void setDonor(List<DonorPOJO> donors) {

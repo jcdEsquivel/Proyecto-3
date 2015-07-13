@@ -8,7 +8,16 @@ public class DonorRequest extends BasePagingRequest {
 	private String name;
 	private String lastName;
 	private String country;
+	private int id;
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public DonorRequest() {
 		super();
 	}
