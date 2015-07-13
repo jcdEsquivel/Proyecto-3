@@ -12,7 +12,7 @@ public interface NonprofitServiceInterface {
 
 	Page<Nonprofit> getNonProfit(NonprofitRequest ur);
 
-	Boolean saveNonprofit(NonprofitWrapper nonprofit);
+	int saveNonprofit(NonprofitWrapper nonprofit);
 
 	Nonprofit getSessionNonprofit(int idNonprofit);
 

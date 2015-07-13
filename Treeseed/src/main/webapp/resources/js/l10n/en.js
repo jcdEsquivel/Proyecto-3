@@ -113,6 +113,12 @@
    		"REASON": "Reason",
    		"DESCRIPTION": "Description",
    		"CAMPAIGNS": "Campaigns",
-   		"UPDATES": "Updates"  	
+   		"UPDATES": "Updates",
+   		"DONORS": "Donors:",
+   		"DONATIONS": "Donations:"
+    },
+    "BUTTONS": {
+   		"SAVE": "Save",
+   		"CANCEL": "Cancel"
     }
 }

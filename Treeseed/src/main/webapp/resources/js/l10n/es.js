@@ -108,6 +108,12 @@
         "REASON": "Razón",
         "DESCRIPTION": "Descripción",
         "CAMPAIGNS": "Campañas",
-        "UPDATES": "Actualizaciones"
+        "UPDATES": "Actualizaciones",
+        "DONORS": "Donantes:",
+        "DONATIONS": "Donaciones:"
+     },
+     "BUTTONS": {
+    		"SAVE": "Guardar",
+    		"CANCEL": "Cancelar"
      }
 }

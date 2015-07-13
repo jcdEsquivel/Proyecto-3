@@ -115,9 +115,9 @@ public class NonprofitController extends UserGeneralController{
 				user.setCause(causeW.getWrapperObject());
 				user.setConutry(countryW.getWrapperObject());
 				
-				Boolean state = nonProfitService.saveNonprofit(user);
+				int nonProfitId = nonProfitService.saveNonprofit(user);
 			
-				if(state){
+				if(nonProfitId>0){
 					UserGeneralRequest ug = new UserGeneralRequest();
 					UserGeneralResponse ugr = new UserGeneralResponse();
 					UserGeneralPOJO userG=new UserGeneralPOJO();
@@ -127,6 +127,7 @@ public class NonprofitController extends UserGeneralController{
 					ugr= userGeneralCreate(ug,user);
 					
 					if(ugr.getCode()==200){
+						us.setNonProfitId(nonProfitId);
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
 					}else{

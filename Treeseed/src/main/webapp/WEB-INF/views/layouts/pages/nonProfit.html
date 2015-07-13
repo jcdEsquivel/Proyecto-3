@@ -24,14 +24,10 @@
  						<br>
  						<b>{{nonprofit.userGeneral.email}}</b>
  						<br>
- 						<b>Donantes:</b> 100
+ 						<b translate="NONPROFIT-PROFILE.DONORS"></b> 
  						<br>
- 						<b>Dinero recaudado:</b> 1000
- 						<br>
- 						<b>Campañas:</b> 80
- 						<br>
- 						<b>Campañas:</b> 40
- 						<br>
+ 						<b translate="NONPROFIT-PROFILE.DONATIONS"></b>
+ 						<br>			
  					</div>
  				</div>
 	 		</div>
@@ -46,12 +42,12 @@
 				          <h2 ng-hide="nameInEdition">{{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
 			          	  <div ng-show="nameInEdition">
 				          	<div>
-				          		<input ng-model="nameEdit">
+				          		<input class="form-control input-lg" ng-model="nameEdit">
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()"><i class="fa fa-fw fa-trash"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()"><i class="fa fa-fw fa-save"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
 				          	</div>
 					      </div>
 			          	  <hr>
@@ -68,8 +64,8 @@
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="missionCancelEditing()"><i class="fa fa-fw fa-trash"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="missionSaveEditing()"><i class="fa fa-fw fa-save"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="missionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="missionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
 				          	</div>
 					      </div>
 						  
@@ -86,8 +82,8 @@
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="descriptionCancelEditing()"><i class="fa fa-fw fa-trash"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="descriptionSaveEditing()"><i class="fa fa-fw fa-save"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="descriptionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="descriptionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
 				          	</div>
 					      </div>
 				          
@@ -104,8 +100,8 @@
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="reasonCancelEditing()"><i class="fa fa-fw fa-trash"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="reasonSaveEditing()"><i class="fa fa-fw fa-save"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="reasonCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="reasonSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
 				          	</div>
 					      </div>
 				          

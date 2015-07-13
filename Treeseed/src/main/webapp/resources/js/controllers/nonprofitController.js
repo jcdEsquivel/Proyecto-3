@@ -84,7 +84,8 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 			    },
 			    file : $scope.image,
 			   }).success(function(response){
-				   $state.go('treeSeed.nonProfit');
+				   console.log(response.nonProfitId)
+				   $state.go('treeSeed.nonProfit', {nonProfitId: response.nonProfitId});
 			   }) 
 	
 	};

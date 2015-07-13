@@ -8,6 +8,7 @@ public class NonprofitResponse extends BaseResponse{
 	
 	private List<NonprofitPOJO> nonprofits;
 	private NonprofitPOJO nonprofit;
+	private int nonProfitId;
 
 	public NonprofitResponse() {
 		super();
@@ -30,5 +31,15 @@ public class NonprofitResponse extends BaseResponse{
 	public NonprofitPOJO getNonprofit() {
 		return nonprofit;
 	}
+
+	public int getNonProfitId() {
+		return nonProfitId;
+	}
+
+	public void setNonProfitId(int nonProfitId) {
+		this.nonProfitId = nonProfitId;
+	}
+	
+	
 
 }

@@ -61,14 +61,10 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 	@Override
 	@Transactional
-	public Boolean saveNonprofit(NonprofitWrapper nonProfit) {
+	public int saveNonprofit(NonprofitWrapper nonProfit) {
 		
 		Nonprofit nuser = nonprofitsRepository.save(nonProfit.getWrapperObject());
-		Boolean result = true;
-		if(nuser == null){
-			result = false;
-		}
-		return result;
+		return nuser.getId();
 		
 	}
 
