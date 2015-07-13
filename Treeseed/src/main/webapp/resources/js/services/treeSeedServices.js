@@ -3,22 +3,23 @@ var treeSeedAppServices = angular.module('treeSeed.services', []);
 
 treeSeedAppServices.value('version', '0.1');
 
-treeSeedAppServices.service('$uniqueDataService', function($http){
-  
-    return {isEmailUnique : function(email){
-        
-        	return $http.post('rest/protected/users/isEmailUnique', email)
-		    	.then(function(response){
-		    	console.log(response.data.codeMessage);
-		    	
-	    		if(response.data.codeMessage == 'UNIQUE'){
-	    			return true;
-	    		}else{
-	    			return false;
-	    		}	
-		    });
-        }
-    }
+treeSeedAppServices.service('$uniqueDataService', function($http) {
+
+	return {
+		isEmailUnique : function(email) {
+
+			return $http.post('rest/protected/users/isEmailUnique', email)
+					.then(function(response) {
+						console.log(response.data.codeMessage);
+
+						if (response.data.codeMessage == 'UNIQUE') {
+							return true;
+						} else {
+							return false;
+						}
+					});
+		}
+	}
 });
 
 'use strict';
@@ -26,142 +27,146 @@ var treeSeedAppServices = angular.module('treeSeed.services', []);
 
 treeSeedAppServices.value('version', '0.1');
 
-treeSeedAppServices.service('$uniqueDataService', function($http){
-	  
-    return {
-        isEmailUnique : function(email){
-        
-        	return $http.post('rest/protected/users/isEmailUnique', email)
-		    	.then(function(response){
-		    	console.log(response.data.codeMessage);
-		    	
-		    		if(response.data.codeMessage == 'UNIQUE'){
-		    			return true;
-		    		}else{
-		    			return false;
-		    		}	
-		    });
-        }      
-    }
+treeSeedAppServices.service('$uniqueDataService', function($http) {
+
+	return {
+		isEmailUnique : function(email) {
+
+			return $http.post('rest/protected/users/isEmailUnique', email)
+					.then(function(response) {
+						console.log(response.data.codeMessage);
+
+						if (response.data.codeMessage == 'UNIQUE') {
+							return true;
+						} else {
+							return false;
+						}
+					});
+		}
+	}
 });
 
-treeSeedAppServices.service('$sharedData', function(){
-    var loggedUser = "";
-    var type = "";
-    var img="";
-    var loged = false;
-    var ongName = "Territorio de Zaguates"
-    return {
-        getLoggedUser : function(){
-            return loggedUser;
-        },
-        setLoggedUser  : function(value){
-            loggedUser =  value ;
-        },
-        getLoged : function(){
-            return loged;
-        },
-        setLoged  : function(value){
-            loged =  value ;
-        },
-        getOngName : function(){
-            return ongName;
-        },
-        setOngName  : function(value){
-            ongName =  value ;
-        },
-        getUserType : function(){
-            return type;
-        },
-        setUserType  : function(value){
-            type =  value ;
-        },
-        getImg : function(){
-            return img;
-        },
-        setImg  : function(value){
-            img =  value ;
-        }
-    }
+treeSeedAppServices.service('$sharedData', function($http) {
+	var loggedUser = "";
+	var type = "";
+	var img = "";
+	var loged = false;
+	var ongName = "Territorio de Zaguates"
+	var userCountry = "";
+
+	return {
+		getLoggedUser : function() {
+			return loggedUser;
+		},
+		setLoggedUser : function(value) {
+			loggedUser = value;
+		},
+		getLoged : function() {
+			return loged;
+		},
+		setLoged : function(value) {
+			loged = value;
+		},
+		getOngName : function() {
+			return ongName;
+		},
+		setOngName : function(value) {
+			ongName = value;
+		},
+		getUserType : function() {
+			return type;
+		},
+		setUserType : function(value) {
+			type = value;
+		},
+		getImg : function() {
+			return img;
+		},
+		setImg : function(value) {
+			img = value;
+		},
+		getUserCountry : function() {
+			if (userCountry == "") {
+				//ipinfo to get the users country
+				$http.get('http://ipinfo.io/json').then(function(data) {
+					var jsonData = JSON.parse(JSON.stringify( data));
+					userCountry = jsonData.data.country;
+					
+					return userCountry;
+				});
+			}
+			
+			return userCountry;
+		
+
+		}// end getUserCountry
+	} // end return
+}); // end shareDataService
+
+treeSeedAppServices.service('$uniqueDataService', function($http) {
+
+	return {
+		isEmailUnique : function(email) {
+
+			return $http.post('rest/protected/users/isEmailUnique', email)
+					.then(function(response) {
+						console.log(response.data.codeMessage);
+
+						if (response.data.codeMessage == 'UNIQUE') {
+							return true;
+						} else {
+							return false;
+						}
+					});
+		}
+	}
 });
 
+treeSeedAppServices.service('$userData', function() {
+	var users = [ {
+		Name : "Ricardo Bonilla",
+		Email : "eldoc@gmail.com",
+		Password : "123",
+		Type : "donor",
+		Imagen : "a8.jpg"
 
-
-
-treeSeedAppServices.service('$uniqueDataService', function($http){
-  
-    return {isEmailUnique : function(email){
-        
-        	return $http.post('rest/protected/users/isEmailUnique', email)
-		    	.then(function(response){
-		    	console.log(response.data.codeMessage);
-		    	
-	    		if(response.data.codeMessage == 'UNIQUE'){
-	    			return true;
-	    		}else{
-	    			return false;
-	    		}	
-		    });
-        }
-    }
-});
-
-
-
-
-treeSeedAppServices.service('$userData', function(){
-    var users = [
-            {
-                Name: "Ricardo Bonilla",
-                Email: "eldoc@gmail.com",
-                Password: "123",
-                Type: "donor",
-                Imagen: "a8.jpg"
-               
-            },
-            {
-                Name: "Aramis",
-                Email: "Aramis@hola",
-                Password: "test456",
-                Type: "donor",
-                Imagen: ""
-            },
-            {
-                Name: "Camilo",
-                Email: "camilo@hola",
-                Password: "test123",
-                Type: "donor",
-                Imagen: ""
-            },
-            {
-                Name: "Fabian",
-                Email: "Fabian@hola",
-                Password: "test789",
-                Type: "donor",
-                Imagen: ""
-            }
-            ,
-            {
-                Name: "Hola",
-                Email: "a@hola",
-                Password: "1",
-                Type: "donor",
-                Imagen: ""
-            },
-             {
-                Name: "Territorio de Zaguates",
-                Email: "territoriodezaguates@gmail.com",
-                Password: "12345",
-                Type: "ONG",
-                Imagen: "territorio.jpg"
-            }
-        ];
-    return {
-        getUsers : function(){
-            return users;
-        },
-        setUsers : function(value){
-            users = value;
-        }
-    } 
+	}, {
+		Name : "Aramis",
+		Email : "Aramis@hola",
+		Password : "test456",
+		Type : "donor",
+		Imagen : ""
+	}, {
+		Name : "Camilo",
+		Email : "camilo@hola",
+		Password : "test123",
+		Type : "donor",
+		Imagen : ""
+	}, {
+		Name : "Fabian",
+		Email : "Fabian@hola",
+		Password : "test789",
+		Type : "donor",
+		Imagen : ""
+	}, {
+		Name : "Hola",
+		Email : "a@hola",
+		Password : "1",
+		Type : "donor",
+		Imagen : ""
+	}, {
+		Name : "Territorio de Zaguates",
+		Email : "territoriodezaguates@gmail.com",
+		Password : "12345",
+		Type : "ONG",
+		Imagen : "territorio.jpg"
+	} ];
+	return {
+		getUsers : function() {
+			return users;
+		},
+		setUsers : function(value) {
+			users = value;
+		}
+	}
 });

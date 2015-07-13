@@ -201,6 +201,29 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 	}
 	
+	
+	public  NonprofitWrapper createRandomNonprofit(String nGOName, Catalog country){
+		
+		String random = getRandomString();
+		Nonprofit nonprofit = new Nonprofit();
+		
+		nonprofit.setActive(true);
+		nonprofit.setDescription("description");
+		nonprofit.setMision("Mision");
+		nonprofit.setName(nGOName);
+		nonprofit.setReason("Reason");
+		nonprofit.setWebPage("www.test.com");
+		nonprofit.setConutry(country);
+		
+		
+		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
+		
+		serviceNonProfit.saveNonprofit(wrapper);
+		
+		return wrapper;
+		
+	}
+	
 	public  NonprofitPOJO convertNonprofitWrapper(NonprofitWrapper wrapper){
 		NonprofitPOJO newPOJO = new NonprofitPOJO();
 		PojoUtils.pojoMappingUtility(newPOJO, wrapper);

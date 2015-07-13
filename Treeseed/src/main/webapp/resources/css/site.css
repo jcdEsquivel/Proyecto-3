@@ -298,3 +298,21 @@ font-weight: bold;
 }
 
 
+.general-search-result{
+	display: block;
+	width: 300px;
+}
+
+.general-search-image{
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+.general-search-span{
+	font-size: 16px;
+}
+
+.general-search-input{
+	width:300px
+}
