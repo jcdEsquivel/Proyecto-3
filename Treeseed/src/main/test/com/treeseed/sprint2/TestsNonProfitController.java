@@ -50,62 +50,6 @@ public class TestsNonProfitController extends AbstractTestController{
 	        super.setUp();
 	        
 	    }
-	 
-	  
-	  
-	  
-	  /*
-	   @Test
-	    public void testEmailIsUnique() throws Exception {
-
-		   UserGeneralWrapper userGeneral = createRandomUserGeneral();
-		   
-	        String uri = "/rest/protected/users/isEmailUnique";
-	        
-	       String email = "test-"+userGeneral.getEmail();
-	       
-	        MvcResult result = mvc.perform(
-	                MockMvcRequestBuilders.post(uri)
-	                        .contentType(MediaType.APPLICATION_JSON)
-	                        .accept(MediaType.APPLICATION_JSON).content(email))
-	                .andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        
-	        BaseResponse response = mapFromJson(content, BaseResponse.class);
-	        
-	        Assert.assertEquals(response.getCodeMessage(), "UNIQUE");
-	      
-
-	    }
-	   
-	   
-	   @Test
-	    public void testEmailIsNotUnique() throws Exception {
-
-		   UserGeneralWrapper userGeneral = createRandomUserGeneral();
-		   
-	        String uri = "/rest/protected/users/isEmailUnique";
-	        
-	       String email = userGeneral.getEmail();
-	       
-	        MvcResult result = mvc.perform(
-	                MockMvcRequestBuilders.post(uri)
-	                        .contentType(MediaType.APPLICATION_JSON)
-	                        .accept(MediaType.APPLICATION_JSON).content(email))
-	                .andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        
-	        BaseResponse response = mapFromJson(content, BaseResponse.class);
-	        
-	        Assert.assertEquals(response.getCodeMessage(), "UNIQUE");
-	      
-	    }
-	   
-	  */
 	  
 	    @Test
 	    public void testShowNGO() throws Exception {
@@ -142,34 +86,6 @@ public class TestsNonProfitController extends AbstractTestController{
 
 	    }
 	    
-	    @Test
-	    public void testShowNGOwithout() throws Exception {
-
-	    	int id = 0;
-	       
-	        NonprofitRequest request = new NonprofitRequest();
-	        
-	        request.setId(id);
-	        String jsonObject = mapToJson(request);
-	      
-	            String uri = "/rest/protected/nonprofit/getNonProfitProfile";
-
-	            MvcResult result = mvc.perform(
-	              MockMvcRequestBuilders.post(uri)
-	                         .contentType(MediaType.APPLICATION_JSON)
-	                            .accept(MediaType.APPLICATION_JSON).content(jsonObject))
-	                .andReturn();
-	            
-
-	            String content = result.getResponse().getContentAsString();
-	            
-	            NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-	            
-	           
-	            
-	            Assert.assertEquals("400", response.getCode().toString());
-	      
-
-	    }
+	   
 	
 }
