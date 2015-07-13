@@ -20,9 +20,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.treeseed.testBase.AbstractTestController;
-
 import com.mongodb.util.JSON;
 import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejbWrapper.CatalogWrapper;
@@ -108,155 +108,68 @@ public class TestsNonProfitController extends AbstractTestController{
 	  */
 	  
 	    @Test
-	    public void testCreateNGO() throws Exception {
+	    public void testShowNGO() throws Exception {
 
-		   CatalogWrapper countryCat = createRandomCatalog();
-		   CatalogWrapper causeCat = createRandomCatalog();
-		   String idCatalog = "1";
-		   
-		   
-		   String email = "pruebaderegistrarong@gmail.com";
-		   String password =getRandomString();
-			String name= getRandomString();
-			String cause =  idCatalog;
-			String country = idCatalog;
-			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
-			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
-			
-			
-	        String uri = "/rest/protected/users/registerNonProfit";
-	               
+	    	int id = 39;
+	       
+	        NonprofitRequest request = new NonprofitRequest();
 	        
-	        MvcResult result = mvc.perform(
-	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
-		                    .param("name", name) 
-		                    .param("email", email)
-		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("cause", cause))
-	        				.andReturn();
-	        
+	        request.setId(id);
+	        String jsonObject = mapToJson(request);
+	      
+	            String uri = "/rest/protected/nonprofit/getNonProfitProfile";
 
-	        String content = result.getResponse().getContentAsString();
+	            MvcResult result = mvc.perform(
+	              MockMvcRequestBuilders.post(uri)
+	                         .contentType(MediaType.APPLICATION_JSON)
+	                            .accept(MediaType.APPLICATION_JSON).content(jsonObject))
+	                .andReturn();
+	            
+
+	            String content = result.getResponse().getContentAsString();
+	            
+	            NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
+	            
+	           
+	            
+	            Assert.assertEquals("200", response.getCode().toString());
+	      
+	            NonprofitPOJO pojo = response.getNonprofit();
+
+	            
+	            Assert.assertEquals("Causa 1", pojo.getName());
+	      
+
+	    }
+	    
+	    @Test
+	    public void testShowNGOwithout() throws Exception {
+
+	    	int id = 0;
+	       
+	        NonprofitRequest request = new NonprofitRequest();
 	        
-	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-	        
-	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
+	        request.setId(id);
+	        String jsonObject = mapToJson(request);
+	      
+	            String uri = "/rest/protected/nonprofit/getNonProfitProfile";
+
+	            MvcResult result = mvc.perform(
+	              MockMvcRequestBuilders.post(uri)
+	                         .contentType(MediaType.APPLICATION_JSON)
+	                            .accept(MediaType.APPLICATION_JSON).content(jsonObject))
+	                .andReturn();
+	            
+
+	            String content = result.getResponse().getContentAsString();
+	            
+	            NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
+	            
+	           
+	            
+	            Assert.assertEquals("400", response.getCode().toString());
 	      
 
 	    }
 	
-	    
-	    @Test
-	    public void testCreateNGOWithSameEmail() throws Exception {
-
-
-		   String idCatalog = "1";
-		   createRandomUserGeneral();
-		   String email = "prueba1@prueba1.com";
-		   String password =getRandomString();
-			String name= getRandomString();
-			String cause =  idCatalog;
-			String country = idCatalog;
-			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
-			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
-			
-			
-	        String uri = "/rest/protected/users/registerNonProfit";
-	               
-	        
-	        MvcResult result = mvc.perform(
-	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
-		                    .param("name", name) 
-		                    .param("email", email)
-		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("cause", cause))
-	        				.andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        
-	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-	        
-	        Assert.assertEquals("EMAIL ALREADY IN USE", response.getCodeMessage());
-	      
-	    }
-	    
-	    @Test
-	    public void testCreateNGOWithoutImage() throws Exception {
-
-		   CatalogWrapper countryCat = createRandomCatalog();
-		   CatalogWrapper causeCat = createRandomCatalog();
-		   String idCatalog = "1";
-		   
-		   
-		   String email = "pruebaderegistrarong@gmail.com";
-		   String password =getRandomString();
-			String name= getRandomString();
-			String cause =  idCatalog;
-			String country = idCatalog;
-			
-	        String uri = "/rest/protected/users/registerNonProfit";
-	               
-	        
-	        MvcResult result = mvc.perform(
-	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .param("name", name) 
-		                    .param("email", email)
-		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("cause", cause))
-	        				.andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        
-	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-	        
-	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
-	      
-
-	    }
-	    
-	    @Test
-	    public void testCreateNGOWithBadEmailSyntaxis() throws Exception {
-
-		   CatalogWrapper countryCat = createRandomCatalog();
-		   CatalogWrapper causeCat = createRandomCatalog();
-		   String idCatalog = "1";
-		   
-		   
-		   String email = "pruebaderegistraonggmail.com";
-		   String password =getRandomString();
-			String name= getRandomString();
-			String cause =  idCatalog;
-			String country = idCatalog;
-			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
-			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
-			
-			
-	        String uri = "/rest/protected/users/registerNonProfit";
-	               
-	        
-	        MvcResult result = mvc.perform(
-	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
-		                    .param("name", name) 
-		                    .param("email", email)
-		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("cause", cause))
-	        				.andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        
-	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-	        
-	        Assert.assertEquals("BAD EMAIL", response.getCodeMessage());
-	      
-	    }
 }
