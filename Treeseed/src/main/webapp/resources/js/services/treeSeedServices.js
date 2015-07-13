@@ -1,5 +1,5 @@
 'use strict';
-var treeSeedAppServices = angular.module('treeSeed.services', ['ngCookies']);
+var treeSeedAppServices = angular.module('treeSeed.services', [ 'ngCookies' ]);
 
 treeSeedAppServices.value('version', '0.1');
 
@@ -154,10 +154,10 @@ treeSeedAppServices.service('$userData', function() {
 	}
 });
 
-/******************************************************Factories***********************************************/
+/** ****************************************************Factories********************************************** */
 
 treeSeedAppServices.service('Session', function() {
-	
+
 	this.create = function(sessionId, userId, userRole) {
 		this.id = sessionId;
 		this.userId = userId;
@@ -170,42 +170,45 @@ treeSeedAppServices.service('Session', function() {
 	};
 })
 
-
-treeSeedAppServices.factory('AuthService', function($http, Session, USER_ROLES, $cookies) {
+treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, USER_ROLES ) {
 	var authService = {};
 
 	authService.login = function(credentials) {
-		return $http.post('rest/login/checkuser', credentials).then(function(res) {
-			if(res.data.code=="200"){
-				if(res.data.type=="nonprofit"){
-					Session.destroy();
-					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.nonprofit);
-					$cookies.put('userRoleTree', USER_ROLES.nonprofit);
-				}else if(res.data.type=="donor"){
-					Session.destroy();
-					Session.create(res.data.idSession, res.data.idUser, USER_ROLES.donor);
-					$cookies.put('userRoleTree', USER_ROLES.donor);
-				}
-				
-				$cookies.put('idSessionTree', res.data.idSession);
-				$cookies.put('idUserTree', res.data.idSession);
-				
-				
-			}
-			
-			return res.data;
-		});
+		return $http.post('rest/login/checkuser', credentials).then(
+				function(res) {
+					if (res.data.code == "200") {
+						if (res.data.type == "nonprofit") {
+							Session.destroy();
+							Session.create(res.data.idSession, res.data.idUser,
+									USER_ROLES.nonprofit);
+							$cookies['userRoleTree'] = USER_ROLES.nonprofit;
+						} else if (res.data.type == "donor") {
+							Session.destroy();
+							Session.create(res.data.idSession, res.data.idUser,
+									USER_ROLES.donor);
+							$cookies['userRoleTree'] = USER_ROLES.donor;
+						}
+
+						$cookies['idSessionTree'] = res.data.idSession;
+						$cookies['idUserTree'] = res.data.idSession;
+						
+						console.log('logged '+$cookies['idUserTree']);
+
+					}
+
+					return res.data;
+				});
 	};
 
 	authService.isAuthenticated = function() {
 		return !!Session.userId;
 	};
-	
+
 	authService.guestSession = function() {
-		 Session.create("0","0",USER_ROLES.guest);
-		 $cookies.put('idSessionTree', "0");
-		 $cookies.put('idUserTree', "0");
-		 $cookies.put('userRoleTree', USER_ROLES.guest);
+		Session.create("0", "0", USER_ROLES.guest);
+		$cookies['idSessionTree'] = "0";
+		$cookies['idUserTree'] = "0";
+		$cookies['userRoleTree'] = USER_ROLES.guest;
 	}
 
 	authService.isAuthorized = function(authorizedRoles) {
@@ -234,36 +237,41 @@ treeSeedAppServices.factory('AuthInterceptor', function($rootScope, $q,
 	};
 })
 
-treeSeedAppServices.factory('AuthResolver', function ($q, $rootScope, $state) {
-  return {
-    resolve: function () {
-      var deferred = $q.defer();
-      var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
-        if (angular.isDefined(currentUser)) {
-          if (currentUser) {
-            deferred.resolve(currentUser);
-          } else {
-            deferred.reject();
-            $scope.animationsEnabled = true;
-    		
+treeSeedAppServices
+		.factory(
+				'AuthResolver',
+				function($q, $rootScope, $state) {
+					return {
+						resolve : function() {
+							var deferred = $q.defer();
+							var unwatch = $rootScope
+									.$watch(
+											'currentUser',
+											function(currentUser) {
+												if (angular
+														.isDefined(currentUser)) {
+													if (currentUser) {
+														deferred
+																.resolve(currentUser);
+													} else {
+														deferred.reject();
+														$scope.animationsEnabled = true;
 
-            var modalInstance = $modal.open({
-              animation: $scope.animationsEnabled,
-              templateUrl: 'layouts/components/page_login.html',
-              controller: 'loginController'
-            });
+														var modalInstance = $modal
+																.open({
+																	animation : $scope.animationsEnabled,
+																	templateUrl : 'layouts/components/page_login.html',
+																	controller : 'loginController'
+																});
 
-          
-          $scope.toggleAnimation = function () {
-              $scope.animationsEnabled = !$scope.animationsEnabled;
-            };  
-          }
-          unwatch();
-        }
-      });
-      return deferred.promise;
-    }
-  };
-})
-
-
+														$scope.toggleAnimation = function() {
+															$scope.animationsEnabled = !$scope.animationsEnabled;
+														};
+													}
+													unwatch();
+												}
+											});
+							return deferred.promise;
+						}
+					};
+				})

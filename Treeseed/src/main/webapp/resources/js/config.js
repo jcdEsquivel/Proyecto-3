@@ -31,7 +31,7 @@ angular
 		.config(function($stateProvider, $urlRouterProvider, JQ_CONFIG,
 								MODULE_CONFIG, USER_ROLES) {
 
-							$urlRouterProvider.otherwise('/index');
+							$urlRouterProvider.otherwise('index');
 							$stateProvider
 									.state('treeSeed', {
 										abstract : true,
@@ -63,7 +63,7 @@ angular
 													authorizedRoles : [
 															USER_ROLES.donor,
 															USER_ROLES.guest,
-															USER_ROLES.nonprofit ],
+															USER_ROLES.nonprofit ]
 												
 												}
 											})

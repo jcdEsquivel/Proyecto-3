@@ -1,14 +1,14 @@
 package com.treeseed.contracts;
 
 public class BaseResponse {
-	
+
 	private Integer code;
 	private String codeMessage;
 	private String errorMessage;
-	
+
 	private Integer totalPages;
 	private Long totalElements;
-	
+
 	public BaseResponse() {
 		super();
 	}
@@ -52,6 +52,5 @@ public class BaseResponse {
 	public void setTotalElements(Long totalElements) {
 		this.totalElements = totalElements;
 	}
-	
-	
+
 }

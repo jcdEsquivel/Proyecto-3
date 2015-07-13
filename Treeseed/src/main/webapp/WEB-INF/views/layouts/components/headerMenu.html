@@ -91,16 +91,16 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li ng-if="isAuthorized(userRoles.guest)" >
-          		<button class="btn m-b-xs  btn-success btn-rounded" ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
+          <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
+          		<button class="btn m-b-xs  btn-success btn-rounded " ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
           </li>
           <li class="dropdown"  ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img ng-src="{{img}}" alt="...">
+                <img ng-src="{{img}}" alt="..." class="header-menu-img">
                 <i class="on md b-white bottom"></i>
               </span>
-              <span class="hidden-sm hidden-md">{{name}}</span> <b class="caret"></b>
+              <span class="hidden-sm hidden-md header-menu-name">{{name}}</span> <b class="caret"></b>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">

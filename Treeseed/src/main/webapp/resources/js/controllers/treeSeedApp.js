@@ -1,23 +1,36 @@
 var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies']);
-treeSeedAppMainControllers.controller('AppCtrl', function( $cookies,$scope,   $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
+treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
       //Session management
       
-      if($cookies.get['userIdTree']!='0'||typeof $cookies.get['userIdTree']!= "undefined"){
+      $scope.currentUser = null;
+     
+      if( $cookies['idUserTree']== undefined){
+    	  
+    	  AuthService.guestSession();
+    	  
+      }else if( $cookies['idUserTree']=='0'){
+    	  
+    	  AuthService.guestSession();
+    	  
+      }else if( $cookies['idUserTree']){
+    	  console.log('Logged');
     	  $scope.currentUser={};    	 
-    	  $scope.currentUser.idUser = $cookies.get['userIdTree'];
-  	      $scope.currentUser.userName = $cookies.get['userNameTree'];
-  	      $scope.currentUser.userImage = $cookies.get['userImageTree'];
-  	      Session.create( $cookies.get['idSessionTree'],$cookies.get['idUserTree'],$cookies.get['userRoleTree']);
+    	  $scope.currentUser.idUser = $cookies['idUserTree'];
+  	      $scope.currentUser.userName = $cookies['userNameTree'];
+  	      $scope.currentUser.userImage = $cookies['userImageTree'];
+  	      Session.create(  $cookies['idSessionTree'],  $cookies['idUserTree'],  $cookies['userRoleTree']);
+  	   
+  	      
       }else{
     	  AuthService.guestSession();
       }
       
       
-      $scope.currentUser = null;
+      
       $scope.userRoles = USER_ROLES;
       
       
@@ -30,11 +43,11 @@ treeSeedAppMainControllers.controller('AppCtrl', function( $cookies,$scope,   $t
     	    $scope.currentUser.idUser = idUser;
     	    $scope.currentUser.userName = userName;
     	    $scope.currentUser.userImage = userImage;
-    	    $cookies.put('userName', userName);
-    	    $cookies.put('userImage', userImage);
+    	    $cookies['userNameTree'] = userName;
+    	    $cookies['userImageTree'] =  userImage;
     	    
       };
-	  
+      
       
       // config
       $scope.app = {
@@ -64,6 +77,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function( $cookies,$scope,   $t
         }
       }
 
+     
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -80,7 +94,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function( $cookies,$scope,   $t
         // save to local storage
         $localStorage.settings = $scope.app.settings;
       }, true);
-
+     
       // angular translate
       $scope.lang = { isopen: false };
       $scope.langs = {en:'English', es:'Español'};

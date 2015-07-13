@@ -96,6 +96,16 @@ dragnDrop #file-drop{
  background-color: white;
 }
 
+.header-menu-img{
+	width: 50px !important;
+	height: 44px !important;
+}
+
+.header-menu-name{
+	display: inline-block;
+margin-right: 10px;
+}
+
 .landing-header-image{
     background-image: url('../images/landing-treeseed1.jpg') ;
    -webkit-background-size: cover;
@@ -387,5 +397,7 @@ fieldset[disabled] .btn-primary.active {
   }
 
 
-
+.btn-login-header{
+	margin: 10px;
+}
 
