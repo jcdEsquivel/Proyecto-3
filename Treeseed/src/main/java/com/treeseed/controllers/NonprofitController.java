@@ -59,11 +59,9 @@ import com.treeseed.ejbWrapper.ParentUserWrapper;
  * Handles requests for the application home page.
  */
 @RestController
-@RequestMapping(value ="rest/protected/users")
-public class UsersController {
-	
-	@Autowired
-	DonorServiceInterface donorService;
+@RequestMapping(value ="rest/protected/nonprofit")
+public class NonprofitController extends UserGeneralController{
+
 	@Autowired
 	CatalogServiceInterface catalogService;
 	EmailValidator validator = EmailValidator.getInstance();
@@ -76,72 +74,9 @@ public class UsersController {
 	@Autowired
 	HttpServletRequest request;	
 		
-	@RequestMapping(value ="/registerDonor", method = RequestMethod.POST)
-	public DonorResponse create(@RequestParam("name") String name, 
-								@RequestParam("lastName") String lastName,
-							    @RequestParam("email") String email,
-							    @RequestParam("password") String password,
-							    @RequestParam("country") String country, 
-							    @RequestParam(value ="file", required=false) MultipartFile file)
-																								{	
-		
-		
-		String resultFileName = "";
-		
-		if (file == null)
-		{
-			resultFileName = "resources/file-storage/1436319975812.jpg";
-		}
-		else
-		{
-			resultFileName = Utils.writeToFile(file,servletContext);
-		}
-		
-		DonorResponse us = new DonorResponse();
-		
-		Boolean alreadyUser=userGeneralService.userExist(email);
-		  email = email.toLowerCase();
-		  
-	   if(validator.isValid(email)){
-		   if(!alreadyUser){
-				   
-				CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
-				CatalogWrapper userType = catalogService.getAllByType("DonorType").get(0);
-		
-				DonorWrapper user = new DonorWrapper();
-				user.setName(name);
-				user.setLastName(lastName);
-				user.setActive(true);
-				user.setProfilePicture(resultFileName);
-				user.setCountry(Countrytype.getWrapperObject());
-				user.setType(userType.getWrapperObject());
-			
-				Boolean state = donorService.saveDonor(user);
-				if(state){
-					
-					UserGeneralRequest ug = new UserGeneralRequest();
-				    UserGeneralPOJO userG=new UserGeneralPOJO();
-				    userG.setEmail(email);
-				    userG.setPassword(password);
-				    ug.setUserGeneral(userG);
-				    userGeneralCreate(ug, user);
-					
-					us.setCode(200);
-					us.setCodeMessage("Donor registered succesfully");
-				}	
-		   	}else{
-			    us.setCode(400);
-			    us.setCodeMessage("EMAIL ALREADY IN USE");
-			}	   
-		}else{
-		   us.setCode(400);
-		   us.setCodeMessage("BAD EMAIL");
-		}
-		return us;
-		
-	}
 	
-	@RequestMapping(value ="/registerNonProfit", method = RequestMethod.POST)
+	
+	@RequestMapping(value ="/register", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
@@ -167,7 +102,6 @@ public class UsersController {
 				
 				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 				NonprofitWrapper user = new NonprofitWrapper();
-				Date fechaActual = new Date();
 				
 				if(!resultFileName.equals("")){
 					user.setProfilePicture(resultFileName);
@@ -176,7 +110,7 @@ public class UsersController {
 				}
 				
 				user.setName(name);
-				user.setDateTime(fechaActual);
+				
 				user.setActive(true);
 				user.setCause(causeW.getWrapperObject());
 				user.setConutry(countryW.getWrapperObject());
@@ -185,16 +119,19 @@ public class UsersController {
 			
 				if(state){
 					UserGeneralRequest ug = new UserGeneralRequest();
+					UserGeneralResponse ugr = new UserGeneralResponse();
 					UserGeneralPOJO userG=new UserGeneralPOJO();
 					userG.setEmail(email);
 					userG.setPassword(password);
-					ug.setUserGeneral(userG);					
-					if(userGeneralCreate(ug, user).getCode()==200){
+					ug.setUserGeneral(userG);
+					ugr= userGeneralCreate(ug,user);
+					
+					if(ugr.getCode()==200){
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
 					}else{
-						us.setCode(400);
-						us.setCodeMessage("general User does not create");
+						us.setCode(ugr.getCode());
+						us.setCodeMessage(ugr.getCodeMessage());
 					}
 				}
 			}else{
@@ -211,56 +148,39 @@ public class UsersController {
 		
 	}
 	
-	private UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, ParentUserWrapper user){	
+	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
+	@Transactional
+	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
 		
-		UserGeneralResponse us = new UserGeneralResponse();
+		npr.setPageNumber(npr.getPageNumber() - 1);
 		
-		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-		userGeneral.setEmail(ur.getUserGeneral().getEmail());
+		Page<Nonprofit> viewNonprofits = nonProfitService.getNonProfit(npr);
 		
-		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-		  String file_string="";
-		  
-		  for(int i = 0; i < hash.length; i++)
-		     {
-		         file_string += (char)hash[i];
-		     }  
-		  
-		userGeneral.setPassword(file_string);
-		userGeneral.setIsActive(true);
+		NonprofitResponse nps = new NonprofitResponse();
 		
-		if(user instanceof NonprofitWrapper){
-			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
-			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
-		}else{
-			DonorWrapper userDonor = (DonorWrapper)user;
-			userGeneral.setDonor(userDonor.getWrapperObject());
-		}
+		nps.setCode(200);
+		nps.setCodeMessage("nonprofits fetch success");
 		
-		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
-		if(state){
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
-		}else{
-			us.setCode(400);
-			us.setCodeMessage("general User does not create");
-		}
-	
-		return us;
-    }
 		
-	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
-		public BaseResponse create(@RequestBody String email){	
-	
-			Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
-			BaseResponse response = new BaseResponse();
-			response.setCode(200);
+		nps.setTotalElements(viewNonprofits.getTotalElements());
+		nps.setTotalPages(viewNonprofits.getTotalPages());
+		
+		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
+		
+		for(Nonprofit objeto:viewNonprofits.getContent())
+		{
+			NonprofitPOJO nnonprofit = new NonprofitPOJO();
+			nnonprofit.setName(objeto.getName());
+			nnonprofit.setDescription(objeto.getDescription());
+			nnonprofit.setWebPage(objeto.getWebPage());
+			nnonprofit.setProfilePicture(objeto.getProfilePicture());
+			viewNonprofitsPOJO.add(nnonprofit);
+		};
+		
+		
+		nps.setNonprofits(viewNonprofitsPOJO);
+		nps.setCode(200);
+		return nps;
 			
-			if(isEmailUnique){
-				response.setCodeMessage("UNIQUE");
-			}else{
-				response.setCodeMessage("NOT-UNIQUE");
-			}
-			return response;
-	}	
+	}
 }

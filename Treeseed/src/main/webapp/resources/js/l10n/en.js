@@ -13,7 +13,8 @@
     	"CONFIGURATION": "Configuration",
     	"PROFILE": "ProfilE",
     	"HELP": "Help",
-    	"SIGN_OUT": "Sign out"	    	
+    	"SIGN_OUT": "Sign out",
+    	"LOG_IN": "Login"
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navigation",
@@ -107,5 +108,19 @@
         "CANCEL-BUTTON": "Cancel",
         "PASSWORD-MESSAGE": "Password do not match",
         "EMAIL-MESSAGE": "Email already in use"
+ 
+    },
+    "LOGIN": {
+    	"EMAIL": "Email", 
+    	"PASSWORD": "Password",
+    	"LOGIN-BUTTON": "Login",
+    	"REMEMBER": "Remember me",
+    	"FORGET-PASSWORD":"Lost your password?",
+    	"FACEBOOK": "Login with Facebook",
+    	"TWITTER": "Login with Twitter",
+    	"LINKEDIN": "Login with Linkedin",
+    	"DO-YOU": "Do not have an account?",
+		"CREATE": "Create an account"	,
+		"EMAIL-ERROR": "Wrong email or password."
        }
 }

@@ -13,7 +13,8 @@
     	"CONFIGURATION": "Configuración",
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
-    	"SIGN_OUT": "Cerrar Sesión"	    	
+    	"SIGN_OUT": "Cerrar Sesión"	 ,
+    	"LOG_IN": "Iniciar Sesión"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",
@@ -101,6 +102,19 @@
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
         "PASSWORD-MESSAGE": "La contraseña no coincide",
-        "EMAIL-MESSAGE": "Email ya registrado"  	
-     }
+        "EMAIL-MESSAGE": "Email ya registrado"
+       },
+    "LOGIN": {
+    	"EMAIL": "Email", 
+    	"PASSWORD": "Constraseña",
+    	"LOGIN-BUTTON": "Iniciar Sesión",
+    	"REMEMBER": "Recordarme",
+    	"FORGET-PASSWORD":"¿Perdió su contraseña?",
+    	"FACEBOOK": "Iniciar con Facebook",
+    	"TWITTER": "Iniciar con Twitter",
+    	"LINKEDIN": "Inciar con Linkedin",
+    	"DO-YOU": "¿No tienes una cuenta?",
+    	"CREATE": "Crear una cuenta",
+		"EMAIL-ERROR": "Email o contraseña incorrectos."
+       }
 }

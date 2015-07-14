@@ -1,5 +1,7 @@
 package com.treeseed.ejbWrapper;
 
+import java.util.Date;
+
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
@@ -7,6 +9,22 @@ import com.treeseed.ejb.UserGeneral;
 public class UserGeneralWrapper {
 	private UserGeneral wrapperObject;
 	
+	public String getFacebookToken() {
+		return wrapperObject.getFacebookToken();
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		wrapperObject.setFacebookToken(facebookToken);
+	}
+
+	public String getFacebookId() {
+		return wrapperObject.getFacebookId();
+	}
+
+	public void setFacebookID(String facebookID) {
+		wrapperObject.setFacebookId(facebookID);
+	}
+
 	public UserGeneralWrapper() {
 		super();
 		setWrapperObject(new UserGeneral());
@@ -43,6 +61,14 @@ public class UserGeneralWrapper {
 
 	public void setEmail(String email) {
 		wrapperObject.setEmail(email);
+	}
+	
+	public Date getDateTime() {
+		return wrapperObject.getDateTime();
+	}
+
+	public void setDateTime(Date dateTime) {
+		wrapperObject.setDateTime(dateTime);
 	}
 
 	public boolean getIsActive() {

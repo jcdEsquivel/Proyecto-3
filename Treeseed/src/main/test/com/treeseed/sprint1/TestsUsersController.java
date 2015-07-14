@@ -24,7 +24,7 @@ import com.mongodb.util.JSON;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitResponse;
-import com.treeseed.controllers.UsersController;
+import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
@@ -41,7 +41,7 @@ public class TestsUsersController extends AbstractTestController{
 	
 	
 	
-	 protected void setUp(UsersController controller) {
+	 protected void setUp(NonprofitController controller) {
 	        mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	    }
 	
