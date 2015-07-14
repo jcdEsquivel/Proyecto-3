@@ -29,7 +29,7 @@ public class GeneralSearchRepository implements GeneralSearchRepositoryInterface
 	@Override
 	public List<GeneralSearchResultPOJO> search(String filter, String country) {
 		
-		String sql = "CALL `treeseeddb`.`sp_general_search`(?, ?);";
+		String sql = "CALL `treeseeddb`.`general_search_sp`(?, ?);";
 
 		List<GeneralSearchResultPOJO> results = (List<GeneralSearchResultPOJO>) jdbcTemplate
 							.query(sql, new GeneralSearchResultRowMapper(), filter, country);

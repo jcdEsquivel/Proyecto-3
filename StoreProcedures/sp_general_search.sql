@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_general_search`(IN pFilter varchar(100), IN pCountry varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `general_search_sp`(IN pFilter varchar(100), IN pCountry varchar(100))
 BEGIN
 
 DECLARE vCount INT;
