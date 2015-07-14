@@ -7,6 +7,15 @@ public class DonorResponse extends BaseResponse {
 	
 	private List<DonorPOJO> donors;
 	private DonorPOJO donor;
+	private boolean isOwner;
+
+	public boolean isOwner() {
+		return isOwner;
+	}
+
+	public void setOwner(boolean isOwner) {
+		this.isOwner = isOwner;
+	}
 	
 	public DonorResponse() {
 		super();

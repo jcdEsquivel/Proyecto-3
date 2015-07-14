@@ -1,6 +1,6 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $upload, $state){
+treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope){
 	
 	$scope.requestObject = {};
 	$scope.requestObject.donor = {};
@@ -55,8 +55,28 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 				country:$scope.requestObject.donor.country.id
 			},
 			file : $scope.image,
-		}).success(function(){
-			$state.go('treeSeed.donor');
+		}).success(function(response){
+			   
+			  var credentials = {
+				    email: $scope.requestObject.donor.userGeneral.email,
+				    password: $scope.requestObject.donor.userGeneral.password
+			   };
+			 
+			  AuthService.login(credentials).then(function (user) {
+			    	
+			    	if(user.code=="200"){
+			    		if(user.type=="nonprofit"){
+			    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+			        	}else if(user.type=="donor"){
+			        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+			        	}
+			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			    		
+			    	}
+			      
+			    });
+
+			   $state.go('treeSeed.donor', {donorId: response.donorId});
 		})			
 				
 	};
@@ -179,11 +199,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 });
 
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams) {
-
-	//Controllers for Edit Buttons
-	//If it's the profile owner the edit buttons will be available
-	$scope.isOwner = true;
+		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
 
 	//Declaration of donor object
 	$scope.donor = {};
@@ -199,11 +215,18 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 
 	//init function, calls the java controller
 	$scope.init = function() {
+		$scope.requestObject.idUser= Session.id;
+		
 		 $scope.requestObject.id = $scope.donor.id;
 			$http.post('rest/protected/donor/getDonorProfile',
 					$scope.requestObject).success(function(mydata, status) {
 						$scope.donor = mydata.donor;
-						console.log($scope.donor);
+						
+						if(mydata.owner==true){
+							$scope.isOwner=true;
+						}else{
+							$scope.isOwner=false;
+						}
 			}).error(function(mydata, status) {
 				alert(status);
 			});		

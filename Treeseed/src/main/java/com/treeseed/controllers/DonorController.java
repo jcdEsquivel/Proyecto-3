@@ -2,8 +2,11 @@ package com.treeseed.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.UserGeneralRequest;
@@ -157,9 +161,18 @@ public class DonorController extends UserGeneralController{
 	@Transactional
 	public DonorResponse getDonorProfile(@RequestBody DonorRequest dr){	
 		
+		HttpSession currentSession = request.getSession();
+		int tempId= (int) currentSession.getAttribute("idUser");
+	
 		Donor donor = donorService.getDonorProfileByID(dr);
 		
 		DonorResponse nps = new DonorResponse();
+		
+		if(tempId==donor.getUsergenerals().get(0).getId()){
+			nps.setOwner(true);
+		}else{
+			nps.setOwner(false);
+		}
 		
 		nps.setCode(200);
 		nps.setCodeMessage("nonprofit fetch success");
