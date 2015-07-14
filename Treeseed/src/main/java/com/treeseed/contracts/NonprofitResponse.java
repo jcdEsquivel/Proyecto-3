@@ -9,6 +9,17 @@ public class NonprofitResponse extends BaseResponse{
 	private List<NonprofitPOJO> nonprofits;
 	private NonprofitPOJO nonprofit;
 	private int nonProfitId;
+	private boolean isOwner;
+
+
+
+	public boolean isOwner() {
+		return isOwner;
+	}
+
+	public void setOwner(boolean isOwner) {
+		this.isOwner = isOwner;
+	}
 
 	public NonprofitResponse() {
 		super();

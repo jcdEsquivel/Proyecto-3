@@ -4,7 +4,7 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 	
-treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state){
+treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope){
 
 	
 	$scope.nonprofit={};
@@ -73,20 +73,41 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	
 		this.onError = false;
 		
-			   $scope.upload = $upload.upload({
-			    url : 'rest/protected/nonprofit/register',
-			    data : {
-			    	email:$scope.nonprofit.userGeneral.email,
-					password:$scope.nonprofit.userGeneral.password,
-					name:$scope.nonprofit.name,
-					cause:$scope.nonprofit.cause.id,
-					country:$scope.nonprofit.country.id
-			    },
-			    file : $scope.image,
-			   }).success(function(response){
-				   console.log(response.nonProfitId)
-				   $state.go('treeSeed.nonProfit', {nonProfitId: response.nonProfitId});
-			   }) 
+		$scope.upload = $upload.upload({
+	    url : 'rest/protected/nonprofit/register',
+	    data : {
+	    	email:$scope.nonprofit.userGeneral.email,
+			password:$scope.nonprofit.userGeneral.password,
+			name:$scope.nonprofit.name,
+			cause:$scope.nonprofit.cause.id,
+			country:$scope.nonprofit.country.id
+	    },
+	    file : $scope.image,
+	   }).success(function(response){
+			   
+		  console.log(response.nonProfitId)
+		   
+		  var credentials = {
+			    email: $scope.nonprofit.userGeneral.email,
+			    password: $scope.nonprofit.userGeneral.password
+		   };
+		 
+		  AuthService.login(credentials).then(function (user) {
+		    	
+		    	if(user.code=="200"){
+		    		if(user.type=="nonprofit"){
+		    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+		        	}else if(user.type=="donor"){
+		        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+		        	}
+		    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		    		
+		    	}
+		      
+		    });
+
+		   $state.go('treeSeed.nonProfit', {nonProfitId: response.nonProfitId});
+	   }) 
 	
 	};
 	
@@ -156,29 +177,34 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 })
 
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
 
 	
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
-
-	//Controllers for Edit Buttons
-	$scope.isOwner = true;
+	$scope.isOwner = false;	
+	
 	
 	$scope.init = function() {
-		 $scope.requestObject.id = $scope.nonprofit.id;
 
-			$http.post('rest/protected/nonprofit/getNonProfitProfile',
-					$scope.requestObject).success(function(mydata, status) {
-				$scope.nonprofit = mydata.nonprofit;
-				console.log(mydata);
-			}).error(function(mydata, status) {
-				alert(status);
-			});	
+		$scope.requestObject.idUser= Session.id;
+		$scope.requestObject.id = $scope.nonprofit.id;
+	
+		$http.post('rest/protected/nonprofit/getNonProfitProfile',
+				$scope.requestObject).success(function(mydata, status) {
+					$scope.nonprofit = mydata.nonprofit;
+					console.log(mydata.owner)
+					if(mydata.owner==true){
+						$scope.isOwner=true;
+					}else{
+						$scope.isOwner=false;
+					}
 			
-			
-		
+		}).error(function(mydata, status) {
+			alert(status);
+		});	
+
 	}
 
 	$scope.init();

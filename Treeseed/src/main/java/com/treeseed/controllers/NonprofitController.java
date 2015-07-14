@@ -14,6 +14,7 @@ import javax.servlet.ServletContext;
 import javassist.expr.NewArray;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.joda.time.DateTime;
@@ -190,9 +191,19 @@ public class NonprofitController extends UserGeneralController{
 	@Transactional
 	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	
 		
+		
+		HttpSession currentSession = request.getSession();
+		int tempId= (int) currentSession.getAttribute("idUser");
+
 		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
+		
+		if(tempId==nonprofit.getUsergenerals().get(0).getId()){
+			nps.setOwner(true);
+		}else{
+			nps.setOwner(false);
+		}
 		
 		nps.setCode(200);
 		nps.setCodeMessage("nonprofit search success");
