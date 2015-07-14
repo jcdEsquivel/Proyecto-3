@@ -1,3 +1,4 @@
+
 'use strict';
 var treeSeedAppServices = angular.module('treeSeed.services', [ 'ngCookies' ]);
 
@@ -46,12 +47,15 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 	}
 });
 
-treeSeedAppServices.service('$sharedData', function() {
+
+treeSeedAppServices.service('$sharedData', function($http) {
 	var loggedUser = "";
 	var type = "";
 	var img = "";
 	var loged = false;
 	var ongName = "Territorio de Zaguates"
+	var userCountry = "";
+
 	return {
 		getLoggedUser : function() {
 			return loggedUser;
@@ -82,9 +86,24 @@ treeSeedAppServices.service('$sharedData', function() {
 		},
 		setImg : function(value) {
 			img = value;
-		}
-	}
-});
+		},
+		getUserCountry : function() {
+			if (userCountry == "") {
+				//ipinfo to get the users country
+				$http.get('http://ipinfo.io/json').then(function(data) {
+					var jsonData = JSON.parse(JSON.stringify( data));
+					userCountry = jsonData.data.country;
+					
+					return userCountry;
+				});
+			}
+			
+			return userCountry;
+		
+
+		}// end getUserCountry
+	} // end return
+}); // end shareDataService
 
 treeSeedAppServices.service('$uniqueDataService', function($http) {
 

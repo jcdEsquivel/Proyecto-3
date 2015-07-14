@@ -21,6 +21,9 @@ public class UserGeneral implements Serializable {
 
 	private String email;
 	
+	private String facebookToken;
+	private String facebookId;
+	
 	private String password;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -97,5 +100,23 @@ public class UserGeneral implements Serializable {
 	public void setNonprofit(Nonprofit nonprofit) {
 		this.nonprofit = nonprofit;
 	}
+
+	public String getFacebookToken() {
+		return facebookToken;
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		this.facebookToken = facebookToken;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+
 
 }

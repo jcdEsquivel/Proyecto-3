@@ -49,18 +49,32 @@
         </ul>
         <!-- / link and dropdown -->
 
-        <!-- search form -->
-        <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="HeaderCtrl">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> 
-              <span class="input-group-btn">
-                <button type="submit" class="btn  bg-light rounded" ui-sref="treeSeed.nonProfit"><i class="fa fa-search" ></i></button>
-              </span>
-            </div>
-          </div>
-        </form>
-        <!-- / search form -->
+      	<script type="text/ng-template" id="customTemplate.html">
+  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{nonprofit.id}}'})" class="general-search-result">
+				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
+ 				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
+ 				
+ 			</a>
+	</script>
+
+		<!-- search form -->
+		<form class="navbar-form navbar-form-sm navbar-left shift"
+			ui-shift="prependTo" target=".navbar-collapse" role="search"
+			ng-controller="HeaderCtrl">
+			<div class="form-group" style="margin-left: 20px;">
+				<div class="">
+					<input type="text" ng-model="selected"
+						typeahead="value as value.name for value in generalSearch($viewValue)"
+						class=" input-sm bg-light no-border rounded general-search-input"
+						typeahead-template-url="customTemplate.html"
+						placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> <span
+						class="input-group-btn">
+						
+					</span>
+				</div>
+			</div>
+		</form>
+		<!-- / search form -->
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right">
