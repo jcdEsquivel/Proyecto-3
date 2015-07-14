@@ -78,7 +78,8 @@
     	"REGISTER" : "Register",
         "CANCEL" : "Cancel",
         "PASSWORD-MESSAGE" : "Passwords do not match.",
-    	"PASSWORD-CONFIRM" : "Confirm password"
+    	"PASSWORD-CONFIRM" : "Confirm password",
+    	"REGISTERFACEBOOK" : "Register with facebook"
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"

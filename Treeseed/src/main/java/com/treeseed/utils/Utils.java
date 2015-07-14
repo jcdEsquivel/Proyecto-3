@@ -22,7 +22,14 @@ public class Utils {
 	
 	// save uploaded file to new location
 	public static String writeToFile(MultipartFile file, ServletContext servletContext) {
-		String extension = getExtension(file.getOriginalFilename(),".").toLowerCase();
+	
+		String extension = getExtension("png",".").toLowerCase();
+		
+		if (extension == ".undefined")
+		{
+			extension = ".png";
+		}
+	
 		String consecutiveName = ""+new Date().getTime();
 		
 		String uploadedFileLocation = servletContext.getRealPath("") + RESOURCES_PATH + consecutiveName + extension;

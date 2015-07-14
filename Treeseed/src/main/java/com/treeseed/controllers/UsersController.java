@@ -247,8 +247,7 @@ public class UsersController {
 		}
 	
 		return us;
-}
-	
+    }
 		
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
 		public BaseResponse create(@RequestBody String email){	
@@ -263,5 +262,5 @@ public class UsersController {
 				response.setCodeMessage("NOT-UNIQUE");
 			}
 			return response;
-	}
+	}	
 }

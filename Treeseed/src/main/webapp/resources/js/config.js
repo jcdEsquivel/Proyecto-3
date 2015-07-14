@@ -110,6 +110,13 @@ angular.module('treeSeed')
 												        'angularUtils.directives.dirPagination',
 												        'resources/js/controllers/searchControllers.js']),
 												controller : "donorSearchController"
+									        })
+									.state(
+											'treeSeed.registerDonorFacebook', 
+											{
+									            url: 'registerDonorFacebook',
+									            templateUrl: 'layouts/pages/registerDonorFacebook.html',
+									            controller: "donorRegistrationController"
 									        });
     
            function load(srcs, callback) {

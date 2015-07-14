@@ -69,7 +69,8 @@
         "REGISTER" : "Registrar",
         "CANCEL" : "Cancelar",
         "PASSWORD-MESSAGE" : "Contraseñas no coinciden.",
-        "PASSWORD-CONFIRM" : "Confirmar contraseña"
+        "PASSWORD-CONFIRM" : "Confirmar contraseña",
+        "REGISTERFACEBOOK" : "Registrarse con facebook"
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
