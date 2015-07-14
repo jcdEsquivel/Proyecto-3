@@ -97,6 +97,8 @@ public class UserGeneralController {
 		}else{
 			DonorWrapper userDonor = (DonorWrapper)user;
 			userGeneral.setDonor(userDonor.getWrapperObject());
+			userGeneral.setFacebookID(ur.getUserGeneral().getFacebookId());
+			userGeneral.setFacebookToken(ur.getUserGeneral().getFacebookToken());
 			//hacer if si traen tokens y ids y asignarselo al wrapper
 		}
 		

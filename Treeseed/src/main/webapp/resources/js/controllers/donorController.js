@@ -11,6 +11,8 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.requestObject.donor.webPage = "";
 	$scope.requestObject.donor.country = "";
 	$scope.requestObject.donor.type = "";
+	$scope.requestObject.donor.facebookId = "";
+	$scope.requestObject.donor.facebookToken = "";
 	
 	$scope.requestObject.donor.userGeneral = {};
 	$scope.requestObject.donor.userGeneral.email = "";
@@ -19,8 +21,8 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.requestObject.donor.userGeneral.confirmPassword = "";	
 	$scope.image = "";
 	var app_id = '319610508162843';
-	var btn_login = '<a href="#" id="login" class="btn btn-primary">Iniciar sesión</a>';
-
+	$scope.facebookFail = false;
+	
 	$scope.init = function()
 	{
 		(function(d, s, id){
@@ -46,6 +48,7 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		  	FB.getLoginStatus(function(response) {
 		  		if (response.status === 'connected') {
 		  		    console.log(response.authResponse.accessToken);
+		  		    $scope.requestObject.donor.facebookToken = response.authResponse.accessToken;
 		  		  }
 		    	statusChangeCallback(response, function() {});
 		  	});
@@ -93,7 +96,9 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 				$scope.requestObject.donor.name = response.first_name
 				$scope.requestObject.donor.lastName = response.last_name
 				$scope.requestObject.donor.country.id = 1;
+	  		    $scope.requestObject.donor.facebookId = response.id;
 				$scope.create();
+				
 	  		};
 
 	  		xhr.send();		  		
@@ -157,11 +162,22 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 				password:$scope.requestObject.donor.userGeneral.password,
 				name:$scope.requestObject.donor.name,
 				lastName:$scope.requestObject.donor.lastName,
-				country:$scope.requestObject.donor.country.id
+				country:$scope.requestObject.donor.country.id,
+				facebookId:$scope.requestObject.donor.facebookId,
+				facebookToken:$scope.requestObject.donor.facebookToken
 			},
 			file : $scope.image,
-		}).success(function(){
-			$state.go('treeSeed.donor');
+		}).success(function(result){
+			
+			if(result.code == "200")
+			{
+				$state.go('treeSeed.donor');	
+			}
+			else if (result.code == "400")
+			{
+				$scope.facebookFail = true;
+			}
+			
 		})			
 				
 	};

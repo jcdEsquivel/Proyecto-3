@@ -81,7 +81,9 @@ public class DonorController extends UserGeneralController{
 								@RequestParam("lastName") String lastName,
 							    @RequestParam("email") String email,
 							    @RequestParam("password") String password,
-							    @RequestParam("country") String country, 
+							    @RequestParam("country") String country,
+							    @RequestParam("facebookId") String facebookId,
+							    @RequestParam("facebookToken") String facebookToken,
 							    @RequestParam(value ="file", required=false) MultipartFile file)
 																								{	
 		
@@ -93,6 +95,15 @@ public class DonorController extends UserGeneralController{
 		Boolean alreadyUser=userGeneralService.userExist(email);
 		  email = email.toLowerCase();
 		  
+		  
+	    String result = donorService.validateFacebookId(facebookId); 
+		if (result != "")  
+		{
+			us.setCode(400);
+		    us.setCodeMessage("ID FACEBOOK ALREADY REGISTER");
+			return us;
+		}
+		
 	   if(validator.isValid(email)){
 		   if(!alreadyUser){
 				   
@@ -124,6 +135,8 @@ public class DonorController extends UserGeneralController{
 					UserGeneralPOJO userG=new UserGeneralPOJO();
 					userG.setEmail(email);
 					userG.setPassword(password);
+					userG.setFacebookId(facebookId);
+					userG.setFacebookToken(facebookToken);
 					ug.setUserGeneral(userG);
 					ugr= userGeneralCreate(ug,user);
 					

@@ -1,14 +1,19 @@
 package com.treeseed.services;
 
+import java.sql.ResultSet;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
@@ -68,4 +73,20 @@ public class DonorService implements DonorServiceInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+	@Transactional
+	public String validateFacebookId(String facebookId){
+		
+		String sql = "select id from user_general where facebook_id = "+ facebookId +"";
+	    List<String> certs = jdbcTemplate.queryForList(sql, String.class); 
+	    if (certs.isEmpty()) {
+	        return null;
+	    } else {
+	        return certs.get(0);
+	    }
+
+	}
+		
 }

@@ -1,6 +1,7 @@
 package com.treeseed.services;
 
 import org.springframework.data.domain.Page;
+
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
@@ -12,4 +13,6 @@ public interface DonorServiceInterface {
 	Boolean saveDonor(DonorWrapper user);
 
 	Donor getSessionDonor(int idUser);
+	
+	String validateFacebookId(String facebookId);
 }
