@@ -1,27 +1,15 @@
 package com.treeseed.controllers;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-
-import javassist.expr.NewArray;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,32 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
-import com.treeseed.contracts.NonprofitRequest;
-import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Donor;
-import com.treeseed.ejb.Nonprofit;
-import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.DonorPOJO;
-import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
-import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
-import com.treeseed.services.NonprofitServiceInterface;
-import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
-import com.treeseed.utils.PojoUtils;
 import com.treeseed.ejbWrapper.DonorWrapper;
-import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
-import com.treeseed.ejbWrapper.NonprofitWrapper;
-import com.treeseed.ejbWrapper.ParentUserWrapper;
 
 /**
  * Handles requests for the application home page.
@@ -117,8 +92,8 @@ public class DonorController extends UserGeneralController{
 				user.setCountry(Countrytype.getWrapperObject());
 				user.setType(userType.getWrapperObject());
 			
-				Boolean state = donorService.saveDonor(user);
-				if(state){	
+				int donorID = donorService.saveDonor(user);
+				if(donorID>0){	
 				    UserGeneralRequest ug = new UserGeneralRequest();
 					UserGeneralResponse ugr = new UserGeneralResponse();
 					UserGeneralPOJO userG=new UserGeneralPOJO();
@@ -128,6 +103,7 @@ public class DonorController extends UserGeneralController{
 					ugr= userGeneralCreate(ug,user);
 					
 					if(ugr.getCode()==200){
+						us.setDonorId(donorID);
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
 					}else{
@@ -168,6 +144,7 @@ public class DonorController extends UserGeneralController{
 		for(Donor objeto:viewDonors.getContent())
 		{
 			DonorPOJO ndonor = new DonorPOJO();
+			ndonor.setId(objeto.getId());
 			ndonor.setName(objeto.getName());
 			ndonor.setWebPage(objeto.getWebPage());
 			ndonor.setLastName(objeto.getLastName());
@@ -180,6 +157,44 @@ public class DonorController extends UserGeneralController{
 		ds.setDonor(viewDonorsPOJO);
 		ds.setCode(200);
 		return ds;	
+	}
+	
+	@RequestMapping(value ="/getDonorProfile", method = RequestMethod.POST)
+	@Transactional
+	public DonorResponse getDonorProfile(@RequestBody DonorRequest dr){	
+		
+		HttpSession currentSession = request.getSession();
+		int tempId= 0;
+		
+		if(dr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
+		
+		Donor donor = donorService.getDonorProfileByID(dr);
+		
+		DonorResponse nps = new DonorResponse();
+		
+		if(tempId==donor.getUsergenerals().get(0).getId()){
+			nps.setOwner(true);
+		}else{
+			nps.setOwner(false);
+		}
+		
+		nps.setCode(200);
+		nps.setCodeMessage("nonprofit fetch success");
+			
+		DonorPOJO donorPOJO = new DonorPOJO();
+
+		donorPOJO.setId(donor.getId());
+		donorPOJO.setName(donor.getName());
+		donorPOJO.setLastName(donor.getLastName());
+		donorPOJO.setDescription(donor.getDescription());
+		donorPOJO.setWebPage(donor.getWebPage());
+		donorPOJO.setProfilePicture(donor.getProfilePicture());
+		
+		nps.setDonor(donorPOJO);
+		nps.setCode(200);
+		return nps;	
 	}
 	
 }

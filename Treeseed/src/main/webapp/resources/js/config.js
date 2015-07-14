@@ -70,10 +70,10 @@ angular
 									.state(
 											'treeSeed.donor',
 											{
-												url : 'donor',
+												url : 'donor/:donorId',
 												templateUrl : 'layouts/pages/donor.html',
-												controller: "getDonorProfileController"
-											// controller: 'TypeaheadDemoCtrl'
+												controller: "getDonorProfileController",
+												params: {donorId: null}
 											})
 									.state(
 											'treeSeed.nonProfit',
