@@ -31,7 +31,7 @@
     font-size:.85em;
     opacity:.5;
     -webkit-transition:all .2s;
-    transition:all .2s
+    transition:all .2s;
 }
 
 .md-input:focus,
@@ -51,6 +51,7 @@
 dragnDrop.dragOver #file-drop{
 	display:block;
 } /* During drag */
+
 dragnDrop #file-drop{
 	z-index:1000;
 	position:fixed;
@@ -73,6 +74,7 @@ dragnDrop #file-drop{
     padding-bottom: 20px;
     padding-right: 20px
 }
+
  .md-select-label {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -87,7 +89,7 @@ dragnDrop #file-drop{
   line-height: 0.8em;
   position: relative;
   box-sizing: border-box;
-  min-width: inherit; }
+  min-width: inherit; 
 
 
 }
@@ -362,7 +364,7 @@ fieldset[disabled] .btn-primary.active {
 }
 
 .divAround{
-	{
+	
     display: -webkit-flex; /* Safari */
     -webkit-flex-flow: row wrap; /* Safari 6.1+ */
     -webkit-align-content: space-around; /* Safari 7.0+ */
@@ -374,6 +376,8 @@ fieldset[disabled] .btn-primary.active {
  	margin-bottom: 0;
     
 }
+
+
 .inside-full-height {
   /*
   // if you want to give content full height give him height: 100%;
@@ -401,3 +405,21 @@ fieldset[disabled] .btn-primary.active {
 	margin: 10px;
 }
 
+.general-search-result{
+	display: block;
+	width: 300px;
+}
+
+.general-search-image{
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+.general-search-span{
+	font-size: 16px;
+}
+
+.general-search-input{
+	width:300px
+}

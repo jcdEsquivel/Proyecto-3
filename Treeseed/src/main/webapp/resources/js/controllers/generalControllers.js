@@ -23,9 +23,30 @@ treeSeedAppControllers.controller('indexController', function($state,
 	 */
 });
 
-treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
+treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, $http,
 		$rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
 
+	
+	$scope.nom = $sharedData.getLoggedUser();
+	$scope.img = $sharedData.getImg();
+	$sharedData.getUserCountry();
+	$scope.country = "";
+	
+	$scope.temps = [];
+	
+	$scope.generalSearch = function(val) {
+		$scope.country = $sharedData.getUserCountry();
+		console.log('in');
+		return $http.post('rest/protected/generalSearch/search',
+				{filter: val, country:$scope.country })
+				.then(function(response) {
+					return response.data.results;	
+					
+				}); // end $http.post
+	};//end generalSearch
+	
+	
+	
 	$scope.animationsEnabled = true;
 
 	$scope.init = function(){
