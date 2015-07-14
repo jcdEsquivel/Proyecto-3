@@ -49,18 +49,32 @@
         </ul>
         <!-- / link and dropdown -->
 
-        <!-- search form -->
-        <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="HeaderCtrl">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> 
-              <span class="input-group-btn">
-                <button type="submit" class="btn  bg-light rounded" ui-sref="treeSeed.nonProfit"><i class="fa fa-search" ></i></button>
-              </span>
-            </div>
-          </div>
-        </form>
-        <!-- / search form -->
+      	<script type="text/ng-template" id="customTemplate.html">
+  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{nonprofit.id}}'})" class="general-search-result">
+				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
+ 				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
+ 				
+ 			</a>
+	</script>
+
+		<!-- search form -->
+		<form class="navbar-form navbar-form-sm navbar-left shift"
+			ui-shift="prependTo" target=".navbar-collapse" role="search"
+			ng-controller="HeaderCtrl">
+			<div class="form-group" style="margin-left: 20px;">
+				<div class="">
+					<input type="text" ng-model="selected"
+						typeahead="value as value.name for value in generalSearch($viewValue)"
+						class=" input-sm bg-light no-border rounded general-search-input"
+						typeahead-template-url="customTemplate.html"
+						placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> <span
+						class="input-group-btn">
+						
+					</span>
+				</div>
+			</div>
+		</form>
+		<!-- / search form -->
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right">
@@ -79,7 +93,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-show="isUserLogged">
+          <li class="dropdown" dropdown ng-if="logged">
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
@@ -91,13 +105,16 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown"  dropdown ng-show="isUserLogged">
+          <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
+          		<button class="btn m-b-xs  btn-success btn-rounded " ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
+          </li>
+          <li class="dropdown"  ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img ng-src="resources/img/{{img}}" alt="...">
+                <img ng-src="{{img}}" alt="..." class="header-menu-img">
                 <i class="on md b-white bottom"></i>
               </span>
-              <span class="hidden-sm hidden-md">{{nom}}</span> <b class="caret"></b>
+              <span class="hidden-sm hidden-md header-menu-name">{{name}}</span> <b class="caret"></b>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">

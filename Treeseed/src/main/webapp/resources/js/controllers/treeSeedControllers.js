@@ -6,27 +6,55 @@ var treeSeedAppControllers = angular.module('treeSeed.controller',
  * Controllers******************************************
  */
 
-treeSeedAppControllers.controller('leftMenuCtrl', function($state,
-		$location, $sharedData, $scope) {
+treeSeedAppControllers.controller('leftMenuCtrl', function($state, $location,
+		$sharedData, $scope) {
 	$scope.getMenu = function() {
 		if ($sharedData.getUserType() == "NGO") {
 			return "layouts/components/nGOMenu.html";
-		} else if($sharedData.getUserType() == "Donor") {
+		} else if ($sharedData.getUserType() == "Donor") {
 			return "layouts/components/donorMenu.html";
 		}
 	}
 });
 
 treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
-		$sharedData, $scope) {
+		$sharedData, $scope, $http) {
+	
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
-	//$scope.isUserLogged = $sharedData.isUserLogged();
+	$sharedData.getUserCountry();
+	$scope.country = "";
+	
+	$scope.temps = [];
 
+	$scope.getLinkUrl = function(item){
+		console.log(JSON.stringify(item));
+		if(item.type == 'DONOR'){
+			 return $state.href('treeSeed.nonProfit', {nonProfitId: item.id});
+		} else if(item == 'NGO'){
+			return $state('treeSeed.ff', {nonProfitId: item.id});
+		}else if(item == 'CAMPAIGN'){
+			return $state.href('treeSeed.cc', {nonProfitId: item.id});
+		}
+		  
+	};
+	
+	$scope.generalSearch = function(val) {
+		$scope.country = $sharedData.getUserCountry();
+		console.log('in');
+		return $http.post('rest/protected/generalSearch/search',
+				{filter: val, country:$scope.country })
+				.then(function(response) {
+					return response.data.results;	
+					
+				}); // end $http.post
+	};//end generalSearch
+	
+	
 });
 
-treeSeedAppControllers.controller('mainContentCtrl', function($state, $location,
-		$sharedData, $scope) {
+treeSeedAppControllers.controller('mainContentCtrl', function($state,
+		$location, $sharedData, $scope) {
 
 	$scope.isUserLogged = $sharedData.isUserLogged();
 
@@ -60,8 +88,6 @@ treeSeedAppControllers.controller('searchTransparecyReportController',
 				$state.go('signin');
 			}
 		});
-
-
 
 treeSeedAppControllers.controller('indexController', function($state,
 		$location, $sharedData, $scope) {
@@ -100,7 +126,7 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 		$scope.authError = null;
 		$scope.users = $userData.getUsers();
 		$scope.login = function() {
-			
+
 			var totalUsers = $scope.users.length;
 			var userNameTyped = $scope.user.name;
 			var userEmail = $scope.user.email;
@@ -130,33 +156,39 @@ treeSeedAppControllers.controller('SigninFormController', function($scope,
 	} else {
 
 		$state.go('treeSeed.index');
-		//$state.go('treeSeed.index');
+		// $state.go('treeSeed.index');
 
 	}
 });
 
-treeSeedAppControllers.controller('TypeaheadDemoCtrl', ['$scope', '$http','$sharedData', '$state', function($scope, $http,  $sharedData, $state) {
+treeSeedAppControllers.controller('TypeaheadDemoCtrl', [
+		'$scope',
+		'$http',
+		'$sharedData',
+		'$state',
+		function($scope, $http, $sharedData, $state) {
 
-    $scope.selected = undefined;
-    $scope.states = ['Territorio de Zaguates'];
-    // Any function returning a promise object can be used to load values asynchronously
-    $scope.getLocation = function(val) {
-      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: val,
-          sensor: false
-        }
-      }).then(function(res){
-        var addresses = [];
-        angular.forEach(res.data.results, function(item){
-          addresses.push(item.formatted_address);
-        });
-        return addresses;
-      });
-    };
+			$scope.selected = undefined;
+			$scope.states = [ 'Territorio de Zaguates' ];
+			// Any function returning a promise object can be used to load
+			// values asynchronously
+			$scope.getLocation = function(val) {
+				return $http.get(
+						'http://maps.googleapis.com/maps/api/geocode/json', {
+							params : {
+								address : val,
+								sensor : false
+							}
+						}).then(function(res) {
+					var addresses = [];
+					angular.forEach(res.data.results, function(item) {
+						addresses.push(item.formatted_address);
+					});
+					return addresses;
+				});
+			};
 
-  }])
-  ; 
+		} ]);
 
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',
