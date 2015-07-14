@@ -92,8 +92,8 @@ public class DonorController extends UserGeneralController{
 				user.setCountry(Countrytype.getWrapperObject());
 				user.setType(userType.getWrapperObject());
 			
-				Boolean state = donorService.saveDonor(user);
-				if(state){	
+				int donorID = donorService.saveDonor(user);
+				if(donorID>0){	
 				    UserGeneralRequest ug = new UserGeneralRequest();
 					UserGeneralResponse ugr = new UserGeneralResponse();
 					UserGeneralPOJO userG=new UserGeneralPOJO();
@@ -103,6 +103,7 @@ public class DonorController extends UserGeneralController{
 					ugr= userGeneralCreate(ug,user);
 					
 					if(ugr.getCode()==200){
+						us.setDonorId(donorID);
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
 					}else{

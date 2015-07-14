@@ -9,7 +9,7 @@ public interface DonorServiceInterface {
 
 	Page<Donor> getAll(DonorRequest ur);
 
-	Boolean saveDonor(DonorWrapper user);
+	int saveDonor(DonorWrapper user);
 
 	Donor getSessionDonor(int idUser);
 	

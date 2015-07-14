@@ -8,6 +8,15 @@ public class DonorResponse extends BaseResponse {
 	private List<DonorPOJO> donors;
 	private DonorPOJO donor;
 	private boolean isOwner;
+	private int donorId;
+
+	public int getDonorId() {
+		return donorId;
+	}
+
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
 
 	public boolean isOwner() {
 		return isOwner;
