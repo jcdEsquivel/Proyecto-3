@@ -164,8 +164,12 @@ public class DonorController extends UserGeneralController{
 	public DonorResponse getDonorProfile(@RequestBody DonorRequest dr){	
 		
 		HttpSession currentSession = request.getSession();
-		int tempId= (int) currentSession.getAttribute("idUser");
-	
+		int tempId= 0;
+		
+		if(dr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
+		
 		Donor donor = donorService.getDonorProfileByID(dr);
 		
 		DonorResponse nps = new DonorResponse();
