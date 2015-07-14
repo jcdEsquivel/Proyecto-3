@@ -216,8 +216,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//init function, calls the java controller
 	$scope.init = function() {
 		$scope.requestObject.idUser= Session.id;
-		
-		 $scope.requestObject.id = $scope.donor.id;
+		$scope.requestObject.id = $scope.donor.id;
+
 			$http.post('rest/protected/donor/getDonorProfile',
 					$scope.requestObject).success(function(mydata, status) {
 						$scope.donor = mydata.donor;
