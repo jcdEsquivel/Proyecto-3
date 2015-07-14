@@ -14,6 +14,7 @@ import javax.servlet.ServletContext;
 import javassist.expr.NewArray;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.joda.time.DateTime;
@@ -115,9 +116,9 @@ public class NonprofitController extends UserGeneralController{
 				user.setCause(causeW.getWrapperObject());
 				user.setConutry(countryW.getWrapperObject());
 				
-				Boolean state = nonProfitService.saveNonprofit(user);
+				int nonProfitId = nonProfitService.saveNonprofit(user);
 			
-				if(state){
+				if(nonProfitId>0){
 					UserGeneralRequest ug = new UserGeneralRequest();
 					UserGeneralResponse ugr = new UserGeneralResponse();
 					UserGeneralPOJO userG=new UserGeneralPOJO();
@@ -127,6 +128,7 @@ public class NonprofitController extends UserGeneralController{
 					ugr= userGeneralCreate(ug,user);
 					
 					if(ugr.getCode()==200){
+						us.setNonProfitId(nonProfitId);
 						us.setCode(200);
 						us.setCodeMessage("user created succesfully");
 					}else{
@@ -170,6 +172,7 @@ public class NonprofitController extends UserGeneralController{
 		for(Nonprofit objeto:viewNonprofits.getContent())
 		{
 			NonprofitPOJO nnonprofit = new NonprofitPOJO();
+			nnonprofit.setId(objeto.getId());
 			nnonprofit.setName(objeto.getName());
 			nnonprofit.setDescription(objeto.getDescription());
 			nnonprofit.setWebPage(objeto.getWebPage());
@@ -179,6 +182,52 @@ public class NonprofitController extends UserGeneralController{
 		
 		
 		nps.setNonprofits(viewNonprofitsPOJO);
+		nps.setCode(200);
+		return nps;
+			
+	}
+	
+	@RequestMapping(value ="/getNonProfitProfile", method = RequestMethod.POST)
+	@Transactional
+	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	
+		
+		
+		HttpSession currentSession = request.getSession();
+		int tempId= (int) currentSession.getAttribute("idUser");
+
+		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
+		
+		NonprofitResponse nps = new NonprofitResponse();
+		
+		if(tempId==nonprofit.getUsergenerals().get(0).getId()){
+			nps.setOwner(true);
+		}else{
+			nps.setOwner(false);
+		}
+		
+		nps.setCode(200);
+		nps.setCodeMessage("nonprofit search success");
+			
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+
+		nonprofitPOJO.setId(nonprofit.getId());
+		nonprofitPOJO.setName(nonprofit.getName());
+		nonprofitPOJO.setDescription(nonprofit.getDescription());
+		nonprofitPOJO.setWebPage(nonprofit.getWebPage());
+		nonprofitPOJO.setProfilePicture(nonprofit.getProfilePicture());
+		nonprofitPOJO.setMainPicture(nonprofit.getMainPicture());
+		nonprofitPOJO.setMision(nonprofit.getMision());
+		nonprofitPOJO.setReason(nonprofit.getReason());
+		
+		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+		UserGeneral userGeneral;
+		userGeneral= nonprofit.getUsergenerals().get(0);
+		
+		userGeneralPOJO.setEmail(userGeneral.getEmail());
+		
+		nonprofitPOJO.setUserGeneral(userGeneralPOJO);	
+		
+		nps.setNonprofit(nonprofitPOJO);
 		nps.setCode(200);
 		return nps;
 			

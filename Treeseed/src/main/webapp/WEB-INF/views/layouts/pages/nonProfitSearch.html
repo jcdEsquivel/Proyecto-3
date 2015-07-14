@@ -49,12 +49,12 @@
 		         
 	      	</tab-heading>
 	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-	        	<li class="list-group-item" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
+	        	<li class="list-group-item li-search-size-result" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 	          		<a href="#" class="pull-left thumb-md m-r">
-	            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle">
+	            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle search-image-size">
 		          	</a>
 		          	<div class="clear">
-		            	<a href="#" class="h4 text-primary m-b-sm block"> {{nonprofit.name}}</a>
+		            	<a href="#" class="h4 text-primary m-b-sm block" ui-sref="treeSeed.nonProfit({nonProfitId:'{{nonprofit.id}}'})"> {{nonprofit.name}}</a>
 		            	<div> {{nonprofit.description}}</div>
 		            	<div> {{nonprofit.webPage}}</div>
 		          	</div>
