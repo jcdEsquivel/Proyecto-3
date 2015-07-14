@@ -30,10 +30,10 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a ui-sref="treeSeed.nonProfitSearch">
-                  <span translate="MENU-HEADER.SEARCH_NGO">SEARCH_NGO</span>
-                </a>
-              </li>
+                <a ui-sref="treeSeed.nonProfitSearch"> <span
+							translate="MENU-HEADER.SEARCH_NGO">SEARCH_NGO</span>
+					</a>
+					</li>
               <li>
                 <a ui-sref="treeSeed.donorSearch">
                   <span translate="MENU-HEADER.SEARCH_DONOR">SEARCH_DONOR</span>
@@ -50,7 +50,7 @@
         <!-- / link and dropdown -->
 
       	<script type="text/ng-template" id="customTemplate.html">
-  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{nonprofit.id}}'})" class="general-search-result">
+  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{match.model.id}}'})" class="general-search-result">
 				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
  				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
  				

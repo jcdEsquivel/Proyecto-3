@@ -121,7 +121,7 @@ angular
 												templateUrl : 'layouts/pages/nonProfitSearch.html',
 												resolve : load([
 														'angularUtils.directives.dirPagination',
-														'resources/js/controllers/searchControllers.js' ]),
+														'resources/js/controllers/nonprofitController.js' ]),
 												controller : "nonProfitSearchController"
 											})
 									.state(

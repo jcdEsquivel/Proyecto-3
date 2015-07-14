@@ -11,7 +11,7 @@
     	"SEARCH": "Search",
     	"LENGUAGE": "Language",
     	"CONFIGURATION": "Configuration",
-    	"PROFILE": "ProfilE",
+    	"PROFILE": "Profile",
     	"HELP": "Help",
     	"SIGN_OUT": "Sign out",
     	"LOG_IN": "Login"
