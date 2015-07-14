@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.LoginResponse;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.services.LoginServiceInterface;
+import com.treeseed.utils.Utils;
 
 
 /**
@@ -23,8 +25,8 @@ import com.treeseed.services.LoginServiceInterface;
 @RequestMapping(value = "rest/login")
 public class LoginController {
 	
-	/*@Autowired
-	LoginServiceInterface loginService;*/
+	@Autowired
+	LoginServiceInterface loginService;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -33,28 +35,46 @@ public class LoginController {
 	@Transactional
 	public BaseResponse checkuser(@RequestBody LoginRequest lr){	
 		
-		//Usuario loggedUser = loginService.checkUser(lr);
+		byte[] hash = Utils.encryption(lr.getPassword());
+		  String file_string="";
+		  
+		  for(int i = 0; i < hash.length; i++)
+		     {
+		         file_string += (char)hash[i];
+		     }  
+		
+		UserGeneralWrapper loggedUser = loginService.checkUser(lr.getEmail(), file_string);
 		
 		LoginResponse response = new LoginResponse();
 		HttpSession currentSession = request.getSession();
 		
-		//if(loggedUser == null){
+		if(loggedUser.getWrapperObject() == null){
 			response.setCode(401);
 			response.setErrorMessage("Unauthorized User");
-		//}else{
+		}else{
 			
 			
-			//response.setCode(200);
-			//response.setCodeMessage("User authorized");
-			
+			response.setCode(200);
+			response.setCodeMessage("User authorized");
+			if(loggedUser.getDonor()!=null){
+				response.setIdUser(loggedUser.getDonor().getId());
+				response.setFirstName(loggedUser.getDonor().getName());
+				response.setLastName(loggedUser.getDonor().getLastName());
+				response.setImg(loggedUser.getDonor().getProfilePicture());
+				response.setType("donor");
+			}else if(loggedUser.getNonprofit()!=null){
+				response.setIdUser(loggedUser.getNonprofit().getId());
+				response.setFirstName(loggedUser.getNonprofit().getName());
+				response.setImg(loggedUser.getNonprofit().getProfilePicture());
+				response.setType("nonprofit");
+			}
+			response.setIdSession(loggedUser.getId());
 			//CREATE AND SET THE VALUES FOR THE CONTRACT OBJECT
-			//response.setIdUsuario(loggedUser.getIdUsuario());
-			//response.setFirstName(loggedUser.getFirstname());
-			//response.setLastName(loggedUser.getLastname());
-			//
 			
-			//currentSession.setAttribute("idUser", loggedUser.getIdUsuario());
-		//}
+			
+			
+			currentSession.setAttribute("idUser", loggedUser.getId());
+		}
 		
 		return response;
 		
