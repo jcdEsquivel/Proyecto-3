@@ -13,8 +13,12 @@ public class DonorResponse extends BaseResponse {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public List<DonorPOJO> getDonor() {
+	public List<DonorPOJO> getDonors() {
 		return donors;
+	}
+
+	public DonorPOJO getDonor() {
+		return donor;
 	}
 
 	public void setDonor(DonorPOJO donor) {

@@ -181,14 +181,20 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams) {
 
+	//Controllers for Edit Buttons
+	//If it's the profile owner the edit buttons will be available
+	$scope.isOwner = true;
+
 	//Declaration of donor object
 	$scope.donor = {};
 	$scope.donor.id = $stateParams.donorId;
 	$scope.donor.name = "";
+	$scope.donor.lastName = "";
 	$scope.donor.description = "";
 	$scope.donor.country = "";
+	//$scope.donor.userGeneral.email = "";
 	$scope.donor.profilepicture = "";
-	$scope.donor.mainpicture = "";
+	$scope.donor.webPage = "";
 	$scope.requestObject = {};
 
 	//init function, calls the java controller
@@ -204,19 +210,10 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	}
 	$scope.init();
 
-	//Controllers for Edit Buttons
-	//If it's the profile owner the edit buttons will be available
-	$scope.isOwner = true;
-
-	$scope.name = "El Doc";
-	$scope.email = "eldoc@gmail.com";
-	$scope.webPage = "www.eldoc.com";
-	$scope.about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum.";
-  	
   	//About Edit
   	$scope.aboutEditClicked = function() {
   		$scope.aboutInEdition = true;
-  		$scope.aboutEdit = $scope.about;
+  		$scope.aboutEdit = $scope.donor.description;
 	};
 
 	$scope.aboutCancelEditing = function(){
@@ -224,14 +221,15 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.aboutSaveEditing = function(){
-		$scope.about = $scope.aboutEdit;
+		$scope.donor.description = $scope.aboutEdit;
 		$scope.aboutInEdition = false;
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
-  		$scope.nameEdit = $scope.name;
+  		$scope.nameEdit = $scope.donor.name;
+  		$scope.lastNameEdit = $scope.donor.lastName;
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -239,7 +237,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.name = $scope.nameEdit;
+		$scope.donor.name = $scope.nameEdit;
+		$scope.donor.lastName = $scope.lastNameEdit;
 		$scope.nameInEdition = false;
 	};
 
@@ -261,7 +260,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Webpage Edit
 	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
-  		$scope.webPageEdit = $scope.webPage;
+  		$scope.webPageEdit = $scope.donor.webPage;
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -269,7 +268,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.webPageSaveEditing = function(){
-		$scope.webPage = $scope.webPageEdit;
+		$scope.donor.webPage = $scope.webPageEdit;
 		$scope.webPageInEdition = false;
 	};
 	//Finish controller for edit buttons

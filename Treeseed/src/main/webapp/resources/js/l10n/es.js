@@ -109,5 +109,13 @@
         "DESCRIPTION": "Descripción",
         "CAMPAIGNS": "Campañas",
         "UPDATES": "Actualizaciones"
+     },
+      "DONOR-PROFILE": {
+        "INFORMATION": "Información",
+        "WHO": "¿Quién soy?",
+        "TREE": "Árbol de influencia",
+        "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
+        "TOTAL-DONATIONS": "Total de donaciones: ",
+        "MONEY-BROUGHT": "Dinero traído: "
      }
 }

@@ -114,5 +114,13 @@
    		"DESCRIPTION": "Description",
    		"CAMPAIGNS": "Campaigns",
    		"UPDATES": "Updates"  	
-    }
+    },
+      "DONOR-PROFILE": {
+        "INFORMATION": "Information",
+        "WHO": "Who am I?",
+        "TREE": "Treeseed",
+        "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
+        "TOTAL-DONATIONS": "Total donations: ",
+        "MONEY-BROUGHT": "Money brought: "
+     }
 }
