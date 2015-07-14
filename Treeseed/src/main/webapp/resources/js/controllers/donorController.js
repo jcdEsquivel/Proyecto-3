@@ -288,3 +288,75 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
     }
 });
 
+treeSeedAppControllers.controller('getDonorProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout) {
+
+	//Controllers for Edit Buttons
+	$scope.isOwner = true;
+
+	$scope.name = "El Doc";
+	$scope.email = "eldoc@gmail.com";
+	$scope.webPage = "www.eldoc.com";
+	$scope.about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum.";
+  	
+  	//About Edit
+  	$scope.aboutEditClicked = function() {
+  		$scope.aboutInEdition = true;
+  		$scope.aboutEdit = $scope.about;
+	};
+
+	$scope.aboutCancelEditing = function(){
+		$scope.aboutInEdition = false;
+	};
+
+	$scope.aboutSaveEditing = function(){
+		$scope.about = $scope.aboutEdit;
+		$scope.aboutInEdition = false;
+	};
+
+	//Name Edit
+	$scope.nameEditClicked = function() {
+  		$scope.nameInEdition = true;
+  		$scope.nameEdit = $scope.name;
+	};
+
+	$scope.nameCancelEditing = function(){
+		$scope.nameInEdition = false;
+	};
+
+	$scope.nameSaveEditing = function(){
+		$scope.name = $scope.nameEdit;
+		$scope.nameInEdition = false;
+	};
+
+	//Email Edit
+	$scope.emailEditClicked = function() {
+  		$scope.emailInEdition = true;
+  		$scope.emailEdit = $scope.email;
+	};
+
+	$scope.emailCancelEditing = function(){
+		$scope.emailInEdition = false;
+	};
+
+	$scope.emailSaveEditing = function(){
+		$scope.email = $scope.emailEdit;
+		$scope.emailInEdition = false;
+	};
+
+	//Webpage Edit
+	$scope.webPageEditClicked = function() {
+  		$scope.webPageInEdition = true;
+  		$scope.webPageEdit = $scope.webPage;
+	};
+
+	$scope.webPageCancelEditing = function(){
+		$scope.webPageInEdition = false;
+	};
+
+	$scope.webPageSaveEditing = function(){
+		$scope.webPage = $scope.webPageEdit;
+		$scope.webPageInEdition = false;
+	};
+	//Finish controller for edit buttons
+});

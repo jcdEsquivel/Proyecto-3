@@ -115,6 +115,20 @@
     	"LINKEDIN": "Inciar con Linkedin",
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
-		"EMAIL-ERROR": "Email o contraseña incorrectos."
-       }
+		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
+     },
+      "NONPROFIT-PROFILE": {
+    	"PROFILE": "Perfil",
+        "MISSION": "Misión",
+        "REASON": "Razón",
+        "DESCRIPTION": "Descripción",
+        "CAMPAIGNS": "Campañas",
+        "UPDATES": "Actualizaciones",
+        "DONORS": "Donantes:",
+        "DONATIONS": "Donaciones:"
+     },
+     "BUTTONS": {
+    		"SAVE": "Guardar",
+    		"CANCEL": "Cancelar"
+     }
 }

@@ -71,16 +71,17 @@ angular
 											'treeSeed.donor',
 											{
 												url : 'donor',
-												templateUrl : 'layouts/pages/donor.html'
+												templateUrl : 'layouts/pages/donor.html',
+												controller: "getDonorProfileController"
 											// controller: 'TypeaheadDemoCtrl'
 											})
 									.state(
 											'treeSeed.nonProfit',
 											{
-												url : 'nonProfit',
-												templateUrl : 'layouts/pages/nonProfit.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
+												url : 'nonProfit/:nonProfitId',
+												templateUrl : 'layouts/pages/nonProfit.html',
+												controller: "getNonProfitProfileController",
+												params: {nonProfitId: null}
 											})
 									.state(
 											'treeSeed.donate',
@@ -120,7 +121,7 @@ angular
 												templateUrl : 'layouts/pages/nonProfitSearch.html',
 												resolve : load([
 														'angularUtils.directives.dirPagination',
-														'resources/js/controllers/searchControllers.js' ]),
+														'resources/js/controllers/nonprofitController.js' ]),
 												controller : "nonProfitSearchController"
 											})
 									.state(

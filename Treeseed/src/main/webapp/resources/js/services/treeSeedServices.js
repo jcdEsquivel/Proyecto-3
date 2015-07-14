@@ -218,6 +218,17 @@ treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, US
 					return res.data;
 				});
 	};
+	
+	authService.getSession = function() {
+		
+		var sessionrequest= {id: Session.id, role: Session.userRole}
+		
+		return $http.post('rest/login/getSession', sessionrequest).then(
+				function(res) {	
+					console.log(res.id)
+					return res;
+				});
+	};
 
 	authService.isAuthenticated = function() {
 		return !!Session.userId;

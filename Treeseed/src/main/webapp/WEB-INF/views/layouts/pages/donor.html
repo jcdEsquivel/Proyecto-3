@@ -15,9 +15,29 @@
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>eldoc@gmail.com</b>
+ 						<b>{{email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<div ng-show="emailInEdition">
+				          	<div>
+				          		<input ng-model="emailEdit">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="emailCancelEditing()"></i> Cancel</button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="emailSaveEditing()"></i> Save</button>
+				          	</div>
+					    </div>
  						<br>
- 						<b>www.eldoc.com</b>
+ 						<b>www.eldoc.com<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<div ng-show="webPageInEdition">
+				          	<div>
+				          		<input ng-model="webPageEdit">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="webPageCancelEditing()"></i> Cancel</button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="webPageSaveEditing()"></i> Save</button>
+				          	</div>
+					    </div>
  						<br>
  						<b>Total de donaciones:</b> 100
  						<br>
@@ -30,21 +50,41 @@
  				<tabset class="tab-container">
 				    <tab>
 				      <tab-heading>
-				        InformaciÃ³n
+				        Información
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
-				          <h2>Ricardo Bonilla</h2>
+				          <h2>{{name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+				          <div ng-show="nameInEdition">
+				          	<div>
+				          		<input ng-model="nameEdit">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="nameCancelEditing()"></i> Cancel</button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="nameSaveEditing()"></i> Save</button>
+				          	</div>
+					      </div>
 			          	  <hr>
 			          	  <br>
 
-			          	  <h3>Â¿QuiÃ©n soy?</h3>
+			          	  <h3>¿Quién soy?</h3>
 
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
-
+				          <p ng-hide="aboutInEdition">{{about}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
+				          <div ng-show="aboutInEdition">
+				          	<div>
+				          		<textarea rows="6" cols="90" ng-model="aboutEdit">{{aboutEdit}}
+					      		</textarea>
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="aboutCancelEditing()"></i> Cancel</button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="aboutSaveEditing()"></i> Save</button>
+				          	</div>
+					      </div>
 				          <br>
 
-			          	  <h3>Ã�rbol de influencia</h3>
+			          	  <h3>Árbol de influencia</h3>
 			          	  
 			          	  <br>
 
@@ -52,7 +92,7 @@
 				          
 				          <br>
 
-			          	  <h3>Perfil filantrÃ³pico</h3>
+			          	  <h3>Perfil filantrópico</h3>
 			          	  
 			          	  <br>
 

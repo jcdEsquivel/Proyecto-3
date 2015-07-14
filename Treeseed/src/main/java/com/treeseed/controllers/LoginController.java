@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.LoginResponse;
+import com.treeseed.contracts.SessionRequest;
+import com.treeseed.contracts.SessionResponse;
+import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.services.LoginServiceInterface;
+import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.Utils;
 
 
@@ -27,6 +31,9 @@ public class LoginController {
 	
 	@Autowired
 	LoginServiceInterface loginService;
+	
+	@Autowired
+	UserGeneralServiceInterface userGeneralService;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -74,6 +81,42 @@ public class LoginController {
 			
 			
 			currentSession.setAttribute("idUser", loggedUser.getId());
+		}
+		
+		return response;
+		
+	}
+	
+	
+	@RequestMapping(value = "/getSession", method = RequestMethod.POST)
+	@Transactional
+	public SessionResponse getSession(@RequestBody SessionRequest sr){
+		
+		UserGeneral user = userGeneralService.getSessionUserGeneral(sr.getId());
+		SessionResponse response = new SessionResponse();
+		
+		HttpSession currentSession = request.getSession();
+		int tempId= (int) currentSession.getAttribute("idUser");
+		
+		if(tempId==user.getId()){
+			response.setIdSession(user.getId());
+			if(user.getNonprofit()!=null){
+				response.setType("nonprofit");
+				response.setIdUserType(user.getNonprofit().getId());
+			}else{
+				response.setType("donor");
+				response.setIdUserType(user.getDonor().getId());
+			}
+			
+			response.setCode(200);
+			response.setCodeMessage("Authorized");
+			
+		}else{
+			response.setType("guest");
+			response.setIdUserType(0);
+			response.setIdSession(0);
+			response.setCode(401);
+			response.setErrorMessage("Unauthorized Request");
 		}
 		
 		return response;

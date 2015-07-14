@@ -11,7 +11,7 @@
     	"SEARCH": "Search",
     	"LENGUAGE": "Language",
     	"CONFIGURATION": "Configuration",
-    	"PROFILE": "ProfilE",
+    	"PROFILE": "Profile",
     	"HELP": "Help",
     	"SIGN_OUT": "Sign out",
     	"LOG_IN": "Login"
@@ -120,7 +120,22 @@
     	"TWITTER": "Login with Twitter",
     	"LINKEDIN": "Login with Linkedin",
     	"DO-YOU": "Do not have an account?",
-		"CREATE": "Create an account"	,
-		"EMAIL-ERROR": "Wrong email or password."
-       }
+		"CREATE": "Create an account",
+		"EMAIL-ERROR": "Wrong email or password."	
+       },
+
+   	"NONPROFIT-PROFILE": {
+   		"PROFILE": "Profile",
+   		"MISSION": "Mission",
+   		"REASON": "Reason",
+   		"DESCRIPTION": "Description",
+   		"CAMPAIGNS": "Campaigns",
+   		"UPDATES": "Updates",
+   		"DONORS": "Donors:",
+   		"DONATIONS": "Donations:"
+    },
+    "BUTTONS": {
+   		"SAVE": "Save",
+   		"CANCEL": "Cancel"
+    }
 }
