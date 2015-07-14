@@ -1,10 +1,10 @@
 'use strict';
-var treeSeedApp = {};
+var treeSeedAppLogin = {};
 
-var treeSeedApp = angular.module('treeSeed', ['treeSeedMainController', 'treeSeedLogin',
+var treeSeedAppLogin = angular.module('treeSeedLogin', ['treeSeedLoginController',
     'treeSeedConstants',
     'treeSeedServices',
-    'treeSeed.controller',
+    'treeSeedMainController',
     'treeSeedDirectives',
     'treeSeedFilters',
     'ngAnimate',
@@ -22,6 +22,5 @@ var treeSeedApp = angular.module('treeSeed', ['treeSeedMainController', 'treeSee
     'ui.jq',
     'oc.lazyLoad',
     'pascalprecht.translate',
-    'ngMaterial',
-    'angularFileUpload']);
+    'ngMaterial']);
 

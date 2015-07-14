@@ -1,0 +1,94 @@
+<div class="w-auto-xs" >
+	<div>
+		<div class="wrapper text-center">
+			<img src="resources/images/Captura.jpg">
+		</div>
+
+		<div class="row ">
+			<div>
+				<div class="col-sm-1 "></div>
+				<div class="col-sm-4 " style="height: 100%"
+					name="socialMediaButtons">
+					<table style="height: 100%; padding: 100px">
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><a href
+								class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.FACEBOOK"></label></a>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><a href class="btn btn-info btn-block m-b-sm"><i
+									class="fa fa-twitter pull-left"></i><label
+									translate="LOGIN.TWITTER"></label></a></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="col-sm-6  col-sm-height verticalLine">
+					<form name="form" ng-submit="login(credentials)" action="WEB-INF/view/layouts/pages/utils.html" target="sink" method="post"
+						class="bs-example form-horizontal form-validation inside-full-height" form-autofill-fix>
+						<div class="form-group">
+							<div class="text-danger wrapper" ng-show="authError">
+								{{authError}}</div>
+
+							<md-input-container flex class="col-sm-offset-1">
+							<label translate="LOGIN.EMAIL"></label> <input type="text"
+								ng-model="credentials.email" class="form-control"> </md-input-container>
+
+							<md-input-container flex class="col-sm-offset-1">
+							<label translate="LOGIN.PASSWORD"></label> <input type="password"
+								ng-model="credentials.password" class="form-control"> </md-input-container>
+						</div>
+						<div class="col-sm-offset-1 form-group">
+							<div class="col-sm-12 ">
+								<label class="md-switch"> <input type="checkbox">
+									<i class="blue"></i> <a translate="LOGIN.REMEMBER"></a> </labe>
+							</div>
+
+						</div>
+						<div class="col-sm-offset-1 form-group">
+							<div class="col-sm-12">
+								<a translate="LOGIN.FORGET-PASSWORD"></a>
+							</div>
+
+						</div>
+
+						<div class=" col-sm-12">
+							<button type="submit" class="btn btn-sm btn-primary"  translate="LOGIN.LOGIN-BUTTON"></button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4 text-center">
+				<div class="text-center m-t m-b"></div>
+				<div class="line line-dashed"></div>
+				<p class="text-center">
+					<small translate="LOGIN.DO-YOU"></small>
+				</p>
+				<a class="btn btn-lg btn-default btn-block" translate="LOGIN.CREATE"></a>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+	</div>
+	<div class="text-center"
+		ng-include="'layouts/components/page_footer.html'">{% include
+		'blocks/page_footer.html' %}</div>
+</div>
