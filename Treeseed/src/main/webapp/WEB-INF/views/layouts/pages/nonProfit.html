@@ -5,76 +5,29 @@
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12 ">
-        	 <img ng-src="{{nonprofit.mainPicture}}" alt="" class="cover-image" >
+        	<div class="cover-image">
+        		 <img ng-src="{{nonprofit.mainPicture}}" class="cover-container" >
+        	 </div>
     	</div>
     	
 	</div>
 	<div class="row">
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
-	 			<div class="row">
-	 				<div class="site-wrapper">
-					  <div class="site-wrapper-inner">
-					    	<div class="cover-container">	
-								<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >
-							</div>
-						</div>
-					</div>
+	 			<div class="row">		
+					<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >	
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>{{nonprofit.usergeneral.email}}</b>
+ 						<b>{{nonprofit.webPage}}</b>
  						
  						<br>
- 						<b>territoriozaguates.com</b>
+ 						<b>{{nonprofit.userGeneral.email}}</b>
  						<br>
- 						<b>Donantes:</b> 100
+ 						<b translate="NONPROFIT-PROFILE.DONORS"></b> 
  						<br>
- 						<b>Dinero recaudado:</b> 1000
- 						<br>
- 						<b>Campañas:</b> 80
- 						<br>
- 						<b>Campañas:</b> 40
- 						<br>
-
- 					<div ng-controller="DonationCtrl">
-			            <script type="text/ng-template" id="myModalContent.html">
-			            <div class="modal-header">
-			              <h3 class="modal-title">Realizar Donacion</h3>
-			            </div>
-			            <div class="modal-body">
-			              <div class="form-group">
-			                <label for="credit-card" class="control-label">Tarjeta de Credito</label>
-			                <input type="text" class="form-control" id="credit-card" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="safety-number" class="control-label">Codigo de seguridad</label>
-			                <input type="text" class="form-control" id="safety-number" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="exp-date" class="control-label">Fecha de vencimiento</label>
-			                <input type="text" class="form-control" id="exp-date" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="amount" class="control-label">Monto a donar</label>
-			                <input type="text" class="form-control" id="amount" required>
-			              </div>
-			              <div class="form-group">
-			                <label for="recurrentAmount" class="control-label">Realizar donacion recurrente</label>        
-			                <input type="checkbox" value="">
-			             </div>  
-			            </div>
-			            <div class="modal-footer">
-			                <button class="btn btn-primary" ng-click="ok()">Donar</button>
-			                <button class="btn" ng-click="cancel()">Cancel</button>
-			            </div>
-			            <div ng-show="status" class="alert alert-success" role="alert">{{correcto}}</div>
-			          </script>
-				        <div ng-controller="showToUserController">
-				          <button ng-show="view()" class="btn btn-default" ng-click="open()" translate="DONATION.CREATE"></button>
-				     	</div>
-		          	</div>  	
-
+ 						<b translate="NONPROFIT-PROFILE.DONATIONS"></b>
+ 						<br>			
  					</div>
  				</div>
 	 		</div>
@@ -83,29 +36,74 @@
  				<tabset class="tab-container">
 				    <tab>
 				      <tab-heading translate="NONPROFIT-PROFILE.PROFILE">
-				        
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
-				          <h2>{{nonprofit.name}}</h2>
+				          <h2 ng-hide="nameInEdition">{{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+			          	  <div ng-show="nameInEdition">
+				          	<div>
+				          		<input class="form-control input-lg" ng-model="nameEdit">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
+				          	</div>
+					      </div>
 			          	  <hr>
 			          	  <br>
 
 			          	  <h3 translate="NONPROFIT-PROFILE.MISSION"></h3>
 
-				          <p>{{nonprofit.mision}}</p>
-
+				          <p ng-hide="missionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="missionEditClicked()"><i class="fa fa-edit"></i></button></p>
+						  
+						   <div ng-show="missionInEdition">
+				          	<div>
+				          		<textarea rows="6" cols="90" ng-model="missionEdit">{{nonprofit.mission}}
+					      		</textarea>
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="missionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="missionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
+				          	</div>
+					      </div>
+						  
 				          <br>
 
 			          	  <h3 translate="NONPROFIT-PROFILE.DESCRIPTION"></h3>
 			          	  
-				          <p>{{nonprofit.description}}</p>
+				          <p ng-hide="descriptionInEdition">{{nonprofit.description}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>
+				           
+						   <div ng-show="descriptionInEdition">
+				          	<div>
+				          		<textarea rows="6" cols="90" ng-model="descriptionEdit">{{nonprofit.description}}
+					      		</textarea>
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="descriptionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="descriptionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
+				          	</div>
+					      </div>
 				          
 				          <br>
 
 			          	  <h3 translate="NONPROFIT-PROFILE.REASON"></h3>
 			          	  
-				          <p>{{nonprofit.reason}}</p>
+				          <p ng-hide="reasonInEdition">{{nonprofit.reason}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="reasonEditClicked()"><i class="fa fa-edit"></i></button></p>
+				           
+						   <div ng-show="reasonInEdition">
+				          	<div>
+				          		<textarea rows="6" cols="90" ng-model="reasonEdit">{{nonprofit.reason}}
+					      		</textarea>
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="reasonCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="reasonSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
+				          	</div>
+					      </div>
 				          
 				        </li>
 				      </ul>

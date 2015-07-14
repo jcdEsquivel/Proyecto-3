@@ -8,7 +8,16 @@ public class NonprofitRequest extends BasePagingRequest {
 	private String name;
 	private String country;
 	private int id;
-	
+	private int idUser;
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
 	public int getId() {
 		return id;
 	}

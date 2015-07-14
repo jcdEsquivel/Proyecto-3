@@ -338,8 +338,10 @@ textarea {
   vertical-align: top;
 }
 .cover-container {
-  margin-right: auto;
-  margin-left: auto;
+	height:300px;
+	width:100%
+  
+}
 }
 
 
@@ -445,3 +447,16 @@ fieldset[disabled] .btn-primary.active {
 .general-search-input{
 	width:300px
 }
+
+.search-image-size{
+	width: 60px;
+  	height: 60px;
+}
+
+.li-search-size-result{
+	 height: 100px;
+  	width: 100%;
+}
+
+
+ 
