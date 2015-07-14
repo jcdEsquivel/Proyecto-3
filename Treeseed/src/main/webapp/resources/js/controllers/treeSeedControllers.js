@@ -41,7 +41,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 	
 	$scope.generalSearch = function(val) {
 		$scope.country = $sharedData.getUserCountry();
-		
+		console.log('in');
 		return $http.post('rest/protected/generalSearch/search',
 				{filter: val, country:$scope.country })
 				.then(function(response) {

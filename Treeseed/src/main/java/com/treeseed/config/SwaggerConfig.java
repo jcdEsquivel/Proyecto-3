@@ -35,9 +35,9 @@ public class SwaggerConfig implements ServletContextAware{
         
 	}
 	private ApiInfo apiInfo() {
-		ApiInfo apiInfo = new ApiInfo("Cenfoteca API", "API for Cenfoteca",
-				"Cenfoteca API terms of service", "Cenfoteca email",
-				"Cenfoteca API Licence Type", "Cenfoteca API License URL");
+		ApiInfo apiInfo = new ApiInfo("TreeSeed API", "API for TreeSeed",
+				"TreeSeed API terms of service", "TreeSeed email",
+				"TreeSeed API Licence Type", "TreeSeed API License URL");
 		return apiInfo;
 	}
 	

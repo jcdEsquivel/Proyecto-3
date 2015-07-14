@@ -14,6 +14,8 @@ public class UserGeneralPOJO {
 	private boolean isActive;
 	private NonprofitPOJO nonProfit;
 	private Date dateTime;
+	private String facebookToken;
+	private String facebookId;
 	
 	public int getId() {
 		return id;
@@ -53,6 +55,18 @@ public class UserGeneralPOJO {
 	}
 	public void setNonProfit(NonprofitPOJO nonProfit) {
 		this.nonProfit = nonProfit;
+	}
+	public String getFacebookToken() {
+		return facebookToken;
+	}
+	public void setFacebookToken(String facebookToken) {
+		this.facebookToken = facebookToken;
+	}
+	public String getFacebookId() {
+		return facebookId;
+	}
+	public void setFacebookId(String facebookID) {
+		this.facebookId = facebookID;
 	}
 	
 	

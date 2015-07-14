@@ -250,7 +250,7 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	        
 	        userWrapper.setIsActive(true);
 	        userWrapper.setPassword(file_string);
-	        userWrapper.setEmail("prueba1@prueba1.com");
+	        userWrapper.setEmail(random+"@prueba1.com");
 			
 			serviceUserGeneral.saveUserGeneral(userWrapper);
 			
