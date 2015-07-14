@@ -43,9 +43,6 @@
 					<form name="form" ng-submit="login(credentials)" action="WEB-INF/view/layouts/pages/utils.html" target="sink" method="post"
 						class="bs-example form-horizontal form-validation inside-full-height" form-autofill-fix>
 						<div class="form-group">
-							<div class="text-danger wrapper" ng-show="authError">
-								{{authError}}</div>
-
 							<md-input-container flex class="col-sm-offset-1">
 							<label translate="LOGIN.EMAIL"></label> <input type="text"
 								ng-model="credentials.email" class="form-control"> </md-input-container>
@@ -56,8 +53,9 @@
 						</div>
 						<div class="col-sm-offset-1 form-group">
 							<div class="col-sm-12 ">
-								<label class="md-switch"> <input type="checkbox">
-									<i class="blue"></i> <a translate="LOGIN.REMEMBER"></a> </labe>
+							<label class="text-danger wrapper" ng-show="error" translate="LOGIN.EMAIL-ERROR"></label>
+								<!-- <label class="md-switch"> <input type="checkbox">
+									<i class="blue"></i> <a translate="LOGIN.REMEMBER"></a> </labe> -->
 							</div>
 
 						</div>

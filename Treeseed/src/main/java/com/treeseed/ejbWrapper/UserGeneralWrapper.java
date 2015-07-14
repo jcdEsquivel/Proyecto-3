@@ -9,6 +9,22 @@ import com.treeseed.ejb.UserGeneral;
 public class UserGeneralWrapper {
 	private UserGeneral wrapperObject;
 	
+	public String getFacebookToken() {
+		return wrapperObject.getFacebookToken();
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		wrapperObject.setFacebookToken(facebookToken);
+	}
+
+	public String getFacebookId() {
+		return wrapperObject.getFacebookId();
+	}
+
+	public void setFacebookID(String facebookID) {
+		wrapperObject.setFacebookId(facebookID);
+	}
+
 	public UserGeneralWrapper() {
 		super();
 		setWrapperObject(new UserGeneral());

@@ -97,6 +97,7 @@ public class UserGeneralController {
 		}else{
 			DonorWrapper userDonor = (DonorWrapper)user;
 			userGeneral.setDonor(userDonor.getWrapperObject());
+			//hacer if si traen tokens y ids y asignarselo al wrapper
 		}
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);

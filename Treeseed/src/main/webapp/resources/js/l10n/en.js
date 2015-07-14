@@ -119,6 +119,7 @@
     	"TWITTER": "Login with Twitter",
     	"LINKEDIN": "Login with Linkedin",
     	"DO-YOU": "Do not have an account?",
-		"CREATE": "Create an account"	
+		"CREATE": "Create an account"	,
+		"EMAIL-ERROR": "Wrong email or password."
        }
 }

@@ -1,7 +1,7 @@
 var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
 treeSeedAppLoginControllers.controller('loginController', function($scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser) {
-	$scope.authError = null;
+	$scope.error = false;
 	$scope.credentials = {
 		    email: '',
 		    password: ''
@@ -18,12 +18,10 @@ treeSeedAppLoginControllers.controller('loginController', function($scope, $stat
 		    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 		    		$modalInstance.close();
 		    	}else{
+		    		
 		    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-				      if($scope.selectLang=="Español"){
-				    	  $scope.authError="Email o contraseña incorrectos";
-				      }else if($scope.selectLang=="English"){
-				    	  $scope.authError="Wrong email or password";
-				      }
+				     
+				      $scope.error=true;
 		    	}
 		      
 		    });
