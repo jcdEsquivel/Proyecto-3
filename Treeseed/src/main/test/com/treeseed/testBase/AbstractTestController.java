@@ -205,6 +205,11 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	public  NonprofitWrapper createRandomNonprofit(String nGOName, Catalog country){
 		
 		String random = getRandomString();
+		
+		UserGeneralWrapper usergeneral= new UserGeneralWrapper();
+		
+		usergeneral= createRandomUserGeneral();
+		
 		Nonprofit nonprofit = new Nonprofit();
 		
 		nonprofit.setActive(true);
@@ -214,6 +219,7 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		nonprofit.setReason("Reason");
 		nonprofit.setWebPage("www.test.com");
 		nonprofit.setConutry(country);
+		
 		
 		
 		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
