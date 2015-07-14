@@ -79,7 +79,13 @@ public class DonorService implements DonorServiceInterface{
 	@Transactional
 	public String validateFacebookId(String facebookId){
 		
-		String sql = "select id from user_general where facebook_id = "+ facebookId +"";
+		String id = "1010";
+		if(!facebookId.equals(""))
+		{
+			id = facebookId;	
+		}
+		
+		String sql = "select id from user_general where facebook_id = "+ id +"";
 	    List<String> certs = jdbcTemplate.queryForList(sql, String.class); 
 	    if (certs.isEmpty()) {
 	        return null;

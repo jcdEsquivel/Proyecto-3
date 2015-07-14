@@ -176,6 +176,9 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 			else if (result.code == "400")
 			{
 				$scope.facebookFail = true;
+				$scope.requestObject.donor.name = "";
+				$scope.requestObject.donor.lastName = "";
+				$scope.requestObject.donor.userGeneral.email = "";
 			}
 			
 		})			
