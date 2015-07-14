@@ -186,14 +186,14 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 
 		$http.post('rest/protected/donor/advanceGet',
 				$scope.requestObject).success(function(mydata, status) {
-			$scope.donors = mydata.donor;
+			$scope.donors = mydata.donors;
 			$scope.totalItems = mydata.totalElements;
 		}).error(function(mydata, status) {
 
 		});
 
 		$scope.pageChangeHandler = function(num) {
-			$scope.searchNonProfit(num);
+			$scope.searchDonor(num);
 		};
     }
 });
@@ -209,7 +209,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.donor.description = "";
 	$scope.donor.country = "";
 	//$scope.donor.userGeneral.email = "";
-	$scope.donor.profilepicture = "";
+	$scope.donor.profilePicture = "";
 	$scope.donor.webPage = "";
 	$scope.requestObject = {};
 

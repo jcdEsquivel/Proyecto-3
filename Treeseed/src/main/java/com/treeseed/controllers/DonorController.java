@@ -144,6 +144,7 @@ public class DonorController extends UserGeneralController{
 		for(Donor objeto:viewDonors.getContent())
 		{
 			DonorPOJO ndonor = new DonorPOJO();
+			ndonor.setId(objeto.getId());
 			ndonor.setName(objeto.getName());
 			ndonor.setWebPage(objeto.getWebPage());
 			ndonor.setLastName(objeto.getLastName());
