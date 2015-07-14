@@ -193,7 +193,11 @@ public class NonprofitController extends UserGeneralController{
 		
 		
 		HttpSession currentSession = request.getSession();
-		int tempId= (int) currentSession.getAttribute("idUser");
+		int tempId= 0;
+		
+		if(npr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
 
 		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
 		

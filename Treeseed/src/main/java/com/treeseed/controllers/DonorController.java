@@ -187,6 +187,7 @@ public class DonorController extends UserGeneralController{
 
 		donorPOJO.setId(donor.getId());
 		donorPOJO.setName(donor.getName());
+		donorPOJO.setLastName(donor.getLastName());
 		donorPOJO.setDescription(donor.getDescription());
 		donorPOJO.setWebPage(donor.getWebPage());
 		donorPOJO.setProfilePicture(donor.getProfilePicture());
