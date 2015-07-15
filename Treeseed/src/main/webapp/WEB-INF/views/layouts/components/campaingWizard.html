@@ -4,16 +4,14 @@
 <div class="wrapper-sm w-xxxl">
 	<tabset class="tab-container"
 		ng-init="steps={ step1:true, step2:false, step3:false}">
-	<tab heading='translate="CREATE-CAMPAING.BAR"' active="steps.step1"
-		>
+	<tab  active="steps.step1"
+		><tab-heading translate="CREATE-CAMPAING.TAB-1.TITLE"></tab-heading>
 	<p class="m-b" translate="CREATE-CAMPAING.BAR"></p>
 	<progressbar value="percent" class="progress-xs" type="success"></progressbar>
 	<form name="step1" class="form-validation">
 		<div class="form-group">
 			<p translate="CREATE-CAMPAING.TAB-1.NAME">Name</p>
-			<input name="name" class="form-control" ng-model="campaing.name"
-				required 
-				ng-blur="progressControl(1,step1.name.$valid)">
+			<input name="name" class="form-control" ng-model="campaing.name" ng-blur="progressControl(1,step1.name.$valid)" required >
 			<p class="m-t" translate="CREATE-CAMPAING.TAB-1.DESCRIPTION">Description:</p>
 			<textarea class="form-control" rows="6"
 				ng-model="campaing.description" name="description"  required ng-blur="progressControl(2,step1.description.$valid)"></textarea>
@@ -23,8 +21,8 @@
 				class="btn btn-default btn-rounded" ng-click="steps.step2=true" translate="CREATE-CAMPAING.TAB-1.BUTTON-NEXT">Next</button>
 		</div>
 	</form>
-	</tab> <tab heading='translate="CREATE-CAMPAING.TAB-2.TITLE"' disabled="step1.$invalid" active="steps.step2"
-		>
+	</tab> <tab disabled="step1.$invalid" active="steps.step2"
+		><tab-heading translate="CREATE-CAMPAING.TAB-2.TITLE"></tab-heading>
 	<form name="step2" class="form-validation">
 		<p class="m-b" translate="CREATE-CAMPAING.BAR">Creation process</p>
 		<progressbar value="percent" class="progress-xs" type="success"></progressbar>
@@ -33,7 +31,7 @@
 		<p translate="CREATE-CAMPAING.TAB-2.DATE">Due Date:</p>
 		<div ng-controller="DatepickerCtrl" >
             <div class="input-group ">
-              <input type="text" name="date" class="form-control" datepicker-popup="{{format}}" ng-model="campaing.dueDate" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-blur="progressControl(3,step2.date.$valid)"/>
+              <input type="text" name="date" min-date="mindate" class="form-control" datepicker-popup="{{format}}" ng-model="campaing.dueDate" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-blur="progressControl(3,step2.date.$valid)"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -54,7 +52,8 @@
 		</div>
 	</form>
 	</tab>
-	<tab heading='translate="CREATE-CAMPAING.TAB-3.TITLE"' disabled="step2.$invalid" active="steps.step3" ng-controller="dragnDropController">
+	<tab  disabled="step2.$invalid" active="steps.step3" ng-controller="dragnDropController">
+	<tab-heading translate="CREATE-CAMPAING.TAB-3.TITLE"></tab-heading>
 	<p class="m-b" translate="CREATE-CAMPAING.BAR">Creation process</p>
       <progressbar value="percent" class="progress-xs" type="success"></progressbar>
       <p class="m-b" translate="CREATE-CAMPAING.TAB-3.IMAGE"></p>
