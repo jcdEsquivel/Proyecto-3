@@ -160,7 +160,7 @@ public class NonprofitController extends UserGeneralController{
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
-		nps.setCode(200);
+		
 		nps.setCodeMessage("nonprofits fetch success");
 		
 		
