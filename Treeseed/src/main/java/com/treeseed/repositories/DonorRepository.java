@@ -34,5 +34,6 @@ public interface DonorRepository extends
    Pageable pageable);
  Page<Donor> findByCountryContaining(String name,
    Pageable pageable);
-
+ Donor findByid(int id);
+;
 }

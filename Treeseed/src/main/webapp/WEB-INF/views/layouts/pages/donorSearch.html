@@ -56,7 +56,8 @@
 				ng-src="{{donor.profilePicture}}" alt="..." class="img-circle search-image-size">
 		</a>
 			<div class="clear">
-				<a href="#" class="h4 text-primary m-b-sm block">
+				<a href="#" class="h4 text-primary m-b-sm block"
+				ui-sref="treeSeed.donor({donorId:'{{donor.id}}'})">
 					{{donor.name}} {{donor.lastName}}</a>
 				<div>{{donor.description}}</div>
 				<div>{{donor.webPage}}</div>

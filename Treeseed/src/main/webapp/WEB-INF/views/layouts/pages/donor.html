@@ -10,24 +10,24 @@
 		 	<div class="col-md-3">
 	 			<div class="row">
 	 				<div class="col-md-12">
-						<img src="resources/img/a8.jpg" alt="" class="donnor-profile" >
+						<img ng-src="{{donor.profilePicture}}" alt="" class="donnor-profile" >
 					</div>
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>{{email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<b>{{donor.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="emailInEdition">
 				          	<div>
 				          		<input ng-model="emailEdit">
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="emailCancelEditing()"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="emailSaveEditing()"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="emailCancelEditing()" translate="BUTTONS.CANCEL" ></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="emailSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					    </div>
  						<br>
- 						<b>www.eldoc.com<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<b>{{donor.webPage}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
 				          	<div>
 				          		<input ng-model="webPageEdit">
@@ -39,9 +39,9 @@
 				          	</div>
 					    </div>
  						<br>
- 						<b>Total de donaciones:</b> 100
+ 						<b translate="DONOR-PROFILE.TOTAL-DONATIONS"></b> 100
  						<br>
- 						<b>Dinero traÃ­do:</b> 1000
+ 						<b translate="DONOR-PROFILE.MONEY-BROUGHT"></b> 1000
  						<br>
  					</div>
  				</div>
@@ -49,28 +49,32 @@
 	 		<div class="col-md-8">
  				<tabset class="tab-container">
 				    <tab>
-				      <tab-heading>
-				        Información
+				      <tab-heading translate="DONOR-PROFILE.INFORMATION">
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
-				          <h2>{{name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
-				          <div ng-show="nameInEdition">
-				          	<div>
-				          		<input ng-model="nameEdit">
-				          	</div>
-				          	<div>
-				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="nameCancelEditing()"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="nameSaveEditing()"></i> Save</button>
-				          	</div>
-					      </div>
-			          	  <hr>
-			          	  <br>
-
-			          	  <h3>¿Quién soy?</h3>
-
-				          <p ng-hide="aboutInEdition">{{about}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
+				        	<div>
+				        		<h2>{{donor.name}} {{donor.lastName}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+						          <div ng-show="nameInEdition">
+						          	<div>
+						          		<input ng-model="nameEdit">
+						          	</div>
+						          	<br>
+						          	<div>
+						          		<input ng-model="lastNameEdit">
+						          	</div>
+						          	<div>
+						          		<br>
+						          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="nameCancelEditing()"></i> Cancel</button>
+					          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="nameSaveEditing()"></i> Save</button>
+						          	</div>
+						            <br>
+							      </div>
+				        	</div>
+			        	  <hr>
+			        	  <br>
+			          	  <h3 translate = "DONOR-PROFILE.WHO"></h3>
+				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
 				          		<textarea rows="6" cols="90" ng-model="aboutEdit">{{aboutEdit}}
@@ -84,7 +88,7 @@
 					      </div>
 				          <br>
 
-			          	  <h3>Árbol de influencia</h3>
+			          	  <h3 translate="DONOR-PROFILE.TREE"></h3>
 			          	  
 			          	  <br>
 
@@ -92,11 +96,11 @@
 				          
 				          <br>
 
-			          	  <h3>Perfil filantrópico</h3>
+			          	  <h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
 			          	  
 			          	  <br>
 
-				          <img src="resources/img/filantropico.png" alt="Treeseed">
+				          	<!--Poner perfil-->
 				          
 				          <br>
 

@@ -1,6 +1,6 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $upload, $state){
+treeSeedAppControllers.controller('donorRegistrationController', function($http, $scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope){
 	
 	$scope.requestObject = {};
 	$scope.requestObject.donor = {};
@@ -167,20 +167,28 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 				facebookToken:$scope.requestObject.donor.facebookToken
 			},
 			file : $scope.image,
-		}).success(function(result){
-			
-			if(result.code == "200")
-			{
-				$state.go('treeSeed.donor');	
-			}
-			else if (result.code == "400")
-			{
-				$scope.facebookFail = true;
-				$scope.requestObject.donor.name = "";
-				$scope.requestObject.donor.lastName = "";
-				$scope.requestObject.donor.userGeneral.email = "";
-			}
-			
+		}).success(function(response){
+			   
+			  var credentials = {
+				    email: $scope.requestObject.donor.userGeneral.email,
+				    password: $scope.requestObject.donor.userGeneral.password
+			   };
+			 
+			  AuthService.login(credentials).then(function (user) {
+			    	
+			    	if(user.code=="200"){
+			    		if(user.type=="nonprofit"){
+			    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+			        	}else if(user.type=="donor"){
+			        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+			        	}
+			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			    		
+			    	}
+			      
+			    });
+
+			   $state.go('treeSeed.donor', {donorId: response.donorId});
 		})			
 				
 	};
@@ -279,33 +287,57 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 
 		$http.post('rest/protected/donor/advanceGet',
 				$scope.requestObject).success(function(mydata, status) {
-			$scope.donors = mydata.donor;
+			$scope.donors = mydata.donors;
 			$scope.totalItems = mydata.totalElements;
 		}).error(function(mydata, status) {
 
 		});
 
 		$scope.pageChangeHandler = function(num) {
-			$scope.searchNonProfit(num);
+			$scope.searchDonor(num);
 		};
     }
 });
 
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
 
-	//Controllers for Edit Buttons
-	$scope.isOwner = true;
+	//Declaration of donor object
+	$scope.donor = {};
+	$scope.donor.id = $stateParams.donorId;
+	$scope.donor.name = "";
+	$scope.donor.lastName = "";
+	$scope.donor.description = "";
+	$scope.donor.country = "";
+	//$scope.donor.userGeneral.email = "";
+	$scope.donor.profilePicture = "";
+	$scope.donor.webPage = "";
+	$scope.requestObject = {};
 
-	$scope.name = "El Doc";
-	$scope.email = "eldoc@gmail.com";
-	$scope.webPage = "www.eldoc.com";
-	$scope.about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum.";
-  	
+	//init function, calls the java controller
+	$scope.init = function() {
+		$scope.requestObject.idUser= Session.id;
+		$scope.requestObject.id = $scope.donor.id;
+
+			$http.post('rest/protected/donor/getDonorProfile',
+					$scope.requestObject).success(function(mydata, status) {
+						$scope.donor = mydata.donor;
+						
+						if(mydata.owner==true){
+							$scope.isOwner=true;
+						}else{
+							$scope.isOwner=false;
+						}
+			}).error(function(mydata, status) {
+				alert(status);
+			});		
+	}
+	$scope.init();
+
   	//About Edit
   	$scope.aboutEditClicked = function() {
   		$scope.aboutInEdition = true;
-  		$scope.aboutEdit = $scope.about;
+  		$scope.aboutEdit = $scope.donor.description;
 	};
 
 	$scope.aboutCancelEditing = function(){
@@ -313,14 +345,15 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.aboutSaveEditing = function(){
-		$scope.about = $scope.aboutEdit;
+		$scope.donor.description = $scope.aboutEdit;
 		$scope.aboutInEdition = false;
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
-  		$scope.nameEdit = $scope.name;
+  		$scope.nameEdit = $scope.donor.name;
+  		$scope.lastNameEdit = $scope.donor.lastName;
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -328,7 +361,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.name = $scope.nameEdit;
+		$scope.donor.name = $scope.nameEdit;
+		$scope.donor.lastName = $scope.lastNameEdit;
 		$scope.nameInEdition = false;
 	};
 
@@ -350,7 +384,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Webpage Edit
 	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
-  		$scope.webPageEdit = $scope.webPage;
+  		$scope.webPageEdit = $scope.donor.webPage;
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -358,7 +392,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.webPageSaveEditing = function(){
-		$scope.webPage = $scope.webPageEdit;
+		$scope.donor.webPage = $scope.webPageEdit;
 		$scope.webPageInEdition = false;
 	};
 	//Finish controller for edit buttons
