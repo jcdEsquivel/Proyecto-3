@@ -457,6 +457,10 @@ fieldset[disabled] .btn-primary.active {
 	 height: 100px;
   	width: 100%;
 }
+.w-xxxl {
+    max-width:750px
+}
+
 
 
  

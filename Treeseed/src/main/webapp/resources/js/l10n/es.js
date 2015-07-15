@@ -96,7 +96,7 @@
         "PASSWORD-CONFIRM": "Confirmar contraseña",
         "CAUSE": "Causa",
         "COUNTRY": "País",
-        "PICTUREIMAGE": "Image de Perfil",
+        "PICTUREIMAGE": "Imagen de Perfil",
         "DROPIMAGE" : "Arrastrar imagen aqui.",
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
@@ -137,5 +137,29 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
+     },
+     "CREATE-CAMPAING": {
+     	"BAR": "Proceso de creación:",
+     	"TITLE":"Crear Campaña",
+         "TAB-1": {
+         	"TITLE":"Información General",
+         	"NAME":"Nombre:",
+         	"DESCRIPTION":"Descripción:",
+         	"BUTTON-NEXT":"Siguiente"
+         },
+         "TAB-2":{
+         	"TITLE":"Información del Objetivo",
+         	"DATE":"Fecha Límite:",
+         	"AMOUNT":"Cantidad a alcanzar:",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-NEXT":"Siguiente"
+         },
+     	"TAB-3":{
+     		"TITLE":"Imagen",
+         	"IMAGE":"Imagen principal de la campaña:",
+         	"DROPIMAGE":"Arrastrar imagen aqui.",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-FINALIZE":"Crear"
+     	}
      }
 }

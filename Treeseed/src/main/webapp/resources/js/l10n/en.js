@@ -144,5 +144,29 @@
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
+    },
+      "CREATE-CAMPAING": {
+    	"BAR": "Creation progress:",
+    	"TITLE":"Create Campaing",
+        "TAB-1": {
+        	"TITLE":"General Information",
+        	"NAME":"Name:",
+        	"DESCRIPTION":"Description:",
+        	"BUTTON-NEXT":"Next"
+        },
+        "TAB-2":{
+        	"TITLE":"Goal Information",
+        	"DATE":"Due Date:",
+        	"AMOUNT":"Amount goal:",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-NEXT":"Next"
+        },
+    	"TAB-3":{
+    		"TITLE":"Image",
+        	"IMAGE":"Campaing's Main Image:",
+        	"DROPIMAGE":"Drop an image here to upload.",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-FINALIZE":"Create"
+    	}
     }
 }

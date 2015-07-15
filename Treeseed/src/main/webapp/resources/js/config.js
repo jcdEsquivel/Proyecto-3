@@ -102,9 +102,12 @@ angular
 											'treeSeed.createCampaing',
 											{
 												url : 'createCampaing',
-												templateUrl : 'layouts/pages/createCampaing.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
+												templateUrl : 'layouts/pages/createCampaing.html',
+												controller: 'campaingCreateController'
+												/*data : {
+												authorizedRoles : [
+														USER_ROLES.nonprofit ]
+											*/
 											})
 									.state(
 											'treeSeed.campaingViewer',
