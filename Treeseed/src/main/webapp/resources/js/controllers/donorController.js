@@ -47,7 +47,7 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 
 		  	FB.getLoginStatus(function(response) {
 		  		if (response.status === 'connected') {
-		  		    console.log(response.authResponse.accessToken);
+		  		    //console.log(response.authResponse.accessToken);
 		  		    $scope.requestObject.donor.facebookToken = response.authResponse.accessToken;
 		  		  }
 		    	statusChangeCallback(response, function() {});
@@ -168,25 +168,42 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 			},
 			file : $scope.image,
 		}).success(function(response){
-			   
-			  var credentials = {
-				    email: $scope.requestObject.donor.userGeneral.email,
-				    password: $scope.requestObject.donor.userGeneral.password
-			   };
-			 
-			  AuthService.login(credentials).then(function (user) {
-			    	
-			    	if(user.code=="200"){
-			    		if(user.type=="nonprofit"){
-			    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
-			    			
-			        	}else if(user.type=="donor"){
-			        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
-			        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			        		$state.go('treeSeed.donor', {donorId: response.donorId});
-			        	}	
-			    	}			      
-			    });
+			  
+			  if(response.code == "200")
+			  {
+				  var credentials = {
+						    email: $scope.requestObject.donor.userGeneral.email,
+						    password: $scope.requestObject.donor.userGeneral.password
+					   };
+					 	  
+					  AuthService.login(credentials).then(function (user) {
+						  
+						  console.log(JSON.stringify(user));
+					    	
+					    	if(user.code=="200"){
+					    		if(user.type=="nonprofit"){
+					    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+					    			
+					        	}else if(user.type=="donor"){
+					        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+					        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+					        		$state.go('treeSeed.donor', {donorId: response.donorId});
+					        	}
+					    	}
+					    });  
+			  }
+			  else
+			  {
+					if (response.code == "400")
+		        	{
+						$scope.facebookFail = true;
+						$scope.requestObject.donor.name = "";
+						$scope.requestObject.donor.lastName = "";
+						$scope.requestObject.donor.userGeneral.email = "";	
+		        	}
+			  }
+			
+			  
 		})			
 				
 	};
