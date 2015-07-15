@@ -309,6 +309,21 @@ margin-top: 15px;
 font-weight: bold;
 }
 
+ .btn-primary {
+    color:#fff!important;
+    background-color:#2196f3;
+    border-color:#2196f3
+}
+
+.btn-facebook {
+     color:#fff!important;
+    background-color:#3f51b5!important;
+    border-color:#3f51b5!important
+}
+textarea {
+  resize: none;
+}
+
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
   display: table;
@@ -327,20 +342,8 @@ font-weight: bold;
 	width:100%
   
 }
-textarea {
-  resize: none;
-}
- .btn-primary {
-    color:#fff!important;
-    background-color:#2196f3;
-    border-color:#2196f3
 }
 
-.btn-facebook {
-     color:#fff!important;
-    background-color:#3f51b5!important;
-    border-color:#3f51b5!important
-}
 
  .btn-primary:focus,
  .btn-primary:active,

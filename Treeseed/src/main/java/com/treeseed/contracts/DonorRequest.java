@@ -3,16 +3,34 @@ package com.treeseed.contracts;
 import com.treeseed.pojo.DonorPOJO;
 
 public class DonorRequest extends BasePagingRequest {
-	
+
 	private DonorPOJO donor;
 	private String name;
 	private String lastName;
 	private String country;
-	
+	private int id;
+	private int idUser;
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public DonorRequest() {
 		super();
 	}
-	
+
 	public DonorPOJO getDonor() {
 		return donor;
 	}
@@ -44,7 +62,7 @@ public class DonorRequest extends BasePagingRequest {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	public void setUser(DonorPOJO user) {
 		this.donor = user;
 	}
