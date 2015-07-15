@@ -236,4 +236,78 @@ public class NonprofitController extends UserGeneralController{
 		return nps;
 			
 	}
+	
+	
+	@RequestMapping(value ="/edit", method = RequestMethod.POST)
+	public NonprofitResponse nonProfitEdit(@RequestParam("name") String name, 
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			@RequestParam("country") String country,
+			@RequestParam("cause") String cause,
+			@RequestParam(value ="file", required=false) MultipartFile file){
+		String resultFileName = null;
+		NonprofitResponse us = new NonprofitResponse();
+		Boolean alreadyUser=userGeneralService.userExist(email);
+		email = email.toLowerCase();
+		
+		if(validator.isValid(email)){
+			if(!alreadyUser){
+		
+				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
+				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
+				
+				if(file!=null){
+					resultFileName = Utils.writeToFile(file,servletContext);
+				}else{
+					resultFileName = "resources/file-storage/1436319975812.jpg";
+				}
+				
+				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+				NonprofitWrapper user = new NonprofitWrapper();
+				
+				if(!resultFileName.equals("")){
+					user.setProfilePicture(resultFileName);
+				}else{
+					user.setProfilePicture("");
+				}
+				
+				user.setName(name);
+				
+				user.setActive(true);
+				user.setCause(causeW.getWrapperObject());
+				user.setConutry(countryW.getWrapperObject());
+				
+				int nonProfitId = nonProfitService.saveNonprofit(user);
+			
+				if(nonProfitId>0){
+					UserGeneralRequest ug = new UserGeneralRequest();
+					UserGeneralResponse ugr = new UserGeneralResponse();
+					UserGeneralPOJO userG=new UserGeneralPOJO();
+					userG.setEmail(email);
+					userG.setPassword(password);
+					ug.setUserGeneral(userG);
+					ugr= userGeneralCreate(ug,user);
+					
+					if(ugr.getCode()==200){
+						us.setNonProfitId(nonProfitId);
+						us.setCode(200);
+						us.setCodeMessage("user created succesfully");
+					}else{
+						us.setCode(ugr.getCode());
+						us.setCodeMessage(ugr.getCodeMessage());
+					}
+				}
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("EMAIL ALREADY IN USE");
+			}
+			
+		}else{
+			us.setCode(400);
+			us.setCodeMessage("BAD EMAIL");
+		}
+		
+		return us;
+		
+	}
 }
