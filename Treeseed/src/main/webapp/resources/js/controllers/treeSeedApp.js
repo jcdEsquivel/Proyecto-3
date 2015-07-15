@@ -17,7 +17,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
     	  AuthService.guestSession();
     	  
       }else if( $cookies['idUserTree']){
-    	  console.log('Logged');
+    	  
     	  $scope.currentUser={};    	 
     	  $scope.currentUser.idUser = $cookies['idUserTree'];
   	      $scope.currentUser.userName = $cookies['userNameTree'];

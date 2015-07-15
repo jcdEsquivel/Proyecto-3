@@ -18,4 +18,6 @@ public interface UserGeneralServiceInterface {
 
 	Boolean isEmailUnique(String email);
 	Boolean userExist(String email);
+	
+	Boolean validateFacebookId(String facebookId);
 }
