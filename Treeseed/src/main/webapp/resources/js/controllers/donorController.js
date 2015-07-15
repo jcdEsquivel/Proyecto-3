@@ -67,16 +67,14 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 			    	if(user.code=="200"){
 			    		if(user.type=="nonprofit"){
 			    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+			    			
 			        	}else if(user.type=="donor"){
 			        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
-			        	}
-			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			    		
-			    	}
-			      
+			        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			        		$state.go('treeSeed.donor', {donorId: response.donorId});
+			        	}	
+			    	}			      
 			    });
-
-			   $state.go('treeSeed.donor', {donorId: response.donorId});
 		})			
 				
 	};
@@ -228,7 +226,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 							$scope.isOwner=false;
 						}
 			}).error(function(mydata, status) {
-				alert(status);
+				console.log(status);
+				console.log("No data found")
 			});		
 	}
 	$scope.init();
