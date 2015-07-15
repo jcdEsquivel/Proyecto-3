@@ -37,7 +37,7 @@ import com.treeseed.testBase.*;
 
 
 @Transactional
-public class TestsNonProfitController extends AbstractTestController{
+public class TestsShowNGO extends AbstractTestController{
 
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	
@@ -54,59 +54,33 @@ public class TestsNonProfitController extends AbstractTestController{
 	    }
 	  
 	    @Test
-	    public void testShowNGO() throws Exception {
+	    public void testShowNGOwithoutSession() throws Exception {
 
 	    	int id = 39;
-	    	int sessionId= 19;
+	    	int sessionId= 0;
 	       
-	    	UserGeneralWrapper userGeneral = createRandomUserGeneral();
-		    String email=userGeneral.getEmail();
-		    String password=userGeneral.getPassword();
-		   
-		    LoginRequest req = new LoginRequest(email, "123456789");
-		    String jsonObject = mapToJson(req);
-			
-	        String uri = "/rest/login/checkuser";
-	               
-	       
-	        
-	        MvcResult result =mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
-	        
-
-	        String content = result.getResponse().getContentAsString();
-	        LoginResponse response = mapFromJson(content, LoginResponse.class);
-	        
-	        Assert.assertEquals("User authorized", response.getCodeMessage());
-	    	
-	    	
-	    	
-	    	
 	        NonprofitRequest request = new NonprofitRequest();
 	        
 	        request.setId(id);
 	        request.setIdUser(sessionId);
-	        String jsonObject2 = mapToJson(request);
+	        String jsonObject = mapToJson(request);
 	      
-	            String uri2 = "/rest/protected/nonprofit/getNonProfitProfile";
+	            String uri = "/rest/protected/nonprofit/getNonProfitProfile";
 
-	            MvcResult result2 = mvc.perform(
-	              MockMvcRequestBuilders.post(uri2)
+	            MvcResult result = mvc.perform(
+	              MockMvcRequestBuilders.post(uri)
 	                         .contentType(MediaType.APPLICATION_JSON)
-	                            .accept(MediaType.APPLICATION_JSON).content(jsonObject2))
+	                            .accept(MediaType.APPLICATION_JSON).content(jsonObject))
 	                .andReturn();
 	            
 
-	            String content2 = result.getResponse().getContentAsString();
+	            String content = result.getResponse().getContentAsString();
 	            
-	            NonprofitResponse response2 = mapFromJson(content2, NonprofitResponse.class);
-	            
-	           
-	            
-	            Assert.assertEquals("200", response2.getCode().toString());
+	            NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
+
+	            Assert.assertEquals("200", response.getCode().toString());
 	      
-	            NonprofitPOJO pojo = response2.getNonprofit();
+	            NonprofitPOJO pojo = response.getNonprofit();
 
 	            
 	            Assert.assertEquals("Causa 1", pojo.getName());
