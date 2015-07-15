@@ -38,7 +38,6 @@ public class NonprofitService implements NonprofitServiceInterface{
 		}
 		
 		Page<Nonprofit> pageResult = null;
-		Page<Nonprofit> pageResultado = null;
 		
 		String filterName = ur.getName();
 		int filterCause= 0;
