@@ -1,10 +1,10 @@
 package com.treeseed.services;
 
 import com.treeseed.contracts.LoginRequest;
-import com.treeseed.ejb.Usuario;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 
 public interface LoginServiceInterface {
 
-	Usuario checkUser(LoginRequest lr);
+	UserGeneralWrapper checkUser(String email, String password);
 
 }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
 import com.treeseed.ejb.Donor;
 
 public interface DonorRepository extends 
@@ -33,5 +34,6 @@ public interface DonorRepository extends
    Pageable pageable);
  Page<Donor> findByCountryContaining(String name,
    Pageable pageable);
+ Donor findByid(int id);
 ;
 }

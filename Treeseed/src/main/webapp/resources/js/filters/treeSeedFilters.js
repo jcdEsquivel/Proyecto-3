@@ -1,5 +1,5 @@
 'use strict';
-var treeSeedAppFilters = angular.module('treeSeed.filters', []);
+var treeSeedAppFilters = angular.module('treeSeedFilters', []);
 /* Filters */
 // need load the moment.js to use this filter. 
   treeSeedAppFilters.filter('fromNow', function() {

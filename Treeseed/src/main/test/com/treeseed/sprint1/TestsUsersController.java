@@ -20,11 +20,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.treeseed.testBase.AbstractTestController;
-
 import com.mongodb.util.JSON;
 import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitResponse;
-import com.treeseed.controllers.UsersController;
+import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
@@ -41,7 +41,7 @@ public class TestsUsersController extends AbstractTestController{
 	
 	
 	
-	 protected void setUp(UsersController controller) {
+	 protected void setUp(NonprofitController controller) {
 	        mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	    }
 	
@@ -51,9 +51,7 @@ public class TestsUsersController extends AbstractTestController{
 	        
 	    }
 	 
-	  
-	  
-	  
+	   
 	  /*
 	   @Test
 	    public void testEmailIsUnique() throws Exception {
@@ -107,6 +105,125 @@ public class TestsUsersController extends AbstractTestController{
 	   
 	  */
 	  
+	   @Test
+	    public void testCreateDonor() throws Exception {
+
+		    CatalogWrapper countryCat = createRandomCatalog();
+		    CatalogWrapper causeCat = createRandomCatalog();
+		    String idCatalog = "1";
+		   
+		    String email = "pruebaderegistrardonor@gmail.com";
+		    String password =getRandomString();
+		    String name= getRandomString();
+		    String lastName= getRandomString();
+			String cause =  idCatalog;
+			String country = idCatalog;
+			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
+			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
+			
+	        String uri = "/rest/protected/users/registerDonor";
+	               
+	        MvcResult result = mvc.perform(
+	        		MockMvcRequestBuilders.fileUpload(uri)
+		                    .file(file)
+		                    .param("name", name) 
+		                    .param("lastName", lastName) 
+		                    .param("email", email)
+		                    .param("password", password)
+		                    .param("country", country)
+		                    .param("type", cause))
+	        				.andReturn();
+	        
+	        String content = result.getResponse().getContentAsString();
+	        
+	        DonorResponse response = mapFromJson(content, DonorResponse.class);
+	        
+	        Assert.assertEquals("Donor registered succesfully", response.getCodeMessage());
+	      
+	    }
+	  
+	   @Test
+	    public void testCreatDonorWithSameEmail() throws Exception {
+
+		   String idCatalog = "1";
+		   createRandomUserGeneral();
+		   String email = "daniel@gmail.com";
+		   String password =getRandomString();
+			String name= getRandomString();
+			String lastName= getRandomString();
+			String cause =  idCatalog;
+			String country = idCatalog;
+			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
+			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
+			
+			
+	        String uri = "/rest/protected/users/registerDonor";
+	               
+	        
+	        MvcResult result = mvc.perform(
+	        		MockMvcRequestBuilders.fileUpload(uri)
+		                    .file(file)
+		                    .param("name", name) 
+		                    .param("lastName", lastName) 
+		                    .param("email", email)
+		                    .param("password", password)
+		                    .param("country", country)
+		                    .param("type", cause))
+	        				.andReturn();
+	        
+
+	        String content = result.getResponse().getContentAsString();
+	        
+	        DonorResponse response = mapFromJson(content, DonorResponse.class);
+	        
+	        Assert.assertEquals("EMAIL ALREADY IN USE", response.getCodeMessage());
+	      
+	    }
+	   
+	   
+	   @Test
+	    public void testCreateDonorWithBadEmailSyntaxis() throws Exception {
+
+		   CatalogWrapper countryCat = createRandomCatalog();
+		   CatalogWrapper causeCat = createRandomCatalog();
+		   String idCatalog = "1";
+		   
+		   
+		   String email = "pruebaderegistraonggmail.com";
+		   String password =getRandomString();
+			String name= getRandomString();
+			String lastName= getRandomString();
+			String cause =  idCatalog;
+			String country = idCatalog;
+			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
+			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
+			
+			
+	        String uri = "/rest/protected/users/registerDonor";
+	               
+	        
+	        MvcResult result = mvc.perform(
+	        		MockMvcRequestBuilders.fileUpload(uri)
+		                    .file(file)
+		                    .param("name", name) 
+		                    .param("lastName", lastName) 
+		                    .param("email", email)
+		                    .param("password", password)
+		                    .param("country", country)
+		                    .param("type", cause))
+	        				.andReturn();
+	        
+
+	        String content = result.getResponse().getContentAsString();
+	        
+	        DonorResponse response = mapFromJson(content, DonorResponse.class);
+	        
+	        Assert.assertEquals("BAD EMAIL", response.getCodeMessage());
+	      
+	    }
+	   
+	   
+	  ////////////////////////////////////////////////////////////////////////////////////
 	    @Test
 	    public void testCreateNGO() throws Exception {
 
@@ -218,7 +335,6 @@ public class TestsUsersController extends AbstractTestController{
 	        
 	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
 	      
-
 	    }
 	    
 	    @Test

@@ -1,10 +1,12 @@
 'use strict';
 var treeSeedApp = {};
 
-var treeSeedApp = angular.module('treeSeed', ['treeSeed.services',
+var treeSeedApp = angular.module('treeSeed', ['treeSeedMainController', 'treeSeedLogin',
+    'treeSeedConstants',
+    'treeSeedServices',
     'treeSeed.controller',
-    'treeSeed.directives',
-    'treeSeed.filters',
+    'treeSeedDirectives',
+    'treeSeedFilters',
     'ngAnimate',
     'ngAria',
     'ngCookies',

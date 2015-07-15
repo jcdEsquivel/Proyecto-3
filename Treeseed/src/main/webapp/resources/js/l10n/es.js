@@ -13,7 +13,8 @@
     	"CONFIGURATION": "Configuración",
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
-    	"SIGN_OUT": "Cerrar Sesión"	    	
+    	"SIGN_OUT": "Cerrar Sesión"	 ,
+    	"LOG_IN": "Iniciar Sesión"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",
@@ -69,7 +70,9 @@
         "REGISTER" : "Registrar",
         "CANCEL" : "Cancelar",
         "PASSWORD-MESSAGE" : "Contraseñas no coinciden.",
-        "PASSWORD-CONFIRM" : "Confirmar contraseña"
+        "PASSWORD-CONFIRM" : "Confirmar contraseña",
+        "REGISTERFACEBOOK" : "Registrarse con facebook",
+        "EXISTEMAIL": "El correo ya esta registrado."
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
@@ -100,6 +103,41 @@
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
         "PASSWORD-MESSAGE": "La contraseña no coincide",
-        "EMAIL-MESSAGE": "Email ya registrado"  	
+        "EMAIL-MESSAGE": "Email ya registrado"
+       },
+    "LOGIN": {
+    	"EMAIL": "Email", 
+    	"PASSWORD": "Constraseña",
+    	"LOGIN-BUTTON": "Iniciar Sesión",
+    	"REMEMBER": "Recordarme",
+    	"FORGET-PASSWORD":"¿Perdió su contraseña?",
+    	"FACEBOOK": "Iniciar con Facebook",
+    	"TWITTER": "Iniciar con Twitter",
+    	"LINKEDIN": "Inciar con Linkedin",
+    	"DO-YOU": "¿No tienes una cuenta?",
+    	"CREATE": "Crear una cuenta",
+		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
+     },
+      "NONPROFIT-PROFILE": {
+    	"PROFILE": "Perfil",
+        "MISSION": "Misión",
+        "REASON": "Razón",
+        "DESCRIPTION": "Descripción",
+        "CAMPAIGNS": "Campañas",
+        "UPDATES": "Actualizaciones",
+        "DONORS": "Donantes:",
+        "DONATIONS": "Donaciones:"
+     },
+     "BUTTONS": {
+    		"SAVE": "Guardar",
+    		"CANCEL": "Cancelar"
+     },
+      "DONOR-PROFILE": {
+        "INFORMATION": "Información",
+        "WHO": "¿Quién soy?",
+        "TREE": "Árbol de influencia",
+        "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
+        "TOTAL-DONATIONS": "Total de donaciones: ",
+        "MONEY-BROUGHT": "Dinero traído: "
      }
 }
