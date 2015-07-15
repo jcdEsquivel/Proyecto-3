@@ -1,0 +1,70 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+      <h1 class="m-n font-thin h3" translate="REGISTER-DONOR.TITTLE">Register Donor</h1>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal col-sm-10 col-sm-offset-0" id="createDonorForm" name="registerForm" role="form">
+	  <div  class="col-sm-5 md-whiteframe-treeseed">
+      	<md-input-container flex>	
+          <label translate="REGISTER-DONOR.NAME">Name</label>
+          <input type="text" ng-model="requestObject.donor.name" class="form-control" required>   
+        </md-input-container>
+        <md-input-container flex>
+          <label translate="REGISTER-DONOR.LASTNAME">Last Name</label>
+         <input type="text" ng-model="requestObject.donor.lastName" class="form-control" required>  
+        </md-input-container>
+        <md-input-container flex id="emailValidate">
+          <label translate="REGISTER-DONOR.EMAIL">Email</label>
+          <input type="text" is-email-unique="" name="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="requestObject.donor.userGeneral.email" class="form-control" required >   
+        </md-input-container>
+        <span class="input-error-message" ng-show="registerForm.email.$error.unique">Correo ya registrado
+		</span>
+        <md-input-container flex>
+          <label translate="REGISTER-DONOR.PASSWORD">Password</label>
+         <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
+        </md-input-container>
+        
+        <md-input-container flex>
+       <label  translate="REGISTER-DONOR.PASSWORD-CONFIRM"></label>
+       <input type="password" class="form-control" name="confirm_password" required ng-model="confirm_password" ui-validate=" '$value==requestObject.donor.userGeneral.password' " ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
+        </md-input-container>               
+         <span ng-show='registerForm.confirm_password.$error.validator' translate="REGISTER-DONOR.PASSWORD-MESSAGE"></span>
+        
+        <label class="labels-dropdowns" translate="REGISTER-DONOR.COUNTRY"></label> 
+        <md-input-container flex> 
+         <div>
+         <md-select style="width:100%;" ng-model="requestObject.donor.country">
+		    <md-select-label value="requestObject.donor.country">{{ requestObject.donor.country.message }}</md-select-label>
+		    <md-option ng-repeat="country in selectSortOptions"
+		               ng-value="country">
+		        {{ country.message  }}
+		    </md-option>
+		 </md-select>   
+         </div>
+         </md-input-container>  	    
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+        <md-input-container flex> 
+        <label translate="REGISTER-DONOR.PICTUREIMAGE">Picture Image</label>
+         </md-input-container>
+        <div class="panel wrapper">
+	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
+	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">
+	    		<a translate="REGISTER-DONOR.DROPIMAGE">Drop an image here to upload.</a>
+			</div>
+		</div>
+		<a href="#" id="login" class="btn btn-primary" translate="REGISTER-DONOR.REGISTERFACEBOOK">Register with Facebook</a>
+		<br>
+		<span class="input-error-message" ng-show="facebookFail" translate="REGISTER-DONOR.EXISTEMAIL">Correo ya registrado</span>
+		<br>
+		</div>
+		<div class="form-group">
+          <div class="col-sm-6 col-sm-offset-9">
+            <button type="submit" class="btn btn-default" translate="REGISTER-DONOR.CANCEL">Cancel</button>
+            <button type="submit" ng-click="create()" class="btn btn-primary" ng-disabled="registerForm.$invalid" translate="REGISTER-DONOR.REGISTER">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>    
+</div>    

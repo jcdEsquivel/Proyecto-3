@@ -4,6 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.servlet.ServletContext;
@@ -19,7 +22,14 @@ public class Utils {
 	
 	// save uploaded file to new location
 	public static String writeToFile(MultipartFile file, ServletContext servletContext) {
-		String extension = getExtension(file.getOriginalFilename(),".").toLowerCase();
+	
+		String extension = getExtension("png",".").toLowerCase();
+		
+		if (extension == ".undefined")
+		{
+			extension = ".png";
+		}
+	
 		String consecutiveName = ""+new Date().getTime();
 		
 		String uploadedFileLocation = servletContext.getRealPath("") + RESOURCES_PATH + consecutiveName + extension;
@@ -45,6 +55,18 @@ public class Utils {
 	private static String getExtension(String filename, String extensionSeparator) {
 	    int dot = filename.lastIndexOf(extensionSeparator);
 	    return "."+filename.substring(dot + 1);
+	}
+	
+	public static byte[] encryption(String text){
+	
+		try{
+			MessageDigest coded = MessageDigest.getInstance("MD5");
+			return coded.digest(text.getBytes("UTF-8"));
+		} catch (NoSuchAlgorithmException ex) {
+	        throw new RuntimeException("No MD5 implementation");
+	    } catch (UnsupportedEncodingException ex) {
+	        throw new RuntimeException("No UTF-8 encoding");
+	    }	
 	}
 
 }

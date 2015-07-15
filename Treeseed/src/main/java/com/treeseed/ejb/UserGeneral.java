@@ -1,6 +1,8 @@
 package com.treeseed.ejb;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -18,10 +20,17 @@ public class UserGeneral implements Serializable {
 	private int id;
 
 	private String email;
+	
+	private String facebookToken;
+	private String facebookId;
+	
+	private String password;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_time")
+	private Date dateTime;
 
 	private boolean isActive;
-
-	private String password;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -50,6 +59,14 @@ public class UserGeneral implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Date getDateTime() {
+		return this.dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public boolean getIsActive() {
@@ -83,5 +100,23 @@ public class UserGeneral implements Serializable {
 	public void setNonprofit(Nonprofit nonprofit) {
 		this.nonprofit = nonprofit;
 	}
+
+	public String getFacebookToken() {
+		return facebookToken;
+	}
+
+	public void setFacebookToken(String facebookToken) {
+		this.facebookToken = facebookToken;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+
 
 }
