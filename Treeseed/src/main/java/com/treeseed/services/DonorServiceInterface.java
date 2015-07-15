@@ -14,5 +14,4 @@ public interface DonorServiceInterface {
 
 	Donor getSessionDonor(int idUser);
 	
-	String validateFacebookId(String facebookId);
 }

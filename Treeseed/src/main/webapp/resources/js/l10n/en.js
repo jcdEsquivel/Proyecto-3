@@ -80,7 +80,8 @@
         "CANCEL" : "Cancel",
         "PASSWORD-MESSAGE" : "Passwords do not match.",
     	"PASSWORD-CONFIRM" : "Confirm password",
-    	"REGISTERFACEBOOK" : "Register with facebook"
+    	"REGISTERFACEBOOK" : "Register with facebook",
+    	"EXISTEMAIL": "The email already exists."
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"

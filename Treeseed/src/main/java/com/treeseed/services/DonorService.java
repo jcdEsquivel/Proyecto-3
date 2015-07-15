@@ -74,25 +74,4 @@ public class DonorService implements DonorServiceInterface{
 		return null;
 	}
 	
-	@Autowired
-    JdbcTemplate jdbcTemplate;
-	@Transactional
-	public String validateFacebookId(String facebookId){
-		
-		String id = "1010";
-		if(!facebookId.equals(""))
-		{
-			id = facebookId;	
-		}
-		
-		String sql = "select id from user_general where facebook_id = "+ id +"";
-	    List<String> certs = jdbcTemplate.queryForList(sql, String.class); 
-	    if (certs.isEmpty()) {
-	        return null;
-	    } else {
-	        return certs.get(0);
-	    }
-
-	}
-		
 }

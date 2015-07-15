@@ -95,8 +95,8 @@ public class DonorController extends UserGeneralController{
 		Boolean alreadyUser=userGeneralService.userExist(email);
 		  email = email.toLowerCase();
 		  
-	    String result = donorService.validateFacebookId(facebookId); 
-		if (result != null)  
+	    Boolean result = userGeneralService.validateFacebookId(facebookId); 
+		if (result == true)  
 		{
 			us.setCode(400);
 		    us.setCodeMessage("ID FACEBOOK ALREADY REGISTER");

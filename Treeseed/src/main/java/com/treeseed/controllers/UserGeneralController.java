@@ -97,9 +97,23 @@ public class UserGeneralController {
 		}else{
 			DonorWrapper userDonor = (DonorWrapper)user;
 			userGeneral.setDonor(userDonor.getWrapperObject());
-			userGeneral.setFacebookID(ur.getUserGeneral().getFacebookId());
-			userGeneral.setFacebookToken(ur.getUserGeneral().getFacebookToken());
-			//hacer if si traen tokens y ids y asignarselo al wrapper
+			if(ur.getUserGeneral().getFacebookId() == null)
+			{
+				userGeneral.setFacebookID("");
+			}
+			else
+			{
+				userGeneral.setFacebookID(ur.getUserGeneral().getFacebookId());
+			}
+			
+			if(ur.getUserGeneral().getFacebookToken() == null)
+			{
+				userGeneral.setFacebookToken("");
+			}
+			else
+			{
+				userGeneral.setFacebookToken(ur.getUserGeneral().getFacebookToken());
+			}
 		}
 		
 		Boolean state = userGeneralService.saveUserGeneral(userGeneral);

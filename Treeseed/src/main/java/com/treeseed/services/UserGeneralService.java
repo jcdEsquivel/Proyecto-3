@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.treeseed.contracts.UserGeneralRequest;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
@@ -98,5 +100,27 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 			return true;
 		}
 	}
+	
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+	@Transactional
+	public Boolean validateFacebookId(String facebookId){
+		
+		String id = "1010";
+		if(!facebookId.equals(""))
+		{
+			id = facebookId;	
+		}
+		
+		UserGeneral ug = usersRepository.findByFacebookId(id);
+		
+	    if (ug == null) {
+	        return false;
+	    } else {
+	        return true;
+	    }
+
+	}
+	
 
 }

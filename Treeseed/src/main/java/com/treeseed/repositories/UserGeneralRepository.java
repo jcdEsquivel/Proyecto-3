@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
 
 public interface UserGeneralRepository extends 
@@ -17,4 +18,6 @@ public interface UserGeneralRepository extends
 	Page<UserGeneral> findAll(Pageable pageable);
 	
 	UserGeneral findByEmail(String email);
+	
+	UserGeneral findByFacebookId (String facebookId);
 }
