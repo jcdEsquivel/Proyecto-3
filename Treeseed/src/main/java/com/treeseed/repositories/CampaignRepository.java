@@ -29,9 +29,11 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 			   Pageable pageable);
 
 	Page<Campaign> findAll(Pageable pageable);
-	Page<Campaign> findByNameContaining(String name, Pageable pageable);
+	
 	Page<Campaign> findByNonprofit(String name, Pageable pageable);	
 	Campaign findByid(int id);*/
+	
+	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
 	
 
 }
