@@ -238,76 +238,104 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
-	@RequestMapping(value ="/edit", method = RequestMethod.POST)
-	public NonprofitResponse nonProfitEdit(@RequestParam("name") String name, 
+	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST)
+	public NonprofitResponse editNonProfit(@RequestParam("idNonProfit") String idNonProfit,
+			@RequestParam("idUserGeneral") String idUserGeneral,
+			@RequestParam("nombre") String nombre, 
 			@RequestParam("email") String email,
-			@RequestParam("password") String password,
-			@RequestParam("country") String country,
-			@RequestParam("cause") String cause,
-			@RequestParam(value ="file", required=false) MultipartFile file){
-		String resultFileName = null;
+			@RequestParam("mission") String mission,
+			@RequestParam("description") String description,
+			@RequestParam("reason") String reason,
+			@RequestParam(value ="coverImage", required=false) MultipartFile coverImage,
+			@RequestParam(value ="profileImage", required=false) MultipartFile profileImage){
+		
+		String coverImageName = null;
+		String profileImageName = null;
 		NonprofitResponse us = new NonprofitResponse();
-		Boolean alreadyUser=userGeneralService.userExist(email);
-		email = email.toLowerCase();
 		
-		if(validator.isValid(email)){
-			if(!alreadyUser){
+		System.out.println("esoooo");
 		
-				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
-				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
-				
-				if(file!=null){
-					resultFileName = Utils.writeToFile(file,servletContext);
-				}else{
-					resultFileName = "resources/file-storage/1436319975812.jpg";
-				}
-				
-				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-				NonprofitWrapper user = new NonprofitWrapper();
-				
-				if(!resultFileName.equals("")){
-					user.setProfilePicture(resultFileName);
-				}else{
-					user.setProfilePicture("");
-				}
-				
-				user.setName(name);
-				
-				user.setActive(true);
-				user.setCause(causeW.getWrapperObject());
-				user.setConutry(countryW.getWrapperObject());
-				
-				int nonProfitId = nonProfitService.saveNonprofit(user);
+		UserGeneral ug = new UserGeneral();
+		ug = userGeneralService.getUGByID(Integer.parseInt(idUserGeneral));
+		
+		if(ug.getEmail()==email){
 			
-				if(nonProfitId>0){
-					UserGeneralRequest ug = new UserGeneralRequest();
-					UserGeneralResponse ugr = new UserGeneralResponse();
-					UserGeneralPOJO userG=new UserGeneralPOJO();
-					userG.setEmail(email);
-					userG.setPassword(password);
-					ug.setUserGeneral(userG);
-					ugr= userGeneralCreate(ug,user);
+			Boolean alreadyUser=userGeneralService.userExist(email);
+			email = email.toLowerCase();
+
+			if(validator.isValid(email)){
+				if(!alreadyUser){
 					
-					if(ugr.getCode()==200){
-						us.setNonProfitId(nonProfitId);
-						us.setCode(200);
-						us.setCodeMessage("user created succesfully");
-					}else{
-						us.setCode(ugr.getCode());
-						us.setCodeMessage(ugr.getCodeMessage());
+					if(coverImage!=null){
+						coverImageName = Utils.writeToFile(coverImage,servletContext);
 					}
+		
+					if(profileImage!=null){
+						profileImageName = Utils.writeToFile(profileImage,servletContext);
+					}
+
+					NonprofitWrapper nonprofit = new NonprofitWrapper();
+					
+					if(!coverImageName.equals("")){
+						nonprofit.setProfilePicture(coverImageName);
+					}else{
+						nonprofit.setProfilePicture("");
+					}
+					
+					if(!profileImageName.equals("")){
+						nonprofit.setProfilePicture(profileImageName);
+					}else{
+						nonprofit.setProfilePicture("");
+					}
+					
+					nonprofit.setId(Integer.parseInt(idNonProfit));
+					nonprofit.setName(nombre);
+					nonprofit.setDescription(description);
+					nonprofit.setMision(mission);
+					nonprofit.setReason(reason);
+					
+					Nonprofit nonprofitobject = new Nonprofit();
+					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+					
+					nonProfitService.updateNonProfit(nonprofit);
+					
+					nonprofitobject= nonProfitService.getSessionNonprofit(Integer.parseInt(idNonProfit));
+					
+					nonprofitPOJO.setName(nonprofitobject.getName());
+					
+					
+					us.setNonprofit(nonprofitPOJO);
+					us.setCode(200);
+					us.setCodeMessage("Nonprofit updated sucessfully");
+					
+				}else{
+					us.setCode(400);
+					us.setCodeMessage("EMAIL ALREADY IN USE");
 				}
+				
 			}else{
 				us.setCode(400);
-				us.setCodeMessage("EMAIL ALREADY IN USE");
+				us.setCodeMessage("BAD EMAIL");
 			}
-			
+
 		}else{
-			us.setCode(400);
-			us.setCodeMessage("BAD EMAIL");
+			
+			
+			UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+			userGeneral.setEmail(email);
+			
+			UserGeneral userGeneralobject = new UserGeneral();
+			UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+			
+			userGeneralService.updateUserGeneral(userGeneral);
+			
+			userGeneralobject = userGeneralService.getUGByID(Integer.parseInt(idUserGeneral));
+	
+			userGeneralPOJO.setEmail(userGeneralobject.getEmail());
+			us.setUserGeneral(userGeneralPOJO);;
+			us.setCode(200);
+			us.setCodeMessage("Nonprofit updated sucessfully");	
 		}
-		
-		return us;
-		
+		return us;		
 	}
 }

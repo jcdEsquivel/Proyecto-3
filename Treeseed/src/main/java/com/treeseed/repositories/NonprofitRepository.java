@@ -37,5 +37,19 @@ public interface NonprofitRepository extends
 	Nonprofit findByid(int id);
 	
 	
+	@Query("UPDATE Nonprofit n SET name = :name, description = :description, mision= :mision, "
+			+ "reason= :reason, mainPicture = :mainPicture, profilePicture = :profilePicture, "
+			+ "webPage = :webPage where n.id = :id") 
+	  public void update(
+			   @Param("id") int id,
+			   @Param("name") String name,
+			   @Param("description") String description,
+			   @Param("mision") String mision,
+			   @Param("reason") String reason,
+			   @Param("mainPicture") String mainPicture,
+			   @Param("profilePicture") String profilePicture,
+			   @Param("webPage") String webPage)
+			   ;
+	
 ;
 }

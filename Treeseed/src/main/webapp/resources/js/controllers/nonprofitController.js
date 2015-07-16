@@ -178,13 +178,13 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 })
 
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
 
 	
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
-	$scope.isOwner = false;	
+	$scope.isOwner = true;	
 	
 	
 	$scope.init = function() {
@@ -196,11 +196,11 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
 					console.log(mydata.owner)
-					if(mydata.owner==true){
+					/*if(mydata.owner==true){
 						$scope.isOwner=true;
 					}else{
 						$scope.isOwner=false;
-					}
+					}*/
 			
 		}).error(function(mydata, status) {
 			alert(status);
@@ -251,7 +251,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.descriptionSaveEditing = function(){
-		$scope.nonprofit.description = $scope.descriptionEdit;
+		
+		$scope.editNonProfit();
 		$scope.descriptionInEdition = false;
 	};
 
@@ -271,6 +272,72 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 	//Finish controller for edit buttons
 	
+	$scope.nonprofit1={};
+	$scope.nonprofit1.email = "";
+	$scope.nonprofit1.nombre = "";
+	$scope.nonprofit1.description= "";
+	$scope.nonprofit1.reason= "";
+	$scope.nonprofit1.mission= "";
+	$scope.nonprofit1.idNP=""; 
+	$scope.nonprofit1.idUG="";
+	$scope.nonprofit1.coverImage=null;
+	$scope.nonprofit1.profileImage=null;
+	
+	$scope.editNonProfit = function(){
+
+		$scope.nonprofit1.email = "correo333@333.com";
+		$scope.nonprofit1.nombre = "esooooo";
+		$scope.nonprofit1.description= "descripcion";
+		$scope.nonprofit1.reason= "razon";
+		$scope.nonprofit1.mission= "mission";
+		$scope.nonprofit1.idNP="69"; 
+		$scope.nonprofit1.idUG="62";
+		$scope.nonprofit1.coverImage=null;
+		$scope.nonprofit1.profileImage=null;
+		  
+	/*	$http.post('rest/protected/nonprofit/editNonProfit',
+			$scope.idNP,
+			$scope.idUG,
+			$scope.name,
+			$scope.email,
+			$scope.mission,
+			$scope.description,
+			$scope.reason
+			
+			 ).success(function(mydata, status) {
+				$scope.nonprofit = mydata.nonprofit;
+				console.log(mydata.owner)
+				if(mydata.owner==true){
+					$scope.isOwner=true;
+				}else{
+					$scope.isOwner=false;
+				}
+		
+		}).error(function(mydata, status) {
+			alert(status);
+		});	
+		*/
+		
+		$scope.upload = $upload.upload({
+		    url : 'rest/protected/nonprofit/editNonProfit',
+		    data : {
+		    	idNonProfit:$scope.nonprofit1.idNP,
+		    	idUserGeneral:$scope.nonprofit1.idUG,
+				nombre:$scope.nonprofit1.nombre,
+				email:$scope.nonprofit1.email,
+				mission:$scope.nonprofit1.mission,
+				description:$scope.nonprofit1.description,
+				reason:$scope.nonprofit1.reason
+		    },
+		    coverImage :$scope.nonprofit1.coverImage,
+		    profileImage:$scope.nonprofit1.profileImage,
+		    
+		   }).success(function(response){
+			   
+		   })
+			
+		  
+	};
 
 })
 ;

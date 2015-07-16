@@ -96,4 +96,20 @@ public class NonprofitService implements NonprofitServiceInterface{
 	public Nonprofit getNonProfitByID(NonprofitRequest ur) {
 		return nonprofitsRepository.findByid(ur.getId());
 	}
+	
+	
+	@Override
+	@Transactional
+	public void updateNonProfit(NonprofitWrapper nonProfit) {
+		nonprofitsRepository.update(nonProfit.getId(),
+				nonProfit.getName(), 
+				nonProfit.getDescription(),
+				nonProfit.getMision(),
+				nonProfit.getReason(),
+				nonProfit.getMainPicture(),
+				nonProfit.getProfilePicture(),
+				nonProfit.getWebPage()
+				);		
+	}
+
 }
