@@ -209,9 +209,7 @@ treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, US
 						}
 
 						$cookies['idSessionTree'] = res.data.idSession;
-						$cookies['idUserTree'] = res.data.idSession;
-						
-						console.log('logged '+$cookies['idUserTree']);
+						$cookies['idUserTree'] = res.data.idUser;
 
 					}
 

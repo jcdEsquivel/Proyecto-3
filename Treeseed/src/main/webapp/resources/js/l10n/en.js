@@ -5,7 +5,7 @@
     	"ADVANCE_SEARCH": "Advance Search",
     	"SEARCH_NGO": "For Nonprofits",
     	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "For Campaigns",
+    	"SEARCH_CAMPAIGN": "For Campaigns",
     	"DONOR": "Donor",
     	"SEARCH_DONOR": "For Donors",
     	"SEARCH": "Search",
@@ -147,9 +147,9 @@
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
     },
-      "CREATE-CAMPAING": {
+      "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
-    	"TITLE":"Create Campaing",
+    	"TITLE":"Create Campaign",
         "TAB-1": {
         	"TITLE":"General Information",
         	"NAME":"Name:",
@@ -165,7 +165,7 @@
         },
     	"TAB-3":{
     		"TITLE":"Image",
-        	"IMAGE":"Campaing's Main Image:",
+        	"IMAGE":"Campaign's Main Image:",
         	"DROPIMAGE":"Drop an image here to upload.",
         	"BUTTON-PREV":"Previous",
         	"BUTTON-FINALIZE":"Create"

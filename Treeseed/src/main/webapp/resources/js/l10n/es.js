@@ -5,7 +5,7 @@
     	"ADVANCE_SEARCH": "Búsqueda Avanzada",
     	"SEARCH_NGO": "ONG",
     	"CAMPAIGN": "Campaña",
-    	"SEARCH_CAMPAING": "Campañas",
+    	"SEARCH_CAMPAIGN": "Campañas",
     	"DONOR": "Donante",
     	"SEARCH_DONOR": "Donantes",
     	"SEARCH": "Buscar",
@@ -140,7 +140,7 @@
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
      },
-     "CREATE-CAMPAING": {
+     "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
      	"TITLE":"Crear Campaña",
          "TAB-1": {

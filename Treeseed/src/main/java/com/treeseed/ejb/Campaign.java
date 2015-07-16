@@ -25,7 +25,7 @@ public class Campaign implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
-
+	@Column(length=1000)
 	private String description;
 
 	@Temporal(TemporalType.TIMESTAMP)

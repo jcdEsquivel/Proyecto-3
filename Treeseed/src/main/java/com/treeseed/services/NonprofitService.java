@@ -69,8 +69,8 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 
 	@Override
-	public Nonprofit getSessionNonprofit(int idNonprofit) {
-		return nonprofitsRepository.findOne(idNonprofit);
+	public NonprofitWrapper getSessionNonprofit(int idNonprofit) {
+		return new NonprofitWrapper(nonprofitsRepository.findOne(idNonprofit));
 	}
 
 	@Override

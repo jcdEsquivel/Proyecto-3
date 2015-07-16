@@ -3,6 +3,7 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope) {
 	$scope.percent = 0;
+	$scope.maxCarac= 1000;
 	$scope.stateInput1 = false;
 	$scope.stateInput2 = false;
 	$scope.stateInput3 = false;
@@ -10,17 +11,14 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	$scope.stateInput5 = false;
 	$scope.mindate = new Date();
 
-	$scope.campaing = {};
+	$scope.campaign = {};
 	$scope.uploadImage = false;
-	$scope.campaing.name = "";
-	$scope.campaing.description = "";
-	$scope.campaing.date = new Date();
-	$scope.campaing.amount = "";
+	$scope.campaign.name = "";
+	$scope.campaign.description = "";
+	$scope.campaign.dueDate;
+	$scope.campaign.amountGoal = "";
 	$scope.image = "";
 
-	$scope.hola = function() {
-		alert("hola");
-	}
 	$scope.create = function(event) {
 
 		this.onError = false;
@@ -28,17 +26,18 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope.upload = $upload.upload({
 			url : 'rest/protected/campaing/create',
 			data : {
-				email : $scope.campaing.name,
-				description : $scope.campaing.description,
-				date : $scope.campaing.date,
-				amount : $scope.campaing.amount
+				name : $scope.campaign.name,
+				description : $scope.campaign.description,
+				date : $scope.campaign.dueDate,
+				amount : $scope.campaign.amountGoal,
+				idNonprofit: $scope.currentUser.idUser				
 			},
 			file : $scope.image,
 		}).success(function(response) {
 
-			$state.go('treeSeed.campaing', {
-				campaing : response.campaingId
-			});
+			/*$state.go('treeSeed.campaing', {
+				campaign : response.campaignId
+			});*/
 		})
 
 	};

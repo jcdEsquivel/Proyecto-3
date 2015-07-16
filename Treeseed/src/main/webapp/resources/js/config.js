@@ -103,11 +103,11 @@ angular
 											{
 												url : 'createCampaing',
 												templateUrl : 'layouts/pages/createCampaing.html',
-												controller: 'campaingCreateController'/*,
+												controller: 'campaingCreateController',
 												data : {
 												authorizedRoles : [
 														USER_ROLES.nonprofit ]
-												}*/
+												}
 											})
 									.state(
 											'treeSeed.campaingViewer',
