@@ -1,5 +1,23 @@
-<div>
-<div></div>
-<div></div>
-<div></div>
+<div style="height: 100%" class="panel panel-default" ng-controller="selectUserController">
+	<div class="panel-heading font-bold">
+		<h1 class="m-n font-thin h3" translate="SELECT-USER.TITLE"></h1>
+	</div>
+	<div class="col-sm-12"></div>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-3 ">
+		<a ui-sref="treeSeed.registerDonor"> <img
+			ng-mouseover="hoverDonor()" ng-mouseleave="unHoverDonor()"
+			class="imagediv " ng-src="{{srcDonor}}">
+		</a>
+	</div>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-3 ">
+		<a ui-sref="treeSeed.registerNonProfit"> <img
+			ng-mouseover="hoverNonprofit()" ng-mouseleave="unHoverNonprofit()"
+			class="imagediv"
+			ng-src="{{srcNonprofit}}">
+		</a>
+	</div>
+	<div class="col-sm-2">
+	</div>
 </div>

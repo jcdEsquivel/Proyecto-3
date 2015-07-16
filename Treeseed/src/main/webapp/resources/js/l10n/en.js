@@ -14,7 +14,9 @@
     	"PROFILE": "Profile",
     	"HELP": "Help",
     	"SIGN_OUT": "Sign out",
-    	"LOG_IN": "Login"
+    	"LOG_IN": "Login",
+    	"SIGN-ON": "Sign On"
+    		
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navigation",
@@ -146,5 +148,8 @@
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
+    },
+    "SELECT-USER":{
+    	"TITLE":"Sign up as:"
     }
 }

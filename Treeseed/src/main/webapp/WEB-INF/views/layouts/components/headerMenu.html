@@ -108,6 +108,9 @@
           <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
           		<button class="btn m-b-xs  btn-success btn-rounded " ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
           </li>
+          <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
+          		<button class="btn m-b-xs  btn-success btn-rounded " ui-sref="treeSeed.selectUser" translate="MENU-HEADER.SIGN-ON"></button>
+          </li>
           <li class="dropdown"  ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">

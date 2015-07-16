@@ -14,7 +14,8 @@
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
     	"SIGN_OUT": "Cerrar Sesión"	 ,
-    	"LOG_IN": "Iniciar Sesión"   	
+    	"LOG_IN": "Iniciar Sesión",
+    	"SIGN-ON": "Registrase"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",
@@ -139,5 +140,8 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
+     },
+     "SELECT-USER":{
+     	"TITLE":"Registrarse como:"
      }
 }

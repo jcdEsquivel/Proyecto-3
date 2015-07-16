@@ -139,6 +139,17 @@ angular
 												controller : "donorRegistrationController"
 											})
 									.state(
+											'treeSeed.selectUser',
+											{
+												url : 'selecUser',
+												templateUrl : 'layouts/pages/registerUserSelect.html',
+												data : {
+													authorizedRoles : [	USER_ROLES.guest ]
+												
+												}
+												
+											})
+									.state(
 											'treeSeed.donorSearch',
 											{
 												url : 'donorSearch',
@@ -146,6 +157,7 @@ angular
 												resolve : load([ 'angularUtils.directives.dirPagination' ]),
 												controller : "donorSearchController"
 											});
+							
 
 							function load(srcs, callback) {
 								return {
