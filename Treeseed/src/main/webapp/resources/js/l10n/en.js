@@ -146,5 +146,14 @@
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
-    }
+    },
+   	"POST-MODAL":{ 
+   		"MODAL-TITLE": "Add New Post",
+   		"TITLE": "Title",
+   		"DESCRIPTION": "Description",
+   		"PICTURE": "Picture",
+   		"ADD-BUTTON": "Add",
+   		"CANCEL": "Cancel"
+   		
+   	}
 }

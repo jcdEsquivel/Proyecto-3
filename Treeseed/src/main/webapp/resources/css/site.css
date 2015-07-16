@@ -465,4 +465,11 @@ fieldset[disabled] .btn-primary.active {
 }
 
 
+ .post-img-div{
+ 	padding-top: 1%;
+ }
  
+ 
+ .post-modal-elements-width{
+ 	width:100%;
+ }
