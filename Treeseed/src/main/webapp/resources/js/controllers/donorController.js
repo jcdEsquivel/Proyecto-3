@@ -11,6 +11,8 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.requestObject.donor.webPage = "";
 	$scope.requestObject.donor.country = "";
 	$scope.requestObject.donor.type = "";
+	$scope.requestObject.donor.facebookId = "";
+	$scope.requestObject.donor.facebookToken = "";
 	
 	$scope.requestObject.donor.userGeneral = {};
 	$scope.requestObject.donor.userGeneral.email = "";
@@ -18,6 +20,114 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 	$scope.confirm_password = $scope.requestObject.donor.userGeneral.password;
 	$scope.requestObject.donor.userGeneral.confirmPassword = "";	
 	$scope.image = "";
+	var app_id = '319610508162843';
+	$scope.facebookFail = false;
+	
+	$scope.init = function()
+	{
+		(function(d, s, id){
+		    var js, fjs = d.getElementsByTagName(s)[0];
+		    if (d.getElementById(id)) {return;}
+		    js = d.createElement(s); js.id = id;
+		    js.src = "//connect.facebook.net/en_US/sdk.js";
+		    fjs.parentNode.insertBefore(js, fjs);
+		  }(document, 'script', 'facebook-jssdk'));
+		
+		window.fbAsyncInit = function() {
+
+		  	FB.init({
+		  		
+		    	appId      : app_id,
+		    	status     : true,
+		    	cookie     : true, 
+		    	xfbml      : true, 
+		    	version    : 'v2.1'
+		    		
+		  	});
+
+		  	FB.getLoginStatus(function(response) {
+		  		if (response.status === 'connected') {
+		  		    //console.log(response.authResponse.accessToken);
+		  		    $scope.requestObject.donor.facebookToken = response.authResponse.accessToken;
+		  		  }
+		    	statusChangeCallback(response, function() {});
+		  	});
+	  	};	
+		  
+	}
+	
+	var statusChangeCallback = function(response, callback) {
+    	if (response.status === 'connected') {
+      		//getFacebookData();
+    	} else {
+     		callback(false);
+    	}
+  	}
+
+  	var checkLoginState = function(callback) {
+    	FB.getLoginStatus(function(response) {
+      		callback(response);
+    	});
+  	}
+		
+	var getFacebookData =  function() {	
+  		FB.api('/me?fields=id,first_name,last_name,location,email', function(response) {
+  			console.log(JSON.stringify(response));
+  	
+	  		// return an image as an ArrayBuffer.
+	  		var xhr = new XMLHttpRequest();
+	  		
+	  		// cross-domain issues.
+	  		xhr.open( "GET", 'http://graph.facebook.com/'+response.id+'/picture?type=large', true );
+	
+	  		// Ask for the result as an ArrayBuffer.
+	  		xhr.responseType = "arraybuffer";
+	
+	  		xhr.onload = function( e ) {
+	  		    // Obtain a blob: URL for the image data.
+	  		    var arrayBufferView = new Uint8Array( this.response );
+	  		    var blob = new Blob( [ arrayBufferView ], { type: "image/jpg" } );
+	  		    var urlCreator = window.URL || window.webkitURL;
+	  		    var imageUrl = urlCreator.createObjectURL(blob);
+	  		    //var img = document.querySelector( "#fileDisplayArea");
+	  		    
+	  		    $scope.image = blob;
+	  		    $scope.requestObject.donor.userGeneral.email = response.email
+				$scope.requestObject.donor.name = response.first_name
+				$scope.requestObject.donor.lastName = response.last_name
+				$scope.requestObject.donor.country.id = 1;
+	  		    $scope.requestObject.donor.facebookId = response.id;
+				$scope.create();
+				
+	  		};
+
+	  		xhr.send();		  		
+		});
+  	}
+		
+	var facebookLogin = function() {
+  		checkLoginState(function(data) {
+  			if (data.status !== 'connected') {
+  				FB.login(function(response) {
+  					if (response.status === 'connected')
+  						getFacebookData();
+  				}, {scope: 'email,user_location'});
+  			}
+  		})
+  	}
+	
+  	var facebookLogout = function() {
+  		checkLoginState(function(data) {
+  			if (data.status === 'connected') {
+				FB.logout(function(response) {
+					$('#facebook-session').before(btn_login);
+					$('#facebook-session').remove();
+				})
+			}
+  		})
+  	}
+	
+	$scope.init();
 	
 	$scope.countryName = "";
 	
@@ -52,31 +162,48 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 				password:$scope.requestObject.donor.userGeneral.password,
 				name:$scope.requestObject.donor.name,
 				lastName:$scope.requestObject.donor.lastName,
-				country:$scope.requestObject.donor.country.id
+				country:$scope.requestObject.donor.country.id,
+				facebookId:$scope.requestObject.donor.facebookId,
+				facebookToken:$scope.requestObject.donor.facebookToken
 			},
 			file : $scope.image,
 		}).success(function(response){
-			   
-			  var credentials = {
-				    email: $scope.requestObject.donor.userGeneral.email,
-				    password: $scope.requestObject.donor.userGeneral.password
-			   };
-			 
-			  AuthService.login(credentials).then(function (user) {
-			    	
-			    	if(user.code=="200"){
-			    		if(user.type=="nonprofit"){
-			    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
-			        	}else if(user.type=="donor"){
-			        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
-			        	}
-			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			    		
-			    	}
-			      
-			    });
-
-			   $state.go('treeSeed.donor', {donorId: response.donorId});
+			  
+			  if(response.code == "200")
+			  {
+				  var credentials = {
+						    email: $scope.requestObject.donor.userGeneral.email,
+						    password: $scope.requestObject.donor.userGeneral.password
+					   };
+					 	  
+					  AuthService.login(credentials).then(function (user) {
+						  
+						  console.log(JSON.stringify(user));
+					    	
+					    	if(user.code=="200"){
+					    		if(user.type=="nonprofit"){
+					    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+					    			
+					        	}else if(user.type=="donor"){
+					        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+					        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+					        		$state.go('treeSeed.donor', {donorId: response.donorId});
+					        	}
+					    	}
+					    });  
+			  }
+			  else
+			  {
+					if (response.code == "400")
+		        	{
+						$scope.facebookFail = true;
+						$scope.requestObject.donor.name = "";
+						$scope.requestObject.donor.lastName = "";
+						$scope.requestObject.donor.userGeneral.email = "";	
+		        	}
+			  }
+			
+			  
 		})			
 				
 	};
@@ -93,29 +220,7 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
                     }); 
 	 };
 	 $scope.getCountries(); 
-	 
-	 
-	 $scope.validateConfirm = function() 
-	 {
-		 var password = $scope.requestObject.donor.userGeneral.password;
-		 var confirmPassword = $scope.requestObject.donor.userGeneral.confirmPassword;
-		 
-		 if (password != confirmPassword)
-		 {
-			 alert("wrong");
-			 document.getElementById("confirmPass").style.display = 'block';
-			 document.getElementById("passValidate").className = "md-default-theme md-input-invalid md-input-has-value";
-			 document.getElementById("passCValidate").className = "md-default-theme md-input-invalid md-input-has-value";
-		 }
-		 else
-		 {
-			 alert("good");
-			 document.getElementById("confirmPass").style.display = 'hide'; 
-			 document.getElementById("passValidate").className = "md-default-theme md-input-has-value";
-			 document.getElementById("passCValidate").className = "md-default-theme md-input-has-value";
-		 }
-	 }
-	 
+	  
 	 $scope.validateEmail = function() 
 	 {
 		 var emailFormat = $scope.requestObject.donor.userGeneral.email;
@@ -139,6 +244,17 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
 		    return re.test(email);
 	 }
 	 
+	 $(document).on('click', '#login', function(e) {
+	  		e.preventDefault();
+	  		facebookLogin();
+	  	})
+
+	  	$(document).on('click', '#logout', function(e) {
+	  		e.preventDefault();
+	  		
+	  			facebookLogout();
+	  	
+	  	})	 
 });
 
 
@@ -228,7 +344,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 							$scope.isOwner=false;
 						}
 			}).error(function(mydata, status) {
-				alert(status);
+				console.log(status);
+				console.log("No data found")
 			});		
 	}
 	$scope.init();

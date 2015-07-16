@@ -97,16 +97,16 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		    	if(user.code=="200"){
 		    		if(user.type=="nonprofit"){
 		    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+		    			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		    			$state.go('treeSeed.nonProfit', {nonProfitId: response.nonProfitId});
 		        	}else if(user.type=="donor"){
 		        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
-		        	}
-		    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-		    		
+		        	}	    		
 		    	}
-		      
+
 		    });
 
-		   $state.go('treeSeed.nonProfit', {nonProfitId: response.nonProfitId});
+		   
 	   }) 
 	
 	};
@@ -165,7 +165,8 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 			$scope.totalItems = mydata.totalElements;
 			console.log($scope.nonprofits[1].id)
 		}).error(function(mydata, status) {
-			alert(status);
+			console.log(status);
+			console.log("No data found");
 		});
 
 		$scope.pageChangeHandler = function(num) {
@@ -190,7 +191,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 		$scope.requestObject.idUser= Session.id;
 		$scope.requestObject.id = $scope.nonprofit.id;
-	
+		
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
