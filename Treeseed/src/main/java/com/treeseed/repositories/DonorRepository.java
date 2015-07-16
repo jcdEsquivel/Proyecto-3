@@ -1,7 +1,10 @@
 package com.treeseed.repositories;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -35,5 +38,19 @@ public interface DonorRepository extends
  Page<Donor> findByCountryContaining(String name,
    Pageable pageable);
  Donor findByid(int id);
+ 
+ 	@Modifying
+	@Transactional
+	@Query("UPDATE Donor d SET name = :name, lastName = :lastName, description = :description, webPage= :webPage, "
+	+"profilePicture = :profilePicture where n.id = :id") 
+	  public void update(
+			   @Param("id") int id,
+			   @Param("name") String name,
+			   @Param("lastName") String lastName,
+			   @Param("description") String description,
+			   @Param("webPage") String webPage,
+			   @Param("profilePicture") String profilePicture)
+			   ;
+ 
 ;
 }

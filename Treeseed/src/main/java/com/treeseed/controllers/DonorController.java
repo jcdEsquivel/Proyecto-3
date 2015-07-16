@@ -20,17 +20,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
+import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 
 /**
  * Handles requests for the application home page.
@@ -207,6 +214,74 @@ public class DonorController extends UserGeneralController{
 		nps.setDonor(donorPOJO);
 		nps.setCode(200);
 		return nps;	
+	}
+	
+	@RequestMapping(value ="/editDonor", method = RequestMethod.POST)
+	public DonorResponse editDonor(@RequestBody DonorRequest dr){
+
+		String profileImageName = null;
+		
+		DonorResponse us = new DonorResponse();
+
+		UserGeneral ug = new UserGeneral();
+		ug = userGeneralService.getUGByID(dr.getIdUser());
+		
+		if(ug.getEmail().equals(dr.getEmail())){
+			
+				DonorWrapper donor = new DonorWrapper();
+					
+				donor.setId(dr.getId());
+				donor.setName(dr.getName());
+				donor.setLastName(dr.getLastName());
+				donor.setDescription(dr.getDescription());
+				donor.setWebPage(dr.getEmail());
+				
+				Donor donorobject = new Donor();
+				DonorPOJO donorPOJO = new DonorPOJO();
+				
+				donorService.updateDonor(donor);
+				
+				donorobject= donorService.getSessionDonor(dr.getId());
+				
+				donorPOJO.setName(donorobject.getName());
+				
+				
+				us.setDonor(donorPOJO);
+				us.setCode(200);
+				us.setCodeMessage("Donor updated sucessfully");
+		}else{
+			
+			Boolean alreadyUser=userGeneralService.userExist(dr.getEmail());
+			dr.setEmail(dr.getEmail().toLowerCase());
+
+			if(validator.isValid(dr.getEmail())){
+				if(!alreadyUser){
+			
+					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					userGeneral.setEmail(dr.getEmail());
+					
+					UserGeneral userGeneralobject = new UserGeneral();
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					
+					userGeneralService.updateUserGeneral(userGeneral);
+					
+					userGeneralobject = userGeneralService.getUGByID(dr.getIdUser());
+			
+					userGeneralPOJO.setEmail(userGeneralobject.getEmail());
+					us.setUserGeneral(userGeneralPOJO);;
+					us.setCode(200);
+					us.setCodeMessage("Donor updated sucessfully");	
+		
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("EMAIL ALREADY IN USE");
+				}
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("BAD EMAIL");
+				}
+		}
+		return us;		
 	}
 	
 }

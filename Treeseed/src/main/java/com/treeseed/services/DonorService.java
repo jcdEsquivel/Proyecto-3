@@ -15,6 +15,7 @@ import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.DonorRepository;
 
 @Service
@@ -72,5 +73,17 @@ public class DonorService implements DonorServiceInterface {
 	@Override
 	public Donor getDonorProfileByID(DonorRequest dr) {
 		return DonorRepository.findByid(dr.getId());
+	}
+
+	@Override
+	@Transactional
+	public void updateDonor(DonorWrapper donor) {
+		DonorRepository.update(donor.getId(),
+				donor.getName(), 
+				donor.getLastName(),
+				donor.getDescription(),
+				donor.getProfilePicture(),
+				donor.getWebPage()
+				);		
 	}
 }
