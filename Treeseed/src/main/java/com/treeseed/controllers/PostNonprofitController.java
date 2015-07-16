@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
@@ -36,11 +38,10 @@ public class PostNonprofitController {
 	HttpServletRequest request;
 	
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public PostNonprofitResponse create(@RequestParam("title") String title,
-			@RequestParam("description") String description,
-			@RequestParam("idNonprofit") int idNonprofit,
-			@RequestParam(value = "file", required = false) MultipartFile file) {
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
+			@RequestPart(value="file", required=false) MultipartFile file1,
+			@RequestPart(value="data") PostNonprofitRequest data) {
 
 		String resultFileName = "";
 		HttpSession currentSession = request.getSession();
@@ -48,7 +49,7 @@ public class PostNonprofitController {
 		int sessionId = (int) currentSession.getAttribute("idUser");
 
 		Nonprofit nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(idNonprofit);
+				.getSessionNonprofit(data.getNonprofitId());
 
 		if (nonprofit != null && nonprofit.getUsergenerals().get(0).getId() == sessionId) {
 
@@ -60,11 +61,11 @@ public class PostNonprofitController {
 				resultFileName = Utils.writeToFile(file, servletContext);
 			}
 
-			wrapper.setTittle(title);
+			/*wrapper.setTittle(title);
 			wrapper.setDescription(description);
 			wrapper.setIsActive(true);
 			wrapper.setPicture(resultFileName);
-			wrapper.setNonprofit(nonprofit);
+			wrapper.setNonprofit(nonprofit);*/
 
 			postNonprofitService.savePostNonprofit(wrapper);
 

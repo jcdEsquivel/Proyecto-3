@@ -4,30 +4,27 @@ import java.util.Date;
 
 public class PostNonprofitRequest {
 
+	private int nonprofitId;
+	private String descripcion;
+	private String picture;
+	private String title;
+	
 	public int getNonprofitId() {
 		return nonprofitId;
 	}
 	public void setNonprofitId(int nonprofitId) {
 		this.nonprofitId = nonprofitId;
 	}
-	public Date getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+
+
 	public String getPicture() {
 		return picture;
 	}
@@ -40,11 +37,6 @@ public class PostNonprofitRequest {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	private int nonprofitId;
-	private Date creationDate;
-	private String descripcion;
-	private boolean isActive;
-	private String picture;
-	private String title;
+	
 	
 }
