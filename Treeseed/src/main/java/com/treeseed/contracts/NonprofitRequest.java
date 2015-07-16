@@ -1,6 +1,7 @@
 package com.treeseed.contracts;
 
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 
 public class NonprofitRequest extends BasePagingRequest {
 	
@@ -9,6 +10,63 @@ public class NonprofitRequest extends BasePagingRequest {
 	private String country;
 	private int id;
 	private int idUser;
+	private String description;
+	private String reason;
+	private String mission;
+	private String email;
+	private String coverImage;
+	private String profileImage;
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(String coverImage) {
+		this.coverImage = coverImage;
+	}
+
+	public String getPrfofileImage() {
+		return profileImage;
+	}
+
+	public void setPrfofileImage(String prfofileImage) {
+		this.profileImage = prfofileImage;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getMission() {
+		return mission;
+	}
+
+	public void setMission(String mission) {
+		this.mission = mission;
+	}
+
+
 
 	public int getIdUser() {
 		return idUser;

@@ -239,43 +239,32 @@ public class NonprofitController extends UserGeneralController{
 	
 	
 	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST)
-	public NonprofitResponse editNonProfit(@RequestParam("idNonProfit") String idNonProfit,
-			@RequestParam("idUserGeneral") String idUserGeneral,
-			@RequestParam("nombre") String nombre, 
-			@RequestParam("email") String email,
-			@RequestParam("mission") String mission,
-			@RequestParam("description") String description,
-			@RequestParam("reason") String reason,
-			@RequestParam(value ="coverImage", required=false) MultipartFile coverImage,
-			@RequestParam(value ="profileImage", required=false) MultipartFile profileImage){
+	public NonprofitResponse editNonProfit(@RequestBody NonprofitRequest npr){
 		
 		String coverImageName = null;
 		String profileImageName = null;
+		
 		NonprofitResponse us = new NonprofitResponse();
 		
 		System.out.println("esoooo");
 		
 		UserGeneral ug = new UserGeneral();
-		ug = userGeneralService.getUGByID(Integer.parseInt(idUserGeneral));
+		ug = userGeneralService.getUGByID(npr.getIdUser());
 		
-		if(ug.getEmail()==email){
+		
+		
+		if(ug.getEmail().equals(npr.getEmail())){
 			
-			Boolean alreadyUser=userGeneralService.userExist(email);
-			email = email.toLowerCase();
-
-			if(validator.isValid(email)){
-				if(!alreadyUser){
+				NonprofitWrapper nonprofit = new NonprofitWrapper();
 					
-					if(coverImage!=null){
-						coverImageName = Utils.writeToFile(coverImage,servletContext);
+					/*if(npr.getCoverImage()!=null){
+						coverImageName = Utils.writeToFile(npr.getCoverImage(),servletContext);
 					}
 		
-					if(profileImage!=null){
-						profileImageName = Utils.writeToFile(profileImage,servletContext);
+					if(npr.getProfileImage()!=null){
+						profileImageName = Utils.writeToFile(npr.getProfileImage(),servletContext);
 					}
 
-					NonprofitWrapper nonprofit = new NonprofitWrapper();
-					
 					if(!coverImageName.equals("")){
 						nonprofit.setProfilePicture(coverImageName);
 					}else{
@@ -286,20 +275,20 @@ public class NonprofitController extends UserGeneralController{
 						nonprofit.setProfilePicture(profileImageName);
 					}else{
 						nonprofit.setProfilePicture("");
-					}
+					}*/
 					
-					nonprofit.setId(Integer.parseInt(idNonProfit));
-					nonprofit.setName(nombre);
-					nonprofit.setDescription(description);
-					nonprofit.setMision(mission);
-					nonprofit.setReason(reason);
+					nonprofit.setId(npr.getId());
+					nonprofit.setName(npr.getName());
+					nonprofit.setDescription(npr.getDescription());
+					nonprofit.setMision(npr.getMission());
+					nonprofit.setReason(npr.getReason());
 					
 					Nonprofit nonprofitobject = new Nonprofit();
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 					
 					nonProfitService.updateNonProfit(nonprofit);
 					
-					nonprofitobject= nonProfitService.getSessionNonprofit(Integer.parseInt(idNonProfit));
+					nonprofitobject= nonProfitService.getSessionNonprofit(npr.getId());
 					
 					nonprofitPOJO.setName(nonprofitobject.getName());
 					
@@ -307,34 +296,42 @@ public class NonprofitController extends UserGeneralController{
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);
 					us.setCodeMessage("Nonprofit updated sucessfully");
-					
-				}else{
-					us.setCode(400);
-					us.setCodeMessage("EMAIL ALREADY IN USE");
-				}
 				
-			}else{
-				us.setCode(400);
-				us.setCodeMessage("BAD EMAIL");
-			}
+				
+			
 
 		}else{
 			
+			Boolean alreadyUser=userGeneralService.userExist(npr.getEmail());
+			npr.setEmail(npr.getEmail().toLowerCase());
+
+			if(validator.isValid(npr.getEmail())){
+				if(!alreadyUser){
 			
-			UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-			userGeneral.setEmail(email);
+					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					userGeneral.setEmail(npr.getEmail());
+					
+					UserGeneral userGeneralobject = new UserGeneral();
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					
+					userGeneralService.updateUserGeneral(userGeneral);
+					
+					userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
 			
-			UserGeneral userGeneralobject = new UserGeneral();
-			UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(userGeneralobject.getEmail());
+					us.setUserGeneral(userGeneralPOJO);;
+					us.setCode(200);
+					us.setCodeMessage("Nonprofit updated sucessfully");	
 			
-			userGeneralService.updateUserGeneral(userGeneral);
-			
-			userGeneralobject = userGeneralService.getUGByID(Integer.parseInt(idUserGeneral));
-	
-			userGeneralPOJO.setEmail(userGeneralobject.getEmail());
-			us.setUserGeneral(userGeneralPOJO);;
-			us.setCode(200);
-			us.setCodeMessage("Nonprofit updated sucessfully");	
+					
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("EMAIL ALREADY IN USE");
+				}
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("BAD EMAIL");
+				}
 		}
 		return us;		
 	}

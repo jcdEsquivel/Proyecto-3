@@ -272,39 +272,32 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 	//Finish controller for edit buttons
 	
-	$scope.nonprofit1={};
-	$scope.nonprofit1.email = "";
-	$scope.nonprofit1.nombre = "";
-	$scope.nonprofit1.description= "";
-	$scope.nonprofit1.reason= "";
-	$scope.nonprofit1.mission= "";
-	$scope.nonprofit1.idNP=""; 
-	$scope.nonprofit1.idUG="";
-	$scope.nonprofit1.coverImage=null;
-	$scope.nonprofit1.profileImage=null;
+	$scope.requestObjectEdit={};
+	$scope.requestObjectEdit.nonProfit={}
+	$scope.requestObjectEdit.email="";
+	$scope.requestObjectEdit.name = "";
+	$scope.requestObjectEdit.description= "";
+	$scope.requestObjectEdit.reason= "";
+	$scope.requestObjectEdit.mission= "";
+	$scope.requestObjectEdit.idNP= 3; 
+	$scope.requestObjectEdit.idUG=2;
+	$scope.requestObjectEdit.coverImage=null;
+	$scope.requestObjectEdit.profileImage=null;
 	
 	$scope.editNonProfit = function(){
 
-		$scope.nonprofit1.email = "correo333@333.com";
-		$scope.nonprofit1.nombre = "esooooo";
-		$scope.nonprofit1.description= "descripcion";
-		$scope.nonprofit1.reason= "razon";
-		$scope.nonprofit1.mission= "mission";
-		$scope.nonprofit1.idNP="69"; 
-		$scope.nonprofit1.idUG="62";
-		$scope.nonprofit1.coverImage=null;
-		$scope.nonprofit1.profileImage=null;
+		$scope.requestObjectEdit.email = "correo333@333.com";
+		$scope.requestObjectEdit.name = "esooooo";
+		$scope.requestObjectEdit.description= "descripcion";
+		$scope.requestObjectEdit.reason= "razon";
+		$scope.requestObjectEdit.mission= "mission";
+		$scope.requestObjectEdit.id="69"; 
+		$scope.requestObjectEdit.idUser="62";
+		$scope.requestObjectEdit.coverImage=null;
+		$scope.requestObjectEdit.profileImage=null;
 		  
-	/*	$http.post('rest/protected/nonprofit/editNonProfit',
-			$scope.idNP,
-			$scope.idUG,
-			$scope.name,
-			$scope.email,
-			$scope.mission,
-			$scope.description,
-			$scope.reason
-			
-			 ).success(function(mydata, status) {
+		$http.post('rest/protected/nonprofit/editNonProfit',
+			$scope.requestObjectEdit).success(function(mydata, status) {
 				$scope.nonprofit = mydata.nonprofit;
 				console.log(mydata.owner)
 				if(mydata.owner==true){
@@ -316,9 +309,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}).error(function(mydata, status) {
 			alert(status);
 		});	
-		*/
 		
-		$scope.upload = $upload.upload({
+		
+		/*$scope.upload = $upload.upload({
 		    url : 'rest/protected/nonprofit/editNonProfit',
 		    data : {
 		    	idNonProfit:$scope.nonprofit1.idNP,
@@ -336,7 +329,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			   
 		   })
 			
-		  
+		  */
 	};
 
 })
