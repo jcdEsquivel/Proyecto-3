@@ -65,11 +65,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		console.log(endDate);
 		
-		if (startDate != "")
-		{
-			$scope.requestObject.fechaInicio = startDate.getTime();
-		}
-		
+		$scope.requestObject.fechaInicio = startDate.getTime();
 		if(endDate != false)
 		{
 			$scope.requestObject.fechaFin = endDate.getTime();

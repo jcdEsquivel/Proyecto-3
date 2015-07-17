@@ -29,8 +29,6 @@ public class CampaignRequest extends BasePagingRequest {
 	private int causeId;
 	private long fechaInicio;
 	private long fechaFin;
-	private String fechaInicioString;
-	private String fechaFinString;
 
 	public String getNonprofitName() {
 		return nonprofitName;
@@ -64,21 +62,6 @@ public class CampaignRequest extends BasePagingRequest {
 		this.fechaFin = fechaFin;
 	}
 
-	public String getFechaInicioString() {
-		return fechaInicioString;
-	}
-
-	public void setFechaInicioString(String fechaInicioString) {
-		this.fechaInicioString = fechaInicioString;
-	}
-
-	public String getFechaFinString() {
-		return fechaFinString;
-	}
-
-	public void setFechaFinString(String fechaFinString) {
-		this.fechaFinString = fechaFinString;
-	}
 
 	private List<PostCampaign> postCampaigns;
 
