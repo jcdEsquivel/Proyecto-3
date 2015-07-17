@@ -5,18 +5,25 @@
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12 ">
+        
         	<div class="cover-image">
-        		 <img ng-src="{{nonprofit.mainPicture}}" class="cover-container" >
+        		<div style="background:url({{nonprofit.mainPicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+        		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage()" ng-mouseover="changeType(true)"><i class="fa fa-edit"></i></button>
+        	 	</div>	
         	 </div>
+    	
     	</div>
     	
 	</div>
 	<div class="row">
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
-	 			<div class="row">		
-					<img ng-src="{{nonprofit.profilePicture}}" alt="" class="non-profit-profile" >	
- 				</div>
+		 		<div class="row">
+	        		<div style="background:url({{nonprofit.profilePicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+	        			<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage()" ng-mouseover="changeType(true)"><i class="fa fa-edit"></i></button>
+	        	 	</div>	
+        		 </div>
+	 			
  				<div class="row">
  					<div class="col-md-12">
  						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>

@@ -318,7 +318,12 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;
 		$scope.requestObjectEdit.profileImage=null;
+		
+		$scope.imageType = true;
 		  
+		console.log("empezo a llover")
+		
+		/*
 		$http.post('rest/protected/nonprofit/editNonProfit',
 			$scope.requestObjectEdit).success(function(mydata, status) {
 				$scope.nonprofit = mydata.nonprofit;
@@ -333,27 +338,86 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}).error(function(mydata, status) {
 			alert(status);
 		});	
+		*/
 		
 		
-		/*$scope.upload = $upload.upload({
-		    url : 'rest/protected/nonprofit/editNonProfit',
-		    data : {
-		    	idNonProfit:$scope.nonprofit1.idNP,
-		    	idUserGeneral:$scope.nonprofit1.idUG,
-				nombre:$scope.nonprofit1.nombre,
-				email:$scope.nonprofit1.email,
-				mission:$scope.nonprofit1.mission,
-				description:$scope.nonprofit1.description,
-				reason:$scope.nonprofit1.reason
-		    },
-		    coverImage :$scope.nonprofit1.coverImage,
-		    profileImage:$scope.nonprofit1.profileImage,
-		    
-		   }).success(function(response){
-			   
-		   })
-			
-		  */
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/nonprofit/editNonProfit',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+			     var formData = new FormData();
+
+			           formData.append('data', new Blob([angular.toJson(data.data)], {
+			               type: "application/json"
+			           }));
+			           formData.append("file", data.file);
+			           formData.append("file1", data.file);
+			           return formData;
+			   },
+			   data : {
+			    data : $scope.post,
+			    file : $scope.image
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+			   $scope.close();
+			  });
+		
+		
+	};
+	
+	$scope.$on('profilePicture', function(event, args){
+		
+		if($scope.imageType){
+			$scope.requestObjectEdit.coverImage = args;
+		}else{
+			$scope.requestObjectEdit.profileImage= args
+		}
+		
+		$scope.image = args;
+		$scope.uploadImage=true;	
+		
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+	});	
+	
+	
+	$scope.openModalImage = function() {
+
+		console.log("esoooo")
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/drag_drop.html',
+			controller : 'getNonProfitProfileController',
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.image;
+				}
+			}
+
+		})
+	};
+
+	$scope.changeType = function(param) {
+		$scope.imageType=param;
 	};
 
 })

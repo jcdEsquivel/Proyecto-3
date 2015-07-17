@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -238,8 +239,8 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
-	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST)
-	public NonprofitResponse editNonProfit(@RequestBody NonprofitRequest npr){
+	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="file", required=false) MultipartFile file){
 		
 		String coverImageName = null;
 		String profileImageName = null;
@@ -279,6 +280,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofit.setDescription(npr.getDescription());
 					nonprofit.setMision(npr.getMision());
 					nonprofit.setReason(npr.getReason());
+					nonprofit.setWebPage(npr.getWebPage());
 					
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 					
@@ -291,6 +293,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
 					nonprofitPOJO.setMision(nonprofitobject.getMision());
 					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);
@@ -326,6 +329,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
 					nonprofitPOJO.setMision(nonprofitobject.getMision());
 					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
 					
 					//userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
 			
