@@ -19,7 +19,7 @@
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b  ng-hide="webPageInEdition" translate="NONPROFIT-PROFILE.WEBPAGE">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
 				          	<div>
 				          		<input ng-model="nonprofit.webPage">
@@ -33,7 +33,7 @@
  						
  						
  						<br>
- 						<b ng-hide="emailInEdition" translate="NONPROFIT-PROFILE.EMAIL"><br>{{nonprofit.userGeneral.email}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></b>
+ 						<b ng-hide="emailInEdition"><br>{{nonprofit.userGeneral.email}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></b>
  						<div ng-show="emailInEdition">
 				          	<div>
 				          		<input ng-model="nonprofit.userGeneral.email">

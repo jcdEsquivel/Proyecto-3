@@ -313,6 +313,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.description= $scope.nonprofit.description;
 		$scope.requestObjectEdit.reason= $scope.nonprofit.reason;
 		$scope.requestObjectEdit.mision= $scope.nonprofit.mision;
+		$scope.requestObjectEdit.webPage= $scope.nonprofit.webPage;
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;

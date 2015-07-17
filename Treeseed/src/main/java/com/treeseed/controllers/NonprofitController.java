@@ -308,6 +308,8 @@ public class NonprofitController extends UserGeneralController{
 				if(!alreadyUser){
 			
 					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					
+					
 					userGeneral.setEmail(npr.getEmail());
 					
 					UserGeneral userGeneralobject = new UserGeneral();
@@ -315,10 +317,21 @@ public class NonprofitController extends UserGeneralController{
 					
 					userGeneralService.updateUserGeneral(userGeneral);
 					
-					userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
+					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+					
+					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
+					
+					
+					nonprofitPOJO.setName(nonprofitobject.getName());
+					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					
+					//userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
 			
-					userGeneralPOJO.setEmail(userGeneralobject.getEmail());
-					us.setUserGeneral(userGeneralPOJO);;
+					//userGeneralPOJO.setEmail(userGeneralobject.getEmail());
+					us.setNonprofit(nonprofitPOJO);
+					//us.setUserGeneral(userGeneralPOJO);
 					us.setCode(200);
 					us.setCodeMessage("Nonprofit updated sucessfully");	
 			
