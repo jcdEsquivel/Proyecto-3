@@ -1,5 +1,8 @@
 package com.treeseed.controllers;
 
+
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -71,6 +74,7 @@ public class PostNonprofitController {
 			wrapper.setIsActive(true);
 			wrapper.setPicture(resultFileName);
 			wrapper.setNonprofit(nonprofit);
+			wrapper.setCreationDate(new Date());
 
 			postNonprofitService.savePostNonprofit(wrapper);
 
