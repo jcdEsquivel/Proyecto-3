@@ -126,7 +126,9 @@
         "CAMPAIGNS": "Campañas",
         "UPDATES": "Actualizaciones",
         "DONORS": "Donantes:",
-        "DONATIONS": "Donaciones:"
+        "DONATIONS": "Donaciones:",
+        "EMAIL": "Correo:",
+   		"WEBPAGE": "Pagina Web:"
      },
      "BUTTONS": {
     		"SAVE": "Guardar",

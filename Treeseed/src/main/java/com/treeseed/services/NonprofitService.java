@@ -97,10 +97,15 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return nonprofitsRepository.findByid(ur.getId());
 	}
 	
+	@Override
+	public Nonprofit getNonProfitById(int id) {
+		return nonprofitsRepository.findOne(id);
+	}
+	
 	
 	@Override
 	@Transactional
-	public void updateNonProfit(NonprofitWrapper nonProfit) {
+	public Nonprofit updateNonProfit(NonprofitWrapper nonProfit) {
 		nonprofitsRepository.update(nonProfit.getId(),
 				nonProfit.getName(), 
 				nonProfit.getDescription(),
@@ -109,7 +114,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 				nonProfit.getMainPicture(),
 				nonProfit.getProfilePicture(),
 				nonProfit.getWebPage()
-				);		
+				);
+		
+		return nonprofitsRepository.findOne(nonProfit.getId());
 	}
 
 }

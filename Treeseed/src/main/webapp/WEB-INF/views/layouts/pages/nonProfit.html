@@ -19,10 +19,31 @@
  				</div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>{{nonprofit.webPage}}</b>
+ 						<b  ng-hide="webPageInEdition" translate="NONPROFIT-PROFILE.WEBPAGE">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<div ng-show="webPageInEdition">
+				          	<div>
+				          		<input ng-model="nonprofit.webPage">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="webPageCancelEditing()" translate="BUTTONS.CANCEL" ></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="webPageSaveEditing()" translate="BUTTONS.SAVE"></button>
+				          	</div>
+					    </div>
+ 						
  						
  						<br>
- 						<b>{{nonprofit.userGeneral.email}}</b>
+ 						<b ng-hide="emailInEdition" translate="NONPROFIT-PROFILE.EMAIL"><br>{{nonprofit.userGeneral.email}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></b>
+ 						<div ng-show="emailInEdition">
+				          	<div>
+				          		<input ng-model="nonprofit.userGeneral.email">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="emailCancelEditing()" translate="BUTTONS.CANCEL" ></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="emailSaveEditing()" translate="BUTTONS.SAVE"></button>
+				          	</div>
+					    </div>
  						<br>
  						<b translate="NONPROFIT-PROFILE.DONORS"></b> 
  						<br>
@@ -39,10 +60,10 @@
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
-				          <h2 ng-hide="nameInEdition"> <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+				          <h2 ng-hide="nameInEdition"> {{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
 			          	  <div ng-show="nameInEdition">
 				          	<div>
-				          		<input class="form-control input-lg" ng-model="nameEdit">
+				          		<input class="form-control input-lg" ng-model="nonprofit.name">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -55,17 +76,17 @@
 
 			          	  <h3 translate="NONPROFIT-PROFILE.MISSION"></h3>
 
-				          <p ng-hide="missionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="missionEditClicked()"><i class="fa fa-edit"></i></button></p>
+				          <p ng-hide="misionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="misionEditClicked()"><i class="fa fa-edit"></i></button></p>
 						  
-						   <div ng-show="missionInEdition">
+						   <div ng-show="misionInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="missionEdit">{{nonprofit.mission}}
+				          		<textarea rows="6" cols="90" ng-model="nonprofit.mision">
 					      		</textarea>
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="missionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="missionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="misionCancelEditing()" translate="BUTTONS.CANCEL"><i class="fa fa-fw fa-trash"></i></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="misionSaveEditing()" translate="BUTTONS.SAVE"><i class="fa fa-fw fa-save"></i></button>
 				          	</div>
 					      </div>
 						  
@@ -73,11 +94,11 @@
 
 			          	  <h3 translate="NONPROFIT-PROFILE.DESCRIPTION"></h3>
 			          	  
-				          <p ng-hide="descriptionInEdition">{{nonprofit.description}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>
+				          <p ng-hide="descriptionInEdition"> {{nonprofit.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>
 				           
 						   <div ng-show="descriptionInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="descriptionEdit">{{nonprofit.description}}
+				          		<textarea rows="6" cols="90" ng-model="nonprofit.description">
 					      		</textarea>
 				          	</div>
 				          	<div>
@@ -95,7 +116,7 @@
 				           
 						   <div ng-show="reasonInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="reasonEdit">{{nonprofit.reason}}
+				          		<textarea rows="6" cols="90" ng-model="nonprofit.reason">
 					      		</textarea>
 				          	</div>
 				          	<div>

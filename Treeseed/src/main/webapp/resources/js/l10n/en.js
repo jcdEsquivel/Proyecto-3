@@ -133,7 +133,9 @@
    		"CAMPAIGNS": "Campaigns",
    		"UPDATES": "Updates",
    		"DONORS": "Donors:",
-   		"DONATIONS": "Donations:"
+   		"DONATIONS": "Donations:",
+   		"EMAIL": "Email:",
+   		"WEBPAGE": "Web Page:"
     },
     "BUTTONS": {
    		"SAVE": "Save",

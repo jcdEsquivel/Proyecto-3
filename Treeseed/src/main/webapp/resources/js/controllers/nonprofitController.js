@@ -185,8 +185,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
 	$scope.isOwner = true;	
-	
-	
+
 	$scope.init = function() {
 
 		$scope.requestObject.idUser= Session.id;
@@ -196,11 +195,12 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
 					console.log(mydata.owner)
-					/*if(mydata.owner==true){
+					console.log($scope.nonprofit)
+					if(mydata.owner==true){
 						$scope.isOwner=true;
 					}else{
 						$scope.isOwner=false;
-					}*/
+					}
 			
 		}).error(function(mydata, status) {
 			alert(status);
@@ -211,24 +211,22 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.init();
 
 	//Mission Edit
-  	$scope.missionEditClicked = function() {
-  		$scope.missionInEdition = true;
-  		$scope.missionEdit = $scope.nonprofit.mision;
+  	$scope.misionEditClicked = function() {
+  		$scope.misionInEdition = true;
 	};
 
-	$scope.missionCancelEditing = function(){
-		$scope.missionInEdition = false;
+	$scope.misionCancelEditing = function(){
+		$scope.misionInEdition = false;
 	};
 
-	$scope.missionSaveEditing = function(){
-		$scope.nonprofit.mission = $scope.missionEdit;
-		$scope.missionInEdition = false;
+	$scope.misionSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.misionInEdition = false;
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
-  		$scope.nameEdit = $scope.nonprofit.name;
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -236,14 +234,14 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.nonprofit.name = $scope.nameEdit;
+		$scope.editNonProfit();
 		$scope.nameInEdition = false;
 	};
 
 	//Description Edit
 	$scope.descriptionEditClicked = function() {
   		$scope.descriptionInEdition = true;
-  		$scope.descriptionEdit = $scope.nonprofit.description;
+  		
 	};
 
 	$scope.descriptionCancelEditing = function(){
@@ -256,10 +254,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.descriptionInEdition = false;
 	};
 
-	//Webpage Edit
+	//Reason Edit
 	$scope.reasonEditClicked = function() {
   		$scope.reasonInEdition = true;
-  		$scope.reasonEdit = $scope.nonprofit.reason;
 	};
 
 	$scope.reasonCancelEditing = function(){
@@ -267,44 +264,70 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.reasonSaveEditing = function(){
-		$scope.nonprofit.reason = $scope.reasonEdit;
+		$scope.editNonProfit();
 		$scope.reasonInEdition = false;
+	};
+	
+	//Webpage Edit
+  	$scope.webPageEditClicked = function() {
+  		$scope.webPageInEdition = true;
+	};
+
+	$scope.webPageCancelEditing = function(){
+		$scope.webPageInEdition = false;
+	};
+
+	$scope.webPageSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.webPageInEdition = false;
+	};
+	
+	//Email Edit
+  	$scope.emailEditClicked = function() {
+  		$scope.emailInEdition = true;
+	};
+
+	$scope.emailCancelEditing = function(){
+		$scope.emailInEdition = false;
+	};
+
+	$scope.emailSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.emailInEdition = false;
 	};
 	//Finish controller for edit buttons
 	
 	$scope.requestObjectEdit={};
 	$scope.requestObjectEdit.nonProfit={}
-	$scope.requestObjectEdit.email="";
-	$scope.requestObjectEdit.name = "";
-	$scope.requestObjectEdit.description= "";
-	$scope.requestObjectEdit.reason= "";
-	$scope.requestObjectEdit.mission= "";
-	$scope.requestObjectEdit.idNP= 3; 
-	$scope.requestObjectEdit.idUG=2;
 	$scope.requestObjectEdit.coverImage=null;
 	$scope.requestObjectEdit.profileImage=null;
 	
 	$scope.editNonProfit = function(){
 
-		$scope.requestObjectEdit.email = "correo333@333.com";
-		$scope.requestObjectEdit.name = "esooooo";
-		$scope.requestObjectEdit.description= "descripcion";
-		$scope.requestObjectEdit.reason= "razon";
-		$scope.requestObjectEdit.mission= "mission";
-		$scope.requestObjectEdit.id="69"; 
-		$scope.requestObjectEdit.idUser="62";
+		console.log($scope.nonprofit.description)
+		console.log($scope.nonprofit.mision)
+		console.log($scope.nonprofit.reason)
+		
+		$scope.requestObjectEdit.email = $scope.nonprofit.userGeneral.email;
+		$scope.requestObjectEdit.name = $scope.nonprofit.name;
+		$scope.requestObjectEdit.description= $scope.nonprofit.description;
+		$scope.requestObjectEdit.reason= $scope.nonprofit.reason;
+		$scope.requestObjectEdit.mision= $scope.nonprofit.mision;
+		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
+		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;
 		$scope.requestObjectEdit.profileImage=null;
 		  
 		$http.post('rest/protected/nonprofit/editNonProfit',
 			$scope.requestObjectEdit).success(function(mydata, status) {
 				$scope.nonprofit = mydata.nonprofit;
-				console.log(mydata.owner)
-				if(mydata.owner==true){
-					$scope.isOwner=true;
+				console.log(mydata);
+				if(mydata.code==200){
+					console.log("trae el code 200")
 				}else{
-					$scope.isOwner=false;
+					console.log(mydata)
 				}
+				
 		
 		}).error(function(mydata, status) {
 			alert(status);

@@ -12,7 +12,7 @@ public class NonprofitRequest extends BasePagingRequest {
 	private int idUser;
 	private String description;
 	private String reason;
-	private String mission;
+	private String mision;
 	private String email;
 	private String coverImage;
 	private String profileImage;
@@ -58,12 +58,12 @@ public class NonprofitRequest extends BasePagingRequest {
 		this.reason = reason;
 	}
 
-	public String getMission() {
-		return mission;
+	public String getMision() {
+		return mision;
 	}
 
-	public void setMission(String mission) {
-		this.mission = mission;
+	public void setMision(String mission) {
+		this.mision = mission;
 	}
 
 
