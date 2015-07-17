@@ -77,7 +77,7 @@
 				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="aboutEdit">{{donor.description}}
+				          		<textarea rows="6" cols="90" ng-model="donor.description">
 					      		</textarea>
 				          	</div>
 				          	<div>

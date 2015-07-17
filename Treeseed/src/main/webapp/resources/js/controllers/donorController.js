@@ -423,7 +423,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.requestObjectEdit.id= $scope.donor.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;
-		$scope.requestObjectEdit.profileImage=null;
+		$scope.requestObjectEdit.profileImage=$scope.donor.profilePicture;
 		  
 		$http.post('rest/protected/donor/editDonor',
 			$scope.requestObjectEdit).success(function(mydata, status) {

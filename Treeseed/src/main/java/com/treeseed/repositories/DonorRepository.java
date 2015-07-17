@@ -48,8 +48,8 @@ public interface DonorRepository extends
 			   @Param("name") String name,
 			   @Param("lastName") String lastName,
 			   @Param("description") String description,
-			   @Param("webPage") String webPage,
-			   @Param("profilePicture") String profilePicture)
+			   @Param("profilePicture") String profilePicture,
+			   @Param("webPage") String webPage)
 			   ;
  
 ;

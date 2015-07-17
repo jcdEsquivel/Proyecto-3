@@ -230,7 +230,8 @@ public class DonorController extends UserGeneralController{
 		String profileImageName = null;
 		
 		DonorResponse us = new DonorResponse();
-
+		DonorPOJO donorPOJO = new DonorPOJO();
+		
 		UserGeneral ug = new UserGeneral();
 		ug = userGeneralService.getUGByID(dr.getIdUser());
 		
@@ -242,17 +243,28 @@ public class DonorController extends UserGeneralController{
 				donor.setName(dr.getName());
 				donor.setLastName(dr.getLastName());
 				donor.setDescription(dr.getDescription());
-				donor.setWebPage(dr.getEmail());
+				donor.setWebPage(dr.getWebPage());
+				donor.setProfilePicture(dr.getProfileImage());
 				
 				Donor donorobject = new Donor();
-				DonorPOJO donorPOJO = new DonorPOJO();
+				donorPOJO = new DonorPOJO();
 				
 				donorService.updateDonor(donor);
 				
 				donorobject= donorService.getSessionDonor(dr.getId());
 				
 				donorPOJO.setName(donorobject.getName());
+				donorPOJO.setLastName(donorobject.getLastName());
+				donorPOJO.setDescription(donorobject.getDescription());
+				donorPOJO.setProfilePicture(donorobject.getProfilePicture());
+				donorPOJO.setWebPage(donorobject.getWebPage());
+				donorPOJO.setId(donorobject.getId());
 				
+				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+				
+				userGeneralPOJO.setEmail(ug.getEmail());
+				
+				donorPOJO.setUserGeneral(userGeneralPOJO);
 				
 				us.setDonor(donorPOJO);
 				us.setCode(200);
@@ -267,16 +279,24 @@ public class DonorController extends UserGeneralController{
 			
 					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 					userGeneral.setEmail(dr.getEmail());
+					userGeneral.setId(dr.getId());
 					
 					UserGeneral userGeneralobject = new UserGeneral();
 					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 					
 					userGeneralService.updateUserGeneral(userGeneral);
 					
-					userGeneralobject = userGeneralService.getUGByID(dr.getIdUser());
-			
-					userGeneralPOJO.setEmail(userGeneralobject.getEmail());
-					us.setUserGeneral(userGeneralPOJO);;
+					userGeneralPOJO.setEmail(userGeneral.getEmail());
+					
+					donorPOJO.setName(dr.getName());
+					donorPOJO.setLastName(dr.getLastName());
+					donorPOJO.setDescription(dr.getDescription());
+					donorPOJO.setProfilePicture(dr.getProfileImage());
+					donorPOJO.setWebPage(dr.getWebPage());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					donorPOJO.setId(dr.getId());
+					
+					us.setDonor(donorPOJO);
 					us.setCode(200);
 					us.setCodeMessage("Donor updated sucessfully");	
 		

@@ -10,8 +10,26 @@ public class DonorRequest extends BasePagingRequest {
 	private String description;
 	private String email;
 	private String country;
+	private String webPage;
 	private int id;
 	private int idUser;
+	private String profileImage;
+	
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getWebPage() {
+		return webPage;
+	}
+
+	public void setWebPage(String webPage) {
+		this.webPage = webPage;
+	}
 	
 	public String getDescription() {
 		return description;
