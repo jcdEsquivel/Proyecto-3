@@ -147,6 +147,16 @@
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
     },
+   	"POST-MODAL":{ 
+   		"MODAL-OPEN-MODAL": "Add post",
+   		"MODAL-TITLE": "Add New Post",
+   		"TITLE": "Title",
+   		"DESCRIPTION": "Description",
+   		"DROP-IMAGE": "Drop an image here to upload.",
+   		"ADD-BUTTON": "Add",
+   		"CANCEL": "Cancel"
+   		
+    },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
     	"TITLE":"Create Campaign",
