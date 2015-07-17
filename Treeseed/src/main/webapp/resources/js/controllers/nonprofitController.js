@@ -180,7 +180,6 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
 
-	
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
@@ -194,8 +193,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
-					console.log(mydata.owner)
-					console.log($scope.nonprofit)
 					if(mydata.owner==true){
 						$scope.isOwner=true;
 					}else{
@@ -302,12 +299,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.requestObjectEdit.coverImage=null;
 	$scope.requestObjectEdit.profileImage=null;
 	
+	
+	
 	$scope.editNonProfit = function(){
 
-		console.log($scope.nonprofit.description)
-		console.log($scope.nonprofit.mision)
-		console.log($scope.nonprofit.reason)
-		
 		$scope.requestObjectEdit.email = $scope.nonprofit.userGeneral.email;
 		$scope.requestObjectEdit.name = $scope.nonprofit.name;
 		$scope.requestObjectEdit.description= $scope.nonprofit.description;
@@ -316,11 +311,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.webPage= $scope.nonprofit.webPage;
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
-		$scope.requestObjectEdit.coverImage=null;
-		$scope.requestObjectEdit.profileImage=null;
-		
-		$scope.imageType = true;
-		  
 		console.log("empezo a llover")
 		
 		/*
@@ -353,18 +343,21 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			           formData.append('data', new Blob([angular.toJson(data.data)], {
 			               type: "application/json"
 			           }));
-			           formData.append("file", data.file);
-			           formData.append("file1", data.file);
+			           formData.append("fileCover", data.fileCover);
+			           formData.append("fileProfile", data.fileProfile);
+			           console.log(data.fileCover)
 			           return formData;
 			   },
 			   data : {
-			    data : $scope.post,
-			    file : $scope.image
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.requestObjectEdit.coverImage,
+				   fileProfile : $scope.requestObjectEdit.profileImage
 			   }
 
 			  }).
 			  success(function (data, status, headers, config) {
-			   $scope.close();
+				  $scope.nonprofit = data.nonprofit;
+				  console.log(data)
 			  });
 		
 		
@@ -372,7 +365,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	
 	$scope.$on('profilePicture', function(event, args){
 		
-		if($scope.imageType){
+		if($scope.imageCover==true){
 			$scope.requestObjectEdit.coverImage = args;
 		}else{
 			$scope.requestObjectEdit.profileImage= args
@@ -400,13 +393,24 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	});	
 	
 	
-	$scope.openModalImage = function() {
+	$scope.openModalImage = function(type) {
 
-		console.log("esoooo")
+		if(type == 'cover'){
+			$scope.imageCover=true;
+			console.log("es cover")
+			console.log($scope.imageCover)
+			
+		}else if(type=='profile'){
+			$scope.imageCover=false;
+			console.log("es profile")
+			console.log($scope.imageCover)		
+		}
+		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/drag_drop.html',
-			controller : 'getNonProfitProfileController',
+			//controller : 'getNonProfitProfileController',
+			scope: $scope,
 			resolve : {
 				setCurrentUser : function() {
 					return $scope.image;
@@ -416,9 +420,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		})
 	};
 
-	$scope.changeType = function(param) {
-		$scope.imageType=param;
-	};
 
 })
 ;

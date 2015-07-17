@@ -240,8 +240,9 @@ public class NonprofitController extends UserGeneralController{
 	
 	
 	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="file", required=false) MultipartFile file){
-		
+	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
+			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+	
 		String coverImageName = null;
 		String profileImageName = null;
 		
