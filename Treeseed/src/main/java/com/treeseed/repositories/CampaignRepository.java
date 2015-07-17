@@ -35,5 +35,7 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	
 	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
 	
+	Page<Campaign> findByNonprofitIdAndIsActive(int Id, boolean isActive,Pageable pageable);
+	
 
 }

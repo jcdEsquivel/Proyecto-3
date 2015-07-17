@@ -81,7 +81,9 @@ angular
 												url : 'nonProfit/:nonProfitId',
 												templateUrl : 'layouts/pages/nonProfit.html',
 												controller: "getNonProfitProfileController",
-												params: {nonProfitId: null}
+												params: {nonProfitId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination'])
 											})
 									.state(
 											'treeSeed.donate',

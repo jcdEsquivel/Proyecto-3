@@ -1,0 +1,22 @@
+<div ng-controller="nonprofitCampaignSearchController">
+	<ul	class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+		<li class="list-group-item li-search-size-result"	dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize" total-items="totalItems">
+		<!-- <a href="#"	class="pull-left thumb-md m-r">
+			 <img ng-src="{{nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
+		</a> -->
+			<div class="clear">
+				<a class="h4 text-primary m-b-sm block col-lg-10" >	{{campaign.name}}</a>
+				<div class="col-lg-2">{{milliToDate(campaign.dueDate)}}</div>
+				<div class="col-lg-12" rows="5">{{campaign.description}}<a ui-sref="">Show more...</a></div>	
+			</div></li>
+
+	</ul>
+	<div class="other-controller">
+		<div class="text-center">
+			<dir-pagination-controls boundary-links="true"
+				on-page-change="pageChangeHandler(newPageNumber)"
+				template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+			</dir-pagination-controls>
+		</div>
+	</div>
+</div>

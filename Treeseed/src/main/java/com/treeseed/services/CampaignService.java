@@ -51,9 +51,14 @@ public class CampaignService implements CampaignServiceInterface{
 		Page<Campaign> pageResult = null;
 		
 
-		nonprofitId = ur.getNonprofit().getId();	
+		nonprofitId = ur.getNonprofitId();	
 		
-		pageResult = campaignRepository.findByNonprofitId(nonprofitId, pr);
+		if(!ur.isActive()){
+			pageResult = campaignRepository.findByNonprofitId(nonprofitId, pr);
+		}else{
+			pageResult = campaignRepository.findByNonprofitIdAndIsActive(nonprofitId, ur.isActive(),pr);
+		}
+		
 		
 		return pageResult ;
 	}
