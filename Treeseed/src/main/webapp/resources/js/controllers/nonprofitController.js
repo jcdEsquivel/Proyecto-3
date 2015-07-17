@@ -299,6 +299,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.requestObjectEdit.coverImage=null;
 	$scope.requestObjectEdit.profileImage=null;
 	
+	$scope.coverImageContainer=null;
+	$scope.profileImageContrainer=null;
 	
 	
 	$scope.editNonProfit = function(){
@@ -342,21 +344,21 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 			           formData.append('data', new Blob([angular.toJson(data.data)], {
 			               type: "application/json"
-			           }));
+			           }));	
 			           formData.append("fileCover", data.fileCover);
 			           formData.append("fileProfile", data.fileProfile);
-			           console.log(data.fileCover)
+			           console.log("Obj: "+JSON.stringify(data.data));
 			           return formData;
 			   },
 			   data : {
 				   data : $scope.requestObjectEdit,
-				   fileCover : $scope.requestObjectEdit.coverImage,
-				   fileProfile : $scope.requestObjectEdit.profileImage
+				   fileCover : $scope.coverImageContainer,
+				   fileProfile : $scope.profileImageContrainer
 			   }
 
 			  }).
 			  success(function (data, status, headers, config) {
-				  $scope.nonprofit = data.nonprofit;
+				  //$scope.nonprofit = data.nonprofit;
 				  console.log(data)
 			  });
 		
@@ -366,9 +368,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.$on('profilePicture', function(event, args){
 		
 		if($scope.imageCover==true){
-			$scope.requestObjectEdit.coverImage = args;
+			$scope.coverImageContainer = args;
 		}else{
-			$scope.requestObjectEdit.profileImage= args
+			$scope.profileImageContrainer= args
 		}
 		
 		$scope.image = args;
