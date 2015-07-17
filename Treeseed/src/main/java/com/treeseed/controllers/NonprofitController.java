@@ -246,11 +246,8 @@ public class NonprofitController extends UserGeneralController{
 		
 		NonprofitResponse us = new NonprofitResponse();
 		
-		System.out.println("esoooo");
-		
 		UserGeneral ug = new UserGeneral();
 		ug = userGeneralService.getUGByID(npr.getIdUser());
-		
 		
 		
 		if(ug.getEmail().equals(npr.getEmail())){
@@ -280,18 +277,20 @@ public class NonprofitController extends UserGeneralController{
 					nonprofit.setId(npr.getId());
 					nonprofit.setName(npr.getName());
 					nonprofit.setDescription(npr.getDescription());
-					nonprofit.setMision(npr.getMission());
+					nonprofit.setMision(npr.getMision());
 					nonprofit.setReason(npr.getReason());
 					
-					Nonprofit nonprofitobject = new Nonprofit();
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 					
 					nonProfitService.updateNonProfit(nonprofit);
 					
-					nonprofitobject= nonProfitService.getSessionNonprofit(npr.getId());
+					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
+					
 					
 					nonprofitPOJO.setName(nonprofitobject.getName());
-					
+					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getReason());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);

@@ -24,5 +24,7 @@ public interface NonprofitServiceInterface {
 	
 	Nonprofit getNonProfitByID(NonprofitRequest ur);
 	
-	void updateNonProfit(NonprofitWrapper nonprofit);
+	Nonprofit getNonProfitById(int id);
+	
+	Nonprofit updateNonProfit(NonprofitWrapper nonprofit);
 }
