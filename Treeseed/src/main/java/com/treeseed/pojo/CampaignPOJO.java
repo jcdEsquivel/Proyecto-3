@@ -2,6 +2,8 @@ package com.treeseed.pojo;
 
 import org.joda.time.DateTime;
 
+import com.treeseed.ejb.Nonprofit;
+
 public class CampaignPOJO {
 	public CampaignPOJO() {
 		super();
@@ -16,9 +18,20 @@ public class CampaignPOJO {
 	private double amountCollected;
 	private boolean isActive;
 	private String picture;
-	
 	private int idNonProfit;
 
+	private NonprofitPOJO nonProfit;
+	
+	public NonprofitPOJO getNonprofit()
+	{
+		return this.nonProfit;
+	}
+	
+	public void setNonprofit(NonprofitPOJO nonProfit)
+	{
+		this.nonProfit = nonProfit;
+	}
+	
 	public int getId() {
 		return id;
 	}

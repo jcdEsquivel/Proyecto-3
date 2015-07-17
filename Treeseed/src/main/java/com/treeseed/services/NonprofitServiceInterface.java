@@ -16,7 +16,7 @@ public interface NonprofitServiceInterface {
 
 	Nonprofit getSessionNonprofit(int idNonprofit);
 
-	Page<Nonprofit> getByName(NonprofitRequest ur);
+	public Page<Nonprofit> getByName(String name);
 	
 	Page<Nonprofit> getByCountry(NonprofitRequest ur);
 	

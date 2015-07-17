@@ -125,6 +125,16 @@ angular
 												controller : "nonProfitSearchController"
 											})
 									.state(
+											'treeSeed.campaignSearch',
+											{
+												url : 'campaignSearch',
+												templateUrl : 'layouts/pages/campaignSearch.html',
+												resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/campaignController.js' ]),
+												controller : "campaignSearchController"
+											})		
+									.state(
 											'treeSeed.registerNonProfit',
 											{
 												url : 'registerNonProfit',

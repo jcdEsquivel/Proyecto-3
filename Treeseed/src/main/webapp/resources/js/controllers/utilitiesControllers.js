@@ -14,7 +14,7 @@ treeSeedAppControllers.controller('dragnDropController', function($scope){
 	    //Clear the uploaded file
 	    $scope.uploadedFile = null;
 	};
-	
+
 });
 
 
