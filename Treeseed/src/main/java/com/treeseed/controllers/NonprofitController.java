@@ -243,8 +243,8 @@ public class NonprofitController extends UserGeneralController{
 	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
 	
-		String coverImageName = null;
-		String profileImageName = null;
+		String coverImageName = "";
+		String profileImageName = "";
 		
 		NonprofitResponse us = new NonprofitResponse();
 		
@@ -256,25 +256,27 @@ public class NonprofitController extends UserGeneralController{
 			
 				NonprofitWrapper nonprofit = new NonprofitWrapper();
 					
-					/*if(npr.getCoverImage()!=null){
-						coverImageName = Utils.writeToFile(npr.getCoverImage(),servletContext);
+					if(fileCover!=null){
+						coverImageName = Utils.writeToFile(fileCover,servletContext);
 					}
 		
-					if(npr.getProfileImage()!=null){
-						profileImageName = Utils.writeToFile(npr.getProfileImage(),servletContext);
+					if(fileProfile!=null){
+						profileImageName = Utils.writeToFile(fileProfile,servletContext);
 					}
+					
+					
 
 					if(!coverImageName.equals("")){
-						nonprofit.setProfilePicture(coverImageName);
+						nonprofit.setMainPicture(coverImageName);
 					}else{
-						nonprofit.setProfilePicture("");
+						nonprofit.setMainPicture(npr.getMainPicture());
 					}
 					
 					if(!profileImageName.equals("")){
 						nonprofit.setProfilePicture(profileImageName);
 					}else{
-						nonprofit.setProfilePicture("");
-					}*/
+						nonprofit.setProfilePicture(npr.getProfilePicture());
+					}
 					
 					nonprofit.setId(npr.getId());
 					nonprofit.setName(npr.getName());
@@ -295,14 +297,12 @@ public class NonprofitController extends UserGeneralController{
 					nonprofitPOJO.setMision(nonprofitobject.getMision());
 					nonprofitPOJO.setReason(nonprofitobject.getReason());
 					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
+					nonprofitPOJO.setMainPicture(nonprofitobject.getMainPicture());
+					nonprofitPOJO.setProfilePicture(nonprofitobject.getProfilePicture());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);
 					us.setCodeMessage("Nonprofit updated sucessfully");
-				
-				
-			
-
 		}else{
 			
 			Boolean alreadyUser=userGeneralService.userExist(npr.getEmail());

@@ -14,8 +14,8 @@ public class NonprofitRequest extends BasePagingRequest {
 	private String reason;
 	private String mision;
 	private String email;
-	private String coverImage;
-	private String profileImage;
+	private String mainPicture;
+	private String profilePicture;
 	private String webPage;
 	
 
@@ -35,20 +35,20 @@ public class NonprofitRequest extends BasePagingRequest {
 		this.email = email;
 	}
 
-	public String getCoverImage() {
-		return coverImage;
+	public String getMainPicture() {
+		return mainPicture;
 	}
 
-	public void setCoverImage(String coverImage) {
-		this.coverImage = coverImage;
+	public void setMainPicture(String mainPicture) {
+		this.mainPicture = mainPicture;
 	}
 
-	public String getPrfofileImage() {
-		return profileImage;
+	public String getProfilePicture() {
+		return profilePicture;
 	}
 
-	public void setPrfofileImage(String prfofileImage) {
-		this.profileImage = prfofileImage;
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	public String getDescription() {

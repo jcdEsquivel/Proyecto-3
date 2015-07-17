@@ -115,7 +115,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 
 
 treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
-		$http, $location, $modal, $log, $timeout) {
+		$http, $location, $modal, $log, $timeout, $modalInstance) {
 
 	$scope.nonprofit = {};
 	$scope.nonprofit.id="";
@@ -311,8 +311,11 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.reason= $scope.nonprofit.reason;
 		$scope.requestObjectEdit.mision= $scope.nonprofit.mision;
 		$scope.requestObjectEdit.webPage= $scope.nonprofit.webPage;
+		$scope.requestObjectEdit.mainPicture= $scope.nonprofit.mainPicture; 
+		$scope.requestObjectEdit.profilePicture= $scope.nonprofit.profilePicture;
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
+		
 		console.log("empezo a llover")
 		
 		/*
@@ -331,7 +334,13 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			alert(status);
 		});	
 		*/
+		console.log("Profile:")
+		console.log($scope.nonprofit.profilePicture)
+		console.log($scope.requestObjectEdit.profilePicture)
 		
+		console.log("Cover")
+		console.log($scope.nonprofit.mainPicture)
+		console.log($scope.requestObjectEdit.mainPicture)
 		
 		$http({
 			   method : 'POST',
@@ -358,8 +367,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 			  }).
 			  success(function (data, status, headers, config) {
-				  //$scope.nonprofit = data.nonprofit;
-				  console.log(data)
+				 
 			  });
 		
 		
@@ -394,6 +402,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}
 	});	
 	
+	var modalInstance=null;
 	
 	$scope.openModalImage = function(type) {
 
@@ -408,7 +417,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			console.log($scope.imageCover)		
 		}
 		
-		var modalInstance = $modal.open({
+		modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/drag_drop.html',
 			//controller : 'getNonProfitProfileController',
@@ -422,6 +431,13 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		})
 	};
 
+	
+	$scope.closeModal = function() {
+		
+		modalInstance.close();
+		$scope.editNonProfit(); 
+		 
+	};
 
 })
 ;
