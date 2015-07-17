@@ -19,6 +19,8 @@ public class CampaignRequest extends BasePagingRequest {
 	private Date creationDate;
 
 	private String description;
+	
+	private Date startDate;
 
 	private Date dueDate;
 
@@ -126,6 +128,14 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setPostCampaigns(List<PostCampaign> postCampaigns) {
 		this.postCampaigns = postCampaigns;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 }

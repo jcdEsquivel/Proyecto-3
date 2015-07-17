@@ -154,14 +154,20 @@
         	"TITLE":"General Information",
         	"NAME":"Name:",
         	"DESCRIPTION":"Description:",
-        	"BUTTON-NEXT":"Next"
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
         },
         "TAB-2":{
         	"TITLE":"Goal Information",
-        	"DATE":"Due Date:",
+        	"DATE1":"Start Date:",
+        	"DATE2":"End Date:",
         	"AMOUNT":"Amount goal:",
         	"BUTTON-PREV":"Previous",
-        	"BUTTON-NEXT":"Next"
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-DATE1":"Start Date",
+        	"PLACEHOLDER-DATE2":"End Date",
+        	"PLACEHOLDER-AMOUNT":"Amount goal"
         },
     	"TAB-3":{
     		"TITLE":"Image",

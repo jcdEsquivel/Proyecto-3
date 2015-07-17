@@ -1,5 +1,7 @@
 package com.treeseed.pojo;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 
 public class CampaignPOJO {
@@ -11,7 +13,8 @@ public class CampaignPOJO {
 	private DateTime creationDate;
 	private String name;
 	private String description;
-	private DateTime dueDate;
+	private Date startDate;
+	private Date dueDate;
 	private double amountGoal;
 	private double amountCollected;
 	private boolean isActive;
@@ -51,11 +54,11 @@ public class CampaignPOJO {
 		this.description = description;
 	}
 
-	public DateTime getDueDate() {
+	public Date getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(DateTime dueDate) {
+	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -97,5 +100,13 @@ public class CampaignPOJO {
 
 	public void setIdNonProfit(int idNonProfit) {
 		this.idNonProfit = idNonProfit;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 }

@@ -45,14 +45,16 @@ public class CampaignController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public CampaignResponse campaingCreate(@RequestParam("name") String name,
-			@RequestParam("description") String description, @RequestParam("date") String date,
+			@RequestParam("description") String description, @RequestParam("date1") String date1, @RequestParam("date2") String date2,
 			@RequestParam("amount") String amount, @RequestParam("idNonprofit") String idNonprofit,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 		String resultFileName = null;
 		NonprofitWrapper nonprofit = nonProfitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
 		CampaignResponse response = new CampaignResponse();
 		String[] dateTmp;
+		String[] dateTmp1;
 		GregorianCalendar dueDate=new GregorianCalendar();
+		GregorianCalendar startDate=new GregorianCalendar();
 
 		if (nonprofit.getWrapperObject() != null) {
 			if (file != null) {
@@ -66,22 +68,27 @@ public class CampaignController {
 				} else {
 					campaign.setPicture("");
 				}
-				date=date.replace('"','0');
-				dateTmp=date.split("-");
+				date2=date2.replace('"','0');
+				dateTmp=date2.split("-");
 				dateTmp[2]=dateTmp[2].split("T")[0];
 				
 				
 				
 				dueDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2]), 23, 59,0);
 				
-				Date data = dueDate.getTime();
-				System.out.println(data);
+				date1=date1.replace('"','0');
+				dateTmp1=date1.split("-");
+				dateTmp1[2]=dateTmp1[2].split("T")[0];
+				
+				startDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2])-1, 23, 59,0);
+			
 				campaign.setName(name);
 				
 				campaign.setActive(true);
 				campaign.setCreationDate(new Date());
 				campaign.setDescription(description);
 				campaign.setDueDate(dueDate.getTime());
+				campaign.setStartDate(startDate.getTime());
 				campaign.setAmountGoal(Double.parseDouble(amount));
 				campaign.setNonprofit(nonprofit.getWrapperObject());
 

@@ -9,15 +9,22 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	$scope.stateInput3 = false;
 	$scope.stateInput4 = false;
 	$scope.stateInput5 = false;
-	$scope.mindate = new Date();
+	$scope.stateInput6 = false;
+	$scope.minDate1 = new Date();
+	$scope.minDate2 = new Date();
 
 	$scope.campaign = {};
 	$scope.uploadImage = false;
 	$scope.campaign.name = "";
 	$scope.campaign.description = "";
+	$scope.campaign.startDate;
 	$scope.campaign.dueDate;
 	$scope.campaign.amountGoal = "";
 	$scope.image = "";
+	
+	$scope.minDate=function(){
+		$scope.mindate2 = $scope.mindate1;
+	}
 
 	$scope.create = function(event) {
 
@@ -28,7 +35,8 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			data : {
 				name : $scope.campaign.name,
 				description : $scope.campaign.description,
-				date : $scope.campaign.dueDate,
+				date1 : $scope.campaign.startDate,
+				date2 : $scope.campaign.dueDate,
 				amount : $scope.campaign.amountGoal,
 				idNonprofit: $scope.currentUser.idUser				
 			},
@@ -100,16 +108,17 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 		case 3:
 			if (valid) {
 				if (!$scope.stateInput3) {
-					$scope.percent = $scope.percent + 20;
+					$scope.percent = $scope.percent + 10;
 					$scope.stateInput3 = true;
 				}
 
 			} else {
 				if ($scope.stateInput3) {
-					$scope.percent = $scope.percent - 20;
+					$scope.percent = $scope.percent - 10;
 					$scope.stateInput3 = false;
 				}
 			}
+			
 			break;
 		case 4:
 			if (valid) {
@@ -138,6 +147,21 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 					$scope.stateInput5 = false;
 				}
 			}
+			break;
+		case 6:
+			if (valid) {
+				if (!$scope.stateInput6) {
+					$scope.percent = $scope.percent + 10;
+					$scope.stateInput6 = true;
+				}
+
+			} else {
+				if ($scope.stateInput6) {
+					$scope.percent = $scope.percent - 10;
+					$scope.stateInput6 = false;
+				}
+			}
+			
 			break;
 		}
 	}
