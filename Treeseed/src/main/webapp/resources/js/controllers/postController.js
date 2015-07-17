@@ -79,7 +79,6 @@ treeSeedAppControllers.controller('createPostController', function($http,
 			            type: "application/json"
 			        }));
 			        formData.append("file", data.file);
-			        formData.append("file1", data.file);
 			        return formData;
 			},
 			data : {

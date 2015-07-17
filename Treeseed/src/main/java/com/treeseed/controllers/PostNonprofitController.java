@@ -40,7 +40,6 @@ public class PostNonprofitController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
-			//@RequestPart(value="file1", required=false) MultipartFile file1,
 			@RequestPart(value="data") PostNonprofitRequest requestObj) {
 
 		String resultFileName = "";
