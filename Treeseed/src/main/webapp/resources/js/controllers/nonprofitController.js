@@ -180,7 +180,6 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
 
-	
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
@@ -194,8 +193,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
-					console.log(mydata.owner)
-					console.log($scope.nonprofit)
 					if(mydata.owner==true){
 						$scope.isOwner=true;
 					}else{
@@ -302,22 +299,21 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.requestObjectEdit.coverImage=null;
 	$scope.requestObjectEdit.profileImage=null;
 	
+	
+	
 	$scope.editNonProfit = function(){
 
-		console.log($scope.nonprofit.description)
-		console.log($scope.nonprofit.mision)
-		console.log($scope.nonprofit.reason)
-		
 		$scope.requestObjectEdit.email = $scope.nonprofit.userGeneral.email;
 		$scope.requestObjectEdit.name = $scope.nonprofit.name;
 		$scope.requestObjectEdit.description= $scope.nonprofit.description;
 		$scope.requestObjectEdit.reason= $scope.nonprofit.reason;
 		$scope.requestObjectEdit.mision= $scope.nonprofit.mision;
+		$scope.requestObjectEdit.webPage= $scope.nonprofit.webPage;
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
-		$scope.requestObjectEdit.coverImage=null;
-		$scope.requestObjectEdit.profileImage=null;
-		  
+		console.log("empezo a llover")
+		
+		/*
 		$http.post('rest/protected/nonprofit/editNonProfit',
 			$scope.requestObjectEdit).success(function(mydata, status) {
 				$scope.nonprofit = mydata.nonprofit;
@@ -332,28 +328,98 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}).error(function(mydata, status) {
 			alert(status);
 		});	
+		*/
 		
 		
-		/*$scope.upload = $upload.upload({
-		    url : 'rest/protected/nonprofit/editNonProfit',
-		    data : {
-		    	idNonProfit:$scope.nonprofit1.idNP,
-		    	idUserGeneral:$scope.nonprofit1.idUG,
-				nombre:$scope.nonprofit1.nombre,
-				email:$scope.nonprofit1.email,
-				mission:$scope.nonprofit1.mission,
-				description:$scope.nonprofit1.description,
-				reason:$scope.nonprofit1.reason
-		    },
-		    coverImage :$scope.nonprofit1.coverImage,
-		    profileImage:$scope.nonprofit1.profileImage,
-		    
-		   }).success(function(response){
-			   
-		   })
-			
-		  */
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/nonprofit/editNonProfit',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+			     var formData = new FormData();
+
+			           formData.append('data', new Blob([angular.toJson(data.data)], {
+			               type: "application/json"
+			           }));
+			           formData.append("fileCover", data.fileCover);
+			           formData.append("fileProfile", data.fileProfile);
+			           console.log(data.fileCover)
+			           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.requestObjectEdit.coverImage,
+				   fileProfile : $scope.requestObjectEdit.profileImage
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+				  $scope.nonprofit = data.nonprofit;
+				  console.log(data)
+			  });
+		
+		
 	};
+	
+	$scope.$on('profilePicture', function(event, args){
+		
+		if($scope.imageCover==true){
+			$scope.requestObjectEdit.coverImage = args;
+		}else{
+			$scope.requestObjectEdit.profileImage= args
+		}
+		
+		$scope.image = args;
+		$scope.uploadImage=true;	
+		
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+	});	
+	
+	
+	$scope.openModalImage = function(type) {
+
+		if(type == 'cover'){
+			$scope.imageCover=true;
+			console.log("es cover")
+			console.log($scope.imageCover)
+			
+		}else if(type=='profile'){
+			$scope.imageCover=false;
+			console.log("es profile")
+			console.log($scope.imageCover)		
+		}
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/drag_drop.html',
+			//controller : 'getNonProfitProfileController',
+			scope: $scope,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.image;
+				}
+			}
+
+		})
+	};
+
 
 })
 ;

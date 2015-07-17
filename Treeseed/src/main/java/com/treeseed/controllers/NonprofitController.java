@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -238,9 +239,10 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
-	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST)
-	public NonprofitResponse editNonProfit(@RequestBody NonprofitRequest npr){
-		
+	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
+			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+	
 		String coverImageName = null;
 		String profileImageName = null;
 		
@@ -279,6 +281,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofit.setDescription(npr.getDescription());
 					nonprofit.setMision(npr.getMision());
 					nonprofit.setReason(npr.getReason());
+					nonprofit.setWebPage(npr.getWebPage());
 					
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 					
@@ -291,6 +294,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
 					nonprofitPOJO.setMision(nonprofitobject.getMision());
 					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);
@@ -308,6 +312,8 @@ public class NonprofitController extends UserGeneralController{
 				if(!alreadyUser){
 			
 					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					
+					
 					userGeneral.setEmail(npr.getEmail());
 					
 					UserGeneral userGeneralobject = new UserGeneral();
@@ -315,10 +321,22 @@ public class NonprofitController extends UserGeneralController{
 					
 					userGeneralService.updateUserGeneral(userGeneral);
 					
-					userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
+					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+					
+					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
+					
+					
+					nonprofitPOJO.setName(nonprofitobject.getName());
+					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
+					
+					//userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
 			
-					userGeneralPOJO.setEmail(userGeneralobject.getEmail());
-					us.setUserGeneral(userGeneralPOJO);;
+					//userGeneralPOJO.setEmail(userGeneralobject.getEmail());
+					us.setNonprofit(nonprofitPOJO);
+					//us.setUserGeneral(userGeneralPOJO);
 					us.setCode(200);
 					us.setCodeMessage("Nonprofit updated sucessfully");	
 			

@@ -16,7 +16,16 @@ public class NonprofitRequest extends BasePagingRequest {
 	private String email;
 	private String coverImage;
 	private String profileImage;
+	private String webPage;
 	
+
+	public String getWebPage() {
+		return webPage;
+	}
+
+	public void setWebPage(String webPage) {
+		this.webPage = webPage;
+	}
 
 	public String getEmail() {
 		return email;
