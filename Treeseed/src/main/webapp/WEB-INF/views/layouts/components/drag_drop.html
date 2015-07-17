@@ -1,0 +1,21 @@
+<div class="w-auto-xs" >
+
+	<div class="row ">
+		<div class="col-sm-12 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
+	        <md-input-container flex> 
+	        	<label translate="REGISTER-DONOR.PICTUREIMAGE">Picture Image</label>
+	         </md-input-container>
+	        <div class="panel wrapper">
+		        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
+		        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">
+		    		<a translate="REGISTER-DONOR.DROPIMAGE">Drop an image here to upload.</a>
+				</div>
+				<div class="col-sm-6 col-sm-offset-9">
+	            	<button type="submit" class="btn btn-default" translate="DRAG-IMAGE.CANCEL">Cancel</button>
+	            	<button type="submit" ng-click="editNonProfit()" class="btn btn-primary" translate="DRAG-IMAGE.ACCEPT">Accept</button>
+        		</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
