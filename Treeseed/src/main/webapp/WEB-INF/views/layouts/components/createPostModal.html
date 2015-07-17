@@ -7,44 +7,46 @@
 			<form class="col-sm-12  form-horizontal" id="registerPost"
 				name="registerForm" role="form" required>
 				<div class="form-group">
-					
-						<div class="col-lg-6">
-							<md-input-container flex> <label
+
+					<div class="col-lg-6">
+						<md-input-container flex> <label
 							translate="POST-MODAL.TITLE"></label> <input type="text"
 							ng-model="post.title" class="form-control" required> </md-input-container>
-							
-						
-					
-						<textarea  cols="40" rows="5" class="post-modal-elements-width"
-						placeholder="{{'POST-MODAL.DESCRIPTION'| translate}}"
-						name="txa-description"
-							ng-model="post.descripcion" required></textarea>
-							
-						</div>
-						
-					
+
+
+
+						<md-input-container flex> <label
+							translate="POST-MODAL.DESCRIPTION"></label> <textarea cols="40"
+							rows="8" class="post-modal-text-area" name="txa-description" style="max-height: 212px;"
+							ng-model="post.descripcion" required></textarea> </md-input-container>
+
+
+
+
+					</div>
+
+
 					<div class="col-lg-6 post-img-div">
-						<img id="fileDisplayArea" style=" height: 200px;" />
+
 						<div ng-controller="dragnDropController" id="file-drop"
-							style=" height: 200px;"
-							class="col-lg-12 b-a b-2x b-dashed wrapper-lg lter text-center post-modal-elements-width"
+							class=" b-a b-2x b-dashed wrapper-sm lter text-center post-modal-image-drop"
 							imagedrop on-image-drop="imageDropped()"
-							translate="REGISTER-NONPROFIT.DROPIMAGE">Drop an image here
-							to upload.
-							</div>
+							translate="POST-MODAL.DROP-IMAGE">Drop an image here
+							to upload.</div>
+						<img id="fileDisplayArea" class="post-modal-img" />
 					</div>
 				</div>
-				
+
 			</form>
 		</div>
 	</div>
-</div>	
+</div>
 <div class="modal-footer">
-	
-		<button type="submit" class="btn btn-default" ng-click="close()"
-			translate="POST-MODAL.CANCEL">Cancel</button>
-		<button type="submit" ng-disabled="registerForm.$invalid"
-			ng-click="createPost()" class="btn btn-primary"
-			translate="POST-MODAL.ADD-BUTTON"></button>
-	
+
+	<button type="submit" class="btn btn-default" ng-click="close()"
+		translate="POST-MODAL.CANCEL">Cancel</button>
+	<button type="submit" ng-disabled="registerForm.$invalid"
+		ng-click="createPost()" class="btn btn-primary"
+		translate="POST-MODAL.ADD-BUTTON"></button>
+
 </div>

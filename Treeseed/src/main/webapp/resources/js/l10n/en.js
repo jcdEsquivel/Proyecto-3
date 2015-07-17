@@ -148,10 +148,11 @@
         "MONEY-BROUGHT": "Money brought: "
     },
    	"POST-MODAL":{ 
+   		"MODAL-OPEN-MODAL": "Add post",
    		"MODAL-TITLE": "Add New Post",
    		"TITLE": "Title",
    		"DESCRIPTION": "Description",
-   		"PICTURE": "Picture",
+   		"DROP-IMAGE": "Drop an image here to upload.",
    		"ADD-BUTTON": "Add",
    		"CANCEL": "Cancel"
    		

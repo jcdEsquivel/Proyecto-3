@@ -40,18 +40,24 @@ public class PostNonprofitController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
-			@RequestPart(value="file", required=false) MultipartFile file1,
-			@RequestPart(value="data") PostNonprofitRequest data) {
+			//@RequestPart(value="file1", required=false) MultipartFile file1,
+			@RequestPart(value="data") PostNonprofitRequest requestObj) {
 
 		String resultFileName = "";
+		int generalUserId = 0;
 		HttpSession currentSession = request.getSession();
 		PostNonprofitResponse response = new PostNonprofitResponse();
+		
 		int sessionId = (int) currentSession.getAttribute("idUser");
-
+		
 		Nonprofit nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(data.getNonprofitId());
-
-		if (nonprofit != null && nonprofit.getUsergenerals().get(0).getId() == sessionId) {
+				.getSessionNonprofit(requestObj.getNonprofitId());
+		
+		generalUserId = nonprofit.getUsergenerals().get(0).getId();
+		
+		
+		//Checks if the request comes from the logged user.
+		if (nonprofit != null && generalUserId == sessionId) {
 
 			PostNonprofitWrapper wrapper = new PostNonprofitWrapper(new PostNonprofit());
 
@@ -61,11 +67,11 @@ public class PostNonprofitController {
 				resultFileName = Utils.writeToFile(file, servletContext);
 			}
 
-			/*wrapper.setTittle(title);
-			wrapper.setDescription(description);
+			wrapper.setTittle(requestObj.getTitle());
+			wrapper.setDescription(requestObj.getDescripcion());
 			wrapper.setIsActive(true);
 			wrapper.setPicture(resultFileName);
-			wrapper.setNonprofit(nonprofit);*/
+			wrapper.setNonprofit(nonprofit);
 
 			postNonprofitService.savePostNonprofit(wrapper);
 
