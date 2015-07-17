@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -224,9 +225,10 @@ public class DonorController extends UserGeneralController{
 		return nps;	
 	}
 	
-	@RequestMapping(value ="/editDonor", method = RequestMethod.POST)
-	public DonorResponse editDonor(@RequestBody DonorRequest dr){
-
+	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public DonorResponse editDonor(@RequestPart(value="data") DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
+			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+		
 		String profileImageName = null;
 		
 		DonorResponse us = new DonorResponse();

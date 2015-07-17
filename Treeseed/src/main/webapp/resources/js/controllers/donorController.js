@@ -424,8 +424,95 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;
 		$scope.requestObjectEdit.profileImage=$scope.donor.profilePicture;
-		  
-		$http.post('rest/protected/donor/editDonor',
+		
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/donor/editDonor',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+	     		var formData = new FormData();
+
+		           formData.append('data', new Blob([angular.toJson(data.data)], {
+		               type: "application/json"
+		           }));	
+		           formData.append("fileCover", data.fileCover);
+		           formData.append("fileProfile", data.fileProfile);
+		           console.log("Obj: "+JSON.stringify(data.data));
+		           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.coverImageContainer,
+				   fileProfile : $scope.profileImageContrainer
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+				  //$scope.nonprofit = data.nonprofit;
+				  console.log(data)
+			  });
+		};
+	
+		$scope.$on('profilePicture', function(event, args){
+			
+			if($scope.imageCover==true){
+				$scope.coverImageContainer = args;
+			}else{
+				$scope.profileImageContrainer= args
+			}
+			
+			$scope.image = args;
+			$scope.uploadImage=true;	
+			
+			var file = args;	
+			var imageType = /image.*/;
+
+			if (file.type.match(imageType)) {
+			  var reader = new FileReader();
+
+			  reader.onload = function(e) {
+			    var img = new Image();
+			    img.src = reader.result;
+			    fileDisplayArea.src = img.src;
+			  }
+			  reader.readAsDataURL(file); 
+			  
+			} else {
+			  alert("File not supported!");
+			}
+		});	
+	
+	
+		$scope.openModalImage = function(type) {
+
+			if(type == 'cover'){
+				$scope.imageCover=true;
+				console.log("es cover")
+				console.log($scope.imageCover)
+				
+			}else if(type=='profile'){
+				$scope.imageCover=false;
+				console.log("es profile")
+				console.log($scope.imageCover)		
+			}
+			
+			var modalInstance = $modal.open({
+				animation : $scope.animationsEnabled,
+				templateUrl : 'layouts/components/drag_drop.html',
+				//controller : 'getNonProfitProfileController',
+				scope: $scope,
+				resolve : {
+					setCurrentUser : function() {
+						return $scope.image;
+					}
+				}
+			})
+		};
+
+
+		/*$http.post('rest/protected/donor/editDonor',
 			$scope.requestObjectEdit).success(function(mydata, status) {
 				$scope.donor = mydata.donor;
 				console.log(mydata);
@@ -436,7 +523,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 				}
 		}).error(function(mydata, status) {
 			alert(status);
-		});	
-	};
+		});	*/
+	//};
 	//Finish editing profile
 });

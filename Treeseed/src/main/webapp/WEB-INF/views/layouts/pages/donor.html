@@ -2,17 +2,30 @@
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12">
-        	 <img src="resources/img/c4.jpg" alt="" class="cover-image" >
+        	<div class="cover-image">
+        		<div style="background:url(resources/img/c4.jpg); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+        		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
+        	 	</div>	
+        	 </div> 
     	</div>
 	</div>
+	<!--<div class="row">
+        <div class="col-md-12 ">      
+        	<div class="cover-image">
+        		<div style="background:url({{nonprofit.mainPicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+        		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
+        	 	</div>	
+        	 </div> 	
+    	</div>
+	</div>-->
 	<div class="row">
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
 	 			<div class="row">
-	 				<div class="col-md-12">
-						<img ng-src="{{donor.profilePicture}}" alt="" class="donnor-profile" >
-					</div>
- 				</div>
+	        		<div style="background:url({{donor.profilePicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+	        			<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('profile')"><i class="fa fa-edit"></i></button>
+	        	 	</div>	
+        		 </div>
  				<div class="row">
  					<div class="col-md-12">
  						<b>{{donor.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
