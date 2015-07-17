@@ -59,8 +59,7 @@ public class DonorService implements DonorServiceInterface {
 	@Override
 	@Transactional
 	public Donor getSessionDonor(int idUser) {
-		// TODO Auto-generated method stub
-		return null;
+		return DonorRepository.findOne(idUser);
 	}
 
 	@Override

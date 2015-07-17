@@ -42,7 +42,7 @@ public interface DonorRepository extends
  	@Modifying
 	@Transactional
 	@Query("UPDATE Donor d SET name = :name, lastName = :lastName, description = :description, webPage= :webPage, "
-	+"profilePicture = :profilePicture where n.id = :id") 
+	+"profilePicture = :profilePicture where d.id = :id") 
 	  public void update(
 			   @Param("id") int id,
 			   @Param("name") String name,

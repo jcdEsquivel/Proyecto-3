@@ -211,6 +211,14 @@ public class DonorController extends UserGeneralController{
 		donorPOJO.setWebPage(donor.getWebPage());
 		donorPOJO.setProfilePicture(donor.getProfilePicture());
 		
+		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+		UserGeneral userGeneral;
+		userGeneral= donor.getUsergenerals().get(0);
+		
+		userGeneralPOJO.setEmail(userGeneral.getEmail());
+		
+		donorPOJO.setUserGeneral(userGeneralPOJO);
+		
 		nps.setDonor(donorPOJO);
 		nps.setCode(200);
 		return nps;	
