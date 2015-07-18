@@ -15,7 +15,7 @@
     	"HELP": "Ayuda",
     	"SIGN_OUT": "Cerrar Sesión"	 ,
     	"LOG_IN": "Iniciar Sesión",
-    	"SIGN-ON": "Registrase"   	
+    	"SIGN-ON": "Registrarse"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",

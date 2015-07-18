@@ -142,7 +142,14 @@ angular
 												resolve : load([
 														'angularUtils.directives.dirPagination',
 														'resources/js/controllers/campaignController.js' ]),
-												controller : "campaignSearchController"
+												controller : "campaignSearchController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
 											})		
 									.state(
 											'treeSeed.registerNonProfit',

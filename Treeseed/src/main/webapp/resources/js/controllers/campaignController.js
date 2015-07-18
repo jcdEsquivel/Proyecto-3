@@ -113,7 +113,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 
 
 treeSeedAppControllers.controller('campaingCreateController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope) {
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope,Session) {
 	$scope.percent = 0;
 	$scope.maxCarac= 1000;
 	$scope.stateInput1 = false;
@@ -158,6 +158,7 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			/*$state.go('treeSeed.campaing', {
 				campaign : response.campaignId
 			});*/
+			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
 		})
 
 	};
