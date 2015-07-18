@@ -229,7 +229,7 @@ public class DonorController extends UserGeneralController{
 	public DonorResponse editDonor(@RequestPart(value="data") DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
 		
-		String profileImageName = null;
+		String profileImageName = "";
 		
 		DonorResponse us = new DonorResponse();
 		DonorPOJO donorPOJO = new DonorPOJO();
@@ -240,13 +240,22 @@ public class DonorController extends UserGeneralController{
 		if(ug.getEmail().equals(dr.getEmail())){
 			
 				DonorWrapper donor = new DonorWrapper();
+	
+				if(fileProfile!=null){
+					profileImageName = Utils.writeToFile(fileProfile,servletContext);
+				}
+
+				if(!profileImageName.equals("")){
+					donor.setProfilePicture(profileImageName);
+				}else{
+					donor.setProfilePicture(dr.getProfilePicture());
+				}
 					
 				donor.setId(dr.getId());
 				donor.setName(dr.getName());
 				donor.setLastName(dr.getLastName());
 				donor.setDescription(dr.getDescription());
 				donor.setWebPage(dr.getWebPage());
-				donor.setProfilePicture(dr.getProfileImage());
 				
 				Donor donorobject = new Donor();
 				donorPOJO = new DonorPOJO();
@@ -293,7 +302,7 @@ public class DonorController extends UserGeneralController{
 					donorPOJO.setName(dr.getName());
 					donorPOJO.setLastName(dr.getLastName());
 					donorPOJO.setDescription(dr.getDescription());
-					donorPOJO.setProfilePicture(dr.getProfileImage());
+					donorPOJO.setProfilePicture(dr.getProfilePicture());
 					donorPOJO.setWebPage(dr.getWebPage());
 					donorPOJO.setUserGeneral(userGeneralPOJO);
 					donorPOJO.setId(dr.getId());
@@ -305,10 +314,18 @@ public class DonorController extends UserGeneralController{
 			}else{
 					us.setCode(400);
 					us.setCodeMessage("EMAIL ALREADY IN USE");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					us.setDonor(donorPOJO);
 				}
 			}else{
 					us.setCode(400);
 					us.setCodeMessage("BAD EMAIL");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					us.setDonor(donorPOJO);
 				}
 		}
 		return us;		

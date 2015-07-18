@@ -148,5 +148,8 @@
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
+    },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "The email is already set to an user or is invalid"
     }
 }

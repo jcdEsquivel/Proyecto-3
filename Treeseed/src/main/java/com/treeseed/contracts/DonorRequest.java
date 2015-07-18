@@ -13,18 +13,19 @@ public class DonorRequest extends BasePagingRequest {
 	private String webPage;
 	private int id;
 	private int idUser;
-	private String profileImage;
+	private String profilePicture;
 	
-	public String getProfileImage() {
-		return profileImage;
-	}
-
-	public void setProfileImage(String profileImage) {
-		this.profileImage = profileImage;
-	}
-
+	
 	public String getWebPage() {
 		return webPage;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	public void setWebPage(String webPage) {
