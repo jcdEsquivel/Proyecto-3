@@ -367,9 +367,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 			  }).
 			  success(function (data, status, headers, config) {
-				 
+				 console.log(status)
 			  });
-		
 		
 	};
 	

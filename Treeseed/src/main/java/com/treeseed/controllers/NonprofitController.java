@@ -341,13 +341,13 @@ public class NonprofitController extends UserGeneralController{
 					us.setCodeMessage("Nonprofit updated sucessfully");	
 			
 					
-			}else{
+				}else{
 					us.setCode(400);
 					us.setCodeMessage("EMAIL ALREADY IN USE");
 				}
 			}else{
-					us.setCode(400);
-					us.setCodeMessage("BAD EMAIL");
+				us.setCode(400);
+				us.setCodeMessage("BAD EMAIL");
 				}
 		}
 		return us;		
