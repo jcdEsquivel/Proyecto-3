@@ -50,19 +50,11 @@ public class CampaignService implements CampaignServiceInterface {
 		{
 			startDate = new Date(ur.getFechaInicio());
 		}
-		else
-		{
-			startDate = new Date();
-		}
 		
 		Date endDate = null;
 		if(ur.getFechaFin() > 0)
 		{	
 			endDate = new Date(ur.getFechaFin());
-		}
-		else
-		{
-			endDate = new Date();
 		}
 		
 		result = campaignRepository.findWithAll(campaignName, "%" + campaignName + "%",

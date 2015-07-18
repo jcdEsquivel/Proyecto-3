@@ -50,8 +50,8 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	
 	$scope.getDateFormat = function(date)
 	{
-		if(date === undefined ){
-            return false;
+		if(date === undefined || date === ""){
+            return "";
         }
 		var parts = date.split('-');
 		return new Date(parts[0],parts[1]-1,parts[2]);	
@@ -60,17 +60,27 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	$scope.searchCampaign = function(page) {
 
 		var dates = $scope.campaign.rangeDate.split(' - ');
+		
+		console.log(dates);
+		
+		
+		
 		var startDate = $scope.getDateFormat(dates[0]);
 		var endDate = $scope.getDateFormat(dates[1]);
 		
-		console.log(endDate);
+		console.log("sd " + startDate);
+		console.log("ed " + endDate);
 		
-		$scope.requestObject.fechaInicio = startDate.getTime();
-		if(endDate != false)
+		if (startDate != "")
+		{
+			$scope.requestObject.fechaInicio = startDate.getTime();
+		}
+		
+		if(endDate != "")
 		{
 			$scope.requestObject.fechaFin = endDate.getTime();
 		}
-
+	
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.campaign.name;
 		$scope.requestObject.nonprofitName = $scope.campaign.nonProfit.name;
