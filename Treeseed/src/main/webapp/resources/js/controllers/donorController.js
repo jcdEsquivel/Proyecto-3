@@ -457,7 +457,10 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			  	if(data.code=="400"){
 		    		$scope.error = true;
 		    		$scope.donor.userGeneral.email = data.donor.userGeneral.email;
-		        }	    		
+		        }	 
+			  	
+			  	 $scope.donor.profilePicture = data.donor.profilePicture;
+			  	 $scope.currentUser.userImage = data.donor.profilePicture;
 			});
 		};
 	
