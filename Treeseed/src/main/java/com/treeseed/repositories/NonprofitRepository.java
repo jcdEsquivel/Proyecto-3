@@ -2,8 +2,11 @@ package com.treeseed.repositories;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -35,4 +38,19 @@ public interface NonprofitRepository extends
 	
 	Nonprofit findByid(int id);
 	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Nonprofit n SET name = :name, description = :description, mision= :mision, "
+			+ "reason= :reason, mainPicture = :mainPicture, profilePicture = :profilePicture, "
+			+ "webPage = :webPage where n.id = :id") 
+	  public void update(
+			   @Param("id") int id,
+			   @Param("name") String name,
+			   @Param("description") String description,
+			   @Param("mision") String mision,
+			   @Param("reason") String reason,
+			   @Param("mainPicture") String mainPicture,
+			   @Param("profilePicture") String profilePicture,
+			   @Param("webPage") String webPage)
+			   ;
 }

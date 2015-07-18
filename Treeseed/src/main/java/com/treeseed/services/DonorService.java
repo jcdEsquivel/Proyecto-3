@@ -1,19 +1,13 @@
 package com.treeseed.services;
 
-import java.sql.ResultSet;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
-import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
@@ -65,12 +59,23 @@ public class DonorService implements DonorServiceInterface {
 	@Override
 	@Transactional
 	public Donor getSessionDonor(int idUser) {
-		// TODO Auto-generated method stub
-		return null;
+		return DonorRepository.findOne(idUser);
 	}
 
 	@Override
 	public Donor getDonorProfileByID(DonorRequest dr) {
 		return DonorRepository.findByid(dr.getId());
+	}
+
+	@Override
+	@Transactional
+	public void updateDonor(DonorWrapper donor) {
+		DonorRepository.update(donor.getId(),
+				donor.getName(), 
+				donor.getLastName(),
+				donor.getDescription(),
+				donor.getProfilePicture(),
+				donor.getWebPage()
+				);		
 	}
 }

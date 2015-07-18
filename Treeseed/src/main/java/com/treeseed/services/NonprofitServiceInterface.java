@@ -23,4 +23,8 @@ public interface NonprofitServiceInterface {
 	Page<Nonprofit> getByCause(NonprofitRequest ur);
 	
 	Nonprofit getNonProfitByID(NonprofitRequest ur);
+	
+	Nonprofit getNonProfitById(int id);
+	
+	Nonprofit updateNonProfit(NonprofitWrapper nonprofit);
 }

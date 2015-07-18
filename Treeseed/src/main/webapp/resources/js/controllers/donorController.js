@@ -320,13 +320,6 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Declaration of donor object
 	$scope.donor = {};
 	$scope.donor.id = $stateParams.donorId;
-	$scope.donor.name = "";
-	$scope.donor.lastName = "";
-	$scope.donor.description = "";
-	$scope.donor.country = "";
-	//$scope.donor.userGeneral.email = "";
-	$scope.donor.profilePicture = "";
-	$scope.donor.webPage = "";
 	$scope.requestObject = {};
 
 	//init function, calls the java controller
@@ -353,7 +346,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
   	//About Edit
   	$scope.aboutEditClicked = function() {
   		$scope.aboutInEdition = true;
-  		$scope.aboutEdit = $scope.donor.description;
+  		$scope.error = false;
+  		//$scope.aboutEdit = $scope.donor.description;
 	};
 
 	$scope.aboutCancelEditing = function(){
@@ -361,15 +355,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.aboutSaveEditing = function(){
-		$scope.donor.description = $scope.aboutEdit;
+		$scope.editDonor();
 		$scope.aboutInEdition = false;
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
-  		$scope.nameEdit = $scope.donor.name;
-  		$scope.lastNameEdit = $scope.donor.lastName;
+  		$scope.error = false;
+  		//$scope.nameEdit = $scope.donor.name;
+  		//$scope.lastNameEdit = $scope.donor.lastName;
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -377,15 +372,15 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.donor.name = $scope.nameEdit;
-		$scope.donor.lastName = $scope.lastNameEdit;
+		$scope.editDonor();
 		$scope.nameInEdition = false;
 	};
 
 	//Email Edit
 	$scope.emailEditClicked = function() {
   		$scope.emailInEdition = true;
-  		$scope.emailEdit = $scope.email;
+  		$scope.error = false;
+  		//$scope.emailEdit = $scope.email;
 	};
 
 	$scope.emailCancelEditing = function(){
@@ -393,14 +388,15 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.emailSaveEditing = function(){
-		$scope.email = $scope.emailEdit;
+		$scope.editDonor();
 		$scope.emailInEdition = false;
 	};
 
 	//Webpage Edit
 	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
-  		$scope.webPageEdit = $scope.donor.webPage;
+  		$scope.error = false;
+  		//$scope.webPageEdit = $scope.donor.webPage;
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -408,8 +404,123 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.webPageSaveEditing = function(){
-		$scope.donor.webPage = $scope.webPageEdit;
+		$scope.editDonor();
 		$scope.webPageInEdition = false;
 	};
 	//Finish controller for edit buttons
+
+	//Start editing profile
+	$scope.requestObjectEdit={};
+	$scope.requestObjectEdit.donor={}
+	$scope.requestObjectEdit.coverImage=null;
+	$scope.requestObjectEdit.profileImage=null;
+	
+	$scope.editDonor = function(){
+
+		console.log($scope.donor.description)
+		
+		$scope.requestObjectEdit.email = $scope.donor.userGeneral.email;
+		$scope.requestObjectEdit.name = $scope.donor.name;
+		$scope.requestObjectEdit.lastName = $scope.donor.lastName;
+		$scope.requestObjectEdit.description= $scope.donor.description;
+		$scope.requestObjectEdit.webPage= $scope.donor.webPage;
+		$scope.requestObjectEdit.id= $scope.donor.id; 
+		$scope.requestObjectEdit.idUser= Session.id;
+		$scope.requestObjectEdit.coverImage=null;
+		$scope.requestObjectEdit.profilePicture=$scope.donor.profilePicture;
+		
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/donor/editDonor',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+	     		var formData = new FormData();
+
+		           formData.append('data', new Blob([angular.toJson(data.data)], {
+		               type: "application/json"
+		           }));	
+		           formData.append("fileCover", data.fileCover);
+		           formData.append("fileProfile", data.fileProfile);
+		           console.log("Obj: "+JSON.stringify(data.data));
+		           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.coverImageContainer,
+				   fileProfile : $scope.profileImageContrainer
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+			  	if(data.code=="400"){
+		    		$scope.error = true;
+		    		$scope.donor.userGeneral.email = data.donor.userGeneral.email;
+		        }	    		
+			});
+		};
+	
+		$scope.$on('profilePicture', function(event, args){
+			
+			$scope.profileImageContrainer= args
+			
+			$scope.image = args;
+			$scope.uploadImage=true;	
+			
+			var file = args;	
+			var imageType = /image.*/;
+
+			if (file.type.match(imageType)) {
+			  var reader = new FileReader();
+
+			  reader.onload = function(e) {
+			    var img = new Image();
+			    img.src = reader.result;
+			    fileDisplayArea.src = img.src;
+			  }
+			  reader.readAsDataURL(file); 
+			  
+			} else {
+			  alert("File not supported!");
+			}
+		});	
+	
+		var modalInstance=null;
+
+		$scope.openModalImage = function(type) {
+
+			if(type == 'cover'){
+				$scope.imageCover=true;
+				console.log("es cover")
+				console.log($scope.imageCover)
+				
+			}else if(type=='profile'){
+				$scope.imageCover=false;
+				console.log("es profile")
+				console.log($scope.imageCover)		
+			}
+			
+			    modalInstance = $modal.open({
+				animation : $scope.animationsEnabled,
+				templateUrl : 'layouts/components/drag_drop.html',
+				//controller : 'getNonProfitProfileController',
+				scope: $scope,
+				resolve : {
+					setCurrentUser : function() {
+						return $scope.image;
+					}
+				}
+			})
+		};
+
+		$scope.closeModal = function() {		
+			modalInstance.close();
+			$scope.editDonor(); 
+		};
+		
+		$scope.closeModalWithoutEdit = function() {		
+			modalInstance.close();
+		};
+	//Finish editing profile
 });

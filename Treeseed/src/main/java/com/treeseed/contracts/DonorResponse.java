@@ -1,7 +1,9 @@
 package com.treeseed.contracts;
 
 import java.util.List;
+
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 
 public class DonorResponse extends BaseResponse {
 	
@@ -9,6 +11,16 @@ public class DonorResponse extends BaseResponse {
 	private DonorPOJO donor;
 	private boolean isOwner;
 	private int donorId;
+	private UserGeneralPOJO userGeneral;
+
+
+	public UserGeneralPOJO getUserGeneral() {
+		return userGeneral;
+	}
+
+	public void setUserGeneral(UserGeneralPOJO userGeneral) {
+		this.userGeneral = userGeneral;
+	}
 
 	public int getDonorId() {
 		return donorId;

@@ -472,6 +472,11 @@ fieldset[disabled] .btn-primary.active {
     max-width:750px
 }
 
+.cover-image-style{
+	height: 280px;
+  	background-size: 100% 100%;
+  	background-repeat: no-repeat;
+}
 
 /*
  .post-img-div{

@@ -153,6 +153,15 @@
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
     },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "The email is already being used or is invalid.",
+        "EMAIL": "Email:",
+   		"WEBPAGE": "Web Page:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Close",
+        "ACCEPT": "Save"
+    },
    	"POST-MODAL":{ 
    		"MODAL-OPEN-MODAL": "Add post",
    		"MODAL-TITLE": "Add New Post",
