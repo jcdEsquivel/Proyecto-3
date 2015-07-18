@@ -8,7 +8,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
 
 public class CampaignWrapper {
-
+	
 	private Campaign wrapperObject;
 
 	public CampaignWrapper() {

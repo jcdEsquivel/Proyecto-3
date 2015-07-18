@@ -7,7 +7,7 @@ import com.treeseed.ejb.PostCampaign;
 import com.treeseed.pojo.CampaignPOJO;
 
 public class CampaignRequest extends BasePagingRequest {
-	
+
 	private CampaignPOJO campaign;
 
 	private int id;
@@ -24,13 +24,46 @@ public class CampaignRequest extends BasePagingRequest {
 
 	private Date dueDate;
 
-	private String name;
-
 	private String picture;
-	
-	private boolean isActive;
 
-	private Nonprofit nonprofit;
+	private String name;
+	private String nonprofitName;
+	private int causeId;
+	private long fechaInicio;
+	private long fechaFin;
+
+	public String getNonprofitName() {
+		return nonprofitName;
+	}
+
+	public void setNonprofitName(String nonprofitName) {
+		this.nonprofitName = nonprofitName;
+	}
+
+	public int getCauseId() {
+		return causeId;
+	}
+
+	public void setCauseId(int causeId) {
+		this.causeId = causeId;
+	}
+
+	public long getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(long fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public long getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(long fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
 
 	private List<PostCampaign> postCampaigns;
 
@@ -104,22 +137,6 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public Nonprofit getNonprofit() {
-		return nonprofit;
-	}
-
-	public void setNonprofit(Nonprofit nonprofit) {
-		this.nonprofit = nonprofit;
 	}
 
 	public List<PostCampaign> getPostCampaigns() {

@@ -77,6 +77,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña"
+    },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
     	"FILTERS": "Filtros",
@@ -88,7 +91,9 @@
     	"COUNTRY-FILTER": "Escoja un país",
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
-    	"BLANK-OPTION": "Seleccione:"	
+    	"BLANK-OPTION": "Seleccione:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Rango de Fechas"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",

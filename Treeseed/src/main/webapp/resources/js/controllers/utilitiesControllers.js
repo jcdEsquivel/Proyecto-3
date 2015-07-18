@@ -15,7 +15,7 @@ treeSeedAppControllers.controller('dragnDropController', function($scope){
 	    //Clear the uploaded file
 	    $scope.uploadedFile = null;
 	};
-	
+
 });
 
 treeSeedAppControllers.controller('DatepickerCtrl', ['$scope', function($scope) {

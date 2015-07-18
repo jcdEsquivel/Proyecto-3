@@ -1,4 +1,5 @@
 {
+	
  "MENU-HEADER": {
     	"NGO": "Nonprofit",
     	"EXPLORE": "Explore",
@@ -86,6 +87,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Campaign Advanced Search"
+    },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
     	"FILTERS": "Filters",
@@ -93,7 +97,9 @@
     	"COUNTRY-FILTER": "Select a country",
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
-    	"BLANK-OPTION": "Select:"
+    	"BLANK-OPTION": "Select:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Range Date"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
