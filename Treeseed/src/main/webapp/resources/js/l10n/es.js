@@ -140,16 +140,15 @@
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
      },
-    	"POST-MODAL":{ 
-    		"MODAL-OPEN-MODAL": "Agregar post",
-       		"MODAL-TITLE": "Agregar nuevo post",
-       		"TITLE": "Título",
-       		"DESCRIPTION": "Descripción",
-       		"DROP-IMAGE": "Arrastre una imagen aqui",
-       		"ADD-BUTTON": "Agregar",
-       		"CANCEL": "Cancelar"
-       		}
-     },
+	"POST-MODAL":{ 
+		"MODAL-OPEN-MODAL": "Agregar post",
+		"MODAL-TITLE": "Agregar nuevo post",
+		"TITLE": "Título",
+		"DESCRIPTION": "Descripción",
+		"DROP-IMAGE": "Arrastre una imagen aqui",
+		"ADD-BUTTON": "Agregar",
+		"CANCEL": "Cancelar"
+	},
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
      	"TITLE":"Crear Campaña",

@@ -4,23 +4,24 @@
 <div class="modal-body">
 	<div class="row">
 		<div class="col-sm-12">
-			<form class="col-sm-12  form-horizontal" id="registerPost"
+			<form class="col-sm-12  form-horizontal form-validation" id="registerPost"
 				name="registerForm" role="form" required>
 				<div class="form-group">
 
 					<div class="col-lg-6">
-						<md-input-container flex> <label
-							translate="POST-MODAL.TITLE"></label> <input type="text"
-							ng-model="post.title" class="form-control" required> </md-input-container>
 
+						<p translate="POST-MODAL.TITLE">Title</p>
+						<input name="txt-name"
+							placeholder="{{'POST-MODAL.TITLE'| translate}}"
+							class="form-control" ng-model="post.title" required>
 
-
-						<md-input-container flex> <label
-							translate="POST-MODAL.DESCRIPTION"></label> <textarea cols="40"
-							rows="8" class="post-modal-text-area" name="txa-description" style="max-height: 212px;"
-							ng-model="post.descripcion" required></textarea> </md-input-container>
-
-
+						<p class="m-t" translate="POST-MODAL.DESCRIPTION">Description:</p>
+						<textarea class="form-control" rows="6" name="txa-description"
+							ng-model="post.descripcion" maxlength="{{maxCarac}}"
+							name="description"
+							placeholder="{{'POST-MODAL.DESCRIPTION'| translate}}"
+							required ></textarea>
+						<span>{{post.descripcion.length}}/{{maxCarac}}</span>
 
 
 					</div>
@@ -31,8 +32,8 @@
 						<div ng-controller="dragnDropController" id="file-drop"
 							class=" b-a b-2x b-dashed wrapper-sm lter text-center post-modal-image-drop"
 							imagedrop on-image-drop="imageDropped()"
-							translate="POST-MODAL.DROP-IMAGE">Drop an image here
-							to upload.</div>
+							translate="POST-MODAL.DROP-IMAGE">Drop an image here to
+							upload.</div>
 						<img id="fileDisplayArea" class="post-modal-img" />
 					</div>
 				</div>
