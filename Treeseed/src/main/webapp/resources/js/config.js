@@ -53,7 +53,7 @@ angular
 										url : '/signin',
 										templateUrl : 'layouts/components/page_signin.html',
 										controller : 'SigninFormController'
-									})
+									})									
 							.state(
 									'treeSeed.index',
 									{
@@ -65,92 +65,101 @@ angular
 													USER_ROLES.donor,
 													USER_ROLES.guest,
 													USER_ROLES.nonprofit ]
-
+										
 										}
 									})
-							.state('treeSeed.donor', {
-								url : 'donor/:donorId',
-								templateUrl : 'layouts/pages/donor.html',
-								controller : "getDonorProfileController",
-								params : {
-									donorId : null
-								}
-							})
-							.state('treeSeed.nonProfit', {
-								url : 'nonProfit/:nonProfitId',
-								templateUrl : 'layouts/pages/nonProfit.html',
-								controller : "getNonProfitProfileController",
-								params : {
-									nonProfitId : null 
-								},
-								 
-								 data : {
-										authorizedRoles : [
-												USER_ROLES.donor,
-												USER_ROLES.guest,
-												USER_ROLES.nonprofit ]
+									.state(
+											'treeSeed.donor',
+											{
+												url : 'donor/:donorId',
+												templateUrl : 'layouts/pages/donor.html',
+												controller: "getDonorProfileController",
+												params: {donorId: null}
+											})
+									.state(
+											'treeSeed.nonProfit',
+											{
+												url : 'nonProfit/:nonProfitId',
+												templateUrl : 'layouts/pages/nonProfit.html',
+												controller: "getNonProfitProfileController",
+												params: {nonProfitId: null},
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.donor,
+													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
 
-									}
-							})
-							.state('treeSeed.donate', {
-								url : '../donate',
-								templateUrl : 'layouts/pages/donate.html'
-							})
-							.state(
-									'treeSeed.searchTransReport',
-									{
-										url : 'str',
-										templateUrl : 'layouts/pages/transparencyReportSearch.html',
-										controller : "searchTransparecyReportController"
-									})
-							.state(
-									'treeSeed.createCampaing',
-									{
-										url : 'createCampaing',
-										templateUrl : 'layouts/pages/createCampaing.html'
-									// resolve:
-									// load(['js/controllers/chart.js'])
-									})
-							.state(
-									'treeSeed.campaingViewer',
-									{
-										url : 'campaingViewer',
-										templateUrl : 'layouts/pages/campaingViewer.html'
-									// resolve:
-									// load(['js/controllers/chart.js'])
-									})
-							.state(
-									'treeSeed.nonProfitSearch',
-									{
-										url : 'nonProfitSearch',
-										templateUrl : 'layouts/pages/nonProfitSearch.html',
-										resolve : load([
-												'angularUtils.directives.dirPagination',
-												'resources/js/controllers/nonprofitController.js' ]),
-										controller : "nonProfitSearchController"
-									})
-							.state(
-									'treeSeed.registerNonProfit',
-									{
-										url : 'registerNonProfit',
-										templateUrl : 'layouts/pages/registerNonProfitProfile.html',
-										controller : "nonProfitRegistrationController"
-									})
-							.state(
-									'treeSeed.registerDonor',
-									{
-										url : 'registerDonor',
-										templateUrl : 'layouts/pages/registerDonor.html',
-										controller : "donorRegistrationController"
-									})
-							.state(
-									'treeSeed.donorSearch',
-									{
-										url : 'donorSearch',
-										templateUrl : 'layouts/pages/donorSearch.html',
-										resolve : load([ 'angularUtils.directives.dirPagination' ]),
-										controller : "donorSearchController"
-									});
+												}
+											})
+									.state(
+											'treeSeed.donate',
+											{
+												url : '../donate',
+												templateUrl : 'layouts/pages/donate.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.searchTransReport',
+											{
+												url : 'str',
+												templateUrl : 'layouts/pages/transparencyReportSearch.html',
+												controller : "searchTransparecyReportController"
+											})
+									.state(
+											'treeSeed.createCampaing',
+											{
+												url : 'createCampaing',
+												templateUrl : 'layouts/pages/createCampaing.html',
+												controller: 'campaingCreateController',
+												data : {
+												authorizedRoles : [
+														USER_ROLES.nonprofit ]
+												}
+											})
+									.state(
+											'treeSeed.campaingViewer',
+											{
+												url : 'campaingViewer',
+												templateUrl : 'layouts/pages/campaingViewer.html'
+											// resolve:
+											// load(['js/controllers/chart.js'])
+											})
+									.state(
+											'treeSeed.nonProfitSearch',
+											{
+												url : 'nonProfitSearch',
+												templateUrl : 'layouts/pages/nonProfitSearch.html',
+												resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/nonprofitController.js' ]),
+												controller : "nonProfitSearchController"
+											})
+									.state(
+											'treeSeed.registerNonProfit',
+											{
+												url : 'registerNonProfit',
+												templateUrl : 'layouts/pages/registerNonProfitProfile.html',
+												controller : "nonProfitRegistrationController"
+											})
+									.state(
+											'treeSeed.registerDonor',
+											{
+												url : 'registerDonor',
+												templateUrl : 'layouts/pages/registerDonor.html',
+												controller : "donorRegistrationController"
+											})
+									.state(
+											'treeSeed.donorSearch',
+											{
+												url : 'donorSearch',
+												templateUrl : 'layouts/pages/donorSearch.html',
+												resolve : load([ 'angularUtils.directives.dirPagination' ]),
+												controller : "donorSearchController"
+											});
+
+							
+							
 
 					function load(srcs, callback) {
 						return {

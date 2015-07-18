@@ -5,7 +5,7 @@
     	"ADVANCE_SEARCH": "Advance Search",
     	"SEARCH_NGO": "For Nonprofits",
     	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "For Campaigns",
+    	"SEARCH_CAMPAIGN": "For Campaigns",
     	"DONOR": "Donor",
     	"SEARCH_DONOR": "For Donors",
     	"SEARCH": "Search",
@@ -156,5 +156,35 @@
    		"ADD-BUTTON": "Add",
    		"CANCEL": "Cancel"
    		
-   	}
+    },
+      "CREATE-CAMPAIGN": {
+    	"BAR": "Creation progress:",
+    	"TITLE":"Create Campaign",
+        "TAB-1": {
+        	"TITLE":"General Information",
+        	"NAME":"Name:",
+        	"DESCRIPTION":"Description:",
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
+        },
+        "TAB-2":{
+        	"TITLE":"Goal Information",
+        	"DATE1":"Start Date:",
+        	"DATE2":"End Date:",
+        	"AMOUNT":"Amount goal:",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-DATE1":"Start Date",
+        	"PLACEHOLDER-DATE2":"End Date",
+        	"PLACEHOLDER-AMOUNT":"Amount goal"
+        },
+    	"TAB-3":{
+    		"TITLE":"Image",
+        	"IMAGE":"Campaign's Main Image:",
+        	"DROPIMAGE":"Drop an image here to upload.",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-FINALIZE":"Create"
+    	}
+    }
 }

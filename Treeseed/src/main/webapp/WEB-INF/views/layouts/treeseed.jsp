@@ -29,6 +29,7 @@
 <script src="resources/js/config.js"></script>
 <script src="resources/js/controllers/treeSeedApp.js"></script>
 <script src="resources/js/controllers/utilitiesControllers.js"></script>
+<script src="resources/js/controllers/campaignController.js"></script>
 <script src="resources/js/controllers/nonprofitController.js"></script>
 <script src="resources/js/controllers/donorController.js"></script>
 <script src="resources/js/controllers/postController.js"></script>

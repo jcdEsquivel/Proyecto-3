@@ -19,6 +19,7 @@ import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
@@ -52,7 +53,7 @@ public class PostNonprofitController {
 		
 		int sessionId = (int) currentSession.getAttribute("idUser");
 		
-		Nonprofit nonprofit = nonprofitServiceInterface
+		NonprofitWrapper nonprofit = nonprofitServiceInterface
 				.getSessionNonprofit(requestObj.getNonprofitId());
 		
 		generalUserId = nonprofit.getUsergenerals().get(0).getId();
@@ -73,7 +74,7 @@ public class PostNonprofitController {
 			wrapper.setDescription(requestObj.getDescripcion());
 			wrapper.setIsActive(true);
 			wrapper.setPicture(resultFileName);
-			wrapper.setNonprofit(nonprofit);
+			wrapper.setNonprofit(nonprofit.getWrapperObject());
 			wrapper.setCreationDate(new Date());
 
 			postNonprofitService.savePostNonprofit(wrapper);

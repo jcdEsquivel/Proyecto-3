@@ -121,11 +121,11 @@ public class TestsUsersController extends AbstractTestController{
 			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
-	        String uri = "/rest/protected/users/registerDonor";
+	        String uri = "/rest/protected/donor/register";
 	               
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        				.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
@@ -157,12 +157,12 @@ public class TestsUsersController extends AbstractTestController{
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
 			
-	        String uri = "/rest/protected/users/registerDonor";
+	        String uri = "/rest/protected/donor/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        				.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
@@ -199,12 +199,12 @@ public class TestsUsersController extends AbstractTestController{
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
 			
-	        String uri = "/rest/protected/users/registerDonor";
+	        String uri = "/rest/protected/donor/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        				.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
@@ -241,12 +241,12 @@ public class TestsUsersController extends AbstractTestController{
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
 			
-	        String uri = "/rest/protected/users/registerNonProfit";
+	        String uri = "/rest/protected/nonprofit/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        				.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("email", email)
 		                    .param("password", password)
@@ -259,7 +259,7 @@ public class TestsUsersController extends AbstractTestController{
 	        
 	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
 	        
-	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
+	        Assert.assertEquals("user created successfully", response.getCodeMessage());
 	      
 
 	    }
@@ -280,12 +280,12 @@ public class TestsUsersController extends AbstractTestController{
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
 			
-	        String uri = "/rest/protected/users/registerNonProfit";
+	        String uri = "/rest/protected/nonprofit/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        		  		.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("email", email)
 		                    .param("password", password)
@@ -316,7 +316,7 @@ public class TestsUsersController extends AbstractTestController{
 			String cause =  idCatalog;
 			String country = idCatalog;
 			
-	        String uri = "/rest/protected/users/registerNonProfit";
+	        String uri = "/rest/protected/nonprofit/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
@@ -333,7 +333,7 @@ public class TestsUsersController extends AbstractTestController{
 	        
 	        NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
 	        
-	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
+	        Assert.assertEquals("user created successfully", response.getCodeMessage());
 	      
 	    }
 	    
@@ -354,12 +354,12 @@ public class TestsUsersController extends AbstractTestController{
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
 			
-	        String uri = "/rest/protected/users/registerNonProfit";
+	        String uri = "/rest/protected/nonprofit/register";
 	               
 	        
 	        MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
-		                    .file(file)
+	        				.file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("email", email)
 		                    .param("password", password)
