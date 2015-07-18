@@ -94,6 +94,19 @@ treeSeedAppDirectives.directive('uiFocus', function($timeout, $parse) {
 	};
 });
 
+treeSeedAppDirectives.directive('uiDatepickerRange', function() {
+	 return {
+	      restrict: 'A',
+	      link: function(scope, element) {
+
+	        element.bind('click', function(e) {
+	            angular.element(e.target).siblings('#dateRange').trigger('jq');
+	        });
+	      }
+	    };
+	});
+
+
 treeSeedAppDirectives
 		.directive(
 				'uiFullscreen',

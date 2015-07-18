@@ -5,7 +5,7 @@
     	"ADVANCE_SEARCH": "Búsqueda Avanzada",
     	"SEARCH_NGO": "ONG",
     	"CAMPAIGN": "Campaña",
-    	"SEARCH_CAMPAING": "Campañas",
+    	"SEARCH_CAMPAIGN": "Campañas",
     	"DONOR": "Donante",
     	"SEARCH_DONOR": "Donantes",
     	"SEARCH": "Buscar",
@@ -99,7 +99,7 @@
         "PASSWORD-CONFIRM": "Confirmar contraseña",
         "CAUSE": "Causa",
         "COUNTRY": "País",
-        "PICTUREIMAGE": "Image de Perfil",
+        "PICTUREIMAGE": "Imagen de Perfil",
         "DROPIMAGE" : "Arrastrar imagen aqui.",
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
@@ -143,5 +143,44 @@
      },
      "SELECT-USER":{
      	"TITLE":"Registrarse como:"
+     },
+	"POST-MODAL":{ 
+		"MODAL-OPEN-MODAL": "Agregar post",
+		"MODAL-TITLE": "Agregar nuevo post",
+		"TITLE": "Título",
+		"DESCRIPTION": "Descripción",
+		"DROP-IMAGE": "Arrastre una imagen aqui",
+		"ADD-BUTTON": "Agregar",
+		"CANCEL": "Cancelar"
+	},
+     "CREATE-CAMPAIGN": {
+     	"BAR": "Proceso de creación:",
+     	"TITLE":"Crear Campaña",
+         "TAB-1": {
+         	"TITLE":"Información General",
+         	"NAME":"Nombre:",
+         	"DESCRIPTION":"Descripción:",
+         	"BUTTON-NEXT":"Siguiente",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
+         },
+         "TAB-2":{
+         	"TITLE":"Información del Objetivo",
+         	"DATE1":"Fecha de inicio:",
+        	"DATE2":"Fecha de fin:",
+         	"AMOUNT":"Cantidad a alcanzar:",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-NEXT":"Siguiente",
+        	"PLACEHOLDER-DATE1":"Fecha de inicio",
+        	"PLACEHOLDER-DATE2":"Fecha de fin",
+        	"PLACEHOLDER-AMOUNT":"Cantidad a alcanzar"
+         },
+     	"TAB-3":{
+     		"TITLE":"Imagen",
+         	"IMAGE":"Imagen principal de la campaña:",
+         	"DROPIMAGE":"Arrastrar imagen aqui.",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-FINALIZE":"Crear"
+     	}
      }
 }

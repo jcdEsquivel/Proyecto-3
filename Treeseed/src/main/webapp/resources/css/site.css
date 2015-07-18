@@ -464,6 +464,9 @@ fieldset[disabled] .btn-primary.active {
   	width: 100%;
   	
 }
+.w-xxxl {
+    max-width:750px
+}
 
 .imagediv{
 max-width: 100%;
@@ -476,6 +479,31 @@ border-radius: 26px;
 box-shadow: 13px 24px 75px #000000;
 }
 
+/*
+ .post-img-div{
+ 	
+ }*/
+ 
+ 
+ .post-modal-text-area{
+ 	width:100%;
+ }
+ 
+ .post-modal-image-drop{
+ 	width:80%;
+ 	height: 86px;
+ 	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-top: 5px;
+ }
 
-
+ 
+ .post-modal-img{
+ 	height: 230px;
+margin-left: auto;
+margin-right: auto;
+display: block;
+width: 250px;
+ }
  
