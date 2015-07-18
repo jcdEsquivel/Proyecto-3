@@ -174,7 +174,7 @@ padding-right: 15%;
 
 
 .landing-events-image1{
-    background-image: url('../images/landing-kid2.jpg') ;
+    background-image: url('../images/landing-kid2.png') ;
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -191,7 +191,7 @@ background-size: 100% 100%;
 }
 
 .landing-events-image2{
-    background-image: url('../images/landing-ngo2.jpg') ;
+    background-image: url('../images/landing-ngo2.png') ;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    -o-background-size: cover;
@@ -205,7 +205,7 @@ background-size: 100% 100%;
 }
 
 .landing-events-image3{
-    background-image: url('../images/landing-ngo7.jpg') ;
+    background-image: url('../images/landing-ngo7.png') ;
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
