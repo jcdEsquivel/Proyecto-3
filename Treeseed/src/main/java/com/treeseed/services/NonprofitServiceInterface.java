@@ -14,13 +14,17 @@ public interface NonprofitServiceInterface {
 
 	int saveNonprofit(NonprofitWrapper nonprofit);
 
-	Nonprofit getSessionNonprofit(int idNonprofit);
+	NonprofitWrapper getSessionNonprofit(int idNonprofit);
 
-	Page<Nonprofit> getByName(NonprofitRequest ur);
+	public Page<Nonprofit> getByName(String name);
 	
 	Page<Nonprofit> getByCountry(NonprofitRequest ur);
 	
 	Page<Nonprofit> getByCause(NonprofitRequest ur);
 	
 	Nonprofit getNonProfitByID(NonprofitRequest ur);
+	
+	Nonprofit getNonProfitById(int id);
+	
+	Nonprofit updateNonProfit(NonprofitWrapper nonprofit);
 }

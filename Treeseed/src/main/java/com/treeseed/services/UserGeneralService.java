@@ -12,6 +12,7 @@ import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
 
@@ -121,6 +122,21 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	    }
 
 	}
+	
+	
+	@Override
+	public UserGeneral getUGByID(int idUserGeneral) {
+		return usersRepository.findOne(idUserGeneral);
+	}
+	
+	@Override
+	@Transactional
+	public void updateUserGeneral(UserGeneralWrapper userGeneral) {
+		usersRepository.update(userGeneral.getId(),
+				userGeneral.getEmail()
+				);		
+	}
+
 	
 
 }

@@ -1,3 +1,4 @@
+use treeseeddb;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GENERAL_SEARCH_SP`(IN pFilter varchar(100), IN pCountry varchar(100))
 BEGIN
 

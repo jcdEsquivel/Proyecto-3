@@ -18,5 +18,4 @@ public class GeneralSearchRequest {
 		this.country = country;
 	}
 	
-	
 }

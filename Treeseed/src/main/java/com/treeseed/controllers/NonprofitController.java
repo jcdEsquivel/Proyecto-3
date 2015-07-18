@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +42,7 @@ import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
@@ -130,7 +132,7 @@ public class NonprofitController extends UserGeneralController{
 					if(ugr.getCode()==200){
 						us.setNonProfitId(nonProfitId);
 						us.setCode(200);
-						us.setCodeMessage("user created succesfully");
+						us.setCodeMessage("user created successfully");
 					}else{
 						us.setCode(ugr.getCode());
 						us.setCodeMessage(ugr.getCodeMessage());
@@ -160,7 +162,7 @@ public class NonprofitController extends UserGeneralController{
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
-		nps.setCode(200);
+		
 		nps.setCodeMessage("nonprofits fetch success");
 		
 		
@@ -235,5 +237,126 @@ public class NonprofitController extends UserGeneralController{
 		nps.setCode(200);
 		return nps;
 			
+	}
+	
+	
+	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
+			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+	
+		String coverImageName = "";
+		String profileImageName = "";
+		
+		NonprofitResponse us = new NonprofitResponse();
+		
+		UserGeneral ug = new UserGeneral();
+		ug = userGeneralService.getUGByID(npr.getIdUser());
+		
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+		
+		if(ug.getEmail().equals(npr.getEmail())){
+			
+				NonprofitWrapper nonprofit = new NonprofitWrapper();
+					
+					if(fileCover!=null){
+						coverImageName = Utils.writeToFile(fileCover,servletContext);
+					}
+		
+					if(fileProfile!=null){
+						profileImageName = Utils.writeToFile(fileProfile,servletContext);
+					}
+					
+					
+
+					if(!coverImageName.equals("")){
+						nonprofit.setMainPicture(coverImageName);
+					}else{
+						nonprofit.setMainPicture(npr.getMainPicture());
+					}
+					
+					if(!profileImageName.equals("")){
+						nonprofit.setProfilePicture(profileImageName);
+					}else{
+						nonprofit.setProfilePicture(npr.getProfilePicture());
+					}
+					
+					nonprofit.setId(npr.getId());
+					nonprofit.setName(npr.getName());
+					nonprofit.setDescription(npr.getDescription());
+					nonprofit.setMision(npr.getMision());
+					nonprofit.setReason(npr.getReason());
+					nonprofit.setWebPage(npr.getWebPage());
+					
+					nonprofitPOJO = new NonprofitPOJO();
+					
+					nonProfitService.updateNonProfit(nonprofit);
+					
+					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
+					
+					
+					nonprofitPOJO.setName(nonprofitobject.getName());
+					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
+					nonprofitPOJO.setMainPicture(nonprofitobject.getMainPicture());
+					nonprofitPOJO.setProfilePicture(nonprofitobject.getProfilePicture());
+					
+					us.setNonprofit(nonprofitPOJO);
+					us.setCode(200);
+					us.setCodeMessage("Nonprofit updated sucessfully");
+		}else{
+			
+			Boolean alreadyUser=userGeneralService.userExist(npr.getEmail());
+			npr.setEmail(npr.getEmail().toLowerCase());
+
+			if(validator.isValid(npr.getEmail())){
+				if(!alreadyUser){
+			
+					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					
+					userGeneral.setEmail(npr.getEmail());
+					userGeneral.setId(npr.getIdUser());
+					
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					
+					userGeneralService.updateUserGeneral(userGeneral);
+					
+					userGeneralPOJO.setEmail(userGeneral.getEmail());
+					
+					nonprofitPOJO.setName(npr.getName());
+					nonprofitPOJO.setDescription(npr.getDescription());
+					nonprofitPOJO.setMision(npr.getMision());
+					nonprofitPOJO.setReason(npr.getReason());
+					nonprofitPOJO.setWebPage(npr.getWebPage());
+					nonprofitPOJO.setId(npr.getId());
+					nonprofitPOJO.setMainPicture(npr.getMainPicture());
+					nonprofitPOJO.setProfilePicture(npr.getProfilePicture());
+					
+					
+					us.setNonprofit(nonprofitPOJO);
+					
+					us.setCode(200);
+					us.setCodeMessage("Nonprofit updated sucessfully");	
+			
+					
+				}else{
+					us.setCode(400);
+					us.setCodeMessage("EMAIL ALREADY IN USE");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+					us.setNonprofit(nonprofitPOJO);
+				}
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("BAD EMAIL");
+				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+				userGeneralPOJO.setEmail(ug.getEmail());
+				nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+				us.setNonprofit(nonprofitPOJO);
+			}
+		}
+		return us;		
 	}
 }
