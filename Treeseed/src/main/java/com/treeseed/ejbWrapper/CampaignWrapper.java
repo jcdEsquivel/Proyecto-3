@@ -11,8 +11,6 @@ public class CampaignWrapper {
 	
 	private Campaign wrapperObject;
 
-	private Campaign wrapperObject;
-
 	public CampaignWrapper() {
 		setWrapperObject(new Campaign());
 	}

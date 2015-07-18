@@ -2,35 +2,36 @@ package com.treeseed.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.validator.routines.EmailValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
-import com.treeseed.contracts.NonprofitResponse;
-import com.treeseed.contracts.UserGeneralRequest;
-import com.treeseed.contracts.UserGeneralResponse;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
-import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
-import com.treeseed.ejbWrapper.UserGeneralWrapper;
-import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
-import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
-import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.Utils;
+
 
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
@@ -46,7 +47,6 @@ public class CampaignController {
 	NonprofitServiceInterface nonprofitService;
 	
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
-	@Transactional
 	public CampaignResponse getNonprofits(@RequestBody CampaignRequest cr){	
 		
 		cr.setPageNumber(cr.getPageNumber() - 1);
@@ -92,7 +92,7 @@ public class CampaignController {
 			@RequestParam("amount") String amount, @RequestParam("idNonprofit") String idNonprofit,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 		String resultFileName = null;
-		NonprofitWrapper nonprofit = nonProfitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
+		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
 		CampaignResponse response = new CampaignResponse();
 		String[] dateTmp;
 		String[] dateTmp1;

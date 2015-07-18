@@ -10,13 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.CampaignRequest;
-import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.ejb.Campaign;
-import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
-import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.repositories.CampaignRepository;
-
 
 @Service
 public class CampaignService implements CampaignServiceInterface{

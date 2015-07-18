@@ -86,7 +86,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$scope.requestObject.nonprofitName = $scope.campaign.nonProfit.name;
 		$scope.requestObject.causeId = $scope.campaign.cause;
 
-		$http.post('rest/protected/campaign/advanceGet',
+		$http.post('rest/protected/campaing/advanceGet',
 			$scope.requestObject).success(function(mydata, status) {
 			$scope.campaigns = mydata.campaigns;
 		    console.log(mydata.campaigns);
