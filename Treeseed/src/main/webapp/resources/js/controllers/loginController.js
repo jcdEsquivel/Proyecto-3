@@ -31,6 +31,10 @@ treeSeedAppLoginControllers.controller('loginController', function($scope, $stat
 		      
 		    });
 		  };
+		  
+		  $scope.close=function(){
+			  $modalInstance.close();
+		  }
 })
 ;
 

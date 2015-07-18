@@ -8,10 +8,10 @@
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/treeseed.org/index" class="navbar-brand text-lt">
+        <a href="#/treeseed.org/index"  class="navbar-brand">
          
-          <img src="resources/img/a0.jpg" alt="." class="hide">
-          <span class="hidden-folded m-l-xs">{{app.name}}</span>
+         <img src="resources/images/nombre.jpg"   alt="." >
+          
         </a>
         <!-- / brand -->
       </div>
@@ -93,7 +93,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-if="logged">
+          <li class="dropdown" dropdown ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" ng-show="false">
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
@@ -128,10 +128,10 @@
                 </a>
               </li>
               <li>
-                <a ng-click='navigateDonor()' translate="MENU-HEADER.PROFILE">Profil</a>
+                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profil</a>
               </li>
               <li>
-                <a ui-sref="app.docs" translate="MENU-HEADER.HELP">
+                <a  translate="MENU-HEADER.HELP">
                   help
                 </a>
               </li>

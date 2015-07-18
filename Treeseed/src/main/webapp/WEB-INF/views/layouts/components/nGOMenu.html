@@ -1,4 +1,4 @@
-<div class="aside-wrap">
+<div class="aside-wrap" ng-controller="sideMenuNonprofitController">
 
   <div class="navi-wrap">
 
@@ -8,13 +8,13 @@
     <span translate="LEFT-MENU.NAVIGATION">Navigation</span>
   </li>
   <li>
-    <a ui-sref="app.dashboard-v3" md-ink-ripple class="auto">
+    <a ng-click="goProfile()" md-ink-ripple class="auto">
       <i class="glyphicon glyphicon-user icon"></i>
       <span class="font-bold" translate="LEFT-MENU.PROFILE">PROFILE</span>
     </a>
   </li>
   <li ui-sref-active="active">
-    <a ui-sref="app.calendar" md-ink-ripple>
+    <a ui-sref="treeSeed.createCampaing" md-ink-ripple>
       <i class="glyphicon  glyphicon-plus-sign icon"></i>
       <span class="font-bold" translate="LEFT-MENU.CREATE-CAMPAIGN">CREATE-CAMPAIGN</span>
     </a>
