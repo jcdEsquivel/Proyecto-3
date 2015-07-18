@@ -2,6 +2,7 @@ var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 't
 
 treeSeedAppLoginControllers.controller('loginController', function($scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session) {
 	$scope.error = false;
+	$scope.rememberMe = false;
 	$scope.credentials = {
 		    email: '',
 		    password: ''
@@ -16,6 +17,7 @@ treeSeedAppLoginControllers.controller('loginController', function($scope, $stat
 		        		setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
 		        	}
 		    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		    		//$scope.remebermeUser = $scope.rememberMe;
 		    		$modalInstance.close();
 		    		if(Session.userRole==USER_ROLES.nonprofit){
 		    			$state.go('treeSeed.nonProfit', {nonProfitId: user.idUser});

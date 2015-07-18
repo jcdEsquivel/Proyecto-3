@@ -7,7 +7,17 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       //Session management
       
       $scope.currentUser = null;
+      $scope.remebermeUser = false;
      
+/*
+      $window.onbeforeunload = function (e) {
+    	  alert("hola");
+    	  if(!$scope.remebermeUser){
+    		  AuthService.guestSession();
+    		  $scope.currentUser = null;
+    	  }
+      };*/
+      
       if( $cookies['idUserTree']== undefined){
     	  
     	  AuthService.guestSession();
@@ -116,5 +126,6 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
           // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
           return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
       }
+      
 
   });
