@@ -187,7 +187,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 	$scope.init = function() {
 
-		$scope.requestObject.idUser= Session.id;
+		$scope.requestObject.idUser= Session.userId;
 		$scope.requestObject.id = $scope.nonprofit.id;
 		
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',

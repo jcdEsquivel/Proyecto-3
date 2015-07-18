@@ -38,7 +38,6 @@ public class NonprofitService implements NonprofitServiceInterface{
 		}
 		
 		Page<Nonprofit> pageResult = null;
-		Page<Nonprofit> pageResultado = null;
 		
 		String filterName = ur.getName();
 		int filterCause= 0;
@@ -51,8 +50,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 			filterCountry = Integer.parseInt(ur.getCountry());
 		}
 		
-		
-		
+	
 		pageResult = nonprofitsRepository.findConTodo(filterName, "%"+filterName+"%",filterCountry,filterCause, pr);
 		
 		return pageResult ;
@@ -70,14 +68,14 @@ public class NonprofitService implements NonprofitServiceInterface{
 
 
 	@Override
-	public Nonprofit getSessionNonprofit(int idNonprofit) {
-		return nonprofitsRepository.findOne(idNonprofit);
+	public NonprofitWrapper getSessionNonprofit(int idNonprofit) {
+		return new NonprofitWrapper(nonprofitsRepository.findOne(idNonprofit));
 	}
 
 	@Override
-	public Page<Nonprofit> getByName(NonprofitRequest ur) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Nonprofit> getByName(String name) {
+		PageRequest pr = null;
+		return nonprofitsRepository.findByNameContaining(name,pr);	
 	}
 
 	@Override

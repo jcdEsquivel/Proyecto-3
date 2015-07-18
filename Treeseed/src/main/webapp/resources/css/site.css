@@ -17,6 +17,11 @@
 	height: 20%;
 }
 
+.footerFinal
+{
+	height:200px !important;
+}
+
 .labels-dropdowns{
 	position:relative;
     top:0;
@@ -463,6 +468,9 @@ fieldset[disabled] .btn-primary.active {
 	 height: 100px;
   	width: 100%;
 }
+.w-xxxl {
+    max-width:750px
+}
 
 .cover-image-style{
 	height: 280px;
@@ -470,4 +478,31 @@ fieldset[disabled] .btn-primary.active {
   	background-repeat: no-repeat;
 }
 
+/*
+ .post-img-div{
+ 	
+ }*/
+ 
+ 
+ .post-modal-text-area{
+ 	width:100%;
+ }
+ 
+ .post-modal-image-drop{
+ 	width:80%;
+ 	height: 86px;
+ 	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	margin-top: 5px;
+ }
+
+ 
+ .post-modal-img{
+ 	height: 230px;
+margin-left: auto;
+margin-right: auto;
+display: block;
+width: 250px;
+ }
  

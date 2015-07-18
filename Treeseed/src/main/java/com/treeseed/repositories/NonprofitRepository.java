@@ -19,7 +19,6 @@ public interface NonprofitRepository extends
 	CrudRepository<Nonprofit,Integer> {
 	
 	public static final int PAGE_SIZE = 10;
-
 	
 	@Query("SELECT p FROM Nonprofit p inner join p.cause c inner join p.country d WHERE ( :nameNull is null or p.name like :name) and "
 			+ "( :country = 0 or d.id = :country) and "
@@ -54,6 +53,4 @@ public interface NonprofitRepository extends
 			   @Param("profilePicture") String profilePicture,
 			   @Param("webPage") String webPage)
 			   ;
-	
-;
 }
