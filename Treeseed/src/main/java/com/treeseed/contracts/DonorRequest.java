@@ -7,10 +7,47 @@ public class DonorRequest extends BasePagingRequest {
 	private DonorPOJO donor;
 	private String name;
 	private String lastName;
+	private String description;
+	private String email;
 	private String country;
+	private String webPage;
 	private int id;
 	private int idUser;
+	private String profileImage;
+	
+	public String getProfileImage() {
+		return profileImage;
+	}
 
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getWebPage() {
+		return webPage;
+	}
+
+	public void setWebPage(String webPage) {
+		this.webPage = webPage;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 	public int getIdUser() {
 		return idUser;
 	}
