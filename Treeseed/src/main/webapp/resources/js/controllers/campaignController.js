@@ -13,6 +13,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	$scope.campaign.nonProfit = {};
 	$scope.campaign.nonProfit.name = "";
 	$scope.campaign.nonProfit.cause = "";
+	$scope.campaign.cause={id:'',name:''};
 	$scope.requestObject1 = {};
 	$scope.requestObject2 = {};
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
@@ -84,12 +85,12 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$scope.requestObject.pageNumber = page;
 		$scope.requestObject.name = $scope.campaign.name;
 		$scope.requestObject.nonprofitName = $scope.campaign.nonProfit.name;
-		$scope.requestObject.causeId = $scope.campaign.cause;
+		$scope.requestObject.causeId = $scope.campaign.cause.id;
+		//console.log(JSON.stringify($scope.requestObject));
 
 		$http.post('rest/protected/campaing/advanceGet',
 			$scope.requestObject).success(function(mydata, status) {
 			$scope.campaigns = mydata.campaigns;
-		    console.log(mydata.campaigns);
 			$scope.totalItems = mydata.totalElements;
 			
 		}).error(function(mydata, status) {
@@ -97,13 +98,19 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 			console.log("No data found");
 		});
 
-		$scope.pageChangeHandler = function(num) {
-			$scope.searchNonProfit(num);
-		};
+	
 
+	};
+	
+	$scope.pageChangeHandler = function(num) {
+		$scope.searchCampaign(num);
 	};
 
 });
+
+
+
+
 
 treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope) {
