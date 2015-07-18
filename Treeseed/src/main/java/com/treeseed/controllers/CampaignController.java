@@ -157,7 +157,22 @@ public class CampaignController {
 			campaignPojo.setPicture(objeto.getPicture());
 			campaignPojo.setAmountCollected(objeto.getAmountCollected());
 			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setStartDate(objeto.getStartDate());
+			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
+			if(objeto.getStartDate().after(new Date())){
+				campaignPojo.setStart(true);
+			}else{
+				campaignPojo.setStart(false);
+			}
+			
+			if(objeto.getDueDate().after(new Date())){
+				campaignPojo.setEnd(true);
+			}else{
+				campaignPojo.setEnd(false);
+			}
+			
 			campaignPojo.setDueDate(objeto.getDueDate());
+			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
 			viewCampaignsPOJO.add(campaignPojo);
 		};
 		
