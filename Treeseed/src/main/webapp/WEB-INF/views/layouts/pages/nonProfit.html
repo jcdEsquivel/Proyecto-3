@@ -19,13 +19,14 @@
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
 		 		<div class="row">
-	        		<div style="background:url({{nonprofit.profilePicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+	        		<div style="background:url({{nonprofit.profilePicture}}); height: 225px; width: 270px; margin-left: auto; background-size: 100% 100%; background-repeat: no-repeat;">
 	        			<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('profile')"><i class="fa fa-edit"></i></button>
 	        	 	</div>	
         		 </div>
 	 			
  				<div class="row">
  					<div class="col-md-12">
+ 						<b translate="NONPROFIT-PROFILE.WEBPAGE"></b>
  						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
 				          	<div>
@@ -40,6 +41,7 @@
  						
  						
  						<br>
+ 						<b translate="NONPROFIT-PROFILE.EMAIL"></b>
  						<b ng-hide="emailInEdition"><br>{{nonprofit.userGeneral.email}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></b>
  						<div ng-show="emailInEdition">
 				          	<div>

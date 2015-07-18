@@ -313,30 +313,30 @@ public class NonprofitController extends UserGeneralController{
 			
 					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 					
-					
 					userGeneral.setEmail(npr.getEmail());
+					userGeneral.setId(npr.getIdUser());
 					
-					UserGeneral userGeneralobject = new UserGeneral();
 					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 					
 					userGeneralService.updateUserGeneral(userGeneral);
 					
+					userGeneralPOJO.setEmail(userGeneral.getEmail());
+					
+					
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 					
-					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
+					nonprofitPOJO.setName(npr.getName());
+					nonprofitPOJO.setDescription(npr.getDescription());
+					nonprofitPOJO.setMision(npr.getMision());
+					nonprofitPOJO.setReason(npr.getReason());
+					nonprofitPOJO.setWebPage(npr.getWebPage());
+					nonprofitPOJO.setId(npr.getId());
+					nonprofitPOJO.setMainPicture(npr.getMainPicture());
+					nonprofitPOJO.setProfilePicture(npr.getProfilePicture());
 					
 					
-					nonprofitPOJO.setName(nonprofitobject.getName());
-					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
-					nonprofitPOJO.setMision(nonprofitobject.getMision());
-					nonprofitPOJO.setReason(nonprofitobject.getReason());
-					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
-					
-					//userGeneralobject = userGeneralService.getUGByID(npr.getIdUser());
-			
-					//userGeneralPOJO.setEmail(userGeneralobject.getEmail());
 					us.setNonprofit(nonprofitPOJO);
-					//us.setUserGeneral(userGeneralPOJO);
+					
 					us.setCode(200);
 					us.setCodeMessage("Nonprofit updated sucessfully");	
 			

@@ -115,7 +115,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 
 
 treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
-		$http, $location, $modal, $log, $timeout, $modalInstance) {
+		$http, $location, $modal, $log, $timeout) {
 
 	$scope.nonprofit = {};
 	$scope.nonprofit.id="";
