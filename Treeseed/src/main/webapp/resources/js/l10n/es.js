@@ -141,5 +141,8 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
-     }
+     },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido"
+    }
 }

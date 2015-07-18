@@ -346,6 +346,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
   	//About Edit
   	$scope.aboutEditClicked = function() {
   		$scope.aboutInEdition = true;
+  		$scope.error = false;
   		$scope.aboutEdit = $scope.donor.description;
 	};
 
@@ -361,6 +362,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
+  		$scope.error = false;
   		$scope.nameEdit = $scope.donor.name;
   		$scope.lastNameEdit = $scope.donor.lastName;
 	};
@@ -377,6 +379,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Email Edit
 	$scope.emailEditClicked = function() {
   		$scope.emailInEdition = true;
+  		$scope.error = false;
   		$scope.emailEdit = $scope.email;
 	};
 
@@ -392,6 +395,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	//Webpage Edit
 	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
+  		$scope.error = false;
   		$scope.webPageEdit = $scope.donor.webPage;
 	};
 
@@ -423,7 +427,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.requestObjectEdit.id= $scope.donor.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
 		$scope.requestObjectEdit.coverImage=null;
-		$scope.requestObjectEdit.profileImage=$scope.donor.profilePicture;
+		$scope.requestObjectEdit.profilePicture=$scope.donor.profilePicture;
 		
 		$http({
 			   method : 'POST',
@@ -450,18 +454,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 
 			  }).
 			  success(function (data, status, headers, config) {
-				  //$scope.nonprofit = data.nonprofit;
-				  console.log(data)
-			  });
+			  	/*if(data.code=="400"){
+		    		$scope.error = true;
+		    		$scope.donor.userGeneral.email = data.donor.userGeneral.email;
+		        }*/	    		
+			});
 		};
 	
 		$scope.$on('profilePicture', function(event, args){
 			
-			if($scope.imageCover==true){
-				$scope.coverImageContainer = args;
-			}else{
-				$scope.profileImageContrainer= args
-			}
+			$scope.profileImageContrainer= args
 			
 			$scope.image = args;
 			$scope.uploadImage=true;	
@@ -484,7 +486,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			}
 		});	
 	
-	
+		var modalInstance=null;
+
 		$scope.openModalImage = function(type) {
 
 			if(type == 'cover'){
@@ -498,7 +501,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 				console.log($scope.imageCover)		
 			}
 			
-			var modalInstance = $modal.open({
+			    modalInstance = $modal.open({
 				animation : $scope.animationsEnabled,
 				templateUrl : 'layouts/components/drag_drop.html',
 				//controller : 'getNonProfitProfileController',
@@ -511,19 +514,9 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			})
 		};
 
-
-		/*$http.post('rest/protected/donor/editDonor',
-			$scope.requestObjectEdit).success(function(mydata, status) {
-				$scope.donor = mydata.donor;
-				console.log(mydata);
-				if(mydata.code==200){
-					console.log("trae el code 200")
-				}else{
-					console.log(mydata)
-				}
-		}).error(function(mydata, status) {
-			alert(status);
-		});	*/
-	//};
+		$scope.closeModal = function() {		
+			modalInstance.close();
+			$scope.editDonor(); 
+		};
 	//Finish editing profile
 });
