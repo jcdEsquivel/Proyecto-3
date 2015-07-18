@@ -12,6 +12,7 @@ public class CampaignRequest extends BasePagingRequest {
 	private CampaignPOJO campaign;
 
 	private int id;
+	private Date startDate;
 	
 	private int nonprofitId;
 	
@@ -67,6 +68,14 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setNonprofitId(int nonprofitId) {
 		this.nonprofitId = nonprofitId;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 }

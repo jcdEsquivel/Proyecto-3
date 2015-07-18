@@ -13,6 +13,7 @@ public class CampaignPOJO {
 	private Date creationDate;
 	private String name;
 	private String description;
+	private Date startDate;
 	private Date dueDate;
 	private double amountGoal;
 	private double amountCollected;
@@ -57,8 +58,8 @@ public class CampaignPOJO {
 		return dueDate;
 	}
 
-	public void setDueDate(Date date) {
-		this.dueDate = date;
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
 	}
 
 	public double getAmountGoal() {
@@ -99,5 +100,13 @@ public class CampaignPOJO {
 
 	public void setIdNonProfit(int idNonProfit) {
 		this.idNonProfit = idNonProfit;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 }

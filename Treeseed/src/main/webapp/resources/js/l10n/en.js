@@ -147,6 +147,16 @@
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
     },
+   	"POST-MODAL":{ 
+   		"MODAL-OPEN-MODAL": "Add post",
+   		"MODAL-TITLE": "Add New Post",
+   		"TITLE": "Title",
+   		"DESCRIPTION": "Description",
+   		"DROP-IMAGE": "Drop an image here to upload.",
+   		"ADD-BUTTON": "Add",
+   		"CANCEL": "Cancel"
+   		
+    },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
     	"TITLE":"Create Campaign",
@@ -154,14 +164,20 @@
         	"TITLE":"General Information",
         	"NAME":"Name:",
         	"DESCRIPTION":"Description:",
-        	"BUTTON-NEXT":"Next"
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
         },
         "TAB-2":{
         	"TITLE":"Goal Information",
-        	"DATE":"Due Date:",
+        	"DATE1":"Start Date:",
+        	"DATE2":"End Date:",
         	"AMOUNT":"Amount goal:",
         	"BUTTON-PREV":"Previous",
-        	"BUTTON-NEXT":"Next"
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-DATE1":"Start Date",
+        	"PLACEHOLDER-DATE2":"End Date",
+        	"PLACEHOLDER-AMOUNT":"Amount goal"
         },
     	"TAB-3":{
     		"TITLE":"Image",

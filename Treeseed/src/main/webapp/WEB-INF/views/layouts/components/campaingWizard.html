@@ -3,79 +3,117 @@
 </div>
 <div class="wrapper-sm w-xxxl">
 	<tabset class="tab-container"
-		ng-init="steps={ step1:true, step2:false, step3:false}">
-	<tab  active="steps.step1"
-		><tab-heading translate="CREATE-CAMPAIGN.TAB-1.TITLE"></tab-heading>
+		ng-init="steps={ step1:true, step2:false, step3:false}"> <tab
+		active="steps.step1">
+	<tab-heading translate="CREATE-CAMPAIGN.TAB-1.TITLE"></tab-heading>
 	<p class="m-b" translate="CREATE-CAMPAIGN.BAR"></p>
 	<progressbar value="percent" class="progress-xs" type="success"></progressbar>
 	<form name="step1" class="form-validation">
 		<div class="form-group">
 			<p translate="CREATE-CAMPAIGN.TAB-1.NAME">Name</p>
-			<input name="name" class="form-control" ng-model="campaign.name" ng-blur="progressControl(1,step1.name.$valid)" required >
-			
+			<input name="name"
+				placeholder="{{'CREATE-CAMPAIGN.TAB-1.PLACEHOLDER-NAME'| translate}}"
+				class="form-control" ng-model="campaign.name"
+				ng-blur="progressControl(1,step1.name.$valid)" required>
+
 			<p class="m-t" translate="CREATE-CAMPAIGN.TAB-1.DESCRIPTION">Description:</p>
 			<textarea class="form-control" rows="6"
-				ng-model="campaign.description" maxlength="{{maxCarac}}" name="description"  required ng-blur="progressControl(2,step1.description.$valid)"></textarea>
-				<span >{{campaign.description.length}}/{{maxCarac}}</span>
+				ng-model="campaign.description" maxlength="{{maxCarac}}"
+				name="description"
+				placeholder="{{'CREATE-CAMPAIGN.TAB-1.PLACEHOLDER-DESCRIPTION'| translate}}"
+				required ng-blur="progressControl(2,step1.description.$valid)"></textarea>
+			<span>{{campaign.description.length}}/{{maxCarac}}</span>
 		</div>
 		<div class="m-t m-b">
 			<button type="submit" ng-disabled="step1.$invalid"
-				class="btn btn-default btn-rounded" ng-click="steps.step2=true" translate="CREATE-CAMPAIGN.TAB-1.BUTTON-NEXT">Next</button>
+				class="btn btn-default btn-rounded" ng-click="steps.step2=true"
+				translate="CREATE-CAMPAIGN.TAB-1.BUTTON-NEXT">Next</button>
 		</div>
 	</form>
-	</tab> <tab disabled="step1.$invalid" active="steps.step2"
-		><tab-heading translate="CREATE-CAMPAIGN.TAB-2.TITLE"></tab-heading>
+	</tab> <tab disabled="step1.$invalid" active="steps.step2">
+	<tab-heading translate="CREATE-CAMPAIGN.TAB-2.TITLE"></tab-heading>
 	<form name="step2" class="form-validation">
 		<p class="m-b" translate="CREATE-CAMPAIGN.BAR">Creation process</p>
 		<progressbar value="percent" class="progress-xs" type="success"></progressbar>
 		<div class="form-group">
-		
-		<p translate="CREATE-CAMPAIGN.TAB-2.DATE">Due Date:</p>
-		<div ng-controller="DatepickerCtrl" >
-            <div class="input-group ">
-              <input type="text" name="date" min-date="mindate" class="form-control" datepicker-popup="{{format}}" ng-model="campaign.dueDate" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-blur="progressControl(3,step2.date.$valid)"/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </div>
-          </div>
-		
-		<p class="m-t" translate="CREATE-CAMPAIGN.TAB-2.AMOUNT">Amount goal:</p>   
-		<div class="input-group m-b">
-			<span class="input-group-addon">$</span> 
-			<input type="number" ui-validate=" '$value>0' " name="amount" class="form-control" ng-model="campaign.amountGoal" min='0' step="100" decimals="2"required ng-blur="progressControl(4,step2.amount.$valid)">
-		</div>
-		<div class="m-t m-b">
-			<button type="button" class="btn btn-default btn-rounded"
-				ng-click="steps.step1=true" translate="CREATE-CAMPAIGN.TAB-2.BUTTON-PREV">Prev</button>
-			<button type="submit" ng-disabled="step2.$invalid"
-				class="btn btn-default btn-rounded" ng-click="steps.step3=true" translate="CREATE-CAMPAIGN.TAB-2.BUTTON-NEXT">Next</button>
-		</div>
-		</div>
-	</form>
-	</tab>
-	<tab  disabled="step2.$invalid" active="steps.step3" ng-controller="dragnDropController">
-	<tab-heading translate="CREATE-CAMPAIGN.TAB-3.TITLE"></tab-heading>
-	<p class="m-b" translate="CREATE-CAMPAIGN.BAR">Creation process</p>
-      <progressbar value="percent" class="progress-xs" type="success"></progressbar>
-      <p class="m-b" translate="CREATE-CAMPAIGN.TAB-3.IMAGE"></p>
-      <div class="md-whiteframe-treeseed" 	style="align-content: center!important;">
-				<label class="labels-dropdowns"
-					></label>
-				<div class="panel wrapper" layout-align="center center">
-					<img id="fileDisplayArea" style="width: 356px; height: 200px;" />
-					<div ng-controller="dragnDropController" id="file-drop"
-						style="width: 200px; height: 200px;"
-						class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center"
-						imagedrop on-image-drop="imageDropped()"
-						translate="CREATE-CAMPAIGN.TAB-3.DROPIMAGE">Drop an image here
-						to upload.</div>
+		<div class="input-group">
+			<div class="col-sm-6">
+				<p translate="CREATE-CAMPAIGN.TAB-2.DATE1">Due Date:</p>
+				<div ng-controller="DatepickerCtrl">
+					<div class="input-group ">
+						<input type="text" name="date1" min-date="minDate1"
+							placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE1'| translate}}" class="form-control" datepicker-popup="{{format}}"	ng-model="campaign.startDate" is-open="opened"
+							datepicker-options="dateOptions" ng-required="true"	ng-change="minDate()" close-text="Close" ng-blur="progressControl(3,step2.date1.$valid)" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default"	ng-click="open($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-      <div class="m-t m-b">
-        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true" translate="CREATE-CAMPAIGN.TAB-3.BUTTON-PREV">Prev</button>
-        <button type="button" class="btn btn-default btn-rounded" ng-disabled="!uploadImage" ng-click="create()" translate="CREATE-CAMPAIGN.TAB-3.BUTTON-FINALIZE">Click me to Finish</button>
-      </div>
-    </tab>
-  </tabset>
+			<div class="col-sm-6 ">
+				<p translate="CREATE-CAMPAIGN.TAB-2.DATE2">Due Date:</p>
+				<div ng-controller="DatepickerCtrl">
+					<div class="input-group ">
+						<input type="text" name="date2" min-date="minDate2"
+							placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE2'| translate}}" class="form-control" datepicker-popup="{{format}}"ng-model="campaign.dueDate" is-open="opened"
+							datepicker-options="dateOptions" ng-required="true"	close-text="Close" ui-validate=" '$value>campaign.startDate' " ng-blur="progressControl(6,step2.date2.$valid)" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default"	ng-click="open($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			<p class="m-t" translate="CREATE-CAMPAIGN.TAB-2.AMOUNT">Amount
+				goal:</p>
+			<div class="input-group m-b">
+				<span class="input-group-addon">$</span> <input type="number"
+					ui-validate=" '$value>0' " name="amount" class="form-control"
+					placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-AMOUNT'| translate}}"
+					ng-model="campaign.amountGoal" min='0' step="100" decimals="2"
+					required ng-blur="progressControl(4,step2.amount.$valid)">
+			</div>
+			<div class="m-t m-b">
+				<button type="button" class="btn btn-default btn-rounded"
+					ng-click="steps.step1=true"
+					translate="CREATE-CAMPAIGN.TAB-2.BUTTON-PREV">Prev</button>
+				<button type="submit" ng-disabled="step2.$invalid"
+					class="btn btn-default btn-rounded" ng-click="steps.step3=true"
+					translate="CREATE-CAMPAIGN.TAB-2.BUTTON-NEXT">Next</button>
+			</div>
+		</div>
+	</form>
+	</tab> <tab disabled="step2.$invalid" active="steps.step3"
+		ng-controller="dragnDropController"> <tab-heading
+		translate="CREATE-CAMPAIGN.TAB-3.TITLE"></tab-heading>
+	<p class="m-b" translate="CREATE-CAMPAIGN.BAR">Creation process</p>
+	<progressbar value="percent" class="progress-xs" type="success"></progressbar>
+	<p class="m-b" translate="CREATE-CAMPAIGN.TAB-3.IMAGE"></p>
+	<div class="md-whiteframe-treeseed"
+		style="align-content: center !important;">
+		<label class="labels-dropdowns"></label>
+		<div class="panel wrapper" layout-align="center center">
+			<img id="fileDisplayArea" style="width: 356px; height: 200px;" />
+			<div ng-controller="dragnDropController" id="file-drop"
+				style="width: 200px; height: 200px;"
+				class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center"
+				imagedrop on-image-drop="imageDropped()"
+				translate="CREATE-CAMPAIGN.TAB-3.DROPIMAGE">Drop an image here
+				to upload.</div>
+		</div>
+	</div>
+	<div class="m-t m-b">
+		<button type="button" class="btn btn-default btn-rounded"
+			ng-click="steps.step2=true"
+			translate="CREATE-CAMPAIGN.TAB-3.BUTTON-PREV">Prev</button>
+		<button type="button" class="btn btn-default btn-rounded"
+			ng-disabled="!uploadImage" ng-click="create()"
+			translate="CREATE-CAMPAIGN.TAB-3.BUTTON-FINALIZE">Click me
+			to Finish</button>
+	</div>
+	</tab> </tabset>
 </div>

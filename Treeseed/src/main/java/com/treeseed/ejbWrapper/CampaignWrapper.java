@@ -19,6 +19,14 @@ public class CampaignWrapper {
 		this.wrapperObject = campaign;
 	}
 
+	public Date getStartDate() {
+		return wrapperObject.getStartDate();
+	}
+
+	public void setStartDate(Date startDate) {
+		wrapperObject.setStartDate(startDate);
+	}
+
 	public Campaign getWrapperObject() {
 		return wrapperObject;
 	}
