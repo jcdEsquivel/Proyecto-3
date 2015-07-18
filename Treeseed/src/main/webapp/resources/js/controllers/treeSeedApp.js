@@ -39,12 +39,9 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
     	  AuthService.guestSession();
       }
       
-      
-      
+   
       $scope.userRoles = USER_ROLES;
       
-      
-     
       $scope.isAuthorized = AuthService.isAuthorized;
       
       

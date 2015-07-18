@@ -78,6 +78,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña"
+    },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
     	"FILTERS": "Filtros",
@@ -89,7 +92,9 @@
     	"COUNTRY-FILTER": "Escoja un país",
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
-    	"BLANK-OPTION": "Seleccione:"	
+    	"BLANK-OPTION": "Seleccione:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Rango de Fechas"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
@@ -114,7 +119,7 @@
     	"FORGET-PASSWORD":"¿Perdió su contraseña?",
     	"FACEBOOK": "Iniciar con Facebook",
     	"TWITTER": "Iniciar con Twitter",
-    	"LINKEDIN": "Inciar con Linkedin",
+    	"LINKEDIN": "Iniciar con Linkedin",
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
 		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
@@ -143,6 +148,15 @@
      },
      "SELECT-USER":{
      	"TITLE":"Registrarse como:"
+     },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido.",
+        "EMAIL": "Correo:",
+   		"WEBPAGE": "Página Web:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Cerrar",
+        "ACCEPT": "Guardar"
      },
 	"POST-MODAL":{ 
 		"MODAL-OPEN-MODAL": "Agregar post",
@@ -182,5 +196,6 @@
          	"BUTTON-PREV":"Anterior",
          	"BUTTON-FINALIZE":"Crear"
      	}
-     }
+    }
+     
 }

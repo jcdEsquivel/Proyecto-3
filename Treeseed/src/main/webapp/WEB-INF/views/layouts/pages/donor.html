@@ -2,23 +2,40 @@
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12">
-        	 <img src="resources/img/c4.jpg" alt="" class="cover-image" >
+        	<div class="cover-image">
+        		<div style="background:url(resources/img/c4.jpg); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+        	 	</div>	
+        	 </div> 
     	</div>
 	</div>
 	<div class="row">
 		 <div class="col-md-12">
 		 	<div class="col-md-3">
 	 			<div class="row">
-	 				<div class="col-md-12">
-						<img ng-src="{{donor.profilePicture}}" alt="" class="donnor-profile" >
-					</div>
- 				</div>
+	        		<div style="background:url({{donor.profilePicture}}); height: 225px; width: 270px; margin-left: auto; background-size: 100% 100%; background-repeat: no-repeat;">
+	        			<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('profile')"><i class="fa fa-edit"></i></button>
+	        	 	</div>	
+        		 </div>
  				<div class="row">
  					<div class="col-md-12">
- 						<b>{{donor.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<b translate="GENERAL-PROFILE.WEBPAGE"></b>
+ 						<b ng-hide="webPageInEdition">{{donor.webPage}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						<div ng-show="webPageInEdition">
+				          	<div>
+				          		<input ng-model="donor.webPage">
+				          	</div>
+				          	<div>
+				          		<br>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="webPageCancelEditing()" translate="BUTTONS.CANCEL"></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="webPageSaveEditing()" translate="BUTTONS.SAVE"></button>
+				          	</div>
+					    </div>
+ 						<br>		
+ 						<b translate="GENERAL-PROFILE.EMAIL"></b>
+ 						<b ng-hide="emailInEdition">{{donor.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="emailInEdition">
 				          	<div>
-				          		<input ng-model="emailEdit">
+				          		<input ng-model="donor.userGeneral.email">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -26,18 +43,9 @@
 			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="emailSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					    </div>
- 						<br>
- 						<b>{{donor.webPage}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
- 						<div ng-show="webPageInEdition">
-				          	<div>
-				          		<input ng-model="webPageEdit">
-				          	</div>
-				          	<div>
-				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="webPageCancelEditing()"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="webPageSaveEditing()"></i> Save</button>
-				          	</div>
-					    </div>
+					    <label class="text-danger wrapper" ng-show="error" translate="GENERAL-PROFILE.EMAIL-ERROR"></label>
+ 						
+ 						
  						<br>
  						<b translate="DONOR-PROFILE.TOTAL-DONATIONS"></b> 100
  						<br>
@@ -54,19 +62,19 @@
 				      <ul class="list-group no-borders pull-in m-b-none">
 				        <li class="list-group-item">
 				        	<div>
-				        		<h2>{{donor.name}} {{donor.lastName}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+				        		<h2 ng-hide="nameInEdition">{{donor.name}} {{donor.lastName}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
 						          <div ng-show="nameInEdition">
 						          	<div>
-						          		<input ng-model="nameEdit">
+						          		<input ng-model="donor.name">
 						          	</div>
 						          	<br>
 						          	<div>
-						          		<input ng-model="lastNameEdit">
+						          		<input ng-model="donor.lastName">
 						          	</div>
 						          	<div>
 						          		<br>
-						          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="nameCancelEditing()"></i> Cancel</button>
-					          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="nameSaveEditing()"></i> Save</button>
+						          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()" translate="BUTTONS.CANCEL"></button>
+					          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()" translate="BUTTONS.SAVE"></button>
 						          	</div>
 						            <br>
 							      </div>
@@ -77,13 +85,13 @@
 				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="aboutEdit">{{aboutEdit}}
+				          		<textarea rows="6" cols="90" ng-model="donor.description">
 					      		</textarea>
 				          	</div>
 				          	<div>
 				          		<br>
-				          		<button class="btn btn-rounded btn-sm btn-danger"><i class="fa fa-fw fa-trash" ng-click="aboutCancelEditing()"></i> Cancel</button>
-			          	  		<button class="btn btn-rounded btn-sm btn-info"><i class="fa fa-fw fa-save" ng-click="aboutSaveEditing()"></i> Save</button>
+				          		<button class="btn btn-rounded btn-sm btn-danger" ng-click="aboutCancelEditing()" translate="BUTTONS.CANCEL"></button>
+			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="aboutSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					      </div>
 				          <br>

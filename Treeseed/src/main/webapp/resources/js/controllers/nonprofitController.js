@@ -178,15 +178,13 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 })
 
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
 
-	
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
-	$scope.isOwner = false;	
-	
-	
+	$scope.isOwner = true;	
+
 	$scope.init = function() {
 
 		$scope.requestObject.idUser= Session.userId;
@@ -195,7 +193,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.nonprofit = mydata.nonprofit;
-					console.log(mydata.owner)
 					if(mydata.owner==true){
 						$scope.isOwner=true;
 					}else{
@@ -211,24 +208,26 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.init();
 
 	//Mission Edit
-  	$scope.missionEditClicked = function() {
-  		$scope.missionInEdition = true;
-  		$scope.missionEdit = $scope.nonprofit.mision;
+  	$scope.misionEditClicked = function() {
+  		$scope.misionInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
-	$scope.missionCancelEditing = function(){
-		$scope.missionInEdition = false;
+	$scope.misionCancelEditing = function(){
+		$scope.misionInEdition = false;
 	};
 
-	$scope.missionSaveEditing = function(){
-		$scope.nonprofit.mission = $scope.missionEdit;
-		$scope.missionInEdition = false;
+	$scope.misionSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.misionInEdition = false;
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
-  		$scope.nameEdit = $scope.nonprofit.name;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -236,14 +235,16 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.nonprofit.name = $scope.nameEdit;
+		$scope.editNonProfit();
 		$scope.nameInEdition = false;
 	};
 
 	//Description Edit
 	$scope.descriptionEditClicked = function() {
   		$scope.descriptionInEdition = true;
-  		$scope.descriptionEdit = $scope.nonprofit.description;
+  		$scope.error = false;
+  		
+  		
 	};
 
 	$scope.descriptionCancelEditing = function(){
@@ -251,14 +252,16 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.descriptionSaveEditing = function(){
-		$scope.nonprofit.description = $scope.descriptionEdit;
+		
+		$scope.editNonProfit();
 		$scope.descriptionInEdition = false;
 	};
 
-	//Webpage Edit
+	//Reason Edit
 	$scope.reasonEditClicked = function() {
   		$scope.reasonInEdition = true;
-  		$scope.reasonEdit = $scope.nonprofit.reason;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.reasonCancelEditing = function(){
@@ -266,12 +269,168 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.reasonSaveEditing = function(){
-		$scope.nonprofit.reason = $scope.reasonEdit;
+		$scope.editNonProfit();
 		$scope.reasonInEdition = false;
+	};
+	
+	//Webpage Edit
+  	$scope.webPageEditClicked = function() {
+  		$scope.webPageInEdition = true;
+  		$scope.error = false;
+  		
+	};
+
+	$scope.webPageCancelEditing = function(){
+		$scope.webPageInEdition = false;
+	};
+
+	$scope.webPageSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.webPageInEdition = false;
+	};
+	
+	//Email Edit
+  	$scope.emailEditClicked = function() {
+  		$scope.emailInEdition = true;
+  		$scope.error = false;
+  		
+	};
+
+	$scope.emailCancelEditing = function(){
+		$scope.emailInEdition = false;
+	};
+
+	$scope.emailSaveEditing = function(){
+		$scope.editNonProfit();
+		$scope.emailInEdition = false;
 	};
 	//Finish controller for edit buttons
 	
+	$scope.requestObjectEdit={};
+	$scope.requestObjectEdit.nonProfit={}
+	$scope.requestObjectEdit.coverImage=null;
+	$scope.requestObjectEdit.profileImage=null;
+	
+	$scope.coverImageContainer=null;
+	$scope.profileImageContrainer=null;
+	
+	
+	$scope.editNonProfit = function(){
 
+		$scope.requestObjectEdit.email = $scope.nonprofit.userGeneral.email;
+		$scope.requestObjectEdit.name = $scope.nonprofit.name;
+		$scope.requestObjectEdit.description= $scope.nonprofit.description;
+		$scope.requestObjectEdit.reason= $scope.nonprofit.reason;
+		$scope.requestObjectEdit.mision= $scope.nonprofit.mision;
+		$scope.requestObjectEdit.webPage= $scope.nonprofit.webPage;
+		$scope.requestObjectEdit.mainPicture= $scope.nonprofit.mainPicture; 
+		$scope.requestObjectEdit.profilePicture= $scope.nonprofit.profilePicture;
+		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
+		$scope.requestObjectEdit.idUser= Session.id;
+		
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/nonprofit/editNonProfit',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+			     var formData = new FormData();
+
+			           formData.append('data', new Blob([angular.toJson(data.data)], {
+			               type: "application/json"
+			           }));	
+			           formData.append("fileCover", data.fileCover);
+			           formData.append("fileProfile", data.fileProfile);
+			           console.log("Obj: "+JSON.stringify(data.data));
+			           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.coverImageContainer,
+				   fileProfile : $scope.profileImageContrainer
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+				  if(data.code=="400"){
+		    		$scope.error = true;
+		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
+				  }	  
+			  });
+		
+	};
+	
+	$scope.$on('profilePicture', function(event, args){
+		
+		if($scope.imageCover==true){
+			$scope.coverImageContainer = args;
+		}else{
+			$scope.profileImageContrainer= args
+		}
+		
+		$scope.image = args;
+		$scope.uploadImage=true;	
+		
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+	});	
+	
+	var modalInstance=null;
+	
+	$scope.openModalImage = function(type) {
+
+		if(type == 'cover'){
+			$scope.imageCover=true;
+			console.log("es cover")
+			console.log($scope.imageCover)
+			
+		}else if(type=='profile'){
+			$scope.imageCover=false;
+			console.log("es profile")
+			console.log($scope.imageCover)		
+		}
+		
+		modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/drag_drop.html',
+			//controller : 'getNonProfitProfileController',
+			scope: $scope,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.image;
+				}
+			}
+
+		})
+	};
+
+	
+	$scope.closeModal = function() {
+		
+		modalInstance.close();
+		$scope.editNonProfit(); 
+		 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {		
+		modalInstance.close();
+	};
+	
 })
 ;
 

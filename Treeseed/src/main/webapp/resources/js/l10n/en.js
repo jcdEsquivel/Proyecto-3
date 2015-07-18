@@ -1,4 +1,5 @@
 {
+	
  "MENU-HEADER": {
     	"NGO": "Nonprofit",
     	"EXPLORE": "Explore",
@@ -88,6 +89,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Campaign Advanced Search"
+    },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
     	"FILTERS": "Filters",
@@ -95,7 +99,9 @@
     	"COUNTRY-FILTER": "Select a country",
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
-    	"BLANK-OPTION": "Select:"
+    	"BLANK-OPTION": "Select:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Range Date"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
@@ -151,6 +157,15 @@
     },
     "SELECT-USER":{
     	"TITLE":"Sign up as:"
+    },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "The email is already being used or is invalid.",
+        "EMAIL": "Email:",
+   		"WEBPAGE": "Web Page:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Close",
+        "ACCEPT": "Save"
     },
    	"POST-MODAL":{ 
    		"MODAL-OPEN-MODAL": "Add post",

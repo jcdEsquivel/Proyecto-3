@@ -50,8 +50,7 @@ public class NonprofitService implements NonprofitServiceInterface{
 			filterCountry = Integer.parseInt(ur.getCountry());
 		}
 		
-		
-		
+	
 		pageResult = nonprofitsRepository.findConTodo(filterName, "%"+filterName+"%",filterCountry,filterCause, pr);
 		
 		return pageResult ;
@@ -74,9 +73,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 	}
 
 	@Override
-	public Page<Nonprofit> getByName(NonprofitRequest ur) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Nonprofit> getByName(String name) {
+		PageRequest pr = null;
+		return nonprofitsRepository.findByNameContaining(name,pr);	
 	}
 
 	@Override
@@ -95,4 +94,27 @@ public class NonprofitService implements NonprofitServiceInterface{
 	public Nonprofit getNonProfitByID(NonprofitRequest ur) {
 		return nonprofitsRepository.findByid(ur.getId());
 	}
+	
+	@Override
+	public Nonprofit getNonProfitById(int id) {
+		return nonprofitsRepository.findOne(id);
+	}
+	
+	
+	@Override
+	@Transactional
+	public Nonprofit updateNonProfit(NonprofitWrapper nonProfit) {
+		nonprofitsRepository.update(nonProfit.getId(),
+				nonProfit.getName(), 
+				nonProfit.getDescription(),
+				nonProfit.getMision(),
+				nonProfit.getReason(),
+				nonProfit.getMainPicture(),
+				nonProfit.getProfilePicture(),
+				nonProfit.getWebPage()
+				);
+		
+		return nonprofitsRepository.findOne(nonProfit.getId());
+	}
+
 }

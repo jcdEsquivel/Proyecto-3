@@ -3,6 +3,7 @@ package com.treeseed.contracts;
 import java.util.List;
 
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 
 public class NonprofitResponse extends BaseResponse{
 	
@@ -10,8 +11,17 @@ public class NonprofitResponse extends BaseResponse{
 	private NonprofitPOJO nonprofit;
 	private int nonProfitId;
 	private boolean isOwner;
+	private UserGeneralPOJO userGeneral;
 
 
+
+	public UserGeneralPOJO getUserGeneral() {
+		return userGeneral;
+	}
+
+	public void setUserGeneral(UserGeneralPOJO userGeneral) {
+		this.userGeneral = userGeneral;
+	}
 
 	public boolean isOwner() {
 		return isOwner;

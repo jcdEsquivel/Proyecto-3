@@ -17,6 +17,11 @@
 	height: 20%;
 }
 
+.footerFinal
+{
+	height:200px !important;
+}
+
 .labels-dropdowns{
 	position:relative;
     top:0;
@@ -477,6 +482,11 @@ border-radius: 26px;
 -moz-box-shadow: 13px 24px 75px #000000;
 -webkit-box-shadow: 13px 24px 75px #000000;
 box-shadow: 13px 24px 75px #000000;
+}
+.cover-image-style{
+	height: 280px;
+  	background-size: 100% 100%;
+  	background-repeat: no-repeat;
 }
 
 /*
