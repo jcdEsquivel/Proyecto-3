@@ -507,3 +507,15 @@ display: block;
 width: 250px;
  }
  
+
+
+.treeseed-img {
+	max-height: none !important;
+	width: 130px !important;
+	height: 40px !important;
+}
+
+.treeseed-a-img{
+	padding-right: 10px !important;
+	
+}
