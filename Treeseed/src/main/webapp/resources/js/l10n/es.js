@@ -5,7 +5,7 @@
     	"ADVANCE_SEARCH": "Búsqueda Avanzada",
     	"SEARCH_NGO": "ONG",
     	"CAMPAIGN": "Campaña",
-    	"SEARCH_CAMPAING": "Campañas",
+    	"SEARCH_CAMPAIGN": "Campañas",
     	"DONOR": "Donante",
     	"SEARCH_DONOR": "Donantes",
     	"SEARCH": "Buscar",
@@ -14,7 +14,8 @@
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
     	"SIGN_OUT": "Cerrar Sesión"	 ,
-    	"LOG_IN": "Iniciar Sesión"   	
+    	"LOG_IN": "Iniciar Sesión",
+    	"SIGN-ON": "Registrarse"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",
@@ -77,6 +78,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña"
+    },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
     	"FILTERS": "Filtros",
@@ -88,7 +92,9 @@
     	"COUNTRY-FILTER": "Escoja un país",
     	"CAUSE-FILTER": "Escoja una causa",
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
-    	"BLANK-OPTION": "Seleccione:"	
+    	"BLANK-OPTION": "Seleccione:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Rango de Fechas"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
@@ -98,7 +104,7 @@
         "PASSWORD-CONFIRM": "Confirmar contraseña",
         "CAUSE": "Causa",
         "COUNTRY": "País",
-        "PICTUREIMAGE": "Image de Perfil",
+        "PICTUREIMAGE": "Imagen de Perfil",
         "DROPIMAGE" : "Arrastrar imagen aqui.",
         "REGISTER-BUTTON": "Registrar",
         "CANCEL-BUTTON": "Cancelar",
@@ -113,7 +119,7 @@
     	"FORGET-PASSWORD":"¿Perdió su contraseña?",
     	"FACEBOOK": "Iniciar con Facebook",
     	"TWITTER": "Iniciar con Twitter",
-    	"LINKEDIN": "Inciar con Linkedin",
+    	"LINKEDIN": "Iniciar con Linkedin",
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
 		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
@@ -139,5 +145,57 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
-     }
+     },
+     "SELECT-USER":{
+     	"TITLE":"Registrarse como:"
+     },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido.",
+        "EMAIL": "Correo:",
+   		"WEBPAGE": "Página Web:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Cerrar",
+        "ACCEPT": "Guardar"
+     },
+	"POST-MODAL":{ 
+		"MODAL-OPEN-MODAL": "Agregar post",
+		"MODAL-TITLE": "Agregar nuevo post",
+		"TITLE": "Título",
+		"DESCRIPTION": "Descripción",
+		"DROP-IMAGE": "Arrastre una imagen aqui",
+		"ADD-BUTTON": "Agregar",
+		"CANCEL": "Cancelar"
+	},
+     "CREATE-CAMPAIGN": {
+     	"BAR": "Proceso de creación:",
+     	"TITLE":"Crear Campaña",
+         "TAB-1": {
+         	"TITLE":"Información General",
+         	"NAME":"Nombre:",
+         	"DESCRIPTION":"Descripción:",
+         	"BUTTON-NEXT":"Siguiente",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
+         },
+         "TAB-2":{
+         	"TITLE":"Información del Objetivo",
+         	"DATE1":"Fecha de inicio:",
+        	"DATE2":"Fecha de fin:",
+         	"AMOUNT":"Cantidad a alcanzar:",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-NEXT":"Siguiente",
+        	"PLACEHOLDER-DATE1":"Fecha de inicio",
+        	"PLACEHOLDER-DATE2":"Fecha de fin",
+        	"PLACEHOLDER-AMOUNT":"Cantidad a alcanzar"
+         },
+     	"TAB-3":{
+     		"TITLE":"Imagen",
+         	"IMAGE":"Imagen principal de la campaña:",
+         	"DROPIMAGE":"Arrastrar imagen aqui.",
+         	"BUTTON-PREV":"Anterior",
+         	"BUTTON-FINALIZE":"Crear"
+     	}
+    }
+     
 }

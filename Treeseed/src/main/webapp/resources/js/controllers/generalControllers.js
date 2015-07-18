@@ -32,6 +32,14 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, 
 	$sharedData.getUserCountry();
 	$scope.country = "";
 	
+	$scope.goProfile=function(){
+		if (Session.userRole == $scope.userRoles.nonprofit) {
+			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+		} else if (Session.userRole == $scope.userRoles.donor) {
+			$state.go('treeSeed.donor', {donorId: Session.userId});
+		}
+	}
+	
 	$scope.temps = [];
 	
 	$scope.generalSearch = function(val) {
@@ -95,6 +103,8 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, 
 	};
 
 	$scope.init();
+	
+	
 
 });// end header controller
 
@@ -144,6 +154,15 @@ treeSeedAppControllers.controller('navigateController', function($state,
 		$state.go('treeSeed.campaingViewer');
 	}
 });
+
+treeSeedAppControllers.controller('sideMenuNonprofitController', function($state, $scope,Session) {
+	$scope.goProfile=function(){
+		
+			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+	}
+
+});
+
 
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',

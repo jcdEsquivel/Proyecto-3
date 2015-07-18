@@ -1,11 +1,12 @@
 {
+	
  "MENU-HEADER": {
     	"NGO": "Nonprofit",
     	"EXPLORE": "Explore",
     	"ADVANCE_SEARCH": "Advance Search",
     	"SEARCH_NGO": "For Nonprofits",
     	"CAMPAIGN": "Campaign",
-    	"SEARCH_CAMPAING": "For Campaigns",
+    	"SEARCH_CAMPAIGN": "For Campaigns",
     	"DONOR": "Donor",
     	"SEARCH_DONOR": "For Donors",
     	"SEARCH": "Search",
@@ -14,7 +15,9 @@
     	"PROFILE": "Profile",
     	"HELP": "Help",
     	"SIGN_OUT": "Sign out",
-    	"LOG_IN": "Login"
+    	"LOG_IN": "Login",
+    	"SIGN-ON": "Sign On"
+    		
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navigation",
@@ -86,6 +89,9 @@
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
+    "CAMPAIGNSEARCH":{
+    	"HEADER-TITLE": "Campaign Advanced Search"
+    },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
     	"FILTERS": "Filters",
@@ -93,7 +99,9 @@
     	"COUNTRY-FILTER": "Select a country",
     	"CAUSE-FILTER": "Select a cause",
     	"SEARCH-RESULTS": "Search results:",
-    	"BLANK-OPTION": "Select:"
+    	"BLANK-OPTION": "Select:",
+    	"NGONAME-FILTER": "NGO Name",
+    	"RANGEDATE" : "Range Date"
     },
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
@@ -146,5 +154,57 @@
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
+    },
+    "SELECT-USER":{
+    	"TITLE":"Sign up as:"
+    },
+    "GENERAL-PROFILE": {
+        "EMAIL-ERROR": "The email is already being used or is invalid.",
+        "EMAIL": "Email:",
+   		"WEBPAGE": "Web Page:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Close",
+        "ACCEPT": "Save"
+    },
+   	"POST-MODAL":{ 
+   		"MODAL-OPEN-MODAL": "Add post",
+   		"MODAL-TITLE": "Add New Post",
+   		"TITLE": "Title",
+   		"DESCRIPTION": "Description",
+   		"DROP-IMAGE": "Drop an image here to upload.",
+   		"ADD-BUTTON": "Add",
+   		"CANCEL": "Cancel"
+   		
+    },
+      "CREATE-CAMPAIGN": {
+    	"BAR": "Creation progress:",
+    	"TITLE":"Create Campaign",
+        "TAB-1": {
+        	"TITLE":"General Information",
+        	"NAME":"Name:",
+        	"DESCRIPTION":"Description:",
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-NAME":"Name",
+        	"PLACEHOLDER-DESCRIPTION":"Description"
+        },
+        "TAB-2":{
+        	"TITLE":"Goal Information",
+        	"DATE1":"Start Date:",
+        	"DATE2":"End Date:",
+        	"AMOUNT":"Amount goal:",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-NEXT":"Next",
+        	"PLACEHOLDER-DATE1":"Start Date",
+        	"PLACEHOLDER-DATE2":"End Date",
+        	"PLACEHOLDER-AMOUNT":"Amount goal"
+        },
+    	"TAB-3":{
+    		"TITLE":"Image",
+        	"IMAGE":"Campaign's Main Image:",
+        	"DROPIMAGE":"Drop an image here to upload.",
+        	"BUTTON-PREV":"Previous",
+        	"BUTTON-FINALIZE":"Create"
+    	}
     }
 }

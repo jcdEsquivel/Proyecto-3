@@ -20,4 +20,9 @@ public interface UserGeneralServiceInterface {
 	Boolean userExist(String email);
 	
 	Boolean validateFacebookId(String facebookId);
+	
+	UserGeneral getUGByID(int idUserGeneral);
+	
+	void updateUserGeneral(UserGeneralWrapper UserGeneral);
+
 }
