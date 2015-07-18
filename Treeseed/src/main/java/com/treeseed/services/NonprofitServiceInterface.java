@@ -14,7 +14,7 @@ public interface NonprofitServiceInterface {
 
 	int saveNonprofit(NonprofitWrapper nonprofit);
 
-	Nonprofit getSessionNonprofit(int idNonprofit);
+	NonprofitWrapper getSessionNonprofit(int idNonprofit);
 
 	public Page<Nonprofit> getByName(String name);
 	

@@ -24,49 +24,50 @@ angular
 		})
 
 		.config(function($httpProvider) {
-			$httpProvider.interceptors.push( function($injector) {
+			$httpProvider.interceptors.push(function($injector) {
 				return $injector.get('AuthInterceptor');
-			} );
+			});
 		})
-		.config(function($stateProvider, $urlRouterProvider, JQ_CONFIG,
-								MODULE_CONFIG, USER_ROLES) {
+		.config(
+				function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+						MODULE_CONFIG, USER_ROLES) {
 
-							$urlRouterProvider.otherwise('index');
-							$stateProvider
-									.state('treeSeed', {
-										abstract : true,
-										url : '/',
-										templateUrl : 'layouts/pages/main.html'/*
-																				 * ,
-																				 * resolve: {
-																				 * auth:
-																				 * function
-																				 * resolveAuthentication(AuthResolver) {
-																				 * return
-																				 * AuthResolver.resolve(); } }
-																				 */
+					$urlRouterProvider.otherwise('index');
+					$stateProvider
+							.state('treeSeed', {
+								abstract : true,
+								url : '/',
+								templateUrl : 'layouts/pages/main.html'/*
+																		 * ,
+																		 * resolve: {
+																		 * auth:
+																		 * function
+																		 * resolveAuthentication(AuthResolver) {
+																		 * return
+																		 * AuthResolver.resolve(); } }
+																		 */
+							})
+							.state(
+									'signin',
+									{
+										url : '/signin',
+										templateUrl : 'layouts/components/page_signin.html',
+										controller : 'SigninFormController'
+									})									
+							.state(
+									'treeSeed.index',
+									{
+										url : 'index',
+										templateUrl : 'layouts/pages/index.html',
+										controller : 'indexController',
+										data : {
+											authorizedRoles : [
+													USER_ROLES.donor,
+													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+										
+										}
 									})
-									.state(
-											'signin',
-											{
-												url : '/signin',
-												templateUrl : 'layouts/components/page_signin.html',
-												controller : 'SigninFormController'
-											})
-									.state(
-											'treeSeed.index',
-											{
-												url : 'index',
-												templateUrl : 'layouts/pages/index.html',
-												controller : 'indexController',
-												data : {
-													authorizedRoles : [
-															USER_ROLES.donor,
-															USER_ROLES.guest,
-															USER_ROLES.nonprofit ]
-												
-												}
-											})
 									.state(
 											'treeSeed.donor',
 											{
@@ -81,7 +82,14 @@ angular
 												url : 'nonProfit/:nonProfitId',
 												templateUrl : 'layouts/pages/nonProfit.html',
 												controller: "getNonProfitProfileController",
-												params: {nonProfitId: null}
+												params: {nonProfitId: null},
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.donor,
+													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+
+												}
 											})
 									.state(
 											'treeSeed.donate',
@@ -102,9 +110,12 @@ angular
 											'treeSeed.createCampaing',
 											{
 												url : 'createCampaing',
-												templateUrl : 'layouts/pages/createCampaing.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
+												templateUrl : 'layouts/pages/createCampaing.html',
+												controller: 'campaingCreateController',
+												data : {
+												authorizedRoles : [
+														USER_ROLES.nonprofit ]
+												}
 											})
 									.state(
 											'treeSeed.campaingViewer',
@@ -157,55 +168,57 @@ angular
 												controller : "donorSearchController"
 											});
 
-							function load(srcs, callback) {
-								return {
-									deps : [
-											'$ocLazyLoad',
-											'$q',
-											function($ocLazyLoad, $q) {
-												var deferred = $q.defer();
-												var promise = false;
-												srcs = angular.isArray(srcs) ? srcs
-														: srcs.split(/\s+/);
-												if (!promise) {
-													promise = deferred.promise;
-												}
-												angular
-														.forEach(
-																srcs,
-																function(src) {
-																	console
-																			.log(src);
-																	promise = promise
-																			.then(function() {
-																				if (JQ_CONFIG[src]) {
-																					return $ocLazyLoad
-																							.load(JQ_CONFIG[src]);
-																				}
-																				angular
-																						.forEach(
-																								MODULE_CONFIG,
-																								function(
-																										module) {
-																									if (module.name == src) {
-																										name = module.name;
-																									} else {
-																										name = src;
-																									}
-																								});
-																				return $ocLazyLoad
-																						.load(name);
-																			});
-																});
-												deferred.resolve();
-												return callback ? promise
-														.then(function() {
-															return callback();
-														}) : promise;
-											} ]
-								}
-							}
-						} );
+							
+							
+
+					function load(srcs, callback) {
+						return {
+							deps : [
+									'$ocLazyLoad',
+									'$q',
+									function($ocLazyLoad, $q) {
+										var deferred = $q.defer();
+										var promise = false;
+										srcs = angular.isArray(srcs) ? srcs
+												: srcs.split(/\s+/);
+										if (!promise) {
+											promise = deferred.promise;
+										}
+										angular
+												.forEach(
+														srcs,
+														function(src) {
+															console.log(src);
+															promise = promise
+																	.then(function() {
+																		if (JQ_CONFIG[src]) {
+																			return $ocLazyLoad
+																					.load(JQ_CONFIG[src]);
+																		}
+																		angular
+																				.forEach(
+																						MODULE_CONFIG,
+																						function(
+																								module) {
+																							if (module.name == src) {
+																								name = module.name;
+																							} else {
+																								name = src;
+																							}
+																						});
+																		return $ocLazyLoad
+																				.load(name);
+																	});
+														});
+										deferred.resolve();
+										return callback ? promise
+												.then(function() {
+													return callback();
+												}) : promise;
+									} ]
+						}
+					}
+				});
 
 angular.module('treeSeed').config(
 		[
@@ -310,6 +323,10 @@ angular
 		.constant(
 				'MODULE_CONFIG',
 				[
+						{
+							name : 'postController',
+							files : ['resources/js/controllers/postController.js']
+						},
 						{
 							name : 'angularUpload',
 							files : [

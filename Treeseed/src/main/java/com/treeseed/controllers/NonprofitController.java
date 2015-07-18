@@ -130,7 +130,7 @@ public class NonprofitController extends UserGeneralController{
 					if(ugr.getCode()==200){
 						us.setNonProfitId(nonProfitId);
 						us.setCode(200);
-						us.setCodeMessage("user created succesfully");
+						us.setCodeMessage("user created successfully");
 					}else{
 						us.setCode(ugr.getCode());
 						us.setCodeMessage(ugr.getCodeMessage());

@@ -7,10 +7,43 @@ import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
 
-
 public class CampaignWrapper {
 	
 	private Campaign wrapperObject;
+
+	private Campaign wrapperObject;
+
+	public CampaignWrapper() {
+		setWrapperObject(new Campaign());
+	}
+
+	public CampaignWrapper(Campaign campaign) {
+		this.wrapperObject = campaign;
+	}
+
+	public Date getStartDate() {
+		return wrapperObject.getStartDate();
+	}
+
+	public void setStartDate(Date startDate) {
+		wrapperObject.setStartDate(startDate);
+	}
+
+	public Campaign getWrapperObject() {
+		return wrapperObject;
+	}
+
+	public void setWrapperObject(Campaign wrapperObject) {
+		this.wrapperObject = wrapperObject;
+	}
+
+	public PostCampaign addPostcampaign(PostCampaign postcampaign) {
+		return wrapperObject.addPostcampaign(postcampaign);
+	}
+
+	public boolean equals(Object obj) {
+		return wrapperObject.equals(obj);
+	}
 
 	public int getId() {
 		return wrapperObject.getId();
@@ -34,10 +67,6 @@ public class CampaignWrapper {
 
 	public void setAmountGoal(double amountGoal) {
 		wrapperObject.setAmountGoal(amountGoal);
-	}
-
-	public int hashCode() {
-		return wrapperObject.hashCode();
 	}
 
 	public Date getCreationDate() {
@@ -84,12 +113,16 @@ public class CampaignWrapper {
 		return wrapperObject.getNonprofit();
 	}
 
-	public void setNonprofit(Nonprofit nonprofit) {
-		wrapperObject.setNonprofit(nonprofit);
-	}
-
 	public List<PostCampaign> getPostcampaigns() {
 		return wrapperObject.getPostcampaigns();
+	}
+
+	public int hashCode() {
+		return wrapperObject.hashCode();
+	}
+
+	public void setNonprofit(Nonprofit nonprofit) {
+		wrapperObject.setNonprofit(nonprofit);
 	}
 
 	public void setPostcampaigns(List<PostCampaign> postcampaigns) {
@@ -104,21 +137,11 @@ public class CampaignWrapper {
 		wrapperObject.setActive(isActive);
 	}
 
-	public PostCampaign addPostcampaign(PostCampaign postcampaign) {
-		return wrapperObject.addPostcampaign(postcampaign);
-	}
-
 	public PostCampaign removePostcampaign(PostCampaign postcampaign) {
 		return wrapperObject.removePostcampaign(postcampaign);
-	}
-
-	public boolean equals(Object obj) {
-		return wrapperObject.equals(obj);
 	}
 
 	public String toString() {
 		return wrapperObject.toString();
 	}
-	
-
 }

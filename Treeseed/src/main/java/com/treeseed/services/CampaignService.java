@@ -17,8 +17,9 @@ import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.repositories.CampaignRepository;
 
+
 @Service
-public class CampaignService implements CampaignServiceInterface {
+public class CampaignService implements CampaignServiceInterface{
 	
 	@Autowired
 	CampaignRepository campaignRepository;
@@ -63,4 +64,12 @@ public class CampaignService implements CampaignServiceInterface {
 		return result;
 	}
 
+	@Override
+	@Transactional
+	public int saveCampaign(CampaignWrapper campaign) {
+		
+		Campaign camp = campaignRepository.save(campaign.getWrapperObject());
+		return camp.getId();
+		
+	}
 }
