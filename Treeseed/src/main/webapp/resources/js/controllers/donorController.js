@@ -347,7 +347,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
   	$scope.aboutEditClicked = function() {
   		$scope.aboutInEdition = true;
   		$scope.error = false;
-  		$scope.aboutEdit = $scope.donor.description;
+  		//$scope.aboutEdit = $scope.donor.description;
 	};
 
 	$scope.aboutCancelEditing = function(){
@@ -363,8 +363,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
   		$scope.error = false;
-  		$scope.nameEdit = $scope.donor.name;
-  		$scope.lastNameEdit = $scope.donor.lastName;
+  		//$scope.nameEdit = $scope.donor.name;
+  		//$scope.lastNameEdit = $scope.donor.lastName;
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -380,7 +380,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.emailEditClicked = function() {
   		$scope.emailInEdition = true;
   		$scope.error = false;
-  		$scope.emailEdit = $scope.email;
+  		//$scope.emailEdit = $scope.email;
 	};
 
 	$scope.emailCancelEditing = function(){
@@ -396,7 +396,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
   		$scope.error = false;
-  		$scope.webPageEdit = $scope.donor.webPage;
+  		//$scope.webPageEdit = $scope.donor.webPage;
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -454,10 +454,10 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 
 			  }).
 			  success(function (data, status, headers, config) {
-			  	/*if(data.code=="400"){
+			  	if(data.code=="400"){
 		    		$scope.error = true;
 		    		$scope.donor.userGeneral.email = data.donor.userGeneral.email;
-		        }*/	    		
+		        }	    		
 			});
 		};
 	
@@ -517,6 +517,10 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.closeModal = function() {		
 			modalInstance.close();
 			$scope.editDonor(); 
+		};
+		
+		$scope.closeModalWithoutEdit = function() {		
+			modalInstance.close();
 		};
 	//Finish editing profile
 });

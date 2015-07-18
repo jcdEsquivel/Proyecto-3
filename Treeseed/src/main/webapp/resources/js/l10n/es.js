@@ -113,7 +113,7 @@
     	"FORGET-PASSWORD":"¿Perdió su contraseña?",
     	"FACEBOOK": "Iniciar con Facebook",
     	"TWITTER": "Iniciar con Twitter",
-    	"LINKEDIN": "Inciar con Linkedin",
+    	"LINKEDIN": "Iniciar con Linkedin",
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
 		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
@@ -126,9 +126,7 @@
         "CAMPAIGNS": "Campañas",
         "UPDATES": "Actualizaciones",
         "DONORS": "Donantes:",
-        "DONATIONS": "Donaciones:",
-        "EMAIL": "Correo:",
-   		"WEBPAGE": "Pagina Web:"
+        "DONATIONS": "Donaciones:"
      },
      "BUTTONS": {
     		"SAVE": "Guardar",
@@ -143,6 +141,13 @@
         "MONEY-BROUGHT": "Dinero traído: "
      },
     "GENERAL-PROFILE": {
-        "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido"
+        "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido.",
+        "EMAIL": "Correo:",
+   		"WEBPAGE": "Página Web:"
+    },
+    "DRAG-IMAGE": {
+        "CLOSE": "Cerrar",
+        "ACCEPT": "Guardar"
     }
+     
 }

@@ -26,7 +26,7 @@
 	 			
  				<div class="row">
  					<div class="col-md-12">
- 						<b translate="NONPROFIT-PROFILE.WEBPAGE"></b>
+ 						<b translate="GENERAL-PROFILE.WEBPAGE"></b>
  						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
 				          	<div>
@@ -40,8 +40,8 @@
 					    </div>
  						
  						<br>
- 						<b translate="NONPROFIT-PROFILE.EMAIL"></b>
- 						<b ng-hide="emailInEdition"><br>{{nonprofit.userGeneral.email}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></b>
+ 						<b translate="GENERAL-PROFILE.EMAIL"></b>
+ 						<b ng-hide="emailInEdition">{{nonprofit.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="emailInEdition">
 				          	<div>
 				          		<input ng-model="nonprofit.userGeneral.email">
@@ -52,6 +52,7 @@
 			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="emailSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					    </div>
+					     <label class="text-danger wrapper" ng-show="error" translate="GENERAL-PROFILE.EMAIL-ERROR"></label>
  						<br>
  						<b translate="NONPROFIT-PROFILE.DONORS"></b> 
  						<br>

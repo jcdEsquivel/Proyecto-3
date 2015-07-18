@@ -210,6 +210,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Mission Edit
   	$scope.misionEditClicked = function() {
   		$scope.misionInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.misionCancelEditing = function(){
@@ -224,6 +226,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Name Edit
 	$scope.nameEditClicked = function() {
   		$scope.nameInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.nameCancelEditing = function(){
@@ -238,6 +242,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Description Edit
 	$scope.descriptionEditClicked = function() {
   		$scope.descriptionInEdition = true;
+  		$scope.error = false;
+  		
   		
 	};
 
@@ -254,6 +260,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Reason Edit
 	$scope.reasonEditClicked = function() {
   		$scope.reasonInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.reasonCancelEditing = function(){
@@ -268,6 +276,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Webpage Edit
   	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -282,6 +292,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	//Email Edit
   	$scope.emailEditClicked = function() {
   		$scope.emailInEdition = true;
+  		$scope.error = false;
+  		
 	};
 
 	$scope.emailCancelEditing = function(){
@@ -316,32 +328,6 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
 		
-		console.log("empezo a llover")
-		
-		/*
-		$http.post('rest/protected/nonprofit/editNonProfit',
-			$scope.requestObjectEdit).success(function(mydata, status) {
-				$scope.nonprofit = mydata.nonprofit;
-				console.log(mydata);
-				if(mydata.code==200){
-					console.log("trae el code 200")
-				}else{
-					console.log(mydata)
-				}
-				
-		
-		}).error(function(mydata, status) {
-			alert(status);
-		});	
-		*/
-		console.log("Profile:")
-		console.log($scope.nonprofit.profilePicture)
-		console.log($scope.requestObjectEdit.profilePicture)
-		
-		console.log("Cover")
-		console.log($scope.nonprofit.mainPicture)
-		console.log($scope.requestObjectEdit.mainPicture)
-		
 		$http({
 			   method : 'POST',
 			   url : 'rest/protected/nonprofit/editNonProfit',
@@ -367,7 +353,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 			  }).
 			  success(function (data, status, headers, config) {
-				 console.log(status)
+				  if(data.code=="400"){
+		    		$scope.error = true;
+		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
+				  }	  
 			  });
 		
 	};
@@ -437,7 +426,11 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.editNonProfit(); 
 		 
 	};
-
+	
+	$scope.closeModalWithoutEdit = function() {		
+		modalInstance.close();
+	};
+	
 })
 ;
 

@@ -42,6 +42,7 @@ import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
@@ -251,6 +252,7 @@ public class NonprofitController extends UserGeneralController{
 		UserGeneral ug = new UserGeneral();
 		ug = userGeneralService.getUGByID(npr.getIdUser());
 		
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 		
 		if(ug.getEmail().equals(npr.getEmail())){
 			
@@ -285,7 +287,7 @@ public class NonprofitController extends UserGeneralController{
 					nonprofit.setReason(npr.getReason());
 					nonprofit.setWebPage(npr.getWebPage());
 					
-					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+					nonprofitPOJO = new NonprofitPOJO();
 					
 					nonProfitService.updateNonProfit(nonprofit);
 					
@@ -322,9 +324,6 @@ public class NonprofitController extends UserGeneralController{
 					
 					userGeneralPOJO.setEmail(userGeneral.getEmail());
 					
-					
-					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-					
 					nonprofitPOJO.setName(npr.getName());
 					nonprofitPOJO.setDescription(npr.getDescription());
 					nonprofitPOJO.setMision(npr.getMision());
@@ -344,11 +343,19 @@ public class NonprofitController extends UserGeneralController{
 				}else{
 					us.setCode(400);
 					us.setCodeMessage("EMAIL ALREADY IN USE");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+					us.setNonprofit(nonprofitPOJO);
 				}
 			}else{
 				us.setCode(400);
 				us.setCodeMessage("BAD EMAIL");
-				}
+				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+				userGeneralPOJO.setEmail(ug.getEmail());
+				nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+				us.setNonprofit(nonprofitPOJO);
+			}
 		}
 		return us;		
 	}
