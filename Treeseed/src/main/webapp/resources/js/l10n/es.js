@@ -14,7 +14,8 @@
     	"PROFILE": "Perfil",
     	"HELP": "Ayuda",
     	"SIGN_OUT": "Cerrar Sesión"	 ,
-    	"LOG_IN": "Iniciar Sesión"   	
+    	"LOG_IN": "Iniciar Sesión",
+    	"SIGN-ON": "Registrarse"   	
     },
     "LEFT-MENU":{
     	"NAVIGATION": "Navegación",
@@ -144,6 +145,9 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: "
+     },
+     "SELECT-USER":{
+     	"TITLE":"Registrarse como:"
      },
     "GENERAL-PROFILE": {
         "EMAIL-ERROR": "El correo ya ha sido asignado a un usuario o es inválido.",

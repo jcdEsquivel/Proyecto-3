@@ -46,14 +46,7 @@ angular
 																		 * return
 																		 * AuthResolver.resolve(); } }
 																		 */
-							})
-							.state(
-									'signin',
-									{
-										url : '/signin',
-										templateUrl : 'layouts/components/page_signin.html',
-										controller : 'SigninFormController'
-									})									
+							})								
 							.state(
 									'treeSeed.index',
 									{
@@ -74,7 +67,14 @@ angular
 												url : 'donor/:donorId',
 												templateUrl : 'layouts/pages/donor.html',
 												controller: "getDonorProfileController",
-												params: {donorId: null}
+												params: {donorId: null},
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
 											})
 									.state(
 											'treeSeed.nonProfit',
@@ -91,21 +91,13 @@ angular
 
 												}
 											})
-									.state(
-											'treeSeed.donate',
-											{
-												url : '../donate',
-												templateUrl : 'layouts/pages/donate.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
-											})
-									.state(
+									/*.state(
 											'treeSeed.searchTransReport',
 											{
 												url : 'str',
 												templateUrl : 'layouts/pages/transparencyReportSearch.html',
 												controller : "searchTransparecyReportController"
-											})
+											})*/
 									.state(
 											'treeSeed.createCampaing',
 											{
@@ -117,14 +109,14 @@ angular
 														USER_ROLES.nonprofit ]
 												}
 											})
-									.state(
+									/*.state(
 											'treeSeed.campaingViewer',
 											{
 												url : 'campaingViewer',
 												templateUrl : 'layouts/pages/campaingViewer.html'
 											// resolve:
 											// load(['js/controllers/chart.js'])
-											})
+											})*/
 									.state(
 											'treeSeed.nonProfitSearch',
 											{
@@ -133,7 +125,14 @@ angular
 												resolve : load([
 														'angularUtils.directives.dirPagination',
 														'resources/js/controllers/nonprofitController.js' ]),
-												controller : "nonProfitSearchController"
+												controller : "nonProfitSearchController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
 											})
 									.state(
 											'treeSeed.campaignSearch',
@@ -143,21 +142,49 @@ angular
 												resolve : load([
 														'angularUtils.directives.dirPagination',
 														'resources/js/controllers/campaignController.js' ]),
-												controller : "campaignSearchController"
+												controller : "campaignSearchController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
 											})		
 									.state(
 											'treeSeed.registerNonProfit',
 											{
 												url : 'registerNonProfit',
 												templateUrl : 'layouts/pages/registerNonProfitProfile.html',
-												controller : "nonProfitRegistrationController"
+												controller : "nonProfitRegistrationController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.guest]
+												
+												}
 											})
 									.state(
 											'treeSeed.registerDonor',
 											{
 												url : 'registerDonor',
 												templateUrl : 'layouts/pages/registerDonor.html',
-												controller : "donorRegistrationController"
+												controller : "donorRegistrationController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.guest ]
+												
+												}
+											})
+									.state(
+											'treeSeed.selectUser',
+											{
+												url : 'selecUser',
+												templateUrl : 'layouts/pages/registerUserSelect.html',
+												data : {
+													authorizedRoles : [	USER_ROLES.guest ]
+												
+												}
+												
 											})
 									.state(
 											'treeSeed.donorSearch',
@@ -165,8 +192,16 @@ angular
 												url : 'donorSearch',
 												templateUrl : 'layouts/pages/donorSearch.html',
 												resolve : load([ 'angularUtils.directives.dirPagination' ]),
-												controller : "donorSearchController"
+												controller : "donorSearchController",
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
 											});
+							
 
 							
 							

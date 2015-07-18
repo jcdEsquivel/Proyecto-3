@@ -237,6 +237,8 @@ treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, US
 		$cookies['idSessionTree'] = "0";
 		$cookies['idUserTree'] = "0";
 		$cookies['userRoleTree'] = USER_ROLES.guest;
+		$cookies['userNameTree'] = "0";
+	    $cookies['userImageTree'] =  "0";
 	}
 
 	authService.isAuthorized = function(authorizedRoles) {

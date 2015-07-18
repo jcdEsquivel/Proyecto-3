@@ -356,7 +356,11 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				  if(data.code=="400"){
 		    		$scope.error = true;
 		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
-				  }	  
+				  }
+				  
+				  $scope.nonprofit.mainPicture =  data.nonprofit.mainPicture;
+				  $scope.nonprofit.profilePicture = data.nonprofit.profilePicture;
+				  $scope.currentUser.userImage = data.nonprofit.profilePicture;
 			  });
 		
 	};

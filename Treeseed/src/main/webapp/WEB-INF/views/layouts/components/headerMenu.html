@@ -8,10 +8,10 @@
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/treeseed.org/index" class="navbar-brand text-lt">
+        <a href="#/treeseed.org/index"  class="navbar-brand treeseed-a-img">
          
-          <img src="resources/img/a0.jpg" alt="." class="hide">
-          <span class="hidden-folded m-l-xs">{{app.name}}</span>
+         <img src="resources/images/nombre.jpg"   alt="."  class="treeseed-img">
+          
         </a>
         <!-- / brand -->
       </div>
@@ -93,7 +93,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-if="logged">
+          <li class="dropdown" dropdown ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" ng-show="false">
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
@@ -108,10 +108,13 @@
           <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
           		<button class="btn m-b-xs  btn-success btn-rounded " ng-click="open()" translate="MENU-HEADER.LOG_IN"></button>
           </li>
+          <li ng-if="isAuthorized(userRoles.guest)" class="btn-login-header" style="margin: 10px;">
+          		<button class="btn m-b-xs  btn-success btn-rounded " ui-sref="treeSeed.selectUser" translate="MENU-HEADER.SIGN-ON"></button>
+          </li>
           <li class="dropdown"  ng-if="isAuthorized(userRoles.donor)||isAuthorized(userRoles.nonprofit)" dropdown>
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img ng-src="{{img}}" alt="..." class="header-menu-img">
+                <img ng-src="{{user.userImage}}" alt="..." class="header-menu-img">
                 <i class="on md b-white bottom"></i>
               </span>
               <span class="hidden-sm hidden-md header-menu-name">{{name}}</span> <b class="caret"></b>
@@ -125,10 +128,10 @@
                 </a>
               </li>
               <li>
-                <a ng-click='navigateDonor()' translate="MENU-HEADER.PROFILE">Profil</a>
+                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profil</a>
               </li>
               <li>
-                <a ui-sref="app.docs" translate="MENU-HEADER.HELP">
+                <a  translate="MENU-HEADER.HELP">
                   help
                 </a>
               </li>
