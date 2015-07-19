@@ -331,4 +331,30 @@ public class DonorController extends UserGeneralController{
 		return us;		
 	}
 	
+	
+	@RequestMapping(value ="/deleteDonor", method = RequestMethod.POST)
+	@Transactional
+	public DonorResponse deleteDonor(@RequestBody DonorRequest dr){
+		
+		DonorResponse us = new DonorResponse();
+		
+		try{
+			boolean deleted = donorService.deleteDonor(dr);
+			
+			if(deleted==true){
+				us.setCode(200);
+				us.setCodeMessage("Donor deleted sucessfully");
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("Donor deleted unsucessfully");
+			}
+				
+		}catch(Exception e){
+			us.setCode(400);
+			us.setCodeMessage("Donor deleted unsucessfully");
+		}
+	
+		return us;		
+	}
+	
 }

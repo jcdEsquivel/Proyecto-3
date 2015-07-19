@@ -23,7 +23,7 @@ public interface DonorRepository extends
  
  @Query("SELECT p FROM Donor p inner join p.country d WHERE ( :nameNull is null or p.name like :name) and "
    + "( :country = 0 or d.id = :country) and "
-   + "( :lastNameNull is null or p.lastName like :lastName)")
+   + "( :lastNameNull is null or p.lastName like :lastName) and p.isActive = 1")
     public Page<Donor> findAll(@Param("nameNull") String nameNull, @Param("name") String name,
       @Param("country") int country,
       @Param("lastNameNull") String lastNameNull,
@@ -50,6 +50,14 @@ public interface DonorRepository extends
 			   @Param("description") String description,
 			   @Param("profilePicture") String profilePicture,
 			   @Param("webPage") String webPage)
+			   ;
+ 	
+ 	@Modifying
+	@Transactional
+	@Query("UPDATE Donor d SET isActive = :isActive where d.id = :id") 
+	  public void deleteDonor(
+			   @Param("id") int id,
+			   @Param("isActive") int isActive)
 			   ;
  
 ;
