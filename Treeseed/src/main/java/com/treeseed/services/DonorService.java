@@ -68,15 +68,9 @@ public class DonorService implements DonorServiceInterface {
 	}
 	
 	@Override
-	public boolean deleteDonor(DonorRequest dr)
-	{
-		try{
-			DonorRepository.deleteDonor(dr.getId(),
-				dr.getIsActive());		
-			return true;
-		}catch(Exception e){
-			return false;
-		}
+	public void deleteDonor(DonorRequest dr)
+	{	
+		DonorRepository.deleteDonor(dr.getId());		
 	}
 
 	@Override

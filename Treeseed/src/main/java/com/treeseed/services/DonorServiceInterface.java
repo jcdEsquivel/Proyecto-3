@@ -17,7 +17,7 @@ public interface DonorServiceInterface {
 	
 	Donor getDonorProfileByID(DonorRequest dr);
 	
-	boolean deleteDonor(DonorRequest dr);
+	void deleteDonor(DonorRequest dr);
 	
 	void updateDonor(DonorWrapper donor);
 }

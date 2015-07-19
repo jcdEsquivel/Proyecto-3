@@ -54,10 +54,9 @@ public interface DonorRepository extends
  	
  	@Modifying
 	@Transactional
-	@Query("UPDATE Donor d SET isActive = :isActive where d.id = :id") 
+	@Query("UPDATE Donor d SET isActive = 0 where d.id = :id") 
 	  public void deleteDonor(
-			   @Param("id") int id,
-			   @Param("isActive") int isActive)
+			   @Param("id") int id)
 			   ;
  
 ;
