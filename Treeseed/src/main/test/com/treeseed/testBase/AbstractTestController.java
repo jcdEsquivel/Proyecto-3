@@ -14,23 +14,31 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
+
+
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
+import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 @WebAppConfiguration
@@ -44,6 +52,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired  CatalogServiceInterface serviceCatalog;
     @Autowired  NonprofitServiceInterface serviceNonProfit;
     @Autowired  UserGeneralServiceInterface serviceUserGeneral;
+    @Autowired	PostNonprofitServiceInterface postNonprofitService;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -261,10 +270,28 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 			serviceUserGeneral.saveUserGeneral(userWrapper);
 			
 			return userWrapper;
-		
-		
+
 	}
 	
+	
+	public  PostNonprofitWrapper createRandomPost(Nonprofit nonprofit){
+		
+		String random = getRandomString();
+		PostNonprofit post = new PostNonprofit();
+		post.setTittle("Title "+random);
+		post.setDescription("Description");
+		post.setCreationDate(new Date());
+		post.setIsActive(true);
+		post.setPicture(TreeseedConstants.DEFAULT_POST_IMAGE);
+		post.setNonprofit(nonprofit);
+		
+		PostNonprofitWrapper wrapper =  new PostNonprofitWrapper(post);
+		
+		postNonprofitService.savePostNonprofit(wrapper);
+		
+		return wrapper;
+
+}
     
     public  String getRandomString(){
 		UUID uuid = UUID.randomUUID();

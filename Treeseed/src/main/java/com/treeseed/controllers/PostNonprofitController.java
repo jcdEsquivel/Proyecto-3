@@ -1,13 +1,17 @@
 package com.treeseed.controllers;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +25,10 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
+import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 @RestController
@@ -54,7 +60,7 @@ public class PostNonprofitController {
 		int sessionId = (int) currentSession.getAttribute("idUser");
 		
 		NonprofitWrapper nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(requestObj.getNonprofitId());
+				.getSessionNonprofit(requestObj.getPostNonprofit().getNonprofitId());
 		
 		generalUserId = nonprofit.getUsergenerals().get(0).getId();
 		
@@ -62,22 +68,22 @@ public class PostNonprofitController {
 		//Checks if the request comes from the logged user.
 		if (nonprofit != null && generalUserId == sessionId) {
 
-			PostNonprofitWrapper wrapper = new PostNonprofitWrapper(new PostNonprofit());
+			PostNonprofitWrapper post = new PostNonprofitWrapper(new PostNonprofit());
 
 			if (file == null) {
-				resultFileName = "resources/file-storage/1436319975812.jpg";
+				resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
 			} else {
 				resultFileName = Utils.writeToFile(file, servletContext);
 			}
 
-			wrapper.setTittle(requestObj.getTitle());
-			wrapper.setDescription(requestObj.getDescripcion());
-			wrapper.setIsActive(true);
-			wrapper.setPicture(resultFileName);
-			wrapper.setNonprofit(nonprofit.getWrapperObject());
-			wrapper.setCreationDate(new Date());
+			post.setTittle(requestObj.getPostNonprofit().getTitle());
+			post.setDescription(requestObj.getPostNonprofit().getDescription());
+			post.setIsActive(true);
+			post.setPicture(resultFileName);
+			post.setNonprofit(nonprofit.getWrapperObject());
+			post.setCreationDate(new Date());
 
-			postNonprofitService.savePostNonprofit(wrapper);
+			postNonprofitService.savePostNonprofit(post);
 
 			response.setCode(200);
 			response.setCodeMessage("Post created");
@@ -87,6 +93,36 @@ public class PostNonprofitController {
 			response.setCodeMessage("Invalid request");
 		}
 
+		return response;
+
+	}
+	
+	
+	@RequestMapping(value = "/getNonprofitPost", method = RequestMethod.POST)
+	public PostNonprofitResponse getNonprofitPost(@RequestBody PostNonprofitRequest postRequest) {
+
+		PostNonprofitResponse response = new PostNonprofitResponse();
+		Page<PostNonprofit> postsResults = postNonprofitService.getPosts(postRequest);
+		List<PostNonprofitPOJO> pojos = new ArrayList<PostNonprofitPOJO>();
+		PostNonprofitPOJO pojoTemp;
+		
+		for(PostNonprofit objeto:postsResults.getContent())
+		{
+			pojoTemp = new PostNonprofitPOJO();
+			pojoTemp.setId(objeto.getId());
+			pojoTemp.setTitle(objeto.getTittle());
+			pojoTemp.setDescription(objeto.getDescription());
+			pojoTemp.setPicture(objeto.getPicture());
+			
+			pojos.add(pojoTemp);
+		}
+		
+		response.setTotalElements(postsResults.getTotalElements());
+		response.setTotalPages(postsResults.getTotalPages());
+		response.setPosts(pojos);
+		response.setCode(200);
+		response.setCodeMessage("Nonprofit posts");
+		
 		return response;
 
 	}
