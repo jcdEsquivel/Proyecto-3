@@ -20,7 +20,7 @@
 			<ul
 				class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
 				<li class="list-group-item li-search-size-result-full"
-					dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize"
+					dir-paginate="campaign in campaigns | itemsPerPage: requestObjectCampaigns.pageSize"
 					current-page="currentCampaignPage" pagination-id="campaign-pagin"
 					total-items="totalItems">
 					<!-- <a href="#"	class="pull-left thumb-md m-r">

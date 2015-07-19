@@ -284,18 +284,19 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 		
 		function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
+	
 			$scope.page=1;
 			
 			$scope.currentCampaignPage = 0;
 			
 			$scope.itemPerPage = [ 10, 25, 50, 100 ];
 			$scope.currentPage = 1;
-			$scope.totalItems = 5;
+			$scope.totalItems = 0;
 			$scope.borderColor="green";
 			$scope.requestObjectCampaigns = {};
 			$scope.requestObjectCampaigns.isActive=true;
 			$scope.requestObjectCampaigns.pageNumber = 1;
-			$scope.requestObjectCampaigns.pageSize = 4;
+			$scope.requestObjectCampaigns.pageSize = 3;
 			$scope.requestObjectCampaigns.direction = "DES";
 			$scope.requestObjectCampaigns.sortBy = ["StartDate"];
 			$scope.requestObjectCampaigns.searchColumn = "ALL";
@@ -303,19 +304,19 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			$scope.requestObjectCampaigns.nonprofitId = $stateParams.nonProfitId;
 			
 			$scope.$on('loadCampaigns',function(){
-				$scope.searchCampaigns($scope.page);
+				$scope.searchCampaigns(1);
 			});
 			
 			$scope.searchCampaigns = function(page) {
 				
 				$scope.currentCampaignPage = page;
-				console.log('test');
+				$scope.requestObjectCampaigns.pageNumber = page;
+
 				$http.post('rest/protected/campaing/nonprofitCampaigns',$scope.requestObjectCampaigns)
 				.success(function(mydata, status) {
 					$scope.campaigns = mydata.campaigns;
 					$scope.totalItems = mydata.totalElements;
-					console.log($scope.campaigns[1].id);
-					console.log('is in');
+					
 				}).error(function(mydata, status) {
 					console.log(status);
 					console.log("No data found");
@@ -326,7 +327,6 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			};
 			
 			$scope.pageChangeHandler = function(num) {
-				console.log('ss');
 				$scope.searchCampaigns(num);
 			};
 			

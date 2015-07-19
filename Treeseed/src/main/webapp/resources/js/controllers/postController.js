@@ -22,7 +22,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 		pageNumber : '',
 		pageSize : '4',
 		direction : "DESC",
-		sortBy : []
+		sortBy : ['creationDate']
 	};
 
 	$scope.getPosts = function(pageNumber) {
