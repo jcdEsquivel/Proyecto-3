@@ -8,7 +8,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 
 public class CampaignRequest extends BasePagingRequest {
-	
+
 	private CampaignPOJO campaign;
 
 	private int id;
@@ -16,9 +16,48 @@ public class CampaignRequest extends BasePagingRequest {
 	
 	private int nonprofitId;
 	
-	private boolean isActive;
+
+
+
+	private String name;
+	private String nonprofitName;
+	private int causeId;
+	private long fechaInicio;
+	private long fechaFin;
+
+	public String getNonprofitName() {
+		return nonprofitName;
+	}
 
 	private NonprofitPOJO nonprofit;
+	public void setNonprofitName(String nonprofitName) {
+		this.nonprofitName = nonprofitName;
+	}
+
+	public int getCauseId() {
+		return causeId;
+	}
+
+	public void setCauseId(int causeId) {
+		this.causeId = causeId;
+	}
+
+	public long getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(long fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public long getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(long fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
 
 	private List<PostCampaign> postCampaigns;
 

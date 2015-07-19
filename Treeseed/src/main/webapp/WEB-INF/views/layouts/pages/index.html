@@ -12,15 +12,7 @@
   		</div>
   		<div class="row landing-header-botton">
   			<div class="col-md-12">
-  				<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button"  ui-sref="treeSeed.registerNonProfit" >
-	  			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
-	  			 	<span translate="LANDING.HEADER-BUTTON-NGO">HEADER-BUTTON</span>
-			 	</button>
-			 	<br><br>
-			 	<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button" ui-sref="treeSeed.registerDonor">
-	  			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
-	  			 	<span translate="LANDING.HEADER-BUTTON-DONOR" >HEADER-BUTTON</span>
-			 	</button>
+  				
   			</div>
   		</div>
   	</div>	
@@ -125,9 +117,9 @@
 	  			
 	  			<br>
 	  			
-	  		<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button" >
+	  		<button class="btn btn-info  btn-addon  btn-lg  let-it-grow-button"  ng-if="isAuthorized(userRoles.guest)">
   			 	<i class="fa fa-lemon-o let-it-grow-icon"></i>
-  			 	<span translate="LANDING.CREATE-ACCOUNT" ui-sref="treeSeed.registerNonProfile">CREATE-ACCOUNT</span>
+  			 	<span translate="LANDING.CREATE-ACCOUNT" ui-sref="treeSeed.selectUser">CREATE-ACCOUNT</span>
 			 </button>
 	  		</div>
 	  </div> 

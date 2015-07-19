@@ -6,8 +6,11 @@ import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 
+
 public interface CampaignServiceInterface {
 	
+	Page<Campaign> getAllCampaigns(CampaignRequest ur);
+
 	public int saveCampaign(CampaignWrapper nonProfit);
 	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
 }

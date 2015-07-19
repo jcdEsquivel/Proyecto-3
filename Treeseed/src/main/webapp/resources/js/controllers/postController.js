@@ -35,6 +35,7 @@ treeSeedAppControllers.controller('createPostController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, Session,
 		$modalInstance) {
 
+	$scope.maxCarac = 500;
 	$scope.image;
 	$scope.post = {
 		nonprofitId : Session.userId,
