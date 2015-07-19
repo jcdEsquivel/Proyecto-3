@@ -289,6 +289,7 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			$scope.itemPerPage = [ 10, 25, 50, 100 ];
 			$scope.currentPage = 1;
 			$scope.totalItems = 5;
+			$scope.borderColor="green";
 			$scope.requestObjectCampaigns = {};
 			$scope.requestObjectCampaigns.isActive=true;
 			$scope.requestObjectCampaigns.pageNumber = 1;
@@ -299,7 +300,10 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			$scope.requestObjectCampaigns.searchTerm = "";
 			$scope.requestObjectCampaigns.nonprofitId = $stateParams.nonProfitId;
 			
-
+			$scope.$on('loadCampaigns',function(){
+				$scope.searchCampaigns($scope.page);
+			});
+			
 			$scope.searchCampaigns = function(page) {
 				
 				if($scope.currentUser!=null){
@@ -329,12 +333,17 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 
 			};
 			
-			$scope.milliToDate=function(milli){
-				$scope.date =new Date(milli);
-				$scope.date = $scope.date.toString("dd-MMMM-yyyy");
-				return $scope.date;
+			$scope.getColor=function(start, end){
+				$scope.color = "";
+				if(start){
+					$scope.color ="#EBEB0A";
+				}else if(!end){
+					$scope.color ="red";
+				}else if(!start&&end){
+					$scope.color ="#27c24c";
+				}
 			}
 			
-			$scope.searchCampaigns($scope.page);
+			
 
 		})

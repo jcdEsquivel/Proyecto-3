@@ -58,8 +58,7 @@
  					</div>
  				</div>
 	 		</div>
-	 		<div class="col-md-8">
-	 			
+	 		<div class="col-md-8">	
  				<tabset class="tab-container">
 				    <tab>
 				      <tab-heading translate="NONPROFIT-PROFILE.PROFILE">
@@ -124,8 +123,8 @@
 				      </ul>
 				    </tab>
     				
-    				 <tab>
-				      <tab-heading translate="NONPROFIT-PROFILE.CAMPAIGNS">
+    				 <tab ng-click="loadCampaigns()" >
+				      <tab-heading  translate="NONPROFIT-PROFILE.CAMPAIGNS">
 				        
 				      </tab-heading>
 				      <div  data-ng-include=" 'layouts/components/campaignList.html' " ></div>

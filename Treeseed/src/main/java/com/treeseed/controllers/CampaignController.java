@@ -166,7 +166,7 @@ public class CampaignController {
 	
 	@RequestMapping(value ="/nonprofitCampaigns", method = RequestMethod.POST)
 	@Transactional
-	public CampaignResponse getNonprofits(@RequestBody CampaignRequest cr){	
+	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
 		
 		cr.setPageNumber(cr.getPageNumber() - 1);
 		
@@ -192,6 +192,7 @@ public class CampaignController {
 			campaignPojo.setPicture(objeto.getPicture());
 			campaignPojo.setAmountCollected(objeto.getAmountCollected());
 			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
 			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
 			if(objeto.getStartDate().after(new Date())){

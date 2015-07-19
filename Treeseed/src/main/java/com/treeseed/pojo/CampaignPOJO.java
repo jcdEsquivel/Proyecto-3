@@ -26,6 +26,7 @@ public class CampaignPOJO {
 	private boolean isActive;
 	private String picture;
 	private int idNonProfit;
+	private int percent;
 
 	private NonprofitPOJO nonProfit;
 	
@@ -157,5 +158,13 @@ public class CampaignPOJO {
 
 	public void setEnd(boolean end) {
 		this.end = end;
+	}
+
+	public int getPercent() {
+		return percent;
+	}
+
+	public void setPercent(int percent) {
+		this.percent = percent;
 	}
 }

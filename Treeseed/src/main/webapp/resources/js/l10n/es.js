@@ -196,6 +196,15 @@
          	"BUTTON-PREV":"Anterior",
          	"BUTTON-FINALIZE":"Crear"
      	}
+    },
+    "LISTCAMPAIGN":{
+    	"STATE-COLOR-RED":"Finalizada",
+    	"STATE-COLOR-YELLOW":"Próximamente",
+    	"STATE-COLOR-GREEN":"Activa",
+    	"READMORE":"... Leer mas",
+    	"GOAL":"Monto meta",
+    	"COLLECTED":"Monto recaudado",
+    	"COLLECTEDMESSAGE":"Recaudado"
     }
      
 }
