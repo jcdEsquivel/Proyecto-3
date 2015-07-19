@@ -169,13 +169,9 @@ public class CampaignController {
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
 		
 		cr.setPageNumber(cr.getPageNumber() - 1);
-		
 		Page<Campaign> viewCampaign = campaignService.getCampaignsByNonprofit(cr);
 		
 		CampaignResponse cs = new CampaignResponse();
-		
-		
-		cs.setCodeMessage("campaigns fetch success");
 		
 		
 		cs.setTotalElements(viewCampaign.getTotalElements());
@@ -214,7 +210,15 @@ public class CampaignController {
 		
 		
 		cs.setCampaigns(viewCampaignsPOJO);
-		cs.setCode(200);
+		
+		if(viewCampaignsPOJO.size()>0){
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+		}else{
+			cs.setErrorMessage("campaigns fetch unsuccessful");
+			cs.setCode(400);
+		}
+		
 		return cs;
 			
 	}

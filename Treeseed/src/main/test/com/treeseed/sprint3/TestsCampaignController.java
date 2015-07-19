@@ -1,38 +1,26 @@
 package com.treeseed.sprint3;
 
 import java.io.FileInputStream;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.mock.web.portlet.MockActionRequest;
-import org.hibernate.jpa.criteria.compile.CriteriaQueryTypeQueryAdapter;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.treeseed.testBase.AbstractTestController;
-import com.mongodb.util.JSON;
-import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
-import com.treeseed.contracts.DonorResponse;
-import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
-import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
-import com.treeseed.ejbWrapper.UserGeneralWrapper;
-import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.UserGeneralServiceInterface;
-import com.treeseed.testBase.*;
 
 
 
@@ -63,7 +51,8 @@ public class TestsCampaignController extends AbstractTestController{
 		   
 		   	String name = "pruebaCrearCampaña";
 		   	String description =getRandomString();
-			String date= "2015-07-24T06:00:00.000Z";
+			String edate= "2015-07-24T06:00:00.000Z";
+			String sdate= "2015-07-25T06:00:00.000Z";
 			String amount =  "800";
 			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
@@ -77,7 +66,8 @@ public class TestsCampaignController extends AbstractTestController{
 		                    .file("file", file.getBytes())
 		                    .param("name", name) 
 		                    .param("description", description)
-		                    .param("date", date)
+		                    .param("date1", sdate)
+		                    .param("date2", edate)
 		                    .param("amount", amount)
 	        				.param("idNonprofit", ""+nonprofit.getId()))
 	        				.andReturn();
@@ -100,7 +90,8 @@ public class TestsCampaignController extends AbstractTestController{
 		   
 		   	String name = "pruebaCrearCampaña";
 		   	String description =getRandomString();
-			String date= "2015-07-24T06:00:00.000Z";
+			String edate= "2015-07-24T06:00:00.000Z";
+			String sdate= "2015-07-25T06:00:00.000Z";
 			String amount =  "800";
 			
 	        String uri = "/rest/protected/campaing/create";
@@ -110,7 +101,8 @@ public class TestsCampaignController extends AbstractTestController{
 	        		MockMvcRequestBuilders.fileUpload(uri)
 		                    .param("name", name) 
 		                    .param("description", description)
-		                    .param("date", date)
+		                    .param("date1", sdate)
+		                    .param("date2", edate)
 		                    .param("amount", amount)
 	        				.param("idNonprofit", ""+nonprofit.getId()))
 	        				.andReturn();
@@ -131,7 +123,8 @@ public class TestsCampaignController extends AbstractTestController{
 		   
 		   	String name = "pruebaCrearCampaña";
 		   	String description =getRandomString();
-			String date= "2015-07-24T06:00:00.000Z";
+			String edate= "2015-07-24T06:00:00.000Z";
+			String sdate= "2015-07-25T06:00:00.000Z";
 			String amount =  "800";
 			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
@@ -145,7 +138,8 @@ public class TestsCampaignController extends AbstractTestController{
 		                    .file(file)
 		                    .param("name", name) 
 		                    .param("description", description)
-		                    .param("date", date)
+		                    .param("date1", sdate)
+		                    .param("date2", edate)
 		                    .param("amount", amount)
 	        				.param("idNonprofit", "0"))
 	        				.andReturn();
@@ -156,6 +150,76 @@ public class TestsCampaignController extends AbstractTestController{
 	        CampaignResponse response = mapFromJson(content, CampaignResponse.class);
 	        
 	        Assert.assertEquals("NONPROFIT DO NOT EXIST", response.getCodeMessage());
+	      
+
+	    }
+	    
+	    @Test
+	    public void getCampaignsByNonprofitWithCampaigns() throws Exception {
+		 	
+		   
+		    CampaignRequest req = new CampaignRequest();
+		    List<String> sort=new ArrayList<String>();
+		    sort.add("StartDate");
+			
+			
+			req.setPageNumber(1);
+			req.setPageSize(10);
+			req.setDirection("DES");
+			req.setSortBy(sort);
+			req.setSearchColumn("ALL");
+			req.setNonprofitId(4);
+			
+			
+	        String uri = "/rest/protected/campaing/nonprofitCampaigns";
+	               
+	        String jsonObject = mapToJson(req);
+	        
+	        MvcResult result =mvc.perform(MockMvcRequestBuilders.post(uri)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
+	        
+
+	        String content = result.getResponse().getContentAsString();
+	        
+	        CampaignResponse response = mapFromJson(content, CampaignResponse.class);
+	        
+	        Assert.assertEquals("campaigns fetch success", response.getCodeMessage());
+	      
+
+	    }
+	    
+	    @Test
+	    public void getCampaignsByNonprofitWithoutCampaigns() throws Exception {
+		 	
+		   
+		    CampaignRequest req = new CampaignRequest();
+		    List<String> sort=new ArrayList<String>();
+		    sort.add("StartDate");
+			
+			
+			req.setPageNumber(1);
+			req.setPageSize(10);
+			req.setDirection("DES");
+			req.setSortBy(sort);
+			req.setSearchColumn("ALL");
+			req.setNonprofitId(0);
+			
+			
+	        String uri = "/rest/protected/campaing/nonprofitCampaigns";
+	               
+	        String jsonObject = mapToJson(req);
+	        
+	        MvcResult result =mvc.perform(MockMvcRequestBuilders.post(uri)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
+	        
+
+	        String content = result.getResponse().getContentAsString();
+	        
+	        CampaignResponse response = mapFromJson(content, CampaignResponse.class);
+	        
+	        Assert.assertEquals("campaigns fetch unsuccessful", response.getErrorMessage());
 	      
 
 	    }

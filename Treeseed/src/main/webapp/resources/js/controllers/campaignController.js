@@ -294,8 +294,8 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			$scope.requestObjectCampaigns.isActive=true;
 			$scope.requestObjectCampaigns.pageNumber = 1;
 			$scope.requestObjectCampaigns.pageSize = 10;
-			$scope.requestObjectCampaigns.direction = "DESC";
-			$scope.requestObjectCampaigns.sortBy = [];
+			$scope.requestObjectCampaigns.direction = "DES";
+			$scope.requestObjectCampaigns.sortBy = ["StartDate"];
 			$scope.requestObjectCampaigns.searchColumn = "ALL";
 			$scope.requestObjectCampaigns.searchTerm = "";
 			$scope.requestObjectCampaigns.nonprofitId = $stateParams.nonProfitId;
