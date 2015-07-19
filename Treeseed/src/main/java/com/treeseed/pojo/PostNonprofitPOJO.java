@@ -7,6 +7,9 @@ public class PostNonprofitPOJO {
 	private String description;
 	private int nonprofitId;
 	
+	public PostNonprofitPOJO() {
+		super();
+	}
 	
 	public int getId() {
 		return id;
@@ -38,4 +41,7 @@ public class PostNonprofitPOJO {
 	public void setNonprofitId(int nonprofitId) {
 		this.nonprofitId = nonprofitId;
 	}
+	
+	
+	
 }

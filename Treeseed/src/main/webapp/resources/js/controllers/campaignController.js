@@ -286,6 +286,8 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 		function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
 			$scope.page=1;
 			
+			$scope.currentCampaignPage = 0;
+			
 			$scope.itemPerPage = [ 10, 25, 50, 100 ];
 			$scope.currentPage = 1;
 			$scope.totalItems = 5;
@@ -293,7 +295,7 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			$scope.requestObjectCampaigns = {};
 			$scope.requestObjectCampaigns.isActive=true;
 			$scope.requestObjectCampaigns.pageNumber = 1;
-			$scope.requestObjectCampaigns.pageSize = 10;
+			$scope.requestObjectCampaigns.pageSize = 4;
 			$scope.requestObjectCampaigns.direction = "DES";
 			$scope.requestObjectCampaigns.sortBy = ["StartDate"];
 			$scope.requestObjectCampaigns.searchColumn = "ALL";
@@ -306,22 +308,26 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			
 			$scope.searchCampaigns = function(page) {
 				
-				
-
+				$scope.currentCampaignPage = page;
+				console.log('test');
 				$http.post('rest/protected/campaing/nonprofitCampaigns',$scope.requestObjectCampaigns)
 				.success(function(mydata, status) {
 					$scope.campaigns = mydata.campaigns;
 					$scope.totalItems = mydata.totalElements;
-					console.log($scope.campaigns[1].id)
+					console.log($scope.campaigns[1].id);
+					console.log('is in');
 				}).error(function(mydata, status) {
 					console.log(status);
 					console.log("No data found");
 				});
 
-				$scope.pageChangeHandler = function(num) {
-					$scope.searchCampaigns(num);
-				};
+				
 
+			};
+			
+			$scope.pageChangeHandler = function(num) {
+				console.log('ss');
+				$scope.searchCampaigns(num);
 			};
 			
 			$scope.getColor=function(start, end){

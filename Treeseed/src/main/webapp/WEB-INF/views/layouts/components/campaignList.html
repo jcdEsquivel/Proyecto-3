@@ -21,6 +21,7 @@
 				class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
 				<li class="list-group-item li-search-size-result-full"
 					dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize"
+					current-page="currentCampaignPage" pagination-id="campaign-pagin"
 					total-items="totalItems">
 					<!-- <a href="#"	class="pull-left thumb-md m-r">
 			 <img ng-src="{{nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
@@ -36,7 +37,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-7" style="word-wrap: break-word">
-								{{campaign.description}}<a ui-sref="" style="color: blue" translate="LISTCAMPAIGN.READMORE"></a>
+								{{campaign.description}}<a  style="color: blue" translate="LISTCAMPAIGN.READMORE"></a>
 							</div>
 							<div class="col-md-2">
 								<span translate="LISTCAMPAIGN.GOAL"></span>
@@ -74,7 +75,7 @@
 		<div class="other-controller">
 			<div class="text-center">
 				<dir-pagination-controls boundary-links="true"
-					on-page-change="pageChangeHandler(newPageNumber)"
+					on-page-change="pageChangeHandler(newPageNumber)" pagination-id="campaign-pagin"
 					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
 				</dir-pagination-controls>
 			</div>

@@ -125,23 +125,14 @@
     				
     				 <tab ng-click="loadCampaigns()" >
 				      <tab-heading  translate="NONPROFIT-PROFILE.CAMPAIGNS">
-				        
 				      </tab-heading>
 				      <div  data-ng-include=" 'layouts/components/campaignList.html' " ></div>
 				    </tab>
 
-				     <tab ng-controller="postAdminController">
+				     <tab ng-click="loadPosts()">
 				      <tab-heading translate="NONPROFIT-PROFILE.UPDATES">  
 				      </tab-heading>
-				      <button class="btn btn-success" ng-if="isOwner" ng-click="openModal()" translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</button>
-				      <ul class="list-group no-borders pull-in m-b-none">
-				        <li class="list-group-item" >
-				          <h3>Lorem ipsum dolor sit amet</h3>
-
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
-
-				        </li>
-				      </ul>
+				     	<div  data-ng-include=" 'layouts/components/postsList.html' " ></div>
 				    </tab>
       
   				</tabset>
