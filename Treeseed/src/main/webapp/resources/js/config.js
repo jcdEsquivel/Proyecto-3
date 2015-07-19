@@ -200,7 +200,21 @@ angular
 															USER_ROLES.nonprofit ]
 												
 												}
-											});
+											})
+								  	.state(
+										'treeSeed.donorSettings',
+										{
+											url : 'donorSettings',
+											templateUrl : 'layouts/pages/donorSettings.html',
+											controller : "donorSettingsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor,
+														USER_ROLES.guest,
+														USER_ROLES.nonprofit ]
+											
+											}
+										});
 							
 
 							
