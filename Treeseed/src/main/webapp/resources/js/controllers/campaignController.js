@@ -306,15 +306,6 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			
 			$scope.searchCampaigns = function(page) {
 				
-				if($scope.currentUser!=null){
-					if($scope.requestObjectCampaigns.nonprofitId==$scope.currentUser.idUser){
-						$scope.requestObjectCampaigns.isActive=false;
-					}else{
-						$scope.requestObjectCampaigns.isActive=true;
-					}
-				}else{
-					$scope.requestObjectCampaigns.isActive=true;
-				}
 				
 
 				$http.post('rest/protected/campaing/nonprofitCampaigns',$scope.requestObjectCampaigns)
