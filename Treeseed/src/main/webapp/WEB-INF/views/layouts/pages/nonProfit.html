@@ -1,6 +1,3 @@
-
-
-
 <div class="wrapper-md" >
 	<!-- stats -->
 	<div class="row">
@@ -61,8 +58,7 @@
  					</div>
  				</div>
 	 		</div>
-	 		<div class="col-md-8">
-	 			
+	 		<div class="col-md-8">	
  				<tabset class="tab-container">
 				    <tab>
 				      <tab-heading translate="NONPROFIT-PROFILE.PROFILE">
@@ -126,28 +122,12 @@
 				        </li>
 				      </ul>
 				    </tab>
-					<tab>
-				    	<tab-heading translate="NONPROFIT-PROFILE.CAMPAIGNS"></tab-heading>
-				      	<ul class="list-group no-borders pull-in m-b-none">
-				        <li class="list-group-item">
-				        	<a ui-sref="treeSeed.campaingViewer"  class="h4 text-primary m-b-sm m-t-sm block">Territorio de Zaguates busca incluir a los Gatitos</a>
-			          	  
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
-
-				         <a  class="h4 text-primary m-b-sm m-t-sm block">Castración</a>
-
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
-
-				          <br>
-
-			          	  <a  class="h4 text-primary m-b-sm m-t-sm block">Desparacitación</a>
-			          	  
-				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum</p>
-				          
-				         
-				          
-				        </li>
-				      </ul>
+    				
+    				 <tab ng-click="loadCampaigns()" >
+				      <tab-heading  translate="NONPROFIT-PROFILE.CAMPAIGNS">
+				        
+				      </tab-heading>
+				      <div  data-ng-include=" 'layouts/components/campaignList.html' " ></div>
 				    </tab>
 
 				     <tab ng-controller="postAdminController">

@@ -12,16 +12,21 @@ public class CampaignPOJO {
 	}
 	
 	private int id;
-	private DateTime creationDate;
+	private Date creationDate;
 	private String name;
 	private String description;
 	private Date startDate;
 	private Date dueDate;
+	private String startDateS;
+	private String dueDateS;
+	private boolean start;
+	private boolean end;
 	private double amountGoal;
 	private double amountCollected;
 	private boolean isActive;
 	private String picture;
 	private int idNonProfit;
+	private int percent;
 
 	private NonprofitPOJO nonProfit;
 	
@@ -43,11 +48,11 @@ public class CampaignPOJO {
 		this.id = id;
 	}
 
-	public DateTime getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(DateTime creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -121,5 +126,45 @@ public class CampaignPOJO {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public String getStartDateS() {
+		return startDateS;
+	}
+
+	public void setStartDateS(String startDateS) {
+		this.startDateS = startDateS;
+	}
+
+	public String getDueDateS() {
+		return dueDateS;
+	}
+
+	public void setDueDateS(String dueDateS) {
+		this.dueDateS = dueDateS;
+	}
+
+	public boolean isStart() {
+		return start;
+	}
+
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+
+	public boolean isEnd() {
+		return end;
+	}
+
+	public void setEnd(boolean end) {
+		this.end = end;
+	}
+
+	public int getPercent() {
+		return percent;
+	}
+
+	public void setPercent(int percent) {
+		this.percent = percent;
 	}
 }

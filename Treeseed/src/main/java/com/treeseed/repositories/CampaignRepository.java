@@ -29,10 +29,13 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 			   @Param("endDate") Date endDate,
 			   Pageable pageable);
 	Page<Campaign> findAll(Pageable pageable);
-	Page<Campaign> findByNameContaining(String name, Pageable pageable);
+	
 	Page<Campaign> findByNonprofit(String name, Pageable pageable);	
 	Campaign findByid(int id);
 	Page<Campaign> findById(int id,
 			Pageable pageable);
 	
+	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
+	
+
 }
