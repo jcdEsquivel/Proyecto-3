@@ -27,6 +27,10 @@ public class CampaignPOJO {
 	private String picture;
 	private int idNonProfit;
 	private int percent;
+	private String state;
+	
+
+	
 
 	private NonprofitPOJO nonProfit;
 	
@@ -166,5 +170,13 @@ public class CampaignPOJO {
 
 	public void setPercent(int percent) {
 		this.percent = percent;
+	}
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 }

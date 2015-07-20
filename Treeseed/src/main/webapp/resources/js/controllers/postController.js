@@ -20,7 +20,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 			nonprofitId : $stateParams.nonProfitId
 		},
 		pageNumber : '',
-		pageSize : '4',
+		pageSize : '5',
 		direction : "DESC",
 		sortBy : ['creationDate']
 	};

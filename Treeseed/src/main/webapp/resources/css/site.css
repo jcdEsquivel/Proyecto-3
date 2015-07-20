@@ -552,3 +552,44 @@ border-top-right-radius:23px;
 border-bottom-left-radius:23px;
 border-bottom-right-radius:23px;
 }
+
+.add-post-button{
+	margin-left: 20px;
+}
+
+
+.li-posts-result{
+	height: 160px;
+width: 100%;
+}
+
+.post-list-image{
+	width: 100px;
+height: 100px;
+}
+
+.post-title{
+	font-size: 20px;
+}
+
+.post-scroll{
+	max-height: 400px;
+	overflow: auto;
+}
+
+.border-active{
+	border-color:#27c24c;
+}
+
+.border-commingSoon{
+	border-color:#EBEB0A;
+}
+
+.border-finished{
+	border-color:red !important;
+}
+
+.campaign-scroll{
+	max-height: 400px;
+	overflow: auto;
+}

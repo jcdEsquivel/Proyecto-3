@@ -330,6 +330,17 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 				$scope.searchCampaigns(num);
 			};
 			
+			
+			$scope.getClass = function(item){
+				if(item.state == 'soon'){
+					return 'border-commingSoon';
+				}else if(item.state == 'active'){
+					return 'border-active';
+				}else{
+					return 'border-finished';
+				}
+			}
+			
 			$scope.getColor=function(start, end){
 				$scope.color = "";
 				if(start){

@@ -1,16 +1,16 @@
 <div ng-controller="postAdminController">
 	<div class="row">
 		<div class="col-md-12">
-			<button class="btn btn-success" ng-if="isOwner" ng-click="openModal()" translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</button>
+			<button class="btn btn-success add-post-button" ng-if="isOwner" ng-click="openModal()" translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</button>
 			<div class="wrapper-md">
-			<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-	        	<li class="list-group-item li-search-size-result" 
+			<ul class="list-group list-group-alt list-group-lg  pull-in m-b-none post-scroll">
+	        	<li class="list-group-item li-posts-result" 
 	        		dir-paginate="p in posts | itemsPerPage: postRequest.pageSize" total-items="totalPosts" pagination-id="post-pagin" current-page="postPaginCurrentPage">
-	          		<a href="#" class="pull-left thumb-md m-r">
-	            		<img ng-src="{{p.picture}}" alt="..." class="img-circle search-image-size">
+	          		<a href="#" class="pull-left  m-r">
+	            		<img ng-src="{{p.picture}}" alt="..." class="post-list-image">
 		          	</a>
 		          	<div class="clear">
-		            	<span class="h4 text-primary m-b-sm block" > {{p.title}}</span>
+		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.date}}</span>
 		            	<div> {{p.description}}</div>
 		          	</div>
 		        </li>

@@ -191,6 +191,7 @@ public class CampaignController {
 			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
 			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
+			
 			if(objeto.getStartDate().after(new Date())){
 				campaignPojo.setStart(true);
 			}else{
@@ -201,6 +202,16 @@ public class CampaignController {
 				campaignPojo.setEnd(true);
 			}else{
 				campaignPojo.setEnd(false);
+			}
+			
+			Date current = new Date();
+
+			if(objeto.getStartDate().after(current)){
+				campaignPojo.setState("soon"); 
+			} else if( objeto.getStartDate().before(current) && objeto.getDueDate().after(current) ){
+				campaignPojo.setState("active"); 
+			}else{
+				campaignPojo.setState("finished"); 
 			}
 			
 			campaignPojo.setDueDate(objeto.getDueDate());

@@ -6,7 +6,10 @@ public class PostNonprofitPOJO {
 	private String picture;
 	private String description;
 	private int nonprofitId;
+	private String date;
 	
+	
+
 	public PostNonprofitPOJO() {
 		super();
 	}
@@ -42,6 +45,12 @@ public class PostNonprofitPOJO {
 		this.nonprofitId = nonprofitId;
 	}
 	
-	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 	
 }

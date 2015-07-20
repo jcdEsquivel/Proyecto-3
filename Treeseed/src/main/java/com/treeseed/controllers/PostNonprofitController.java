@@ -1,6 +1,7 @@
 package com.treeseed.controllers;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +114,7 @@ public class PostNonprofitController {
 			pojoTemp.setTitle(objeto.getTittle());
 			pojoTemp.setDescription(objeto.getDescription());
 			pojoTemp.setPicture(objeto.getPicture());
-			
+			pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
 			pojos.add(pojoTemp);
 		}
 		
