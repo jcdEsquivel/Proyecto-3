@@ -3,6 +3,51 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+treeSeedAppControllers.controller('nonprofitSettingsController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
+	
+	$scope.nonprofit={};
+	$scope.nonprofit.id = Session.userId;
+	var modalInstance=null;
+	
+	$scope.deleteNonprofit = function()
+	{
+		
+		$http.post('rest/protected/nonprofit/delete',
+				$scope.nonprofit).then(function(response) {
+					if(response.data.code=="200"){	
+						AuthService.guestSession()
+						$scope.currentUser = null;
+						$state.go("treeSeed.index");
+						$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+					}
+					else if(response.data.code=="400")
+					{
+						console.log("ERROR");
+					}
+		});
+	}
+	
+	$scope.openModalConfirmation = function() {
+
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/delete_confirmation.html',
+			scope: $scope,
+	    })
+	};
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.deleteNonprofit(); 
+	};
+	
+	$scope.closeModalWithoutDelete = function() {	
+		modalInstance.close();
+	};
+	
+});
+
 	
 treeSeedAppControllers.controller('nonProfitRegistrationController', function($http, $scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope){
 

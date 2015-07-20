@@ -19,6 +19,7 @@ public class LoginService implements LoginServiceInterface{
 	public UserGeneralWrapper checkUser(String email, String password) {
 		
 		UserGeneralWrapper user= new UserGeneralWrapper();
+		
 		user.setWrapperObject(loginRepository.findByEmailAndPassword(email, password));
 		
 		return user;
