@@ -641,7 +641,6 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 	};
 	
 	$scope.closeModalWithoutEdit = function() {	
-		console.log("esta usando el controller correcto")
 		modalInstance.close();
 	};
 	

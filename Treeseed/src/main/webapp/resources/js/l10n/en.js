@@ -103,6 +103,15 @@
     	"NGONAME-FILTER": "NGO Name",
     	"RANGEDATE" : "Range Date"
     },
+    "GENERAL-SETTINGS":{
+		"DELETE-PROFILE":"Delete Profile",
+		"SETTINGS":"Settings"
+	},
+	"DELETE-MODAL":{
+		"MESSAGE":"Are you sure you want to delete your profile?",
+		"DELETE": "Delete",
+		"CANCEL": "Cancel"
+	},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
         "NAME": "Name",
