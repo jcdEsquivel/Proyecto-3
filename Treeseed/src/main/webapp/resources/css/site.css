@@ -593,3 +593,11 @@ height: 100px;
 	max-height: 400px;
 	overflow: auto;
 }
+
+.advance-search-scroll{
+	max-height: 350px;
+	overflow: auto;
+	/*  height: 200px;
+    overflow: auto;
+    -webkit-overflow: auto;*/
+}

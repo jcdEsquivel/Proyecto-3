@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 
@@ -112,7 +114,7 @@ public class CampaignController {
 				if (!resultFileName.equals("")) {
 					campaign.setPicture(resultFileName);
 				} else {
-					campaign.setPicture("");
+					campaign.setPicture(TreeseedConstants.DEFAULT_CAPAIGN_IMAGE);
 				}
 				date2=date2.replace('"','0');
 				dateTmp=date2.split("-");
