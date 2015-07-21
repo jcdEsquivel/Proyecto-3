@@ -227,8 +227,9 @@ angular
 														USER_ROLES.donor
 														 ]
 											
-											}
-												}.state(
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',
@@ -239,10 +240,10 @@ angular
 												controller: "createTransparencyReportController",
 												data : {
 													authorizedRoles : [
-													USER_ROLES.nonprofit ]
+													USER_ROLES.nonprofit 
+													]
 												}
-											});
-										});
+											 });
 							
 
 							
