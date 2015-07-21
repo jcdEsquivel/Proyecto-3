@@ -10,6 +10,8 @@ import com.treeseed.ejb.PostCampaign;
 public class CampaignWrapper {
 	
 	private Campaign wrapperObject;
+	private String state;
+
 
 	public CampaignWrapper() {
 		setWrapperObject(new Campaign());
@@ -142,4 +144,7 @@ public class CampaignWrapper {
 	public String toString() {
 		return wrapperObject.toString();
 	}
+	
+
+	
 }
