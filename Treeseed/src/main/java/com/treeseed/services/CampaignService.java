@@ -23,7 +23,7 @@ public class CampaignService implements CampaignServiceInterface{
 	@Transactional
 	public Page<Campaign> getAllCampaigns(CampaignRequest ur) {
 
-		PageRequest pr;
+		PageRequest pr = null;
 		Sort.Direction direction = Sort.Direction.DESC;
 		if (ur.getDirection().equals("ASC")) {
 			direction = Sort.Direction.ASC;
@@ -36,22 +36,22 @@ public class CampaignService implements CampaignServiceInterface{
 			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize());
 		}
 
-		Page<Campaign> result;
+		Page<Campaign> result = null;
 
 		String campaignName = ur.getName();
 		String nonProfitName = ur.getNonprofitName();
 		int causeId = ur.getCauseId();
 		
 		Date startDate = null;
-		if(ur.getFechaInicio() > 0)
+		if(ur.getStartDate() > 0)
 		{
-			startDate = new Date(ur.getFechaInicio());
+			startDate = new Date(ur.getStartDate());
 		}
 		
 		Date endDate = null;
-		if(ur.getFechaFin() > 0)
+		if(ur.getDueDate() > 0)
 		{	
-			endDate = new Date(ur.getFechaFin());
+			endDate = new Date(ur.getDueDate());
 		}
 		
 		result = campaignRepository.findWithAll(campaignName, "%" + campaignName + "%",

@@ -20,17 +20,17 @@ public class CampaignRequest extends BasePagingRequest {
 
 	private String description;
 	
-	private Date startDate;
+	private long startDate;
 
-	private Date dueDate;
+	private long dueDate;
 
 	private String picture;
 
 	private String name;
 	private String nonprofitName;
 	private int causeId;
-	private long fechaInicio;
-	private long fechaFin;
+	//private long fechaInicio;
+	//private long fechaFin;
 
 	public String getNonprofitName() {
 		return nonprofitName;
@@ -48,7 +48,7 @@ public class CampaignRequest extends BasePagingRequest {
 		this.causeId = causeId;
 	}
 
-	public long getFechaInicio() {
+	/*public long getFechaInicio() {
 		return fechaInicio;
 	}
 
@@ -62,7 +62,7 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setFechaFin(long fechaFin) {
 		this.fechaFin = fechaFin;
-	}
+	}*/
 
 
 	private List<PostCampaign> postCampaigns;
@@ -115,11 +115,11 @@ public class CampaignRequest extends BasePagingRequest {
 		this.description = description;
 	}
 
-	public Date getDueDate() {
+	public long getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(long dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -147,11 +147,11 @@ public class CampaignRequest extends BasePagingRequest {
 		this.postCampaigns = postCampaigns;
 	}
 
-	public Date getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
