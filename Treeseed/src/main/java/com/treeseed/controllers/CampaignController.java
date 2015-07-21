@@ -12,8 +12,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,12 +26,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 
@@ -109,7 +114,7 @@ public class CampaignController {
 				if (!resultFileName.equals("")) {
 					campaign.setPicture(resultFileName);
 				} else {
-					campaign.setPicture("");
+					campaign.setPicture(TreeseedConstants.DEFAULT_CAPAIGN_IMAGE);
 				}
 				date2=date2.replace('"','0');
 				dateTmp=date2.split("-");
@@ -159,6 +164,76 @@ public class CampaignController {
 
 		return response;
 
+	}
+	
+	@RequestMapping(value ="/nonprofitCampaigns", method = RequestMethod.POST)
+	@Transactional
+	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
+		CampaignPOJO campaignPojo = null;
+		cr.setPageNumber(cr.getPageNumber() - 1);
+		Page<Campaign> viewCampaign = campaignService.getCampaignsByNonprofit(cr);
+		
+		CampaignResponse cs = new CampaignResponse();
+		
+		
+		cs.setTotalElements(viewCampaign.getTotalElements());
+		cs.setTotalPages(viewCampaign.getTotalPages());
+		
+		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
+		
+		for(Campaign objeto:viewCampaign.getContent())
+		{
+			campaignPojo = new CampaignPOJO();
+			campaignPojo.setId(objeto.getId());
+			campaignPojo.setName(objeto.getName());
+			campaignPojo.setDescription(objeto.getDescription());
+			campaignPojo.setPicture(objeto.getPicture());
+			campaignPojo.setAmountCollected(objeto.getAmountCollected());
+			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
+			campaignPojo.setStartDate(objeto.getStartDate());
+			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
+			
+			if(objeto.getStartDate().after(new Date())){
+				campaignPojo.setStart(true);
+			}else{
+				campaignPojo.setStart(false);
+			}
+			
+			if(objeto.getDueDate().after(new Date())){
+				campaignPojo.setEnd(true);
+			}else{
+				campaignPojo.setEnd(false);
+			}
+			
+			Date current = new Date();
+
+			if(objeto.getStartDate().after(current)){
+				campaignPojo.setState("soon"); 
+			} else if( objeto.getStartDate().before(current) && objeto.getDueDate().after(current) ){
+				campaignPojo.setState("active"); 
+			}else{
+				campaignPojo.setState("finished"); 
+			}
+			
+			campaignPojo.setDueDate(objeto.getDueDate());
+			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
+			viewCampaignsPOJO.add(campaignPojo);
+		};
+		
+		
+		cs.setCampaigns(viewCampaignsPOJO);
+		
+		if(viewCampaignsPOJO.size()>0){
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+		}else{
+			cs.setErrorMessage("campaigns fetch unsuccessful");
+			cs.setCode(400);
+		}
+		
+		return cs;
+			
 	}
 
 }

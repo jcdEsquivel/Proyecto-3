@@ -83,6 +83,8 @@ angular
 												templateUrl : 'layouts/pages/nonProfit.html',
 												controller: "getNonProfitProfileController",
 												params: {nonProfitId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
 												 data : {
 													authorizedRoles : [
 													USER_ROLES.donor,

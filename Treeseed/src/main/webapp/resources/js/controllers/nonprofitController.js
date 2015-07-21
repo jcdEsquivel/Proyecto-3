@@ -225,10 +225,14 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
 
+	$scope.campaignsLoaded=false;
+	$scope.postsLoaded = false;
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
 	$scope.isOwner = true;	
+	
+	
 
 	$scope.init = function() {
 
@@ -479,6 +483,21 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.closeModalWithoutEdit = function() {		
 		modalInstance.close();
 	};
+	
+	
+	$scope.loadCampaigns=function(){
+		if(!$scope.campaignsLoaded){
+			$scope.$broadcast('loadCampaigns');
+			$scope.campaignsLoaded = true
+		}
+	}
+	
+	$scope.loadPosts=function(){
+		if(!$scope.postsLoaded){
+			$scope.$broadcast('loadPosts');
+			$scope.postsLoaded = true;
+		}
+	}
 	
 })
 ;

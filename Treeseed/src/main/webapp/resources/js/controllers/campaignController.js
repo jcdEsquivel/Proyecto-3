@@ -106,7 +106,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope,Session) {
 	$scope.percent = 0;
-	$scope.maxCarac= 1000;
+	$scope.maxCarac = 1000;
 	$scope.stateInput1 = false;
 	$scope.stateInput2 = false;
 	$scope.stateInput3 = false;
@@ -141,14 +141,15 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 				date1 : $scope.campaign.startDate,
 				date2 : $scope.campaign.dueDate,
 				amount : $scope.campaign.amountGoal,
-				idNonprofit: $scope.currentUser.idUser				
+				idNonprofit : $scope.currentUser.idUser
 			},
 			file : $scope.image,
 		}).success(function(response) {
 
-			/*$state.go('treeSeed.campaing', {
-				campaign : response.campaignId
-			});*/
+			/*
+			 * $state.go('treeSeed.campaing', { campaign : response.campaignId
+			 * });
+			 */
 			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
 		})
 
@@ -269,5 +270,79 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			break;
 		}
 	}
-
 });
+
+treeSeedAppControllers.controller('nonprofitCampaignSearchController',
+		
+		function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
+	
+			$scope.page=1;
+			
+			$scope.currentCampaignPage = 0;
+			
+			$scope.itemPerPage = [ 10, 25, 50, 100 ];
+			$scope.currentPage = 1;
+			$scope.totalItems = 0;
+			$scope.borderColor="green";
+			$scope.requestObjectCampaigns = {};
+			$scope.requestObjectCampaigns.isActive=true;
+			$scope.requestObjectCampaigns.pageNumber = 1;
+			$scope.requestObjectCampaigns.pageSize = 3;
+			$scope.requestObjectCampaigns.direction = "DES";
+			$scope.requestObjectCampaigns.sortBy = ["StartDate"];
+			$scope.requestObjectCampaigns.searchColumn = "ALL";
+			$scope.requestObjectCampaigns.searchTerm = "";
+			$scope.requestObjectCampaigns.nonprofitId = $stateParams.nonProfitId;
+			
+			$scope.$on('loadCampaigns',function(){
+				$scope.searchCampaigns(1);
+			});
+			
+			$scope.searchCampaigns = function(page) {
+				
+				$scope.currentCampaignPage = page;
+				$scope.requestObjectCampaigns.pageNumber = page;
+
+				$http.post('rest/protected/campaing/nonprofitCampaigns',$scope.requestObjectCampaigns)
+				.success(function(mydata, status) {
+					$scope.campaigns = mydata.campaigns;
+					$scope.totalItems = mydata.totalElements;
+					
+				}).error(function(mydata, status) {
+					console.log(status);
+					console.log("No data found");
+				});
+
+				
+
+			};
+			
+			$scope.pageChangeHandler = function(num) {
+				$scope.searchCampaigns(num);
+			};
+			
+			
+			$scope.getClass = function(item){
+				if(item.state == 'soon'){
+					return 'border-commingSoon';
+				}else if(item.state == 'active'){
+					return 'border-active';
+				}else{
+					return 'border-finished';
+				}
+			}
+			
+			$scope.getColor=function(start, end){
+				$scope.color = "";
+				if(start){
+					$scope.color ="#EBEB0A";
+				}else if(!end){
+					$scope.color ="red";
+				}else if(!start&&end){
+					$scope.color ="#27c24c";
+				}
+			}
+			
+			
+
+		})
