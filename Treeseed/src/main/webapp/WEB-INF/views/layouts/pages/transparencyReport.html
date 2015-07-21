@@ -1,0 +1,56 @@
+<div class="wrapper-md" >
+  <!-- stats -->
+  <div class="row">
+    <div class="col-md-12 ">
+      <div class="bg-light lter b-b wrapper-md">
+        <h1 class="m-n font-thin h3" translate="TRANSPARENCY-REPORT.TITLE"></h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-md-12">
+      <div class="col-md-3">
+        <div class="panel-body">
+        <div class="form-group md-whiteframe-treeseed">
+          <label translate="TRANSPARENCY-REPORT.CREATE-REPORT"></label>
+          <div class="col-sm-12">
+            <div class="row">
+              <br>
+              <div class="col-md-8">
+                  <button type="button" class="btn btn-rounded btn-sm btn-info"
+                  ng-click="openCreateForm()" translate="TRANSPARENCY-REPORT.CREATE"></button>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-8">
+      <div class="panel-body">
+        <div class="form-group md-whiteframe-treeseed">
+          <label class="col-sm-2 control-label"
+            translate="TRANSPARENCY-REPORT.SEARCH"></label>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-8">
+                  <label class="labels-dropdowns"  translate="GENERALSEARCH.RANGEDATE">Range Date</label>
+                  <br>
+                  <md-input-container flex>
+                   <div class="col-md-6 col-sm-offset-0">
+                          <input ng-model="campaign.rangeDate" ui-jq="daterangepicker" ui-options="{
+                            format: 'YYYY-MM-DD',
+                            startDate: '2015-01-01',
+                            endDate: '2015-12-31'
+                            }" class="form-control w-md" />
+                   </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-1">
+      </div>
+     </div>
+  </div>
+</div>

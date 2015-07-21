@@ -206,5 +206,21 @@
         	"BUTTON-PREV":"Previous",
         	"BUTTON-FINALIZE":"Create"
     	}
+    },
+    "TRANSPARENCY-REPORT":{ 
+        "TITLE": "Transparency Report",
+        "CREATE-REPORT": "Create Transparency Report",
+        "SEARCH": "Search",
+        "CREATE": "Create",
+        "DESCRIPTION": "Description",
+        "SPENT": "Spent",
+        "EDIT": "Edit",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "DELETE": "Delete",
+        "ADD": "Add Spence",
+        "MONTH-SPENCES": "Spences of the month",
+        "SPENT": "Spent",
+        "COLLECTED": "Collected"                
     }
 }
