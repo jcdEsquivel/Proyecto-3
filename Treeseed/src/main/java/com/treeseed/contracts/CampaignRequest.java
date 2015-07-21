@@ -145,14 +145,6 @@ public class CampaignRequest extends BasePagingRequest {
 		this.picture = picture;
 	}
 
-	public List<PostCampaign> getPostCampaigns() {
-		return postCampaigns;
-	}
-
-	public void setPostCampaigns(List<PostCampaign> postCampaigns) {
-		this.postCampaigns = postCampaigns;
-	}
-
 	public long getStartDate() {
 		return startDate;
 	}

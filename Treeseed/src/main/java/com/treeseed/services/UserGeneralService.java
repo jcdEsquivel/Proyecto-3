@@ -122,9 +122,7 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	    }
 
 	}
-	
-	
-	
+
 	@Override
 	public UserGeneral getUGByID(int idUserGeneral) {
 		return usersRepository.findOne(idUserGeneral);
