@@ -144,13 +144,6 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 				);		
 	}
 	
-	
-	@Override
-	@Transactional
-	public void deleteUserGeneral(UserGeneralWrapper ugw) {
-		usersRepository.deleteUserGeneral(ugw.getId());
-	}
-
 	@Override
 	public UserGeneral getUserByDonorId(int idDonor) {
 		return usersRepository.findByDonorId(idDonor);
@@ -161,8 +154,4 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	public void deleteUserGeneral(UserGeneralWrapper ugw) {
 		usersRepository.deleteUserGeneral(ugw.getId());
 	}
-
-
-	
-
 }
