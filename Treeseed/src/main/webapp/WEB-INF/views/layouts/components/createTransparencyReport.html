@@ -3,27 +3,17 @@
   <div class="row">
     <div class="panel panel-default">
         <div class="panel-body text-center">
-          <h4><small trasnlate="TRANSPARENCY-REPORT.COLLECTED"> </small>100<small> dollars</small></h4>
-          <small class="text-muted block">yesterday: 20%</small>
+          <h3 translate="TRANSPARENCY-REPORT.COLLECTED"></h3>
+          <h2>$<small> {{totalCollected}}</small></h2>
           <div class="inline">
-            <div ui-jq="easyPieChart"  ui-options="{
-                      percent: '{{percentageSpent}}',
-                      lineWidth: 10,
-                      trackColor: '{{app.color.light}}',
-                      barColor: '{{app.color.success}}',
-                      scaleColor: '{{app.color.light}}',
-                      size: 188,
-                      lineCap: 'butt',
-                      animate: 1000
-                    }">
-              <div>
-                <span class="h2 m-l-sm step">{{percentageSpent}}</span>%
-                <div class="text text-sm" translate="TRANSPARENCY-REPORT.SPENT"></div>
-              </div>
+            <div>
+              <span class="h2 m-l-sm step">{{percentageSpent}}</span>%
+              <div class="text text-sm" translate="TRANSPARENCY-REPORT.SPENT"></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
   <table class="table table-bordered table-hover table-condensed bg-white-only">
     <tr style="font-weight: bold">
@@ -59,6 +49,7 @@
       </td>
     </tr>
   </table>
-  <button class="btn btn-default m-b-lg" ng-click="addSpence()" translate="TRANSPARENCY-REPORT.ADD"></button>
-  <button class="btn btn-default m-b-lg" ng-click="createReport()" translate="TRANSPARENCY-REPORT.CREATE-REPORT"></button>
-</div>
+  <div class="form-group">
+    <button class="btn btn-info m-b-lg" ng-click="addSpence()" translate="TRANSPARENCY-REPORT.ADD"></button>
+    <button class="btn btn-success m-b-lg" ng-click="createReport()" translate="TRANSPARENCY-REPORT.CREATE-REPORT"></button>
+  </div>

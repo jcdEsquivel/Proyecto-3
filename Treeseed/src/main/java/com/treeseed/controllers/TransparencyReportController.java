@@ -1,5 +1,7 @@
 package com.treeseed.controllers;
 
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +36,7 @@ public class TransparencyReportController {
 	@RequestMapping(value ="/create", method = RequestMethod.POST)
 	public TransparencyReportResponse createTransparencyReport(@RequestBody TransparencyReportRequest tr){	
 		
-		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(tr.getNonProfitId());
+		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(tr.getTransparencyReport().getNonProfitId());
 		TransparencyReport transparencyReport = new TransparencyReport();
 		TransparencyReportPOJO transparencyReportPOJO = new TransparencyReportPOJO();
 		TransparencyReportWrapper transparancyReportWrapper = new TransparencyReportWrapper();
@@ -42,10 +44,10 @@ public class TransparencyReportController {
 		
 		if(nonprofit != null){
 			
-			transparancyReportWrapper.setAmountIn(tr.getAmountIn());
-			transparancyReportWrapper.setAmountOut(tr.getAmountOut());
-			transparancyReportWrapper.setDateTime(tr.getDate());
-			transparancyReportWrapper.setDescription(tr.getDescription());
+			transparancyReportWrapper.setAmountIn(tr.getTransparencyReport().getAmountIn());
+			transparancyReportWrapper.setAmountOut(tr.getTransparencyReport().getAmountOut());
+			transparancyReportWrapper.setDateTime(new Date());
+			transparancyReportWrapper.setDescription(tr.getTransparencyReport().getDescription());
 			transparancyReportWrapper.setNonprofit(nonprofit.getWrapperObject());
 			
 			transparencyReport = transparencyReportService.saveTransparencyReport(transparancyReportWrapper);
