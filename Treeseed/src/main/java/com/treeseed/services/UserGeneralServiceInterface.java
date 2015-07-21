@@ -15,6 +15,7 @@ public interface UserGeneralServiceInterface {
 	UserGeneral getSessionUserGeneral(int idUserGeneral);
 	
 	UserGeneral getUserByEmailAndPassword(String ur, String pas );
+	UserGeneral getUserByEmailAndPasswordAndIsActive(String ur, String pas, boolean active);
 
 	Boolean isEmailUnique(String email);
 	Boolean userExist(String email);

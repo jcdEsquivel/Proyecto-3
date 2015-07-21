@@ -50,7 +50,7 @@ public class LoginController {
 		         file_string += (char)hash[i];
 		     }  
 		
-		UserGeneralWrapper loggedUser = loginService.checkUser(lr.getEmail(), file_string);
+		UserGeneralWrapper loggedUser = loginService.checkUserActive(lr.getEmail(), file_string);
 		
 		LoginResponse response = new LoginResponse();
 		HttpSession currentSession = request.getSession();

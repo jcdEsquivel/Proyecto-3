@@ -20,6 +20,9 @@ public interface UserGeneralRepository extends
 	UserGeneral findByEmailAndPassword(String email, 
 			String password);
 	
+	UserGeneral findByEmailAndPasswordAndIsActive(String email, 
+			String password, boolean isActive);
+	
 	Page<UserGeneral> findAll(Pageable pageable);
 	
 	UserGeneral findByEmail(String email);

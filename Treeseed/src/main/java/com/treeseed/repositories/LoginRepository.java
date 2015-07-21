@@ -11,4 +11,7 @@ public interface LoginRepository extends CrudRepository<UserGeneral,Integer> {
 	public static final int PAGE_SIZE = 5;
 	
 	UserGeneral findByEmailAndPassword(String email, String password);
+	
+	UserGeneral findByEmailAndPasswordAndIsActive(String email, 
+			String password, boolean isActive);
 }

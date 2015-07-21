@@ -22,5 +22,14 @@ public class LoginService implements LoginServiceInterface{
 		user.setWrapperObject(loginRepository.findByEmailAndPassword(email, password));
 		
 		return user;
-	}		
+	}
+	@Override
+	@Transactional
+	public UserGeneralWrapper checkUserActive(String email, String password) {
+		
+		UserGeneralWrapper user= new UserGeneralWrapper();
+		user.setWrapperObject(loginRepository.findByEmailAndPasswordAndIsActive(email, password, true));
+		
+		return user;
+	}	
 }
