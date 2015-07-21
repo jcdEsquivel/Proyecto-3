@@ -206,6 +206,23 @@
          	"BUTTON-FINALIZE":"Crear"
      	}
     },
+    "TRANSPARENCY-REPORT":{ 
+        "TITLE": "Reporte de Transparencia",
+        "CREATE-REPORT": "Crear Reporte de Transparencia",
+        "SEARCH": "Buscar",
+        "CREATE": "Crear",
+        "DESCRIPTION": "Descripción",
+        "SPENT": "Gastado",
+        "EDIT": "Editar",
+        "SAVE": "Guardar",
+        "CANCEL": "Cancelar",
+        "DELETE": "Borrar",
+        "ADD": "Agregar gasto",
+        "MONTH-SPENCES": "Gastos del mes",
+        "SPENT": "Gastado",
+        "COLLECTED": "Recaudado",
+        "CREATE-REPORT": "Crear Reporte"        
+    },
     "LISTCAMPAIGN":{
     	"STATE-COLOR-RED":"Finalizada",
     	"STATE-COLOR-YELLOW":"Próximamente",

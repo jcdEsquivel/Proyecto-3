@@ -227,8 +227,23 @@ angular
 														USER_ROLES.donor
 														 ]
 											
-											}
-										});
+												}
+											})
+								  	.state(
+											'treeSeed.transparencyReport',
+											{
+												url : 'transparencyReport',
+												templateUrl : 'layouts/pages/transparencyReport.html',
+												resolve : load([
+														'xeditable',
+														'resources/js/libs/angular/angular-xeditable/dist/js/xeditable.js' ]),
+												controller: "createTransparencyReportController",
+												data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit 
+													]
+												}
+											 });
 							
 
 							
