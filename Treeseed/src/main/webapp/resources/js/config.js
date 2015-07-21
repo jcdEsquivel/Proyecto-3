@@ -209,9 +209,8 @@ angular
 											controller : "donorSettingsController",
 											data : {
 												authorizedRoles : [
-														USER_ROLES.donor,
-														USER_ROLES.guest,
-														USER_ROLES.nonprofit ]
+														USER_ROLES.donor
+														 ]
 											
 											}
 										});

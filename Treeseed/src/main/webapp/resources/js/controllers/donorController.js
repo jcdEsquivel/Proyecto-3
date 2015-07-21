@@ -536,19 +536,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 	$scope.donor.country = "";
 	$scope.donor.lastName = "";
 	$scope.requestObject1 = {};
-
-	$scope.init = function() {
-		$scope.requestObject1.lenguage = $scope.selectLang;
-		console.log($scope.selectLang);
-		$scope.requestObject1.type = "country";
-		$http.post('rest/protected/catalog/getAllCatalog',
-				$scope.requestObject1).then(function(response) {
-			$scope.selectSortOptionsCountry = response.data.catalogs;
-		});
-	}
-
-	$scope.init();
-
+	
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
 	$scope.totalItems = 5;
@@ -563,6 +551,19 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.lastName = $scope.lastName;
+
+	$scope.init = function() {
+		$scope.requestObject1.lenguage = $scope.selectLang;
+		console.log($scope.selectLang);
+		$scope.requestObject1.type = "country";
+		$http.post('rest/protected/catalog/getAllCatalog',
+				$scope.requestObject1).then(function(response) {
+			$scope.selectSortOptionsCountry = response.data.catalogs;
+		});
+	}
+
+	$scope.init();
+
 
 	$scope.searchDonor = function(page) {
 
@@ -590,7 +591,6 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 treeSeedAppControllers.controller('donorSettingsController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
 	
-	console.log("espoooo")
 	$scope.donor = {};
 	$scope.donor.id= Session.userId;
 	$scope.requestObject = {};
@@ -599,14 +599,8 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 	$scope.deleteUser = function()
 	{
 		
-		console.log($scope.donor.id)
-		console.log(Session.userId)
-		
 		$scope.donor.id = Session.userId;
-		
 		$scope.requestObject.id= $scope.donor.id;
-		
-		console.log($scope.requestObject.id)
 		
 		$http.post('rest/protected/donor/deleteDonor',
 				$scope.requestObject).then(function(response) {
@@ -636,7 +630,6 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 
 	$scope.closeModal = function() {		
 		modalInstance.close();
-		console.log("pasa x aqui")
 		$scope.deleteUser(); 
 	};
 	
