@@ -216,7 +216,24 @@
         	"BUTTON-FINALIZE":"Create"
     	}
     },
-    "LISTCAMPAIGN":{
+    "TRANSPARENCY-REPORT":{ 
+        "TITLE": "Transparency Report",
+        "CREATE-REPORT": "Create Transparency Report",
+        "SEARCH": "Search",
+        "CREATE": "Create",
+        "DESCRIPTION": "Description",
+        "SPENT": "Spent",
+        "EDIT": "Edit",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "DELETE": "Delete",
+        "ADD": "Add Spence",
+        "MONTH-SPENCES": "Spences of the month",
+        "SPENT": "Spent",
+        "COLLECTED": "Collected",
+        "CREATE-REPORT": "Create Report"                 
+    },
+     "LISTCAMPAIGN":{
     	"STATE-COLOR-RED":"Finished",
     	"STATE-COLOR-YELLOW":"Comming soon",
     	"STATE-COLOR-GREEN":"Active",
