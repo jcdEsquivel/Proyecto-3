@@ -83,6 +83,8 @@ angular
 												templateUrl : 'layouts/pages/nonProfit.html',
 												controller: "getNonProfitProfileController",
 												params: {nonProfitId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
 												 data : {
 													authorizedRoles : [
 													USER_ROLES.donor,
@@ -200,7 +202,20 @@ angular
 															USER_ROLES.nonprofit ]
 												
 												}
-											});
+											})
+								  	.state(
+										'treeSeed.donorSettings',
+										{
+											url : 'donorSettings',
+											templateUrl : 'layouts/pages/donorSettings.html',
+											controller : "donorSettingsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+											}
+										});
 							
 
 							

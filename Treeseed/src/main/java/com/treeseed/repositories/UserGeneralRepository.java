@@ -29,6 +29,9 @@ public interface UserGeneralRepository extends
 	
 	UserGeneral findByFacebookId (String facebookId);
 	
+	UserGeneral findByDonorId (int idDonor);
+
+	
  	@Modifying
 	@Transactional
 	@Query("UPDATE UserGeneral u SET email = :email where u.id = :id") 
@@ -37,4 +40,11 @@ public interface UserGeneralRepository extends
 			   @Param("email") String email
 			   );
 	
+ 	@Modifying
+	@Transactional
+	@Query("UPDATE UserGeneral u SET isActive = 0  where u.id = :id") 
+	  public void deleteUserGeneral(
+			   @Param("id") int id
+			   );
+
 }

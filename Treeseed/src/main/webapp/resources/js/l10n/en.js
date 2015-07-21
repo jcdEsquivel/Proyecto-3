@@ -103,6 +103,15 @@
     	"NGONAME-FILTER": "NGO Name",
     	"RANGEDATE" : "Range Date"
     },
+    "GENERAL-SETTINGS":{
+		"DELETE-PROFILE":"Delete Profile",
+		"SETTINGS":"Settings"
+	},
+	"DELETE-MODAL":{
+		"MESSAGE":"Are you sure you want to delete your profile?",
+		"DELETE": "Delete",
+		"CANCEL": "Cancel"
+	},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
         "NAME": "Name",
@@ -206,5 +215,15 @@
         	"BUTTON-PREV":"Previous",
         	"BUTTON-FINALIZE":"Create"
     	}
+    },
+    "LISTCAMPAIGN":{
+    	"STATE-COLOR-RED":"Finished",
+    	"STATE-COLOR-YELLOW":"Comming soon",
+    	"STATE-COLOR-GREEN":"Active",
+    	"READMORE":"... read more",
+    	"GOAL":"Amount goal",
+    	"COLLECTED":"Amount collected",
+    	"COLLECTEDMESSAGE":"Collected"
     }
+    	
 }

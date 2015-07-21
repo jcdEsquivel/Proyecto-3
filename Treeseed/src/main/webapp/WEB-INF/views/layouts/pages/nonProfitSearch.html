@@ -1,7 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3" translate="NONPROFITSEARCH.HEADER-TITLE"></h1>
 </div>
-<div class="container">
+<div >
  	<div class="panel-body">
 	 	<div class="form-horizontal col-sm-10 col-sm-offset-0">
 		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
@@ -48,7 +48,7 @@
      		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
 		         
 	      	</tab-heading>
-	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
 	        	<li class="list-group-item li-search-size-result" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 	          		<a href="#" class="pull-left thumb-md m-r">
 	            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle search-image-size">

@@ -142,6 +142,18 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 				);		
 	}
 
+	@Override
+	public UserGeneral getUserByDonorId(int idDonor) {
+		return usersRepository.findByDonorId(idDonor);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteUserGeneral(UserGeneralWrapper ugw) {
+		usersRepository.deleteUserGeneral(ugw.getId());
+	}
+
+
 	
 
 }
