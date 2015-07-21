@@ -42,7 +42,7 @@ treeSeedAppControllers.controller('nonprofitSettingsController', function($scope
 		$scope.deleteNonprofit(); 
 	};
 	
-	$scope.closeModalWithoutDelete = function() {	
+	$scope.closeModalWithoutEdit = function() {	
 		modalInstance.close();
 	};
 	
