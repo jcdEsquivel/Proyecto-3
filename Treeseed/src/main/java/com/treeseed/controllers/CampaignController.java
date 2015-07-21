@@ -169,7 +169,7 @@ public class CampaignController {
 	@RequestMapping(value ="/nonprofitCampaigns", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
-		
+		CampaignPOJO campaignPojo = null;
 		cr.setPageNumber(cr.getPageNumber() - 1);
 		Page<Campaign> viewCampaign = campaignService.getCampaignsByNonprofit(cr);
 		
@@ -183,7 +183,7 @@ public class CampaignController {
 		
 		for(Campaign objeto:viewCampaign.getContent())
 		{
-			CampaignPOJO campaignPojo = new CampaignPOJO();
+			campaignPojo = new CampaignPOJO();
 			campaignPojo.setId(objeto.getId());
 			campaignPojo.setName(objeto.getName());
 			campaignPojo.setDescription(objeto.getDescription());

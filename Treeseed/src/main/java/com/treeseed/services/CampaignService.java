@@ -74,6 +74,7 @@ public class CampaignService implements CampaignServiceInterface{
 	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur) {
 		PageRequest pr;
 		int nonprofitId=0;
+		Page<Campaign> pageResult = null;
 		Sort.Direction direction = Sort.Direction.DESC;
 		if(ur.getDirection().equals("ASC")){
 			direction = Sort.Direction.ASC;
@@ -88,7 +89,7 @@ public class CampaignService implements CampaignServiceInterface{
 					ur.getPageSize());
 		}
 		
-		Page<Campaign> pageResult = null;
+		
 		
 
 		nonprofitId = ur.getNonprofitId();	
