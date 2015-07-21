@@ -93,6 +93,19 @@ angular
 
 												}
 											})
+									.state(
+										'treeSeed.nonProfitSettings',
+										{
+											url : 'nonProfitSettings',
+											templateUrl : 'layouts/pages/nonprofitSettings.html',
+											controller : "nonprofitSettingsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.guest,
+														USER_ROLES.nonprofit ]
+											
+											}
+										})
 									/*.state(
 											'treeSeed.searchTransReport',
 											{

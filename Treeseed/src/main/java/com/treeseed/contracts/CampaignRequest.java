@@ -12,16 +12,30 @@ public class CampaignRequest extends BasePagingRequest {
 	private CampaignPOJO campaign;
 
 	private int id;
-	private Date startDate;
+
+	private double amountCollected;
+
+	private double amountGoal;
+
+	private Date creationDate;
+
+	private String description;
 	
+	private long startDate;
+
+	private long dueDate;
+
+	private String picture;
+
 	private int nonprofitId;
 	
 	private boolean isActive;
+
 	private String name;
 	private String nonprofitName;
 	private int causeId;
-	private long fechaInicio;
-	private long fechaFin;
+	//private long fechaInicio;
+	//private long fechaFin;
 
 	public String getNonprofitName() {
 		return nonprofitName;
@@ -40,7 +54,7 @@ public class CampaignRequest extends BasePagingRequest {
 		this.causeId = causeId;
 	}
 
-	public long getFechaInicio() {
+	/*public long getFechaInicio() {
 		return fechaInicio;
 	}
 
@@ -54,7 +68,7 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setFechaFin(long fechaFin) {
 		this.fechaFin = fechaFin;
-	}
+	}*/
 
 
 	private List<PostCampaign> postCampaigns;
@@ -107,12 +121,12 @@ public class CampaignRequest extends BasePagingRequest {
 		this.nonprofitId = nonprofitId;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public long getDueDate() {
+		return dueDate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setDueDate(long dueDate) {
+		this.dueDate = dueDate;
 	}
 
 	public String getName() {
@@ -121,6 +135,22 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public long getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(long startDate) {
+		this.startDate = startDate;
 	}
 
 }

@@ -25,6 +25,8 @@ public interface UserGeneralServiceInterface {
 	
 	void updateUserGeneral(UserGeneralWrapper UserGeneral);
 	
+	UserGeneral getUserByNonprofitId(int idNonprofit);
+	
 	UserGeneral getUserByDonorId(int idDonor);
 
 	void deleteUserGeneral(UserGeneralWrapper ugw);

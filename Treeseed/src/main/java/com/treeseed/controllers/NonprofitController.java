@@ -78,6 +78,35 @@ public class NonprofitController extends UserGeneralController{
 	@Autowired
 	HttpServletRequest request;	
 		
+	@RequestMapping(value ="/delete", method = RequestMethod.POST)
+	public NonprofitResponse deleteNonProfit(@RequestBody DonorRequest dr){
+		
+	  NonprofitResponse	us = new NonprofitResponse();
+		
+	   NonprofitWrapper nonWrapper = new NonprofitWrapper();
+	   
+	    nonWrapper.setId(dr.getId());
+			
+	    try
+	    {
+	    	nonProfitService.deteteNonprofit(nonWrapper);	
+			us.setCode(200);
+			us.setCodeMessage("USER DELETE");
+			
+		 	UserGeneral ug =  userGeneralService.getUserByNonprofitId(dr.getId());
+		 	UserGeneralWrapper ugw = new UserGeneralWrapper();
+		 	ugw.setId(ug.getId());
+		 	userGeneralService.deleteUserGeneral(ugw);
+		 	
+	    }
+	    catch(Exception e)
+	    {
+	    	us.setCode(400);
+			us.setCodeMessage("ERROR DATABASE");
+	    }
+	    
+		return us;
+	}
 	
 	
 	@RequestMapping(value ="/register", method = RequestMethod.POST)

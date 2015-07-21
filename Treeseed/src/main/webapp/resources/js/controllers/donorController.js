@@ -551,7 +551,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 	$scope.requestObject.name = $scope.name;
 	$scope.requestObject.country = $scope.country;
 	$scope.requestObject.lastName = $scope.lastName;
-
+	
 	$scope.init = function() {
 		$scope.requestObject1.lenguage = $scope.selectLang;
 		console.log($scope.selectLang);
@@ -563,7 +563,6 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 	}
 
 	$scope.init();
-
 
 	$scope.searchDonor = function(page) {
 

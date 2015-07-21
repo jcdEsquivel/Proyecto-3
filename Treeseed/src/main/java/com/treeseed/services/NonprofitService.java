@@ -116,5 +116,14 @@ public class NonprofitService implements NonprofitServiceInterface{
 		
 		return nonprofitsRepository.findOne(nonProfit.getId());
 	}
+	
+	@Override
+	@Transactional
+	public Nonprofit deteteNonprofit(NonprofitWrapper nonProfit) {
+		nonprofitsRepository.delete(nonProfit.getId());
+		
+		return nonprofitsRepository.findOne(nonProfit.getId());
+	}
+	
 
 }

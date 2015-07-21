@@ -19,15 +19,13 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
 	$scope.totalItems = 5;
-	//$scope.campaign.creationDate = "";
-	//$scope.campaign.dueDate = "";
 	
 	$scope.requestObject = {};
 	$scope.requestObject.name = '';
 	$scope.requestObject.nonprofitName = '';
 	$scope.requestObject.causeId = '';
-	$scope.requestObject.fechaInicio = "";
-	$scope.requestObject.fechaFin = "";
+	$scope.requestObject.startDate = "";
+	$scope.requestObject.dueDate = "";
 	
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
@@ -43,7 +41,6 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$http.post('rest/protected/catalog/getAllCatalog',
 		$scope.requestObject1).then(function(response) {
 			$scope.selectSortOptionsCause =  response.data.catalogs;
-		     //$scope.campaign.cause =  response.data.catalogs[0];
 		});
 	}
 
@@ -64,8 +61,6 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		console.log(dates);
 		
-		
-		
 		var startDate = $scope.getDateFormat(dates[0]);
 		var endDate = $scope.getDateFormat(dates[1]);
 		
@@ -74,12 +69,12 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		if (startDate != "")
 		{
-			$scope.requestObject.fechaInicio = startDate.getTime();
+			$scope.requestObject.startDate = startDate.getTime();
 		}
 		
 		if(endDate != "")
 		{
-			$scope.requestObject.fechaFin = endDate.getTime();
+			$scope.requestObject.dueDate = endDate.getTime();
 		}
 	
 		$scope.requestObject.pageNumber = page;
@@ -107,10 +102,6 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	};
 
 });
-
-
-
-
 
 treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope,Session) {
