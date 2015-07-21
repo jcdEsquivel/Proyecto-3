@@ -31,6 +31,7 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		
 		PageRequest pageRequest;
 		int nonprofitId = 0;
+		Sort sort;
 		
 		Sort.Direction direction = Sort.Direction.DESC;
 		/*if(postRequest.getDirection().equals("ASC")){
@@ -38,7 +39,7 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		}*/
 		
 		if(postRequest.getSortBy().size() > 0){
-			Sort sort = new Sort(direction, postRequest.getSortBy() );
+			sort = new Sort(direction, postRequest.getSortBy() );
 			pageRequest = new PageRequest(postRequest.getPageNumber()-1,
 					postRequest.getPageSize(),sort);
 		}else{
