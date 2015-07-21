@@ -18,15 +18,20 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
+
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.treeseed.ejb.Catalog;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
@@ -34,6 +39,7 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
@@ -53,6 +59,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired  NonprofitServiceInterface serviceNonProfit;
     @Autowired  UserGeneralServiceInterface serviceUserGeneral;
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
+    @Autowired	DonorServiceInterface donorService;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -193,29 +200,117 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 			
 		String random = getRandomString();
 		Nonprofit nonprofit = new Nonprofit();
-		UserGeneral userGeneral = createRandomUserGeneral().getWrapperObject();
-		
+
 		nonprofit.setActive(true);
 		nonprofit.setDescription("description");
 		nonprofit.setMision("Mision");
 		nonprofit.setName("NGO TEST");
 		nonprofit.setReason("Reason");
 		nonprofit.setWebPage("www.test.com");
+			
+		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
+		
+		serviceNonProfit.saveNonprofit(wrapper);
+		
+		UserGeneral userGeneral = new UserGeneral();
+		userGeneral.setEmail(random+"@gmail.com");
+		userGeneral.setPassword(getPassword());
 		
 		List<UserGeneral> tempList = new ArrayList<UserGeneral>();
 		
 		tempList.add(userGeneral);
 		nonprofit.setUsergenerals(tempList);
 		userGeneral.setNonprofit(nonprofit);
+		UserGeneralWrapper wrapperUser = new UserGeneralWrapper(userGeneral);
 		
-		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
-		
-		serviceNonProfit.saveNonprofit(wrapper);
+		serviceUserGeneral.saveUserGeneral(wrapperUser);
 		
 		return wrapper;
 		
 	}
 	
+	
+	public  NonprofitWrapper createRandomNonprofit(String addToName){
+		CatalogWrapper country= createRandomCatalog();
+		String random = getRandomString();
+		Nonprofit nonprofit = new Nonprofit();
+
+		nonprofit.setActive(true);
+		nonprofit.setDescription("description");
+		nonprofit.setMision("Mision");
+		nonprofit.setName("NGO TEST"+addToName);
+		nonprofit.setReason("Reason");
+		nonprofit.setWebPage("www.test.com");
+		nonprofit.setConutry(country.getWrapperObject());
+			
+		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
+		
+		serviceNonProfit.saveNonprofit(wrapper);
+		
+		UserGeneral userGeneral = new UserGeneral();
+		userGeneral.setEmail(random+"@gmail.com");
+		userGeneral.setPassword(getPassword());
+		
+		List<UserGeneral> tempList = new ArrayList<UserGeneral>();
+		
+		tempList.add(userGeneral);
+		nonprofit.setUsergenerals(tempList);
+		userGeneral.setNonprofit(nonprofit);
+		UserGeneralWrapper wrapperUser = new UserGeneralWrapper(userGeneral);
+		
+		serviceUserGeneral.saveUserGeneral(wrapperUser);
+		
+		return wrapper;
+		
+	}
+	
+	
+	public  DonorWrapper createRandomDonor(){
+		
+		Catalog country = createRandomCatalog().getWrapperObject();
+		
+		String random = getRandomString();
+		Donor donor = new Donor();
+		
+		donor.setActive(true);
+		donor.setDescription("description");
+		donor.setLastName("Test");
+		donor.setName("Test");
+		donor.setWebPage("www.test.com");
+		donor.setCountry(country);
+		
+		DonorWrapper wrapper = new DonorWrapper(donor);
+		donorService.saveDonor(wrapper);
+		
+		UserGeneral userGeneral = new UserGeneral();
+		userGeneral.setEmail(random+"@gmail.com");
+		userGeneral.setPassword(getPassword());
+		
+		List<UserGeneral> tempList = new ArrayList<UserGeneral>();
+		
+		tempList.add(userGeneral);
+		donor.setUsergenerals(tempList);
+		userGeneral.setDonor(donor);
+		UserGeneralWrapper wrapperUser = new UserGeneralWrapper(userGeneral);
+		
+		serviceUserGeneral.saveUserGeneral(wrapperUser);
+		
+		return wrapper;
+		
+	}
+	
+	
+	private String getPassword(){
+		 byte[] hash = Utils.encryption("123456789");
+			String file_string="";
+			
+			for(int i = 0; i < hash.length; i++)
+		    {
+		        file_string += (char)hash[i];
+		    }		
+			
+			return file_string;
+	}
 	
 	public  NonprofitWrapper createRandomNonprofit(String nGOName, Catalog country){
 		

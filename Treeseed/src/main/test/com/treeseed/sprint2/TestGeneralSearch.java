@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.treeseed.contracts.GeneralSearchRequest;
 import com.treeseed.contracts.GeneralSearchResponse;
 import com.treeseed.controllers.NonprofitController;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.GeneralSearchResultPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
@@ -23,12 +24,20 @@ public class TestGeneralSearch extends AbstractTestController {
 	@Before
 	public void setUp() {
 		super.setUp();
-
 	}
 
 	@Test
 	public void testSearchFilterNullFilters() throws Exception {
 
+		createRandomNonprofit();
+		createRandomNonprofit();
+		createRandomNonprofit();
+		createRandomNonprofit();
+		createRandomDonor();
+		createRandomDonor();
+		createRandomDonor();
+		createRandomDonor();
+		
 		String filter = "";
 		String country = "";
 
@@ -50,55 +59,21 @@ public class TestGeneralSearch extends AbstractTestController {
 
 		GeneralSearchResponse response = mapFromJson(content,
 				GeneralSearchResponse.class);
+		
+		int count = response.getResults().size();
 
 		Assert.assertEquals("200", response.getCode().toString());
-		Assert.assertEquals(false, response.getResults().isEmpty());
-
-		GeneralSearchResultPOJO pojo = response.getResults().get(0);
-
-		Assert.assertEquals("campaign 6", pojo.getName());
+		Assert.assertEquals(9, count);
 
 	}
 
-	@Test
-	public void testSearchFilterNameCountry() throws Exception {
-
-		String filter = "1";
-		String country = "CR";
-
-		GeneralSearchRequest request = new GeneralSearchRequest();
-		request.setCountry(country);
-		request.setFilter(filter);
-		String jsonObject = mapToJson(request);
-
-		String uri = "/rest/protected/generalSearch/search";
-
-		MvcResult result = mvc
-				.perform(
-						MockMvcRequestBuilders.post(uri)
-								.contentType(MediaType.APPLICATION_JSON)
-								.accept(MediaType.APPLICATION_JSON)
-								.content(jsonObject)).andReturn();
-
-		String content = result.getResponse().getContentAsString();
-
-		GeneralSearchResponse response = mapFromJson(content,
-				GeneralSearchResponse.class);
-
-		Assert.assertEquals("200", response.getCode().toString());
-		Assert.assertEquals(false, response.getResults().isEmpty());
-
-		GeneralSearchResultPOJO pojo = response.getResults().get(
-				response.getResults().size() - 1);
-
-		Assert.assertEquals("donor 3 don1", pojo.getName());
-
-	}
 
 	@Test
-	public void testSearchFilterName() throws Exception {
+	public void testSearchFilterWithNameFilter() throws Exception {
+		String random = getRandomString();
+		NonprofitWrapper wrapper = createRandomNonprofit(random);
 
-		String filter = "1";
+		String filter = wrapper.getName();
 		String country = "";
 
 		GeneralSearchRequest request = new GeneralSearchRequest();
@@ -119,21 +94,26 @@ public class TestGeneralSearch extends AbstractTestController {
 
 		GeneralSearchResponse response = mapFromJson(content,
 				GeneralSearchResponse.class);
+		
+		int count = response.getResults().size();
 
 		Assert.assertEquals("200", response.getCode().toString());
-		Assert.assertEquals(false, response.getResults().isEmpty());
+		Assert.assertEquals(1, count);
 
-		GeneralSearchResultPOJO pojo = response.getResults().get(0);
-
-		Assert.assertEquals("campaign 1 ", pojo.getName());
+	
 
 	}
+	
+	
 
 	@Test
-	public void testSearchFilterCountry() throws Exception {
+	public void testSearchFilterWithCountry() throws Exception {
+
+		String random = getRandomString();
+		NonprofitWrapper wrapper = createRandomNonprofit(random);
 
 		String filter = "";
-		String country = "CR";
+		String country = wrapper.getConutry().getDescription();
 
 		GeneralSearchRequest request = new GeneralSearchRequest();
 		request.setCountry(country);
@@ -153,14 +133,53 @@ public class TestGeneralSearch extends AbstractTestController {
 
 		GeneralSearchResponse response = mapFromJson(content,
 				GeneralSearchResponse.class);
+		
+		int count = response.getResults().size();
 
 		Assert.assertEquals("200", response.getCode().toString());
-		Assert.assertEquals(false, response.getResults().isEmpty());
+		Assert.assertNotEquals(0, count);
 
-		GeneralSearchResultPOJO pojo = response.getResults().get(0);
-
-		Assert.assertEquals("campaign 6", pojo.getName());
+	
 
 	}
+	
+	
+	@Test
+	public void testSearchFilterWithAllFilters() throws Exception {
 
+		String random = getRandomString();
+		NonprofitWrapper wrapper = createRandomNonprofit(random);
+
+		String filter =  wrapper.getName();
+		String country = wrapper.getConutry().getDescription();
+
+		GeneralSearchRequest request = new GeneralSearchRequest();
+		request.setCountry(country);
+		request.setFilter(filter);
+		String jsonObject = mapToJson(request);
+
+		String uri = "/rest/protected/generalSearch/search";
+
+		MvcResult result = mvc
+				.perform(
+						MockMvcRequestBuilders.post(uri)
+								.contentType(MediaType.APPLICATION_JSON)
+								.accept(MediaType.APPLICATION_JSON)
+								.content(jsonObject)).andReturn();
+
+		String content = result.getResponse().getContentAsString();
+
+		GeneralSearchResponse response = mapFromJson(content,
+				GeneralSearchResponse.class);
+		
+		int count = response.getResults().size();
+
+		Assert.assertEquals("200", response.getCode().toString());
+		Assert.assertEquals(1, count);
+
+	
+
+	}
+	
+	
 }

@@ -174,7 +174,7 @@ public class DonorController extends UserGeneralController{
 		};
 		
 		
-		ds.setDonor(viewDonorsPOJO);
+		ds.setDonors(viewDonorsPOJO);
 		ds.setCode(200);
 		return ds;	
 	}

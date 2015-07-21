@@ -109,15 +109,12 @@ public class TestsUsersController extends AbstractTestController{
 	    public void testCreateDonor() throws Exception {
 
 		    CatalogWrapper countryCat = createRandomCatalog();
-		    CatalogWrapper causeCat = createRandomCatalog();
-		    String idCatalog = "1";
-		   
+
 		    String email = "pruebaderegistrardonor@gmail.com";
 		    String password =getRandomString();
 		    String name= getRandomString();
 		    String lastName= getRandomString();
-			String cause =  idCatalog;
-			String country = idCatalog;
+			int country = countryCat.getId();
 			FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
 			MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
 			
@@ -130,15 +127,16 @@ public class TestsUsersController extends AbstractTestController{
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
 		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("type", cause))
+		                    .param("country", country+"")
+		                    .param("facebookId", country+"")
+		                    .param("facebookToken", country+""))
 	        				.andReturn();
 	        
 	        String content = result.getResponse().getContentAsString();
 	        
 	        DonorResponse response = mapFromJson(content, DonorResponse.class);
 	        
-	        Assert.assertEquals("Donor registered succesfully", response.getCodeMessage());
+	        Assert.assertEquals("user created succesfully", response.getCodeMessage());
 	      
 	    }
 	  
