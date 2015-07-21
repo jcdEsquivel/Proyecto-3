@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.repositories.CampaignRepository;
 
@@ -23,7 +24,7 @@ public class CampaignService implements CampaignServiceInterface{
 	@Transactional
 	public Page<Campaign> getAllCampaigns(CampaignRequest ur) {
 
-		PageRequest pr;
+		PageRequest pr = null;
 		Sort.Direction direction = Sort.Direction.DESC;
 		if (ur.getDirection().equals("ASC")) {
 			direction = Sort.Direction.ASC;
@@ -36,22 +37,22 @@ public class CampaignService implements CampaignServiceInterface{
 			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize());
 		}
 
-		Page<Campaign> result;
+		Page<Campaign> result = null;
 
 		String campaignName = ur.getName();
 		String nonProfitName = ur.getNonprofitName();
 		int causeId = ur.getCauseId();
 		
 		Date startDate = null;
-		if(ur.getFechaInicio() > 0)
+		if(ur.getStartDate() > 0)
 		{
-			startDate = new Date(ur.getFechaInicio());
+			startDate = new Date(ur.getStartDate());
 		}
 		
 		Date endDate = null;
-		if(ur.getFechaFin() > 0)
+		if(ur.getDueDate() > 0)
 		{	
-			endDate = new Date(ur.getFechaFin());
+			endDate = new Date(ur.getDueDate());
 		}
 		
 		result = campaignRepository.findWithAll(campaignName, "%" + campaignName + "%",
@@ -67,5 +68,36 @@ public class CampaignService implements CampaignServiceInterface{
 		Campaign camp = campaignRepository.save(campaign.getWrapperObject());
 		return camp.getId();
 		
+	}
+
+	@Override
+	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur) {
+		PageRequest pr;
+		int nonprofitId=0;
+		Page<Campaign> pageResult = null;
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		
+		
+
+		nonprofitId = ur.getNonprofitId();	
+		
+		pageResult = campaignRepository.findByNonprofitId(nonprofitId, pr);
+
+		
+		
+		return pageResult ;
 	}
 }

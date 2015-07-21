@@ -83,6 +83,8 @@ angular
 												templateUrl : 'layouts/pages/nonProfit.html',
 												controller: "getNonProfitProfileController",
 												params: {nonProfitId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
 												 data : {
 													authorizedRoles : [
 													USER_ROLES.donor,
@@ -91,6 +93,19 @@ angular
 
 												}
 											})
+									.state(
+										'treeSeed.nonProfitSettings',
+										{
+											url : 'nonProfitSettings',
+											templateUrl : 'layouts/pages/nonprofitSettings.html',
+											controller : "nonprofitSettingsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.guest,
+														USER_ROLES.nonprofit ]
+											
+											}
+										})
 									/*.state(
 											'treeSeed.searchTransReport',
 											{
@@ -201,7 +216,19 @@ angular
 												
 												}
 											})
-									.state(
+								  	.state(
+										'treeSeed.donorSettings',
+										{
+											url : 'donorSettings',
+											templateUrl : 'layouts/pages/donorSettings.html',
+											controller : "donorSettingsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+											}
+												}.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',
@@ -215,6 +242,7 @@ angular
 													USER_ROLES.nonprofit ]
 												}
 											});
+										});
 							
 
 							

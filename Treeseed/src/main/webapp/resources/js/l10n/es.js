@@ -96,6 +96,15 @@
     	"NGONAME-FILTER": "NGO Name",
     	"RANGEDATE" : "Rango de Fechas"
     },
+    "GENERAL-SETTINGS":{
+		"DELETE-PROFILE":"Eliminar Perfil",
+		"SETTINGS":"Configuración"
+	},
+	"DELETE-MODAL":{
+		"MESSAGE":"¿Está seguro de que desea eliminar su perfil?",
+		"DELETE": "Eliminar",
+		"CANCEL": "Cancelar"
+	},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Registrar ONG",
         "NAME": "Nombre",
@@ -213,6 +222,15 @@
         "SPENT": "Gastado",
         "COLLECTED": "Recaudado",
         "CREATE-REPORT": "Crear Reporte"        
+    },
+    "LISTCAMPAIGN":{
+    	"STATE-COLOR-RED":"Finalizada",
+    	"STATE-COLOR-YELLOW":"Próximamente",
+    	"STATE-COLOR-GREEN":"Activa",
+    	"READMORE":"... Leer mas",
+    	"GOAL":"Monto meta",
+    	"COLLECTED":"Monto recaudado",
+    	"COLLECTEDMESSAGE":"Recaudado"
     }
      
 }

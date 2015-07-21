@@ -527,3 +527,120 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		};
 	//Finish editing profile
 });
+
+
+treeSeedAppControllers.controller('donorSearchController', function($scope,
+		$http, $location, $modal, $log, $timeout) {
+
+	$scope.donor = {};
+	$scope.donor.country = "";
+	$scope.donor.lastName = "";
+	$scope.requestObject1 = {};
+	
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
+	$scope.currentPage = 1;
+	$scope.totalItems = 5;
+
+	$scope.requestObject = {};
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+	$scope.requestObject.name = $scope.name;
+	$scope.requestObject.country = $scope.country;
+	$scope.requestObject.lastName = $scope.lastName;
+	
+	$scope.init = function() {
+		$scope.requestObject1.lenguage = $scope.selectLang;
+		console.log($scope.selectLang);
+		$scope.requestObject1.type = "country";
+		$http.post('rest/protected/catalog/getAllCatalog',
+				$scope.requestObject1).then(function(response) {
+			$scope.selectSortOptionsCountry = response.data.catalogs;
+		});
+	}
+
+	$scope.init();
+
+	$scope.searchDonor = function(page) {
+
+		$scope.requestObject.pageNumber = page;
+		$scope.requestObject.name = $scope.name;
+		$scope.requestObject.country = $scope.donor.country.id;
+		$scope.requestObject.lastName = $scope.lastName;
+
+		$http.post('rest/protected/donor/advanceGet',
+				$scope.requestObject).success(function(mydata, status) {
+			$scope.donors = mydata.donors;
+			$scope.totalItems = mydata.totalElements;
+		}).error(function(mydata, status) {
+
+		});
+
+		$scope.pageChangeHandler = function(num) {
+			$scope.searchDonor(num);
+		};
+    }
+});
+
+
+
+treeSeedAppControllers.controller('donorSettingsController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
+	
+	$scope.donor = {};
+	$scope.donor.id= Session.userId;
+	$scope.requestObject = {};
+	var modalInstance=null;
+	
+	$scope.deleteUser = function()
+	{
+		
+		$scope.donor.id = Session.userId;
+		$scope.requestObject.id= $scope.donor.id;
+		
+		$http.post('rest/protected/donor/deleteDonor',
+				$scope.requestObject).then(function(response) {
+					if(response.data.code=="200"){
+						AuthService.guestSession()
+						$scope.currentUser = null;
+						$state.go("treeSeed.index");
+						$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+					}
+					else if(response.data.code=="400")
+					{
+						console.log("ERROR");
+					}
+		});
+	};
+	
+	$scope.openModalConfirmation = function() {
+
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/delete_confirmation.html',
+			//controller : 'getNonProfitProfileController',
+			scope: $scope,
+			
+	    })
+	};
+
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.deleteUser(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {	
+		modalInstance.close();
+	};
+	
+});
+
+
+
+
+
+
+

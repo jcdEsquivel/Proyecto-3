@@ -5,6 +5,7 @@ import java.util.List;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
 import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.NonprofitPOJO;
 
 public class CampaignRequest extends BasePagingRequest {
 
@@ -20,22 +21,27 @@ public class CampaignRequest extends BasePagingRequest {
 
 	private String description;
 	
-	private Date startDate;
+	private long startDate;
 
-	private Date dueDate;
+	private long dueDate;
 
 	private String picture;
+
+	private int nonprofitId;
+	
+	private boolean isActive;
 
 	private String name;
 	private String nonprofitName;
 	private int causeId;
-	private long fechaInicio;
-	private long fechaFin;
+	//private long fechaInicio;
+	//private long fechaFin;
 
 	public String getNonprofitName() {
 		return nonprofitName;
 	}
 
+	private NonprofitPOJO nonprofit;
 	public void setNonprofitName(String nonprofitName) {
 		this.nonprofitName = nonprofitName;
 	}
@@ -48,7 +54,7 @@ public class CampaignRequest extends BasePagingRequest {
 		this.causeId = causeId;
 	}
 
-	public long getFechaInicio() {
+	/*public long getFechaInicio() {
 		return fechaInicio;
 	}
 
@@ -62,7 +68,7 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setFechaFin(long fechaFin) {
 		this.fechaFin = fechaFin;
-	}
+	}*/
 
 
 	private List<PostCampaign> postCampaigns;
@@ -82,44 +88,44 @@ public class CampaignRequest extends BasePagingRequest {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public double getAmountCollected() {
-		return amountCollected;
+	
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setAmountCollected(double amountCollected) {
-		this.amountCollected = amountCollected;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
-	public double getAmountGoal() {
-		return amountGoal;
+	public NonprofitPOJO getNonprofit() {
+		return nonprofit;
 	}
 
-	public void setAmountGoal(double amountGoal) {
-		this.amountGoal = amountGoal;
+	public void setNonprofit(NonprofitPOJO nonprofit) {
+		this.nonprofit = nonprofit;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public List<PostCampaign> getPostCampaigns() {
+		return postCampaigns;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setPostCampaigns(List<PostCampaign> postCampaigns) {
+		this.postCampaigns = postCampaigns;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getNonprofitId() {
+		return nonprofitId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setNonprofitId(int nonprofitId) {
+		this.nonprofitId = nonprofitId;
 	}
 
-	public Date getDueDate() {
+	public long getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(long dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -139,19 +145,11 @@ public class CampaignRequest extends BasePagingRequest {
 		this.picture = picture;
 	}
 
-	public List<PostCampaign> getPostCampaigns() {
-		return postCampaigns;
-	}
-
-	public void setPostCampaigns(List<PostCampaign> postCampaigns) {
-		this.postCampaigns = postCampaigns;
-	}
-
-	public Date getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 

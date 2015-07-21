@@ -4,13 +4,59 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('postAdminController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal) {
-	console.log('inctr');
-	$scope.posts = [];
-	console.log('inctr');
-	$scope.getPosts = function() {
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
+		$stateParams) {
 
+	$scope.posts = [];
+	$scope.totalPosts = 0;
+	$scope.postPaginCurrentPage = 0;
+
+	$scope.postRequest = {
+		postNonprofit : {
+			id : 0,
+			title : '',
+			picture : '',
+			description : '',
+			nonprofitId : $stateParams.nonProfitId
+		},
+		pageNumber : '',
+		pageSize : '5',
+		direction : "DESC",
+		sortBy : ['creationDate']
 	};
+
+	$scope.getPosts = function(pageNumber) {
+
+		$scope.postRequest.pageNumber = pageNumber;
+		$scope.postPaginCurrentPage = pageNumber;
+		
+		$http.post('rest/protected/postNonprofit/getNonprofitPost',
+				$scope.postRequest).success(function(data, status) {
+
+			if (data.code == 200) {
+				$scope.posts = data.posts;
+				$scope.totalPosts = data.totalElements;
+				console.log($scope.totalPosts);
+			}else{
+				console.log('Error : '+data.errorMessage);
+			}
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});
+		
+	};//end getPosts
+	
+	
+	$scope.changePostsPage = function(pageNumber){
+		$scope.getPosts(pageNumber);
+	};
+	
+	//Gets execute when posts tab is clicked. is called from getNonProfitProfileController
+	$scope.$on('loadPosts',function(){
+		$scope.getPosts(1);
+	});
 
 	$scope.openModal = function() {
 
@@ -22,6 +68,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 			resolve : {
 				getPosts : function() {
 					return $scope.getPosts;
+				},
+				nonprofitId: function(){
+					return $scope.postRequest.postNonprofit.nonprofitId
 				}
 			}
 
@@ -32,9 +81,22 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 });
 
 treeSeedAppControllers.controller('createPostController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, Session,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, nonprofitId, Session,
 		$modalInstance) {
 
+	$scope.getPosts = getPosts;
+	
+	$scope.postRequestModal = {
+			postNonprofit : {
+				id : '',
+				title : '',
+				picture : '',
+				description : '',
+				nonprofitId : nonprofitId
+			}
+		}
+	
+	
 	$scope.maxCarac = 500;
 	$scope.image;
 	$scope.post = {
@@ -67,35 +129,38 @@ treeSeedAppControllers.controller('createPostController', function($http,
 
 	$scope.createPost = function() {
 
-		$http({
-			method : 'POST',
-			url : 'rest/protected/postNonprofit/register',
-			headers : {
-				'Content-Type' : undefined
-			},
-			transformRequest : function(data) {
-				 var formData = new FormData();
+		$http(
+				{
+					method : 'POST',
+					url : 'rest/protected/postNonprofit/register',
+					headers : {
+						'Content-Type' : undefined
+					},
+					transformRequest : function(data) {
+						var formData = new FormData();
 
-			        formData.append('data', new Blob([angular.toJson(data.data)], {
-			            type: "application/json"
-			        }));
-			        formData.append("file", data.file);
-			        return formData;
-			},
-			data : {
-				data : $scope.post,
-				file : $scope.image
-			}
+						formData.append('data', new Blob([ angular
+								.toJson(data.data) ], {
+							type : "application/json"
+						}));
+						formData.append("file", data.file);
+						return formData;
+					},
+					data : {
+						data : $scope.postRequestModal,
+						file : $scope.image
+					}
 
-		}).
-		success(function (data, status, headers, config) {
+				}).success(function(data, status, headers, config) {
 			$scope.close();
 		});
 
 	};
 
 	$scope.close = function() {
+		$scope.getPosts(1);
 		$modalInstance.close();
+		
 	}
 
 });

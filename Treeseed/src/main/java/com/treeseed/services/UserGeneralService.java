@@ -122,12 +122,17 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	    }
 
 	}
-	
-	
+
 	@Override
 	public UserGeneral getUGByID(int idUserGeneral) {
 		return usersRepository.findOne(idUserGeneral);
 	}
+	
+	@Override
+	public UserGeneral getUserByNonprofitId(int idNonprofit) {
+		return usersRepository.findByNonprofitId(idNonprofit);
+	}
+	
 	
 	@Override
 	@Transactional
@@ -136,7 +141,15 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 				userGeneral.getEmail()
 				);		
 	}
-
 	
-
+	@Override
+	public UserGeneral getUserByDonorId(int idDonor) {
+		return usersRepository.findByDonorId(idDonor);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteUserGeneral(UserGeneralWrapper ugw) {
+		usersRepository.deleteUserGeneral(ugw.getId());
+	}
 }

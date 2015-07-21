@@ -39,6 +39,7 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
@@ -77,6 +78,35 @@ public class NonprofitController extends UserGeneralController{
 	@Autowired
 	HttpServletRequest request;	
 		
+	@RequestMapping(value ="/delete", method = RequestMethod.POST)
+	public NonprofitResponse deleteNonProfit(@RequestBody DonorRequest dr){
+		
+	  NonprofitResponse	us = new NonprofitResponse();
+		
+	   NonprofitWrapper nonWrapper = new NonprofitWrapper();
+	   
+	    nonWrapper.setId(dr.getId());
+			
+	    try
+	    {
+	    	nonProfitService.deteteNonprofit(nonWrapper);	
+			us.setCode(200);
+			us.setCodeMessage("USER DELETE");
+			
+		 	UserGeneral ug =  userGeneralService.getUserByNonprofitId(dr.getId());
+		 	UserGeneralWrapper ugw = new UserGeneralWrapper();
+		 	ugw.setId(ug.getId());
+		 	userGeneralService.deleteUserGeneral(ugw);
+		 	
+	    }
+	    catch(Exception e)
+	    {
+	    	us.setCode(400);
+			us.setCodeMessage("ERROR DATABASE");
+	    }
+	    
+		return us;
+	}
 	
 	
 	@RequestMapping(value ="/register", method = RequestMethod.POST)
@@ -113,7 +143,7 @@ public class NonprofitController extends UserGeneralController{
 				}
 				
 				user.setName(name);
-				
+				user.setMainPicture(TreeseedConstants.DEFAULT_COVER_IMAGE);
 				user.setActive(true);
 				user.setCause(causeW.getWrapperObject());
 				user.setConutry(countryW.getWrapperObject());
