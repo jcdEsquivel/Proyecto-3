@@ -28,6 +28,9 @@ public interface UserGeneralRepository extends
 	
 	UserGeneral findByNonprofitId (int idNonprofit);
 	
+	UserGeneral findByDonorId (int idDonor);
+
+	
  	@Modifying
 	@Transactional
 	@Query("UPDATE UserGeneral u SET email = :email where u.id = :id") 
@@ -35,12 +38,12 @@ public interface UserGeneralRepository extends
 			   @Param("id") int id,
 			   @Param("email") String email
 			   );
- 	
+ 		
  	@Modifying
 	@Transactional
 	@Query("UPDATE UserGeneral u SET isActive = 0  where u.id = :id") 
 	  public void deleteUserGeneral(
 			   @Param("id") int id
 			   );
-	
+
 }

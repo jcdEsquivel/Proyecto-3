@@ -14,4 +14,5 @@ public interface LoginRepository extends CrudRepository<UserGeneral,Integer> {
 	
 	@Query("SELECT p FROM UserGeneral p WHERE (p.email = :email) and (p.password = :password) and isActive = 1")
 	UserGeneral findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
 }

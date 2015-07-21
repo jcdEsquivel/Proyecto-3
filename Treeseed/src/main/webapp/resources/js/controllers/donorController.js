@@ -536,6 +536,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 	$scope.donor.country = "";
 	$scope.donor.lastName = "";
 	$scope.requestObject1 = {};
+	
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
 	$scope.totalItems = 5;
@@ -589,7 +590,6 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 treeSeedAppControllers.controller('donorSettingsController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
 	
-	console.log("espoooo")
 	$scope.donor = {};
 	$scope.donor.id= Session.userId;
 	$scope.requestObject = {};
@@ -598,14 +598,8 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 	$scope.deleteUser = function()
 	{
 		
-		console.log($scope.donor.id)
-		console.log(Session.userId)
-		
 		$scope.donor.id = Session.userId;
-		
 		$scope.requestObject.id= $scope.donor.id;
-		
-		console.log($scope.requestObject.id)
 		
 		$http.post('rest/protected/donor/deleteDonor',
 				$scope.requestObject).then(function(response) {
@@ -635,12 +629,10 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 
 	$scope.closeModal = function() {		
 		modalInstance.close();
-		console.log("pasa x aqui")
 		$scope.deleteUser(); 
 	};
 	
 	$scope.closeModalWithoutEdit = function() {	
-		console.log("esta usando el controller correcto")
 		modalInstance.close();
 	};
 	
