@@ -9,6 +9,7 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 	$scope.percentageSpent = 0;
 	$scope.totalCollected = 150;
 	$scope.totalSpent = 0;
+	$scope.description = "";
 
 	$scope.openCreateForm = function() {
 	    modalInstance = $modal.open({
@@ -45,7 +46,13 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
       $scope.percentageSpent = $scope.totalSpent*100/$scope.totalCollected
       $scope.$apply;
     }
-	
+
+	$scope.createReport = function(){
+		for (var i = $scope.spences.length - 1; i >= 0; i--) {
+      		$scope.description += $scope.spences[i].description +"#"+$scope.spences[i].amount + "/";
+      	};
+      	alert($scope.description);
+	}
 })
 ;
 

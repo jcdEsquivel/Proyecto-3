@@ -211,7 +211,8 @@
         "ADD": "Agregar gasto",
         "MONTH-SPENCES": "Gastos del mes",
         "SPENT": "Gastado",
-        "COLLECTED": "Recaudado"        
+        "COLLECTED": "Recaudado",
+        "CREATE-REPORT": "Crear Reporte"        
     }
      
 }

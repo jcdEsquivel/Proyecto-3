@@ -221,6 +221,7 @@
         "ADD": "Add Spence",
         "MONTH-SPENCES": "Spences of the month",
         "SPENT": "Spent",
-        "COLLECTED": "Collected"                
+        "COLLECTED": "Collected",
+        "CREATE-REPORT": "Create Report"                 
     }
 }
