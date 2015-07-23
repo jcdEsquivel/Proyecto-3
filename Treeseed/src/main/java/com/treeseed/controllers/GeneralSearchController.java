@@ -16,13 +16,24 @@ import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.pojo.GeneralSearchResultPOJO;
 import com.treeseed.services.GeneralSearchServiceInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GeneralSearchController.
+ */
 @RestController
 @RequestMapping(value ="rest/protected/generalSearch")
 public class GeneralSearchController {
 
+	/** The search service. */
 	@Autowired GeneralSearchServiceInterface searchService;
 	
 	
+	/**
+	 * Search.
+	 *
+	 * @param request the request
+	 * @return the general search response
+	 */
 	@RequestMapping(value ="/search", method = RequestMethod.POST)
 	public GeneralSearchResponse search(@RequestBody GeneralSearchRequest request){
 		

@@ -38,6 +38,7 @@ import com.treeseed.services.CatalogServiceInterface;
 
 import com.treeseed.utils.PojoUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -46,11 +47,20 @@ import com.treeseed.utils.PojoUtils;
 public class CatalogController {
 	
 	
+	/** The catalog service. */
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
+	/** The jdbc template. */
 	@Autowired
     JdbcTemplate jdbcTemplate;
 	
+	/**
+	 * Gets the catalog by type.
+	 *
+	 * @param prams the prams
+	 * @return the catalog by type
+	 */
 	@RequestMapping(value ="/getAllCatalog", method = RequestMethod.POST)
 	public CatalogResponse getCatalogByType(@RequestBody CatalogRequest prams){
 		CatalogResponse us = new CatalogResponse();
@@ -78,6 +88,12 @@ public class CatalogController {
 		return us;
 	}
 	
+	/**
+	 * Gets the catalog by id.
+	 *
+	 * @param id the id
+	 * @return the catalog by id
+	 */
 	public CatalogWrapper getCatalogById(int id){	
 		CatalogWrapper us = catalogService.findCatalogById(id);
 		return us;

@@ -42,17 +42,28 @@ import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CampaignController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
 public class CampaignController {
+	/** The campaign service. */
 	@Autowired
 	DonationServiceInterface donationService;
 	@Autowired
 	CampaignServiceInterface campaignService;
+	
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
+	
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 	
