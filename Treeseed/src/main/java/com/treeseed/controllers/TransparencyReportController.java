@@ -20,19 +20,36 @@ import com.treeseed.pojo.TransparencyReportPOJO;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.TransparencyReportServiceInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TransparencyReportController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/transparencyReport")
 public class TransparencyReportController {
 	
+	/** The transparency report service. */
 	@Autowired
 	TransparencyReportServiceInterface transparencyReportService;
+	
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
+	
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 	
+	/**
+	 * Creates the transparency report.
+	 *
+	 * @param tr the tr
+	 * @return the transparency report response
+	 */
 	@RequestMapping(value ="/create", method = RequestMethod.POST)
 	public TransparencyReportResponse createTransparencyReport(@RequestBody TransparencyReportRequest tr){	
 		
