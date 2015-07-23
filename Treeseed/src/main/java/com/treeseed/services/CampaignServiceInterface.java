@@ -23,7 +23,7 @@ public interface CampaignServiceInterface {
 	 * @param nonProfit the non profit
 	 * @return the int
 	 */
-	int saveCampaign(CampaignWrapper nonProfit);
+	int saveCampaign(CampaignWrapper campaign);
 	
 	/**
 	 * Gets the campaigns by nonprofit.

@@ -279,7 +279,7 @@ public class CampaignController {
 			
 			
 			
-			if(campaign!=null){
+			if(campaign.getWrapperObject()!= null){
 				if(tempId==campaign.getNonprofit().getUsergenerals().get(0).getId()){
 					cs.setOwner(true);
 				}else{

@@ -1,6 +1,24 @@
 <div class="wrapper-md">
 <div class="cover-image">
         	<!-- ng-if="campaign.picture" -->	<div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
+         
+        <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
+        <div class=" pull-right bg-light dk r-r divONGreference" style="display: table; min-height: 70px; min-width:300px; overflow: hidden;">
+        	<div style="margin-left: 10px; margin-top: 8px; margin-bottom: 8px">
+        	
+	        	<div class=" thumb-md m-r " style="display: table-cell; vertical-align: middle;"> 
+	        		<img ng-src="{{campaign.nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
+				</div>
+									
+				<div style="display: table-cell; vertical-align: middle; margin: auto" class=" h4 font-thin m-t-none m-b">
+				
+					{{campaign.nonprofit.name}}
+				
+				</div>	
+        	</div>
+        	
+        </div>
+        </a>
         		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
         	 	</div>	
         	 </div>
@@ -10,14 +28,14 @@
   <tabset class="tab-container">
     <tab>
       <tab-heading>
-        Informacion <span class="badge badge-sm m-l-xs"></span>
+        <span translate="CAMPAIGN.TAB-1.TITLE"></span> <span class="badge badge-sm m-l-xs"></span>
       </tab-heading>
       <!-- service -->
       <div class="panel hbox hbox-auto-xs no-border">
         <div class="col wrapper">
         <div class="row" style="margin-right: 15px">
         	<div class=" col-md-9">
-        	<h4 class="font-thin m-t-none m-b-none text-primary-lt">Description</h4>
+        	<h4 class="font-thin m-t-none m-b-none text-primary-lt" translate="CAMPAIGN.TAB-1.DESCRIPTION">Description</h4>
         	</div>
         	<div class="treeseed-campaignDate pull-right col-md-3" style="min-width: 230px" align="center"ng-class="getClass(campaign)">
         	{{campaign.startDateS}} - {{campaign.dueDateS}}</div>
@@ -28,41 +46,28 @@
           {{campaign.description}}
           </div>
         </div>
-        <div class="row" style="margin-right: 15px">
-        <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
-        	<div class=" pull-right  col-md-3 bg-light dk r-r">
-        	
-        	<div class="pull-left thumb-md m-r"> <img
-									ng-src="{{campaign.nonprofit.profilePicture}}" alt="..."
-									class="img-circle search-image-size">
-								</div>
-								
-							<div class=" h4 font-thin m-t-none m-b">{{campaign.nonprofit.name}}</div>	
-        	</div>
-        	</a>
-        </div>
         </div>
 		<div class="col wrapper-lg w-lg bg-light dk r-r">
-			<h3 class="font-thin m-t-none m-b">Resumen</h3>
+			<h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>
 			<div class="">
 				<div class="">
 					<h4>
 						<span class="pull-right text-primary">{{campaign.cantDonors}}</span>
 					</h4>
-					<span>Cantidad de Donadores</span>
+					<span translate="CAMPAIGN.TAB-1.AMOUNT-DONOR">Cantidad de Donadores</span>
 				</div>
 			</div>
 			<div class="">
 				<h4>
 					<span class="pull-right text-success">{{campaign.amountCollected}}</span>
 				</h4>
-				<span>Amount Collected</span>
+				<span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
 			</div>
 			<div class="">
 				<h4>
-					<span class="pull-right text-info">{{campaign.amountGoal}}</span>
+					<span class="pull-right text-info" >{{campaign.amountGoal}}</span>
 				</h4>
-				<span>Amount Goal</span>
+				<span translate="CAMPAIGN.TAB-1.AMOUNT-GOAL">Amount Goal</span>
 
 			</div>
 			<div>
@@ -81,7 +86,7 @@
 						<span class="h1 m-l-sm step">{{campaign.percent}}%</span>
 						<div class="text text-sm">
 							<span class="h4 m-l-sm step"
-								translate="LISTCAMPAIGN.COLLECTEDMESSAGE"></span>
+								translate="CAMPAIGN.TAB-1.COLLECTED"></span>
 						</div>
 					</div>
 				</div>
@@ -91,7 +96,7 @@
     </tab>
     <tab>
       <tab-heading>
-        Actualizaciones <span class="badge bg-danger badge-sm m-l-xs"></span>
+        <span translate="CAMPAIGN.TAB-2.TITLE"></span><span class="badge bg-danger badge-sm m-l-xs"></span>
       </tab-heading>
       <ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
         <li class="list-group-item">

@@ -599,3 +599,15 @@ height: 100px;
     overflow: auto;
     -webkit-overflow: auto;*/
 }
+
+.divONGreference{
+	moz-border-radius-topleft: 5px;
+-moz-border-radius-bottomleft:37px;
+-moz-border-radius-bottomright:5px;
+-webkit-border-top-left-radius:5px;
+-webkit-border-bottom-left-radius:37px;
+-webkit-border-bottom-right-radius:5px;
+border-top-left-radius:5px;
+border-bottom-left-radius:37px;
+border-bottom-right-radius:5px;
+}
