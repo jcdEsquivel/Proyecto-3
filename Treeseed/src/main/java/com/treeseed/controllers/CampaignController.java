@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,18 +21,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.utils.TreeseedConstants;
@@ -269,6 +279,58 @@ public class CampaignController {
 		
 		return cs;
 			
+	}
+	
+	/**
+	 * Edits the campaign.
+	 *
+	 * @param dr the dr
+	 * @param fileCover the file cover
+	 * @param fileProfile the file profile
+	 * @return the donor response
+	 */
+	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public CampaignResponse editCampaign(@RequestPart(value="data") CampaignRequest cr, @RequestPart(value="fileCampaign", required=false) MultipartFile fileCampaign){
+		
+		String campaignImageName = "";
+		CampaignResponse cs = new CampaignResponse();
+		CampaignPOJO campaignPOJO = new CampaignPOJO();
+		CampaignWrapper campaign = new CampaignWrapper();
+		Campaign campaignObject = new Campaign();
+		
+		if(fileCampaign!=null){
+			campaignImageName = Utils.writeToFile(fileCampaign,servletContext);
+		}
+
+		if(!campaignImageName.equals("")){
+			campaign.setPicture(campaignImageName);
+		}else{
+			campaign.setPicture(cr.getPicture());
+		}
+		
+		campaign.setId(cr.getId());
+		campaign.setName(cr.getName());
+		//campaign.setStartDate(cr.getStartDate());
+		//campaign.setDueDate(cr.getDueDate());
+		campaign.setDescription(cr.getDescription());
+		campaign.setAmountGoal(cr.getAmountGoal());
+		campaign.setAmountCollected(cr.getAmountCollected());
+		
+		campaignService.updateCampaign(campaign);
+		
+		campaignPOJO.setId(cr.getId());
+		campaignPOJO.setName(cr.getName());
+		//campaign.setStartDate(cr.getStartDate());
+		//campaign.setDueDate(cr.getDueDate());
+		campaignPOJO.setDescription(cr.getDescription());
+		campaignPOJO.setAmountGoal(cr.getAmountGoal());
+		campaignPOJO.setAmountCollected(cr.getAmountCollected());
+		
+		cs.setCode(200);
+		cs.setCodeMessage("Campaign updated sucessfully");
+		cs.setCampaign(campaignPOJO);
+
+		return cs;		
 	}
 
 }

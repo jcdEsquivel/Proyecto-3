@@ -100,4 +100,16 @@ public class CampaignService implements CampaignServiceInterface{
 		
 		return pageResult ;
 	}
+	
+	@Override
+	@Transactional
+	public void updateCampaign(CampaignWrapper campaign) {
+		campaignRepository.update(campaign.getId(),
+								  campaign.getName(),
+								  campaign.getDescription(),
+								  campaign.getDueDate(),
+								  campaign.getStartDate(),
+								  campaign.getAmountCollected(),
+								  campaign.getAmountGoal());
+	}
 }

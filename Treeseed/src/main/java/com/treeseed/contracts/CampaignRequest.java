@@ -37,8 +37,42 @@ public class CampaignRequest extends BasePagingRequest {
 	//private long fechaInicio;
 	//private long fechaFin;
 
+	
+	
 	public String getNonprofitName() {
 		return nonprofitName;
+	}
+
+	public double getAmountCollected() {
+		return amountCollected;
+	}
+
+	public void setAmountCollected(double amountCollected) {
+		this.amountCollected = amountCollected;
+	}
+
+	public double getAmountGoal() {
+		return amountGoal;
+	}
+
+	public void setAmountGoal(double amountGoal) {
+		this.amountGoal = amountGoal;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	private NonprofitPOJO nonprofit;

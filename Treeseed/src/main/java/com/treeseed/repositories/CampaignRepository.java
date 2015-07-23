@@ -2,8 +2,11 @@ package com.treeseed.repositories;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -37,5 +40,17 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	
 	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
 	
-
-}
+	@Modifying
+	@Transactional
+	@Query("UPDATE Campaign c SET name = :name, description = :description, dueDate = :dueDate, startDate= :startDate, "
+	+"amountCollected = :amountCollected, amountGoal = :amountGoal where c.id = :id") 
+	  public void update(
+			   @Param("id") int id,
+			   @Param("name") String name,
+			   @Param("description") String description,
+			   @Param("dueDate") Date dueDate,
+			   @Param("startDate") Date startDate,
+			   @Param("amountCollected") double amountCollected,
+			   @Param("amountGoal") double amountGoal)
+			   ;
+	}

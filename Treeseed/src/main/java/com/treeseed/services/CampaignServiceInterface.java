@@ -13,4 +13,5 @@ public interface CampaignServiceInterface {
 
 	public int saveCampaign(CampaignWrapper nonProfit);
 	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
+	public void updateCampaign(CampaignWrapper campaign);
 }
