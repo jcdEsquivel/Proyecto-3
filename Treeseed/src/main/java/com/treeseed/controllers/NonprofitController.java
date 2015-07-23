@@ -219,6 +219,12 @@ public class NonprofitController extends UserGeneralController{
 			
 	}
 	
+	/**
+	 * Gets the non profit profile.
+	 *
+	 * @param npr the nonProfitRequest
+	 * @return the non profit profile
+	 */
 	@RequestMapping(value ="/getNonProfitProfile", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	

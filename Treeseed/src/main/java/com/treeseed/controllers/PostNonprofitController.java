@@ -20,13 +20,19 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
+import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.utils.TreeseedConstants;
@@ -126,6 +132,56 @@ public class PostNonprofitController {
 		
 		return response;
 
+	}
+	
+	/**
+	 * Edits the post non profit.
+	 *
+	 * @param npr the npr
+	 * @param filePost the file post
+	 * @return the post nonprofit response
+	 */
+	@RequestMapping(value ="/editPostNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public PostNonprofitResponse editPostNonProfit(@RequestPart(value="data") PostNonprofitRequest pr, @RequestPart(value="filePost", required=false) MultipartFile filePost)
+	{
+	
+		String imagePost = "";
+		PostNonprofit pnp = new PostNonprofit();
+		
+		PostNonprofitResponse us = new PostNonprofitResponse();
+		
+		PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
+		
+		PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
+		
+		if(filePost!=null){
+			imagePost = Utils.writeToFile(filePost,servletContext);
+		}
+
+
+		if(!imagePost.equals("")){
+			postNonprofit.setPicture(imagePost);
+		}else{
+			postNonprofit.setPicture(pr.getPicture());
+		}
+		
+		
+		postNonprofit.setId(pr.getId());
+		postNonprofit.setTittle(pr.getTittle());
+		postNonprofit.setDescription(pr.getDescription());
+		
+		pnp= postNonprofitService.updatePostNonprofit(postNonprofit);
+		
+		
+		postNonprofitPOJO.setTitle(pnp.getTittle());
+		postNonprofitPOJO.setDescription(pnp.getDescription());
+		postNonprofitPOJO.setPicture(pnp.getPicture());
+		
+		us.setPost(postNonprofitPOJO);
+		us.setCode(200);
+		us.setCodeMessage("Post of Nonprofit updated sucessfully");
+		
+		return us;		
 	}
 
 }

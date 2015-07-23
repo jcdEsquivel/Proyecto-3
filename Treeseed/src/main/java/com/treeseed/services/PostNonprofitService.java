@@ -5,10 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.repositories.PostNonprofitRepository;
 
@@ -54,6 +56,19 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		
 		return pageResult ;
 		
+	}
+	
+	@Override
+	@Transactional
+	public PostNonprofit updatePostNonprofit(PostNonprofitWrapper wrapper) {
+		postRepository.update(wrapper.getId(),
+				wrapper.getTittle(), 
+				wrapper.getDescription(),
+				wrapper.getPicture()
+				
+				);
+		
+		return postRepository.findOne(wrapper.getId());
 	}
 	
 }

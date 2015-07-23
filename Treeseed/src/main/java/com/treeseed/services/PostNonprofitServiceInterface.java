@@ -10,5 +10,6 @@ public interface PostNonprofitServiceInterface {
 	public  int savePostNonprofit(PostNonprofitWrapper wrapper);
 	
 	public  Page<PostNonprofit> getPosts(PostNonprofitRequest postRequest);
-	
+
+	public PostNonprofit updatePostNonprofit(PostNonprofitWrapper wrapper);
 }
