@@ -346,3 +346,49 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			
 
 		})
+		
+		
+treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+
+	$scope.postsLoaded = false;
+	$scope.campaign = {};
+	$scope.campaign.id = $stateParams.campaignId;
+	$scope.requestObject = {};
+	$scope.requestObject.campaign = {};
+	$scope.isOwner = false;	
+	
+	
+
+	$scope.init = function() {
+
+		$scope.requestObject.idUser= Session.userId;
+		$scope.requestObject.campaign.id = $scope.campaign.id;
+		
+		$http.post('rest/protected/campaing/getCampignProfile',
+				$scope.requestObject).success(function(mydata, status) {
+					$scope.campaign = mydata.campaign;
+					if(mydata.owner==true){
+						$scope.isOwner=true;
+					}else{
+						$scope.isOwner=false;
+					}
+		}).error(function(mydata, status) {
+			
+		});	
+
+	}
+
+	$scope.init();
+	
+	$scope.getClass = function(item){
+		if(item.state == 'soon'){
+			return 'border-commingSoon';
+		}else if(item.state == 'active'){
+			return 'border-active';
+		}else{
+			return 'border-finished';
+		}
+	}
+});
+

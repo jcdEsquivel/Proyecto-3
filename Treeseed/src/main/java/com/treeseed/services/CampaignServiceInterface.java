@@ -9,8 +9,35 @@ import com.treeseed.ejbWrapper.CampaignWrapper;
 
 public interface CampaignServiceInterface {
 	
+	/**
+	 * Gets the all campaigns.
+	 *
+	 * @param ur the Campaign Request
+	 * @return the all campaigns
+	 */
 	Page<Campaign> getAllCampaigns(CampaignRequest ur);
 
-	public int saveCampaign(CampaignWrapper nonProfit);
-	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
+	/**
+	 * Save campaign.
+	 *
+	 * @param nonProfit the non profit
+	 * @return the int
+	 */
+	int saveCampaign(CampaignWrapper nonProfit);
+	
+	/**
+	 * Gets the campaigns by nonprofit.
+	 *
+	 * @param ur the Campaign Request
+	 * @return the campaigns by nonprofit
+	 */
+	Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
+	
+	/**
+	 * Gets the campaign by id.
+	 *
+	 * @param id the id
+	 * @return the campaign by id
+	 */
+	CampaignWrapper getCampaignById(int id);
 }

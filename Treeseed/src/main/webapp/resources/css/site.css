@@ -485,9 +485,7 @@ max-height:100%;
 -moz-border-radius: 26px;
 -webkit-border-radius: 26px;
 border-radius: 26px;
--moz-box-shadow: 13px 24px 75px #000000;
--webkit-box-shadow: 13px 24px 75px #000000;
-box-shadow: 13px 24px 75px #000000;
+
 }
 .cover-image-style{
 	height: 280px;
