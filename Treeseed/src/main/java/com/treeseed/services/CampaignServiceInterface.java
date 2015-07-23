@@ -5,12 +5,15 @@ import org.springframework.data.domain.Page;
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.utils.PageWrapper;
 
 
 public interface CampaignServiceInterface {
 	
-	Page<Campaign> getAllCampaigns(CampaignRequest ur);
+	public Page<Campaign> getAllCampaigns(CampaignRequest ur);
+	
+	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur);
 
 	public int saveCampaign(CampaignWrapper nonProfit);
-	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
+	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(CampaignRequest ur);
 }

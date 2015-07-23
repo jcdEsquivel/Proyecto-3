@@ -13,7 +13,9 @@ import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.repositories.CampaignRepository;
+import com.treeseed.utils.PageWrapper;
 
 @Service
 public class CampaignService implements CampaignServiceInterface{
@@ -60,6 +62,63 @@ public class CampaignService implements CampaignServiceInterface{
 
 		return result;
 	}
+	
+	
+	
+	@Transactional
+	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur) {
+
+		PageRequest pr = null;
+		Sort.Direction direction = Sort.Direction.DESC;
+		PageWrapper<CampaignWrapper> pageWrapper = new PageWrapper<CampaignWrapper>();
+		Date startDate = null;
+		Date endDate = null;
+		
+		ur.setPageNumber(ur.getPageNumber()-1);
+		
+		if (ur.getDirection().equals("ASC")) {
+			direction = Sort.Direction.ASC;
+		}
+
+		if (ur.getSortBy().size() > 0) {
+			Sort sort = new Sort(direction, ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize(), sort);
+		} else {
+			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize());
+		}
+
+		Page<Campaign> result = null;
+
+		int nonprofitId = ur.getId();
+		String campaignName = ur.getName();
+		String nonProfitName = ur.getNonprofitName();
+		int causeId = ur.getCauseId();
+		
+	
+		if(ur.getStartDate() > 0)
+		{
+			startDate = new Date(ur.getStartDate());
+		}
+		
+		
+		if(ur.getDueDate() > 0)
+		{	
+			endDate = new Date(ur.getDueDate());
+		}
+		
+		result = campaignRepository.findFromNonprofit(campaignName, "%" + campaignName + "%",
+				nonProfitName, "%" + nonProfitName+ "%", causeId, startDate, endDate,nonprofitId, pr);
+
+		for (Campaign c : result.getContent()) {
+		    pageWrapper.getResults().add(new CampaignWrapper(c));
+		  }
+		
+		pageWrapper.setTotalItems(result.getTotalElements());
+		
+		return pageWrapper;
+	}
+	
+	
 
 	@Override
 	@Transactional
@@ -71,10 +130,12 @@ public class CampaignService implements CampaignServiceInterface{
 	}
 
 	@Override
-	public Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur) {
+	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(CampaignRequest ur) {
 		PageRequest pr;
 		int nonprofitId=0;
-		Page<Campaign> pageResult = null;
+		PageWrapper<CampaignWrapper> pageWrapper = new PageWrapper<CampaignWrapper>();
+		Page<Campaign> result = null;
+		
 		Sort.Direction direction = Sort.Direction.DESC;
 		if(ur.getDirection().equals("ASC")){
 			direction = Sort.Direction.ASC;
@@ -90,14 +151,16 @@ public class CampaignService implements CampaignServiceInterface{
 		}
 		
 		
-		
-
 		nonprofitId = ur.getNonprofitId();	
 		
-		pageResult = campaignRepository.findByNonprofitId(nonprofitId, pr);
+		result = campaignRepository.findByNonprofitId(nonprofitId, pr);
 
+		for (Campaign c : result.getContent()) {
+		    pageWrapper.getResults().add(new CampaignWrapper(c));
+		  }
 		
+		pageWrapper.setTotalItems(result.getTotalElements());
 		
-		return pageResult ;
+		return pageWrapper ;
 	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.utils.PageWrapper;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
@@ -171,17 +173,16 @@ public class CampaignController {
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
 		CampaignPOJO campaignPojo = null;
 		cr.setPageNumber(cr.getPageNumber() - 1);
-		Page<Campaign> viewCampaign = campaignService.getCampaignsByNonprofit(cr);
+		PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
 		
 		CampaignResponse cs = new CampaignResponse();
 		
 		
-		cs.setTotalElements(viewCampaign.getTotalElements());
-		cs.setTotalPages(viewCampaign.getTotalPages());
+		cs.setTotalElements(pageResults.getTotalItems());
 		
 		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
 		
-		for(Campaign objeto:viewCampaign.getContent())
+		for(CampaignWrapper objeto:pageResults.getResults())
 		{
 			campaignPojo = new CampaignPOJO();
 			campaignPojo.setId(objeto.getId());
@@ -193,35 +194,65 @@ public class CampaignController {
 			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
 			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
+			campaignPojo.setState(objeto.getState());
+			campaignPojo.setDueDate(objeto.getDueDate());
+			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
+			viewCampaignsPOJO.add(campaignPojo);
 			
-			if(objeto.getStartDate().after(new Date())){
-				campaignPojo.setStart(true);
-			}else{
-				campaignPojo.setStart(false);
-			}
+		};
+		
+		
+		cs.setCampaigns(viewCampaignsPOJO);
+		
+		if(viewCampaignsPOJO.size()>0){
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+		}else{
+			cs.setErrorMessage("campaigns fetch unsuccessful");
+			cs.setCode(400);
+		}
+		
+		return cs;
 			
-			if(objeto.getDueDate().after(new Date())){
-				campaignPojo.setEnd(true);
-			}else{
-				campaignPojo.setEnd(false);
-			}
-			
-			Date current = new Date();
+	}
+	
+	
+	
+	
 
-			if(objeto.getStartDate().after(current)){
-				campaignPojo.setState("soon"); 
-			} else if( objeto.getStartDate().before(current) && objeto.getDueDate().after(current) ){
-				campaignPojo.setState("active"); 
-			}else{
-				campaignPojo.setState("finished"); 
-			}
-			
+	@RequestMapping(value ="/searchCampaignForNonprofit", method = RequestMethod.POST)
+	@Transactional
+	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr){	
+		
+		CampaignPOJO campaignPojo = null;
+		cr.setPageNumber(cr.getPageNumber() - 1);
+		PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
+		
+		CampaignResponse cs = new CampaignResponse();
+		
+		
+		cs.setTotalElements(pageResults.getTotalItems());
+		
+		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
+		
+		for(CampaignWrapper objeto: pageResults.getResults())
+		{
+			campaignPojo = new CampaignPOJO();
+			campaignPojo.setId(objeto.getId());
+			campaignPojo.setName(objeto.getName());
+			campaignPojo.setDescription(objeto.getDescription());
+			campaignPojo.setPicture(objeto.getPicture());
+			campaignPojo.setAmountCollected(objeto.getAmountCollected());
+			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
+			campaignPojo.setStartDate(objeto.getStartDate());
+			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
+			campaignPojo.setState(objeto.getState());
 			campaignPojo.setDueDate(objeto.getDueDate());
 			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
 			viewCampaignsPOJO.add(campaignPojo);
 		};
-		
-		
+
 		cs.setCampaigns(viewCampaignsPOJO);
 		
 		if(viewCampaignsPOJO.size()>0){
