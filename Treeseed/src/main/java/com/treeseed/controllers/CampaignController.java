@@ -40,19 +40,36 @@ import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CampaignController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
 public class CampaignController {
 	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
+	
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
+	
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 	
+	/**
+	 * Gets the nonprofits.
+	 *
+	 * @param cr the cr
+	 * @return the nonprofits
+	 */
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
 	public CampaignResponse getNonprofits(@RequestBody CampaignRequest cr){	
 		
@@ -93,6 +110,18 @@ public class CampaignController {
 			
 	}
 
+	/**
+	 * Campaing create.
+	 *
+	 * @param name the name
+	 * @param description the description
+	 * @param date1 the date1
+	 * @param date2 the date2
+	 * @param amount the amount
+	 * @param idNonprofit the id nonprofit
+	 * @param file the file
+	 * @return the campaign response
+	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public CampaignResponse campaingCreate(@RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("date1") String date1, @RequestParam("date2") String date2,
@@ -168,6 +197,12 @@ public class CampaignController {
 
 	}
 	
+	/**
+	 * Gets the nonprofit campaigns.
+	 *
+	 * @param cr the cr
+	 * @return the nonprofit campaigns
+	 */
 	@RequestMapping(value ="/nonprofitCampaigns", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
