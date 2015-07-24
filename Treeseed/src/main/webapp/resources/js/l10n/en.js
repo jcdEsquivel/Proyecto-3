@@ -241,6 +241,20 @@
     	"GOAL":"Amount goal",
     	"COLLECTED":"Amount collected",
     	"COLLECTEDMESSAGE":"Collected"
+    },
+    "CAMPAIGN":{
+    	"TAB-1":{
+    		"TITLE":"Information",
+    		"DESCRIPTION":"Description",
+        	"SUMMARY":"Summary",
+        	"AMOUNT-DONOR":"Amount of Donors",
+        	"AMOUNT-COLLECTED":"Amount Collected",
+        	"AMOUNT-GOAL":"Amount Goal",
+        	"COLLECTED":"Collected"
+    	},
+    	"TAB-2":{
+    		"TITLE":"Posts"
+    	}
     }
     	
 }
