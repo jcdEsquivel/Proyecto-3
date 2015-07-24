@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
+import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
@@ -32,6 +33,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
@@ -238,6 +240,7 @@ public class CampaignController {
 			campaignPojo.setEnd(object.isEnd());
 			campaignPojo.setDueDate(object.getDueDate());
 			campaignPojo.setDueDateS(object.getDueDateS());
+			campaignPojo.setState(object.getState());
 			viewCampaignsPOJO.add(campaignPojo);
 		};
 		
@@ -303,6 +306,7 @@ public class CampaignController {
 				campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
 				campaignPojo.setDueDate(campaign.getDueDate());
 				campaignPojo.setDueDateS(campaign.getDueDateS());
+				campaignPojo.setState(campaign.getState());
 				
 				NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 				
@@ -331,6 +335,54 @@ public class CampaignController {
 
 		return cs;
 			
+	}
+	
+	@RequestMapping(value ="/close", method = RequestMethod.POST)
+	public CampaignResponse deleteNonProfit(@RequestBody CampaignRequest cr){
+		
+		
+	   CampaignWrapper wrapper ;	    
+	   HttpSession currentSession = request.getSession();
+		CampaignResponse cs = new CampaignResponse();
+		int tempId= 0;
+		
+		if(cr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
+		if(tempId==cr.getIdUser()){
+			if(cr.getCampaign().getId()!=0){
+				wrapper = campaignService.getCampaignById(cr.getCampaign().getId());
+				if(wrapper.getWrapperObject()!=null){
+					try
+				    {
+				    	campaignService.closeCampaign(cr.getId());	
+				    	
+					 	cs.setCode(200);
+				    	cs.setCodeMessage("campaign closed");
+					 	
+				    }
+				    catch(Exception e)
+				    {
+				    	cs.setCode(400);
+				    	cs.setErrorMessage("ERROR DATABASE");
+				    }
+				}else{
+					cs.setCode(400);
+			    	cs.setErrorMessage("campaign do not found");
+				}
+				
+			}else{
+				cs.setCode(400);
+		    	cs.setErrorMessage("campaign do not received ");
+			}
+			
+		}else{
+			cs.setCode(400);
+	    	cs.setErrorMessage("No owner");
+		}
+	    
+	    
+		return cs;
 	}
 	
 	

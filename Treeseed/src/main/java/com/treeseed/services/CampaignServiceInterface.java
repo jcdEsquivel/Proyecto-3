@@ -40,4 +40,11 @@ public interface CampaignServiceInterface {
 	 * @return the campaign by id
 	 */
 	CampaignWrapper getCampaignById(int id);
+	
+	/**
+	 * Close campaign.
+	 *
+	 * @param id the id
+	 */
+	void closeCampaign(int id);
 }

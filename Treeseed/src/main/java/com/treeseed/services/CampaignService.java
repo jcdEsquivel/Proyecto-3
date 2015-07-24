@@ -113,4 +113,12 @@ public class CampaignService implements CampaignServiceInterface{
 		return campaign;
 		
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#closeCampaign(int)
+	 */
+	@Override
+	public void closeCampaign(int id){
+		campaignRepository.updateIsActiveById(id, false);
+	}
 }

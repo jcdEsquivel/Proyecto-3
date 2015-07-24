@@ -349,14 +349,18 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 		
 		
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state) {
 
 	$scope.postsLoaded = false;
 	$scope.campaign = {};
 	$scope.campaign.id = $stateParams.campaignId;
 	$scope.requestObject = {};
 	$scope.requestObject.campaign = {};
+	$scope.resquestClose = {};
+	$scope.resquestClose.campaign={};
 	$scope.isOwner = false;	
+	var modalInstance=null;
+
 	
 	
 
@@ -390,5 +394,37 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			return 'border-finished';
 		}
 	}
+	
+	$scope.closeCampaign=function(){
+		
+		modalInstance = $modal.open({
+		animation : $scope.animationsEnabled,
+		templateUrl : 'layouts/components/closeCampaign_confirmation.html',
+		scope: $scope,
+		resolve : {
+			confirm : function() {
+				if($scope.close){
+					$scope.requestClose.idUser= Session.userId;
+					$scope.requestClose.campaign.id = $scope.campaign.id;
+					
+					$http.post('rest/protected/campaing/close',
+							$scope.requestObject).then(function(response) {
+								if(response.code=="200"){
+									$state.go($state.current, {}, {reload: true});
+								}else{
+									alert(response.errorMessage);
+								}
+					});	
+				}
+			}
+		}
+
+		})
+	};
+			
+	
+	$scope.closeCloseModal = function() {		
+		modalInstance.close();
+	};
 });
 

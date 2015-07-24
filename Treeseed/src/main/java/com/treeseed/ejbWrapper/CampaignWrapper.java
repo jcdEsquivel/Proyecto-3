@@ -443,15 +443,23 @@ public class CampaignWrapper {
 	 * @return the state
 	 */
 	public String getState() {
-		
-		Date current = new Date();
 
-		if(getStartDate().after(current)){
-			setState("soon"); 
-		} else if(getStartDate().before(current) && getDueDate().after(current) ){
-			setState("active"); 
-		}else{
-			setState("finished"); 
+		if(isStart()){
+			if(isActive()){
+				setState("soon");
+			}else{
+				setState("finished");
+			}
+		} else if(!isEnd() ){
+			setState("finished");
+		}else if(!isStart()&&!isEnd()){
+			
+			if(isActive()){
+				setState("active");
+			}else{
+				setState("finished");
+			}
+			 
 		}
 		return state;
 	}
