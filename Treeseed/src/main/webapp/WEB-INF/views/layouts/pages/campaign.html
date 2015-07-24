@@ -23,7 +23,22 @@
         	 	</div>	
         	 </div>
 <div class=" b-b wrapper-md">
-  <h1 class="m-n font-thin h3">{{campaign.name}}</h1>
+  <h1 class="m-n font-thin h3">{{campaign.name}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h1>
+  <div ng-show="nameInEdition">
+      <div>
+        <input ng-model="donor.name">
+      </div>
+      <br>
+      <div>
+        <input ng-model="donor.lastName">
+      </div>
+      <div>
+        <br>
+        <button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()" translate="BUTTONS.CANCEL"></button>
+          <button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()" translate="BUTTONS.SAVE"></button>
+      </div>
+      <br>
+  </div>
 </div>
   <tabset class="tab-container">
     <tab>
@@ -38,12 +53,12 @@
         	<h4 class="font-thin m-t-none m-b-none text-primary-lt" translate="CAMPAIGN.TAB-1.DESCRIPTION">Description</h4>
         	</div>
         	<div class="treeseed-campaignDate pull-right col-md-3" style="min-width: 230px" align="center"ng-class="getClass(campaign)">
-        	{{campaign.startDateS}} - {{campaign.dueDateS}}</div>
+        	{{campaign.startDateS}} - {{campaign.dueDateS}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></div>
         	<div class="row wrapper-lg"></div>
         </div>
         <div class="row">
         <div class="col-md-12">
-          {{campaign.description}}
+          {{campaign.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button>
           </div>
         </div>
         </div>
@@ -68,7 +83,7 @@
 					<span class="pull-right text-info" >{{campaign.amountGoal}}</span>
 				</h4>
 				<span translate="CAMPAIGN.TAB-1.AMOUNT-GOAL">Amount Goal</span>
-
+        <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button>
 			</div>
 			<div>
 				<div ui-jq="easyPieChart"
