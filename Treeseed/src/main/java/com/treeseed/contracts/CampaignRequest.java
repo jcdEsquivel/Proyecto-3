@@ -31,6 +31,8 @@ public class CampaignRequest extends BasePagingRequest {
 	
 	private boolean isActive;
 
+	private int idUser;
+
 	private String name;
 	private String nonprofitName;
 	private int causeId;
@@ -151,6 +153,14 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setStartDate(long startDate) {
 		this.startDate = startDate;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 }

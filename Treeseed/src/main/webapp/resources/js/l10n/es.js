@@ -231,6 +231,20 @@
     	"GOAL":"Monto meta",
     	"COLLECTED":"Monto recaudado",
     	"COLLECTEDMESSAGE":"Recaudado"
+    },
+    "CAMPAIGN":{
+    	"TAB-1":{
+    		"TITLE":"Información",
+    		"DESCRIPTION":"Descripción",
+        	"SUMMARY":"Resumen",
+        	"AMOUNT-DONOR":"Cantidad de Donadores",
+        	"AMOUNT-COLLECTED":"Monto Recaudado",
+        	"AMOUNT-GOAL":"Monto Meta",
+        	"COLLECTED":"Recaudado"
+    	},
+    	"TAB-2":{
+    		"TITLE":"Actualizaciones"
+    	}
     }
      
 }
