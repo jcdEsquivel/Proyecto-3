@@ -164,7 +164,7 @@ public class CampaignController {
 				dateTmp1=date1.split("-");
 				dateTmp1[2]=dateTmp1[2].split("T")[0];
 				
-				startDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2])-1, 23, 59,0);
+				startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1])-1, Integer.parseInt(dateTmp1[2]), 0, 00,0);
 			
 				campaign.setName(name);
 				
@@ -179,9 +179,10 @@ public class CampaignController {
 				int campaingId = campaignService.saveCampaign(campaign);
 
 				if (campaingId > 0) {
+					response.setCampaignId(campaingId);
 					response.setCode(200);
 					response.setCodeMessage("campaign created successfully");
-
+					
 				}else{
 					response.setCode(400);
 					response.setCodeMessage("campaign creation unsuccessful");

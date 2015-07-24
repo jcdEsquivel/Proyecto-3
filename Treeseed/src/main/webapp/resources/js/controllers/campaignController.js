@@ -130,7 +130,7 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	}
 
 	$scope.create = function(event) {
-
+		$scope.uploadImage = false;
 		this.onError = false;
 
 		$scope.upload = $upload.upload({
@@ -146,11 +146,9 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			file : $scope.image,
 		}).success(function(response) {
 
-			/*
-			 * $state.go('treeSeed.campaing', { campaign : response.campaignId
-			 * });
-			 */
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+			
+			 $state.go('treeSeed.campaign', { campaignId : response.campaignId });
+			
 		})
 
 	};
@@ -356,8 +354,8 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	$scope.campaign.id = $stateParams.campaignId;
 	$scope.requestObject = {};
 	$scope.requestObject.campaign = {};
-	$scope.resquestClose = {};
-	$scope.resquestClose.campaign={};
+	$scope.requestClose = {};
+	$scope.requestClose.campaign={};
 	$scope.isOwner = false;	
 	var modalInstance=null;
 
@@ -400,30 +398,29 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		modalInstance = $modal.open({
 		animation : $scope.animationsEnabled,
 		templateUrl : 'layouts/components/closeCampaign_confirmation.html',
-		scope: $scope,
-		resolve : {
-			confirm : function() {
-				if($scope.close){
-					$scope.requestClose.idUser= Session.userId;
-					$scope.requestClose.campaign.id = $scope.campaign.id;
-					
-					$http.post('rest/protected/campaing/close',
-							$scope.requestObject).then(function(response) {
-								if(response.code=="200"){
-									$state.go($state.current, {}, {reload: true});
-								}else{
-									alert(response.errorMessage);
-								}
-					});	
-				}
-			}
-		}
-
+		scope: $scope
 		})
 	};
+	
+	$scope.accept=function(){
+		$scope.requestClose.idUser= Session.userId;
+		$scope.requestClose.campaign.id = $scope.campaign.id;
+		
+		$http.post('rest/protected/campaing/close',
+				$scope.requestObject).then(function(response) {
+					if(response.code=="200"){
+						alert("Entro1");
+						$scope.closeModal();
+						$state.go($state.current, {}, {reload: true});
+						alert("Entro2");
+					}else{
+						alert(response.errorMessage);
+					}
+		});	
+	}
 			
 	
-	$scope.closeCloseModal = function() {		
+	$scope.closeModal = function() {		
 		modalInstance.close();
 	};
 });

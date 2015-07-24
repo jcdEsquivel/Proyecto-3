@@ -2,6 +2,7 @@
 <div class="cover-image">
         	<!-- ng-if="campaign.picture" -->	<div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
           <button style="margin-left: 10px; margin-top: 8px;" class="btn m-b-xs btn-danger btn-rounded" ng-if="isOwner" ng-click="closeCampaign()">Close Campaign</button>
+          <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
         <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
         <div class=" pull-right bg-light dk r-r divONGreference" style="display: table; min-height: 70px; min-width:300px; overflow: hidden;">
         	<div style="margin-left: 10px; margin-top: 8px; margin-bottom: 8px">
@@ -17,7 +18,7 @@
         	
         </div>
         </a>
-        		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
+        		 
         	 	</div>	
         	 </div>
 <div class=" b-b wrapper-md">

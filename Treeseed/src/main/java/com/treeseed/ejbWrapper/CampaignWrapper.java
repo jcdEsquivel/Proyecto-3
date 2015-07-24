@@ -358,7 +358,7 @@ public class CampaignWrapper {
 	 * @return the due date s
 	 */
 	public String getDueDateS() {
-		setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getStartDate()));
+		setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getDueDate()));
 		return dueDateS;
 	}
 
@@ -397,6 +397,7 @@ public class CampaignWrapper {
 	 */
 	public boolean isStart() {
 		if(getStartDate().after(new Date())){
+			
 			setStart(true);
 		}else{
 			setStart(false);
@@ -443,7 +444,7 @@ public class CampaignWrapper {
 	 * @return the state
 	 */
 	public String getState() {
-
+		
 		if(isStart()){
 			if(isActive()){
 				setState("soon");
@@ -452,7 +453,7 @@ public class CampaignWrapper {
 			}
 		} else if(!isEnd() ){
 			setState("finished");
-		}else if(!isStart()&&!isEnd()){
+		}else if(!isStart()&&isEnd()){
 			
 			if(isActive()){
 				setState("active");
