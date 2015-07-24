@@ -162,7 +162,7 @@ public class CampaignController {
 				dateTmp1=date1.split("-");
 				dateTmp1[2]=dateTmp1[2].split("T")[0];
 				
-				startDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2])-1, 23, 59,0);
+				startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1])-1, Integer.parseInt(dateTmp1[2]), 0, 00,0);
 			
 				campaign.setName(name);
 				
@@ -177,9 +177,10 @@ public class CampaignController {
 				int campaingId = campaignService.saveCampaign(campaign);
 
 				if (campaingId > 0) {
+					response.setCampaignId(campaingId);
 					response.setCode(200);
 					response.setCodeMessage("campaign created successfully");
-
+					
 				}else{
 					response.setCode(400);
 					response.setCodeMessage("campaign creation unsuccessful");
@@ -238,6 +239,7 @@ public class CampaignController {
 			campaignPojo.setEnd(object.isEnd());
 			campaignPojo.setDueDate(object.getDueDate());
 			campaignPojo.setDueDateS(object.getDueDateS());
+			campaignPojo.setState(object.getState());
 			viewCampaignsPOJO.add(campaignPojo);
 		};
 		
@@ -303,6 +305,7 @@ public class CampaignController {
 				campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
 				campaignPojo.setDueDate(campaign.getDueDate());
 				campaignPojo.setDueDateS(campaign.getDueDateS());
+				campaignPojo.setState(campaign.getState());
 				
 				NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 				

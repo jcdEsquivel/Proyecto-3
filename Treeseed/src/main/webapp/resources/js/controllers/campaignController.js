@@ -130,7 +130,7 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	}
 
 	$scope.create = function(event) {
-
+		$scope.uploadImage = false;
 		this.onError = false;
 
 		$scope.upload = $upload.upload({
@@ -146,11 +146,9 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			file : $scope.image,
 		}).success(function(response) {
 
-			/*
-			 * $state.go('treeSeed.campaing', { campaign : response.campaignId
-			 * });
-			 */
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+			
+			 $state.go('treeSeed.campaign', { campaignId : response.campaignId });
+			
 		})
 
 	};
