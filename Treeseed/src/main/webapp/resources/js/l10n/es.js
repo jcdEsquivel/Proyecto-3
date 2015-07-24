@@ -169,11 +169,11 @@
      },
 	"POST-MODAL":{ 
 		"MODAL-OPEN-MODAL": "Agregar post",
-		"MODAL-TITLE": "Agregar nuevo post",
+		"MODAL-TITLE": "Post",
 		"TITLE": "Título",
 		"DESCRIPTION": "Descripción",
 		"DROP-IMAGE": "Arrastre una imagen aqui",
-		"ADD-BUTTON": "Agregar",
+		"ADD-BUTTON": "Aceptar",
 		"CANCEL": "Cancelar"
 	},
      "CREATE-CAMPAIGN": {

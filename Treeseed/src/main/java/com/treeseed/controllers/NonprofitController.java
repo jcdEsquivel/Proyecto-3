@@ -237,11 +237,11 @@ public class NonprofitController extends UserGeneralController{
 			tempId= (int) currentSession.getAttribute("idUser");
 		}
 
-		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
+		NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
-		if(tempId==nonprofit.getUsergenerals().get(0).getId()){
+		if(tempId==nonprofit.getWrapperObject().getUsergenerals().get(0).getId()){
 			nps.setOwner(true);
 		}else{
 			nps.setOwner(false);
@@ -252,18 +252,18 @@ public class NonprofitController extends UserGeneralController{
 			
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 
-		nonprofitPOJO.setId(nonprofit.getId());
-		nonprofitPOJO.setName(nonprofit.getName());
-		nonprofitPOJO.setDescription(nonprofit.getDescription());
-		nonprofitPOJO.setWebPage(nonprofit.getWebPage());
-		nonprofitPOJO.setProfilePicture(nonprofit.getProfilePicture());
-		nonprofitPOJO.setMainPicture(nonprofit.getMainPicture());
-		nonprofitPOJO.setMision(nonprofit.getMision());
-		nonprofitPOJO.setReason(nonprofit.getReason());
+		nonprofitPOJO.setId(nonprofit.getWrapperObject().getId());
+		nonprofitPOJO.setName(nonprofit.getWrapperObject().getName());
+		nonprofitPOJO.setDescription(nonprofit.getWrapperObject().getDescription());
+		nonprofitPOJO.setWebPage(nonprofit.getWrapperObject().getWebPage());
+		nonprofitPOJO.setProfilePicture(nonprofit.getWrapperObject().getProfilePicture());
+		nonprofitPOJO.setMainPicture(nonprofit.getWrapperObject().getMainPicture());
+		nonprofitPOJO.setMision(nonprofit.getWrapperObject().getMision());
+		nonprofitPOJO.setReason(nonprofit.getWrapperObject().getReason());
 		
 		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 		UserGeneral userGeneral;
-		userGeneral= nonprofit.getUsergenerals().get(0);
+		userGeneral= nonprofit.getWrapperObject().getUsergenerals().get(0);
 		
 		userGeneralPOJO.setEmail(userGeneral.getEmail());
 		
@@ -327,16 +327,15 @@ public class NonprofitController extends UserGeneralController{
 					
 					nonProfitService.updateNonProfit(nonprofit);
 					
-					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
-					
-					
-					nonprofitPOJO.setName(nonprofitobject.getName());
-					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
-					nonprofitPOJO.setMision(nonprofitobject.getMision());
-					nonprofitPOJO.setReason(nonprofitobject.getReason());
-					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
-					nonprofitPOJO.setMainPicture(nonprofitobject.getMainPicture());
-					nonprofitPOJO.setProfilePicture(nonprofitobject.getProfilePicture());
+					NonprofitWrapper nonprofitobject = nonProfitService.getNonProfitByID(npr);
+							
+					nonprofitPOJO.setName(nonprofitobject.getWrapperObject().getName());
+					nonprofitPOJO.setDescription(nonprofitobject.getWrapperObject().getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getWrapperObject().getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getWrapperObject().getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWrapperObject().getWebPage());
+					nonprofitPOJO.setMainPicture(nonprofitobject.getWrapperObject().getMainPicture());
+					nonprofitPOJO.setProfilePicture(nonprofitobject.getWrapperObject().getProfilePicture());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);

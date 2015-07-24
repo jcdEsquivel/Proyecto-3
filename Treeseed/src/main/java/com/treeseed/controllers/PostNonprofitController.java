@@ -142,40 +142,37 @@ public class PostNonprofitController {
 	 * @return the post nonprofit response
 	 */
 	@RequestMapping(value ="/editPostNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-	public PostNonprofitResponse editPostNonProfit(@RequestPart(value="data") PostNonprofitRequest pr, @RequestPart(value="filePost", required=false) MultipartFile filePost)
+	public PostNonprofitResponse editPostNonProfit(@RequestPart(value="data") PostNonprofitRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
 	{
 	
 		String imagePost = "";
-		PostNonprofit pnp = new PostNonprofit();
-		
 		PostNonprofitResponse us = new PostNonprofitResponse();
-		
 		PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
-		
+		postNonprofitPOJO= pr.getPostNonprofit();		
 		PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
 		
-		if(filePost!=null){
-			imagePost = Utils.writeToFile(filePost,servletContext);
+		if(file!=null){
+			imagePost = Utils.writeToFile(file,servletContext);
 		}
 
 
 		if(!imagePost.equals("")){
 			postNonprofit.setPicture(imagePost);
 		}else{
-			postNonprofit.setPicture(pr.getPicture());
+			postNonprofit.setPicture(postNonprofitPOJO.getPicture());
 		}
 		
 		
-		postNonprofit.setId(pr.getId());
-		postNonprofit.setTittle(pr.getTittle());
-		postNonprofit.setDescription(pr.getDescription());
+		postNonprofit.setId(postNonprofitPOJO.getId());
+		postNonprofit.setTittle(pr.getPostNonprofit().getTitle());
+		postNonprofit.setDescription(pr.getPostNonprofit().getDescription());
 		
-		pnp= postNonprofitService.updatePostNonprofit(postNonprofit);
+		postNonprofit= postNonprofitService.updatePostNonprofit(postNonprofit);
 		
 		
-		postNonprofitPOJO.setTitle(pnp.getTittle());
-		postNonprofitPOJO.setDescription(pnp.getDescription());
-		postNonprofitPOJO.setPicture(pnp.getPicture());
+		postNonprofitPOJO.setTitle(postNonprofit.getTittle());
+		postNonprofitPOJO.setDescription(postNonprofit.getDescription());
+		postNonprofitPOJO.setPicture(postNonprofit.getPicture());
 		
 		us.setPost(postNonprofitPOJO);
 		us.setCode(200);

@@ -60,7 +60,7 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 	
 	@Override
 	@Transactional
-	public PostNonprofit updatePostNonprofit(PostNonprofitWrapper wrapper) {
+	public PostNonprofitWrapper updatePostNonprofit(PostNonprofitWrapper wrapper) {
 		postRepository.update(wrapper.getId(),
 				wrapper.getTittle(), 
 				wrapper.getDescription(),
@@ -68,7 +68,17 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 				
 				);
 		
-		return postRepository.findOne(wrapper.getId());
+		PostNonprofit post = new PostNonprofit();
+		PostNonprofitWrapper postWrapper = new PostNonprofitWrapper();
+		
+		post= postRepository.findOne(wrapper.getId());
+		
+		postWrapper.setId(post.getId());
+		postWrapper.setDescription(post.getDescription());
+		postWrapper.setTittle(post.getTittle());
+		postWrapper.setPicture(post.getPicture());
+		
+		return postWrapper;
 	}
 	
 }

@@ -10,6 +10,8 @@ public class PostNonprofitWrapper {
 	private PostNonprofit wrapperObject;
 
 	public PostNonprofitWrapper( ) {
+		super();
+		setWrapperObject(new PostNonprofit());
 	}
 	
 	public PostNonprofitWrapper(PostNonprofit wrapperObject) {

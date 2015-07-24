@@ -178,11 +178,11 @@
     },
    	"POST-MODAL":{ 
    		"MODAL-OPEN-MODAL": "Add post",
-   		"MODAL-TITLE": "Add New Post",
+   		"MODAL-TITLE": "Post",
    		"TITLE": "Title",
    		"DESCRIPTION": "Description",
    		"DROP-IMAGE": "Drop an image here to upload.",
-   		"ADD-BUTTON": "Add",
+   		"ADD-BUTTON": "Accept",
    		"CANCEL": "Cancel"
    		
     },
