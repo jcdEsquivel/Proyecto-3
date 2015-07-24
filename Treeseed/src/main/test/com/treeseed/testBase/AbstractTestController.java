@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
@@ -69,6 +72,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     @Autowired	DonorServiceInterface donorService;
     @Autowired	CampaignServiceInterface campaignService;
+    @Autowired  HttpServletRequest requestHttp;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -417,11 +421,18 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		campaign.setDueDate(new Date());
 		campaign.setAmountGoal(amount);
 		campaign.setNonprofit(nonprofit.getWrapperObject());
+		campaign.setActive(true);
 		
 		campaignService.saveCampaign(campaign);
 		
         return campaign;
 
+    }
+    
+    public int createServerSession(){
+    	HttpSession currentSession = requestHttp.getSession();
+		currentSession.setAttribute("idUser",99999);
+		return 99999;
     }
 	
 }

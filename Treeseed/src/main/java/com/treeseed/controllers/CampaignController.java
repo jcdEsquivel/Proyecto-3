@@ -356,7 +356,7 @@ public class CampaignController {
 				if(wrapper.getWrapperObject()!=null){
 					try
 				    {
-				    	campaignService.closeCampaign(cr.getId());	
+				    	campaignService.closeCampaign(wrapper.getId());	
 				    	
 					 	cs.setCode(200);
 				    	cs.setCodeMessage("campaign closed");

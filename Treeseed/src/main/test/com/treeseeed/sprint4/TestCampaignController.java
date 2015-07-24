@@ -2,9 +2,13 @@ package com.treeseeed.sprint4;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,12 +26,27 @@ import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCampaignController.
+ */
 public class TestCampaignController extends AbstractTestController  {
+	
+	
 
+	/**
+	 * Sets the up.
+	 *
+	 * @param controller the new up
+	 */
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
+		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+	 */
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -35,6 +54,11 @@ public class TestCampaignController extends AbstractTestController  {
 	}
 
 	
+	/**
+	 * Test get campaign from nonprofit.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetCampaignFromNonprofit() throws Exception {
 
@@ -71,6 +95,11 @@ public class TestCampaignController extends AbstractTestController  {
 	}
 	
 	
+	/**
+	 * Test get campaign without id from nonprofit.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetCampaignWithoutIDFromNonprofit() throws Exception {
 
@@ -105,6 +134,11 @@ public class TestCampaignController extends AbstractTestController  {
 
 	}
 	
+	/**
+	 * Test get campaign with wrong id from nonprofit.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetCampaignWithWrongIdFromNonprofit() throws Exception {
 
@@ -135,6 +169,49 @@ public class TestCampaignController extends AbstractTestController  {
 				CampaignResponse.class);
 
 		Assert.assertEquals("campaign search unsuccessful", response.getErrorMessage());
+
+
+	}
+	
+	/**
+	 * Test finish campaign successfully.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testFinishCampaignSuccessfully() throws Exception {
+		
+		
+
+		CampaignWrapper campaign = createRandomCampaign();
+		
+		CampaignRequest requestCampaign = new CampaignRequest();
+		CampaignPOJO pojo = new CampaignPOJO();
+		
+		 
+
+		pojo.setId(campaign.getId());
+		requestCampaign.setCampaign(pojo);
+		requestCampaign.setIdUser(createServerSession());
+		
+		
+		String jsonObject = mapToJson(requestCampaign);
+
+		String uri = "rest/protected/campaing/close";
+
+		MvcResult result = mvc
+				.perform(
+						MockMvcRequestBuilders.post(uri)
+								.contentType(MediaType.APPLICATION_JSON)
+								.accept(MediaType.APPLICATION_JSON)
+								.content(jsonObject)).andReturn();
+
+		String content = result.getResponse().getContentAsString();
+
+		CampaignResponse response = mapFromJson(content,
+				CampaignResponse.class);
+
+		Assert.assertEquals("campaign closed", response.getCodeMessage());
 
 
 	}

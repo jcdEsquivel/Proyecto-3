@@ -1,7 +1,7 @@
 <div class="wrapper-md">
 <div class="cover-image">
-        	<!-- ng-if="campaign.picture" -->	<div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
-          <button style="margin-left: 10px; margin-top: 8px;" class="btn m-b-xs btn-danger btn-rounded" ng-if="isOwner" ng-click="closeCampaign()">Close Campaign</button>
+        	<!-- ng-if="campaign.picture" -->	<div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat; position: relative;">
+          <button style="margin-left: 10px; margin-top: 8px;" class="btn m-b-xs btn-danger btn-rounded" ng-if="isOwner&&isOpen" ng-click="closeCampaign()" translate="CAMPAIGN.CLOSE-BUTTON">Close Campaign</button>
           <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
         <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
         <div class=" pull-right bg-light dk r-r divONGreference" style="display: table; min-height: 70px; min-width:300px; overflow: hidden;">
@@ -18,6 +18,15 @@
         	
         </div>
         </a>
+        <div ng-if="!isOpen" class="pull-left dk divONGState bg-danger" style="display: table; min-height: 50px; min-width:170px; overflow: hidden; position: absolute; bottom: 0; ">
+        	<div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">		
+				<div style="display: table-cell; vertical-align: middle; margin: auto" class=" h1 font-thin m-t-none m-b" translate="CAMPAIGN.FINISHED-MESSAGE">
+					 Finished
+				</div>	
+        	</div>
+        	
+        </div>
+        
         		 
         	 	</div>	
         	 </div>
@@ -71,14 +80,13 @@
 			</div>
 			<div>
 				<div ui-jq="easyPieChart"
-					ui-options="{
-                      percent: {{campaign.percent}},
-                      lineWidth: 15,
-                      trackColor: '{{app.color.light}}',
-                      barColor: '{{app.color.success}}',
-                      scaleColor: '{{app.color.light}}',
-                      size: 230,
-                      lineCap: 'butt',
+					ui-options="{percent: {{campaign.percent}} ,
+                      lineWidth: 15 ,
+                      trackColor: '{{app.color.light}}' ,
+                      barColor: '{{app.color.success}}' ,
+                      scaleColor: '{{app.color.light}}' ,
+                      size: 230 ,
+                      lineCap: 'butt' ,
                       animate: 1000
                     }">
 					<div>

@@ -48,7 +48,8 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 * @return the page
 	 */
 	@Modifying
-	@Query("UPDATE Campaign SET isActive=:state WHERE campaignId=:idCampaign")
+	@Transactional
+	@Query("UPDATE Campaign SET isActive=:state WHERE id=:idCampaign")
 	void updateIsActiveById(@Param("idCampaign")int Id,@Param("state") boolean isActive);
 	
 

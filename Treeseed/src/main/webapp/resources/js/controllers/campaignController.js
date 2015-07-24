@@ -357,6 +357,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	$scope.requestClose = {};
 	$scope.requestClose.campaign={};
 	$scope.isOwner = false;	
+	$scope.isOpen = true;
 	var modalInstance=null;
 
 	
@@ -370,10 +371,17 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		$http.post('rest/protected/campaing/getCampignProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.campaign = mydata.campaign;
+					if($scope.campaign==null){
+						$state.go("treeSeed.index");
+					}
 					if(mydata.owner==true){
 						$scope.isOwner=true;
+						
 					}else{
 						$scope.isOwner=false;
+					}
+					if(mydata.campaign.state=="finished"){
+						$scope.isOpen = false;
 					}
 		}).error(function(mydata, status) {
 			
@@ -403,19 +411,13 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	};
 	
 	$scope.accept=function(){
-		$scope.requestClose.idUser= Session.userId;
+		$scope.requestClose.idUser= Session.id;
 		$scope.requestClose.campaign.id = $scope.campaign.id;
-		
 		$http.post('rest/protected/campaing/close',
-				$scope.requestObject).then(function(response) {
-					if(response.code=="200"){
-						alert("Entro1");
+				$scope.requestClose).success(function(response) {
 						$scope.closeModal();
 						$state.go($state.current, {}, {reload: true});
-						alert("Entro2");
-					}else{
-						alert(response.errorMessage);
-					}
+
 		});	
 	}
 			
