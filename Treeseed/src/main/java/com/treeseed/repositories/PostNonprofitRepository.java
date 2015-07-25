@@ -29,6 +29,11 @@ public interface PostNonprofitRepository extends CrudRepository<PostNonprofit,In
 			   @Param("description") String description,
 			   @Param("picture") String picture)
 			   ;
-	
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE PostNonprofit n SET isActive = 0 where n.id = :id") 
+	  public void deletePost(
+			   @Param("id") int id);
 	
 }

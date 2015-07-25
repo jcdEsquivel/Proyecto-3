@@ -81,4 +81,13 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		return postWrapper;
 	}
 	
+	
+	@Override
+	@Transactional
+	public void deletePostNonprofit(PostNonprofitRequest request)  {
+		int id =request.getPostNonprofit().getId();
+		postRepository.deletePost(id);
+		
+	}
+	
 }

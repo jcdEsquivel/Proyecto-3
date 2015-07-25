@@ -176,6 +176,10 @@
 		"ADD-BUTTON": "Aceptar",
 		"CANCEL": "Cancelar"
 	},
+	"DELETE-MODAL-POST":{ 
+   		"MESSAGE": "¿Está seguro de que desea eliminar su actualización?",
+   		"DELETE": "Eliminar"
+	},
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
      	"TITLE":"Crear Campaña",

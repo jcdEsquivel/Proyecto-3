@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
@@ -179,6 +181,28 @@ public class PostNonprofitController {
 		us.setCodeMessage("Post of Nonprofit updated sucessfully");
 		
 		return us;		
+	}
+	
+	
+	
+	@RequestMapping(value ="/deletePostNonProfit", method = RequestMethod.POST)
+	public PostNonprofitResponse deletePostNonProfit(@RequestBody PostNonprofitRequest pnr)
+	{
+	
+		PostNonprofitResponse us = new PostNonprofitResponse();
+		
+		try{
+			postNonprofitService.deletePostNonprofit(pnr);
+			us.setCode(200);
+			us.setCodeMessage("Donor deleted sucessfully");
+	
+		}catch(Exception e){
+			us.setCode(400);
+			us.setCodeMessage("Error Database");
+			
+		}
+	
+		return us;				
 	}
 
 }

@@ -186,6 +186,10 @@
    		"CANCEL": "Cancel"
    		
     },
+    "DELETE-MODAL-POST":{ 
+   		"MESSAGE": "Are you sure you want to delete your post?",
+   		"DELETE": "Delete"
+    },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
     	"TITLE":"Create Campaign",

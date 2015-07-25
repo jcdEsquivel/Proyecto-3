@@ -30,6 +30,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
 		
+		
 		$http.post('rest/protected/postNonprofit/getNonprofitPost',
 				$scope.postRequest).success(function(data, status) {
 
@@ -79,25 +80,55 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	};
 	
 	$scope.openModalFilled = function(p) {
-
-		console.log("entra")
-		console.log(p)
-		var modalInstance = $modal.open({
-			animation : $scope.animationsEnabled,
-			templateUrl : 'layouts/components/createPostModal.html',
-			controller : 'editPostController',
-			size : 'lg',
-			resolve : {
-				getPosts : function() {
-					return $scope.getPosts;
-				},
-				post: function(){
-					return p
+			var modalInstance = $modal.open({
+				animation : $scope.animationsEnabled,
+				templateUrl : 'layouts/components/createPostModal.html',
+				controller : 'editPostController',
+				size : 'lg',
+				resolve : {
+					getPosts : function() {
+						return $scope.getPosts;
+					},
+					post: function(){
+						return p
+					}
 				}
-			}
+			})
+	};
+	
+	$scope.deletePost = function()
+	{
+		$http.post('rest/protected/postNonprofit/deletePostNonProfit',
+				$scope.postRequest).then(function(response) {
+					if(response.data.code=="200"){
+						$scope.getPosts(1)						
+					}
+					else if(response.data.code=="400")
+					{
+						console.log("ERROR");
+					}
+		});
+	};
+	
+	$scope.openModalDeletePost = function(p) {
 
-		})
-
+		$scope.postRequest.postNonprofit.id = p.id;
+		modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/delete_confirmation_post.html',
+			scope: $scope,
+			
+			
+	    })
+	};
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.deletePost(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {	
+		modalInstance.close();
 	};
 
 });
@@ -192,9 +223,6 @@ treeSeedAppControllers.controller('editPostController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
 		$modalInstance) {
 
-	console.log("editar")
-	console.log(post)
-	console.log(post.picture)
 	$scope.getPosts = getPosts;
 	
 	$scope.postRequestModal = {
@@ -241,7 +269,6 @@ treeSeedAppControllers.controller('editPostController', function($http,
 	});
 
 	$scope.createPost = function() {
-
 		$http(
 				{
 					method : 'POST',
