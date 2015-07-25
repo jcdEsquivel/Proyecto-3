@@ -247,9 +247,25 @@
     	"COLLECTED":"Amount collected",
     	"COLLECTEDMESSAGE":"Collected"
     },
+
     "CAMPAIGN-STATE":{
     	"SOON": "Comming Soon",
     	"ACTIVE": "Active",
     	"FINISHED": "Finished"
+
+    "CAMPAIGN":{
+    	"TAB-1":{
+    		"TITLE":"Information",
+    		"DESCRIPTION":"Description",
+        	"SUMMARY":"Summary",
+        	"AMOUNT-DONOR":"Amount of Donors",
+        	"AMOUNT-COLLECTED":"Amount Collected",
+        	"AMOUNT-GOAL":"Amount Goal",
+        	"COLLECTED":"Collected"
+    	},
+    	"TAB-2":{
+    		"TITLE":"Posts"
+    	}
+
     }
 }

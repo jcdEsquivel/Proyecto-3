@@ -180,4 +180,17 @@ public class CampaignService implements CampaignServiceInterface {
 
 		return pageWrapper;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#getCampaignById(int)
+	 */
+	@Override
+	public CampaignWrapper getCampaignById(int id){
+		CampaignWrapper campaign;
+		
+		campaign= new CampaignWrapper(campaignRepository.findByid(id));
+		
+		return campaign;
+		
+	}
 }

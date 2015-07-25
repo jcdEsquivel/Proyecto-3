@@ -120,8 +120,7 @@ angular
 												templateUrl : 'layouts/pages/createCampaing.html',
 												controller: 'campaingCreateController',
 												data : {
-												authorizedRoles : [
-														USER_ROLES.nonprofit ]
+													authorizedRoles : [USER_ROLES.nonprofit ]
 												}
 											})
 									.state(
@@ -135,6 +134,24 @@ angular
 																	'resources/js/controllers/campaignController.js' ]),
 												data : {
 													authorizedRoles : [USER_ROLES.nonprofit ]
+												}
+											})
+									.state(
+											'treeSeed.campaign',
+											{
+												url : 'campaign/:campaignId',
+												templateUrl : 'layouts/pages/campaign.html',
+												params: {campaignId: null},
+												controller: "getCampaingProfileController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												data : {
+													authorizedRoles : [
+													USER_ROLES.donor,
+													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+
+
 												}
 											})
 									.state(

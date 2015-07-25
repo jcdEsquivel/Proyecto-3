@@ -35,6 +35,8 @@ public class CampaignRequest extends BasePagingRequest {
 
 	
 
+	private int idUser;
+
 	private String name;
 	private String nonprofitName;
 	private int causeId;
@@ -163,6 +165,14 @@ public class CampaignRequest extends BasePagingRequest {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 }

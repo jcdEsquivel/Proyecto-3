@@ -491,9 +491,7 @@ max-height:100%;
 -moz-border-radius: 26px;
 -webkit-border-radius: 26px;
 border-radius: 26px;
--moz-box-shadow: 13px 24px 75px #000000;
--webkit-box-shadow: 13px 24px 75px #000000;
-box-shadow: 13px 24px 75px #000000;
+
 }
 .cover-image-style{
 	height: 280px;
@@ -606,4 +604,16 @@ height: 100px;
 	/*  height: 200px;
     overflow: auto;
     -webkit-overflow: auto;*/
+}
+
+.divONGreference{
+	moz-border-radius-topleft: 5px;
+-moz-border-radius-bottomleft:37px;
+-moz-border-radius-bottomright:5px;
+-webkit-border-top-left-radius:5px;
+-webkit-border-bottom-left-radius:37px;
+-webkit-border-bottom-right-radius:5px;
+border-top-left-radius:5px;
+border-bottom-left-radius:37px;
+border-bottom-right-radius:5px;
 }

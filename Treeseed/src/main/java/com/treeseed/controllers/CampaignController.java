@@ -10,8 +10,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-
+import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +25,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
+import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CampaignServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.utils.PageWrapper;
 import com.treeseed.utils.TreeseedConstants;
@@ -47,8 +51,9 @@ import com.treeseed.utils.Utils;
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
 public class CampaignController {
-	
 	/** The campaign service. */
+	@Autowired
+	DonationServiceInterface donationService;
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
@@ -67,7 +72,7 @@ public class CampaignController {
 	/**
 	 * Gets the nonprofits.
 	 *
-	 * @param cr the cr
+	 * @param cr the Campaign Request
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
@@ -159,7 +164,7 @@ public class CampaignController {
 				dateTmp1=date1.split("-");
 				dateTmp1[2]=dateTmp1[2].split("T")[0];
 				
-				startDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2])-1, 23, 59,0);
+				startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1])-1, Integer.parseInt(dateTmp1[2]), 0, 00,0);
 			
 				campaign.setName(name);
 				
@@ -174,9 +179,10 @@ public class CampaignController {
 				int campaingId = campaignService.saveCampaign(campaign);
 
 				if (campaingId > 0) {
+					response.setCampaignId(campaingId);
 					response.setCode(200);
 					response.setCodeMessage("campaign created successfully");
-
+					
 				}else{
 					response.setCode(400);
 					response.setCodeMessage("campaign creation unsuccessful");
@@ -200,7 +206,7 @@ public class CampaignController {
 	/**
 	 * Gets the nonprofit campaigns.
 	 *
-	 * @param cr the cr
+	 * @param cr the Campaign Request
 	 * @return the nonprofit campaigns
 	 */
 	@RequestMapping(value ="/nonprofitCampaigns", method = RequestMethod.POST)
@@ -219,7 +225,9 @@ public class CampaignController {
 		
 		for(CampaignWrapper objeto:pageResults.getResults())
 		{
+			CampaignWrapper object =new CampaignWrapper(objeto);
 			campaignPojo = new CampaignPOJO();
+
 			campaignPojo.setId(objeto.getId());
 			campaignPojo.setName(objeto.getName());
 			campaignPojo.setDescription(objeto.getDescription());
@@ -228,10 +236,13 @@ public class CampaignController {
 			campaignPojo.setAmountGoal(objeto.getAmountGoal());
 			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
-			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
-			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStartDateS(object.getStartDateS());
 			campaignPojo.setDueDate(objeto.getDueDate());
-			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
+			campaignPojo.setDueDateS(object.getDueDateS());
+			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStart(object.isStart());
+			campaignPojo.setEnd(object.isEnd());
+
 			viewCampaignsPOJO.add(campaignPojo);
 			
 		};
@@ -251,8 +262,7 @@ public class CampaignController {
 			
 	}
 	
-	
-	
+
 	
 
 	/**
@@ -310,5 +320,85 @@ public class CampaignController {
 			return null;
 		}
 	}
+
+	/**
+	 * Gets the campaign profile.
+	 *
+	 * @param cr the Campaign Request
+	 * @return the campaign profile
+	 */
+	@RequestMapping(value ="/getCampignProfile", method = RequestMethod.POST)
+	@Transactional
+	public CampaignResponse getCampaignProfile(@RequestBody CampaignRequest cr){	
+		
+		HttpSession currentSession = request.getSession();
+		int tempId= 0;
+		CampaignResponse cs = new CampaignResponse();
+		
+		if(cr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
+
+		if(cr.getCampaign().getId()!=0){
+			CampaignWrapper campaign = campaignService.getCampaignById(cr.getCampaign().getId());
+			
+			
+			
+			if(campaign.getWrapperObject()!= null){
+				if(tempId==campaign.getNonprofit().getUsergenerals().get(0).getId()){
+					cs.setOwner(true);
+				}else{
+					cs.setOwner(false);
+				}
+				
+				CampaignPOJO campaignPojo = new CampaignPOJO();
+
+				campaignPojo = new CampaignPOJO();
+				campaignPojo.setId(campaign.getId());
+				campaignPojo.setName(campaign.getName());
+				campaignPojo.setDescription(campaign.getDescription());
+				campaignPojo.setPicture(campaign.getPicture());
+				campaignPojo.setAmountCollected(campaign.getAmountCollected());
+				campaignPojo.setAmountGoal(campaign.getAmountGoal());
+				campaignPojo.setPercent((int)Math.round(campaign.getPercent()));
+				campaignPojo.setStartDate(campaign.getStartDate());
+				campaignPojo.setStartDateS(campaign.getStartDateS());
+				campaignPojo.setStart(campaign.isStart());
+				campaignPojo.setEnd(campaign.isEnd());
+				campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
+				campaignPojo.setDueDate(campaign.getDueDate());
+				campaignPojo.setDueDateS(campaign.getDueDateS());
+				campaignPojo.setState(campaign.getState());
+				
+				NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+				
+				nonprofitPOJO.setId(campaign.getNonprofit().getId());
+				nonprofitPOJO.setName(campaign.getNonprofit().getName());
+				nonprofitPOJO.setProfilePicture(campaign.getNonprofit().getProfilePicture());
+				
+				campaignPojo.setNonprofit(nonprofitPOJO);
+				
+				
+				cs.setCampaign(campaignPojo);
+				
+				cs.setCode(200);
+				cs.setCodeMessage("campaign search success");
+				
+			}else{
+				cs.setCode(400);
+				cs.setErrorMessage("campaign search unsuccessful");
+				
+			}
+		}else{
+			cs.setCode(400);
+			cs.setErrorMessage("campaign do not received");
+		}
+		
+
+		return cs;
+			
+	}
+	
+	
 
 }

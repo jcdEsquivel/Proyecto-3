@@ -130,7 +130,7 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	}
 
 	$scope.create = function(event) {
-
+		$scope.uploadImage = false;
 		this.onError = false;
 
 		$scope.upload = $upload.upload({
@@ -146,11 +146,9 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			file : $scope.image,
 		}).success(function(response) {
 
-			/*
-			 * $state.go('treeSeed.campaing', { campaign : response.campaignId
-			 * });
-			 */
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+			
+			 $state.go('treeSeed.campaign', { campaignId : response.campaignId });
+			
 		})
 
 	};
@@ -330,7 +328,7 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 				}else{
 					return 'border-finished';
 				}
-			}
+			};
 			
 			$scope.getColor=function(start, end){
 				$scope.color = "";
@@ -341,16 +339,9 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 				}else if(!start&&end){
 					$scope.color ="#27c24c";
 				}
-			}
+			};
 			
-			
-
 		});
-
-
-
-
-
 
 
 
@@ -387,17 +378,6 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 	$scope.requestObject.searchColumn = "ALL";
 	$scope.requestObject.searchTerm = "";
 
-	$scope.init = function() {
-		
-		//gets the cause catalog
-		$http.post('rest/protected/catalog/getAllCatalog',
-		$scope.requestCatalog).then(function(response) {
-			$scope.selectSortOptionsCause =  response.data.catalogs;
-		});
-	};
-
-	$scope.init();
-	
 	$scope.getDateFormat = function(date)
 	{
 		if(date === undefined || date === ""){
@@ -492,7 +472,43 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 		$scope.stateList.push({Id:'finished', Name: translation}); 
 	});
 	
+
+});
+		
+		
+treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+
+	$scope.postsLoaded = false;
+	$scope.campaign = {};
+	$scope.campaign.id = $stateParams.campaignId;
+	$scope.requestObject = {};
+	$scope.requestObject.campaign = {};
+	$scope.isOwner = false;	
 	
+	
+
+	$scope.init = function() {
+
+		$scope.requestObject.idUser= Session.userId;
+		$scope.requestObject.campaign.id = $scope.campaign.id;
+		
+		$http.post('rest/protected/campaing/getCampignProfile',
+				$scope.requestObject).success(function(mydata, status) {
+					$scope.campaign = mydata.campaign;
+					if(mydata.owner==true){
+						$scope.isOwner=true;
+					}else{
+						$scope.isOwner=false;
+					}
+		}).error(function(mydata, status) {
+			
+		});	
+
+	};
+
+	$scope.init();
+
 	$scope.getClass = function(item){
 		if(item.state == 'soon'){
 			return 'border-commingSoon';
@@ -502,6 +518,7 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 			return 'border-finished';
 		}
 	}
+
 	
 	
 });

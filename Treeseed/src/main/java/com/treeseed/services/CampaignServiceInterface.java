@@ -30,6 +30,7 @@ public interface CampaignServiceInterface {
 	 */
 	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur);
 
+
 	/**
 	 * Save campaign.
 	 *
@@ -37,6 +38,7 @@ public interface CampaignServiceInterface {
 	 * @return the int
 	 */
 	public int saveCampaign(CampaignWrapper nonProfit);
+
 	
 	/**
 	 * Gets the campaigns by nonprofit.
@@ -45,4 +47,13 @@ public interface CampaignServiceInterface {
 	 * @return the campaigns by nonprofit
 	 */
 	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(CampaignRequest ur);
+
+	
+	/**
+	 * Gets the campaign by id.
+	 *
+	 * @param id the id
+	 * @return the campaign by id
+	 */
+	CampaignWrapper getCampaignById(int id);
 }
