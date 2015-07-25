@@ -405,7 +405,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		
 		modalInstance = $modal.open({
 		animation : $scope.animationsEnabled,
-		templateUrl : 'layouts/components/closeCampaign_confirmation.html',
+	templateUrl : 'layouts/components/closeCampaign_confirmation.html',
 		scope: $scope
 		})
 	};

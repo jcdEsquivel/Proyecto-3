@@ -429,10 +429,4 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 
     }
     
-    public int createServerSession(){
-    	HttpSession currentSession = requestHttp.getSession();
-		currentSession.setAttribute("idUser",99999);
-		return 99999;
-    }
-	
 }

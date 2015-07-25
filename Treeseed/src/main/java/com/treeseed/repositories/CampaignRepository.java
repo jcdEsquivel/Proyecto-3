@@ -16,10 +16,28 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface CampaignRepository.
+ */
 public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	
+	/** The Constant PAGE_SIZE. */
 	public static final int PAGE_SIZE = 10;
 		
+	/**
+	 * Find with all.
+	 *
+	 * @param campaignNameNull the campaign name null
+	 * @param campaignName the campaign name
+	 * @param ngoNameNull the ngo name null
+	 * @param ngoName the ngo name
+	 * @param cause the cause
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	@Query("SELECT cp FROM Campaign cp inner join cp.nonprofit n inner join n.cause c WHERE ( :campaignNameNull is null or cp.name like :campaignName) and "
 			+ "( :ngoNameNull  is null or n.name like :ngoName) and "
 			+ "( :cause = 0 or c.id = :cause) and cp.isActive = 1 and "
@@ -31,13 +49,49 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 			   @Param("startDate") Date startDate,
 			   @Param("endDate") Date endDate,
 			   Pageable pageable);
+	
+	/**
+	 * Find all.
+	 *
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<Campaign> findAll(Pageable pageable);
 	
+	/**
+	 * Find by nonprofit.
+	 *
+	 * @param name the name
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<Campaign> findByNonprofit(String name, Pageable pageable);	
+	
+	/**
+	 * Find byid.
+	 *
+	 * @param id the id
+	 * @return the campaign
+	 */
 	Campaign findByid(int id);
+	
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<Campaign> findById(int id,
 			Pageable pageable);
 	
+	/**
+	 * Find by nonprofit id.
+	 *
+	 * @param Id the id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
 
 	/**

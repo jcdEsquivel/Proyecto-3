@@ -54,6 +54,8 @@ public class CampaignController {
 	/** The campaign service. */
 	@Autowired
 	DonationServiceInterface donationService;
+	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
@@ -338,6 +340,12 @@ public class CampaignController {
 			
 	}
 	
+	/**
+	 * Delete non profit.
+	 *
+	 * @param cr the cr
+	 * @return the campaign response
+	 */
 	@RequestMapping(value ="/close", method = RequestMethod.POST)
 	public CampaignResponse deleteNonProfit(@RequestBody CampaignRequest cr){
 		
@@ -374,7 +382,7 @@ public class CampaignController {
 				
 			}else{
 				cs.setCode(400);
-		    	cs.setErrorMessage("campaign do not received ");
+		    	cs.setErrorMessage("campaign do not received");
 			}
 			
 		}else{
