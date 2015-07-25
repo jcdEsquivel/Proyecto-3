@@ -12,17 +12,32 @@ import com.treeseed.contracts.DonationResponse;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.services.DonationServiceInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DonationController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/donation")
 public class DonationController {
 	
+	/** The donation service. */
 	@Autowired
 	DonationServiceInterface donationService;
+	
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
 	
+	/**
+	 * Gets the nonprofits.
+	 *
+	 * @param dr the dr
+	 * @return the nonprofits
+	 */
 	@RequestMapping(value ="/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
 	public DonationResponse getNonprofits(@RequestBody DonationRequest dr){	
 	

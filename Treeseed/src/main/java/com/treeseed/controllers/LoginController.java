@@ -22,6 +22,7 @@ import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.Utils;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -29,15 +30,24 @@ import com.treeseed.utils.Utils;
 @RequestMapping(value = "rest/login")
 public class LoginController {
 	
+	/** The login service. */
 	@Autowired
 	LoginServiceInterface loginService;
 	
+	/** The user general service. */
 	@Autowired
 	UserGeneralServiceInterface userGeneralService;
 	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
 	
+	/**
+	 * Checkuser.
+	 *
+	 * @param lr the lr
+	 * @return the base response
+	 */
 	@RequestMapping(value = "/checkuser", method = RequestMethod.POST)
 	@Transactional
 	public BaseResponse checkuser(@RequestBody LoginRequest lr){	
@@ -88,6 +98,12 @@ public class LoginController {
 	}
 	
 	
+	/**
+	 * Gets the session.
+	 *
+	 * @param sr the sr
+	 * @return the session
+	 */
 	@RequestMapping(value = "/getSession", method = RequestMethod.POST)
 	@Transactional
 	public SessionResponse getSession(@RequestBody SessionRequest sr){

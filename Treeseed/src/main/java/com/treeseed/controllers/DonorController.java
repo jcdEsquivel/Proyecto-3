@@ -40,6 +40,7 @@ import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -47,18 +48,42 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 @RequestMapping(value ="rest/protected/donor")
 public class DonorController extends UserGeneralController{
 	
+	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
+	
+	/** The catalog service. */
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
+	/** The validator. */
 	EmailValidator validator = EmailValidator.getInstance();
-	 @Autowired
+	 
+ 	/** The servlet context. */
+ 	@Autowired
 	 ServletContext servletContext;
+	
+	/** The user general service. */
 	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
 		
+	/**
+	 * Creates the.
+	 *
+	 * @param name the name
+	 * @param lastName the last name
+	 * @param email the email
+	 * @param password the password
+	 * @param country the country
+	 * @param facebookId the facebook id
+	 * @param facebookToken the facebook token
+	 * @param file the file
+	 * @return the donor response
+	 */
 	@RequestMapping(value ="/register", method = RequestMethod.POST)
 	public DonorResponse create(@RequestParam("name") String name, 
 								@RequestParam("lastName") String lastName,
@@ -143,6 +168,12 @@ public class DonorController extends UserGeneralController{
 		
 	}
 	
+	/**
+	 * Gets the donors.
+	 *
+	 * @param dr the dr
+	 * @return the donors
+	 */
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
 	@Transactional
 	public DonorResponse getDonors(@RequestBody DonorRequest dr){	
@@ -179,6 +210,12 @@ public class DonorController extends UserGeneralController{
 		return ds;	
 	}
 	
+	/**
+	 * Gets the donor profile.
+	 *
+	 * @param dr the dr
+	 * @return the donor profile
+	 */
 	@RequestMapping(value ="/getDonorProfile", method = RequestMethod.POST)
 	@Transactional
 	public DonorResponse getDonorProfile(@RequestBody DonorRequest dr){	
@@ -225,6 +262,14 @@ public class DonorController extends UserGeneralController{
 		return nps;	
 	}
 	
+	/**
+	 * Edits the donor.
+	 *
+	 * @param dr the dr
+	 * @param fileCover the file cover
+	 * @param fileProfile the file profile
+	 * @return the donor response
+	 */
 	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public DonorResponse editDonor(@RequestPart(value="data") DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
@@ -332,6 +377,12 @@ public class DonorController extends UserGeneralController{
 	}
 	
 	
+	/**
+	 * Delete donor.
+	 *
+	 * @param dr the dr
+	 * @return the donor response
+	 */
 	@RequestMapping(value ="/deleteDonor", method = RequestMethod.POST)
 	@Transactional
 	public DonorResponse deleteDonor(@RequestBody DonorRequest dr){

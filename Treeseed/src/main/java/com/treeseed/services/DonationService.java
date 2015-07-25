@@ -19,4 +19,13 @@ public class DonationService implements DonationServiceInterface{
 			Date startDate, Date endDate) {
 		return donationRepository.findAmountPerMonthOfNonProfit(nonProfitId, startDate, endDate);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findDonorsPerCampaign(int)
+	 */
+	@Override
+	public int findDonorsPerCampaign(int campaignId) {
+
+		return donationRepository.countDistincDonorIdByCampaingId(campaignId);
+	}
 }
