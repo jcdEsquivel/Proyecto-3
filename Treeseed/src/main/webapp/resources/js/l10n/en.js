@@ -254,7 +254,12 @@
     	},
     	"TAB-2":{
     		"TITLE":"Posts"
-    	}
+    	},
+    	"FINISHED-MESSAGE":"Finished",
+    	"CONFIRMATION":"Are you sure you want to finish your campaign?",
+    	"CLOSE":"Finish",
+    	"CANCEL":"Cancel",
+    	"CLOSE-BUTTON":"Finish Campaign"
     }
     	
 }

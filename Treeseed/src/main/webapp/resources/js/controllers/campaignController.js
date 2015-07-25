@@ -347,14 +347,19 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 		
 		
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state) {
 
 	$scope.postsLoaded = false;
 	$scope.campaign = {};
 	$scope.campaign.id = $stateParams.campaignId;
 	$scope.requestObject = {};
 	$scope.requestObject.campaign = {};
+	$scope.requestClose = {};
+	$scope.requestClose.campaign={};
 	$scope.isOwner = false;	
+	$scope.isOpen = true;
+	var modalInstance=null;
+
 	
 	
 
@@ -366,10 +371,17 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		$http.post('rest/protected/campaing/getCampignProfile',
 				$scope.requestObject).success(function(mydata, status) {
 					$scope.campaign = mydata.campaign;
+					if($scope.campaign==null){
+						$state.go("treeSeed.index");
+					}
 					if(mydata.owner==true){
 						$scope.isOwner=true;
+						
 					}else{
 						$scope.isOwner=false;
+					}
+					if(mydata.campaign.state=="finished"){
+						$scope.isOpen = false;
 					}
 		}).error(function(mydata, status) {
 			
@@ -388,5 +400,30 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			return 'border-finished';
 		}
 	}
+	
+	$scope.closeCampaign=function(){
+		
+		modalInstance = $modal.open({
+		animation : $scope.animationsEnabled,
+	templateUrl : 'layouts/components/closeCampaign_confirmation.html',
+		scope: $scope
+		})
+	};
+	
+	$scope.accept=function(){
+		$scope.requestClose.idUser= Session.id;
+		$scope.requestClose.campaign.id = $scope.campaign.id;
+		$http.post('rest/protected/campaing/close',
+				$scope.requestClose).success(function(response) {
+						$scope.closeModal();
+						$state.go($state.current, {}, {reload: true});
+
+		});	
+	}
+			
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+	};
 });
 
