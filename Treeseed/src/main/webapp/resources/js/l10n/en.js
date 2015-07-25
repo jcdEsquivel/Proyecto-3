@@ -23,7 +23,7 @@
     	"NAVIGATION": "Navigation",
     	"PROFILE": " Profile",
     	"CREATE-CAMPAIGN": " Create Campaign",
-    	"SEE-CAMPAIGNS": " See Campaigns",
+    	"SEE-CAMPAIGNS": " Manage Campaigns",
     	"DONATIONS-REPORT": " Donations Report",
     	"TRANSPARENCY-REPORT": " Transparency Report",
     	"CONFIGURATION": " Configuration",
@@ -252,7 +252,7 @@
     	"SOON": "Comming Soon",
     	"ACTIVE": "Active",
     	"FINISHED": "Finished"
-
+	},
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",
@@ -266,6 +266,5 @@
     	"TAB-2":{
     		"TITLE":"Posts"
     	}
-
     }
 }

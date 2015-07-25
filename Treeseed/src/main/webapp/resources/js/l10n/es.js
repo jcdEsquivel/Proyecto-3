@@ -21,7 +21,7 @@
     	"NAVIGATION": "Navegación",
     	"PROFILE": " Perfil",
     	"CREATE-CAMPAIGN": "Crear Campaña",
-    	"SEE-CAMPAIGNS": "Ver Campañas",
+    	"SEE-CAMPAIGNS": "Administrar Campañas",
     	"DONATIONS-REPORT": "Reporte de Donaciones",
     	"TRANSPARENCY-REPORT": "Reportes de Transparencia",
     	"CONFIGURATION": " Configuración",
@@ -77,9 +77,11 @@
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
+    	
     },
     "CAMPAIGNSEARCH":{
-    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña"
+    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña",
+    	"CAMPAIGN-MANAGEMENT": "Administració de Campañas"
     },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
@@ -235,6 +237,11 @@
     	"COLLECTED":"Monto recaudado",
     	"COLLECTEDMESSAGE":"Recaudado"
     },
+    "CAMPAIGN-STATE":{
+    	"SOON": "Próximamente",
+    	"ACTIVE": "Activa",
+    	"FINISHED": "Finalizada"
+	},
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Información",

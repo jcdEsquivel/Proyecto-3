@@ -8,40 +8,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< HEAD
 import com.treeseed.ejb.Campaign;
-=======
-import com.treeseed.contracts.CampaignResponse;
->>>>>>> 0f9a68ca54fe9991d1b7d52290c1d838b7344377
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
@@ -51,7 +27,6 @@ import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
-import com.treeseed.ejbWrapper.ParentUserWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;

@@ -1,18 +1,13 @@
 package com.treeseed.controllers;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
-import com.treeseed.contracts.NonprofitRequest;
-import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
-import com.treeseed.ejb.Campaign;
-import com.treeseed.ejb.Nonprofit;
-import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
-import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
@@ -225,7 +213,6 @@ public class CampaignController {
 		
 		for(CampaignWrapper objeto:pageResults.getResults())
 		{
-			CampaignWrapper object =new CampaignWrapper(objeto);
 			campaignPojo = new CampaignPOJO();
 
 			campaignPojo.setId(objeto.getId());
@@ -236,12 +223,12 @@ public class CampaignController {
 			campaignPojo.setAmountGoal(objeto.getAmountGoal());
 			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
-			campaignPojo.setStartDateS(object.getStartDateS());
+			campaignPojo.setStartDateS(objeto.getStartDateS());
 			campaignPojo.setDueDate(objeto.getDueDate());
-			campaignPojo.setDueDateS(object.getDueDateS());
+			campaignPojo.setDueDateS(objeto.getDueDateS());
 			campaignPojo.setState(objeto.getState());
-			campaignPojo.setStart(object.isStart());
-			campaignPojo.setEnd(object.isEnd());
+			campaignPojo.setStart(objeto.isStart());
+			campaignPojo.setEnd(objeto.isEnd());
 
 			viewCampaignsPOJO.add(campaignPojo);
 			
