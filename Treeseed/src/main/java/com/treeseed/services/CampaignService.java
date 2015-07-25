@@ -72,6 +72,9 @@ public class CampaignService implements CampaignServiceInterface{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#findCampaignsFromNonprofit(com.treeseed.contracts.CampaignRequest)
+	 */
 	@Transactional
 	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur) {
 

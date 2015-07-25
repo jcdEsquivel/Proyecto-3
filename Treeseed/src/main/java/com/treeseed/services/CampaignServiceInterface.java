@@ -43,7 +43,7 @@ public interface CampaignServiceInterface {
 	/**
 	 * Gets the campaigns by nonprofit.
 	 *
-	 * @param ur the ur
+	 * @param ur as  CampaignRequest
 	 * @return the campaigns by nonprofit
 	 */
 	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(CampaignRequest ur);

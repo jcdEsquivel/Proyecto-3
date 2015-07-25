@@ -23,12 +23,24 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestBuscarCampañasDeONG.
+ */
 public class TestBuscarCampañasDeONG  extends AbstractTestController {
 
+	/**
+	 * Sets the up.
+	 *
+	 * @param controller the new up
+	 */
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+	 */
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -36,6 +48,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	}
 	
 	
+	/**
+	 * Test search campaigns for nonprofit no filters.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitNoFilters() throws Exception {
 
@@ -80,6 +97,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	
 	
 	
+	/**
+	 * Test search campaigns for nonprofit by campaign name.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitByCampaignName() throws Exception {
 
@@ -125,6 +147,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	
 	
 
+	/**
+	 * Test search campaigns for nonprofit by dates.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitByDates() throws Exception {
 
@@ -178,6 +205,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	
 	
 
+	/**
+	 * Test search campaigns for nonprofit by state soon.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitByStateSoon() throws Exception {
 
@@ -229,6 +261,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	}
 	
 	
+	/**
+	 * Test search campaigns for nonprofit by state active.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitByStateActive() throws Exception {
 
@@ -279,6 +316,11 @@ public class TestBuscarCampañasDeONG  extends AbstractTestController {
 	
 	
 	
+	/**
+	 * Test search campaigns for nonprofit by state finished.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testSearchCampaignsForNonprofitByStateFinished() throws Exception {
 

@@ -44,20 +44,39 @@ import com.treeseed.utils.PojoUtils;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractTestController.
+ */
 @WebAppConfiguration
 public abstract class AbstractTestController extends AbstractTest {
 
+	/** The mvc. */
 	protected MockMvc mvc;
 
+    /** The web application context. */
     @Autowired
     protected WebApplicationContext webApplicationContext;
 
+    /** The service catalog. */
     @Autowired  CatalogServiceInterface serviceCatalog;
+    
+    /** The service non profit. */
     @Autowired  NonprofitServiceInterface serviceNonProfit;
+    
+    /** The service user general. */
     @Autowired  UserGeneralServiceInterface serviceUserGeneral;
+    
+    /** The post nonprofit service. */
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
+    
+    /** The donor service. */
     @Autowired	DonorServiceInterface donorService;
+    
+    /** The campaign service. */
     @Autowired	CampaignServiceInterface campaignService;
+    
+    /** The request http. */
     @Autowired  HttpServletRequest requestHttp;
     
     /**
@@ -73,7 +92,10 @@ public abstract class AbstractTestController extends AbstractTest {
      * Prepares the test class for execution of web tests. Builds a MockMvc
      * instance using standalone configuration facilitating the injection of
      * Mockito resources into the controller class.
-     * @param controller A controller object to be tested.
+     *
+     * @param obj the obj
+     * @return the string
+     * @throws JsonProcessingException the json processing exception
      */
     //protected void setUp(Controller controller);
 
@@ -91,6 +113,8 @@ public abstract class AbstractTestController extends AbstractTest {
     /**
      * Maps a String of JSON into an instance of a Class of type T. Uses a
      * Jackson ObjectMapper.
+     *
+     * @param <T> the generic type
      * @param json A String of JSON.
      * @param clazz A Class of type T. The mapper will attempt to convert the
      *        JSON into an Object of this Class type.
@@ -108,6 +132,12 @@ public abstract class AbstractTestController extends AbstractTest {
     
     
     
+/**
+ * Gets the catalog pojo.
+ *
+ * @param id the id
+ * @return the catalog pojo
+ */
 public  CatalogPOJO getCatalogPOJO(int id){
 		
 		CatalogWrapper wrapper = serviceCatalog.findCatalogById(id);
@@ -119,11 +149,23 @@ public  CatalogPOJO getCatalogPOJO(int id){
 		
 	}
 	
+	/**
+	 * Gets the catalog wrapper.
+	 *
+	 * @param id the id
+	 * @return the catalog wrapper
+	 */
 	public  CatalogWrapper getCatalogWrapper(int id){
 		return serviceCatalog.findCatalogById(id);
 	}
 	
 	
+/**
+ * Gets the catalog poj os.
+ *
+ * @param type the type
+ * @return the catalog poj os
+ */
 public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 		List<CatalogWrapper> wrappers =serviceCatalog.getAllByType(type);
@@ -143,11 +185,22 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 	}
 	
+	/**
+	 * Gets the catalog wrappers.
+	 *
+	 * @param type the type
+	 * @return the catalog wrappers
+	 */
 	public  List<CatalogWrapper> getCatalogWrappers(String type){
 		return serviceCatalog.getAllByType(type);
 	}
 	
 	
+	/**
+	 * Creates the random catalog.
+	 *
+	 * @return the catalog wrapper
+	 */
 	public  CatalogWrapper createRandomCatalog(){
 		String random = getRandomString();
 		Catalog catalog = new Catalog();
@@ -166,6 +219,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 	}
 	
+	/**
+	 * Convert catalog wrapper.
+	 *
+	 * @param wrapper the wrapper
+	 * @return the catalog pojo
+	 */
 	public  CatalogPOJO convertCatalogWrapper(CatalogWrapper wrapper){
 		CatalogPOJO newPOJO = new CatalogPOJO();
 		PojoUtils.pojoMappingUtility(newPOJO, wrapper);
@@ -175,6 +234,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
     
     
     
+	/**
+	 * Gets the nonprofit pojo.
+	 *
+	 * @param id the id
+	 * @return the nonprofit pojo
+	 */
 	public static NonprofitPOJO getNonprofitPOJO(int id){
 		//Not Implemented
 		return null;
@@ -187,6 +252,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 	}
 	
+	/**
+	 * Gets the nonprofit wrapper.
+	 *
+	 * @param id the id
+	 * @return the nonprofit wrapper
+	 */
 	public  NonprofitWrapper getNonprofitWrapper(int id){
 		//return service.findNonprofitById(id);
 		
@@ -195,6 +266,11 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	}
 	
 	
+	/**
+	 * Creates the random nonprofit.
+	 *
+	 * @return the nonprofit wrapper
+	 */
 	public  NonprofitWrapper createRandomNonprofit(){
 			
 		String random = getRandomString();
@@ -233,6 +309,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	}
 	
 	
+	/**
+	 * Creates the random nonprofit.
+	 *
+	 * @param addToName the add to name
+	 * @return the nonprofit wrapper
+	 */
 	public  NonprofitWrapper createRandomNonprofit(String addToName){
 		CatalogWrapper country= createRandomCatalog();
 		String random = getRandomString();
@@ -268,6 +350,11 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	}
 	
 	
+	/**
+	 * Creates the random donor.
+	 *
+	 * @return the donor wrapper
+	 */
 	public  DonorWrapper createRandomDonor(){
 		
 		Catalog country = createRandomCatalog().getWrapperObject();
@@ -303,6 +390,11 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	}
 	
 	
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	private String getPassword(){
 		 byte[] hash = Utils.encryption("123456789");
 			String file_string="";
@@ -315,6 +407,13 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 			return file_string;
 	}
 	
+	/**
+	 * Creates the random nonprofit.
+	 *
+	 * @param nGOName the n go name
+	 * @param country the country
+	 * @return the nonprofit wrapper
+	 */
 	public  NonprofitWrapper createRandomNonprofit(String nGOName, Catalog country){
 		
 		String random = getRandomString();
@@ -337,6 +436,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 	}
 	
+	/**
+	 * Convert nonprofit wrapper.
+	 *
+	 * @param wrapper the wrapper
+	 * @return the nonprofit pojo
+	 */
 	public  NonprofitPOJO convertNonprofitWrapper(NonprofitWrapper wrapper){
 		NonprofitPOJO newPOJO = new NonprofitPOJO();
 		PojoUtils.pojoMappingUtility(newPOJO, wrapper);
@@ -347,6 +452,11 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	
 
 	
+	/**
+	 * Creates the random user general.
+	 *
+	 * @return the user general wrapper
+	 */
 	public  UserGeneralWrapper createRandomUserGeneral(){
 	
 			String random = getRandomString();
@@ -372,6 +482,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	}
 	
 	
+	/**
+	 * Creates the random post.
+	 *
+	 * @param nonprofit the nonprofit
+	 * @return the post nonprofit wrapper
+	 */
 	public  PostNonprofitWrapper createRandomPost(Nonprofit nonprofit){
 		
 		String random = getRandomString();
@@ -392,6 +508,12 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 }
 	
 	
+	/**
+	 * Creates the random campaign.
+	 *
+	 * @param nonprofit the nonprofit
+	 * @return the campaign wrapper
+	 */
 	public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit){
 		
 		Calendar c = Calendar.getInstance();
@@ -416,6 +538,14 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		return wrapper;
 	}
 	
+/**
+ * Creates the random campaign.
+ *
+ * @param nonprofit the nonprofit
+ * @param startDate the start date
+ * @param endDate the end date
+ * @return the campaign wrapper
+ */
 public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date startDate, Date endDate){
 		
 		Campaign campaign = new Campaign();
@@ -435,11 +565,23 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
 		return wrapper;
 	}
     
+    /**
+     * Gets the random string.
+     *
+     * @return the random string
+     */
     public  String getRandomString(){
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
 	}
     
+    /**
+     * Creates the random campaign.
+     *
+     * @return the campaign wrapper
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws Exception the exception
+     */
     public CampaignWrapper createRandomCampaign() throws IOException, Exception{
     	NonprofitWrapper nonprofit = createRandomNonprofit();
 		   

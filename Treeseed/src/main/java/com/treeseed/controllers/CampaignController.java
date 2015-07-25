@@ -281,7 +281,6 @@ public class CampaignController {
 		
 		for(CampaignWrapper objeto: pageResults.getResults())
 		{
-			campaignPojo = new CampaignPOJO();
 			campaignPojo.setId(objeto.getId());
 			campaignPojo.setName(objeto.getName());
 			campaignPojo.setDescription(objeto.getDescription());
@@ -290,11 +289,12 @@ public class CampaignController {
 			campaignPojo.setAmountGoal(objeto.getAmountGoal());
 			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
 			campaignPojo.setStartDate(objeto.getStartDate());
-			campaignPojo.setStartDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getStartDate()));
-			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStartDateS(objeto.getStartDateS());
 			campaignPojo.setDueDate(objeto.getDueDate());
-			campaignPojo.setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(objeto.getDueDate()));
-			viewCampaignsPOJO.add(campaignPojo);
+			campaignPojo.setDueDateS(objeto.getDueDateS());
+			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStart(objeto.isStart());
+			campaignPojo.setEnd(objeto.isEnd());
 		};
 
 		cs.setCampaigns(viewCampaignsPOJO);
