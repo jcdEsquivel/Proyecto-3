@@ -469,7 +469,11 @@ fieldset[disabled] .btn-primary.active {
 .li-search-size-result{
 	 height: 100px;
   	width: 100%;
-  	
+}
+
+.li-search-size-result-campaign{
+	 height: 150px;
+  	width: 100%;
 }
 
 .li-search-size-result-full{

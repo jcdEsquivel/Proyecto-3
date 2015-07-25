@@ -493,6 +493,17 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 	});
 	
 	
+	$scope.getClass = function(item){
+		if(item.state == 'soon'){
+			return 'border-commingSoon';
+		}else if(item.state == 'active'){
+			return 'border-active';
+		}else{
+			return 'border-finished';
+		}
+	}
+	
+	
 });
 
 
