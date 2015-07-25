@@ -345,4 +345,154 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 			
 			
 
-		})
+		});
+
+
+
+
+
+
+
+
+treeSeedAppControllers.controller('searchCampaignFromNonProfitController', function($scope,
+		$http, $location, $modal, $log, $timeout, Session, $translate) {
+
+	$scope.datesDisable = false;
+	$scope.stateDisable = false;
+	$scope.state = {};
+	$scope.range = '';
+	$scope.requestObject2 = {};
+	$scope.requestCatalog = {lenguage : $scope.selectLang,
+							type : "cause"};
+	
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
+	$scope.sortList = [ "", "",""];
+	$scope.currentPage = 1;
+	$scope.totalItems = 5;
+	
+	$scope.requestObject = {};
+	$scope.requestObject.name = '';
+	$scope.requestObject.nonprofitName = '';
+	$scope.requestObject.causeId = '';
+	$scope.requestObject.startDate = "";
+	$scope.requestObject.dueDate = "";
+	$scope.requestObject.nonprofitId = Session.userId;
+	$scope.requestObject.state= '';
+	
+	//$scope.range = '';
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = [];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+
+	$scope.init = function() {
+		
+		//gets the cause catalog
+		$http.post('rest/protected/catalog/getAllCatalog',
+		$scope.requestCatalog).then(function(response) {
+			$scope.selectSortOptionsCause =  response.data.catalogs;
+		});
+	};
+
+	$scope.init();
+	
+	$scope.getDateFormat = function(date)
+	{
+		if(date === undefined || date === ""){
+            return "";
+        }
+		var parts = date.split('-');
+		return new Date(parts[0],parts[1]-1,parts[2]);	
+	};
+	
+	$scope.usingDateRange = function(){
+		if($scope.range != ''){//range dates are been used
+			$scope.datesDisable = false;
+			$scope.stateDisable = true;
+			$scope.state = {}
+			
+		}else{//state is been used
+			$scope.datesDisable = true;
+			$scope.stateDisable = false;
+			$scope.range = '';
+		}
+	};
+	
+	$scope.usingState = function(){
+		
+		if($scope.state){//state is been used
+			$scope.datesDisable = true;
+			$scope.stateDisable = false;
+			$scope.range = '';
+		}else{//range dates are been used
+			$scope.datesDisable = false;
+			$scope.stateDisable = true;
+			$scope.state = {};
+		}
+		
+	};
+
+	
+	$scope.searchCampaign = function(page) {
+
+		
+		var dates = $scope.range.split(' - ');
+
+		var startDate = $scope.getDateFormat(dates[0]);
+		var endDate = $scope.getDateFormat(dates[1]);
+		
+		
+		if (startDate != "")
+		{
+			$scope.requestObject.startDate = startDate.getTime();
+		}
+		
+		if(endDate != "")
+		{
+			$scope.requestObject.dueDate = endDate.getTime();
+		}
+	
+		$scope.requestObject.pageNumber = page;
+
+		$scope.requestObject.state = $scope.state.Id;
+		
+		console.log($scope.state);
+		console.log(JSON.stringify($scope.requestObject));
+		$http.post('rest/protected/campaing/searchCampaignsForNonprofit',
+			
+			$scope.requestObject).success(function(mydata, status) {
+			$scope.campaigns = mydata.campaigns;
+			$scope.totalItems = mydata.totalElements;
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});
+
+	};
+	
+	$scope.pageChangeHandler = function(num) {
+		$scope.searchCampaign(num);
+	};
+	
+	
+	$scope.stateList = [];
+
+	$translate('CAMPAIGN-STATE.SOON').then(function successFn(translation) {
+		$scope.stateList.push({Id:'soon', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.ACTIVE').then(function successFn(translation) {
+		$scope.stateList.push({Id:'active', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.FINISHED').then(function successFn(translation) {
+		$scope.stateList.push({Id:'finished', Name: translation}); 
+	});
+	
+	
+});
+
+

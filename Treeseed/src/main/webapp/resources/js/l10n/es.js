@@ -94,7 +94,10 @@
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
     	"BLANK-OPTION": "Seleccione:",
     	"NGONAME-FILTER": "NGO Name",
-    	"RANGEDATE" : "Rango de Fechas"
+    	"RANGEDATE" : "Rango de Fechas",
+    	"ITEMS-PER-PAGE": "Items por páginas",
+    	"CAMPAIGN-STATE": "Estado",
+    	"CAMPAIGN-NAME": "Nombre de campaña"
     },
     "GENERAL-SETTINGS":{
 		"DELETE-PROFILE":"Eliminar Perfil",

@@ -255,12 +255,18 @@ public class CampaignController {
 	
 	
 
-	@RequestMapping(value ="/searchCampaignForNonprofit", method = RequestMethod.POST)
+	/**
+	 * Search campaigns for nonprofit.
+	 *
+	 * @param cr as CampaignRequest
+	 * @return the campaign response
+	 */
+	@RequestMapping(value ="/searchCampaignsForNonprofit", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr){	
-		
+		try{
 		CampaignPOJO campaignPojo = null;
-		cr.setPageNumber(cr.getPageNumber() - 1);
+		
 		PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
 		
 		CampaignResponse cs = new CampaignResponse();
@@ -299,7 +305,10 @@ public class CampaignController {
 		}
 		
 		return cs;
-			
+		}catch(Exception e){
+			String a ="";
+			return null;
+		}
 	}
 
 }

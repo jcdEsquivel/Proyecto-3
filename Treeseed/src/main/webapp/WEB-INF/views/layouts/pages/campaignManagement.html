@@ -1,0 +1,133 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3"
+		translate="CAMPAIGNSEARCH.CAMPAIGN-MANAGEMENT"></h1>
+
+	<div>
+		<div class="panel-body">
+			<div class="form-horizontal col-sm-12 col-sm-offset-0">
+
+				<br> <br> <br>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-md-3">
+							<label class="labels-dropdowns"
+								translate="GENERALSEARCH.CAMPAIGN-NAME">Name</label> <br>
+							<md-input-container flex> <input type="text"
+								class="form-control" ng-model="requestObject.name"> </md-input-container>
+						</div>
+
+						<div class="col-md-3">
+							<label class="labels-dropdowns"
+								translate="GENERALSEARCH.CAMPAIGN-STATE"></label>
+							<md-input-container flex> <md-select
+								ng-disabled="stateDisable" style="width:100%;" ng-model="state"
+								ng-change="usingState()"> <md-option select disabled></md-option>
+							<md-option ng-value="state" ng-repeat="state in stateList">{{
+							state.Name }}</md-option> </md-select> </md-input-container>
+						</div>
+
+
+						<label class="labels-dropdowns"
+							translate="GENERALSEARCH.RANGEDATE">Range Date</label> <br>
+						<md-input-container flex>
+						<div class="col-md-6 col-sm-offset-0">
+							<input ng-model="range" ui-jq="daterangepicker"
+								ng-disabled="datesDisable" ng-change="usingDateRange()"
+								ui-options="{
+		                format: 'YYYY-MM-DD',
+		                startDate: '2015-01-01',
+		                endDate: '2015-12-31'
+		              	}"
+								class="form-control w-md" />
+						</div>
+						</md-input-container>
+
+						<div class="col-md-10 col-sm-offset-10">
+							<button type="button" class="btn btn-default"
+								ng-click="searchCampaign(1)"
+								translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<label class="labels-dropdowns"
+								translate="GENERALSEARCH.ITEMS-PER-PAGE"></label> <select
+								ng-model="requestObject.pageSize"
+								ng-options="item for item in itemPerPage"></select>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+		</div>
+		<tabset class="tab-container"> <tab> <tab-heading
+			translate="GENERALSEARCH.SEARCH-RESULTS"> </tab-heading>
+		<ul
+			class="list-group list-group-alt list-group-lg  pull-in m-b-none advance-search-scroll">
+			<li class="list-group-item li-search-size-result"
+				dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize"
+				total-items="totalItems"><a href="#"
+				class="pull-left thumb-md m-r"> <img
+					ng-src="{{campaign.picture}}" alt="..."
+					class="img-circle search-image-size">
+			</a>
+				<div class="clear">
+					<div class="row">
+						<div class="col-md-4">
+							<a class="h4 m-b-sm block " style="color: #2196f3">
+								{{campaign.name}}</a>	
+							<span translate="LISTCAMPAIGN.GOAL"></span>
+							<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>		
+						</div>
+
+						<div class="col-md-5">
+							<div class="col-md-5 m-t-md">
+								<span translate="LISTCAMPAIGN.COLLECTED"></span>
+								<div class="h4 text-success">${{campaign.amountCollected}}</div>
+							</div>
+							<div class="col-md-7">
+								<div>
+										<div ui-jq="easyPieChart"
+											ui-options="{
+                      percent: {{campaign.percent}},
+                      lineWidth: 6,
+                      trackColor: '{{app.color.light}}',
+                      barColor: '{{app.color.success}}',
+                      scaleColor: '{{app.color.light}}',
+                      size: 120,
+                      lineCap: 'butt',
+                      animate: 1000
+                    }">
+											<div>
+												<span class="h4 m-l-sm step">{{campaign.percent}}</span>%
+												<div class="text text-sm">
+													<span translate="LISTCAMPAIGN.COLLECTEDMESSAGE"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+							</div>
+						
+
+						</div>
+						<div class="col-md-3">
+							<div class="treeseed-campaignDate" align="center"
+								ng-class="getClass(campaign)">{{campaign.startDateS}} -
+								{{campaign.dueDateS}}</div>
+						</div>
+					</div>
+
+				</div></li>
+		</ul>
+		<div class="other-controller">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true"
+					on-page-change="pageChangeHandler(newPageNumber)"
+					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+		</div>
+		</tab> </tabset>
+	</div>
+
+</div>

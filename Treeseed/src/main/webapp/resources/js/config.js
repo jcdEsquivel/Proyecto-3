@@ -124,14 +124,19 @@ angular
 														USER_ROLES.nonprofit ]
 												}
 											})
-									/*.state(
-											'treeSeed.campaingViewer',
+									.state(
+											'treeSeed.campaignManagement',
 											{
-												url : 'campaingViewer',
-												templateUrl : 'layouts/pages/campaingViewer.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
-											})*/
+												url : 'campaignManagement',
+												templateUrl : 'layouts/pages/campaignManagement.html',
+												controller: 'searchCampaignFromNonProfitController',
+												resolve : load([
+																	'angularUtils.directives.dirPagination',
+																	'resources/js/controllers/campaignController.js' ]),
+												data : {
+													authorizedRoles : [USER_ROLES.nonprofit ]
+												}
+											})
 									.state(
 											'treeSeed.nonProfitSearch',
 											{

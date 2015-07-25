@@ -1,7 +1,9 @@
 package com.treeseed.testBase;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,15 +23,22 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
+
+
+
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
@@ -38,6 +47,7 @@ import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
@@ -60,6 +70,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired  UserGeneralServiceInterface serviceUserGeneral;
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     @Autowired	DonorServiceInterface donorService;
+    @Autowired	CampaignServiceInterface campaignService;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -200,6 +211,8 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 			
 		String random = getRandomString();
 		Nonprofit nonprofit = new Nonprofit();
+		CatalogWrapper cause= createRandomCatalog();
+		CatalogWrapper country= createRandomCatalog();
 
 		nonprofit.setActive(true);
 		nonprofit.setDescription("description");
@@ -207,6 +220,8 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		nonprofit.setName("NGO TEST");
 		nonprofit.setReason("Reason");
 		nonprofit.setWebPage("www.test.com");
+		nonprofit.setCause(cause.getWrapperObject());
+		nonprofit.setConutry(country.getWrapperObject());
 			
 		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
 		
@@ -387,6 +402,50 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		return wrapper;
 
 }
+	
+	
+	public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit){
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date()); // Now use today date.
+		c.add(Calendar.DATE, 20); // Adding 5 days
+		Date endDate = c.getTime();
+		
+		Campaign campaign = new Campaign();
+		campaign.setActive(true);
+		campaign.setAmountGoal(100);
+		campaign.setCreationDate(new Date());
+		campaign.setDescription("Test campaign");
+		campaign.setDueDate(endDate);
+		campaign.setName("Test campaign"+getRandomString());
+		campaign.setNonprofit(nonprofit.getWrapperObject());
+		campaign.setStartDate(new Date());
+		
+		CampaignWrapper wrapper = new CampaignWrapper(campaign);
+		
+		campaignService.saveCampaign(wrapper );
+		
+		return wrapper;
+	}
+	
+public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date startDate, Date endDate){
+		
+		Campaign campaign = new Campaign();
+		campaign.setActive(true);
+		campaign.setAmountGoal(100);
+		campaign.setCreationDate(new Date());
+		campaign.setDescription("Test campaign");
+		campaign.setDueDate(endDate);
+		campaign.setName("Test campaign"+getRandomString());
+		campaign.setNonprofit(nonprofit.getWrapperObject());
+		campaign.setStartDate(startDate);
+		
+		CampaignWrapper wrapper = new CampaignWrapper(campaign);
+		
+		campaignService.saveCampaign(wrapper );
+		
+		return wrapper;
+	}
     
     public  String getRandomString(){
 		UUID uuid = UUID.randomUUID();

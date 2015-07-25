@@ -20,7 +20,7 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	@Query("SELECT cp FROM Campaign cp inner join cp.nonprofit n inner join n.cause c WHERE ( :campaignNameNull is null or cp.name like :campaignName) and "
 			+ "( :ngoNameNull  is null or n.name like :ngoName) and "
 			+ "( :cause = 0 or c.id = :cause) and cp.isActive = 1 and "
-			+ "( :startDate is null or cp.creationDate >= :startDate ) and "
+			+ "( :startDate is null or cp.startDate >= :startDate ) and "
 			+ "( :endDate is null or cp.dueDate <= :endDate )")
 	   public Page<Campaign> findWithAll(@Param("campaignNameNull") String campaignNameNull, @Param("campaignName") String campaignName,
 			   @Param("ngoNameNull") String ngoNameNull, @Param("ngoName") String ngoName,
@@ -46,16 +46,16 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 */
 	@Query("SELECT cp FROM Campaign cp inner join cp.nonprofit n inner join n.cause c WHERE"
 			+ "( :campaignNameNull is null or cp.name like :campaignName) and "
-			+ "( :ngoNameNull  is null or n.name like :ngoName) and "
-			+ "( :cause = 0 or c.id = :cause) and cp.isActive = 1 and "
-			+ "( :startDate is null or cp.creationDate >= :startDate ) and "
+			+ "( :startDate is null or cp.startDate >= :startDate ) and "
 			+ "( :endDate is null or cp.dueDate <= :endDate ) and "
+			+ "( :startDateState is null or cp.startDate <= :startDateState ) and "
+			+ "( :endDateState is null or cp.dueDate >= :endDateState ) and "
 			+ "n.id = :nonprofitId ")
 	   public Page<Campaign> findFromNonprofit(@Param("campaignNameNull") String campaignNameNull, @Param("campaignName") String campaignName,
-			   @Param("ngoNameNull") String ngoNameNull, @Param("ngoName") String ngoName,
-			   @Param("cause") int cause,
 			   @Param("startDate") Date startDate,
 			   @Param("endDate") Date endDate,
+			   @Param("startDateState") Date startDateState,
+			   @Param("endDateState") Date endDateState,
 			   @Param("nonprofitId") int nonprofitId,
 			   Pageable pageable);
 	
