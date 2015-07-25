@@ -343,7 +343,7 @@ public class CampaignController {
 	/**
 	 * Delete non profit.
 	 *
-	 * @param cr the cr
+	 * @param cr the campaign request
 	 * @return the campaign response
 	 */
 	@RequestMapping(value ="/close", method = RequestMethod.POST)
