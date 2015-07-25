@@ -8,6 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -55,6 +58,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     @Autowired	DonorServiceInterface donorService;
     @Autowired	CampaignServiceInterface campaignService;
+    @Autowired  HttpServletRequest requestHttp;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -451,11 +455,12 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
 		campaign.setDueDate(new Date());
 		campaign.setAmountGoal(amount);
 		campaign.setNonprofit(nonprofit.getWrapperObject());
+		campaign.setActive(true);
 		
 		campaignService.saveCampaign(campaign);
 		
         return campaign;
 
     }
-	
+    
 }

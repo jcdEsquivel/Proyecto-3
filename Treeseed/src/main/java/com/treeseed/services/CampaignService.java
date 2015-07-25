@@ -18,12 +18,21 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.repositories.CampaignRepository;
 import com.treeseed.utils.PageWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CampaignService.
+ */
 @Service
-public class CampaignService implements CampaignServiceInterface {
-
+public class CampaignService implements CampaignServiceInterface{
+	
+	
+	/** The campaign repository. */
 	@Autowired
 	CampaignRepository campaignRepository;
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#getAllCampaigns(com.treeseed.contracts.CampaignRequest)
+	 */
 	@Transactional
 	public Page<Campaign> getAllCampaigns(CampaignRequest ur) {
 		Date startDate = null;
@@ -61,6 +70,7 @@ public class CampaignService implements CampaignServiceInterface {
 
 		return result;
 	}
+
 
 	@Transactional
 	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur) {
@@ -132,6 +142,10 @@ public class CampaignService implements CampaignServiceInterface {
 		return pageWrapper;
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#saveCampaign(com.treeseed.ejbWrapper.CampaignWrapper)
+	 */
 	@Override
 	@Transactional
 	public int saveCampaign(CampaignWrapper campaign) {
@@ -140,6 +154,7 @@ public class CampaignService implements CampaignServiceInterface {
 		return camp.getId();
 
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -192,5 +207,13 @@ public class CampaignService implements CampaignServiceInterface {
 		
 		return campaign;
 		
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#closeCampaign(int)
+	 */
+	@Override
+	public void closeCampaign(int id){
+		campaignRepository.updateIsActiveById(id, false);
 	}
 }

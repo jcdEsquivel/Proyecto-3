@@ -34,7 +34,7 @@ public interface CampaignServiceInterface {
 	/**
 	 * Save campaign.
 	 *
-	 * @param nonProfit the non profit
+	 * @param campaign the campaign
 	 * @return the int
 	 */
 	public int saveCampaign(CampaignWrapper nonProfit);
@@ -56,4 +56,11 @@ public interface CampaignServiceInterface {
 	 * @return the campaign by id
 	 */
 	CampaignWrapper getCampaignById(int id);
+	
+	/**
+	 * Close campaign.
+	 *
+	 * @param id the id
+	 */
+	void closeCampaign(int id);
 }
