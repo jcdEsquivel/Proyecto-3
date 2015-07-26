@@ -267,7 +267,7 @@ public class CampaignController {
 	@RequestMapping(value ="/searchCampaignsForNonprofit", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr){	
-		try{
+		
 		CampaignPOJO campaignPojo = null;
 		
 		PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
@@ -281,6 +281,7 @@ public class CampaignController {
 		
 		for(CampaignWrapper objeto: pageResults.getResults())
 		{
+			campaignPojo = new CampaignPOJO();
 			campaignPojo.setId(objeto.getId());
 			campaignPojo.setName(objeto.getName());
 			campaignPojo.setDescription(objeto.getDescription());
@@ -292,9 +293,11 @@ public class CampaignController {
 			campaignPojo.setStartDateS(objeto.getStartDateS());
 			campaignPojo.setDueDate(objeto.getDueDate());
 			campaignPojo.setDueDateS(objeto.getDueDateS());
-			campaignPojo.setState(objeto.getState());
+			campaignPojo.setState(objeto.getStateBaseONDate());
 			campaignPojo.setStart(objeto.isStart());
 			campaignPojo.setEnd(objeto.isEnd());
+			
+			viewCampaignsPOJO.add(campaignPojo);
 		};
 
 		cs.setCampaigns(viewCampaignsPOJO);
@@ -308,10 +311,7 @@ public class CampaignController {
 		}
 		
 		return cs;
-		}catch(Exception e){
-			String a ="";
-			return null;
-		}
+	
 	}
 
 	/**

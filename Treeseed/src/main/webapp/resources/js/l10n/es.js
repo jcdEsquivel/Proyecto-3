@@ -81,7 +81,7 @@
     },
     "CAMPAIGNSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de Campaña",
-    	"CAMPAIGN-MANAGEMENT": "Administració de Campañas"
+    	"CAMPAIGN-MANAGEMENT": "Administración de Campañas"
     },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
