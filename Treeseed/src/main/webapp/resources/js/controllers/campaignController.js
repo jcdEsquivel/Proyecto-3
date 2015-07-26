@@ -350,14 +350,14 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 
 	$scope.datesDisable = false;
 	$scope.stateDisable = false;
-	$scope.state = {};
+	$scope.state = '';
 	$scope.range = '';
 	$scope.requestObject2 = {};
 	$scope.requestCatalog = {lenguage : $scope.selectLang,
 							type : "cause"};
 	
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
-	$scope.sortList = [ "", "",""];
+	$scope.sortList = [ "startDate"];
 	$scope.currentPage = 1;
 	$scope.totalItems = 5;
 	
@@ -374,7 +374,7 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
 	$scope.requestObject.direction = "DESC";
-	$scope.requestObject.sortBy = [];
+	$scope.requestObject.sortBy = ["startDate"];
 	$scope.requestObject.searchColumn = "ALL";
 	$scope.requestObject.searchTerm = "";
 
@@ -387,32 +387,28 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 		return new Date(parts[0],parts[1]-1,parts[2]);	
 	};
 	
-	$scope.usingDateRange = function(){
+	
+	$scope.usingDateRangeState = function(val){
 		if($scope.range != ''){//range dates are been used
 			$scope.datesDisable = false;
 			$scope.stateDisable = true;
-			$scope.state = {}
-			
-		}else{//state is been used
+			$scope.state = '';	
+		}else if($scope.state){//state been used
 			$scope.datesDisable = true;
 			$scope.stateDisable = false;
 			$scope.range = '';
+		
+		}else{
+			$scope.datesDisable = false;
+			$scope.stateDisable = false;			
+			$scope.state = '';
+			$scope.range = '';
+			
 		}
 	};
 	
-	$scope.usingState = function(){
-		
-		if($scope.state){//state is been used
-			$scope.datesDisable = true;
-			$scope.stateDisable = false;
-			$scope.range = '';
-		}else{//range dates are been used
-			$scope.datesDisable = false;
-			$scope.stateDisable = true;
-			$scope.state = {};
-		}
-		
-	};
+	
+	
 
 	
 	$scope.searchCampaign = function(page) {

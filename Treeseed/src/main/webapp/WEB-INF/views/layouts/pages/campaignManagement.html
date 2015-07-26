@@ -21,7 +21,7 @@
 								translate="GENERALSEARCH.CAMPAIGN-STATE"></label>
 							<md-input-container flex> <md-select
 								ng-disabled="stateDisable" style="width:100%;" ng-model="state"
-								ng-change="usingState()"> <md-option select disabled></md-option>
+								ng-change="usingDateRangeState()"> <md-option select disabled></md-option>
 							<md-option ng-value="state" ng-repeat="state in stateList">{{
 							state.Name }}</md-option> </md-select> </md-input-container>
 						</div>
@@ -32,7 +32,7 @@
 							<md-input-container flex>
 							<div class="col-md-12 col-sm-offset-0">
 								<input ng-model="range" ui-jq="daterangepicker"
-									ng-disabled="datesDisable" ng-change="usingDateRange()"
+									ng-disabled="datesDisable" ng-change="usingDateRangeState()"
 									ui-options="{
 								                format: 'YYYY-MM-DD',
 								                startDate: '2015-01-01',
