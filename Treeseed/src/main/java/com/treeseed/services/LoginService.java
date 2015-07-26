@@ -23,5 +23,16 @@ public class LoginService implements LoginServiceInterface{
 		user.setWrapperObject(loginRepository.findByEmailAndPassword(email, password));
 		
 		return user;
-	}		
+	}
+	
+	@Override
+	@Transactional
+	public UserGeneralWrapper checkFacebookUser(String facebookId) {
+		
+		UserGeneralWrapper user= new UserGeneralWrapper();
+		user.setWrapperObject(loginRepository.findByFacebookId(facebookId));
+		
+		return user;
+	}
+	
 }

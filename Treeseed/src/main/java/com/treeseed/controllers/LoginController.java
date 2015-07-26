@@ -8,9 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.LoginResponse;
 import com.treeseed.contracts.SessionRequest;
@@ -41,6 +44,45 @@ public class LoginController {
 	/** The request. */
 	@Autowired
 	HttpServletRequest request;
+	
+	/**
+	 * check the facebook user.
+	 *
+	 * @param facebookId the facebook id
+	 */
+	@RequestMapping(value ="/checkFacebookuser", method = RequestMethod.GET)
+	public BaseResponse checkFacebookuser(@RequestParam("facebookId") String facebookId)
+	{
+		UserGeneralWrapper loggedUser = loginService.checkFacebookUser(facebookId);	
+		LoginResponse response = new LoginResponse();
+		HttpSession currentSession = request.getSession();
+		
+		if(loggedUser.getWrapperObject() == null){
+			response.setCode(401);
+			response.setErrorMessage("Unauthorized User");
+		}else{
+			response.setCode(200);
+			response.setCodeMessage("User authorized");
+			if(loggedUser.getDonor()!=null){
+				response.setIdUser(loggedUser.getDonor().getId());
+				response.setFirstName(loggedUser.getDonor().getName());
+				response.setLastName(loggedUser.getDonor().getLastName());
+				response.setImg(loggedUser.getDonor().getProfilePicture());
+				response.setType("donor");
+			}else if(loggedUser.getNonprofit()!=null){
+				response.setIdUser(loggedUser.getNonprofit().getId());
+				response.setFirstName(loggedUser.getNonprofit().getName());
+				response.setImg(loggedUser.getNonprofit().getProfilePicture());
+				response.setType("nonprofit");
+			}
+			response.setIdSession(loggedUser.getId());
+			currentSession.setAttribute("idUser", loggedUser.getId());
+		}
+		
+		
+		return response;
+	}
+	
 	
 	/**
 	 * Checkuser.
