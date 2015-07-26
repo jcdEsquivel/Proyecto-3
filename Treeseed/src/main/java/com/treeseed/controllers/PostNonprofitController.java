@@ -97,8 +97,7 @@ public class PostNonprofitController {
 		return response;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/getNonprofitPost", method = RequestMethod.POST)
 	public PostNonprofitResponse getNonprofitPost(@RequestBody PostNonprofitRequest postRequest) {
 

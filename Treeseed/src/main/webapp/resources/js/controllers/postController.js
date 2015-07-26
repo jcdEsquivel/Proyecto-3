@@ -3,6 +3,65 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+treeSeedAppControllers.controller('postCampaignController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
+		$stateParams) {
+
+	$scope.posts = [];
+	$scope.totalPosts = 0;
+	$scope.postPaginCurrentPage = 0;
+
+	$scope.postRequest = {
+		postCampaign : {
+			id : 0,
+			title : '',
+			picture : '',
+			description : '',
+			campaignId : $stateParams.campaignId
+		},
+		pageNumber : '',
+		pageSize : '5',
+		direction : "DESC",
+		sortBy : ['creationDate']
+	};
+
+	$scope.getPosts = function(pageNumber) {
+
+		$scope.postRequest.pageNumber = pageNumber;
+		$scope.postPaginCurrentPage = pageNumber;
+		
+		console.log($scope.postRequest.postCampaign.campaignId);
+		
+		$http.post('rest/protected/postCampaign/getCampaignPost',
+				$scope.postRequest).success(function(data, status) {
+
+			if (data.code == 200) {
+				$scope.posts = data.posts;
+				$scope.totalPosts = data.totalElements;
+				console.log($scope.totalPosts);
+			}else{
+				console.log('Error : '+ data.errorMessage);
+			}
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});
+		
+	};
+
+	$scope.getPosts(1);
+	
+	$scope.changePostsPage = function(pageNumber){
+		$scope.getPosts(pageNumber);
+	};
+	
+	$scope.$on('loadPosts',function(){
+		$scope.getPosts(1);
+	});
+});
+
+
 treeSeedAppControllers.controller('postAdminController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
 		$stateParams) {

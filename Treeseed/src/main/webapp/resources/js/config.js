@@ -142,6 +142,23 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.postCampaign',
+									{
+										url : 'postCampaign/:campaignId',
+										templateUrl : 'layouts/components/campaignPostsList.html',
+										params: {campaignId: null},
+										controller: "postCampaignController",
+										resolve : load([
+														'angularUtils.directives.dirPagination']),
+										data : {
+											authorizedRoles : [
+											USER_ROLES.donor,
+											USER_ROLES.guest,
+											USER_ROLES.nonprofit ]
+
+										}
+									})
+									.state(
 											'treeSeed.nonProfitSearch',
 											{
 												url : 'nonProfitSearch',
