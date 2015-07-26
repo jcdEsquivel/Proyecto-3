@@ -31,21 +31,39 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestDeletePostNonprofit.
+ */
 public class TestDeletePostNonprofit extends AbstractTestController {
 
+	/** The wac. */
 	@Autowired WebApplicationContext wac; 
 	
+	/**
+	 * Sets the up.
+	 *
+	 * @param controller the new up
+	 */
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
-	 @Before
+	 /* (non-Javadoc)
+ 	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+ 	 */
+ 	@Before
 	    public void setUp() {
 	        super.setUp();
 
 	    }
 
-	 @Test  //Delete Post ONG
+	 /**
+ 	 * Test delete post ngo profile.
+ 	 *
+ 	 * @throws Exception the exception
+ 	 */
+ 	@Test  //Delete Post ONG
 	 public void testDeletePostNGOProfile() throws Exception {
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
@@ -79,7 +97,12 @@ public class TestDeletePostNonprofit extends AbstractTestController {
 	 }
 	 
 	 
-	 @Test  //Delete Post ONG with Wrong IdUser
+	 /**
+ 	 * Test delete post ngo profile wrong id user.
+ 	 *
+ 	 * @throws Exception the exception
+ 	 */
+ 	@Test  //Delete Post ONG with Wrong IdUser
 	 public void testDeletePostNGOProfileWrongIdUser() throws Exception {
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
@@ -114,7 +137,12 @@ public class TestDeletePostNonprofit extends AbstractTestController {
 	 }
 	 
 	 
-	 @Test  //Delete Post ONG without  IdUser
+	 /**
+ 	 * Test delete post ngo profile without id user.
+ 	 *
+ 	 * @throws Exception the exception
+ 	 */
+ 	@Test  //Delete Post ONG without  IdUser
 	 public void testDeletePostNGOProfileWithoutIdUser() throws Exception {
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
