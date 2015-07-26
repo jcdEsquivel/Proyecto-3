@@ -11,6 +11,15 @@ public class PostCampaignRequest  extends BasePagingRequest{
 
 
 	private PostCampaignPOJO postCampaign;
+	private int nonprofitId;
+
+	public int getNonprofitId() {
+		return nonprofitId;
+	}
+
+	public void setNonprofitId(int nonprofitId) {
+		this.nonprofitId = nonprofitId;
+	}
 
 	public PostCampaignPOJO getPostCampaign() {
 		return postCampaign;

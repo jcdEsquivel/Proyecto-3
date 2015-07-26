@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.ejb.Nonprofit;
@@ -27,7 +28,9 @@ import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.pojo.PostNonprofitPOJO;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.PostCampaignServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
@@ -37,7 +40,10 @@ import com.treeseed.utils.Utils;
 public class PostCampaignController {
 
 	@Autowired
-	PostNonprofitServiceInterface postNonprofitService;
+	PostCampaignServiceInterface postCampaignService;
+	
+	@Autowired
+	CampaignServiceInterface campaignService;
 
 	@Autowired
 	NonprofitServiceInterface nonprofitServiceInterface;
@@ -56,12 +62,12 @@ public class PostCampaignController {
 		String resultFileName = "";
 		int generalUserId = 0;
 		HttpSession currentSession = request.getSession();
-		PostNonprofitResponse response = new PostNonprofitResponse();
+		PostCampaignRequest response = new PostCampaignRequest();
 		
 		int sessionId = (int) currentSession.getAttribute("idUser");
 		
 		NonprofitWrapper nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(requestObj.getPostNonprofit().getNonprofitId());
+				.getSessionNonprofit(requestObj.getNonprofitId());
 		
 		generalUserId = nonprofit.getUsergenerals().get(0).getId();
 		
