@@ -379,7 +379,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					}
 					if(mydata.owner==true){
 						$scope.isOwner=true;
-						
+						if(mydata.campaign.state!="finished"){
 							$scope.editable=true;
 						}
 					}else{
@@ -447,6 +447,8 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		$scope.requestObjectEdit.dueDate=$scope.campaign.dueDate;
 		$scope.requestObjectEdit.picture=$scope.campaign.picture;
 		$scope.requestObjectEdit.campaign=$scope.campaign;
+		$scope.requestObjectEdit.campaign.startDate = new Date($scope.campaign.startDate);
+		$scope.requestObjectEdit.campaign.dueDate = new Date($scope.campaign.dueDate);
 
 		$http({
 			   method : 'POST',
@@ -584,8 +586,8 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	$scope.closeDateModal = function(startDate, dueDate) {
 		$scope.campaign.startDate = new Date(startDate);
 		$scope.campaign.dueDate = new Date(dueDate);
-		$scope.editCampaign();
 		modalInstance.close();
+		$scope.editCampaign();
 	}
 
 	//Amount goal Edit
