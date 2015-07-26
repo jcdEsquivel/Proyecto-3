@@ -21,17 +21,19 @@ import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
+import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
 public class TestDeletePostNonprofit extends AbstractTestController {
 
-	 @Autowired WebApplicationContext wac; 
+	@Autowired WebApplicationContext wac; 
 	
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
@@ -43,37 +45,107 @@ public class TestDeletePostNonprofit extends AbstractTestController {
 
 	    }
 
-	
-
-	 @Test  //Visualizar perfil propio
+	 @Test  //Delete Post ONG
 	 public void testDeletePostNGOProfile() throws Exception {
-
-    	NonprofitWrapper nonprofit = createRandomNonprofit();
-    	
-    	
-    	
-        PostNonprofitRequest request = new PostNonprofitRequest();
-        
-       // request.setPostNonprofit(post.getID());
-        
-        String jsonObject = mapToJson(request);
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+	
+		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		
+		pojo.setId(postnonprofit.getId());
+		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());
+		
+		request.setPostNonprofit(pojo);
+     
+		String jsonObject = mapToJson(request);
       
-            String uri = "/rest/protected/nonprofit/getNonProfitProfile";
-
-            MvcResult result = mvc.perform(
-              MockMvcRequestBuilders.post(uri)
-                         .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON).content(jsonObject))               
-	                .andReturn();
+	    String uri = "/rest/protected/postNonprofit/deletePostNonProfit";
+	
+	    MvcResult result = mvc.perform(
+    		MockMvcRequestBuilders.post(uri)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .accept(MediaType.APPLICATION_JSON)
+                 .content(jsonObject)
+                 .sessionAttr("idUser", nonprofit.getUsergenerals().get(0).getId()))
+                 .andReturn();
+  
+	    String content = result.getResponse().getContentAsString();
 	            
-	        
-	            String content = result.getResponse().getContentAsString();
-	            
-	            NonprofitResponse response = mapFromJson(content, NonprofitResponse.class);
-   
-	            Assert.assertEquals(true, response.isOwner());
-	      
+        PostNonprofitResponse response = mapFromJson(content, PostNonprofitResponse.class);
 
-	    }
+        Assert.assertEquals("Post deleted sucessfully", response.getCodeMessage());
+
+	 }
+	 
+	 
+	 @Test  //Delete Post ONG with Wrong IdUser
+	 public void testDeletePostNGOProfileWrongIdUser() throws Exception {
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+	
+		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		
+		pojo.setId(postnonprofit.getId());
+		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());
+		
+		request.setPostNonprofit(pojo);
+     
+		String jsonObject = mapToJson(request);
+      
+	    String uri = "/rest/protected/postNonprofit/deletePostNonProfit";
+	
+	    MvcResult result = mvc.perform(
+    		MockMvcRequestBuilders.post(uri)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .accept(MediaType.APPLICATION_JSON)
+                 .content(jsonObject)
+                 .sessionAttr("idUser", 99999))
+                 .andReturn();
+  
+	    String content = result.getResponse().getContentAsString();
+	            
+        PostNonprofitResponse response = mapFromJson(content, PostNonprofitResponse.class);
+
+        Assert.assertNotEquals("Post deleted sucessfully", response.getCodeMessage());
+        Assert.assertEquals("Invalid request", response.getCodeMessage());
+
+	 }
+	 
+	 
+	 @Test  //Delete Post ONG without  IdUser
+	 public void testDeletePostNGOProfileWithoutIdUser() throws Exception {
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+	
+		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		
+		pojo.setId(postnonprofit.getId());
+		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());
+		
+		request.setPostNonprofit(pojo);
+     
+		String jsonObject = mapToJson(request);
+      
+	    String uri = "/rest/protected/postNonprofit/deletePostNonProfit";
+	
+	    MvcResult result = mvc.perform(
+    		MockMvcRequestBuilders.post(uri)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .accept(MediaType.APPLICATION_JSON)
+                 .content(jsonObject)
+                 .sessionAttr("idUser", 0))
+                 .andReturn();
+  
+	    String content = result.getResponse().getContentAsString();
+	            
+        PostNonprofitResponse response = mapFromJson(content, PostNonprofitResponse.class);
+
+        Assert.assertNotEquals("Post deleted sucessfully", response.getCodeMessage());
+        Assert.assertEquals("Invalid request", response.getCodeMessage());
+
+	 }
 
 }

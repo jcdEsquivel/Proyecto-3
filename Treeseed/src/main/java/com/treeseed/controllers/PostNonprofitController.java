@@ -236,7 +236,7 @@ public class PostNonprofitController {
 			try{
 				postNonprofitService.deletePostNonprofit(pnr);
 				us.setCode(200);
-				us.setCodeMessage("Donor deleted sucessfully");
+				us.setCodeMessage("Post deleted sucessfully");
 		
 			}catch(Exception e){
 				us.setCode(400);
