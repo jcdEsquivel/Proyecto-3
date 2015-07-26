@@ -248,7 +248,12 @@
     	},
     	"TAB-2":{
     		"TITLE":"Actualizaciones"
-    	}
+    	},
+    	"FINISHED-MESSAGE":"Finalizada",
+    	"CONFIRMATION":"¿Está seguro de que desea finalizar su campaña?",
+    	"CLOSE":"Finalizar",
+    	"CANCEL":"Cancelar",
+    	"CLOSE-BUTTON":"Finalizar Campaña"
     }
      
 }
