@@ -1,12 +1,17 @@
 package com.treeseed.ejbWrapper;
 
 import java.util.Date;
+
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.PostCampaign;
 
 public class PostCampaignWrapper {
 	
 	private PostCampaign wrapperObject;
+	
+	public PostCampaignWrapper(PostCampaign wrapperObject) {
+		this.wrapperObject = wrapperObject;
+	}
 
 	public int getId() {
 		return wrapperObject.getId();

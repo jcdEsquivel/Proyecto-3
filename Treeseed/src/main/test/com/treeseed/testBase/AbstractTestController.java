@@ -29,14 +29,20 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
+
+
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.treeseed.contracts.CampaignResponse;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.PostCampaign;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
@@ -44,6 +50,7 @@ import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
@@ -52,6 +59,7 @@ import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.PostCampaignServiceInteface;
 import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
@@ -70,6 +78,7 @@ public abstract class AbstractTestController extends AbstractTest {
     @Autowired  NonprofitServiceInterface serviceNonProfit;
     @Autowired  UserGeneralServiceInterface serviceUserGeneral;
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
+    @Autowired	PostCampaignServiceInteface postCampaignService;
     @Autowired	DonorServiceInterface donorService;
     @Autowired	CampaignServiceInterface campaignService;
     @Autowired  HttpServletRequest requestHttp;
@@ -399,7 +408,26 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		
 		return wrapper;
 
-}
+	}
+	
+	public  PostCampaignWrapper createRandomCampaignPost(Campaign campaign){
+		
+		String random = getRandomString();
+		PostCampaign post = new PostCampaign();
+		post.setTittle("Title "+random);
+		post.setDescription("Description");
+		post.setCreationDate(new Date());
+		post.setActive(true);
+		post.setPicture(TreeseedConstants.DEFAULT_POST_IMAGE);
+		post.setCampaign(campaign);
+		
+		PostCampaignWrapper wrapper =  new PostCampaignWrapper(post);
+		
+		//postCampaignService.savePostCampaign(wrapper);
+		
+		return wrapper;
+
+	}
     
     public  String getRandomString(){
 		UUID uuid = UUID.randomUUID();
