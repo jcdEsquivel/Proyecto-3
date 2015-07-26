@@ -438,8 +438,6 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 
 		$scope.requestObject.state = $scope.state.Id;
 		
-		console.log($scope.state);
-		console.log(JSON.stringify($scope.requestObject));
 		$http.post('rest/protected/campaing/searchCampaignsForNonprofit',
 			
 			$scope.requestObject).success(function(mydata, status) {
