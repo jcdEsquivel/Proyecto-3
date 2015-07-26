@@ -59,6 +59,7 @@ import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -66,18 +67,35 @@ import com.treeseed.ejbWrapper.ParentUserWrapper;
 @RequestMapping(value ="rest/protected/nonprofit")
 public class NonprofitController extends UserGeneralController{
 
+	/** The catalog service. */
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
+	/** The validator. */
 	EmailValidator validator = EmailValidator.getInstance();
+	
+	/** The non profit service. */
 	@Autowired
 	 NonprofitServiceInterface nonProfitService;
-	 @Autowired
+	 
+ 	/** The servlet context. */
+ 	@Autowired
 	 ServletContext servletContext;
+	
+	/** The user general service. */
 	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
 		
+	/**
+	 * Delete non profit.
+	 *
+	 * @param dr the donor request
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/delete", method = RequestMethod.POST)
 	public NonprofitResponse deleteNonProfit(@RequestBody DonorRequest dr){
 		
@@ -109,6 +127,17 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
+	/**
+	 * Non profit create.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param password the password
+	 * @param country the country
+	 * @param cause the cause
+	 * @param file the file
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/register", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
 			@RequestParam("email") String email,
@@ -182,6 +211,12 @@ public class NonprofitController extends UserGeneralController{
 		
 	}
 	
+	/**
+	 * Gets the nonprofits.
+	 *
+	 * @param npr the nonProfitrequest
+	 * @return the nonprofits
+	 */
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
@@ -276,6 +311,14 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
+	/**
+	 * Edits the non profit.
+	 *
+	 * @param npr the NonProfitRequest
+	 * @param fileCover the file cover
+	 * @param fileProfile the file profile
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
