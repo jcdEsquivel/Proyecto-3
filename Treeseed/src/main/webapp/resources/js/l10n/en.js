@@ -23,7 +23,7 @@
     	"NAVIGATION": "Navigation",
     	"PROFILE": " Profile",
     	"CREATE-CAMPAIGN": " Create Campaign",
-    	"SEE-CAMPAIGNS": " See Campaigns",
+    	"SEE-CAMPAIGNS": " Manage Campaigns",
     	"DONATIONS-REPORT": " Donations Report",
     	"TRANSPARENCY-REPORT": " Transparency Report",
     	"CONFIGURATION": " Configuration",
@@ -90,7 +90,8 @@
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
     "CAMPAIGNSEARCH":{
-    	"HEADER-TITLE": "Campaign Advanced Search"
+    	"HEADER-TITLE": "Campaign Advanced Search",
+    	"CAMPAIGN-MANAGEMENT": "Campaigns Management"
     },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
@@ -101,7 +102,11 @@
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:",
     	"NGONAME-FILTER": "NGO Name",
-    	"RANGEDATE" : "Range Date"
+    	"RANGEDATE" : "Range Date",
+    	"ITEMS-PER-PAGE": "Items per page",
+    	"CAMPAIGN-STATE": "State",
+    	"CAMPAIGN-NAME": "Campaign Name"
+    	
     },
     "GENERAL-SETTINGS":{
 		"DELETE-PROFILE":"Delete Profile",
@@ -242,6 +247,12 @@
     	"COLLECTED":"Amount collected",
     	"COLLECTEDMESSAGE":"Collected"
     },
+
+    "CAMPAIGN-STATE":{
+    	"SOON": "Comming Soon",
+    	"ACTIVE": "Active",
+    	"FINISHED": "Finished"
+	},
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",
@@ -261,5 +272,4 @@
     	"CANCEL":"Cancel",
     	"CLOSE-BUTTON":"Finish Campaign"
     }
-    	
 }
