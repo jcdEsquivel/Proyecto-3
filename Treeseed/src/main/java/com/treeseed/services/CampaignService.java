@@ -110,7 +110,8 @@ public class CampaignService implements CampaignServiceInterface{
 								  campaign.getDueDate(),
 								  campaign.getStartDate(),
 								  campaign.getAmountCollected(),
-								  campaign.getAmountGoal());
+								  campaign.getAmountGoal(),
+								  campaign.getPicture());
 	}
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.CampaignServiceInterface#getCampaignById(int)

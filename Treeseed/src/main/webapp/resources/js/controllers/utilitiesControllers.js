@@ -21,6 +21,8 @@ treeSeedAppControllers.controller('dragnDropController', function($scope){
 });
 
 treeSeedAppControllers.controller('DatepickerCtrl', ['$scope', function($scope) {
+    $scope.disabled2 = $scope.disabled;
+
     $scope.today = function() {
       $scope.dt = new Date();
     };
