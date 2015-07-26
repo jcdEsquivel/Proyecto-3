@@ -83,8 +83,10 @@ public class CampaignService implements CampaignServiceInterface{
 		PageWrapper<CampaignWrapper> pageWrapper = new PageWrapper<CampaignWrapper>();
 		Date startDate = null;
 		Date endDate = null;
-		Date startDateState = null;
-		Date endDateState = null;
+		Date startDateSoon = null;
+		Date startDateActive = null;
+		Date endDateActive = null;
+		Date endDateFinished = null;
 		Calendar cal = Calendar.getInstance();
 		
 		ur.setPageNumber(ur.getPageNumber()-1);
@@ -122,19 +124,20 @@ public class CampaignService implements CampaignServiceInterface{
 			
 			if(ur.getState().equals("soon")){
 		
-				startDate =new Date();
+				startDateSoon = new Date();
 				
 			}else if(ur.getState().equals("active")){
 
-				startDateState = new Date();
-				endDateState = new Date();
+				startDateActive = new Date();
+				endDateActive = new Date();
 			}else{
-				endDate = new Date(); 
-			}	
+				endDateFinished = new Date(); 
+			}
 		}
 		
 		result = campaignRepository.findFromNonprofit(campaignName, "%" + campaignName + "%",
-				 startDate, endDate, startDateState, endDateState, nonprofitId, pr);
+				 startDate, endDate,startDateSoon, startDateActive, endDateActive,endDateFinished,
+				 nonprofitId, pr);
 
 		for (Campaign c : result.getContent()) {
 		    pageWrapper.getResults().add(new CampaignWrapper(c));

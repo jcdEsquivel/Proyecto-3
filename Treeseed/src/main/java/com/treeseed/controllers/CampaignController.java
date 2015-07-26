@@ -293,7 +293,7 @@ public class CampaignController {
 			campaignPojo.setStartDateS(objeto.getStartDateS());
 			campaignPojo.setDueDate(objeto.getDueDate());
 			campaignPojo.setDueDateS(objeto.getDueDateS());
-			campaignPojo.setState(objeto.getStateBaseONDate());
+			campaignPojo.setState(objeto.getState());
 			campaignPojo.setStart(objeto.isStart());
 			campaignPojo.setEnd(objeto.isEnd());
 			

@@ -466,26 +466,6 @@ public class CampaignWrapper {
 	}
 	
 	
-	
-	/**
-	 * State base on date.
-	 *
-	 * @return the string
-	 */
-	public String getStateBaseONDate(){
-
-		Date current = new Date();
-
-		if(getStartDate().after(current)){
-			return "soon";
-		} else if( getStartDate().before(current) && getDueDate().after(current) ){
-			return "active"; 
-		}else{
-			return "finished"; 
-		}
-		
-	}
-
 	/**
 	 * Sets the state.
 	 *
