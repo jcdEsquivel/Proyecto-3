@@ -98,10 +98,12 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	
 	$scope.deletePost = function()
 	{
+		$scope.postRequest.postNonprofit.nonprofitId= Session.id;
 		$http.post('rest/protected/postNonprofit/deletePostNonProfit',
 				$scope.postRequest).then(function(response) {
 					if(response.data.code=="200"){
-						$scope.getPosts(1)						
+						$scope.postRequest.postNonprofit.nonprofitId= $stateParams.nonProfitId;
+						$scope.getPosts(1);						
 					}
 					else if(response.data.code=="400")
 					{
@@ -113,9 +115,6 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	$scope.openModalDeletePost = function(p) {
 
 		$scope.postRequest.postNonprofit.id = p.id;
-		$scope.postRequest.postNonprofit.nonprofitId= Session.id;
-		console.log(Session)
-		console.log($scope.postRequest.postNonprofit.nonprofitId)
 		modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/delete_confirmation_post.html',
