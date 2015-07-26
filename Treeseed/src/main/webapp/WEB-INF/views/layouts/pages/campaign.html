@@ -101,30 +101,11 @@
 		</div>
 	</div>
     </tab>
-    <tab>
+    <tab ng-click="loadPosts()">
       <tab-heading>
         <span translate="CAMPAIGN.TAB-2.TITLE"></span><span class="badge bg-danger badge-sm m-l-xs"></span>
       </tab-heading>
-      <ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
-        <li class="list-group-item">
-          <a href="#" class="pull-left thumb-md m-r">
-            <img src="resources/img/a0.jpg" alt="..." class="img-circle">
-          </a>
-          <div class="clear">
-            <a href="#" class="h4 text-primary m-b-sm block">Jone Dosh <span class="label label-sm bg-info">Donador</span></a>
-            <div>Lorem ipsum dolor <span></span>it amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <a href="#" class="pull-left thumb-md m-r">
-            <img src="resources/img/a1.jpg" alt="..." class="img-circle">
-          </a>
-          <div class="clear">
-            <a href="#" class="h4 text-primary m-b-sm block">Miya Soe <span class="label label-sm bg-danger">Administrador</span></a>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin egestas dui nec, fermentum diam. Vivamus vel tincidunt libero</div>
-          </div>
-        </li>
-      </ul>
+       <div  data-ng-include=" 'layouts/components/postsCampaignList.html' " ></div> 
     </tab>
   </tabset>
 </div>

@@ -12,15 +12,15 @@
 						<p translate="POST-MODAL.TITLE">Title</p>
 						<input name="txt-name"
 							placeholder="{{'POST-MODAL.TITLE'| translate}}"
-							class="form-control" ng-model="postRequestModal.postNonprofit.title" required>
+							class="form-control" ng-model="Post.title" required>
 
 						<p class="m-t" translate="POST-MODAL.DESCRIPTION">Description:</p>
 						<textarea class="form-control" rows="6" name="txa-description"
-							ng-model="postRequestModal.postNonprofit.description" maxlength="{{maxCarac}}"
+							ng-model="Post.description" maxlength="{{maxCarac}}"
 							name="description"
 							placeholder="{{'POST-MODAL.DESCRIPTION'| translate}}"
 							required ></textarea>
-						<span>{{postRequestModal.postNonprofit.description.length}}/{{maxCarac}}</span>
+						<span>{{Post.description.length}}/{{maxCarac}}</span>
 
 
 					</div>

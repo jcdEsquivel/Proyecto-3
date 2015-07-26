@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.PostCampaignRequest;
+import com.treeseed.contracts.PostCampaignResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.PostCampaign;
 import com.treeseed.ejb.PostNonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
@@ -56,13 +60,14 @@ public class PostCampaignController {
 	
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
+	public PostCampaignResponse create(@RequestPart(value="file", required=false) MultipartFile file,
 			@RequestPart(value="data") PostCampaignRequest requestObj) {
 
 		String resultFileName = "";
 		int generalUserId = 0;
 		HttpSession currentSession = request.getSession();
-		PostCampaignRequest response = new PostCampaignRequest();
+		PostCampaignResponse response = new PostCampaignResponse();
+		CampaignWrapper campaignWrapper = campaignService.getCampaignById(requestObj.getPostCampaign().getCampaignId());
 		
 		int sessionId = (int) currentSession.getAttribute("idUser");
 		
@@ -75,7 +80,7 @@ public class PostCampaignController {
 		//Checks if the request comes from the logged user.
 		if (nonprofit != null && generalUserId == sessionId) {
 
-			PostNonprofitWrapper post = new PostNonprofitWrapper(new PostNonprofit());
+			PostCampaignWrapper post = new PostCampaignWrapper(new PostCampaign());
 
 			if (file == null) {
 				resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
@@ -83,14 +88,14 @@ public class PostCampaignController {
 				resultFileName = Utils.writeToFile(file, servletContext);
 			}
 
-			post.setTittle(requestObj.getPostNonprofit().getTitle());
-			post.setDescription(requestObj.getPostNonprofit().getDescription());
-			post.setIsActive(true);
+			post.setTittle(requestObj.getPostCampaign().getTitle());
+			post.setDescription(requestObj.getPostCampaign().getDescription());
+			post.setActive(true);
 			post.setPicture(resultFileName);
-			post.setNonprofit(nonprofit.getWrapperObject());
+			post.setCampaign(campaignWrapper.getWrapperObject());
 			post.setCreationDate(new Date());
 
-			postNonprofitService.savePostNonprofit(post);
+			postCampaignService.savePost(post);
 
 			response.setCode(200);
 			response.setCodeMessage("Post created");

@@ -3,8 +3,8 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('postAdminController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
+treeSeedAppControllers.controller('postCampaignAdminController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal,
 		$stateParams) {
 
 	$scope.posts = [];
@@ -17,7 +17,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 			title : '',
 			picture : '',
 			description : '',
-			nonprofitId : $stateParams.nonProfitId
+			campaignId : $stateParams.campaignId
 		},
 		pageNumber : '',
 		pageSize : '5',
@@ -26,11 +26,11 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	};
 
 	$scope.getPosts = function(pageNumber) {
-
+/* Para el que le toque el listar post de campaña
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
 		
-		$http.post('rest/protected/postNonprofit/getNonprofitPost',
+		$http.post('rest/protected/postCampaign/getNonprofitPost',
 				$scope.postRequest).success(function(data, status) {
 
 			if (data.code == 200) {
@@ -45,7 +45,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 			console.log(status);
 			console.log("No data found");
 		});
-		
+		*/
 	};//end getPosts
 	
 	
@@ -54,7 +54,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	};
 	
 	//Gets execute when posts tab is clicked. is called from getNonProfitProfileController
-	$scope.$on('loadPosts',function(){
+	$scope.$on('loadPostsCampaign',function(){
 		$scope.getPosts(1);
 	});
 
@@ -63,14 +63,14 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/createPostModal.html',
-			controller : 'createPostController',
+			controller : 'createPostCampaignController',
 			size : 'lg',
 			resolve : {
 				getPosts : function() {
 					return $scope.getPosts;
 				},
-				nonprofitId: function(){
-					return $scope.postRequest.postNonprofit.nonprofitId
+				campaignId: function(){
+					return $scope.postRequest.postNonprofit.campaignId
 				}
 			}
 
@@ -80,30 +80,32 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 
 });
 
-treeSeedAppControllers.controller('createPostController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, nonprofitId, Session,
+treeSeedAppControllers.controller('createPostCampaignController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts,  campaignId ,Session,
 		$modalInstance) {
 
 	$scope.getPosts = getPosts;
 	
 	$scope.postRequestModal = {
-			postNonprofit : {
+			postCampaign : {
 				id : '',
 				title : '',
 				picture : '',
 				description : '',
-				nonprofitId : nonprofitId
-			}
+				campaignId : campaignId
+			},
+			nonprofitId: Session.userId
 		}
 	
+	$scope.Post={
+			title:'',
+			description:''
+	};
+
 	
 	$scope.maxCarac = 500;
 	$scope.image;
-	$scope.Post = {
-		nonprofitId : Session.userId,
-		title : '',
-		descripcion : ''
-	};
+	
 
 	$scope.$on('profilePicture', function(event, args) {
 		$scope.image = args;
@@ -129,13 +131,13 @@ treeSeedAppControllers.controller('createPostController', function($http,
 
 	$scope.createPost = function() {
 
-		$scope.postRequestModal.postNonprofit.title = $scope.Post.title;
-		$scope.postRequestModal.postNonprofit.description = $scope.Post.description;
+		$scope.postRequestModal.postCampaign.title = $scope.Post.title;
+		$scope.postRequestModal.postCampaign.description = $scope.Post.description;
 		
 		$http(
 				{
 					method : 'POST',
-					url : 'rest/protected/postNonprofit/register',
+					url : 'rest/protected/postCampaign/register',
 					headers : {
 						'Content-Type' : undefined
 					},
@@ -155,13 +157,16 @@ treeSeedAppControllers.controller('createPostController', function($http,
 					}
 
 				}).success(function(data, status, headers, config) {
-			$scope.close();
+					if(data.code == 200){
+						$scope.close();
+					}
+			
 		});
 
 	};
 
 	$scope.close = function() {
-		$scope.getPosts(1);
+		//$scope.getPosts(1);
 		$modalInstance.close();
 		
 	}
