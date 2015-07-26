@@ -7,6 +7,10 @@ import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface CampaignServiceInterface.
+ */
 public interface CampaignServiceInterface {
 	
 	/**
@@ -20,7 +24,7 @@ public interface CampaignServiceInterface {
 	/**
 	 * Save campaign.
 	 *
-	 * @param nonProfit the non profit
+	 * @param campaign the campaign
 	 * @return the int
 	 */
 	int saveCampaign(CampaignWrapper campaign);
@@ -43,4 +47,10 @@ public interface CampaignServiceInterface {
 	
 	void updateCampaign(CampaignWrapper campaign);
 
+	/**
+	 * Close campaign.
+	 *
+	 * @param id the id
+	 */
+	void closeCampaign(int id);
 }

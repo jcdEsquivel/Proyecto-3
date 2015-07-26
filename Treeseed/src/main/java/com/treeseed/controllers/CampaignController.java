@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
+import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
@@ -58,6 +59,8 @@ public class CampaignController {
 	/** The campaign service. */
 	@Autowired
 	DonationServiceInterface donationService;
+	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
@@ -409,6 +412,58 @@ public class CampaignController {
 		return cs;		
 	}
 	
-	
+		/**
+	 * Delete non profit.
+	 *
+	 * @param cr the campaign request
+	 * @return the campaign response
+	 */
+	@RequestMapping(value ="/close", method = RequestMethod.POST)
+	public CampaignResponse deleteNonProfit(@RequestBody CampaignRequest cr){
+		
+		
+	   CampaignWrapper wrapper ;	    
+	   HttpSession currentSession = request.getSession();
+		CampaignResponse cs = new CampaignResponse();
+		int tempId= 0;
+		
+		if(cr.getIdUser()!=0){
+			tempId= (int) currentSession.getAttribute("idUser");
+		}
+		if(tempId==cr.getIdUser()){
+			if(cr.getCampaign().getId()!=0){
+				wrapper = campaignService.getCampaignById(cr.getCampaign().getId());
+				if(wrapper.getWrapperObject()!=null){
+					try
+				    {
+				    	campaignService.closeCampaign(wrapper.getId());	
+				    	
+					 	cs.setCode(200);
+				    	cs.setCodeMessage("campaign closed");
+					 	
+				    }
+				    catch(Exception e)
+				    {
+				    	cs.setCode(400);
+				    	cs.setErrorMessage("ERROR DATABASE");
+				    }
+				}else{
+					cs.setCode(400);
+			    	cs.setErrorMessage("campaign do not found");
+				}
+				
+			}else{
+				cs.setCode(400);
+		    	cs.setErrorMessage("campaign do not received");
+			}
+			
+		}else{
+			cs.setCode(400);
+	    	cs.setErrorMessage("No owner");
+		}
+	    
+	    
+		return cs;
+	}
 
 }
