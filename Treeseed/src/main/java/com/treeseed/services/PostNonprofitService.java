@@ -14,13 +14,21 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.repositories.PostNonprofitRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostNonprofitService.
+ */
 @Service
 public class PostNonprofitService implements PostNonprofitServiceInterface{
 
+	/** The post repository. */
 	@Autowired
 	PostNonprofitRepository postRepository;
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostNonprofitServiceInterface#savePostNonprofit(com.treeseed.ejbWrapper.PostNonprofitWrapper)
+	 */
 	@Override
 	public int savePostNonprofit(PostNonprofitWrapper wrapper) {
 	
@@ -28,6 +36,9 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		return post.getId();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostNonprofitServiceInterface#getPosts(com.treeseed.contracts.PostNonprofitRequest)
+	 */
 	@Override
 	public  Page<PostNonprofit> getPosts(PostNonprofitRequest postRequest){
 		
@@ -58,6 +69,9 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostNonprofitServiceInterface#updatePostNonprofit(com.treeseed.ejbWrapper.PostNonprofitWrapper)
+	 */
 	@Override
 	@Transactional
 	public PostNonprofitWrapper updatePostNonprofit(PostNonprofitWrapper wrapper) {
@@ -82,6 +96,9 @@ public class PostNonprofitService implements PostNonprofitServiceInterface{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostNonprofitServiceInterface#deletePostNonprofit(com.treeseed.contracts.PostNonprofitRequest)
+	 */
 	@Override
 	@Transactional
 	public void deletePostNonprofit(PostNonprofitRequest request)  {

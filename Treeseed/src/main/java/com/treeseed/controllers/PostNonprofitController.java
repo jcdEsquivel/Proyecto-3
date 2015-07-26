@@ -40,23 +40,38 @@ import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostNonprofitController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/postNonprofit")
 public class PostNonprofitController {
 
+	/** The post nonprofit service. */
 	@Autowired
 	PostNonprofitServiceInterface postNonprofitService;
 
+	/** The nonprofit service interface. */
 	@Autowired
 	NonprofitServiceInterface nonprofitServiceInterface;
 
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
 
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
 	
 
+	/**
+	 * Creates the.
+	 *
+	 * @param file the file
+	 * @param requestObj the request obj
+	 * @return the post nonprofit response
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
 			@RequestPart(value="data") PostNonprofitRequest requestObj) {
@@ -107,6 +122,12 @@ public class PostNonprofitController {
 	}
 	
 	
+	/**
+	 * Gets the nonprofit post.
+	 *
+	 * @param postRequest the post request
+	 * @return the nonprofit post
+	 */
 	@RequestMapping(value = "/getNonprofitPost", method = RequestMethod.POST)
 	public PostNonprofitResponse getNonprofitPost(@RequestBody PostNonprofitRequest postRequest) {
 
@@ -139,69 +160,93 @@ public class PostNonprofitController {
 	/**
 	 * Edits the post non profit.
 	 *
-	 * @param npr the npr
-	 * @param filePost the file post
+	 * @param pr the Post Non Profit Request
+	 * @param file the file
 	 * @return the post nonprofit response
 	 */
 	@RequestMapping(value ="/editPostNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse editPostNonProfit(@RequestPart(value="data") PostNonprofitRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
 	{
 	
-		String imagePost = "";
+		HttpSession currentSession = request.getSession();
 		PostNonprofitResponse us = new PostNonprofitResponse();
-		PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
-		postNonprofitPOJO= pr.getPostNonprofit();		
-		PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
+		int sessionId = (int) currentSession.getAttribute("idUser");
 		
-		if(file!=null){
-			imagePost = Utils.writeToFile(file,servletContext);
-		}
+		if(pr.getPostNonprofit().getNonprofitId()==sessionId){
+			
+			String imagePost = "";
+			PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
+			postNonprofitPOJO= pr.getPostNonprofit();		
+			PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
+			
+			if(file!=null){
+				imagePost = Utils.writeToFile(file,servletContext);
+			}
 
 
-		if(!imagePost.equals("")){
-			postNonprofit.setPicture(imagePost);
+			if(!imagePost.equals("")){
+				postNonprofit.setPicture(imagePost);
+			}else{
+				postNonprofit.setPicture(postNonprofitPOJO.getPicture());
+			}
+			
+			
+			postNonprofit.setId(postNonprofitPOJO.getId());
+			postNonprofit.setTittle(pr.getPostNonprofit().getTitle());
+			postNonprofit.setDescription(pr.getPostNonprofit().getDescription());
+			
+			postNonprofit= postNonprofitService.updatePostNonprofit(postNonprofit);
+			
+			
+			postNonprofitPOJO.setTitle(postNonprofit.getTittle());
+			postNonprofitPOJO.setDescription(postNonprofit.getDescription());
+			postNonprofitPOJO.setPicture(postNonprofit.getPicture());
+			
+			us.setPost(postNonprofitPOJO);
+			us.setCode(200);
+			us.setCodeMessage("Post of Nonprofit updated sucessfully");
+			
 		}else{
-			postNonprofit.setPicture(postNonprofitPOJO.getPicture());
+			us.setCode(401);
+			us.setCodeMessage("Invalid request");
 		}
 		
-		
-		postNonprofit.setId(postNonprofitPOJO.getId());
-		postNonprofit.setTittle(pr.getPostNonprofit().getTitle());
-		postNonprofit.setDescription(pr.getPostNonprofit().getDescription());
-		
-		postNonprofit= postNonprofitService.updatePostNonprofit(postNonprofit);
-		
-		
-		postNonprofitPOJO.setTitle(postNonprofit.getTittle());
-		postNonprofitPOJO.setDescription(postNonprofit.getDescription());
-		postNonprofitPOJO.setPicture(postNonprofit.getPicture());
-		
-		us.setPost(postNonprofitPOJO);
-		us.setCode(200);
-		us.setCodeMessage("Post of Nonprofit updated sucessfully");
 		
 		return us;		
 	}
 	
 	
 	
+	/**
+	 * Delete post non profit.
+	 *
+	 * @param pnr the Post Non Profit Request
+	 * @return the post nonprofit response
+	 */
 	@RequestMapping(value ="/deletePostNonProfit", method = RequestMethod.POST)
 	public PostNonprofitResponse deletePostNonProfit(@RequestBody PostNonprofitRequest pnr)
 	{
 	
+		HttpSession currentSession = request.getSession();
+		int sessionId = (int) currentSession.getAttribute("idUser");
 		PostNonprofitResponse us = new PostNonprofitResponse();
 		
-		try{
-			postNonprofitService.deletePostNonprofit(pnr);
-			us.setCode(200);
-			us.setCodeMessage("Donor deleted sucessfully");
-	
-		}catch(Exception e){
+		if(pnr.getPostNonprofit().getNonprofitId()== sessionId){
+		
+			try{
+				postNonprofitService.deletePostNonprofit(pnr);
+				us.setCode(200);
+				us.setCodeMessage("Donor deleted sucessfully");
+		
+			}catch(Exception e){
+				us.setCode(400);
+				us.setCodeMessage("Invalid request");
+			}
+		}else{
 			us.setCode(400);
-			us.setCodeMessage("Error Database");
-			
+			us.setCodeMessage("Invalid request");
 		}
-	
+		
 		return us;				
 	}
 

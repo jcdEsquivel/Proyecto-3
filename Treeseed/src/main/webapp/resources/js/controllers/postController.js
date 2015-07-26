@@ -5,7 +5,7 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('postAdminController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
-		$stateParams) {
+		$stateParams, Session) {
 
 	$scope.posts = [];
 	$scope.totalPosts = 0;
@@ -113,6 +113,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	$scope.openModalDeletePost = function(p) {
 
 		$scope.postRequest.postNonprofit.id = p.id;
+		$scope.postRequest.postNonprofit.nonprofitId= Session.id;
+		console.log(Session)
+		console.log($scope.postRequest.postNonprofit.nonprofitId)
 		modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/delete_confirmation_post.html',
