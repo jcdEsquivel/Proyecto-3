@@ -1,4 +1,4 @@
-package com.treeseed.sprint2;
+package com.treeseed.sprint3;
 
 import java.io.FileInputStream;
 
@@ -26,7 +26,7 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestCreatePostNonprofit extends AbstractTestController {
+public class TestCrearPostONG extends AbstractTestController {
 
 	 @Autowired WebApplicationContext wac; 
 	
