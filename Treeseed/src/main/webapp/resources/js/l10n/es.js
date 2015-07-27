@@ -174,12 +174,16 @@
      },
 	"POST-MODAL":{ 
 		"MODAL-OPEN-MODAL": "Agregar post",
-		"MODAL-TITLE": "Agregar nuevo post",
+		"MODAL-TITLE": "Post",
 		"TITLE": "Título",
 		"DESCRIPTION": "Descripción",
 		"DROP-IMAGE": "Arrastre una imagen aqui",
-		"ADD-BUTTON": "Agregar",
+		"ADD-BUTTON": "Aceptar",
 		"CANCEL": "Cancelar"
+	},
+	"DELETE-MODAL-POST":{ 
+   		"MESSAGE": "¿Está seguro de que desea eliminar su actualización?",
+   		"DELETE": "Eliminar"
 	},
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
