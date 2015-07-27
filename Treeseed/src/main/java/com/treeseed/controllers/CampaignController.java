@@ -1,17 +1,13 @@
 package com.treeseed.controllers;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,17 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
-import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Donor;
-import com.treeseed.ejb.Nonprofit;
-import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
@@ -41,10 +33,10 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
-import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.utils.PageWrapper;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
@@ -221,35 +213,36 @@ public class CampaignController {
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr){	
 		CampaignPOJO campaignPojo = null;
 		cr.setPageNumber(cr.getPageNumber() - 1);
-		Page<Campaign> viewCampaign = campaignService.getCampaignsByNonprofit(cr);
+		PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
 		
 		CampaignResponse cs = new CampaignResponse();
 		
 		
-		cs.setTotalElements(viewCampaign.getTotalElements());
-		cs.setTotalPages(viewCampaign.getTotalPages());
+		cs.setTotalElements(pageResults.getTotalItems());
 		
 		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
 		
-		for(Campaign objeto:viewCampaign.getContent())
+		for(CampaignWrapper objeto:pageResults.getResults())
 		{
-			CampaignWrapper object =new CampaignWrapper(objeto);
 			campaignPojo = new CampaignPOJO();
-			campaignPojo.setId(object.getId());
-			campaignPojo.setName(object.getName());
-			campaignPojo.setDescription(object.getDescription());
-			campaignPojo.setPicture(object.getPicture());
-			campaignPojo.setAmountCollected(object.getAmountCollected());
-			campaignPojo.setAmountGoal(object.getAmountGoal());
-			campaignPojo.setPercent((int)Math.round(object.getPercent()));
-			campaignPojo.setStartDate(object.getStartDate());
-			campaignPojo.setStartDateS(object.getStartDateS());
-			campaignPojo.setStart(object.isStart());
-			campaignPojo.setEnd(object.isEnd());
-			campaignPojo.setDueDate(object.getDueDate());
-			campaignPojo.setDueDateS(object.getDueDateS());
-			campaignPojo.setState(object.getState());
+
+			campaignPojo.setId(objeto.getId());
+			campaignPojo.setName(objeto.getName());
+			campaignPojo.setDescription(objeto.getDescription());
+			campaignPojo.setPicture(objeto.getPicture());
+			campaignPojo.setAmountCollected(objeto.getAmountCollected());
+			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
+			campaignPojo.setStartDate(objeto.getStartDate());
+			campaignPojo.setStartDateS(objeto.getStartDateS());
+			campaignPojo.setDueDate(objeto.getDueDate());
+			campaignPojo.setDueDateS(objeto.getDueDateS());
+			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStart(objeto.isStart());
+			campaignPojo.setEnd(objeto.isEnd());
+
 			viewCampaignsPOJO.add(campaignPojo);
+			
 		};
 		
 		
@@ -267,6 +260,65 @@ public class CampaignController {
 			
 	}
 	
+
+	
+
+	/**
+	 * Search campaigns for nonprofit.
+	 *
+	 * @param cr as CampaignRequest
+	 * @return the campaign response
+	 */
+	@RequestMapping(value ="/searchCampaignsForNonprofit", method = RequestMethod.POST)
+	@Transactional
+	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr){	
+		
+		CampaignPOJO campaignPojo = null;
+		
+		PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
+		
+		CampaignResponse cs = new CampaignResponse();
+		
+		
+		cs.setTotalElements(pageResults.getTotalItems());
+		
+		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
+		
+		for(CampaignWrapper objeto: pageResults.getResults())
+		{
+			campaignPojo = new CampaignPOJO();
+			campaignPojo.setId(objeto.getId());
+			campaignPojo.setName(objeto.getName());
+			campaignPojo.setDescription(objeto.getDescription());
+			campaignPojo.setPicture(objeto.getPicture());
+			campaignPojo.setAmountCollected(objeto.getAmountCollected());
+			campaignPojo.setAmountGoal(objeto.getAmountGoal());
+			campaignPojo.setPercent((int)Math.round((objeto.getAmountCollected()/objeto.getAmountGoal())*100));
+			campaignPojo.setStartDate(objeto.getStartDate());
+			campaignPojo.setStartDateS(objeto.getStartDateS());
+			campaignPojo.setDueDate(objeto.getDueDate());
+			campaignPojo.setDueDateS(objeto.getDueDateS());
+			campaignPojo.setState(objeto.getState());
+			campaignPojo.setStart(objeto.isStart());
+			campaignPojo.setEnd(objeto.isEnd());
+			
+			viewCampaignsPOJO.add(campaignPojo);
+		};
+
+		cs.setCampaigns(viewCampaignsPOJO);
+		
+		if(viewCampaignsPOJO.size()>0){
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+		}else{
+			cs.setErrorMessage("campaigns fetch unsuccessful");
+			cs.setCode(400);
+		}
+		
+		return cs;
+	
+	}
+
 	/**
 	 * Gets the campaign profile.
 	 *

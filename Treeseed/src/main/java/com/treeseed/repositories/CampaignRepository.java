@@ -41,7 +41,7 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	@Query("SELECT cp FROM Campaign cp inner join cp.nonprofit n inner join n.cause c WHERE ( :campaignNameNull is null or cp.name like :campaignName) and "
 			+ "( :ngoNameNull  is null or n.name like :ngoName) and "
 			+ "( :cause = 0 or c.id = :cause) and cp.isActive = 1 and "
-			+ "( :startDate is null or cp.creationDate >= :startDate ) and "
+			+ "( :startDate is null or cp.startDate >= :startDate ) and "
 			+ "( :endDate is null or cp.dueDate <= :endDate )")
 	public Page<Campaign> findWithAll(
 			@Param("campaignNameNull") String campaignNameNull,
@@ -51,6 +51,41 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 			@Param("startDate") Date startDate, @Param("endDate") Date endDate,
 			Pageable pageable);
 	
+
+	/**
+	 * Find from nonprofit.
+	 *
+	 * @param campaignNameNull the campaign name null
+	 * @param campaignName the campaign name
+	 * @param ngoNameNull the ngo name null
+	 * @param ngoName the ngo name
+	 * @param cause the cause
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param nonprofitId the nonprofit id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
+	@Query("SELECT cp FROM Campaign cp inner join cp.nonprofit n inner join n.cause c WHERE"
+			+ "( :campaignNameNull is null or cp.name like :campaignName) and "
+			+ "( :startDate is null or cp.startDate >= :startDate ) and "
+			+ "( :endDate is null or cp.dueDate <= :endDate ) and "		
+			+ "( :startDateSoon is null or ( cp.startDate >= :startDateSoon and cp.isActive = 1 ) ) and "		
+			+ "( :startDateActive is null or ( cp.startDate <= :startDateActive and cp.isActive = 1 ) ) and "
+			+ "( :endDateActive is null or cp.dueDate >= :endDateActive ) and "
+			+"( :endDateFinished is null or (cp.dueDate <= :endDateFinished or cp.isActive = 0 ) ) and "
+			+ "n.id = :nonprofitId ")
+	   public Page<Campaign> findFromNonprofit(@Param("campaignNameNull") String campaignNameNull, @Param("campaignName") String campaignName,
+			   @Param("startDate") Date startDate,
+			   @Param("endDate") Date endDate,
+			   @Param("startDateSoon") Date startDateSoon,
+			   @Param("startDateActive") Date startDateActive,
+			   @Param("endDateActive") Date endDateActive,
+			   @Param("endDateFinished") Date endDateFinished,
+			   @Param("nonprofitId") int nonprofitId,
+			   Pageable pageable);
+	
+
 	/**
 	 * Find all.
 	 *

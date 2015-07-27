@@ -23,7 +23,7 @@
     	"NAVIGATION": "Navigation",
     	"PROFILE": " Profile",
     	"CREATE-CAMPAIGN": " Create Campaign",
-    	"SEE-CAMPAIGNS": " See Campaigns",
+    	"SEE-CAMPAIGNS": " Manage Campaigns",
     	"DONATIONS-REPORT": " Donations Report",
     	"TRANSPARENCY-REPORT": " Transparency Report",
     	"CONFIGURATION": " Configuration",
@@ -90,7 +90,8 @@
     	"HEADER-TITLE": "Non Profits Advanced Search"
     },
     "CAMPAIGNSEARCH":{
-    	"HEADER-TITLE": "Campaign Advanced Search"
+    	"HEADER-TITLE": "Campaign Advanced Search",
+    	"CAMPAIGN-MANAGEMENT": "Campaigns Management"
     },
     "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Search",
@@ -101,7 +102,11 @@
     	"SEARCH-RESULTS": "Search results:",
     	"BLANK-OPTION": "Select:",
     	"NGONAME-FILTER": "NGO Name",
-    	"RANGEDATE" : "Range Date"
+    	"RANGEDATE" : "Range Date",
+    	"ITEMS-PER-PAGE": "Items per page",
+    	"CAMPAIGN-STATE": "State",
+    	"CAMPAIGN-NAME": "Campaign Name"
+    	
     },
     "GENERAL-SETTINGS":{
 		"DELETE-PROFILE":"Delete Profile",
@@ -178,13 +183,17 @@
     },
    	"POST-MODAL":{ 
    		"MODAL-OPEN-MODAL": "Add post",
-   		"MODAL-TITLE": "Add New Post",
+   		"MODAL-TITLE": "Post",
    		"TITLE": "Title",
    		"DESCRIPTION": "Description",
    		"DROP-IMAGE": "Drop an image here to upload.",
-   		"ADD-BUTTON": "Add",
+   		"ADD-BUTTON": "Accept",
    		"CANCEL": "Cancel"
    		
+    },
+    "DELETE-MODAL-POST":{ 
+   		"MESSAGE": "Are you sure you want to delete your post?",
+   		"DELETE": "Delete"
     },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
@@ -242,6 +251,12 @@
     	"COLLECTED":"Amount collected",
     	"COLLECTEDMESSAGE":"Collected"
     },
+
+    "CAMPAIGN-STATE":{
+    	"SOON": "Comming Soon",
+    	"ACTIVE": "Active",
+    	"FINISHED": "Finished"
+	},
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",
@@ -261,5 +276,4 @@
     	"CANCEL":"Cancel",
     	"CLOSE-BUTTON":"Finish Campaign"
     }
-    	
 }

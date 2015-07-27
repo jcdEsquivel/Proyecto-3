@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.utils.PageWrapper;
 
 
 // TODO: Auto-generated Javadoc
@@ -16,10 +17,19 @@ public interface CampaignServiceInterface {
 	/**
 	 * Gets the all campaigns.
 	 *
-	 * @param ur the Campaign Request
+	 * @param ur the ur
 	 * @return the all campaigns
 	 */
-	Page<Campaign> getAllCampaigns(CampaignRequest ur);
+	public Page<Campaign> getAllCampaigns(CampaignRequest ur);
+	
+	/**
+	 * Find campaigns from nonprofit.
+	 *
+	 * @param ur as CampaignRequest
+	 * @return the page wrapper
+	 */
+	public PageWrapper<CampaignWrapper> findCampaignsFromNonprofit(CampaignRequest ur);
+
 
 	/**
 	 * Save campaign.
@@ -27,15 +37,17 @@ public interface CampaignServiceInterface {
 	 * @param campaign the campaign
 	 * @return the int
 	 */
-	int saveCampaign(CampaignWrapper campaign);
+	public int saveCampaign(CampaignWrapper nonProfit);
+
 	
 	/**
 	 * Gets the campaigns by nonprofit.
 	 *
-	 * @param ur the Campaign Request
+	 * @param ur as  CampaignRequest
 	 * @return the campaigns by nonprofit
 	 */
-	Page<Campaign> getCampaignsByNonprofit(CampaignRequest ur);
+	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(CampaignRequest ur);
+
 	
 	/**
 	 * Gets the campaign by id.

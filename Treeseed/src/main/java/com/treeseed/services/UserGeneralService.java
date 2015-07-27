@@ -143,8 +143,13 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 	}
 	
 	@Override
-	public UserGeneral getUserByDonorId(int idDonor) {
-		return usersRepository.findByDonorId(idDonor);
+	public UserGeneralWrapper getUserByDonorId(int idDonor) {
+		UserGeneral userGeneral = usersRepository.findByDonorId(idDonor);
+		UserGeneralWrapper userGeneralWrapper = new UserGeneralWrapper();
+		
+		userGeneralWrapper.setWrapperObject(userGeneral);
+		
+		return userGeneralWrapper;
 	}
 	
 	@Override

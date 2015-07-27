@@ -328,7 +328,7 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 				}else{
 					return 'border-finished';
 				}
-			}
+			};
 			
 			$scope.getColor=function(start, end){
 				$scope.color = "";
@@ -339,11 +339,144 @@ treeSeedAppControllers.controller('nonprofitCampaignSearchController',
 				}else if(!start&&end){
 					$scope.color ="#27c24c";
 				}
-			}
+			};
 			
-			
+		});
 
-		})
+
+
+treeSeedAppControllers.controller('searchCampaignFromNonProfitController', function($scope,
+		$http, $location, $modal, $log, $timeout, Session, $translate) {
+
+	$scope.datesDisable = false;
+	$scope.stateDisable = false;
+	$scope.state = '';
+	$scope.range = '';
+	$scope.requestObject2 = {};
+	$scope.requestCatalog = {lenguage : $scope.selectLang,
+							type : "cause"};
+	
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
+	$scope.sortList = [ "startDate"];
+	$scope.currentPage = 1;
+	$scope.totalItems = 5;
+	
+	$scope.requestObject = {};
+	$scope.requestObject.name = '';
+	$scope.requestObject.nonprofitName = '';
+	$scope.requestObject.causeId = '';
+	$scope.requestObject.startDate = "";
+	$scope.requestObject.dueDate = "";
+	$scope.requestObject.nonprofitId = Session.userId;
+	$scope.requestObject.state= '';
+	
+	//$scope.range = '';
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = ["startDate"];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+
+	$scope.getDateFormat = function(date)
+	{
+		if(date === undefined || date === ""){
+            return "";
+        }
+		var parts = date.split('-');
+		return new Date(parts[0],parts[1]-1,parts[2]);	
+	};
+	
+	
+	$scope.usingDateRangeState = function(val){
+		if($scope.range != ''){//range dates are been used
+			$scope.datesDisable = false;
+			$scope.stateDisable = true;
+			$scope.state = '';	
+		}else if($scope.state){//state been used
+			$scope.datesDisable = true;
+			$scope.stateDisable = false;
+			$scope.range = '';
+		
+		}else{
+			$scope.datesDisable = false;
+			$scope.stateDisable = false;			
+			$scope.state = '';
+			$scope.range = '';
+			
+		}
+	};
+	
+	
+	
+
+	
+	$scope.searchCampaign = function(page) {
+
+		
+		var dates = $scope.range.split(' - ');
+
+		var startDate = $scope.getDateFormat(dates[0]);
+		var endDate = $scope.getDateFormat(dates[1]);
+		
+		
+		if (startDate != "")
+		{
+			$scope.requestObject.startDate = startDate.getTime();
+		}
+		
+		if(endDate != "")
+		{
+			$scope.requestObject.dueDate = endDate.getTime();
+		}
+	
+		$scope.requestObject.pageNumber = page;
+
+		$scope.requestObject.state = $scope.state.Id;
+		
+		$http.post('rest/protected/campaing/searchCampaignsForNonprofit',
+			
+			$scope.requestObject).success(function(mydata, status) {
+			$scope.campaigns = mydata.campaigns;
+			$scope.totalItems = mydata.totalElements;
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});
+
+	};
+	
+	$scope.pageChangeHandler = function(num) {
+		$scope.searchCampaign(num);
+	};
+	
+	
+	$scope.stateList = [];
+
+	$translate('CAMPAIGN-STATE.SOON').then(function successFn(translation) {
+		$scope.stateList.push({Id:'soon', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.ACTIVE').then(function successFn(translation) {
+		$scope.stateList.push({Id:'active', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.FINISHED').then(function successFn(translation) {
+		$scope.stateList.push({Id:'finished', Name: translation}); 
+	});
+	
+	$scope.getClass = function(item){
+		if(item.state == 'soon'){
+			return 'border-commingSoon';
+		}else if(item.state == 'active'){
+			return 'border-active';
+		}else{
+			return 'border-finished';
+		}
+	};
+
+});
 		
 		
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
@@ -392,10 +525,10 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			
 		});	
 
-	}
+	};
 
 	$scope.init();
-	
+
 	$scope.getClass = function(item){
 		if(item.state == 'soon'){
 			return 'border-commingSoon';
@@ -405,6 +538,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			return 'border-finished';
 		}
 	}
+
 	
 	$scope.closeCampaign=function(){
 		
