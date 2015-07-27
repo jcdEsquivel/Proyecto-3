@@ -412,8 +412,6 @@ public class CampaignController {
 		CampaignResponse cs = new CampaignResponse();
 		CampaignPOJO campaignPOJO = new CampaignPOJO();
 		CampaignWrapper campaign = new CampaignWrapper();
-		String[] dateTmp;
-		String[] dateTmp1;
 		GregorianCalendar dueDate=new GregorianCalendar();
 		GregorianCalendar startDate=new GregorianCalendar();
 		Date date2 = cr.getDueDateData();
@@ -449,7 +447,7 @@ public class CampaignController {
 		campaign.setAmountCollected(cr.getAmountCollected());
 		
 		campaignService.updateCampaign(campaign);
-		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getCampaign().getId());
+		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
 		
 		campaignPOJO.setId(campaignWrapper.getId());
 		campaignPOJO.setName(campaignWrapper.getName());
