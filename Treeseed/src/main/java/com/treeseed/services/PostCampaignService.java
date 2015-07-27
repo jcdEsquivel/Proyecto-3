@@ -15,13 +15,21 @@ import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.repositories.PostCampaignRepository;
 import com.treeseed.repositories.PostNonprofitRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostCampaignService.
+ */
 @Service
 public class PostCampaignService implements PostCampaignServiceInterface{
 
+	/** The post repository. */
 	@Autowired
 	PostCampaignRepository postRepository;
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#savePost(com.treeseed.ejbWrapper.PostCampaignWrapper)
+	 */
 	@Override
 	public int savePost(PostCampaignWrapper wrapper) {
 	

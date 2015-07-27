@@ -39,26 +39,42 @@ import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostCampaignController.
+ */
 @RestController
 @RequestMapping(value = "rest/protected/postCampaign")
 public class PostCampaignController {
 
+	/** The post campaign service. */
 	@Autowired
 	PostCampaignServiceInterface postCampaignService;
 	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 
+	/** The nonprofit service interface. */
 	@Autowired
 	NonprofitServiceInterface nonprofitServiceInterface;
 
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
 
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
 	
 
+	/**
+	 * Creates the.
+	 *
+	 * @param file the file
+	 * @param requestObj the request obj
+	 * @return the post campaign response
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostCampaignResponse create(@RequestPart(value="file", required=false) MultipartFile file,
 			@RequestPart(value="data") PostCampaignRequest requestObj) {
