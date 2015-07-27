@@ -78,14 +78,19 @@ public class TestCreatePostCampaign extends AbstractTestController{
 		String uri = "/rest/protected/postCampaign/register";
 
 		MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
+		
 		FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436073230483.jpg");
-		MockMultipartFile file = new MockMultipartFile("testImage", "1436073230483", "multipart/form-data", inputFile);
+		MockMultipartFile file = new MockMultipartFile("file", "1436073230483", "multipart/form-data", inputFile);
 		
 
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.fileUpload(uri)
-	                        .file(file).file(jsonFile)).andReturn();
-	    
-		 
+		//doc unit test
+		MvcResult result = mvc.perform(
+		        		MockMvcRequestBuilders.fileUpload(uri)
+		        				.file(file)
+			                    .file(jsonFile))
+		        				.andReturn();
+			
+		
 		String content = result.getResponse().getContentAsString();
 
 		PostCampaignResponse response = mapFromJson(content,
