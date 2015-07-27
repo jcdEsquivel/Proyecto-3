@@ -36,13 +36,19 @@ public class CampaignRequest extends BasePagingRequest {
 
 	/** The due date. */
 	private long dueDate;
+	
+	/** The start date. */
+	private Date startDateData;
 
+	/** The due date. */
+	private Date dueDateData;
+	
 	/** The picture. */
 	private String picture;
 
 	/** The nonprofit id. */
 	private int nonprofitId;
-	
+
 	/** The is active. */
 	private boolean isActive;
 	
@@ -69,6 +75,22 @@ public class CampaignRequest extends BasePagingRequest {
 	 *
 	 * @return the nonprofit name
 	 */
+	public Date getStartDateData() {
+		return startDateData;
+	}
+
+	public void setStartDateData(Date startDateData) {
+		this.startDateData = startDateData;
+	}
+
+	public Date getDueDateData() {
+		return dueDateData;
+	}
+
+	public void setDueDateData(Date dueDateData) {
+		this.dueDateData = dueDateData;
+	}
+	
 	public String getNonprofitName() {
 		return nonprofitName;
 	}

@@ -416,8 +416,8 @@ public class CampaignController {
 		String[] dateTmp1;
 		GregorianCalendar dueDate=new GregorianCalendar();
 		GregorianCalendar startDate=new GregorianCalendar();
-		Date date2 = cr.getCampaign().getDueDate();
-		Date date1 = cr.getCampaign().getStartDate();
+		Date date2 = cr.getDueDateData();
+		Date date1 = cr.getStartDateData();
 		dueDate.setTime(date2);
 		startDate.setTime(date1);
 		/*date2=date2.replace('"','0');
@@ -449,14 +449,33 @@ public class CampaignController {
 		campaign.setAmountCollected(cr.getAmountCollected());
 		
 		campaignService.updateCampaign(campaign);
+		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getCampaign().getId());
 		
-		campaignPOJO.setId(cr.getId());
-		campaignPOJO.setName(cr.getName());
-		campaign.setStartDate(new Date());
-		campaign.setDueDate(new Date());
-		campaignPOJO.setDescription(cr.getDescription());
-		campaignPOJO.setAmountGoal(cr.getAmountGoal());
-		campaignPOJO.setAmountCollected(cr.getAmountCollected());
+		campaignPOJO.setId(campaignWrapper.getId());
+		campaignPOJO.setName(campaignWrapper.getName());
+		campaignPOJO.setDescription(campaignWrapper.getDescription());
+		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+		campaignPOJO.setPicture(campaignWrapper.getPicture());
+		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+		campaignPOJO.setPercent((int)Math.round(campaignWrapper.getPercent()));
+		campaignPOJO.setStartDate(campaignWrapper.getStartDate());
+		campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
+		campaignPOJO.setStart(campaignWrapper.isStart());
+		campaignPOJO.setEnd(campaignWrapper.isEnd());
+		campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
+		campaignPOJO.setDueDate(campaignWrapper.getDueDate());
+		campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
+		campaignPOJO.setState(campaignWrapper.getState());
+		
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+		
+		nonprofitPOJO.setId(campaignWrapper.getNonprofit().getId());
+		nonprofitPOJO.setName(campaignWrapper.getNonprofit().getName());
+		nonprofitPOJO.setProfilePicture(campaignWrapper.getNonprofit().getProfilePicture());
+		
+		campaignPOJO.setNonprofit(nonprofitPOJO);
 		
 		cs.setCode(200);
 		cs.setCodeMessage("Campaign updated sucessfully");

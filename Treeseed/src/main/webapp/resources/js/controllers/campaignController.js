@@ -580,9 +580,6 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		$scope.requestObjectEdit.startDate= $scope.campaign.startDate;
 		$scope.requestObjectEdit.dueDate=$scope.campaign.dueDate;
 		$scope.requestObjectEdit.picture=$scope.campaign.picture;
-		$scope.requestObjectEdit.campaign=$scope.campaign;
-		$scope.requestObjectEdit.campaign.startDate = new Date($scope.campaign.startDate);
-		$scope.requestObjectEdit.campaign.dueDate = new Date($scope.campaign.dueDate);
 
 		$http({
 			   method : 'POST',
@@ -608,7 +605,8 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 
 			  }).
 			  success(function (data, status, headers, config) {
-			  	
+			  	$scope.campaign = data.campaign;
+			  	$scope.campaign.picture = data.campaign.picture;			  	
 			 });
 	};
 
