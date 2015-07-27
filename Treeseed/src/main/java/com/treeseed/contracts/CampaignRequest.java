@@ -45,6 +45,10 @@ public class CampaignRequest extends BasePagingRequest {
 	
 	/** The is active. */
 	private boolean isActive;
+	
+	private String state;
+
+	
 
 	/** The id user. */
 	private int idUser;
@@ -297,6 +301,14 @@ public class CampaignRequest extends BasePagingRequest {
 	 */
 	public void setStartDate(long startDate) {
 		this.startDate = startDate;
+	}
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	/**

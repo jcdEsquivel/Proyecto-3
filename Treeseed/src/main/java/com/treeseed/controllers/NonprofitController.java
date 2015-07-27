@@ -59,6 +59,7 @@ import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -66,18 +67,35 @@ import com.treeseed.ejbWrapper.ParentUserWrapper;
 @RequestMapping(value ="rest/protected/nonprofit")
 public class NonprofitController extends UserGeneralController{
 
+	/** The catalog service. */
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
+	/** The validator. */
 	EmailValidator validator = EmailValidator.getInstance();
+	
+	/** The non profit service. */
 	@Autowired
 	 NonprofitServiceInterface nonProfitService;
-	 @Autowired
+	 
+ 	/** The servlet context. */
+ 	@Autowired
 	 ServletContext servletContext;
+	
+	/** The user general service. */
 	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
 		
+	/**
+	 * Delete non profit.
+	 *
+	 * @param dr the donor request
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/delete", method = RequestMethod.POST)
 	public NonprofitResponse deleteNonProfit(@RequestBody DonorRequest dr){
 		
@@ -109,6 +127,17 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
+	/**
+	 * Non profit create.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param password the password
+	 * @param country the country
+	 * @param cause the cause
+	 * @param file the file
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/register", method = RequestMethod.POST)
 	public NonprofitResponse nonProfitCreate(@RequestParam("name") String name, 
 			@RequestParam("email") String email,
@@ -182,6 +211,12 @@ public class NonprofitController extends UserGeneralController{
 		
 	}
 	
+	/**
+	 * Gets the nonprofits.
+	 *
+	 * @param npr the nonProfitrequest
+	 * @return the nonprofits
+	 */
 	@RequestMapping(value ="/advanceGet", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
@@ -219,6 +254,12 @@ public class NonprofitController extends UserGeneralController{
 			
 	}
 	
+	/**
+	 * Gets the non profit profile.
+	 *
+	 * @param npr the nonProfitRequest
+	 * @return the non profit profile
+	 */
 	@RequestMapping(value ="/getNonProfitProfile", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr){	
@@ -231,11 +272,11 @@ public class NonprofitController extends UserGeneralController{
 			tempId= (int) currentSession.getAttribute("idUser");
 		}
 
-		Nonprofit nonprofit = nonProfitService.getNonProfitByID(npr);
+		NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
 		
 		NonprofitResponse nps = new NonprofitResponse();
 		
-		if(tempId==nonprofit.getUsergenerals().get(0).getId()){
+		if(tempId==nonprofit.getWrapperObject().getUsergenerals().get(0).getId()){
 			nps.setOwner(true);
 		}else{
 			nps.setOwner(false);
@@ -246,18 +287,18 @@ public class NonprofitController extends UserGeneralController{
 			
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 
-		nonprofitPOJO.setId(nonprofit.getId());
-		nonprofitPOJO.setName(nonprofit.getName());
-		nonprofitPOJO.setDescription(nonprofit.getDescription());
-		nonprofitPOJO.setWebPage(nonprofit.getWebPage());
-		nonprofitPOJO.setProfilePicture(nonprofit.getProfilePicture());
-		nonprofitPOJO.setMainPicture(nonprofit.getMainPicture());
-		nonprofitPOJO.setMision(nonprofit.getMision());
-		nonprofitPOJO.setReason(nonprofit.getReason());
+		nonprofitPOJO.setId(nonprofit.getWrapperObject().getId());
+		nonprofitPOJO.setName(nonprofit.getWrapperObject().getName());
+		nonprofitPOJO.setDescription(nonprofit.getWrapperObject().getDescription());
+		nonprofitPOJO.setWebPage(nonprofit.getWrapperObject().getWebPage());
+		nonprofitPOJO.setProfilePicture(nonprofit.getWrapperObject().getProfilePicture());
+		nonprofitPOJO.setMainPicture(nonprofit.getWrapperObject().getMainPicture());
+		nonprofitPOJO.setMision(nonprofit.getWrapperObject().getMision());
+		nonprofitPOJO.setReason(nonprofit.getWrapperObject().getReason());
 		
 		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 		UserGeneral userGeneral;
-		userGeneral= nonprofit.getUsergenerals().get(0);
+		userGeneral= nonprofit.getWrapperObject().getUsergenerals().get(0);
 		
 		userGeneralPOJO.setEmail(userGeneral.getEmail());
 		
@@ -270,6 +311,14 @@ public class NonprofitController extends UserGeneralController{
 	}
 	
 	
+	/**
+	 * Edits the non profit.
+	 *
+	 * @param npr the NonProfitRequest
+	 * @param fileCover the file cover
+	 * @param fileProfile the file profile
+	 * @return the nonprofit response
+	 */
 	@RequestMapping(value ="/editNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public NonprofitResponse editNonProfit(@RequestPart(value="data") NonprofitRequest npr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
@@ -321,16 +370,15 @@ public class NonprofitController extends UserGeneralController{
 					
 					nonProfitService.updateNonProfit(nonprofit);
 					
-					Nonprofit nonprofitobject = nonProfitService.getNonProfitById(npr.getId());
-					
-					
-					nonprofitPOJO.setName(nonprofitobject.getName());
-					nonprofitPOJO.setDescription(nonprofitobject.getDescription());
-					nonprofitPOJO.setMision(nonprofitobject.getMision());
-					nonprofitPOJO.setReason(nonprofitobject.getReason());
-					nonprofitPOJO.setWebPage(nonprofitobject.getWebPage());
-					nonprofitPOJO.setMainPicture(nonprofitobject.getMainPicture());
-					nonprofitPOJO.setProfilePicture(nonprofitobject.getProfilePicture());
+					NonprofitWrapper nonprofitobject = nonProfitService.getNonProfitByID(npr);
+							
+					nonprofitPOJO.setName(nonprofitobject.getWrapperObject().getName());
+					nonprofitPOJO.setDescription(nonprofitobject.getWrapperObject().getDescription());
+					nonprofitPOJO.setMision(nonprofitobject.getWrapperObject().getMision());
+					nonprofitPOJO.setReason(nonprofitobject.getWrapperObject().getReason());
+					nonprofitPOJO.setWebPage(nonprofitobject.getWrapperObject().getWebPage());
+					nonprofitPOJO.setMainPicture(nonprofitobject.getWrapperObject().getMainPicture());
+					nonprofitPOJO.setProfilePicture(nonprofitobject.getWrapperObject().getProfilePicture());
 					
 					us.setNonprofit(nonprofitPOJO);
 					us.setCode(200);

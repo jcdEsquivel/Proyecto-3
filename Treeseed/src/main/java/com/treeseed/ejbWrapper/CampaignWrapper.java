@@ -464,7 +464,8 @@ public class CampaignWrapper {
 		}
 		return state;
 	}
-
+	
+	
 	/**
 	 * Sets the state.
 	 *
@@ -475,6 +476,5 @@ public class CampaignWrapper {
 	}
 
 	
-
 	
 }
