@@ -602,7 +602,6 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		               type: "application/json"
 		           }));	
 		           formData.append("fileCampaign", data.fileCampaign);
-		           console.log("Obj: "+JSON.stringify(data.data));
 		           return formData;
 			   },
 			   data : {
