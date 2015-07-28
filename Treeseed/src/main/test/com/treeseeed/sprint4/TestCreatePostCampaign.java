@@ -83,7 +83,7 @@ public class TestCreatePostCampaign extends AbstractTestController{
 		MockMultipartFile file = new MockMultipartFile("file", "1436073230483", "multipart/form-data", inputFile);
 		
 
-		//doc unit test
+		
 		MvcResult result = mvc.perform(
 		        		MockMvcRequestBuilders.fileUpload(uri)
 		        				.file(file)

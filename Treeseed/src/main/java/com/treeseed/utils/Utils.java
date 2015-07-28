@@ -32,7 +32,7 @@ public class Utils {
 	
 		String consecutiveName = ""+new Date().getTime();
 		
-		String uploadedFileLocation = servletContext.getRealPath("") + RESOURCES_PATH + consecutiveName + extension;
+		String uploadedFileLocation = servletContext.getRealPath("/") + RESOURCES_PATH + consecutiveName + extension;
 		String databaseFileName = HOST_PATH + servletContext.getContextPath() + "/" + RESOURCES_PATH + consecutiveName + extension;
 		
 		byte[] bytes;
