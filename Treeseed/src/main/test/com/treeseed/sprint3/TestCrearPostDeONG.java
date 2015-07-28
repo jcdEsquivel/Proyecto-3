@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint3;
 import java.io.FileInputStream;
 
 import org.junit.Assert;
