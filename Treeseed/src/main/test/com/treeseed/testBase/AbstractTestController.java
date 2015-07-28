@@ -54,7 +54,7 @@ import com.treeseed.utils.Utils;
 /**
  * The Class AbstractTestController.
  */
-@WebAppConfiguration
+@WebAppConfiguration("src/test/webapp/")
 public abstract class AbstractTestController extends AbstractTest {
 
 	/** The mvc. */

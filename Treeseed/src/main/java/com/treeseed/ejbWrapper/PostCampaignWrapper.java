@@ -3,24 +3,53 @@ package com.treeseed.ejbWrapper;
 import java.util.Date;
 
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
+import com.treeseed.ejb.PostNonprofit;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class PostCampaignWrapper.
  */
 public class PostCampaignWrapper {
-	
-	/** The wrapper object. */
-	private PostCampaign wrapperObject;
+
+	/** The post. */
+	private PostCampaign post;
 	
 	/**
 	 * Instantiates a new post campaign wrapper.
 	 *
-	 * @param wrapperObject the wrapper object
+	 * @param post the post
 	 */
-	public PostCampaignWrapper(PostCampaign wrapperObject) {
-		this.wrapperObject = wrapperObject;
+	public PostCampaignWrapper(PostCampaign post) {
+		super();
+		
+		setWrapperObject(post);
+	}
+	
+	/**
+	 * Gets the wrapper object.
+	 *
+	 * @return the wrapper object
+	 */
+	public PostCampaign getWrapperObject() {
+		return post;
+	}
+
+	/**
+	 * Sets the wrapper object.
+	 *
+	 * @param wrapperObject the new wrapper object
+	 */
+	public void setWrapperObject(PostCampaign wrapperObject) {
+		this.post = wrapperObject;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object obj) {
+		return post.equals(obj);
 	}
 
 	/**
@@ -29,7 +58,7 @@ public class PostCampaignWrapper {
 	 * @return the id
 	 */
 	public int getId() {
-		return wrapperObject.getId();
+		return post.getId();
 	}
 
 	/**
@@ -38,7 +67,7 @@ public class PostCampaignWrapper {
 	 * @param id the new id
 	 */
 	public void setId(int id) {
-		wrapperObject.setId(id);
+		post.setId(id);
 	}
 
 	/**
@@ -47,7 +76,7 @@ public class PostCampaignWrapper {
 	 * @return the creation date
 	 */
 	public Date getCreationDate() {
-		return wrapperObject.getCreationDate();
+		return post.getCreationDate();
 	}
 
 	/**
@@ -56,7 +85,7 @@ public class PostCampaignWrapper {
 	 * @param creationDate the new creation date
 	 */
 	public void setCreationDate(Date creationDate) {
-		wrapperObject.setCreationDate(creationDate);
+		post.setCreationDate(creationDate);
 	}
 
 	/**
@@ -65,7 +94,7 @@ public class PostCampaignWrapper {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return wrapperObject.getDescription();
+		return post.getDescription();
 	}
 
 	/**
@@ -74,7 +103,7 @@ public class PostCampaignWrapper {
 	 * @param description the new description
 	 */
 	public void setDescription(String description) {
-		wrapperObject.setDescription(description);
+		post.setDescription(description);
 	}
 
 	/**
@@ -83,7 +112,7 @@ public class PostCampaignWrapper {
 	 * @return true, if is active
 	 */
 	public boolean isActive() {
-		return wrapperObject.isActive();
+		return post.isActive();
 	}
 
 	/**
@@ -92,7 +121,7 @@ public class PostCampaignWrapper {
 	 * @param isActive the new active
 	 */
 	public void setActive(boolean isActive) {
-		wrapperObject.setActive(isActive);
+		post.setActive(isActive);
 	}
 
 	/**
@@ -101,7 +130,7 @@ public class PostCampaignWrapper {
 	 * @return the picture
 	 */
 	public String getPicture() {
-		return wrapperObject.getPicture();
+		return post.getPicture();
 	}
 
 	/**
@@ -110,14 +139,7 @@ public class PostCampaignWrapper {
 	 * @param picture the new picture
 	 */
 	public void setPicture(String picture) {
-		wrapperObject.setPicture(picture);
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	public int hashCode() {
-		return wrapperObject.hashCode();
+		post.setPicture(picture);
 	}
 
 	/**
@@ -126,16 +148,7 @@ public class PostCampaignWrapper {
 	 * @return the tittle
 	 */
 	public String getTittle() {
-		return wrapperObject.getTittle();
-	}
-
-	/**
-	 * Sets the tittle.
-	 *
-	 * @param tittle the new tittle
-	 */
-	public void setTittle(String tittle) {
-		wrapperObject.setTittle(tittle);
+		return post.getTittle();
 	}
 
 	/**
@@ -144,7 +157,23 @@ public class PostCampaignWrapper {
 	 * @return the campaign
 	 */
 	public Campaign getCampaign() {
-		return wrapperObject.getCampaign();
+		return post.getCampaign();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return post.hashCode();
+	}
+
+	/**
+	 * Sets the tittle.
+	 *
+	 * @param tittle the new tittle
+	 */
+	public void setTittle(String tittle) {
+		post.setTittle(tittle);
 	}
 
 	/**
@@ -153,21 +182,15 @@ public class PostCampaignWrapper {
 	 * @param campaign the new campaign
 	 */
 	public void setCampaign(Campaign campaign) {
-		wrapperObject.setCampaign(campaign);
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object obj) {
-		return wrapperObject.equals(obj);
+		post.setCampaign(campaign);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return wrapperObject.toString();
+		return post.toString();
 	}
+
 	
 }

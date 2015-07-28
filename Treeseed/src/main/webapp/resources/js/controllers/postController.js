@@ -212,7 +212,7 @@ treeSeedAppControllers.controller('createPostController', function($http,
 	$scope.post = {
 		nonprofitId : Session.userId,
 		title : '',
-		descripcion : ''
+		description : ''
 	};
 
 	$scope.$on('profilePicture', function(event, args) {
@@ -239,6 +239,9 @@ treeSeedAppControllers.controller('createPostController', function($http,
 
 	$scope.createPost = function() {
 
+		$scope.postRequestModal.postNonprofit.title = $scope.post.title;
+		$scope.postRequestModal.postNonprofit.description = $scope.post.description;
+		
 		$http(
 				{
 					method : 'POST',
@@ -282,6 +285,13 @@ treeSeedAppControllers.controller('editPostController', function($http,
 
 	$scope.getPosts = getPosts;
 	
+	
+	$scope.post = {
+			nonprofitId : Session.userId,
+			title : post.title,
+			description : post.description
+		};
+	
 	$scope.postRequestModal = {
 			postNonprofit : {
 				id : post.id,
@@ -293,15 +303,14 @@ treeSeedAppControllers.controller('editPostController', function($http,
 		}
 	
 	
-	console.log($scope.postRequestModal)
 	
 	$scope.maxCarac = 500;
 	$scope.image =  post.picture;
-	$scope.post = {
+	/*$scope.post = {
 		nonprofitId : Session.id,
 		title : post.title,
 		descripcion :  post.description
-	};
+	};*/
 
 	$scope.$on('profilePicture', function(event, args) {
 		$scope.image = args;
@@ -326,6 +335,10 @@ treeSeedAppControllers.controller('editPostController', function($http,
 	});
 
 	$scope.createPost = function() {
+		
+		$scope.postRequestModal.postNonprofit.title = $scope.post.title;
+		$scope.postRequestModal.postNonprofit.description =  $scope.post.description;
+			
 		$http(
 				{
 					method : 'POST',

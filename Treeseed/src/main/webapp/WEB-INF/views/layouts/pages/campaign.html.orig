@@ -105,7 +105,41 @@
       <tab-heading>
         <span translate="CAMPAIGN.TAB-2.TITLE"></span><span class="badge bg-danger badge-sm m-l-xs"></span>
       </tab-heading>
+<<<<<<< HEAD
+      <div ng-controller="postCampaignController">
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-success add-post-button" ng-if="isOwner" ng-click="openModal()" translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</button>
+			<div class="wrapper-md">
+			<ul class="list-group list-group-alt list-group-lg  pull-in m-b-none post-scroll">
+	        	<li class="list-group-item li-posts-result" 
+	        		dir-paginate="p in posts | itemsPerPage: postRequest.pageSize" total-items="totalPosts" pagination-id="post-pagin" current-page="postPaginCurrentPage">
+	          		<a href="#" class="pull-left  m-r">
+	            		<img ng-src="{{p.picture}}" alt="..." class="post-list-image">
+		          	</a>
+		          	<div class="clear">
+		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.creationDate}}</span>
+		            	<div> {{p.description}}</div>
+		          	</div>
+		        </li> 
+      		</ul>
+      		</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="other-controller">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true"
+					on-page-change="changePostsPage(newPageNumber)" pagination-id="post-pagin"
+					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
+=======
        <div  data-ng-include=" 'layouts/components/postsCampaignList.html' " ></div> 
+>>>>>>> d122c78ddefb5cdb160f41d905d763a8e62e02cb
     </tab>
   </tabset>
 </div>

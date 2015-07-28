@@ -5,24 +5,41 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
+import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
+import com.treeseed.ejb.PostNonprofit;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Interface PostCampaignRepository.
  */
 public interface PostCampaignRepository extends CrudRepository<PostCampaign,Integer>{
-	
+
 	/**
-	 * Fill with all.
+	 * Find post.
 	 *
 	 * @param campaignId the campaign id
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	@Query("SELECT p FROM PostCampaign p inner join p.campaign n WHERE "
-			+ " n.id = :campaignId and "
+	@Query("SELECT p FROM PostCampaign p inner join p.campaign c WHERE "
+			+ " c.id = :campaignId and "
 			+ " p.isActive = 1")
-	public Page<PostCampaign> fillWithAll( @Param("campaignId") int campaignId,  Pageable pageable);
+	public Page<PostNonprofit> findPost( @Param("campaignId") int campaignId,  Pageable pageable);
+
+/**
+	 * Find post.
+	 *
+	 * @param campaignId the campaign id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
+	@Query("SELECT p FROM PostCampaign p inner join p.campaign c WHERE "
+			+ " c.id = :campaignId and "
+			+ " p.isActive = 1")
+	public Page<PostNonprofit> findPost( @Param("campaignId") int campaignId,  Pageable pageable);
+	
+
 	
 }

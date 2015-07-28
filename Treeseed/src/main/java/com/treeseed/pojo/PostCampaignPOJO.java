@@ -9,47 +9,28 @@ public class PostCampaignPOJO {
 	/** The id. */
 	private int id;
 	
-	/** The creation date. */
-	private String creationDate;
-	
-	/** The description. */
-	private String description;
+	/** The title. */
+	private String title;
 	
 	/** The picture. */
 	private String picture;
 	
-	/** The tittle. */
-	private String tittle;
-	
-	/** The is active. */
-	private boolean isActive;
+	/** The description. */
+	private String description;
 	
 	/** The campaign id. */
 	private int campaignId;
 	
+	/** The date. */
+	private String date;
+	
+	
+
 	/**
 	 * Instantiates a new post campaign pojo.
 	 */
 	public PostCampaignPOJO() {
 		super();
-	}
-
-	/**
-	 * Gets the campaign id.
-	 *
-	 * @return the campaign id
-	 */
-	public int getCampaignId() {
-		return campaignId;
-	}
-	
-	/**
-	 * Sets the campaign id.
-	 *
-	 * @param campaignId the new campaign id
-	 */
-	public void setCampaignId(int campaignId) {
-		this.campaignId = campaignId;
 	}
 	
 	/**
@@ -71,39 +52,21 @@ public class PostCampaignPOJO {
 	}
 	
 	/**
-	 * Gets the creation date.
+	 * Gets the title.
 	 *
-	 * @return the creation date
+	 * @return the title
 	 */
-	public String getCreationDate() {
-		return creationDate;
+	public String getTitle() {
+		return title;
 	}
 	
 	/**
-	 * Sets the creation date.
+	 * Sets the title.
 	 *
-	 * @param date the new creation date
+	 * @param title the new title
 	 */
-	public void setCreationDate(String date) {
-		this.creationDate = date;
-	}
-	
-	/**
-	 * Gets the description.
-	 *
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	
-	/**
-	 * Sets the description.
-	 *
-	 * @param description the new description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	/**
@@ -125,41 +88,57 @@ public class PostCampaignPOJO {
 	}
 	
 	/**
-	 * Gets the tittle.
+	 * Gets the description.
 	 *
-	 * @return the tittle
+	 * @return the description
 	 */
-	public String getTittle() {
-		return tittle;
+	public String getDescription() {
+		return description;
 	}
 	
 	/**
-	 * Sets the tittle.
+	 * Sets the description.
 	 *
-	 * @param tittle the new tittle
+	 * @param description the new description
 	 */
-	public void setTittle(String tittle) {
-		this.tittle = tittle;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	/**
-	 * Checks if is active.
+	 * Gets the campaign id.
 	 *
-	 * @return true, if is active
+	 * @return the campaign id
 	 */
-	public boolean isActive() {
-		return isActive;
+	public int getCampaignId() {
+		return campaignId;
 	}
 	
 	/**
-	 * Sets the active.
+	 * Sets the campaign id.
 	 *
-	 * @param isActive the new active
+	 * @param campaignId the new campaign id
 	 */
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setCampaignId(int campaignId) {
+		this.campaignId = campaignId;
 	}
 	
-	
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
 
+	/**
+	 * Sets the date.
+	 *
+	 * @param date the new date
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 }

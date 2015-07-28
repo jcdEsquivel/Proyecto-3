@@ -36,19 +36,32 @@ import com.treeseed.testBase.*;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestsVisualizarPerfilDeONG.
+ */
 @Transactional
 public class TestsVisualizarPerfilDeONG extends AbstractTestController{
 
 
+/** The user general service. */
 @Autowired UserGeneralServiceInterface userGeneralService;
 	
 	
 	
-	 protected void setUp(NonprofitController controller) {
+	 /**
+ 	 * Sets the up.
+ 	 *
+ 	 * @param controller the new up
+ 	 */
+ 	protected void setUp(NonprofitController controller) {
 	        mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	    }
 	
-	  @Before
+	  /* (non-Javadoc)
+  	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+  	 */
+  	@Before
 	    public void setUp() {
 	        super.setUp();
 
@@ -56,7 +69,12 @@ public class TestsVisualizarPerfilDeONG extends AbstractTestController{
 	  
 	
 	  
-	    @Test  //Visualizar perfil propio
+	    /**
+    	 * Test show my own ngo profile.
+    	 *
+    	 * @throws Exception the exception
+    	 */
+    	@Test  //Visualizar perfil propio
 	    public void testShowMyOwnNGOProfile() throws Exception {
 
 	    	NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -87,7 +105,12 @@ public class TestsVisualizarPerfilDeONG extends AbstractTestController{
 	    }
 	    
 	    
-	    @Test //Visualizar perfil de otro usuario y estando logueado en el sistema
+	    /**
+    	 * Test show other ngo profile as logged.
+    	 *
+    	 * @throws Exception the exception
+    	 */
+    	@Test //Visualizar perfil de otro usuario y estando logueado en el sistema
 	    public void testShowOtherNGOProfileAsLogged() throws Exception {
 
 	    	NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -120,7 +143,12 @@ public class TestsVisualizarPerfilDeONG extends AbstractTestController{
 
 	    
 	    
-	    @Test //Visualizar perfil de otro usuario y siendo visitante
+	    /**
+    	 * Test show other ngo profile as guest.
+    	 *
+    	 * @throws Exception the exception
+    	 */
+    	@Test //Visualizar perfil de otro usuario y siendo visitante
 	    public void testShowOtherNGOProfileAsGuest() throws Exception {
 
 	    	NonprofitWrapper nonprofit = createRandomNonprofit();

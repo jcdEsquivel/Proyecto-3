@@ -492,7 +492,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	$scope.isOwner = false;	
 	$scope.isOpen = true;
 	var modalInstance=null;
-
+	$scope.postsLoaded = false;
 	
 	
 
@@ -558,6 +558,14 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	
 	$scope.closeModal = function() {		
 		modalInstance.close();
+	};
+	
+	
+	$scope.loadPosts=function(){
+		if(!$scope.postsLoaded){
+			$scope.$broadcast('loadPostsCampaign');
+			$scope.postsLoaded = true;
+		}
 	};
 });
 

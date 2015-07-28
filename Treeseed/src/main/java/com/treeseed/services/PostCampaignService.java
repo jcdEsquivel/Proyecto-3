@@ -42,4 +42,19 @@ public class PostCampaignService implements PostCampaignServiceInteface{
 		return pageResult ;
 		
 	}
+
+	/** The post repository. */
+	@Autowired
+	PostCampaignRepository postRepository;
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#savePost(com.treeseed.ejbWrapper.PostCampaignWrapper)
+	 */
+	@Override
+	public int savePost(PostCampaignWrapper wrapper) {
+	
+		PostCampaign  post = postRepository.save(wrapper.getWrapperObject());
+		return post.getId();
+	}
 }

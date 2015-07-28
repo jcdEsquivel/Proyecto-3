@@ -42,7 +42,7 @@ public class TestRegistrarPerfilDeONG extends AbstractTestController{
 		   String idCatalog = "1";
 		   
 		   
-		   String email = "pruebaderegistrarong@gmail.com";
+		   String email = getRandomString()+"@gmail.com";
 		   String password =getRandomString();
 			String name= getRandomString();
 			String cause =  idCatalog;
@@ -81,7 +81,7 @@ public class TestRegistrarPerfilDeONG extends AbstractTestController{
 
 		   String idCatalog = "1";
 		   createRandomUserGeneral();
-		   String email = "prueba1@prueba1.com";
+		   String email = createRandomUserGeneral().getEmail();
 		   String password =getRandomString();
 			String name= getRandomString();
 			String cause =  idCatalog;
@@ -120,7 +120,7 @@ public class TestRegistrarPerfilDeONG extends AbstractTestController{
 		   String idCatalog = "1";
 		   
 		   
-		   String email = "pruebaderegistrarong@gmail.com";
+		   String email = getRandomString()+"@gmail.com";
 		   String password =getRandomString();
 			String name= getRandomString();
 			String cause =  idCatalog;
