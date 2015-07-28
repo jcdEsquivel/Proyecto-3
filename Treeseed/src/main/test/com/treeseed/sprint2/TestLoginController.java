@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -51,8 +53,7 @@ public class TestLoginController extends AbstractTestController{
 			
 	        String uri = "/rest/login/checkuser";
 	               
-	       
-	        
+	      
 	        MvcResult result =mvc.perform(MockMvcRequestBuilders.post(uri)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
@@ -64,6 +65,30 @@ public class TestLoginController extends AbstractTestController{
 	        Assert.assertEquals("User authorized", response.getCodeMessage());
 	      
 
+	    }
+	 
+	 @Test
+	    public void facebookloginSuccessful() throws Exception {
+		 
+		    LoginRequest req = new LoginRequest();
+		   
+		    String jsonObject = mapToJson(req);
+		    
+		    String facebook = "850507415003734";
+			
+	        String uri = "rest/login/checkFacebookuser";
+	               
+	        MvcResult result =(MvcResult) mvc.perform((RequestBuilder) ((ResultActions) MockMvcRequestBuilders.get(uri)
+	        		.param("facebookId", facebook)).andReturn());
+	        		//.accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
+                 //.contentType(MediaType.APPLICATION_JSON)
+                 //.accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
+	        
+	        String content = result.getResponse().getContentAsString();
+	        LoginResponse response = mapFromJson(content, LoginResponse.class);
+	        
+	        Assert.assertEquals("User authorized", response.getCodeMessage());
+	      
 	    }
 	 
 	 @Test

@@ -81,7 +81,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 		FB.api('/me?fields=id,first_name,last_name,location,email', function(response) {
 		  $scope.facebookId = response.id;
   		  console.log(response);
-  		  $http.post('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).then(
+  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).then(
   				function(res) {
   					if (res.data.code == "200") {
   					   console.log(res.data);

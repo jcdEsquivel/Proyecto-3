@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.treeseed.contracts.BaseResponse;
-import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.LoginResponse;
 import com.treeseed.contracts.SessionRequest;
@@ -79,10 +76,8 @@ public class LoginController {
 			currentSession.setAttribute("idUser", loggedUser.getId());
 		}
 		
-		
 		return response;
 	}
-	
 	
 	/**
 	 * Checkuser.
@@ -97,10 +92,10 @@ public class LoginController {
 		byte[] hash = Utils.encryption(lr.getPassword());
 		  String file_string="";
 		  
-		  for(int i = 0; i < hash.length; i++)
-		     {
-		         file_string += (char)hash[i];
-		     }  
+		 for(int i = 0; i < hash.length; i++)
+	     {
+	         file_string += (char)hash[i];
+	     }  
 		
 		UserGeneralWrapper loggedUser = loginService.checkUser(lr.getEmail(), file_string);
 		
@@ -138,7 +133,6 @@ public class LoginController {
 		return response;
 		
 	}
-	
 	
 	/**
 	 * Gets the session.
