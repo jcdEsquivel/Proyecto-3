@@ -1,4 +1,4 @@
-package com.treeseed.sprint2;
+package com.treeseeed.sprint4;
 
 import java.io.FileInputStream;
 
@@ -18,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.treeseed.contracts.LoginRequest;
+import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestCreatePostNonprofit extends AbstractTestController {
+public class TestEditPostNonprofit extends AbstractTestController {
 
 	 @Autowired WebApplicationContext wac; 
 	
@@ -34,62 +38,53 @@ public class TestCreatePostNonprofit extends AbstractTestController {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
-	HttpSession session;
-	NonprofitWrapper nonprofit;
+	 @Before
+	    public void setUp() {
+	        super.setUp();
 
-	@Before
-	public void setUp() {
-		try {
-			super.setUp();
-				
-			logIn();
-		} catch (Exception e) {
-			
-		}
+	    }
 
-	}
-
-	private void logIn() throws Exception {
-
-		 nonprofit = createRandomNonprofit();
-		String email = nonprofit.getUsergenerals().get(0).getEmail();
-
-		LoginRequest req = new LoginRequest(email, "123456789");
-		String jsonObject = mapToJson(req);
-
-		String uri = "/rest/login/checkuser";
-
-		session = mvc
-				.perform(
-						MockMvcRequestBuilders.post(uri)
-								.contentType(MediaType.APPLICATION_JSON)
-								.accept(MediaType.APPLICATION_JSON)
-								.content(jsonObject)).andReturn().getRequest()
-				.getSession();
-
-	}
+	
 
 	@Test
-	public void testCrearPostNonprofit() throws Exception {
+	public void testEditarPostNonprofit() throws Exception {
+		
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+		
+		String title = "Post Change";
+		String description= "Description";
+		
+		PostNonprofitRequest request = new PostNonprofitRequest();
 
-		String title = "Post 1";
-		String description = "This is a test description";
-		String idNonprofit = nonprofit.getId() + "";
+		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		
+		pojo.setTitle(title);
+		pojo.setDescription(description);
+		pojo.setId(postnonprofit.getId());
+		pojo.setPicture(postnonprofit.getPicture());
+		
+		request.setPostNonprofit(pojo);
+		
+		
+		String jsonObject = mapToJson(request);
 
 		FileInputStream inputFile = new FileInputStream(
 				"src/main/webapp/resources/file-storage/1436073230483.jpg");
 		MockMultipartFile file = new MockMultipartFile("testImage",
 				"1436073230483", "multipart/form-data", inputFile);
 
-		String uri = "/rest/protected/postNonprofit/register";
+		String uri = "/rest/protected/postNonprofit/editPostNonProfit";
 
+		
 		MvcResult result = mvc.perform(
-				MockMvcRequestBuilders.fileUpload(uri)
-						
-				.file(file).session((MockHttpSession) session).param("title", title)
-						.param("description", description)
-						.param("idNonprofit", "")
-						).andReturn();
+				MockMvcRequestBuilders.fileUpload(uri)		
+				.file("file",file.getBytes())
+				.contentType(MediaType.APPLICATION_JSON)
+		        .accept(MediaType.APPLICATION_JSON)
+		        .content(jsonObject))
+		        
+				.andReturn();
 
 		String content = result.getResponse().getContentAsString();
 

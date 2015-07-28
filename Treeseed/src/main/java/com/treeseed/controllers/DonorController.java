@@ -391,10 +391,8 @@ public class DonorController extends UserGeneralController{
 		
 		try{
 			donorService.deleteDonor(dr);
-			
-			
-			
-		 	UserGeneral ug =  userGeneralService.getUserByDonorId(dr.getId());
+						
+		 	UserGeneralWrapper ug =  userGeneralService.getUserByDonorId(dr.getId());
 		 	UserGeneralWrapper ugw = new UserGeneralWrapper();
 		 	ugw.setId(ug.getId());
 		 	userGeneralService.deleteUserGeneral(ugw);

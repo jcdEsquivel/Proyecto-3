@@ -120,18 +120,40 @@ angular
 												templateUrl : 'layouts/pages/createCampaing.html',
 												controller: 'campaingCreateController',
 												data : {
-												authorizedRoles : [
-														USER_ROLES.nonprofit ]
+													authorizedRoles : [USER_ROLES.nonprofit ]
 												}
 											})
-									/*.state(
-											'treeSeed.campaingViewer',
+									.state(
+											'treeSeed.campaignManagement',
 											{
-												url : 'campaingViewer',
-												templateUrl : 'layouts/pages/campaingViewer.html'
-											// resolve:
-											// load(['js/controllers/chart.js'])
-											})*/
+												url : 'campaignManagement',
+												templateUrl : 'layouts/pages/campaignManagement.html',
+												controller: 'searchCampaignFromNonProfitController',
+												resolve : load([
+																	'angularUtils.directives.dirPagination',
+																	'resources/js/controllers/campaignController.js' ]),
+												data : {
+													authorizedRoles : [USER_ROLES.nonprofit ]
+												}
+											})
+									.state(
+											'treeSeed.campaign',
+											{
+												url : 'campaign/:campaignId',
+												templateUrl : 'layouts/pages/campaign.html',
+												params: {campaignId: null},
+												controller: "getCampaingProfileController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												data : {
+													authorizedRoles : [
+													USER_ROLES.donor,
+													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+
+
+												}
+											})
 									.state(
 											'treeSeed.nonProfitSearch',
 											{
