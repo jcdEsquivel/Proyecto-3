@@ -27,12 +27,19 @@ public class PostCampaignController {
 	@Autowired
 	PostCampaignServiceInteface postCampaignService;
 
+	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
 
 	@Autowired
 	HttpServletRequest request;
 	
+	/**
+	 * Gets the post of campaigns.
+	 *
+	 * @param PostCampaignRequest postRequest
+	 * @return PostCampaignResponse
+	 */
 	@RequestMapping(value = "/getCampaignPost", method = RequestMethod.POST)
 	public PostCampaignResponse getNonprofitPost(@RequestBody PostCampaignRequest postRequest) {
 
