@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -51,8 +53,7 @@ public class TestIniciarSessionController extends AbstractTestController{
 			
 	        String uri = "/rest/login/checkuser";
 	               
-	       
-	        
+	      
 	        MvcResult result =mvc.perform(MockMvcRequestBuilders.post(uri)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
@@ -64,6 +65,31 @@ public class TestIniciarSessionController extends AbstractTestController{
 	        Assert.assertEquals("User authorized", response.getCodeMessage());
 	      
 
+	    }
+	 
+	 @Test
+	    public void facebookloginSuccessful() throws Exception {
+		 
+		    LoginRequest req = new LoginRequest();
+		   
+		    String jsonObject = mapToJson(req);
+		    
+		    String facebook = "850507415003734";
+			
+	        String uri = "rest/login/checkFacebookuser";
+	               
+	        MvcResult result = mvc
+	        	    .perform(
+	        	      MockMvcRequestBuilders.post(uri)
+	        	        .contentType(MediaType.TEXT_HTML)
+	        	        .accept(MediaType.APPLICATION_JSON)
+	        	        .param("facebookId", facebook)).andReturn();
+	        
+	        String content = result.getResponse().getContentAsString();
+	        LoginResponse response = mapFromJson(content, LoginResponse.class);
+	        
+	        Assert.assertEquals("User authorized", response.getCodeMessage());
+	      
 	    }
 	 
 	 @Test

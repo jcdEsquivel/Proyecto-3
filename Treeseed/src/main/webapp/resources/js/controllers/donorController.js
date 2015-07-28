@@ -113,6 +113,10 @@ treeSeedAppControllers.controller('donorRegistrationController', function($http,
   						getFacebookData();
   				}, {scope: 'email,user_location'});
   			}
+  			else if (data.status === 'connected')
+  			{
+  				getFacebookData();
+  			}
   		})
   	}
 	
