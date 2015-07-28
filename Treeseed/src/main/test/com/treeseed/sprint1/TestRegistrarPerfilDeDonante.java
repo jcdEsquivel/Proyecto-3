@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
@@ -32,13 +33,13 @@ public class TestRegistrarPerfilDeDonante extends AbstractTestController{
 	        
 	    }
 	  
-	  
+	
 	  @Test
 	    public void testCreateDonor() throws Exception {
 
 		    CatalogWrapper countryCat = createRandomCatalog();
 
-		    String email = "pruebaderegistrardonor@gmail.com";
+		    String email = getRandomString()+"@gmail.com";
 		    String password =getRandomString();
 		    String name= getRandomString();
 		    String lastName= getRandomString();
@@ -71,9 +72,11 @@ public class TestRegistrarPerfilDeDonante extends AbstractTestController{
 	   @Test
 	    public void testCreatDonorWithSameEmail() throws Exception {
 
+		   DonorWrapper donor = createRandomDonor();
+		   
 		   String idCatalog = "1";
 		   createRandomUserGeneral();
-		   String email = "daniel@gmail.com";
+		   String email = donor.getUsergenerals().get(0).getEmail();
 		   String password =getRandomString();
 			String name= getRandomString();
 			String lastName= getRandomString();
@@ -93,8 +96,9 @@ public class TestRegistrarPerfilDeDonante extends AbstractTestController{
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
 		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("type", cause))
+		                    .param("country", country+"")
+		                    .param("facebookId", country+"")
+		                    .param("facebookToken", country+""))
 	        				.andReturn();
 	        
 
@@ -140,8 +144,9 @@ public class TestRegistrarPerfilDeDonante extends AbstractTestController{
 		                    .param("lastName", lastName) 
 		                    .param("email", email)
 		                    .param("password", password)
-		                    .param("country", country)
-		                    .param("type", cause))
+		                    .param("country", country+"")
+		                    .param("facebookId", country+"")
+		                    .param("facebookToken", country+""))
 	        				.andReturn();
 	        
 
@@ -153,5 +158,4 @@ public class TestRegistrarPerfilDeDonante extends AbstractTestController{
 	      
 	    }
 	  
-	 
 }
