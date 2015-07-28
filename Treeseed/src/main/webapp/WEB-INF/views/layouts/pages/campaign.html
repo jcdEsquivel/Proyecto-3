@@ -1,111 +1,147 @@
 <div class="wrapper-md">
-<div class="cover-image">
-        	<!-- ng-if="campaign.picture" -->	<div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat; position: relative;">
-          <button style="margin-left: 10px; margin-top: 8px;" class="btn m-b-xs btn-danger btn-rounded" ng-if="isOwner&&isOpen" ng-click="closeCampaign()" translate="CAMPAIGN.CLOSE-BUTTON">Close Campaign</button>
-          <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
-        <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
-        <div class=" pull-right bg-light dk r-r divONGreference" style="display: table; min-height: 70px; min-width:300px; overflow: hidden;">
-        	<div style="margin-left: 10px; margin-top: 8px; margin-bottom: 8px">
-        	
-	        	<div class=" thumb-md m-r " style="display: table-cell; vertical-align: middle;"> 
-	        		<img ng-src="{{campaign.nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
-				</div>
-									
-				<div style="display: table-cell; vertical-align: middle; margin: auto" class=" h4 font-thin m-t-none m-b">
-					{{campaign.nonprofit.name}}
-				</div>	
-        	</div>
-        	
-        </div>
-        </a>
-        <div ng-if="!isOpen" class="pull-left dk divONGState bg-danger" style="display: table; min-height: 50px; min-width:170px; overflow: hidden; position: absolute; bottom: 0; ">
-        	<div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">		
-				<div style="display: table-cell; vertical-align: middle; margin: auto" class=" h1 font-thin m-t-none m-b" translate="CAMPAIGN.FINISHED-MESSAGE">
-					 Finished
-				</div>	
-        	</div>
-        	
-        </div>
-        
-        		 
-        	 	</div>	
-        	 </div>
-<div class=" b-b wrapper-md">
-  <h1 class="m-n font-thin h3">{{campaign.name}}</h1>
+   <div class="cover-image">
+      <!-- ng-if="campaign.picture" --> 
+      <div  style="background:url({{campaign.picture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat; position: relative;">
+         <button style="margin-left: 10px; margin-top: 8px;" class="btn m-b-xs btn-danger btn-rounded" ng-if="isOwner&&isOpen" ng-click="closeCampaign()" translate="CAMPAIGN.CLOSE-BUTTON">Close Campaign</button>
+         <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
+         <a ui-sref="treeSeed.nonProfit({nonProfitId: campaign.nonprofit.id})" md-ink-ripple>
+            <div class=" pull-right bg-light dk r-r divONGreference" style="display: table; min-height: 70px; min-width:300px; overflow: hidden;">
+               <div style="margin-left: 10px; margin-top: 8px; margin-bottom: 8px">
+                  <div class=" thumb-md m-r " style="display: table-cell; vertical-align: middle;"> 
+                     <img ng-src="{{campaign.nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
+                  </div>
+                  <div style="display: table-cell; vertical-align: middle; margin: auto" class=" h4 font-thin m-t-none m-b">
+                     {{campaign.nonprofit.name}}
+                  </div>
+               </div>
+            </div>
+         </a>
+         <div ng-if="!isOpen" class="pull-left dk divONGState bg-danger" style="display: table; min-height: 50px; min-width:170px; overflow: hidden; position: absolute; bottom: 0; ">
+            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+               <div style="display: table-cell; vertical-align: middle; margin: auto" class=" h1 font-thin m-t-none m-b" translate="CAMPAIGN.FINISHED-MESSAGE">
+                  Finished
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-  <tabset class="tab-container">
-    <tab>
+<div class=" b-b wrapper-md">
+   <h1 ng-hide="nameInEdition" class="m-n font-thin h3">{{campaign.name}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h1>
+   <div ng-show="nameInEdition">
+      <div>
+         <input ng-model="campaign.name">
+      </div>
+      <div>
+         <br>
+         <button class="btn btn-rounded btn-sm btn-danger" ng-click="nameCancelEditing()" translate="BUTTONS.CANCEL"></button>
+         <button class="btn btn-rounded btn-sm btn-info" ng-click="nameSaveEditing()" translate="BUTTONS.SAVE"></button>
+      </div>
+      <br>
+   </div>
+</div>
+<tabset class="tab-container">
+   <tab>
       <tab-heading>
-        <span translate="CAMPAIGN.TAB-1.TITLE"></span> <span class="badge badge-sm m-l-xs"></span>
+         <span translate="CAMPAIGN.TAB-1.TITLE"></span> <span class="badge badge-sm m-l-xs"></span>
       </tab-heading>
       <!-- service -->
       <div class="panel hbox hbox-auto-xs no-border">
-        <div class="col wrapper">
-        <div class="row" style="margin-right: 15px">
-        	<div class=" col-md-9">
-        	<h4 class="font-thin m-t-none m-b-none text-primary-lt" translate="CAMPAIGN.TAB-1.DESCRIPTION">Description</h4>
-        	</div>
-        	<div class="treeseed-campaignDate pull-right col-md-3" style="min-width: 230px" align="center"ng-class="getClass(campaign)">
-        	{{campaign.startDateS}} - {{campaign.dueDateS}}</div>
-        	<div class="row wrapper-lg"></div>
-        </div>
-        <div class="row">
-        <div class="col-md-12">
-          {{campaign.description}}
-          </div>
-        </div>
-        </div>
-		<div class="col wrapper-lg w-lg bg-light dk r-r">
-			<h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>
-			<div class="">
-				<div class="">
-					<h4>
-						<span class="pull-right text-primary">{{campaign.cantDonors}}</span>
-					</h4>
-					<span translate="CAMPAIGN.TAB-1.AMOUNT-DONOR">Cantidad de Donadores</span>
-				</div>
-			</div>
-			<div class="">
-				<h4>
-					<span class="pull-right text-success">{{campaign.amountCollected}}</span>
-				</h4>
-				<span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
-			</div>
-			<div class="">
-				<h4>
-					<span class="pull-right text-info" >{{campaign.amountGoal}}</span>
-				</h4>
-				<span translate="CAMPAIGN.TAB-1.AMOUNT-GOAL">Amount Goal</span>
-
-			</div>
-			<div>
-				<div ui-jq="easyPieChart"
-					ui-options="{percent: {{campaign.percent}} ,
-                      lineWidth: 15 ,
-                      trackColor: '{{app.color.light}}' ,
-                      barColor: '{{app.color.success}}' ,
-                      scaleColor: '{{app.color.light}}' ,
-                      size: 230 ,
-                      lineCap: 'butt' ,
-                      animate: 1000
-                    }">
-					<div>
-						<span class="h1 m-l-sm step">{{campaign.percent}}%</span>
-						<div class="text text-sm">
-							<span class="h4 m-l-sm step"
-								translate="CAMPAIGN.TAB-1.COLLECTED"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-    </tab>
+         <div class="col wrapper">
+            <div class="row" style="margin-right: 15px">
+               <div class=" col-md-9">
+                  <h4 class="font-thin m-t-none m-b-none text-primary-lt" translate="CAMPAIGN.TAB-1.DESCRIPTION">Description</h4>
+               </div>
+               <div class="treeseed-campaignDate pull-right col-md-3" style="min-width: 230px" align="center"ng-class="getClass(campaign)">
+                  {{campaign.startDateS}} - {{campaign.dueDateS}}
+                  <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="dateEditClicked(campaign)"><i class="fa fa-edit"></i></button>
+               </div>
+               <div class="row wrapper-lg"></div>
+            </div>
+            <div class="row">
+               <div class="col-md-12" ng-hide="aboutInEdition">
+                  {{campaign.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button>
+               </div>
+            </div>
+            <div class="row">
+               <div ng-show="aboutInEdition">
+                  <div>
+                     <textarea rows="6" cols="90" ng-model="campaign.description">
+                     </textarea>
+                  </div>
+                  <div>
+                     <br>
+                     <button class="btn btn-rounded btn-sm btn-danger" ng-click="aboutCancelEditing()" translate="BUTTONS.CANCEL"></button>
+                     <button class="btn btn-rounded btn-sm btn-info" ng-click="aboutSaveEditing()" translate="BUTTONS.SAVE"></button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col wrapper-lg w-lg bg-light dk r-r">
+            <h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>
+            <div class="">
+               <div class="">
+                  <h4>
+                     <span class="pull-right text-primary">{{campaign.cantDonors}}</span>
+                  </h4>
+                  <span translate="CAMPAIGN.TAB-1.AMOUNT-DONOR">Cantidad de Donadores</span>
+               </div>
+            </div>
+            <div class="">
+               <h4>
+                  <span class="pull-right text-success">{{campaign.amountCollected}}</span>
+               </h4>
+               <span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
+            </div>
+            <div class="">
+               <h4 ng-hide="amountGoalInEdition">
+                  <span class="pull-right text-info" >{{campaign.amountGoal}}</span>
+               </h4>
+               <div class="input-group m-b" ng-show="amountGoalInEdition">
+                  <span class="input-group-addon">$</span> <input type="number"
+                     ui-validate=" '$value>0' " name="amount" class="form-control"
+                     placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-AMOUNT'| translate}}"
+                     ng-model="campaign.amountGoal" min='0' step="100" decimals="2"
+                     required ng-blur="progressControl(4,step2.amount.$valid)">
+                  <div>
+                     <br>
+                     <button class="btn btn-rounded btn-sm btn-danger" ng-click="amountGoalCancelEditing()" translate="BUTTONS.CANCEL"></button>
+                     <button class="btn btn-rounded btn-sm btn-info" ng-click="amountGoalSaveEditing()" translate="BUTTONS.SAVE"></button>
+                  </div>
+               </div>
+               <div ng-hide="amountGoalInEdition">
+                  <span translate="CAMPAIGN.TAB-1.AMOUNT-GOAL">Amount Goal</span>
+                  <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="amountGoalClicked()"><i class="fa fa-edit"></i></button>
+               </div>
+            </div>
+            <div>
+               <div ui-jq="easyPieChart"
+                  ui-options="{percent: {{campaign.percent}} ,
+                  lineWidth: 15 ,
+                  trackColor: '{{app.color.light}}' ,
+                  barColor: '{{app.color.success}}' ,
+                  scaleColor: '{{app.color.light}}' ,
+                  size: 230 ,
+                  lineCap: 'butt' ,
+                  animate: 1000
+                  }">
+                  <div>
+                     <span class="h1 m-l-sm step">{{campaign.percent}}%</span>
+                     <div class="text text-sm">
+                        <span class="h4 m-l-sm step"
+                           translate="CAMPAIGN.TAB-1.COLLECTED"></span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </tab>
     <tab ng-click="loadPosts()">
       <tab-heading>
-        <span translate="CAMPAIGN.TAB-2.TITLE"></span><span class="badge bg-danger badge-sm m-l-xs"></span>
+         <span translate="CAMPAIGN.TAB-2.TITLE"></span><span class="badge bg-danger badge-sm m-l-xs"></span>
       </tab-heading>
        <div  data-ng-include=" 'layouts/components/postsCampaignList.html' " ></div> 
-    </tab>
-  </tabset>
+   </tab>
+</tabset>
 </div>

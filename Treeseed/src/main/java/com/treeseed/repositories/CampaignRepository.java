@@ -20,11 +20,11 @@ import com.treeseed.pojo.CampaignPOJO;
 /**
  * The Interface CampaignRepository.
  */
-public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
-	
+public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
+
 	/** The Constant PAGE_SIZE. */
 	public static final int PAGE_SIZE = 10;
-		
+
 	/**
 	 * Find with all.
 	 *
@@ -43,12 +43,13 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 			+ "( :cause = 0 or c.id = :cause) and cp.isActive = 1 and "
 			+ "( :startDate is null or cp.startDate >= :startDate ) and "
 			+ "( :endDate is null or cp.dueDate <= :endDate )")
-	   public Page<Campaign> findWithAll(@Param("campaignNameNull") String campaignNameNull, @Param("campaignName") String campaignName,
-			   @Param("ngoNameNull") String ngoNameNull, @Param("ngoName") String ngoName,
-			   @Param("cause") int cause,
-			   @Param("startDate") Date startDate,
-			   @Param("endDate") Date endDate,
-			   Pageable pageable);
+	public Page<Campaign> findWithAll(
+			@Param("campaignNameNull") String campaignNameNull,
+			@Param("campaignName") String campaignName,
+			@Param("ngoNameNull") String ngoNameNull,
+			@Param("ngoName") String ngoName, @Param("cause") int cause,
+			@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+			Pageable pageable);
 	
 
 	/**
@@ -92,7 +93,7 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 * @return the page
 	 */
 	Page<Campaign> findAll(Pageable pageable);
-	
+
 	/**
 	 * Find by nonprofit.
 	 *
@@ -100,7 +101,7 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	Page<Campaign> findByNonprofit(String name, Pageable pageable);	
+	Page<Campaign> findByNonprofit(String name, Pageable pageable);
 	
 	/**
 	 * Find byid.
@@ -117,9 +118,7 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	Page<Campaign> findById(int id,
-			Pageable pageable);
-	
+
 	/**
 	 * Find by nonprofit id.
 	 *
@@ -127,7 +126,6 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	Page<Campaign> findByNonprofitId(int Id,Pageable pageable);
 
 	/**
 	 * Update is active by id.
@@ -140,6 +138,28 @@ public interface CampaignRepository extends CrudRepository <Campaign,Integer>{
 	@Transactional
 	@Query("UPDATE Campaign SET isActive=:state WHERE id=:idCampaign")
 	void updateIsActiveById(@Param("idCampaign")int Id,@Param("state") boolean isActive);
-	
 
+	Page<Campaign> findByNonprofitId(int Id, Pageable pageable);
+	
+	/**
+	 * Updates the campaign.
+	 *
+	 * @param Id the id
+	 * @param name the campaign name
+	 * @param description the campaign description
+	 * @param dueDate the campaign duedate
+	 * @param amoutCollected the campaign amountCollected
+	 * @param aountGoal the campaign amountGoal
+	 * @param picture the campaign picture
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE Campaign c SET name = :name, description = :description, dueDate = :dueDate, startDate= :startDate, "
+			+ "amountCollected = :amountCollected, amountGoal = :amountGoal, picture = :picture where c.id = :id")
+	public void update(@Param("id") int id, @Param("name") String name,
+			@Param("description") String description,
+			@Param("dueDate") Date dueDate, @Param("startDate") Date startDate,
+			@Param("amountCollected") double amountCollected,
+			@Param("amountGoal") double amountGoal,
+			@Param("picture") String picture);
 }

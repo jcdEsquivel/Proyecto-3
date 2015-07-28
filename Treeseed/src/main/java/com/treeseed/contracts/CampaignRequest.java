@@ -36,19 +36,26 @@ public class CampaignRequest extends BasePagingRequest {
 
 	/** The due date. */
 	private long dueDate;
+	
+	/** The start date. */
+	private Date startDateData;
 
+	/** The due date. */
+	private Date dueDateData;
+	
 	/** The picture. */
 	private String picture;
 
 	/** The nonprofit id. */
 	private int nonprofitId;
-	
+
 	/** The is active. */
 	private boolean isActive;
 	
 	private String state;
 
-	
+	/** The nonprofit. */
+	private NonprofitPOJO nonprofit;
 
 	/** The id user. */
 	private int idUser;
@@ -69,12 +76,91 @@ public class CampaignRequest extends BasePagingRequest {
 	 *
 	 * @return the nonprofit name
 	 */
+	public Date getStartDateData() {
+		return startDateData;
+	}
+
+	/**
+	 * Sets the startDateData.
+	 *
+	 */
+	public void setStartDateData(Date startDateData) {
+		this.startDateData = startDateData;
+	}
+
+	/**
+	 * Gets the dueDateData.
+	 *
+	 *@return dueDateData
+	 */
+	public Date getDueDateData() {
+		return dueDateData;
+	}
+
+	public void setDueDateData(Date dueDateData) {
+		this.dueDateData = dueDateData;
+	}
+	
+	/**
+	 *
+	 *
+	 *@return nonProfitName
+	 */
 	public String getNonprofitName() {
 		return nonprofitName;
 	}
 
-	/** The nonprofit. */
-	private NonprofitPOJO nonprofit;
+	public double getAmountCollected() {
+		return amountCollected;
+	}
+
+	/**
+	 * Sets the aount collected.
+	 *
+	 * @param amountCollected
+	 */
+	public void setAmountCollected(double amountCollected) {
+		this.amountCollected = amountCollected;
+	}
+
+	public double getAmountGoal() {
+		return amountGoal;
+	}
+
+	/**
+	 * Sets the amount goal.
+	 *
+	 * @param aoutGoal amount goal
+	 */
+	public void setAmountGoal(double amountGoal) {
+		this.amountGoal = amountGoal;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * Sets the creation Date
+	 *
+	 * @param creationDate
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Sets the desciption.
+	 *
+	 * @param description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 	/**
 	 * Sets the nonprofit name.

@@ -493,8 +493,11 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	$scope.isOpen = true;
 	var modalInstance=null;
 	$scope.postsLoaded = false;
-	
-	
+ 	$scope.minDate2 = new Date();
+
+	$scope.minDate=function(){
+  		$scope.mindate2 = $scope.mindate1;
+ 	}
 
 	$scope.init = function() {
 
@@ -509,7 +512,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					}
 					if(mydata.owner==true){
 						$scope.isOwner=true;
-						
+						if(mydata.campaign.state!="finished"){
+							$scope.editable=true;
+						}
 					}else{
 						$scope.isOwner=false;
 					}
@@ -567,6 +572,175 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			$scope.postsLoaded = true;
 		}
 	};
+	
+	/*******************************************
+	EDIT CAMPAIGN
+	********************************************/
+	$scope.editCampaign = function(){
+
+		$scope.requestObjectEdit = {}
+		
+		$scope.requestObjectEdit.id = $scope.campaign.id;
+		$scope.requestObjectEdit.name = $scope.campaign.name;
+		$scope.requestObjectEdit.description= $scope.campaign.description;
+		$scope.requestObjectEdit.amountGoal= $scope.campaign.amountGoal;
+		$scope.requestObjectEdit.amountCollected= $scope.campaign.amountCollected; 
+		$scope.requestObjectEdit.startDateData= new Date($scope.campaign.startDate);
+		$scope.requestObjectEdit.dueDateData= new Date($scope.campaign.dueDate);
+		$scope.requestObjectEdit.picture=$scope.campaign.picture;
+
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/campaing/editCampaign',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+	     		var formData = new FormData();
+
+		           formData.append('data', new Blob([angular.toJson(data.data)], {
+		               type: "application/json"
+		           }));	
+		           formData.append("fileCampaign", data.fileCampaign);
+		           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.coverImageContainer,
+				   fileCampaign : $scope.profileImageContrainer
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+			  	$scope.campaign = data.campaign;
+			  	$scope.campaign.picture = data.campaign.picture;			  	
+			 });
+	};
+
+	//Picture modal
+	$scope.$on('profilePicture', function(event, args){
+			
+		$scope.profileImageContrainer= args
+		
+		$scope.image = args;
+		$scope.uploadImage=true;	
+		
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+	});
+
+	$scope.openModalImage = function(type) {
+
+		if(type == 'cover'){
+			$scope.fileCampaign=true;
+			console.log("es cover")
+			console.log($scope.fileCampaign)
+			
+		}
+		
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/drag_drop.html',
+			scope: $scope,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.image;
+				}
+			}	
+		})
+	};
+
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.editCampaign(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {		
+		modalInstance.close();
+	};
+
+	//About Edit
+  	$scope.aboutEditClicked = function() {
+  		$scope.aboutInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.aboutCancelEditing = function(){
+		$scope.aboutInEdition = false;
+	};
+
+	$scope.aboutSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.aboutInEdition = false;
+	};
+
+	//Name Edit
+	$scope.nameEditClicked = function() {
+  		$scope.nameInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.nameCancelEditing = function(){
+		$scope.nameInEdition = false;
+	};
+
+	$scope.nameSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.nameInEdition = false;
+	};
+
+	//Date Edit
+	$scope.dateEditClicked = function(type) {
+		if(type.state == 'active'){
+			$scope.disabled = true;
+		}
+		else{
+			$scope.disabled = false;
+		}
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/DateEdition.html',
+			scope: $scope
+		})
+	};
+
+	$scope.closeDateModalWithoutEdit = function() {
+		modalInstance.close();
+	}
+
+	$scope.closeDateModal = function(startDate, dueDate) {
+		$scope.campaign.startDate = new Date(startDate);
+		$scope.campaign.dueDate = new Date(dueDate);
+		modalInstance.close();
+		$scope.editCampaign();
+	}
+
+	//Amount goal Edit
+	$scope.amountGoalClicked = function() {
+  		$scope.amountGoalInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.amountGoalCancelEditing = function(){
+		$scope.amountGoalInEdition = false;
+	};
+
+	$scope.amountGoalSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.amountGoalInEdition = false;
+	};
 });
-
-

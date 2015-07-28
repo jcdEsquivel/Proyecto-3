@@ -586,7 +586,7 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
     	NonprofitWrapper nonprofit = createRandomNonprofit();
 		   
 		   
-	   	String name = "pruebaCrearCampaña";
+	   	String name = "pruebaEditarCampaña";
 	   	String description =getRandomString();
 		double amount =  800;
 		CampaignWrapper campaign = new CampaignWrapper();

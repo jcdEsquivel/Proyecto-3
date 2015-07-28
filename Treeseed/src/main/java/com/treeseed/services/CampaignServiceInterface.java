@@ -58,6 +58,13 @@ public interface CampaignServiceInterface {
 	CampaignWrapper getCampaignById(int id);
 	
 	/**
+	 * Updates campaign.
+	 *
+	 * @param campaign wrapper
+	 */
+	void updateCampaign(CampaignWrapper campaign);
+
+	/**
 	 * Close campaign.
 	 *
 	 * @param id the id

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.treeseed.contracts.CampaignRequest;
@@ -23,10 +25,13 @@ import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
@@ -393,6 +398,81 @@ public class CampaignController {
 	}
 	
 	/**
+	 * Edits the campaign.
+	 *
+	 * @param cr the campaign request
+	 * @param fileCampaign the campaign picture
+	 * @return the campaign response
+	 */
+	@RequestMapping(value ="/editCampaign", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public CampaignResponse editCampaign(@RequestPart(value="data") CampaignRequest cr, @RequestPart(value="fileCampaign", required=false) MultipartFile fileCampaign){
+		
+		String campaignImageName = "";
+		CampaignResponse cs = new CampaignResponse();
+		CampaignPOJO campaignPOJO = new CampaignPOJO();
+		CampaignWrapper campaign = new CampaignWrapper();
+		GregorianCalendar dueDate=new GregorianCalendar();
+		GregorianCalendar startDate=new GregorianCalendar();
+		Date date2 = cr.getDueDateData();
+		Date date1 = cr.getStartDateData();
+		dueDate.setTime(date2);
+		startDate.setTime(date1);
+		
+		if(fileCampaign!=null){
+			campaignImageName = Utils.writeToFile(fileCampaign,servletContext);
+		}
+
+		if(!campaignImageName.equals("")){
+			campaign.setPicture(campaignImageName);
+		}else{
+			campaign.setPicture(cr.getPicture());
+		}
+		
+		campaign.setId(cr.getId());
+		campaign.setName(cr.getName());
+		campaign.setStartDate(startDate.getTime());
+		campaign.setDueDate(dueDate.getTime());
+		campaign.setDescription(cr.getDescription());
+		campaign.setAmountGoal(cr.getAmountGoal());
+		campaign.setAmountCollected(cr.getAmountCollected());
+		
+		campaignService.updateCampaign(campaign);
+		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
+		
+		campaignPOJO.setId(campaignWrapper.getId());
+		campaignPOJO.setName(campaignWrapper.getName());
+		campaignPOJO.setDescription(campaignWrapper.getDescription());
+		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+		campaignPOJO.setPicture(campaignWrapper.getPicture());
+		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+		campaignPOJO.setPercent((int)Math.round(campaignWrapper.getPercent()));
+		campaignPOJO.setStartDate(campaignWrapper.getStartDate());
+		campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
+		campaignPOJO.setStart(campaignWrapper.isStart());
+		campaignPOJO.setEnd(campaignWrapper.isEnd());
+		campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
+		campaignPOJO.setDueDate(campaignWrapper.getDueDate());
+		campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
+		campaignPOJO.setState(campaignWrapper.getState());
+		
+		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+		
+		nonprofitPOJO.setId(campaignWrapper.getNonprofit().getId());
+		nonprofitPOJO.setName(campaignWrapper.getNonprofit().getName());
+		nonprofitPOJO.setProfilePicture(campaignWrapper.getNonprofit().getProfilePicture());
+		
+		campaignPOJO.setNonprofit(nonprofitPOJO);
+		
+		cs.setCode(200);
+		cs.setCodeMessage("Campaign updated sucessfully");
+		cs.setCampaign(campaignPOJO);
+
+		return cs;		
+	}
+	
+		/**
 	 * Delete non profit.
 	 *
 	 * @param cr the campaign request
@@ -445,7 +525,5 @@ public class CampaignController {
 	    
 		return cs;
 	}
-	
-	
 
 }
