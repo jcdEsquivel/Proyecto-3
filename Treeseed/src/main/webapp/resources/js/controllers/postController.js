@@ -37,7 +37,7 @@ treeSeedAppControllers.controller('postCampaignController', function($http,
 
 			if (data.code == 200) {
 				$scope.posts = data.posts;
-				$scope.totalPosts = data.totalElements;
+				$scope.totalPosts = data.totalElements;	
 				console.log($scope.totalPosts);
 			}else{
 				console.log('Error : '+ data.errorMessage);
