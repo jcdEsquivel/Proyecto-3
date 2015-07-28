@@ -21,27 +21,39 @@ import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestListarPostCampaign.
+ */
 public class TestListarPostCampaign extends AbstractTestController  {
 
+	/**
+	 * Sets the up.
+	 *
+	 * @param controller the new up
+	 */
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+	 */
 	@Before
 	public void setUp() {
 		super.setUp();
 
 	}
 
+	/**
+	 * Test get posts from campaign.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetPostsFromCampaign() throws Exception {
 
 		Campaign campaign = createRandomCampaign().getWrapperObject();
-		createRandomCampaignPost(campaign);
-		createRandomCampaignPost(campaign);
-		createRandomCampaignPost(campaign);
-		createRandomCampaignPost(campaign);
-		createRandomCampaignPost(campaign);
 		
 		PostCampaignRequest request = new PostCampaignRequest();
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
