@@ -480,7 +480,7 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 		
 		
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,$mdDialog,lazyService) {
 
 	$scope.postsLoaded = false;
 	$scope.campaign = {};
@@ -743,4 +743,24 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		$scope.editCampaign();
 		$scope.amountGoalInEdition = false;
 	};
+	
+	
+	/*************************
+	 * DONATION CALL
+	 *************************/
+	
+	$scope.showDonation = function(ev) {
+	    $mdDialog.show({
+	      controller: 'simpleDonationController',
+	      templateUrl: 'layouts/components/page_donation.html',
+	      resolve : lazyService.load(['https://js.stripe.com/v2/']),
+			
+	      targetEvent: ev,
+	    })
+	    .then(function(answer) {
+	      
+	    }, function() {
+	      
+	    });
+	  };
 });

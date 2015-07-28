@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="resources/css/app.css" type="text/css" />
 <link rel="stylesheet" href="resources/css/site.css" type="text/css" />
 
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/appLogin.js"></script>
@@ -26,15 +27,16 @@
 <script src="resources/js/filters/treeSeedFilters.js"></script>
 <script src="resources/js/directives/treeSeedDirectives.js"></script>
 <script src="resources/js/constants/treeSeedConstants.js"></script>
-<script src="resources/js/config.js"></script>
 <script src="resources/js/controllers/treeSeedApp.js"></script>
 <script src="resources/js/controllers/utilitiesControllers.js"></script>
 <script src="resources/js/controllers/campaignController.js"></script>
+<script src="resources/js/controllers/donationController.js"></script>
 <script src="resources/js/controllers/nonprofitController.js"></script>
 <script src="resources/js/controllers/donorController.js"></script>
 <script src="resources/js/controllers/postController.js"></script>
 <script src="resources/js/controllers/postCampaignController.js"></script>
 <script src="resources/js/controllers/transparencyReportController.js"></script>
+<script src="resources/js/config.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 

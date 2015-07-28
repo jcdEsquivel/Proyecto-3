@@ -18,7 +18,7 @@ import com.treeseed.controllers.NonprofitController;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestListarCampañas  extends AbstractTestController{
+public class TestListarCampañas  extends AbstractTestController{
 
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	

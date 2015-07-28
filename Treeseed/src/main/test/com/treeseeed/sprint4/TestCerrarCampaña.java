@@ -16,7 +16,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
 
-public class TestCerrarCampaña extends AbstractTestController  {
+public class TestCerrarCampaña extends AbstractTestController  {
 	
 	
 

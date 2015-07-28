@@ -1,6 +1,6 @@
 
 'use strict';
-var treeSeedAppServices = angular.module('treeSeed.services', [ 'ngCookies' ]);
+var treeSeedAppServices = angular.module('treeSeedServices', [ 'ngCookies' ]);
 
 treeSeedAppServices.value('version', '0.1');
 
@@ -172,6 +172,57 @@ treeSeedAppServices.service('$userData', function() {
 		}
 	}
 });
+
+treeSeedAppServices.service('lazyService',['JQ_CONFIG','MODULE_CONFIG', function(JQ_CONFIG,MODULE_CONFIG) {
+
+	this.load = function(srcs, callback) {
+		return {
+			deps : [
+					'$ocLazyLoad',
+					'$q',
+					function($ocLazyLoad, $q) {
+						var deferred = $q.defer();
+						var promise = false;
+						srcs = angular.isArray(srcs) ? srcs
+								: srcs.split(/\s+/);
+						if (!promise) {
+							promise = deferred.promise;
+						}
+						angular
+								.forEach(
+										srcs,
+										function(src) {
+											console.log(src);
+											promise = promise
+													.then(function() {
+														if (JQ_CONFIG[src]) {
+															return $ocLazyLoad
+																	.load(JQ_CONFIG[src]);
+														}
+														angular
+																.forEach(
+																		MODULE_CONFIG,
+																		function(
+																				module) {
+																			if (module.name == src) {
+																				name = module.name;
+																			} else {
+																				name = src;
+																			}
+																		});
+														return $ocLazyLoad
+																.load(name);
+													});
+										});
+						deferred.resolve();
+						return callback ? promise
+								.then(function() {
+									return callback();
+								}) : promise;
+					} ]
+		}
+	}
+}])
 
 /** ****************************************************Factories********************************************** */
 

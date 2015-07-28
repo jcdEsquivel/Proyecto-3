@@ -320,6 +320,8 @@ angular
 					}
 				});
 
+
+
 angular.module('treeSeed').config(
 		[
 				'$controllerProvider',
@@ -534,7 +536,11 @@ angular
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]
-						} ])
+						},
+						{
+							name: 'stripe.api',
+							files: ['https://js.stripe.com/v2/']
+						}])
 // oclazyload config
 angular.module('treeSeed').config(
 		[ '$ocLazyLoadProvider', 'MODULE_CONFIG',
