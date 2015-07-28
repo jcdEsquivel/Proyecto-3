@@ -380,7 +380,7 @@ public class DonorController extends UserGeneralController{
 	/**
 	 * Delete donor.
 	 *
-	 * @param dr the dr
+	 * @param dr the donor request
 	 * @return the donor response
 	 */
 	@RequestMapping(value ="/deleteDonor", method = RequestMethod.POST)
