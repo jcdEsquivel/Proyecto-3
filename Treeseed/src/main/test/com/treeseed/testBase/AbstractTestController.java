@@ -433,7 +433,6 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		nonprofit.setWebPage("www.test.com");
 		nonprofit.setConutry(country);
 		
-		
 		NonprofitWrapper wrapper = new NonprofitWrapper(nonprofit);
 		
 		serviceNonProfit.saveNonprofit(wrapper);
