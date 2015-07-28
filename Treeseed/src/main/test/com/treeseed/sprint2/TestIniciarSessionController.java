@@ -78,11 +78,12 @@ public class TestIniciarSessionController extends AbstractTestController{
 			
 	        String uri = "rest/login/checkFacebookuser";
 	               
-	        MvcResult result =(MvcResult) mvc.perform((RequestBuilder) ((ResultActions) MockMvcRequestBuilders.get(uri)
-	        		.param("facebookId", facebook)).andReturn());
-	        		//.accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
-                 //.contentType(MediaType.APPLICATION_JSON)
-                 //.accept(MediaType.APPLICATION_JSON).content(jsonObject)).andReturn();
+	        MvcResult result = mvc
+	        	    .perform(
+	        	      MockMvcRequestBuilders.post(uri)
+	        	        .contentType(MediaType.TEXT_HTML)
+	        	        .accept(MediaType.APPLICATION_JSON)
+	        	        .param("facebookId", facebook)).andReturn();
 	        
 	        String content = result.getResponse().getContentAsString();
 	        LoginResponse response = mapFromJson(content, LoginResponse.class);
