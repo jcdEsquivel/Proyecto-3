@@ -10,21 +10,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
-import com.treeseed.contracts.PostNonprofitRequest;
-import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
-import com.treeseed.ejb.Nonprofit;
-import com.treeseed.pojo.NonprofitPOJO;
-import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TestBuscarONG.
- */
-public class TestBuscarONG extends AbstractTestController  {
+public class TestBuscarDonante extends AbstractTestController  {
 
 	/**
 	 * Sets the up.
@@ -43,7 +36,8 @@ public class TestBuscarONG extends AbstractTestController  {
 		super.setUp();
 
 	}
-
+	
+	
 	
 	/**
 	 * Test get posts from nonprofit.
@@ -53,12 +47,15 @@ public class TestBuscarONG extends AbstractTestController  {
 	@Test
 	public void testBuscarONG() throws Exception {
 
-		createRandomNonprofit();
-		createRandomNonprofit();
-		createRandomNonprofit();
-		createRandomNonprofit();
-		
-		NonprofitRequest request = new NonprofitRequest();
+		createRandomDonor();
+
+		createRandomDonor();
+
+		createRandomDonor();
+
+		createRandomDonor();
+
+		DonorRequest request = new DonorRequest();
 		request.setName(null);;
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
@@ -70,7 +67,7 @@ public class TestBuscarONG extends AbstractTestController  {
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/nonprofit/advanceGet";
+		String uri = "/rest/protected/donor/advanceGet";
 
 		MvcResult result = mvc
 				.perform(
@@ -82,15 +79,15 @@ public class TestBuscarONG extends AbstractTestController  {
 
 		String content = result.getResponse().getContentAsString();
 
-		NonprofitResponse response = mapFromJson(content,
-				NonprofitResponse.class);
+		DonorResponse response = mapFromJson(content,
+				DonorResponse.class);
 
 		Assert.assertEquals("200", response.getCode().toString());
 		Assert.assertTrue(response.getTotalElements()>0);
-		Assert.assertEquals("nonprofits fetch success", response.getCodeMessage());
+		Assert.assertEquals("donors fetch success", response.getCodeMessage());
 
 	}
 	
 	
-	
+
 }
