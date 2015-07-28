@@ -20,12 +20,24 @@ import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestBuscarONG.
+ */
 public class TestBuscarONG extends AbstractTestController  {
 
+	/**
+	 * Sets the up.
+	 *
+	 * @param controller the new up
+	 */
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+	 */
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -33,6 +45,11 @@ public class TestBuscarONG extends AbstractTestController  {
 	}
 
 	
+	/**
+	 * Test get posts from nonprofit.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetPostsFromNonprofit() throws Exception {
 
