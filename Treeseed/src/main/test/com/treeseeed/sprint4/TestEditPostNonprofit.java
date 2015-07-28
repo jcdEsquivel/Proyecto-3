@@ -204,7 +204,7 @@ public class TestEditPostNonprofit extends AbstractTestController {
 		
 		FileInputStream inputFile = new FileInputStream(
 				"src/main/webapp/resources/file-storage/1436073230483.jpg");
-		MockMultipartFile file = new MockMultipartFile("null",
+		MockMultipartFile file = new MockMultipartFile("file",
 				"1436073230483", "multipart/form-data", inputFile);
 
 		//Sending the file image null because of the servletContext problem
