@@ -97,7 +97,7 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 			nonprofitId: Session.userId
 		}
 	
-	$scope.Post={
+	$scope.post={
 			title:'',
 			description:''
 	};
@@ -131,8 +131,8 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 
 	$scope.createPost = function() {
 
-		$scope.postRequestModal.postCampaign.title = $scope.Post.title;
-		$scope.postRequestModal.postCampaign.description = $scope.Post.description;
+		$scope.postRequestModal.postCampaign.title = $scope.post.title;
+		$scope.postRequestModal.postCampaign.description = $scope.post.description;
 		
 		$http(
 				{
