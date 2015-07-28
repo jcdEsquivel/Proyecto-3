@@ -140,7 +140,19 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	void updateIsActiveById(@Param("idCampaign")int Id,@Param("state") boolean isActive);
 
 	Page<Campaign> findByNonprofitId(int Id, Pageable pageable);
-
+	
+	/**
+	 * Update is active by id.
+	 *
+	 * @param Id the id
+	 * @param name the campaign name
+	 * @param description the campaign description
+	 * @param dueDate the campaign duedate
+	 * @param amoutCollected the campaign amountCollected
+	 * @param aountGoal the campaign amountGoal
+	 * @param picture the campaign picture
+	 * @return the page
+	 */
 	@Modifying
 	@Transactional
 	@Query("UPDATE Campaign c SET name = :name, description = :description, dueDate = :dueDate, startDate= :startDate, "

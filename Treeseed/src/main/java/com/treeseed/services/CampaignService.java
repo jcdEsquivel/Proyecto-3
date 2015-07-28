@@ -202,6 +202,13 @@ public class CampaignService implements CampaignServiceInterface{
 		return pageWrapper;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.treeseed.services.CampaignServiceInterface#updateCampaign
+	 * (com.treeseed.contracts.CampaignRequest)
+	 */
 	@Override
 	@Transactional
 	public void updateCampaign(CampaignWrapper campaign) {

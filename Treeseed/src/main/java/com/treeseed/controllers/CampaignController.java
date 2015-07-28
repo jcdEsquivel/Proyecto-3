@@ -400,10 +400,9 @@ public class CampaignController {
 	/**
 	 * Edits the campaign.
 	 *
-	 * @param dr the dr
-	 * @param fileCover the file cover
-	 * @param fileProfile the file profile
-	 * @return the donor response
+	 * @param cr the campaign request
+	 * @param fileCampaign the campaign picture
+	 * @return the campaign response
 	 */
 	@RequestMapping(value ="/editCampaign", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public CampaignResponse editCampaign(@RequestPart(value="data") CampaignRequest cr, @RequestPart(value="fileCampaign", required=false) MultipartFile fileCampaign){
@@ -418,16 +417,7 @@ public class CampaignController {
 		Date date1 = cr.getStartDateData();
 		dueDate.setTime(date2);
 		startDate.setTime(date1);
-		/*date2=date2.replace('"','0');
-		dateTmp=date2.split("-");
-		dateTmp[2]=dateTmp[2].split("T")[0];
-		dueDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1])-1, Integer.parseInt(dateTmp[2]), 23, 59,0);
 		
-		date1=date1.replace('"','0');
-		dateTmp1=date1.split("-");
-		dateTmp1[2]=dateTmp1[2].split("T")[0];	
-		startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1])-1, Integer.parseInt(dateTmp1[2]), 0, 00,0);
-		*/
 		if(fileCampaign!=null){
 			campaignImageName = Utils.writeToFile(fileCampaign,servletContext);
 		}
