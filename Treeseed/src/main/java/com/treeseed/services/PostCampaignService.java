@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.ejb.PostCampaign;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.repositories.PostCampaignRepository;
 
 @Service
-public class PostCampaignService implements PostCampaignServiceInteface{
+public class PostCampaignService implements PostCampaignServiceInterface{
 	
 	@Autowired
 	PostCampaignRepository postCampaign;
@@ -42,11 +43,6 @@ public class PostCampaignService implements PostCampaignServiceInteface{
 		return pageResult ;
 		
 	}
-
-	/** The post repository. */
-	@Autowired
-	PostCampaignRepository postRepository;
-	
 	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.PostCampaignServiceInterface#savePost(com.treeseed.ejbWrapper.PostCampaignWrapper)
@@ -54,7 +50,7 @@ public class PostCampaignService implements PostCampaignServiceInteface{
 	@Override
 	public int savePost(PostCampaignWrapper wrapper) {
 	
-		PostCampaign  post = postRepository.save(wrapper.getWrapperObject());
+		PostCampaign  post = postCampaign.save(wrapper.getWrapperObject());
 		return post.getId();
 	}
 }

@@ -31,6 +31,7 @@ import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
+import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
@@ -85,10 +86,10 @@ public class PostCampaignController {
 		{
 			pojoTemp = new PostCampaignPOJO();
 			pojoTemp.setId(objeto.getId());
-			pojoTemp.setTittle(objeto.getTittle());
+			pojoTemp.setTitle(objeto.getTittle());
 			pojoTemp.setDescription(objeto.getDescription());
 			pojoTemp.setPicture(objeto.getPicture());
-			pojoTemp.setCreationDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
+			pojoTemp.setDate(objeto.getCreationDate());
 			pojos.add(pojoTemp);
 		}
 		

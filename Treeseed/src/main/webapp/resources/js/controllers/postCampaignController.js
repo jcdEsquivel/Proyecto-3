@@ -12,7 +12,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	$scope.postPaginCurrentPage = 0;
 
 	$scope.postRequest = {
-		postNonprofit : {
+		postCampaign : {
 			id : 0,
 			title : '',
 			picture : '',
@@ -26,35 +26,33 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	};
 
 	$scope.getPosts = function(pageNumber) {
-/* Para el que le toque el listar post de campaña
+
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
-		
-		$http.post('rest/protected/postCampaign/getNonprofitPost',
+	
+		$http.post('rest/protected/postCampaign/getCampaignPost',
 				$scope.postRequest).success(function(data, status) {
 
 			if (data.code == 200) {
 				$scope.posts = data.posts;
-				$scope.totalPosts = data.totalElements;
-				console.log($scope.totalPosts);
+				$scope.totalPosts = data.totalElements;	
 			}else{
-				console.log('Error : '+data.errorMessage);
+			
 			}
 			
 		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+			
 		});
-		*/
-	};//end getPosts
-	
+		
+	};
+
+	$scope.getPosts(1);
 	
 	$scope.changePostsPage = function(pageNumber){
 		$scope.getPosts(pageNumber);
 	};
 	
-	//Gets execute when posts tab is clicked. is called from getNonProfitProfileController
-	$scope.$on('loadPostsCampaign',function(){
+	$scope.$on('loadPosts',function(){
 		$scope.getPosts(1);
 	});
 

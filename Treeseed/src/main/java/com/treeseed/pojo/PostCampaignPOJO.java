@@ -1,5 +1,7 @@
 package com.treeseed.pojo;
 
+import java.util.Date;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class PostCampaignPOJO.
@@ -22,7 +24,7 @@ public class PostCampaignPOJO {
 	private int campaignId;
 	
 	/** The date. */
-	private String date;
+	private Date date;
 	
 	
 
@@ -128,7 +130,7 @@ public class PostCampaignPOJO {
 	 *
 	 * @return the date
 	 */
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
@@ -137,8 +139,11 @@ public class PostCampaignPOJO {
 	 *
 	 * @param date the new date
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	
+	
 	
 }
