@@ -61,14 +61,14 @@ public class TestEditarPerfilDeONG extends AbstractTestController{
 		  	FileInputStream inputFile = new FileInputStream( "src/main/webapp/resources/file-storage/1436085937763.jpg");
 		  	FileInputStream inputFile2 = new FileInputStream( "src/main/webapp/resources/file-storage/1436085937763.jpg");
 		  	
-		  	MockMultipartFile fileCover = new MockMultipartFile("fileCover", "1436085937763", "multipart/form-data", inputFile);
+		  	MockMultipartFile fileCover = new MockMultipartFile("null", "1436085937763", "multipart/form-data", inputFile);
 			
-			MockMultipartFile fileProfile = new MockMultipartFile("fileProfile", "1436085937763", "multipart/form-data", inputFile2);
+			MockMultipartFile fileProfile = new MockMultipartFile("null", "1436085937763", "multipart/form-data", inputFile2);
 			
 		  	
 		  	String uri = "/rest/protected/nonprofit/editNonProfit";
 	               
-	        
+	        //Sending the file image null because of the servletContext problem
 		  	MvcResult result = mvc.perform(
 	        		MockMvcRequestBuilders.fileUpload(uri)
 	        		.file(jsonFile)		

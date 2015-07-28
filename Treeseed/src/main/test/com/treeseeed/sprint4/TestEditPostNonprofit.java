@@ -204,10 +204,10 @@ public class TestEditPostNonprofit extends AbstractTestController {
 		
 		FileInputStream inputFile = new FileInputStream(
 				"src/main/webapp/resources/file-storage/1436073230483.jpg");
-		MockMultipartFile file = new MockMultipartFile("testImage",
+		MockMultipartFile file = new MockMultipartFile("null",
 				"1436073230483", "multipart/form-data", inputFile);
 
-		
+		//Sending the file image null because of the servletContext problem
 		MvcResult result = mvc.perform(
         		MockMvcRequestBuilders.fileUpload(uri)
         				.file(file)
