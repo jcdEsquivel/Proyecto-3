@@ -22,7 +22,7 @@ import com.treeseed.services.LoginServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
 
-public class TestLoginController extends AbstractTestController{
+public class TestIniciarSessionController extends AbstractTestController{
 
 	
 	@Autowired

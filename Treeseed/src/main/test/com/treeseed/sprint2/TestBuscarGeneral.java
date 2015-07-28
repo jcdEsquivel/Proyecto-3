@@ -15,7 +15,7 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.GeneralSearchResultPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestGeneralSearch extends AbstractTestController {
+public class TestBuscarGeneral extends AbstractTestController {
 
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
