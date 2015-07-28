@@ -25,6 +25,11 @@ public class LoginService implements LoginServiceInterface{
 		return user;
 	}
 	
+	/**
+	 * check the facebook user.
+	 *
+	 * @param facebookId the facebook id
+	 */
 	@Override
 	@Transactional
 	public UserGeneralWrapper checkFacebookUser(String facebookId) {
