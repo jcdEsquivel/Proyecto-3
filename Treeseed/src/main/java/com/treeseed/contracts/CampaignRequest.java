@@ -54,7 +54,8 @@ public class CampaignRequest extends BasePagingRequest {
 	
 	private String state;
 
-	
+	/** The nonprofit. */
+	private NonprofitPOJO nonprofit;
 
 	/** The id user. */
 	private int idUser;
@@ -79,10 +80,19 @@ public class CampaignRequest extends BasePagingRequest {
 		return startDateData;
 	}
 
+	/**
+	 * Sets the startDateData.
+	 *
+	 */
 	public void setStartDateData(Date startDateData) {
 		this.startDateData = startDateData;
 	}
 
+	/**
+	 * Gets the dueDateData.
+	 *
+	 *@return dueDateData
+	 */
 	public Date getDueDateData() {
 		return dueDateData;
 	}
@@ -91,6 +101,11 @@ public class CampaignRequest extends BasePagingRequest {
 		this.dueDateData = dueDateData;
 	}
 	
+	/**
+	 *
+	 *
+	 *@return nonProfitName
+	 */
 	public String getNonprofitName() {
 		return nonprofitName;
 	}
@@ -99,6 +114,11 @@ public class CampaignRequest extends BasePagingRequest {
 		return amountCollected;
 	}
 
+	/**
+	 * Sets the aount collected.
+	 *
+	 * @param amountCollected
+	 */
 	public void setAmountCollected(double amountCollected) {
 		this.amountCollected = amountCollected;
 	}
@@ -107,6 +127,11 @@ public class CampaignRequest extends BasePagingRequest {
 		return amountGoal;
 	}
 
+	/**
+	 * Sets the amount goal.
+	 *
+	 * @param aoutGoal amount goal
+	 */
 	public void setAmountGoal(double amountGoal) {
 		this.amountGoal = amountGoal;
 	}
@@ -115,6 +140,11 @@ public class CampaignRequest extends BasePagingRequest {
 		return creationDate;
 	}
 
+	/**
+	 * Sets the creation Date
+	 *
+	 * @param creationDate
+	 */
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
@@ -123,12 +153,14 @@ public class CampaignRequest extends BasePagingRequest {
 		return description;
 	}
 
+	/**
+	 * Sets the desciption.
+	 *
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	/** The nonprofit. */
-	private NonprofitPOJO nonprofit;
 	
 	/**
 	 * Sets the nonprofit name.

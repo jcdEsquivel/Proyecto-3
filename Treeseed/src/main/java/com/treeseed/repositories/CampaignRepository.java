@@ -142,7 +142,7 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	Page<Campaign> findByNonprofitId(int Id, Pageable pageable);
 	
 	/**
-	 * Update is active by id.
+	 * Updates the campaign.
 	 *
 	 * @param Id the id
 	 * @param name the campaign name
@@ -151,7 +151,6 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	 * @param amoutCollected the campaign amountCollected
 	 * @param aountGoal the campaign amountGoal
 	 * @param picture the campaign picture
-	 * @return the page
 	 */
 	@Modifying
 	@Transactional
