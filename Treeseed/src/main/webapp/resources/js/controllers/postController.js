@@ -29,9 +29,7 @@ treeSeedAppControllers.controller('postCampaignController', function($http,
 
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
-		
-		console.log($scope.postRequest.postCampaign.campaignId);
-		
+	
 		$http.post('rest/protected/postCampaign/getCampaignPost',
 				$scope.postRequest).success(function(data, status) {
 
@@ -40,12 +38,11 @@ treeSeedAppControllers.controller('postCampaignController', function($http,
 				$scope.totalPosts = data.totalElements;	
 				console.log($scope.totalPosts);
 			}else{
-				console.log('Error : '+ data.errorMessage);
+			
 			}
 			
 		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+			
 		});
 		
 	};
@@ -60,7 +57,6 @@ treeSeedAppControllers.controller('postCampaignController', function($http,
 		$scope.getPosts(1);
 	});
 });
-
 
 treeSeedAppControllers.controller('postAdminController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
