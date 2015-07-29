@@ -16,6 +16,7 @@ public class PostCampaignWrapper {
 	/** The post. */
 	private PostCampaign post;
 	
+	
 	/**
 	 * Instantiates a new post campaign wrapper.
 	 *
@@ -27,6 +28,27 @@ public class PostCampaignWrapper {
 		setWrapperObject(post);
 	}
 	
+	
+	public PostCampaignWrapper( ) {
+		super();
+		setPost(new PostCampaign());
+	}
+	
+	
+	public PostCampaign getPost() {
+		return post;
+	}
+
+
+
+
+	public void setPost(PostCampaign post) {
+		this.post = post;
+	}
+
+
+
+
 	/**
 	 * Gets the wrapper object.
 	 *

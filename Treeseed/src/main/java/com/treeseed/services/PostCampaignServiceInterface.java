@@ -23,4 +23,6 @@ public interface PostCampaignServiceInterface {
 	
 	//public  Page<PostCampaignWrapper> getPosts(PostNonprofitRequest postRequest);
 	
+	public PostCampaignWrapper updatePostCampaign(PostCampaignWrapper wrapper);
+	
 }
