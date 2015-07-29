@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint4;
 
 import org.junit.Assert;
 import org.junit.Before;
