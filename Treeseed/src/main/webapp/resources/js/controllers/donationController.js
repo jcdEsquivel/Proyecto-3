@@ -5,6 +5,15 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('simpleDonationController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams) {
+	
+	
+	$scope.objectRequestD = {};
+	$scope.objectRequestD.donation ={};
+	$scope.objectRequestD.donation.donorId = "1";
+	$scope.objectRequestD.donation.nonProfitId ="1";
+	$scope.objectRequestD.donation.campaignId = "22";
+	$scope.objectRequestD.donation.amount = "123";
+	$scope.objectRequestD.token="";
 	Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
 	
 	$scope.resul=true;
@@ -36,10 +45,12 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	    	
 	    	form.append(' <input type="hidden" name="stripeToken" value="'+response.id+'" />');
 	    	
-	    	$scope.paymentForm.stripeToken = response.id
+	    	$scope.objectRequestD.token = response.id;
+	    		    	
 	    	
-	    	alert(JSON.stringify(response));
-	    	
+	    	$http.post('rest/protected/donation/donate', $scope.objectRequestD).success(function(mydata, status){
+	    		alert(mydata.errorMessage);
+	    	});
 	    	//form.action='rest/protected/donation';
 	    	
 	    	//$scope.$form.get(0).submit();

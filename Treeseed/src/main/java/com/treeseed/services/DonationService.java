@@ -5,6 +5,8 @@ import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.repositories.DonationRepository;
 
 @Service
@@ -27,5 +29,11 @@ public class DonationService implements DonationServiceInterface{
 	public int findDonorsPerCampaign(int campaignId) {
 
 		return donationRepository.countDistincDonorIdByCampaingId(campaignId);
+	}
+
+	@Override
+	public DonationWrapper saveDonation(DonationWrapper donation) {
+		DonationWrapper donationSaved = new DonationWrapper(donationRepository.save(donation.getWrapperObject()));
+		return donationSaved;
 	}
 }

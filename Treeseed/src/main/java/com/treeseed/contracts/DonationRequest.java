@@ -1,7 +1,7 @@
 package com.treeseed.contracts;
 
 import java.sql.Date;
-
+import com.stripe.net.StripeResponse;
 import com.treeseed.pojo.DonationPOJO;
 
 public class DonationRequest {
@@ -13,7 +13,7 @@ public class DonationRequest {
 	private int nonProfitId;
 	private double amount;
 	private Date donationDate;
-	
+	private String token;
 	private Date startPeriodDate;
 	private Date endPeriodDate;
 	
@@ -72,6 +72,14 @@ public class DonationRequest {
 	}
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

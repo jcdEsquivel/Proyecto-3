@@ -10,6 +10,7 @@ public class DonationWrapper {
 	
 	private Donation wrapperObject;
 
+
 	public DonationWrapper(Donation donation) {
 		super();
 		setWrapperObject(donation);
@@ -18,6 +19,14 @@ public class DonationWrapper {
 	public DonationWrapper() {
 		super();
 		setWrapperObject(new Donation());
+	}
+	
+	public int getDonorFatherId() {
+		return wrapperObject.getDonorFatherId();
+	}
+
+	public void setDonorFatherId(int donorFatherId) {
+		wrapperObject.setDonorFatherId(donorFatherId);
 	}
 
 	public Donation getWrapperObject() {

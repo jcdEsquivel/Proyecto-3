@@ -1,16 +1,39 @@
 package com.treeseed.controllers;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.event.ExceptionEvent;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
+import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
+import com.treeseed.services.NonprofitServiceInterface;
+import com.stripe.Stripe;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.exception.StripeException;
+import com.stripe.net.StripeResponse;
+import com.stripe.model.Charge;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -32,10 +55,17 @@ public class DonationController {
 	@Autowired
 	HttpServletRequest request;
 	
+	/** The campaign service. */
+	@Autowired
+	CampaignServiceInterface campaignService;
+	
+	@Autowired
+	NonprofitServiceInterface nonprofitService;	
+	
 	/**
 	 * Gets the nonprofits.
 	 *
-	 * @param dr the dr
+	 * @param dr the Donation Request
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value ="/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
@@ -53,5 +83,59 @@ public class DonationController {
 		ds.setCodeMessage("Donations fetch success");
 		ds.setDonation(donation);
 		return ds;	
+	}
+	
+	@RequestMapping(value ="/donate", method = RequestMethod.POST)
+	@Transactional(rollbackFor = {AuthenticationException.class, InvalidRequestException.class, APIConnectionException.class, CardException.class, APIException.class, StripeException.class}) 
+	public DonationResponse donate(@RequestBody DonationRequest dr) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException, StripeException{	
+		
+		DonationResponse ds = new DonationResponse();
+		
+		DonationWrapper donation = new DonationWrapper();
+		NonprofitWrapper nonProfit=nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
+		DecimalFormat format = new DecimalFormat("0.00");
+		
+		Stripe.apiKey= "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+		
+		
+		String number = format.format(dr.getDonation().getAmount());
+		number = number.replace(".", "");
+		int numberI = Integer.parseInt(number);
+		
+		
+		Map<String, Object> chargeParams = new HashMap<String, Object>();
+		 chargeParams.put("amount", numberI);
+		 chargeParams.put("currency", "usd");
+		 chargeParams.put("source", dr.getToken()); // obtained with Stripe.js
+		 
+		 donation.setAmount(dr.getDonation().getAmount());
+		 donation.setDateTime(new Date());
+		 donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+		 donation.setDonorId(dr.getDonation().getDonorId());
+		 donation.setNonProfitId(nonProfit.getId());
+		 donation.setActive(true);
+		 
+		if(dr.getDonation().getCampaignId()!=0){
+			CampaignWrapper campaign=campaignService.getCampaignById(dr.getDonation().getCampaignId());
+			donation.setCampaingId(campaign.getId());
+			campaign.setAmountCollected(campaign.getAmountCollected()+donation.getAmount());
+			campaignService.updateCampaign(campaign);
+			donationService.saveDonation(donation);
+			chargeParams.put("description", "Donation #"+ donation.getId() + "# Nonprofit #"+ nonProfit.getId()+ "# Nonprofit Name #"+ nonProfit.getName()+"# Campaign #"+campaign.getId()+"# Campaign Name #"+campaign.getName());
+		}else{
+			donationService.saveDonation(donation);
+			chargeParams.put("description", "Donation #"+ donation.getId() + "# Nonprofit #"+ nonProfit.getId()+ "# Nonprofit Name #"+ nonProfit.getName());
+		}
+		
+				 
+			 Charge.create(chargeParams);
+			 ds.setCode(200);
+		
+			
+
+		
+		
+		
+		return ds;
 	}
 }

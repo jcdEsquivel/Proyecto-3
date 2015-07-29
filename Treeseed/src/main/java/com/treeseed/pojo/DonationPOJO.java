@@ -6,6 +6,8 @@ public class DonationPOJO {
 	
 	private int id;
 	private int campaignId;
+	private int donorId;
+	private int donorFatherId;
 	private int nonProfitId;
 	private double amount;
 	private Date donationDate;
@@ -39,6 +41,18 @@ public class DonationPOJO {
 	}
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
+	}
+	public int getDonorId() {
+		return donorId;
+	}
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
+	public int getDonorFatherId() {
+		return donorFatherId;
+	}
+	public void setDonorFatherId(int donorFatherId) {
+		this.donorFatherId = donorFatherId;
 	}
 	
 	
