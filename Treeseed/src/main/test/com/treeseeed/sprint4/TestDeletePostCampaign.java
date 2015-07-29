@@ -20,14 +20,18 @@ import org.springframework.web.context.WebApplicationContext;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
@@ -58,27 +62,25 @@ public class TestDeletePostCampaign extends AbstractTestController {
 
 	    }
 
-	 /**
- 	 * Test delete post ngo profile.
- 	 *
- 	 * @throws Exception the exception
- 	 */
- 	@Test  //Delete Post ONG
-	 public void testDeletePostNGOProfile() throws Exception {
-		NonprofitWrapper nonprofit = createRandomNonprofit();
-		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
 	
-		PostNonprofitRequest request = new PostNonprofitRequest();
-		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+ 	@Test  //Delete Post Campaign
+	 public void testDeletePostCampaign() throws Exception {
+
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
-		pojo.setId(postnonprofit.getId());
-		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());
+		PostCampaignRequest request = new PostCampaignRequest();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
-		request.setPostNonprofit(pojo);
-     
+		pojo.setId(postcampaign.getId());
+		
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
+		
 		String jsonObject = mapToJson(request);
       
-	    String uri = "/rest/protected/postNonprofit/deletePostNonProfit";
+	    String uri = "/rest/protected/postCampaign/deletePostCampaign";
 	
 	    MvcResult result = mvc.perform(
     		MockMvcRequestBuilders.post(uri)
@@ -95,8 +97,81 @@ public class TestDeletePostCampaign extends AbstractTestController {
         Assert.assertEquals("Post deleted sucessfully", response.getCodeMessage());
 
 	 }
-	 
-	 
+ 	
+ 	
+ 	
+ 	@Test  //Delete Post Campaign
+	 public void testDeletePostCampaignWithoutSessionId() throws Exception {
+
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		
+		PostCampaignRequest request = new PostCampaignRequest();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
+		
+		pojo.setId(postcampaign.getId());
+		
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
+		
+		String jsonObject = mapToJson(request);
+     
+	    String uri = "/rest/protected/postCampaign/deletePostCampaign";
 	
+	    MvcResult result = mvc.perform(
+   		MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(jsonObject)
+                .sessionAttr("idUser", 0))
+                .andReturn();
+ 
+	    String content = result.getResponse().getContentAsString();
+	            
+       PostNonprofitResponse response = mapFromJson(content, PostNonprofitResponse.class);
+
+       Assert.assertNotEquals("Post deleted sucessfully", response.getCodeMessage());
+       Assert.assertEquals("Invalid request", response.getCodeMessage());
+       
+
+	 }
+ 	
+ 	
+ 	@Test  //Delete Post Campaign
+	 public void testDeletePostCampaignWrongSessionId() throws Exception {
+
+		NonprofitWrapper nonprofit = createRandomNonprofit();
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		
+		PostCampaignRequest request = new PostCampaignRequest();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
+		
+		pojo.setId(postcampaign.getId());
+		
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
+		
+		String jsonObject = mapToJson(request);
+    
+	    String uri = "/rest/protected/postCampaign/deletePostCampaign";
+	
+	    MvcResult result = mvc.perform(
+  		MockMvcRequestBuilders.post(uri)
+               .contentType(MediaType.APPLICATION_JSON)
+               .accept(MediaType.APPLICATION_JSON)
+               .content(jsonObject)
+               .sessionAttr("idUser", 999999))
+               .andReturn();
+
+	    String content = result.getResponse().getContentAsString();
+	            
+      PostNonprofitResponse response = mapFromJson(content, PostNonprofitResponse.class);
+
+      Assert.assertNotEquals("Post deleted sucessfully", response.getCodeMessage());
+      Assert.assertEquals("Invalid request", response.getCodeMessage());
+
+	 }
 
 }

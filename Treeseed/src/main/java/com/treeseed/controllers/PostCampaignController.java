@@ -127,7 +127,7 @@ public class PostCampaignController {
 	
 	
 	
-	@RequestMapping(value ="/deletePostNonProfit", method = RequestMethod.POST)
+	@RequestMapping(value ="/deletePostCampaign", method = RequestMethod.POST)
 	public PostCampaignResponse deletePostCampaign(@RequestBody PostCampaignRequest pnr)
 	{
 		int generalUserId = 0;
