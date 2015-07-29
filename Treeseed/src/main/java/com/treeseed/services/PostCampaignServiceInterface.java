@@ -2,6 +2,7 @@ package com.treeseed.services;
 
 import org.springframework.data.domain.Page;
 
+import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejbWrapper.PostCampaignWrapper;
@@ -23,4 +24,6 @@ public interface PostCampaignServiceInterface {
 	
 	//public  Page<PostCampaignWrapper> getPosts(PostNonprofitRequest postRequest);
 	
+	
+	public void deletePostCampaign(PostCampaignRequest request);
 }

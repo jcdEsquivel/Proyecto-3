@@ -126,4 +126,38 @@ public class PostCampaignController {
 	}
 	
 	
+	
+	@RequestMapping(value ="/deletePostNonProfit", method = RequestMethod.POST)
+	public PostCampaignResponse deletePostCampaign(@RequestBody PostCampaignRequest pnr)
+	{
+		int generalUserId = 0;
+		HttpSession currentSession = request.getSession();
+		int sessionId = (int) currentSession.getAttribute("idUser");
+		PostCampaignResponse us = new PostCampaignResponse();
+		
+		NonprofitWrapper nonprofit = nonprofitServiceInterface
+				.getSessionNonprofit(pnr.getNonprofitId());
+		
+		generalUserId = nonprofit.getUsergenerals().get(0).getId();
+		
+		if(generalUserId== sessionId){
+		
+			try{
+				postCampaignService.deletePostCampaign(pnr);
+				us.setCode(200);
+				us.setCodeMessage("Post deleted sucessfully");
+		
+			}catch(Exception e){
+				us.setCode(400);
+				us.setCodeMessage("Invalid request");
+			}
+		}else{
+			us.setCode(400);
+			us.setCodeMessage("Invalid request");
+		}
+		
+		return us;				
+	}
+	
+	
 }

@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
@@ -37,5 +39,13 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 		return post.getId();
 	}
 
+	
+	@Override
+	@Transactional
+	public void deletePostCampaign(PostCampaignRequest request)  {
+		int id =request.getPostCampaign().getId();
+		postRepository.deletePost(id);
+		
+	}
 	
 }
