@@ -43,6 +43,9 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#getPostsFromCampaign(com.treeseed.contracts.PostCampaignRequest)
+	 */
 	@Override
 	public   PageWrapper<PostCampaignWrapper> getPostsFromCampaign(PostCampaignRequest postRequest){
 		
@@ -67,7 +70,7 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 		
 		campaignId = postRequest.getPostCampaign().getCampaignId();
 	
-		pageResult = postRepository.fillWithAll(campaignId, pageRequest);
+		pageResult = postRepository.findPosts(campaignId, pageRequest);
 		
 		for (PostCampaign c : pageResult.getContent()) {
 		    pageWrapper.getResults().add(new PostCampaignWrapper(c));
