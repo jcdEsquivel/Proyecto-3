@@ -29,5 +29,17 @@ public interface PostCampaignRepository extends CrudRepository<PostCampaign,Inte
 	public Page<PostNonprofit> findPost( @Param("campaignId") int campaignId,  Pageable pageable);
 	
 
+	/**
+	 * Fill with all.
+	 *
+	 * @param campaignId the campaign id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
+	@Query("SELECT p FROM PostCampaign p inner join p.campaign n WHERE "
+			+ " n.id = :campaignId and "
+			+ " p.isActive = 1")
+	public Page<PostCampaign> fillWithAll( @Param("campaignId") int campaignId,  Pageable pageable);
+	
 	
 }

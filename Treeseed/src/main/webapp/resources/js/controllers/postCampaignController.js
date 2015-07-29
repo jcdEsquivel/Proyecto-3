@@ -12,7 +12,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	$scope.postPaginCurrentPage = 0;
 
 	$scope.postRequest = {
-		postNonprofit : {
+		postCampaign : {
 			id : 0,
 			title : '',
 			picture : '',
@@ -26,11 +26,11 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	};
 
 	$scope.getPosts = function(pageNumber) {
-/* Para el que le toque el listar post de campaña
+
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
 		
-		$http.post('rest/protected/postCampaign/getNonprofitPost',
+		$http.post('rest/protected/postCampaign/getPostFromCampaign',
 				$scope.postRequest).success(function(data, status) {
 
 			if (data.code == 200) {
@@ -45,7 +45,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 			console.log(status);
 			console.log("No data found");
 		});
-		*/
+		
 	};//end getPosts
 	
 	
@@ -70,7 +70,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 					return $scope.getPosts;
 				},
 				campaignId: function(){
-					return $scope.postRequest.postNonprofit.campaignId
+					return $scope.postRequest.postCampaign.campaignId
 				}
 			}
 
@@ -166,7 +166,7 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 	};
 
 	$scope.close = function() {
-		//$scope.getPosts(1);
+		$scope.getPosts(1);
 		$modalInstance.close();
 		
 	}

@@ -27,7 +27,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestBuscarCampañasDeONG.
  */
-public class TestAdministracionCampañasDeONG  extends AbstractTestController {
+public class TestAdministracionCampañasDeONG1  extends AbstractTestController {
 
 	/**
 	 * Sets the up.
