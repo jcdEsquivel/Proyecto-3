@@ -197,12 +197,6 @@ treeSeedAppControllers.controller('editPostCampaignController', function($http,
 		$modalInstance, $stateParams) {
 
 	$scope.getPosts = getPosts;
-	console.log("entra a este controller")
-	console.log(post.picture)
-	
-	console.log(post)
-	console.log($stateParams)
-	
 	$scope.post = {
 			nonprofitId : Session.userId,
 			title : post.title,

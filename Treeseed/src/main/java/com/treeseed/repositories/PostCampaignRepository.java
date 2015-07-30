@@ -33,6 +33,14 @@ public interface PostCampaignRepository extends CrudRepository<PostCampaign,Inte
 	
 
 
+	/**
+	 * Update.
+	 *
+	 * @param id the id
+	 * @param tittle the tittle
+	 * @param description the description
+	 * @param picture the picture
+	 */
 	@Modifying
 	@Transactional
 	@Query("UPDATE PostCampaign n SET tittle = :tittle, description = :description, picture= :picture "

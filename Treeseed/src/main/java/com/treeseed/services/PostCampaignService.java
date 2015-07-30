@@ -87,6 +87,9 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#updatePostCampaign(com.treeseed.ejbWrapper.PostCampaignWrapper)
+	 */
 	@Override
 	@Transactional
 	public PostCampaignWrapper updatePostCampaign(PostCampaignWrapper wrapper) {

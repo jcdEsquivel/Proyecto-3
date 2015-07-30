@@ -74,7 +74,7 @@ public class PostCampaignController {
 	 * Creates the.
 	 *
 	 * @param file the file
-	 * @param requestObj the request obj
+	 * @param requestObj the post request
 	 * @return the post campaign response
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
@@ -132,7 +132,7 @@ public class PostCampaignController {
 	/**
 	 * Gets the post of campaigns.
 	 *
-	 * @param PostCampaignRequest postRequest
+	 * @param postRequest the post request
 	 * @return PostCampaignResponse
 	 */
 	@RequestMapping(value = "/getPostFromCampaign", method = RequestMethod.POST)
@@ -165,6 +165,13 @@ public class PostCampaignController {
 	}
 	
 	
+	/**
+	 * Edits the post campaign.
+	 *
+	 * @param pr the post Campaign request
+	 * @param file the file
+	 * @return the post campaign response
+	 */
 	@RequestMapping(value ="/editPostCampaign", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostCampaignResponse editPostCampaign(@RequestPart(value="data") PostCampaignRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
 	{

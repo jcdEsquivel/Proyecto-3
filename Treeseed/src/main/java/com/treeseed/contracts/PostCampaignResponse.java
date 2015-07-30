@@ -26,10 +26,20 @@ public class PostCampaignResponse extends BaseResponse {
 		return posts;
 	}
 
+	/**
+	 * Gets the post.
+	 *
+	 * @return the post
+	 */
 	public PostCampaignPOJO getPost() {
 		return post;
 	}
 
+	/**
+	 * Sets the post.
+	 *
+	 * @param post the new post
+	 */
 	public void setPost(PostCampaignPOJO post) {
 		this.post = post;
 	}

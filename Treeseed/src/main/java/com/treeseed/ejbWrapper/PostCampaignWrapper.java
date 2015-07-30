@@ -29,12 +29,20 @@ public class PostCampaignWrapper {
 	}
 	
 	
+	/**
+	 * Instantiates a new post campaign wrapper.
+	 */
 	public PostCampaignWrapper( ) {
 		super();
 		setPost(new PostCampaign());
 	}
 	
 	
+	/**
+	 * Gets the post.
+	 *
+	 * @return the post
+	 */
 	public PostCampaign getPost() {
 		return post;
 	}
@@ -42,6 +50,11 @@ public class PostCampaignWrapper {
 
 
 
+	/**
+	 * Sets the post.
+	 *
+	 * @param post the new post
+	 */
 	public void setPost(PostCampaign post) {
 		this.post = post;
 	}
