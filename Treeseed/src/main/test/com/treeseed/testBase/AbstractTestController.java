@@ -76,6 +76,9 @@ public abstract class AbstractTestController extends AbstractTest {
     /** The post nonprofit service. */
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     
+    /** The post campaign service. */
+    @Autowired	PostCampaignServiceInterface postCampaignService;
+    
     /** The donor service. */
     @Autowired	DonorServiceInterface donorService;
     
@@ -511,6 +514,32 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 		PostNonprofitWrapper wrapper =  new PostNonprofitWrapper(post);
 		
 		postNonprofitService.savePostNonprofit(wrapper);
+		
+		return wrapper;
+
+}
+	
+	
+	/**
+	 * Creates the random post campaign.
+	 *
+	 * @param campaign the campaign
+	 * @return the post nonprofit wrapper
+	 */
+	public  PostCampaignWrapper createRandomPostCampaign(Campaign campaign){
+		
+		String random = getRandomString();
+		PostCampaign post = new PostCampaign();
+		post.setTittle("Title "+random);
+		post.setDescription("Description");
+		post.setCreationDate(new Date());
+		post.setActive(true);
+		post.setPicture(TreeseedConstants.DEFAULT_POST_IMAGE);
+		post.setCampaign(campaign);
+		
+		PostCampaignWrapper wrapper =  new PostCampaignWrapper(post);
+		
+		postCampaignService.savePost(wrapper);
 		
 		return wrapper;
 

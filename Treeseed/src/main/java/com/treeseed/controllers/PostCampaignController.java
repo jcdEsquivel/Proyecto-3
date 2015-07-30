@@ -37,6 +37,7 @@ import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostCampaignServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
+import com.treeseed.utils.PageWrapper;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
@@ -122,6 +123,43 @@ public class PostCampaignController {
 			response.setCodeMessage("Invalid request");
 		}
 
+		return response;
+
+	}
+	
+	
+	
+	/**
+	 * Gets the post of campaigns.
+	 *
+	 * @param PostCampaignRequest postRequest
+	 * @return PostCampaignResponse
+	 */
+	@RequestMapping(value = "/getPostFromCampaign", method = RequestMethod.POST)
+	public PostCampaignResponse getNonprofitPost(@RequestBody PostCampaignRequest postRequest) {
+
+		PostCampaignResponse response = new PostCampaignResponse();
+		PageWrapper<PostCampaignWrapper> postsResults = postCampaignService.getPostsFromCampaign(postRequest);
+		List<PostCampaignPOJO> pojos = new ArrayList<PostCampaignPOJO>();
+		PostCampaignPOJO pojoTemp;
+		
+		for(PostCampaignWrapper objeto:postsResults.getResults())
+		{
+			pojoTemp = new PostCampaignPOJO();
+			pojoTemp.setId(objeto.getId());
+			pojoTemp.setTitle(objeto.getTittle());
+			pojoTemp.setDescription(objeto.getDescription());
+			pojoTemp.setPicture(objeto.getPicture());
+			pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
+			pojos.add(pojoTemp);
+		}
+		
+		response.setTotalElements(postsResults.getTotalItems());
+		response.setTotalPages(postsResults.getTotalPages());
+		response.setPosts(pojos);
+		response.setCode(200);
+		response.setCodeMessage("Campaign posts");
+		
 		return response;
 
 	}
