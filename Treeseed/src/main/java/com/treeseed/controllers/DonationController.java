@@ -43,97 +43,116 @@ import com.stripe.model.Charge;
 @RestController
 @RequestMapping(value = "rest/protected/donation")
 public class DonationController {
-	
+
 	/** The donation service. */
 	@Autowired
 	DonationServiceInterface donationService;
-	
+
 	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
-	
+
 	/** The request. */
 	@Autowired
 	HttpServletRequest request;
-	
+
 	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
-	
+
 	@Autowired
-	NonprofitServiceInterface nonprofitService;	
+	NonprofitServiceInterface nonprofitService;
 	
 	
+
 	/**
 	 * Gets the nonprofits.
 	 *
-	 * @param dr the Donation Request
+	 * @param dr
+	 *            the Donation Request
 	 * @return the nonprofits
 	 */
-	@RequestMapping(value ="/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
-	public DonationResponse getNonprofits(@RequestBody DonationRequest dr){	
-	
-		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(), dr.getStartPeriodDate(), dr.getEndPeriodDate());
-		
+	@RequestMapping(value = "/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
+	public DonationResponse getNonprofits(@RequestBody DonationRequest dr) {
+
+		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(),
+				dr.getStartPeriodDate(), dr.getEndPeriodDate());
+
 		DonationResponse ds = new DonationResponse();
-		
+
 		DonationPOJO donation = new DonationPOJO();
 		donation.setAmount(totalDonations);
 		donation.setNonProfitId(dr.getNonProfitId());
-		
+
 		ds.setCode(200);
 		ds.setCodeMessage("Donations fetch success");
 		ds.setDonation(donation);
-		return ds;	
+		return ds;
 	}
-	
-	@RequestMapping(value ="/donate", method = RequestMethod.POST)
-	@Transactional(rollbackFor = {AuthenticationException.class, InvalidRequestException.class, APIConnectionException.class, CardException.class, APIException.class, StripeException.class}) 
-	public DonationResponse donate(@RequestBody DonationRequest dr) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException, StripeException{	
-		
+
+	@RequestMapping(value = "/donate", method = RequestMethod.POST)
+	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
+			APIConnectionException.class, CardException.class, APIException.class, StripeException.class })
+	public DonationResponse donate(@RequestBody DonationRequest dr) throws AuthenticationException,
+			InvalidRequestException, APIConnectionException, CardException, APIException, StripeException {
+
 		DonationResponse ds = new DonationResponse();
 		Charge stripeResponse;
 		DonationWrapper donation = new DonationWrapper();
-		NonprofitWrapper nonProfit=nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
-		DecimalFormat format = new DecimalFormat("0.00");
-		
-		Stripe.apiKey= Utils.stripeApiKey();
-		
-		
-		String number = format.format(dr.getDonation().getAmount());
-		number = number.replace(".", "");
-		int numberI = Integer.parseInt(number);
-		
-		
-		Map<String, Object> chargeParams = new HashMap<String, Object>();
-		 chargeParams.put("amount", numberI);
-		 chargeParams.put("currency", "usd");
-		 chargeParams.put("source", dr.getToken()); // obtained with Stripe.js
-		 
-		 donation.setAmount(dr.getDonation().getAmount());
-		 donation.setDateTime(new Date());
-		 donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
-		 donation.setDonorId(dr.getDonation().getDonorId());
-		 donation.setNonProfitId(nonProfit.getId());
-		 donation.setActive(true);
-		 
-		if(dr.getDonation().getCampaignId()!=0){
-			CampaignWrapper campaign=campaignService.getCampaignById(dr.getDonation().getCampaignId());
-			donation.setCampaingId(campaign.getId());
-			campaign.setAmountCollected(campaign.getAmountCollected()+donation.getAmount());
-			campaignService.updateCampaign(campaign);
-			donationService.saveDonation(donation);
-			chargeParams.put("description", "Donation #"+ donation.getId() + "# Nonprofit #"+ nonProfit.getId()+ "# Nonprofit Name #"+ nonProfit.getName()+"# Campaign #"+campaign.getId()+"# Campaign Name #"+campaign.getName());
-		}else{
-			donationService.saveDonation(donation);
-			chargeParams.put("description", "Donation #"+ donation.getId() + "# Nonprofit #"+ nonProfit.getId()+ "# Nonprofit Name #"+ nonProfit.getName());
+
+		if (dr.getDonation().getDonorId() > 0) {
+			if (dr.getDonation().getNonProfitId() > 0) {
+				NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
+				DecimalFormat format = new DecimalFormat("0.00");
+
+				Stripe.apiKey = Utils.stripeApiKey();
+
+				String number = format.format(dr.getDonation().getAmount());
+				number = number.replace(".", "");
+				int numberI = Integer.parseInt(number);
+
+				Map<String, Object> chargeParams = new HashMap<String, Object>();
+				chargeParams.put("amount", numberI);
+				chargeParams.put("currency", "usd");
+				chargeParams.put("source", dr.getToken()); // obtained with
+															// Stripe.js
+
+				donation.setAmount(dr.getDonation().getAmount());
+				donation.setDateTime(new Date());
+				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+				donation.setDonorId(dr.getDonation().getDonorId());
+				donation.setNonProfitId(nonProfit.getId());
+				donation.setActive(true);
+
+				if (dr.getDonation().getCampaignId() != 0) {
+					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
+					donation.setCampaingId(campaign.getId());
+					campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
+					campaignService.updateCampaign(campaign);
+					donationService.saveDonation(donation);
+					chargeParams.put("description",
+							"Donation #" + donation.getId() + "# Nonprofit #" + nonProfit.getId() + "# Nonprofit Name #"
+									+ nonProfit.getName() + "# Campaign #" + campaign.getId() + "# Campaign Name #"
+									+ campaign.getName());
+				} else {
+					donationService.saveDonation(donation);
+					chargeParams.put("description", "Donation #" + donation.getId() + "# Nonprofit #"
+							+ nonProfit.getId() + "# Nonprofit Name #" + nonProfit.getName());
+				}
+
+				stripeResponse = Charge.create(chargeParams);
+				ds.setCodeMessage("Donation Complete");
+				ds.setCode(200);
+
+			} else {
+				ds.setErrorMessage("No Nonprofit specified");
+				ds.setCode(400);
+			}
+		} else {
+			ds.setErrorMessage("No donor specified");
+			ds.setCode(400);
 		}
-		
-				 
-		stripeResponse = Charge.create(chargeParams);		
-		ds.setCode(200);
-		
-		
+
 		return ds;
 	}
 }

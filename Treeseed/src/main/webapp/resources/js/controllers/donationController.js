@@ -12,7 +12,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	$scope.objectRequestD.donation.donorId = "1";
 	$scope.objectRequestD.donation.nonProfitId ="1";
 	$scope.objectRequestD.donation.campaignId = "22";
-	$scope.objectRequestD.donation.amount = "123";
+	$scope.objectRequestD.donation.amount = "321";
 	$scope.objectRequestD.token="";
 	$scope.stripeResponse={};
 	Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
@@ -28,9 +28,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 		$scope.resul=false;
 		
 		$scope.stripeResponse=Stripe.card.createToken($scope.$form, $scope.stripeResponseHandle);
-		if($scope.stripeResponse.id==undefined){
-			$scope.errorCard = $scope.stripeResponse.message;
-		}
+
 		
 		return false;
 	};
@@ -43,7 +41,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	        $scope.button = false;
 	      } else {
 	        // response contains id and card, which contains additional card details
-	    	alert(response.id);
+	    	  $scope.objectRequestD.token=response.id;
 	        // Insert the token into the form so it gets submitted to the server
 	        // and submit
 	    	
@@ -51,8 +49,9 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	  
 	    		    	
 	    	
-	    	$http.post('rest/protected/donation/donate', $scope.objectRequestD).success(function(mydata, status){
-	    		
+	    	$http.post('rest/protected/donation/donate', $scope.objectRequestD)
+	    		.error(function(status){
+	    			$scope.$form.find('.payment-errors').text(status.message);
 	    	});
 	    	//form.action='rest/protected/donation';
 	    	

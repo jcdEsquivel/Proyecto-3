@@ -8,10 +8,20 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.stripe.Stripe;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Plan;
 
 
 
@@ -71,5 +81,25 @@ public class Utils {
 
 	public static String stripeApiKey(){
 		return "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+	}
+	
+	public static Plan createPlans(int count,int idNonprofit,int idCampaign, String nameNonprofit, String nameCampaign, int amount) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		
+		Stripe.apiKey = Utils.stripeApiKey();
+		
+		Map<String, Object> planParams = new HashMap<String, Object>();
+		planParams.put("amount", amount);
+		planParams.put("interval", "month");
+		planParams.put("currency", "usd");
+		if(idCampaign>0){
+			planParams.put("id", idNonprofit+"#"+idCampaign+"#"+count);
+			planParams.put("name", idNonprofit+"#"+idCampaign+"#Plan_"+nameNonprofit+"_"+nameCampaign+"_"+amount);
+		}else{
+			planParams.put("id", idNonprofit+"#"+count);
+			planParams.put("name", idNonprofit+"#Plan_"+nameNonprofit+"_"+amount);
+		}
+		
+		return Plan.create(planParams);
+		
 	}
 }
