@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.CampaignResponse;
 import com.treeseed.contracts.DonorRequest;
@@ -125,12 +131,19 @@ public class CampaignController {
 	 * @param idNonprofit the id nonprofit
 	 * @param file the file
 	 * @return the campaign response
+	 * @throws APIException 
+	 * @throws CardException 
+	 * @throws APIConnectionException 
+	 * @throws InvalidRequestException 
+	 * @throws AuthenticationException 
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
+			APIConnectionException.class, CardException.class, APIException.class })
 	public CampaignResponse campaingCreate(@RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("date1") String date1, @RequestParam("date2") String date2,
 			@RequestParam("amount") String amount, @RequestParam("idNonprofit") String idNonprofit,
-			@RequestParam(value = "file", required = false) MultipartFile file) {
+			@RequestParam(value = "file", required = false) MultipartFile file) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		String resultFileName = null;
 		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
 		CampaignResponse response = new CampaignResponse();
@@ -138,6 +151,7 @@ public class CampaignController {
 		String[] dateTmp1;
 		GregorianCalendar dueDate=new GregorianCalendar();
 		GregorianCalendar startDate=new GregorianCalendar();
+		Boolean statePlans = false;
 
 		if (nonprofit.getWrapperObject() != null) {
 			if (file != null) {
@@ -178,9 +192,22 @@ public class CampaignController {
 				int campaingId = campaignService.saveCampaign(campaign);
 
 				if (campaingId > 0) {
+					if(date2.equals("")){
+						statePlans = createCampaignPlans(campaign.getNonprofit().getId(),campaingId,campaign.getNonprofit().getName(),campaign.getName());
+					}else{
+						statePlans =true;
+					}
 					response.setCampaignId(campaingId);
-					response.setCode(200);
-					response.setCodeMessage("campaign created successfully");
+					if(statePlans){
+						
+						response.setCode(200);
+						response.setCodeMessage("campaign created successfully");
+					}else{
+						response.setErrorMessage("can't create plans");
+						response.setCode(400);
+					}
+					
+					
 					
 				}else{
 					response.setCode(400);
@@ -214,6 +241,7 @@ public class CampaignController {
 		CampaignPOJO campaignPojo = null;
 		cr.setPageNumber(cr.getPageNumber() - 1);
 		PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
+		
 		
 		CampaignResponse cs = new CampaignResponse();
 		
@@ -260,6 +288,24 @@ public class CampaignController {
 			
 	}
 	
+	
+	private Boolean createCampaignPlans(int idNonprofit, int idCampaign, String nameNonprofit, String nameCampaign) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
+					APIException {
+
+		Boolean state = false;
+
+		if (!Utils.createPlans(1,idNonprofit, idCampaign, nameNonprofit, nameCampaign, 1000).getId().equals(null)
+				&& !Utils.createPlans(2,idNonprofit, idCampaign, nameNonprofit, nameCampaign, 2000).getId().equals(null)
+				&& !Utils.createPlans(3,idNonprofit, idCampaign, nameNonprofit, nameCampaign, 5000).getId().equals(null)
+				&& !Utils.createPlans(4,idNonprofit, idCampaign, nameNonprofit, nameCampaign, 10000).getId()
+						.equals(null)) {
+
+			state = true;
+
+		}
+
+		return state;
+	}
 
 	
 

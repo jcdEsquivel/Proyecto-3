@@ -420,10 +420,14 @@ public class CampaignWrapper {
 	 * @return true, if is end
 	 */
 	public boolean isEnd() {
-		if(getDueDate().after(new Date())){
-			setEnd(true);
+		if(!getDueDate().equals("")){
+			if(getDueDate().after(new Date())){
+				setEnd(true);
+			}else{
+				setEnd(false);
+			}
 		}else{
-			setEnd(false);
+			setEnd(true);
 		}
 		return end;
 	}
