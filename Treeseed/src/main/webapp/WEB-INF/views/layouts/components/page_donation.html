@@ -4,8 +4,6 @@
           <a ui-toggle-class="show" ng-click="answer('0')" class="glyphicon glyphicon-remove pull-right"></a>
 	<div>
 	<form  id="payment-form"  ng-model="form" name="paymentForm" method="POST">
-		  <span class="payment-errors"></span>
-		
 		  <div class="form-row">
 		    <label>
 		      <span>Card Number</span>
@@ -28,7 +26,7 @@
 		    <span> / </span>
 		    <input type="text" size="4" data-stripe="exp-year" ng-model='exp_year'/>
 		  </div>
-		
+			<span class="payment-errors text-danger"></span><br>
 		  <button ng-click="submit()" ng-disabled="button">Submit Payment</button>
 		</form>
 

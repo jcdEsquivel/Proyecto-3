@@ -25,6 +25,7 @@ import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.utils.Utils;
 import com.stripe.Stripe;
 import com.stripe.exception.APIConnectionException;
 import com.stripe.exception.APIException;
@@ -62,6 +63,7 @@ public class DonationController {
 	@Autowired
 	NonprofitServiceInterface nonprofitService;	
 	
+	
 	/**
 	 * Gets the nonprofits.
 	 *
@@ -90,12 +92,12 @@ public class DonationController {
 	public DonationResponse donate(@RequestBody DonationRequest dr) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException, StripeException{	
 		
 		DonationResponse ds = new DonationResponse();
-		
+		Charge stripeResponse;
 		DonationWrapper donation = new DonationWrapper();
 		NonprofitWrapper nonProfit=nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
 		DecimalFormat format = new DecimalFormat("0.00");
 		
-		Stripe.apiKey= "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+		Stripe.apiKey= Utils.stripeApiKey();
 		
 		
 		String number = format.format(dr.getDonation().getAmount());
@@ -128,12 +130,8 @@ public class DonationController {
 		}
 		
 				 
-			 Charge.create(chargeParams);
-			 ds.setCode(200);
-		
-			
-
-		
+		stripeResponse = Charge.create(chargeParams);		
+		ds.setCode(200);
 		
 		
 		return ds;

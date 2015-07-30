@@ -69,4 +69,7 @@ public class Utils {
 	    }	
 	}
 
+	public static String stripeApiKey(){
+		return "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+	}
 }

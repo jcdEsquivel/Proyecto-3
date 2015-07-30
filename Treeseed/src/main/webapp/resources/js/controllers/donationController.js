@@ -6,7 +6,7 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 treeSeedAppControllers.controller('simpleDonationController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams) {
 	
-	
+	$scope.errorCard = undefined;
 	$scope.objectRequestD = {};
 	$scope.objectRequestD.donation ={};
 	$scope.objectRequestD.donation.donorId = "1";
@@ -14,6 +14,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	$scope.objectRequestD.donation.campaignId = "22";
 	$scope.objectRequestD.donation.amount = "123";
 	$scope.objectRequestD.token="";
+	$scope.stripeResponse={};
 	Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
 	
 	$scope.resul=true;
@@ -26,7 +27,10 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 		//$scope.pay={card: $scope.card, cvc:$scope.cvc, exp:$scope.exp }
 		$scope.resul=false;
 		
-		Stripe.card.createToken($scope.$form, $scope.stripeResponseHandle);
+		$scope.stripeResponse=Stripe.card.createToken($scope.$form, $scope.stripeResponseHandle);
+		if($scope.stripeResponse.id==undefined){
+			$scope.errorCard = $scope.stripeResponse.message;
+		}
 		
 		return false;
 	};
@@ -35,7 +39,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 		 form = angular.element(document.querySelector('#payment-form'));
 		if(response.error){
 			 // Show the errors on the form
-	        $form.find('.payment-errors').text(response.error.message);
+			$scope.$form.find('.payment-errors').text(response.error.message);
 	        $scope.button = false;
 	      } else {
 	        // response contains id and card, which contains additional card details
@@ -44,12 +48,11 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	        // and submit
 	    	
 	    	form.append(' <input type="hidden" name="stripeToken" value="'+response.id+'" />');
-	    	
-	    	$scope.objectRequestD.token = response.id;
+	  
 	    		    	
 	    	
 	    	$http.post('rest/protected/donation/donate', $scope.objectRequestD).success(function(mydata, status){
-	    		alert(mydata.errorMessage);
+	    		
 	    	});
 	    	//form.action='rest/protected/donation';
 	    	
