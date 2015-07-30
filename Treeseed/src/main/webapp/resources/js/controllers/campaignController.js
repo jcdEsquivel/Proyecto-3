@@ -480,7 +480,7 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController', funct
 		
 		
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,$mdDialog,lazyService) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,lazyService, USER_ROLES) {
 
 	$scope.postsLoaded = false;
 	$scope.campaign = {};
@@ -749,18 +749,24 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 	 * DONATION CALL
 	 *************************/
 	
-	$scope.showDonation = function(ev) {
-	    $mdDialog.show({
-	      controller: 'simpleDonationController',
-	      templateUrl: 'layouts/components/page_donation.html',
-	      resolve : lazyService.load(['https://js.stripe.com/v2/']),
-			
-	      targetEvent: ev,
-	    })
-	    .then(function(answer) {
-	      
-	    }, function() {
-	      
-	    });
+	$scope.showDonation = function() {
+		modalUrl = '';
+	    
+		if(Session.userRole == USER_ROLES.guest){
+			modalUrl = 'layouts/components/guestDonationModal.html';
+		}else{
+			modalUrl = 'layouts/components/donationModal.html';
+		}
+		
+		
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : modalUrl,
+			controller : 'simpleDonationController',
+			size : 'lg',
+			 resolve : lazyService.load(['https://js.stripe.com/v2/'])
+		});
+		
 	  };
 });
