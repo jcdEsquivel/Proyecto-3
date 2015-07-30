@@ -12,7 +12,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	$scope.postPaginCurrentPage = 0;
 
 	$scope.postRequest = {
-		postNonprofit : {
+		postCampaign : {
 			id : 0,
 			title : '',
 			picture : '',
@@ -26,11 +26,11 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 	};
 
 	$scope.getPosts = function(pageNumber) {
-/* Para el que le toque el listar post de campaña
+
 		$scope.postRequest.pageNumber = pageNumber;
 		$scope.postPaginCurrentPage = pageNumber;
 		
-		$http.post('rest/protected/postCampaign/getNonprofitPost',
+		$http.post('rest/protected/postCampaign/getPostFromCampaign',
 				$scope.postRequest).success(function(data, status) {
 
 			if (data.code == 200) {
@@ -45,7 +45,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 			console.log(status);
 			console.log("No data found");
 		});
-		*/
+		
 	};//end getPosts
 	
 	
@@ -70,13 +70,31 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 					return $scope.getPosts;
 				},
 				campaignId: function(){
-					return $scope.postRequest.postNonprofit.campaignId
+					return $scope.postRequest.postCampaign.campaignId
 				}
 			}
 
 		})
 
 	};
+	
+	
+	$scope.openModalFilled = function(p) {
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/createPostModal.html',
+			controller : 'editPostCampaignController',
+			size : 'lg',
+			resolve : {
+				getPosts : function() {
+					return $scope.getPosts;
+				},
+				post: function(){
+					return p
+				}
+			}
+		})
+};
 
 });
 
@@ -166,7 +184,104 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 	};
 
 	$scope.close = function() {
-		//$scope.getPosts(1);
+		$scope.getPosts(1);
+		$modalInstance.close();
+		
+	}
+
+});
+
+
+treeSeedAppControllers.controller('editPostCampaignController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
+		$modalInstance, $stateParams) {
+
+	$scope.getPosts = getPosts;
+	$scope.post = {
+			nonprofitId : Session.userId,
+			title : post.title,
+			description : post.description,
+			picture : post.picture,
+			
+		};
+	
+	console.log($scope.post)
+	
+	$scope.postRequestModal = {
+			postCampaign : {
+				id : post.id,
+				title : post.title,
+				picture : post.picture,
+				description : post.description,
+				nonprofitId : Session.id,
+				campaignId : $stateParams.campaignId
+			}
+			
+			
+		}
+	
+	
+	$scope.maxCarac = 500;
+	$scope.image =  post.picture;
+
+	$scope.$on('profilePicture', function(event, args) {
+		$scope.image = args;
+		$scope.uploadImage = true;
+
+		var file = args;
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = new Image();
+				img.src = reader.result;
+				fileDisplayArea.src = img.src;
+			}
+			reader.readAsDataURL(file);
+
+		} else {
+			alert("File not supported!");
+		}
+
+	});
+
+
+	$scope.createPost = function() {
+		
+		$scope.postRequestModal.postCampaign.title = $scope.post.title;
+		$scope.postRequestModal.postCampaign.description =  $scope.post.description;
+			
+		$http(
+				{
+					method : 'POST',
+					url : 'rest/protected/postCampaign/editPostCampaign',
+					headers : {
+						'Content-Type' : undefined
+					},
+					transformRequest : function(data) {
+						var formData = new FormData();
+
+						formData.append('data', new Blob([ angular
+								.toJson(data.data) ], {
+							type : "application/json"
+						}));
+						formData.append("file", data.file);
+						return formData;
+					},
+					data : {
+						data : $scope.postRequestModal,
+						file : $scope.image
+					}
+
+				}).success(function(data, status, headers, config) {
+			$scope.close();
+		});
+
+	};
+
+	$scope.close = function() {
+		$scope.getPosts(1);
 		$modalInstance.close();
 		
 	}

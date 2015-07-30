@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint5;
 
 import java.io.FileInputStream;
 
@@ -20,14 +20,19 @@ import org.springframework.web.context.WebApplicationContext;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.contracts.PostCampaignRequest;
+import com.treeseed.contracts.PostCampaignResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
+import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
@@ -35,7 +40,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestEditPostNonprofit.
  */
-public class TestEditPostNonprofit extends AbstractTestController {
+public class TestEditarActualizacionCampaign extends AbstractTestController {
 
 	 /** The wac. */
  	@Autowired WebApplicationContext wac; 
@@ -60,35 +65,39 @@ public class TestEditPostNonprofit extends AbstractTestController {
 
 	
 
+	
+	
 	/**
-	 * Test edit post nonprofit.
+	 * Test edit post campaign.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testEditPostNonprofit() throws Exception {
+	public void testEditPostCampaign() throws Exception {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
-		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
-		String description= "Description";
+		String description= "Description Change";
 		
-		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostCampaignRequest request = new PostCampaignRequest();
 
-		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postnonprofit.getId());
-		pojo.setPicture(postnonprofit.getPicture());
-		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());;
+		pojo.setId(postcampaign.getId());
+		pojo.setPicture(postcampaign.getPicture());
+		pojo.setCampaignId(campaign.getId());
 		
-		request.setPostNonprofit(pojo);
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
 		
 		String jsonObject = mapToJson(request);
 		
-		String uri = "/rest/protected/postNonprofit/editPostNonProfit";
+		String uri = "/rest/protected/postCampaign/editPostCampaign";
 		
 		MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
 		
@@ -107,42 +116,45 @@ public class TestEditPostNonprofit extends AbstractTestController {
 
 		String content = result.getResponse().getContentAsString();
 
-		PostNonprofitResponse response = mapFromJson(content,
-				PostNonprofitResponse.class);
+		PostCampaignResponse response = mapFromJson(content,
+				PostCampaignResponse.class);
 
-		Assert.assertEquals("Post of Nonprofit updated sucessfully", response.getCodeMessage());
+		Assert.assertEquals("Post of Campaign updated sucessfully", response.getCodeMessage());
 
 	}
 	
+
 	/**
-	 * Test edit post nonprofit invalid session.
+	 * Test edit post campaign without user id.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testEditPostNonprofitInvalidSession() throws Exception {
+	public void testEditPostCampaignWithoutUserId() throws Exception {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
-		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
-		String description= "Description";
+		String description= "Description Change";
 		
-		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostCampaignRequest request = new PostCampaignRequest();
 
-		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postnonprofit.getId());
-		pojo.setPicture(postnonprofit.getPicture());
-		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());;
+		pojo.setId(postcampaign.getId());
+		pojo.setPicture(postcampaign.getPicture());
+		pojo.setCampaignId(campaign.getId());
 		
-		request.setPostNonprofit(pojo);
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
 		
 		String jsonObject = mapToJson(request);
 		
-		String uri = "/rest/protected/postNonprofit/editPostNonProfit";
+		String uri = "/rest/protected/postCampaign/editPostCampaign";
 		
 		MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
 		
@@ -156,58 +168,59 @@ public class TestEditPostNonprofit extends AbstractTestController {
         		MockMvcRequestBuilders.fileUpload(uri)
         				.file(file)
 	                    .file(jsonFile)
-	                    .sessionAttr("idUser", 999999))
+	                    .sessionAttr("idUser", 0))
         				.andReturn();
 
 		String content = result.getResponse().getContentAsString();
 
-		PostNonprofitResponse response = mapFromJson(content,
-				PostNonprofitResponse.class);
+		PostCampaignResponse response = mapFromJson(content,
+				PostCampaignResponse.class);
 
-		Assert.assertNotEquals("Post of Nonprofit updated sucessfully", response.getCodeMessage());
+		Assert.assertNotEquals("Post of Campaign updated sucessfully", response.getCodeMessage());
 		Assert.assertEquals("Invalid request", response.getCodeMessage());
 
 	}
 	
-	
 	/**
-	 * Test edit post nonprofit i no session.
+	 * Test edit post campaign with wrong user id.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testEditPostNonprofitINoSession() throws Exception {
+	public void testEditPostCampaignWithWrongUserId() throws Exception {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
-		PostNonprofitWrapper postnonprofit = createRandomPost(nonprofit.getWrapperObject());
+		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
+		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
-		String description= "Description";
+		String description= "Description Change";
 		
-		PostNonprofitRequest request = new PostNonprofitRequest();
+		PostCampaignRequest request = new PostCampaignRequest();
 
-		PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postnonprofit.getId());
-		pojo.setPicture(postnonprofit.getPicture());
-		pojo.setNonprofitId(nonprofit.getUsergenerals().get(0).getId());;
+		pojo.setId(postcampaign.getId());
+		pojo.setPicture(postcampaign.getPicture());
+		pojo.setCampaignId(campaign.getId());
 		
-		request.setPostNonprofit(pojo);
+		request.setPostCampaign(pojo);
+		request.setNonprofitId(nonprofit.getId());
 		
 		String jsonObject = mapToJson(request);
 		
-		String uri = "/rest/protected/postNonprofit/editPostNonProfit";
+		String uri = "/rest/protected/postCampaign/editPostCampaign";
 		
 		MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
 		
 		FileInputStream inputFile = new FileInputStream(
 				"src/main/webapp/resources/file-storage/1436073230483.jpg");
-		MockMultipartFile file = new MockMultipartFile("file",
+		MockMultipartFile file = new MockMultipartFile("testImage",
 				"1436073230483", "multipart/form-data", inputFile);
 
-		//Sending the file image null because of the servletContext problem
+		
 		MvcResult result = mvc.perform(
         		MockMvcRequestBuilders.fileUpload(uri)
         				.file(file)
@@ -217,12 +230,12 @@ public class TestEditPostNonprofit extends AbstractTestController {
 
 		String content = result.getResponse().getContentAsString();
 
-		PostNonprofitResponse response = mapFromJson(content,
-				PostNonprofitResponse.class);
+		PostCampaignResponse response = mapFromJson(content,
+				PostCampaignResponse.class);
 
-		Assert.assertNotEquals("Post of Nonprofit updated sucessfully", response.getCodeMessage());
+		Assert.assertNotEquals("Post of Campaign updated sucessfully", response.getCodeMessage());
 		Assert.assertEquals("Invalid request", response.getCodeMessage());
-
+		
 	}
 
 }

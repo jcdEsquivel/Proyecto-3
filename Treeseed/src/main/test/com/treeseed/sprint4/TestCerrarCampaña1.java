@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint4;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
 
-public class TestCerrarCampaña extends AbstractTestController  {
+public class TestCerrarCampaña1 extends AbstractTestController  {
 	
 	
 
