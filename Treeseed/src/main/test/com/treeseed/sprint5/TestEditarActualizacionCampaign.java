@@ -1,4 +1,4 @@
-package com.treeseeed.sprint5;
+package com.treeseed.sprint5;
 
 import java.io.FileInputStream;
 
@@ -40,7 +40,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestEditPostNonprofit.
  */
-public class TestEditPostCampaign extends AbstractTestController {
+public class TestEditarActualizacionCampaign extends AbstractTestController {
 
 	 /** The wac. */
  	@Autowired WebApplicationContext wac; 

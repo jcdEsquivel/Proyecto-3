@@ -77,6 +77,24 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 		})
 
 	};
+	
+	
+	$scope.openModalFilled = function(p) {
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/createPostModal.html',
+			controller : 'editPostCampaignController',
+			size : 'lg',
+			resolve : {
+				getPosts : function() {
+					return $scope.getPosts;
+				},
+				post: function(){
+					return p
+				}
+			}
+		})
+};
 
 });
 
@@ -161,6 +179,109 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 						$scope.close();
 					}
 			
+		});
+
+	};
+
+	$scope.close = function() {
+		$scope.getPosts(1);
+		$modalInstance.close();
+		
+	}
+
+});
+
+
+treeSeedAppControllers.controller('editPostCampaignController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
+		$modalInstance, $stateParams) {
+
+	$scope.getPosts = getPosts;
+	console.log("entra a este controller")
+	console.log(post.picture)
+	
+	console.log(post)
+	console.log($stateParams)
+	
+	$scope.post = {
+			nonprofitId : Session.userId,
+			title : post.title,
+			description : post.description,
+			picture : post.picture,
+			
+		};
+	
+	console.log($scope.post)
+	
+	$scope.postRequestModal = {
+			postCampaign : {
+				id : post.id,
+				title : post.title,
+				picture : post.picture,
+				description : post.description,
+				nonprofitId : Session.id,
+				campaignId : $stateParams.campaignId
+			}
+			
+			
+		}
+	
+	
+	$scope.maxCarac = 500;
+	$scope.image =  post.picture;
+
+	$scope.$on('profilePicture', function(event, args) {
+		$scope.image = args;
+		$scope.uploadImage = true;
+
+		var file = args;
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = new Image();
+				img.src = reader.result;
+				fileDisplayArea.src = img.src;
+			}
+			reader.readAsDataURL(file);
+
+		} else {
+			alert("File not supported!");
+		}
+
+	});
+
+
+	$scope.createPost = function() {
+		
+		$scope.postRequestModal.postCampaign.title = $scope.post.title;
+		$scope.postRequestModal.postCampaign.description =  $scope.post.description;
+			
+		$http(
+				{
+					method : 'POST',
+					url : 'rest/protected/postCampaign/editPostCampaign',
+					headers : {
+						'Content-Type' : undefined
+					},
+					transformRequest : function(data) {
+						var formData = new FormData();
+
+						formData.append('data', new Blob([ angular
+								.toJson(data.data) ], {
+							type : "application/json"
+						}));
+						formData.append("file", data.file);
+						return formData;
+					},
+					data : {
+						data : $scope.postRequestModal,
+						file : $scope.image
+					}
+
+				}).success(function(data, status, headers, config) {
+			$scope.close();
 		});
 
 	};
