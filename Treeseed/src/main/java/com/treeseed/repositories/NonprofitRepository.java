@@ -53,4 +53,11 @@ public interface NonprofitRepository extends
 			   @Param("profilePicture") String profilePicture,
 			   @Param("webPage") String webPage)
 			   ;
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Nonprofit n SET isActive = 0 where n.id = :id") 
+	  public void delete(
+			   @Param("id") int id);
+			  
 }

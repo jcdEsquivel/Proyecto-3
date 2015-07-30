@@ -2,41 +2,37 @@ package com.treeseed.contracts;
 
 import java.util.Date;
 
-public class PostNonprofitRequest {
 
-	private int nonprofitId;
-	private String descripcion;
-	private String picture;
-	private String title;
+import com.treeseed.pojo.PostNonprofitPOJO;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostNonprofitRequest.
+ */
+public class PostNonprofitRequest  extends BasePagingRequest{
+
+
+	/** The post nonprofit. */
+	private PostNonprofitPOJO postNonprofit;
 	
-	public int getNonprofitId() {
-		return nonprofitId;
-	}
-	public void setNonprofitId(int nonprofitId) {
-		this.nonprofitId = nonprofitId;
-	}
-
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	/**
+	 * Gets the post nonprofit.
+	 *
+	 * @return the post nonprofit
+	 */
+	public PostNonprofitPOJO getPostNonprofit() {
+		return postNonprofit;
 	}
 
-
-	public String getPicture() {
-		return picture;
+	/**
+	 * Sets the post nonprofit.
+	 *
+	 * @param postNonprofit the new post nonprofit
+	 */
+	public void setPostNonprofit(PostNonprofitPOJO postNonprofit) {
+		this.postNonprofit = postNonprofit;
 	}
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	
 	
 	
 }

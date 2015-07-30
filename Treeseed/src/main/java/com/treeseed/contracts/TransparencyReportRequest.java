@@ -1,0 +1,61 @@
+package com.treeseed.contracts;
+
+import java.sql.Date;
+
+import com.treeseed.pojo.TransparencyReportPOJO;
+
+public class TransparencyReportRequest {
+
+	private int id;
+	private double amountIn;
+	private double amountOut;
+	private String description;
+	private Date date;
+	private int nonProfitId;
+	private TransparencyReportPOJO transparencyReport;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public double getAmountIn() {
+		return amountIn;
+	}
+	public void setAmountIn(double amountIn) {
+		this.amountIn = amountIn;
+	}
+	public double getAmountOut() {
+		return amountOut;
+	}
+	public void setAmountOut(double amountOut) {
+		this.amountOut = amountOut;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public int getNonProfitId() {
+		return nonProfitId;
+	}
+	public void setNonProfitId(int nonProfitId) {
+		this.nonProfitId = nonProfitId;
+	}
+	public TransparencyReportPOJO getTransparencyReport() {
+		return transparencyReport;
+	}
+	public void setTransparencyReport(TransparencyReportPOJO transparencyReport) {
+		this.transparencyReport = transparencyReport;
+	}
+	
+	
+}

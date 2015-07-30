@@ -1,0 +1,47 @@
+<div class="w-auto-xs" >
+   <div class="row ">
+      <div class="col-sm-12 md-whiteframe-treeseed" id="divIm">
+         <md-input-container flex> 
+         </md-input-container>
+         <div class="panel wrapper">
+            <div class="input-group">
+               <div ng-controller="DatepickerCtrl" class="col-sm-6">
+                  <p translate="CREATE-CAMPAIGN.TAB-2.DATE1">Due Date:</p>
+                  <div>
+                     <div class="input-group ">
+                        <input ng-disabled="disabled2" type="text" name="date1" min-date="minDate1"
+                           placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE1'| translate}}" class="form-control" datepicker-popup="{{format}}"	ng-model="campaign.startDate" is-open="opened"
+                           datepicker-options="dateOptions" ng-required="true"	ng-change="minDate()" close-text="Close" />
+                        <span class="input-group-btn">
+                        <button ng-disabled="disabled2" type="button" class="btn btn-default"	ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               <div ng-controller="DatepickerCtrl" class="col-sm-6 ">
+                  <p translate="CREATE-CAMPAIGN.TAB-2.DATE2">Due Date:</p>
+                  <div>
+                     <div class="input-group ">
+                        <input type="text" name="date2" min-date="minDate2"
+                           placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE2'| translate}}" class="form-control" datepicker-popup="{{format}}"ng-model="campaign.dueDate" is-open="opened"
+                           datepicker-options="dateOptions" ng-required="true"	close-text="Close" ui-validate=" '$value>campaign.startDate' " />
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default"	ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-6 col-sm-offset-9">
+            <br/>
+               <button type="submit" class="btn btn-default" ng-click="closeDateModalWithoutEdit()" translate="DRAG-IMAGE.CLOSE"></button>
+               <button type="submit" ng-click="closeDateModal(campaign.startDate,campaign.dueDate)" class="btn btn-primary" translate="DRAG-IMAGE.ACCEPT"></button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

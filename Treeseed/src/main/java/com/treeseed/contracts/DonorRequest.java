@@ -14,8 +14,16 @@ public class DonorRequest extends BasePagingRequest {
 	private int id;
 	private int idUser;
 	private String profilePicture;
+	private int isActive;
 	
-	
+	public int getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
+	}
+
 	public String getWebPage() {
 		return webPage;
 	}

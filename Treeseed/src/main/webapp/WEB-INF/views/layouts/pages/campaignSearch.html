@@ -1,7 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3" translate="CAMPAIGNSEARCH.HEADER-TITLE"></h1>
-</div>
-<div class="container">
+
+<div >
  	<div class="panel-body">
 	 	<div class="form-horizontal col-sm-12 col-sm-offset-0">
 		    <label class="control-label" translate="GENERALSEARCH.FILTERS"></label>
@@ -61,7 +61,7 @@
      		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
 		         
 	      	</tab-heading>
-	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none">
+	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
 	        	<li class="list-group-item li-search-size-result" dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 		          	<a href="#" class="pull-left thumb-md m-r">
 	            		<img ng-src="{{campaign.picture}}" alt="..." class="img-circle search-image-size">
@@ -83,5 +83,5 @@
 	</tabset>      
   </div>
 
-
+</div>
  

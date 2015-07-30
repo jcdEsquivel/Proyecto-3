@@ -33,6 +33,8 @@
 <script src="resources/js/controllers/nonprofitController.js"></script>
 <script src="resources/js/controllers/donorController.js"></script>
 <script src="resources/js/controllers/postController.js"></script>
+<script src="resources/js/controllers/postCampaignController.js"></script>
+<script src="resources/js/controllers/transparencyReportController.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 

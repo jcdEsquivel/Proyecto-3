@@ -1,0 +1,98 @@
+<div ng-controller="nonprofitCampaignSearchController">
+	<div class="row m-b-md">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-3">
+			<i class="fa fa-circle-o " style="color: #27c24c"></i><span
+				translate="LISTCAMPAIGN.STATE-COLOR-GREEN"> Open</span>
+		</div>
+		<div class="col-sm-3">
+			<i class="fa fa-circle-o " style="color: #EBEB0A"></i><span
+				translate="LISTCAMPAIGN.STATE-COLOR-YELLOW"> Wating to open</span>
+		</div>
+		<div class="col-sm-3">
+			<i class="fa fa-circle-o " style="color: red"></i> <span
+				translate="LISTCAMPAIGN.STATE-COLOR-RED">Already close</span>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<ul
+				class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
+				<li class="list-group-item li-search-size-result-full"
+					dir-paginate="campaign in campaigns | itemsPerPage: requestObjectCampaigns.pageSize"
+					current-page="currentCampaignPage" pagination-id="campaign-pagin"
+					total-items="totalItems">
+					<!-- <a href="#"	class="pull-left thumb-md m-r">
+			 <img ng-src="{{nonprofit.profilePicture}}" alt="..."class="img-circle search-image-size">
+		</a> -->
+					<div class="clear">
+						<div class="row">
+							<div class="col-md-9">
+								<a ui-sref="treeSeed.campaign({campaignId: campaign.id})" class="h4 m-b-sm block " style="color: #2196f3">
+									{{campaign.name}}</a>
+							</div>
+							<div class="col-md-3">
+								<div class="treeseed-campaignDate" align="center"
+									ng-class="getClass(campaign)">{{campaign.startDateS}} -
+									{{campaign.dueDateS}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<a href="#" class="pull-left thumb-md m-r"> <img
+									ng-src="{{campaign.picture}}" alt="..."
+									class="img-circle search-image-size">
+								</a>
+							</div>
+							<div class="col-md-5" style="word-wrap: break-word">
+								{{campaign.description}}<a style="color: blue"
+									translate="LISTCAMPAIGN.READMORE"></a>
+							</div>
+							<div class="col-md-2">
+								<span translate="LISTCAMPAIGN.GOAL"></span>
+								<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
+								<span translate="LISTCAMPAIGN.COLLECTED"></span>
+								<div class="h4 text-success">${{campaign.amountCollected}}</div>
+							</div>
+							<div class="col-md-3 ">
+								<div>
+									<div ui-jq="easyPieChart"
+										ui-options="{
+                      percent: {{campaign.percent}},
+                      lineWidth: 6,
+                      trackColor: '{{app.color.light}}',
+                      barColor: '{{app.color.success}}',
+                      scaleColor: '{{app.color.light}}',
+                      size: 120,
+                      lineCap: 'butt',
+                      animate: 1000
+                    }">
+										<div>
+											<span class="h4 m-l-sm step">{{campaign.percent}}</span>%
+											<div class="text text-sm">
+												<span translate="LISTCAMPAIGN.COLLECTEDMESSAGE"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="other-controller">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true"
+					on-page-change="pageChangeHandler(newPageNumber)"
+					pagination-id="campaign-pagin"
+					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
