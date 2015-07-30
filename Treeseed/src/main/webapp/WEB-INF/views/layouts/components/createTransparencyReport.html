@@ -1,0 +1,55 @@
+<div class="wrapper-md">
+  <h4 translate="TRANSPARENCY-REPORT.MONTH-SPENCES"></h4>
+  <div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h3 translate="TRANSPARENCY-REPORT.COLLECTED"></h3>
+          <h2>$<small> {{totalCollected}}</small></h2>
+          <div class="inline">
+            <div>
+              <span class="h2 m-l-sm step">{{percentageSpent}}</span>%
+              <div class="text text-sm" translate="TRANSPARENCY-REPORT.SPENT"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-bordered table-hover table-condensed bg-white-only">
+    <tr style="font-weight: bold">
+      <td style="width:35%" translate="TRANSPARENCY-REPORT.DESCRIPTION"></td>
+      <td style="width:20%" translate="TRANSPARENCY-REPORT.SPENT"></td>
+      <td style="width:25%" translate="TRANSPARENCY-REPORT.EDIT"></td>
+    </tr>
+    <tr ng-repeat="spence in spences">
+      <td class="v-middle">
+        <span editable-text="spence.description" e-name="description" e-form="rowform" e-required>
+          {{ spence.description || 'empty' }}
+        </span>
+      </td>
+      <td class="v-middle">
+        <div class="input-group m-b">
+        <span class="input-group-addon">$</span> <input type="number"
+          ui-validate=" '$value>0' " name="amount" class="form-control"
+          ng-model="spence.amount" min='0' step="100" decimals="2">
+      </div>
+      </td>
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="saveSpence($data, spence.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == spence">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-sm btn-info" translate="TRANSPARENCY-REPORT.SAVE">
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-sm btn-default" translate="TRANSPARENCY-REPORT.CANCEL">
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-sm btn-info" ng-click="rowform.$show()" translate="TRANSPARENCY-REPORT.EDIT"></button>
+          <button class="btn btn-sm btn-danger" ng-click="removeSpence($index)" translate="TRANSPARENCY-REPORT.DELETE"></button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+  <div class="form-group">
+    <button class="btn btn-info m-b-lg" ng-click="addSpence()" translate="TRANSPARENCY-REPORT.ADD"></button>
+    <button class="btn btn-success m-b-lg" ng-click="createReport()" translate="TRANSPARENCY-REPORT.CREATE-REPORT"></button>
+  </div>

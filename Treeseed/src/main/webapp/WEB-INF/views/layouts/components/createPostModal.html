@@ -7,7 +7,6 @@
 			<form class="col-sm-12  form-horizontal form-validation" id="registerPost"
 				name="registerForm" role="form" required>
 				<div class="form-group">
-
 					<div class="col-lg-6">
 
 						<p translate="POST-MODAL.TITLE">Title</p>
@@ -17,11 +16,11 @@
 
 						<p class="m-t" translate="POST-MODAL.DESCRIPTION">Description:</p>
 						<textarea class="form-control" rows="6" name="txa-description"
-							ng-model="post.descripcion" maxlength="{{maxCarac}}"
+							ng-model="post.description" maxlength="{{maxCarac}}"
 							name="description"
 							placeholder="{{'POST-MODAL.DESCRIPTION'| translate}}"
 							required ></textarea>
-						<span>{{post.descripcion.length}}/{{maxCarac}}</span>
+						<span>{{post.description.length}}/{{maxCarac}}</span>
 
 
 					</div>
@@ -34,7 +33,7 @@
 							imagedrop on-image-drop="imageDropped()"
 							translate="POST-MODAL.DROP-IMAGE">Drop an image here to
 							upload.</div>
-						<img id="fileDisplayArea" class="post-modal-img" />
+						<img id="fileDisplayArea" class="post-modal-img" ng-src="{{postRequestModal.postNonprofit.picture}}" />
 					</div>
 				</div>
 

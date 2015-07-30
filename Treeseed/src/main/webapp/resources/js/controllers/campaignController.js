@@ -19,15 +19,13 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 	$scope.itemPerPage = [ 10, 25, 50, 100 ];
 	$scope.currentPage = 1;
 	$scope.totalItems = 5;
-	//$scope.campaign.creationDate = "";
-	//$scope.campaign.dueDate = "";
 	
 	$scope.requestObject = {};
 	$scope.requestObject.name = '';
 	$scope.requestObject.nonprofitName = '';
 	$scope.requestObject.causeId = '';
-	$scope.requestObject.fechaInicio = "";
-	$scope.requestObject.fechaFin = "";
+	$scope.requestObject.startDate = "";
+	$scope.requestObject.dueDate = "";
 	
 	$scope.requestObject.pageNumber = 1;
 	$scope.requestObject.pageSize = 10;
@@ -43,7 +41,6 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$http.post('rest/protected/catalog/getAllCatalog',
 		$scope.requestObject1).then(function(response) {
 			$scope.selectSortOptionsCause =  response.data.catalogs;
-		     //$scope.campaign.cause =  response.data.catalogs[0];
 		});
 	}
 
@@ -64,8 +61,6 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		console.log(dates);
 		
-		
-		
 		var startDate = $scope.getDateFormat(dates[0]);
 		var endDate = $scope.getDateFormat(dates[1]);
 		
@@ -74,12 +69,12 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		if (startDate != "")
 		{
-			$scope.requestObject.fechaInicio = startDate.getTime();
+			$scope.requestObject.startDate = startDate.getTime();
 		}
 		
 		if(endDate != "")
 		{
-			$scope.requestObject.fechaFin = endDate.getTime();
+			$scope.requestObject.dueDate = endDate.getTime();
 		}
 	
 		$scope.requestObject.pageNumber = page;
@@ -108,14 +103,10 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 
 });
 
-
-
-
-
 treeSeedAppControllers.controller('campaingCreateController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope,Session) {
 	$scope.percent = 0;
-	$scope.maxCarac= 1000;
+	$scope.maxCarac = 1000;
 	$scope.stateInput1 = false;
 	$scope.stateInput2 = false;
 	$scope.stateInput3 = false;
@@ -139,7 +130,7 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 	}
 
 	$scope.create = function(event) {
-
+		$scope.uploadImage = false;
 		this.onError = false;
 
 		$scope.upload = $upload.upload({
@@ -150,15 +141,14 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 				date1 : $scope.campaign.startDate,
 				date2 : $scope.campaign.dueDate,
 				amount : $scope.campaign.amountGoal,
-				idNonprofit: $scope.currentUser.idUser				
+				idNonprofit : $scope.currentUser.idUser
 			},
 			file : $scope.image,
 		}).success(function(response) {
 
-			/*$state.go('treeSeed.campaing', {
-				campaign : response.campaignId
-			});*/
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+			
+			 $state.go('treeSeed.campaign', { campaignId : response.campaignId });
+			
 		})
 
 	};
@@ -278,5 +268,479 @@ treeSeedAppControllers.controller('campaingCreateController', function($http,
 			break;
 		}
 	}
+});
 
+treeSeedAppControllers.controller('nonprofitCampaignSearchController',
+		
+		function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
+	
+			$scope.page=1;
+			
+			$scope.currentCampaignPage = 0;
+			
+			$scope.itemPerPage = [ 10, 25, 50, 100 ];
+			$scope.currentPage = 1;
+			$scope.totalItems = 0;
+			$scope.borderColor="green";
+			$scope.requestObjectCampaigns = {};
+			$scope.requestObjectCampaigns.isActive=true;
+			$scope.requestObjectCampaigns.pageNumber = 1;
+			$scope.requestObjectCampaigns.pageSize = 3;
+			$scope.requestObjectCampaigns.direction = "DES";
+			$scope.requestObjectCampaigns.sortBy = ["StartDate"];
+			$scope.requestObjectCampaigns.searchColumn = "ALL";
+			$scope.requestObjectCampaigns.searchTerm = "";
+			$scope.requestObjectCampaigns.nonprofitId = $stateParams.nonProfitId;
+			
+			$scope.$on('loadCampaigns',function(){
+				$scope.searchCampaigns(1);
+			});
+			
+			$scope.searchCampaigns = function(page) {
+				
+				$scope.currentCampaignPage = page;
+				$scope.requestObjectCampaigns.pageNumber = page;
+
+				$http.post('rest/protected/campaing/nonprofitCampaigns',$scope.requestObjectCampaigns)
+				.success(function(mydata, status) {
+					$scope.campaigns = mydata.campaigns;
+					$scope.totalItems = mydata.totalElements;
+					
+				}).error(function(mydata, status) {
+					console.log(status);
+					console.log("No data found");
+				});
+
+				
+
+			};
+			
+			$scope.pageChangeHandler = function(num) {
+				$scope.searchCampaigns(num);
+			};
+			
+			
+			$scope.getClass = function(item){
+				if(item.state == 'soon'){
+					return 'border-commingSoon';
+				}else if(item.state == 'active'){
+					return 'border-active';
+				}else{
+					return 'border-finished';
+				}
+			};
+			
+			$scope.getColor=function(start, end){
+				$scope.color = "";
+				if(start){
+					$scope.color ="#EBEB0A";
+				}else if(!end){
+					$scope.color ="red";
+				}else if(!start&&end){
+					$scope.color ="#27c24c";
+				}
+			};
+			
+		});
+
+
+
+treeSeedAppControllers.controller('searchCampaignFromNonProfitController', function($scope,
+		$http, $location, $modal, $log, $timeout, Session, $translate) {
+
+	$scope.datesDisable = false;
+	$scope.stateDisable = false;
+	$scope.state = '';
+	$scope.range = '';
+	$scope.requestObject2 = {};
+	$scope.requestCatalog = {lenguage : $scope.selectLang,
+							type : "cause"};
+	
+	$scope.itemPerPage = [ 10, 25, 50, 100 ];
+	$scope.sortList = [ "startDate"];
+	$scope.currentPage = 1;
+	$scope.totalItems = 5;
+	
+	$scope.requestObject = {};
+	$scope.requestObject.name = '';
+	$scope.requestObject.nonprofitName = '';
+	$scope.requestObject.causeId = '';
+	$scope.requestObject.startDate = "";
+	$scope.requestObject.dueDate = "";
+	$scope.requestObject.nonprofitId = Session.userId;
+	$scope.requestObject.state= '';
+	
+	//$scope.range = '';
+	$scope.requestObject.pageNumber = 1;
+	$scope.requestObject.pageSize = 10;
+	$scope.requestObject.direction = "DESC";
+	$scope.requestObject.sortBy = ["startDate"];
+	$scope.requestObject.searchColumn = "ALL";
+	$scope.requestObject.searchTerm = "";
+
+	$scope.getDateFormat = function(date)
+	{
+		if(date === undefined || date === ""){
+            return "";
+        }
+		var parts = date.split('-');
+		return new Date(parts[0],parts[1]-1,parts[2]);	
+	};
+	
+	
+	$scope.usingDateRangeState = function(val){
+		if($scope.range != ''){//range dates are been used
+			$scope.datesDisable = false;
+			$scope.stateDisable = true;
+			$scope.state = '';	
+		}else if($scope.state){//state been used
+			$scope.datesDisable = true;
+			$scope.stateDisable = false;
+			$scope.range = '';
+		
+		}else{
+			$scope.datesDisable = false;
+			$scope.stateDisable = false;			
+			$scope.state = '';
+			$scope.range = '';
+			
+		}
+	};
+	
+	
+	
+
+	
+	$scope.searchCampaign = function(page) {
+
+		
+		var dates = $scope.range.split(' - ');
+
+		var startDate = $scope.getDateFormat(dates[0]);
+		var endDate = $scope.getDateFormat(dates[1]);
+		
+		
+		if (startDate != "")
+		{
+			$scope.requestObject.startDate = startDate.getTime();
+		}
+		
+		if(endDate != "")
+		{
+			$scope.requestObject.dueDate = endDate.getTime();
+		}
+	
+		$scope.requestObject.pageNumber = page;
+
+		$scope.requestObject.state = $scope.state.Id;
+		
+		$http.post('rest/protected/campaing/searchCampaignsForNonprofit',
+			
+			$scope.requestObject).success(function(mydata, status) {
+			$scope.campaigns = mydata.campaigns;
+			$scope.totalItems = mydata.totalElements;
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});
+
+	};
+	
+	$scope.pageChangeHandler = function(num) {
+		$scope.searchCampaign(num);
+	};
+	
+	
+	$scope.stateList = [];
+
+	$translate('CAMPAIGN-STATE.SOON').then(function successFn(translation) {
+		$scope.stateList.push({Id:'soon', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.ACTIVE').then(function successFn(translation) {
+		$scope.stateList.push({Id:'active', Name: translation}); 
+	});
+	
+	$translate('CAMPAIGN-STATE.FINISHED').then(function successFn(translation) {
+		$scope.stateList.push({Id:'finished', Name: translation}); 
+	});
+	
+	$scope.getClass = function(item){
+		if(item.state == 'soon'){
+			return 'border-commingSoon';
+		}else if(item.state == 'active'){
+			return 'border-active';
+		}else{
+			return 'border-finished';
+		}
+	};
+
+});
+		
+		
+treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state) {
+
+	$scope.postsLoaded = false;
+	$scope.campaign = {};
+	$scope.campaign.id = $stateParams.campaignId;
+	$scope.requestObject = {};
+	$scope.requestObject.campaign = {};
+	$scope.requestClose = {};
+	$scope.requestClose.campaign={};
+	$scope.isOwner = false;	
+	$scope.isOpen = true;
+	var modalInstance=null;
+	$scope.postsLoaded = false;
+ 	$scope.minDate2 = new Date();
+
+	$scope.minDate=function(){
+  		$scope.mindate2 = $scope.mindate1;
+ 	}
+
+	$scope.init = function() {
+
+		$scope.requestObject.idUser= Session.userId;
+		$scope.requestObject.campaign.id = $scope.campaign.id;
+		
+		$http.post('rest/protected/campaing/getCampignProfile',
+				$scope.requestObject).success(function(mydata, status) {
+					$scope.campaign = mydata.campaign;
+					if($scope.campaign==null){
+						$state.go("treeSeed.index");
+					}
+					if(mydata.owner==true){
+						$scope.isOwner=true;
+						if(mydata.campaign.state!="finished"){
+							$scope.editable=true;
+						}
+					}else{
+						$scope.isOwner=false;
+					}
+					if(mydata.campaign.state=="finished"){
+						$scope.isOpen = false;
+					}
+		}).error(function(mydata, status) {
+			
+		});	
+
+	};
+
+	$scope.init();
+
+	$scope.getClass = function(item){
+		if(item.state == 'soon'){
+			return 'border-commingSoon';
+		}else if(item.state == 'active'){
+			return 'border-active';
+		}else{
+			return 'border-finished';
+		}
+	}
+
+	
+	$scope.closeCampaign=function(){
+		
+		modalInstance = $modal.open({
+		animation : $scope.animationsEnabled,
+	templateUrl : 'layouts/components/closeCampaign_confirmation.html',
+		scope: $scope
+		})
+	};
+	
+	$scope.accept=function(){
+		$scope.requestClose.idUser= Session.id;
+		$scope.requestClose.campaign.id = $scope.campaign.id;
+		$http.post('rest/protected/campaing/close',
+				$scope.requestClose).success(function(response) {
+						$scope.closeModal();
+						$state.go($state.current, {}, {reload: true});
+
+		});	
+	}
+			
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+	};
+	
+	
+	$scope.loadPosts=function(){
+		if(!$scope.postsLoaded){
+			$scope.$broadcast('loadPostsCampaign');
+			$scope.postsLoaded = true;
+		}
+	};
+	
+	/*******************************************
+	EDIT CAMPAIGN
+	********************************************/
+	$scope.editCampaign = function(){
+
+		$scope.requestObjectEdit = {}
+		
+		$scope.requestObjectEdit.id = $scope.campaign.id;
+		$scope.requestObjectEdit.name = $scope.campaign.name;
+		$scope.requestObjectEdit.description= $scope.campaign.description;
+		$scope.requestObjectEdit.amountGoal= $scope.campaign.amountGoal;
+		$scope.requestObjectEdit.amountCollected= $scope.campaign.amountCollected; 
+		$scope.requestObjectEdit.startDateData= new Date($scope.campaign.startDate);
+		$scope.requestObjectEdit.dueDateData= new Date($scope.campaign.dueDate);
+		$scope.requestObjectEdit.picture=$scope.campaign.picture;
+
+		$http({
+			   method : 'POST',
+			   url : 'rest/protected/campaing/editCampaign',
+			   headers : {
+			    'Content-Type' : undefined
+			   },
+			   transformRequest : function(data) {
+	     		var formData = new FormData();
+
+		           formData.append('data', new Blob([angular.toJson(data.data)], {
+		               type: "application/json"
+		           }));	
+		           formData.append("fileCampaign", data.fileCampaign);
+		           return formData;
+			   },
+			   data : {
+				   data : $scope.requestObjectEdit,
+				   fileCover : $scope.coverImageContainer,
+				   fileCampaign : $scope.profileImageContrainer
+			   }
+
+			  }).
+			  success(function (data, status, headers, config) {
+			  	$scope.campaign = data.campaign;
+			  	$scope.campaign.picture = data.campaign.picture;			  	
+			 });
+	};
+
+	//Picture modal
+	$scope.$on('profilePicture', function(event, args){
+			
+		$scope.profileImageContrainer= args
+		
+		$scope.image = args;
+		$scope.uploadImage=true;	
+		
+		var file = args;	
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+		  var reader = new FileReader();
+
+		  reader.onload = function(e) {
+		    var img = new Image();
+		    img.src = reader.result;
+		    fileDisplayArea.src = img.src;
+		  }
+		  reader.readAsDataURL(file); 
+		  
+		} else {
+		  alert("File not supported!");
+		}
+	});
+
+	$scope.openModalImage = function(type) {
+
+		if(type == 'cover'){
+			$scope.fileCampaign=true;
+			console.log("es cover")
+			console.log($scope.fileCampaign)
+			
+		}
+		
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/drag_drop.html',
+			scope: $scope,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.image;
+				}
+			}	
+		})
+	};
+
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.editCampaign(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {		
+		modalInstance.close();
+	};
+
+	//About Edit
+  	$scope.aboutEditClicked = function() {
+  		$scope.aboutInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.aboutCancelEditing = function(){
+		$scope.aboutInEdition = false;
+	};
+
+	$scope.aboutSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.aboutInEdition = false;
+	};
+
+	//Name Edit
+	$scope.nameEditClicked = function() {
+  		$scope.nameInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.nameCancelEditing = function(){
+		$scope.nameInEdition = false;
+	};
+
+	$scope.nameSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.nameInEdition = false;
+	};
+
+	//Date Edit
+	$scope.dateEditClicked = function(type) {
+		if(type.state == 'active'){
+			$scope.disabled = true;
+		}
+		else{
+			$scope.disabled = false;
+		}
+	    modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/DateEdition.html',
+			scope: $scope
+		})
+	};
+
+	$scope.closeDateModalWithoutEdit = function() {
+		modalInstance.close();
+	}
+
+	$scope.closeDateModal = function(startDate, dueDate) {
+		$scope.campaign.startDate = new Date(startDate);
+		$scope.campaign.dueDate = new Date(dueDate);
+		modalInstance.close();
+		$scope.editCampaign();
+	}
+
+	//Amount goal Edit
+	$scope.amountGoalClicked = function() {
+  		$scope.amountGoalInEdition = true;
+  		$scope.error = false;
+	};
+
+	$scope.amountGoalCancelEditing = function(){
+		$scope.amountGoalInEdition = false;
+	};
+
+	$scope.amountGoalSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.amountGoalInEdition = false;
+	};
 });

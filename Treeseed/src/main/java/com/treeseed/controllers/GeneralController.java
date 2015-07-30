@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -21,7 +22,12 @@ public class GeneralController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 * 
+	 *
+	 * @param locale the locale
+	 * @param model the model
+	 * @param request the request
+	 * @param response the response
+	 * @return the model and view
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView login(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
@@ -31,6 +37,15 @@ public class GeneralController {
 		return mav;
 	}
 	
+	/**
+	 * Home.
+	 *
+	 * @param locale the locale
+	 * @param model the model
+	 * @param request the request
+	 * @param response the response
+	 * @return the model and view
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 		
