@@ -237,10 +237,9 @@ public class PostCampaignController {
 		int sessionId = (int) currentSession.getAttribute("idUser");
 		PostCampaignResponse us = new PostCampaignResponse();
 		
-		NonprofitWrapper nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(pnr.getNonprofitId());
+		CampaignWrapper campaign = campaignService.getCampaignById(pnr.getPostCampaign().getCampaignId());
 		
-		generalUserId = nonprofit.getUsergenerals().get(0).getId();
+		generalUserId = campaign.getNonprofit().getUsergenerals().get(0).getId();
 		
 		if(generalUserId== sessionId){
 		

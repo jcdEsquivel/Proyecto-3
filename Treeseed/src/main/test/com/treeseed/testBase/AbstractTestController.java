@@ -76,9 +76,6 @@ public abstract class AbstractTestController extends AbstractTest {
     /** The post nonprofit service. */
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     
-    /** The post nonprofit service. */
-    @Autowired	PostCampaignServiceInterface postCampaignService;
-    
     /** The donor service. */
     @Autowired	DonorServiceInterface donorService;
     
@@ -642,25 +639,6 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
         return campaign;
 
     }
-    
-    
-public  PostCampaignWrapper createRandomPostCampaign(Campaign campaign){
-		
-		String random = getRandomString();
-		PostCampaign post = new PostCampaign();
-		post.setTittle("Title "+random);
-		post.setDescription("Description");
-		post.setCreationDate(new Date());
-		post.setActive(true);
-		post.setPicture(TreeseedConstants.DEFAULT_POST_IMAGE);
-		post.setCampaign(campaign);
-		
-		PostCampaignWrapper wrapper =  new PostCampaignWrapper(post);
-		
-		postCampaignService.savePost(wrapper);
-		
-		return wrapper;
 
-}
     
 }
