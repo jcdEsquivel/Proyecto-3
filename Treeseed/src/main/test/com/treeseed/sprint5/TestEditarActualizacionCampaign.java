@@ -77,7 +77,7 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
 		String description= "Description Change";
@@ -88,8 +88,8 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postcampaign.getId());
-		pojo.setPicture(postcampaign.getPicture());
+		pojo.setId(postCampaign.getId());
+		pojo.setPicture(postCampaign.getPicture());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
@@ -134,7 +134,7 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
 		String description= "Description Change";
@@ -145,8 +145,8 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postcampaign.getId());
-		pojo.setPicture(postcampaign.getPicture());
+		pojo.setId(postCampaign.getId());
+		pojo.setPicture(postCampaign.getPicture());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
@@ -191,7 +191,7 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		String title = "Post Change";
 		String description= "Description Change";
@@ -202,8 +202,8 @@ public class TestEditarActualizacionCampaign extends AbstractTestController {
 		
 		pojo.setTitle(title);
 		pojo.setDescription(description);
-		pojo.setId(postcampaign.getId());
-		pojo.setPicture(postcampaign.getPicture());
+		pojo.setId(postCampaign.getId());
+		pojo.setPicture(postCampaign.getPicture());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
