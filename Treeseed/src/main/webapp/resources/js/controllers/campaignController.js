@@ -523,14 +523,11 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController',
 				}
 			};
 
-		});
+});
 
-treeSeedAppControllers
-		.controller(
-				'getCampaingProfileController',
-				function($scope, $http, $location, $modal, $log, $timeout,
-						$stateParams, Session, $upload, $state, MODULE_CONFIG,
-						$mdDialog, lazyService) {
+
+treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,lazyService, USER_ROLES) {
 
 					$scope.postsLoaded = false;
 					$scope.campaign = {};
@@ -575,6 +572,10 @@ treeSeedAppControllers
 											if (mydata.campaign.state == "finished") {
 												$scope.isOpen = false;
 											}
+											
+											if(mydata.campaign.dueDate==undefined){
+												mydata.campaign.dueDate == "Fin de los Tiempos";
+											}
 										}).error(function(mydata, status) {
 
 								});
@@ -595,11 +596,13 @@ treeSeedAppControllers
 
 					$scope.closeCampaign = function() {
 
-});
-		
-		
-treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,lazyService, USER_ROLES) {
+						modalInstance = $modal
+								.open({
+									animation : $scope.animationsEnabled,
+									templateUrl : 'layouts/components/closeCampaign_confirmation.html',
+									scope : $scope
+								})
+					};
 
 					$scope.accept = function() {
 						$scope.requestClose.idUser = Session.id;
@@ -807,5 +810,5 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			 resolve : lazyService.load(['https://js.stripe.com/v2/'])
 		});
 		
-	  };
+	};
 });

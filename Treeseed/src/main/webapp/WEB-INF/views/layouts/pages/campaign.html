@@ -97,7 +97,7 @@
                </h4>
                <span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
             </div>
-            <div class="">
+            <div class="" ng-if="campaign.dueDate">
                <h4 ng-hide="amountGoalInEdition">
                   <span class="pull-right text-info" >{{campaign.amountGoal}}</span>
                </h4>
@@ -118,7 +118,7 @@
                   <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="amountGoalClicked()"><i class="fa fa-edit"></i></button>
                </div>
             </div>
-            <div>
+            <div ng-if="campaign.dueDate">
                <div ui-jq="easyPieChart"
                   ui-options="{percent: {{campaign.percent}} ,
                   lineWidth: 15 ,
