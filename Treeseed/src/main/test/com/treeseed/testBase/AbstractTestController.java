@@ -76,9 +76,6 @@ public abstract class AbstractTestController extends AbstractTest {
     /** The post nonprofit service. */
     @Autowired	PostNonprofitServiceInterface postNonprofitService;
     
-    /** The post campaign service. */
-    @Autowired	PostCampaignServiceInterface postCampaignService;
-    
     /** The donor service. */
     @Autowired	DonorServiceInterface donorService;
     
@@ -87,6 +84,9 @@ public abstract class AbstractTestController extends AbstractTest {
     
     /** The request http. */
     @Autowired  HttpServletRequest requestHttp;
+    
+    /** The post campaign service. */
+    @Autowired	PostCampaignServiceInterface postCampaignService;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc

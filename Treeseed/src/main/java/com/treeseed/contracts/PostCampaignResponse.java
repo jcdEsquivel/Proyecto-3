@@ -14,6 +14,9 @@ public class PostCampaignResponse extends BaseResponse {
 	/** The posts. */
 	private List<PostCampaignPOJO> posts;
 	
+	/** The post. */
+	private PostCampaignPOJO post;
+	
 	/**
 	 * Gets the posts.
 	 *
@@ -21,6 +24,24 @@ public class PostCampaignResponse extends BaseResponse {
 	 */
 	public List<PostCampaignPOJO> getPosts() {
 		return posts;
+	}
+
+	/**
+	 * Gets the post.
+	 *
+	 * @return the post
+	 */
+	public PostCampaignPOJO getPost() {
+		return post;
+	}
+
+	/**
+	 * Sets the post.
+	 *
+	 * @param post the new post
+	 */
+	public void setPost(PostCampaignPOJO post) {
+		this.post = post;
 	}
 
 	/**

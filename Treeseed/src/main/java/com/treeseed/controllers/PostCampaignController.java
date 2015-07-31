@@ -74,7 +74,7 @@ public class PostCampaignController {
 	 * Creates the.
 	 *
 	 * @param file the file
-	 * @param requestObj the request obj
+	 * @param requestObj the post request
 	 * @return the post campaign response
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
@@ -132,7 +132,7 @@ public class PostCampaignController {
 	/**
 	 * Gets the post of campaigns.
 	 *
-	 * @param PostCampaignRequest postRequest
+	 * @param postRequest the post request
 	 * @return PostCampaignResponse
 	 */
 	@RequestMapping(value = "/getPostFromCampaign", method = RequestMethod.POST)
@@ -162,6 +162,69 @@ public class PostCampaignController {
 		
 		return response;
 
+	}
+	
+	
+	/**
+	 * Edits the post campaign.
+	 *
+	 * @param pr the post Campaign request
+	 * @param file the file
+	 * @return the post campaign response
+	 */
+	@RequestMapping(value ="/editPostCampaign", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public PostCampaignResponse editPostCampaign(@RequestPart(value="data") PostCampaignRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
+	{
+		int generalUserId = 0;
+		HttpSession currentSession = request.getSession();
+		PostCampaignResponse us = new PostCampaignResponse();
+		int sessionId = (int) currentSession.getAttribute("idUser");
+		
+		CampaignWrapper campaign = campaignService.getCampaignById(pr.getPostCampaign().getCampaignId());
+			
+		generalUserId = campaign.getNonprofit().getUsergenerals().get(0).getId();
+		
+		if(generalUserId==sessionId){
+			
+			String imagePost = "";
+			PostCampaignPOJO postCampaignPOJO = new PostCampaignPOJO();
+			postCampaignPOJO= pr.getPostCampaign();		
+			PostCampaignWrapper postCampaign = new PostCampaignWrapper();
+			
+			if(file!=null){
+				imagePost = Utils.writeToFile(file,servletContext);
+			}
+
+
+			if(!imagePost.equals("")){
+				postCampaign.setPicture(imagePost);
+			}else{
+				postCampaign.setPicture(postCampaignPOJO.getPicture());
+			}
+			
+			
+			postCampaign.setId(postCampaignPOJO.getId());
+			postCampaign.setTittle(pr.getPostCampaign().getTitle());
+			postCampaign.setDescription(pr.getPostCampaign().getDescription());
+			
+			postCampaign= postCampaignService.updatePostCampaign(postCampaign);
+			
+			
+			postCampaignPOJO.setTitle(postCampaign.getTittle());
+			postCampaignPOJO.setDescription(postCampaign.getDescription());
+			postCampaignPOJO.setPicture(postCampaign.getPicture());
+			
+			us.setPost(postCampaignPOJO);
+			us.setCode(200);
+			us.setCodeMessage("Post of Campaign updated sucessfully");
+			
+		}else{
+			us.setCode(401);
+			us.setCodeMessage("Invalid request");
+		}
+		
+		
+		return us;		
 	}
 	
 	

@@ -33,4 +33,14 @@ public interface PostCampaignServiceInterface {
 	 * @return the posts
 	 */
 	public PageWrapper<PostCampaignWrapper> getPostsFromCampaign(PostCampaignRequest postRequest);
+
+
+	/**
+	 * Update post campaign.
+	 *
+	 * @param wrapper the wrapper
+	 * @return the post campaign wrapper
+	 */
+	public PostCampaignWrapper updatePostCampaign(PostCampaignWrapper wrapper);
+	
 }
