@@ -205,8 +205,6 @@ treeSeedAppControllers.controller('editPostCampaignController', function($http,
 			
 		};
 	
-	console.log($scope.post)
-	
 	$scope.postRequestModal = {
 			postCampaign : {
 				id : post.id,
