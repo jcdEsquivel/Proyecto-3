@@ -229,6 +229,12 @@ public class PostCampaignController {
 	
 	
 	
+	/**
+	 * Delete post campaign.
+	 *
+	 * @param pnr the Post Campaign Request
+	 * @return the post campaign response
+	 */
 	@RequestMapping(value ="/deletePostCampaign", method = RequestMethod.POST)
 	public PostCampaignResponse deletePostCampaign(@RequestBody PostCampaignRequest pnr)
 	{

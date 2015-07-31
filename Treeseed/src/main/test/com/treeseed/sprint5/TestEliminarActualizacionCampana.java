@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint5;
 
 import java.io.FileInputStream;
 
@@ -39,7 +39,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestDeletePostNonprofit.
  */
-public class TestDeletePostCampaign extends AbstractTestController {
+public class TestEliminarActualizacionCampana extends AbstractTestController {
 
 	/** The wac. */
 	@Autowired WebApplicationContext wac; 
@@ -63,7 +63,12 @@ public class TestDeletePostCampaign extends AbstractTestController {
 	    }
 
 	
- 	@Test  //Delete Post Campaign
+ 	/**
+	  * Test delete post campaign.
+	  *
+	  * @throws Exception the exception
+	  */
+	 @Test  //Delete Post Campaign
 	 public void testDeletePostCampaign() throws Exception {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -74,9 +79,9 @@ public class TestDeletePostCampaign extends AbstractTestController {
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setId(postcampaign.getId());
+		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
-		request.setNonprofitId(nonprofit.getId());
 		
 		String jsonObject = mapToJson(request);
       
@@ -100,7 +105,12 @@ public class TestDeletePostCampaign extends AbstractTestController {
  	
  	
  	
- 	@Test  //Delete Post Campaign
+ 	/**
+	  * Test delete post campaign without session id.
+	  *
+	  * @throws Exception the exception
+	  */
+	 @Test  //Delete Post Campaign
 	 public void testDeletePostCampaignWithoutSessionId() throws Exception {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -111,9 +121,10 @@ public class TestDeletePostCampaign extends AbstractTestController {
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setId(postcampaign.getId());
+		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
-		request.setNonprofitId(nonprofit.getId());
+
 		
 		String jsonObject = mapToJson(request);
      
@@ -138,7 +149,12 @@ public class TestDeletePostCampaign extends AbstractTestController {
 	 }
  	
  	
- 	@Test  //Delete Post Campaign
+ 	/**
+	  * Test delete post campaign wrong session id.
+	  *
+	  * @throws Exception the exception
+	  */
+	 @Test  //Delete Post Campaign
 	 public void testDeletePostCampaignWrongSessionId() throws Exception {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -149,9 +165,9 @@ public class TestDeletePostCampaign extends AbstractTestController {
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
 		pojo.setId(postcampaign.getId());
+		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
-		request.setNonprofitId(nonprofit.getId());
 		
 		String jsonObject = mapToJson(request);
     

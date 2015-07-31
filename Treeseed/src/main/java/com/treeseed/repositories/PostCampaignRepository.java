@@ -53,6 +53,11 @@ public interface PostCampaignRepository extends CrudRepository<PostCampaign,Inte
 			   ;
 	
 
+	/**
+	 * Delete post.
+	 *
+	 * @param id the id
+	 */
 	@Modifying
 	@Transactional
 	@Query("UPDATE PostCampaign n SET isActive = 0 where n.id = :id") 

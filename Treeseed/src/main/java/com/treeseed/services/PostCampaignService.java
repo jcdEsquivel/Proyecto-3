@@ -114,6 +114,9 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#deletePostCampaign(com.treeseed.contracts.PostCampaignRequest)
+	 */
 	@Override
 	@Transactional
 	public void deletePostCampaign(PostCampaignRequest request)  {
