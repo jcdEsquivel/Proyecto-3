@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import com.treeseed.pojo.TransparencyReportPOJO;
 
-public class TransparencyReportRequest {
+public class TransparencyReportRequest extends BasePagingRequest {
 
 	private int id;
 	private double amountIn;

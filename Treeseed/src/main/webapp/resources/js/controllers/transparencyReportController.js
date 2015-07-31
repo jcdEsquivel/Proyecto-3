@@ -68,7 +68,25 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 			alert(status);
 		});	
 	}
-})
-;
+});
 
- 
+treeSeedAppControllers.controller('searchTransparencyReportController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+
+	//Variable declarations
+	$scope.baseYear = 2010;
+	$scope.years = [];
+
+	getYears();
+
+	//Function to get the years that will be displayed
+	function getYears(){
+		$scope.date = new Date();
+		$scope.currentYear = $scope.date.getFullYear();
+		for ($scope.baseYear;$scope.currentYear>=$scope.baseYear;$scope.baseYear++) {
+			alert($scope.baseYear);
+			$scope.years.push($scope.baseYear);
+		};
+	}
+
+});

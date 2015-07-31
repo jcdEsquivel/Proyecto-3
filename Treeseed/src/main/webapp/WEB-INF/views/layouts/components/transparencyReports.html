@@ -1,0 +1,66 @@
+<div ng-controller="searchTransparencyReportController">
+	<div class="row m-b-md">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-3">
+			<div class="input-group-btn dropdown" dropdown>
+	            <select name="account" class="form-control m-b">
+	              <option disabled selected Translate="NONPROFIT-PROFILE.MONTH"></option>
+	              <option Translate="MONTH.JAN"></option>
+	              <option Translate="MONTH.FEB"></option>
+	              <option Translate="MONTH.MAR"></option>
+	              <option Translate="MONTH.APR"></option>
+	              <option Translate="MONTH.MAY"></option>
+	              <option Translate="MONTH.JUN"></option>
+	              <option Translate="MONTH.JUL"></option>
+	              <option Translate="MONTH.AUG"></option>
+	              <option Translate="MONTH.SEP"></option>
+	              <option Translate="MONTH.OCT"></option>
+	              <option Translate="MONTH.NOV"></option>
+	              <option Translate="MONTH.DEC"></option>
+	            </select>
+          	</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="input-group-btn dropdown" dropdown>
+	            <select name="account" class="form-control m-b">
+	              <option disabled selected Translate="NONPROFIT-PROFILE.YEAR"></option>
+	              <option ng-repeat="year in years">{{year}}</option>
+	            </select>
+          	</div>
+		</div>
+		<div class="col-sm-3">
+			<button type="submit" class="btn btn-info m-b-lg " ng-click="closeDateModalWithoutEdit()" translate="NONPROFIT-PROFILE.SEARCH"></button>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<ul
+				class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
+				<li class="list-group-item li-posts-result" 
+	        		dir-paginate="p in posts | itemsPerPage: postRequest.pageSize" total-items="totalPosts" pagination-id="post-pagin" current-page="postPaginCurrentPage">
+	          		<a href="#" class="pull-left  m-r">
+	            		<img ng-src="{{p.picture}}" alt="..." class="post-list-image" id="imagePanel">
+		          	</a>
+		          	<div class="clear">
+		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.date}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalFilled(p)"><i class="fa fa-edit"></i></button>
+		            		<button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="DELETE-MODAL-POST.DELETE"></button>
+		            	</span> 
+		            	<div> {{p.description}}</div>
+		          	</div>
+		        </li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="other-controller">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true"
+					on-page-change="pageChangeHandler(newPageNumber)"
+					pagination-id="campaign-pagin"
+					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
