@@ -83,7 +83,7 @@ public class Utils {
 		return "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
 	}
 	
-	public static Plan createPlans(int count,int idNonprofit,int idCampaign, String nameNonprofit, String nameCampaign, int amount) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+	public static Plan createPlan(int count,int idNonprofit,int idCampaign, String nameNonprofit, String nameCampaign, int amount) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		
 		Stripe.apiKey = Utils.stripeApiKey();
 		

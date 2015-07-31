@@ -4,7 +4,7 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('simpleDonationController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams) {
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams, StripeService) {
 	
 	$scope.errorCard = undefined;
 	$scope.objectRequestD = {};
@@ -15,7 +15,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	$scope.objectRequestD.donation.amount = "321";
 	$scope.objectRequestD.token="";
 	$scope.stripeResponse={};
-	Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
+	Stripe.setPublishableKey(StripeService.getStripeApiKey());
 	
 	$scope.resul=true;
 	$scope.button=false;

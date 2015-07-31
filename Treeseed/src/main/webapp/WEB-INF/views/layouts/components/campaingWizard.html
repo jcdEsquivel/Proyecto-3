@@ -37,6 +37,9 @@
 		<progressbar value="percent" class="progress-xs" type="success"></progressbar>
 		<div class="form-group">
 		<div class="input-group">
+		<div class="row"><label class="md-switch pull-right" style="padding-right: 20px"> <input  ng-model="noEndCampaign" type="checkbox" ng-click="progressControl(0,noEndCampaign)">
+									<i class="green"></i> No end Campaign</label></div>
+		<div class="row">
 			<div class="col-sm-6">
 				<p translate="CREATE-CAMPAIGN.TAB-2.DATE1">Due Date:</p>
 				<div ng-controller="DatepickerCtrl">
@@ -52,30 +55,37 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 ">
+			<div class="col-sm-6 " ng-if="!noEndCampaign">
 				<p translate="CREATE-CAMPAIGN.TAB-2.DATE2">Due Date:</p>
 				<div ng-controller="DatepickerCtrl">
 					<div class="input-group ">
-						<input type="text" name="date2" min-date="minDate2"
+						<input type="text" name="date2" min-date="minDate2" 
 							placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE2'| translate}}" class="form-control" datepicker-popup="{{format}}"ng-model="campaign.dueDate" is-open="opened"
 							datepicker-options="dateOptions" ng-required="true"	close-text="Close" ui-validate=" '$value>campaign.startDate' " ng-blur="progressControl(6,step2.date2.$valid)" />
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-default"	ng-click="open($event)">
+							<button ng-disabled="noEndCampaign" type="button" class="btn btn-default"	ng-click="open($event)">
 								<i class="glyphicon glyphicon-calendar"></i>
 							</button>
 						</span>
 					</div>
 				</div>
 			</div>
+			
+		</div>
+		
+			
 			</div>
-			<p class="m-t" translate="CREATE-CAMPAIGN.TAB-2.AMOUNT">Amount
-				goal:</p>
-			<div class="input-group m-b">
+			
+				
+			<div ng-if="!noEndCampaign">
+			<p class="m-t" translate="CREATE-CAMPAIGN.TAB-2.AMOUNT">Amountgoal:</p>
+			<div  class="input-group m-b">
 				<span class="input-group-addon">$</span> <input type="number"
-					ui-validate=" '$value>0' " name="amount" class="form-control"
+					ui-validate=" '$value>0' "  name="amount" class="form-control"
 					placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-AMOUNT'| translate}}"
 					ng-model="campaign.amountGoal" min='0' step="100" decimals="2"
 					required ng-blur="progressControl(4,step2.amount.$valid)">
+					</div>
 			</div>
 			<div class="m-t m-b">
 				<button type="button" class="btn btn-default btn-rounded"

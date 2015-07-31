@@ -167,6 +167,7 @@ public class NonprofitController extends UserGeneralController {
 		Boolean alreadyUser = userGeneralService.userExist(email);
 		email = email.toLowerCase();
 		Boolean statePlans=false;
+		int[] amounts = {1000,1800,3600,5000,10000,25000};
 
 		if (validator.isValid(email)) {
 			if (!alreadyUser) {
@@ -207,7 +208,7 @@ public class NonprofitController extends UserGeneralController {
 					ugr = userGeneralCreate(ug, user);
 
 					if (ugr.getCode() == 200) {
-						statePlans = createNonprofitPlans(nonProfitId, user.getName());
+						statePlans = createNonprofitPlans(nonProfitId, user.getName(),amounts);
 						us.setNonProfitId(nonProfitId);
 						if(statePlans){
 							us.setCode(200);
@@ -236,22 +237,19 @@ public class NonprofitController extends UserGeneralController {
 
 	}
 
-	private Boolean createNonprofitPlans(int idNonprofit, String nameNonprofit) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
+	private Boolean createNonprofitPlans(int idNonprofit, String nameNonprofit, int[] amounts) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 					APIException {
 
-		Boolean state = false;
+		int count = 1;
 
-		if (!Utils.createPlans(1,idNonprofit, 0, nameNonprofit, "", 1000).getId().equals(null)
-				&& !Utils.createPlans(2,idNonprofit, 0, nameNonprofit, "", 2000).getId().equals(null)
-				&& !Utils.createPlans(3,idNonprofit, 0, nameNonprofit, "", 5000).getId().equals(null)
-				&& !Utils.createPlans(4,idNonprofit, 0, nameNonprofit, "", 10000).getId()
-						.equals(null)) {
-
-			state = true;
-
+		for (int amount : amounts) {
+			if (Utils.createPlan(count,idNonprofit, 0, nameNonprofit, "", amount).getId().equals(null)){
+				return false;
+			}
+			count++;
 		}
-
-		return state;
+		
+		return true;
 	}
 
 	/**

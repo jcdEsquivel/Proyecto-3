@@ -224,8 +224,6 @@ treeSeedAppServices.service('lazyService',['JQ_CONFIG','MODULE_CONFIG', function
 	}
 }])
 
-/** ****************************************************Factories********************************************** */
-
 treeSeedAppServices.service('Session', function() {
 
 	this.create = function(sessionId, userId, userRole) {
@@ -239,6 +237,24 @@ treeSeedAppServices.service('Session', function() {
 		this.userRole = null;
 	};
 })
+
+treeSeedAppServices.service('StripeService', function() {
+
+	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y";
+
+	return {
+		getStripeApiKey : function() {
+			return stripeApiKey;
+		}/*,
+		setStripeApiKey : function(value) {
+			stripeApiKey = value;
+		}*/
+	}
+})
+
+/** ****************************************************Factories********************************************** */
+
+
 
 treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, USER_ROLES ) {
 	var authService = {};
