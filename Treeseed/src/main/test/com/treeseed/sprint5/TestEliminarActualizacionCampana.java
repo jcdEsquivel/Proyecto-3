@@ -73,12 +73,12 @@ public class TestEliminarActualizacionCampana extends AbstractTestController {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		PostCampaignRequest request = new PostCampaignRequest();
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
-		pojo.setId(postcampaign.getId());
+		pojo.setId(postCampaign.getId());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
@@ -115,12 +115,12 @@ public class TestEliminarActualizacionCampana extends AbstractTestController {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		PostCampaignRequest request = new PostCampaignRequest();
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
-		pojo.setId(postcampaign.getId());
+		pojo.setId(postCampaign.getId());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
@@ -159,12 +159,12 @@ public class TestEliminarActualizacionCampana extends AbstractTestController {
 
 		NonprofitWrapper nonprofit = createRandomNonprofit();
 		CampaignWrapper campaign =  createRandomCampaign(nonprofit);
-		PostCampaignWrapper postcampaign = createRandomPostCampaign(campaign.getWrapperObject());
+		PostCampaignWrapper postCampaign = createRandomPostCampaign(campaign.getWrapperObject());
 		
 		PostCampaignRequest request = new PostCampaignRequest();
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		
-		pojo.setId(postcampaign.getId());
+		pojo.setId(postCampaign.getId());
 		pojo.setCampaignId(campaign.getId());
 		
 		request.setPostCampaign(pojo);
