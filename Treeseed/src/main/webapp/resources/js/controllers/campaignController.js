@@ -156,6 +156,7 @@ treeSeedAppControllers.controller('campaingCreateController',
 							name : $scope.campaign.name,
 							description : $scope.campaign.description,
 							date1 : $scope.campaign.startDate,
+							date2 : "!#",// "!#" Code to define no end Campaign
 							idNonprofit : $scope.currentUser.idUser
 						},
 						file : $scope.image,
@@ -221,7 +222,7 @@ treeSeedAppControllers.controller('campaingCreateController',
 						if(!$scope.stateInput6){
 							$scope.progressControl(6,true);
 						}						
-						$scope.campaign.dueDate = " ";
+						$scope.campaign.dueDate;
 						$scope.campaign.amountGoal = 0;
 
 					}
@@ -573,9 +574,6 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 												$scope.isOpen = false;
 											}
 											
-											if(mydata.campaign.dueDate==undefined){
-												mydata.campaign.dueDate == "Fin de los Tiempos";
-											}
 										}).error(function(mydata, status) {
 
 								});

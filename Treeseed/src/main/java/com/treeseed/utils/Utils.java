@@ -93,10 +93,10 @@ public class Utils {
 		planParams.put("currency", "usd");
 		if(idCampaign>0){
 			planParams.put("id", idNonprofit+"#"+idCampaign+"#"+count);
-			planParams.put("name", idNonprofit+"#"+idCampaign+"#Plan_"+nameNonprofit+"_"+nameCampaign+"_"+amount);
+			planParams.put("name", idNonprofit+"#"+idCampaign+"#_Plan_#"+nameNonprofit+"#"+nameCampaign+"#"+amount);
 		}else{
 			planParams.put("id", idNonprofit+"#"+count);
-			planParams.put("name", idNonprofit+"#Plan_"+nameNonprofit+"_"+amount);
+			planParams.put("name", idNonprofit+"#_Plan_#"+nameNonprofit+"#"+amount);
 		}
 		
 		return Plan.create(planParams);

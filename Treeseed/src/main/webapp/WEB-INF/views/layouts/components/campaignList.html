@@ -50,13 +50,17 @@
 								{{campaign.description}}<a style="color: blue"
 									translate="LISTCAMPAIGN.READMORE"></a>
 							</div>
-							<div class="col-md-2">
-								<span translate="LISTCAMPAIGN.GOAL"></span>
-								<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
-								<span translate="LISTCAMPAIGN.COLLECTED"></span>
-								<div class="h4 text-success">${{campaign.amountCollected}}</div>
+							<div class="col-md-2" >
+								<div ng-if="campaign.dueDate">
+									<span translate="LISTCAMPAIGN.GOAL"></span>
+									<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
+								</div>
+								<div>
+									<span translate="LISTCAMPAIGN.COLLECTED"></span>
+									<div class="h4 text-success">${{campaign.amountCollected}}</div>
+								</div>
 							</div>
-							<div class="col-md-3 ">
+							<div class="col-md-3 " ng-if="campaign.dueDate">
 								<div>
 									<div ui-jq="easyPieChart"
 										ui-options="{

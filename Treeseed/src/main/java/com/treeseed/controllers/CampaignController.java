@@ -184,7 +184,7 @@ public class CampaignController {
 				startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1]) - 1,
 						Integer.parseInt(dateTmp1[2]), 0, 00, 0);
 
-				if (!date2.equals("")) {
+				if (!date2.equals("undefined")) {
 					date2 = date2.replace('"', '0');
 					dateTmp = date2.split("-");
 					dateTmp[2] = dateTmp[2].split("T")[0];
@@ -205,7 +205,7 @@ public class CampaignController {
 				int campaingId = campaignService.saveCampaign(campaign);
 
 				if (campaingId > 0) {
-					if (date2.equals("")) {
+					if (date2.equals("undefined")) {
 						statePlans = createCampaignPlans(campaign.getNonprofit().getId(), campaingId,
 								campaign.getNonprofit().getName(), campaign.getName(),amounts);
 					} else {
