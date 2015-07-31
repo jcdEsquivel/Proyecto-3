@@ -215,7 +215,8 @@
         	"BUTTON-NEXT":"Next",
         	"PLACEHOLDER-DATE1":"Start Date",
         	"PLACEHOLDER-DATE2":"End Date",
-        	"PLACEHOLDER-AMOUNT":"Amount goal"
+        	"PLACEHOLDER-AMOUNT":"Amount goal",
+        	"NO-END-CAMPAIGN":"Endless Campaign"
         },
     	"TAB-3":{
     		"TITLE":"Image",

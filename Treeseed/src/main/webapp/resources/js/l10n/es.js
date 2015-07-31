@@ -205,7 +205,8 @@
          	"BUTTON-NEXT":"Siguiente",
         	"PLACEHOLDER-DATE1":"Fecha de inicio",
         	"PLACEHOLDER-DATE2":"Fecha de fin",
-        	"PLACEHOLDER-AMOUNT":"Cantidad a alcanzar"
+        	"PLACEHOLDER-AMOUNT":"Cantidad a alcanzar",
+        	"NO-END-CAMPAIGN":"Campaña sin Fin"
          },
      	"TAB-3":{
      		"TITLE":"Imagen",
