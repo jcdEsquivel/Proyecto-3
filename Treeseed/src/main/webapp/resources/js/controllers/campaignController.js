@@ -595,13 +595,11 @@ treeSeedAppControllers
 
 					$scope.closeCampaign = function() {
 
-						modalInstance = $modal
-								.open({
-									animation : $scope.animationsEnabled,
-									templateUrl : 'layouts/components/closeCampaign_confirmation.html',
-									scope : $scope
-								})
-					};
+});
+		
+		
+treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,lazyService, USER_ROLES) {
 
 					$scope.accept = function() {
 						$scope.requestClose.idUser = Session.id;
@@ -780,50 +778,34 @@ treeSeedAppControllers
 								})
 					};
 
-					$scope.closeDateModalWithoutEdit = function() {
-						modalInstance.close();
-					}
-
-					$scope.closeDateModal = function(startDate, dueDate) {
-						$scope.campaign.startDate = new Date(startDate);
-						$scope.campaign.dueDate = new Date(dueDate);
-						modalInstance.close();
-						$scope.editCampaign();
-					}
-
-					// Amount goal Edit
-					$scope.amountGoalClicked = function() {
-						$scope.amountGoalInEdition = true;
-						$scope.error = false;
-					};
-
-					$scope.amountGoalCancelEditing = function() {
-						$scope.amountGoalInEdition = false;
-					};
-
-					$scope.amountGoalSaveEditing = function() {
-						$scope.editCampaign();
-						$scope.amountGoalInEdition = false;
-					};
-
-					/***********************************************************
-					 * DONATION CALL
-					 **********************************************************/
-
-					$scope.showDonation = function(ev) {
-						$mdDialog
-								.show(
-										{
-											controller : 'simpleDonationController',
-											templateUrl : 'layouts/components/page_donation.html',
-											resolve : lazyService
-													.load([ 'https://js.stripe.com/v2/' ]),
-
-											targetEvent : ev,
-										}).then(function(answer) {
-
-								}, function() {
-
-								});
-					};
-				});
+	$scope.amountGoalSaveEditing = function(){
+		$scope.editCampaign();
+		$scope.amountGoalInEdition = false;
+	};
+	
+	
+	/*************************
+	 * DONATION CALL
+	 *************************/
+	
+	$scope.showDonation = function() {
+		modalUrl = '';
+	    
+		if(Session.userRole == USER_ROLES.guest){
+			modalUrl = 'layouts/components/guestDonationModal.html';
+		}else{
+			modalUrl = 'layouts/components/donationModal.html';
+		}
+		
+		
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : modalUrl,
+			controller : 'simpleDonationController',
+			size : 'lg',
+			 resolve : lazyService.load(['https://js.stripe.com/v2/'])
+		});
+		
+	  };
+});

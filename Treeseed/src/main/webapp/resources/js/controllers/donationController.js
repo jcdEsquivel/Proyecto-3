@@ -6,7 +6,34 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 treeSeedAppControllers.controller('simpleDonationController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams, StripeService) {
 	
+
+	$scope.percent = 0;
+	$scope.donor = {
+			name:'',
+			lastName:'',
+			email:''
+	};
+	
+	$scope.card = '';
+	$scope.cvc='';
+	$scope.ex_month='';
+	$scope.ex_year='';
+	$scope.amount = '';
+	
+	$scope.stateInput1 = false;
+	$scope.stateInput2 = false;
+	$scope.stateInput3 = false;
+	$scope.stateInput4 = false;
+	$scope.stateInput5 = false;
+	$scope.stateInput6 = false;
+	$scope.stateInput7 = false;
+	$scope.stateInput8 = false;
+
+	
+
 	$scope.errorCard = undefined;
+
+	
 	$scope.objectRequestD = {};
 	$scope.objectRequestD.donation ={};
 	$scope.objectRequestD.donation.donorId = "1";
@@ -59,6 +86,139 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 
 	     }
 	};
+	
+	
+	
+	
+	$scope.progressControl = function(input, valid) {
+
+		switch (input) {
+		case 1:
+			if (valid) {
+				if (!$scope.stateInput1) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput1 = true;
+				}
+
+			} else {
+				if ($scope.stateInput1) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput1 = false;
+				}
+			}
+			break;
+		case 2:
+			if (valid) {
+				if (!$scope.stateInput2) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput2 = true;
+				}
+
+			} else {
+				if ($scope.stateInput2) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput2 = false;
+				}
+			}
+			break;
+		case 3:
+			if (valid) {
+				if (!$scope.stateInput3) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput3 = true;
+				}
+
+			} else {
+				if ($scope.stateInput3) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput3 = false;
+				}
+			}
+			
+			break;
+		case 4:
+			if (valid) {
+				if (!$scope.stateInput4) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput4 = true;
+				}
+
+			} else {
+				if ($scope.stateInput4) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput4 = false;
+				}
+			}
+			break;
+		case 5:
+			if (valid) {
+				if (!$scope.stateInput5) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput5 = true;
+				}
+
+			} else {
+				if ($scope.stateInput5) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput5 = false;
+				}
+			}
+			break;
+		case 6:
+			if (valid) {
+				if (!$scope.stateInput6) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput6 = true;
+				}
+
+			} else {
+				if ($scope.stateInput6) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput6 = false;
+				}
+			}
+			
+			break;
+		case 7:
+			if (valid) {
+				if (!$scope.stateInput7) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput7 = true;
+				}
+
+			} else {
+				if ($scope.stateInput7) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput7 = false;
+				}
+			}
+			
+			break;
+		case 8:
+			if (valid) {
+				if (!$scope.stateInput8) {
+					$scope.percent = $scope.percent + 12.5;
+					$scope.stateInput8 = true;
+				}
+
+			} else {
+				if ($scope.stateInput8) {
+					$scope.percent = $scope.percent - 12.5;
+					$scope.stateInput8 = false;
+				}
+			}
+			
+			break;
+			
+		
+		}
+	};
+	
+	$scope.close = function() {
+		$modalInstance.close();
+		
+	};
+	
 
 });
 
