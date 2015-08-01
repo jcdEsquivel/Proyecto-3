@@ -639,5 +639,6 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
         return campaign;
 
     }
+
     
 }

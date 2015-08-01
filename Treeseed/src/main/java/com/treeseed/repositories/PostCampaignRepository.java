@@ -52,4 +52,16 @@ public interface PostCampaignRepository extends CrudRepository<PostCampaign,Inte
 			   @Param("picture") String picture)
 			   ;
 	
+
+	/**
+	 * Delete post.
+	 *
+	 * @param id the id
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE PostCampaign n SET isActive = 0 where n.id = :id") 
+	  public void deletePost(
+			   @Param("id") int id);
+	
 }
