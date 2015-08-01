@@ -20,4 +20,6 @@ public interface DonorServiceInterface {
 	void deleteDonor(DonorRequest dr);
 	
 	void updateDonor(DonorWrapper donor);
+	
+	DonorWrapper update(DonorWrapper donor);
 }

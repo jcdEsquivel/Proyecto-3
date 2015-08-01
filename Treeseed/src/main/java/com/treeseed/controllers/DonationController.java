@@ -103,6 +103,7 @@ public class DonationController {
 		ds.setDonation(donation);
 		return ds;
 	}
+	
 
 	@RequestMapping(value = "/donate", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
@@ -147,22 +148,26 @@ public class DonationController {
 					card.setDonor(donor.getWrapperObject());
 					
 					donation.setStripeId((String)resultCharge.get(2));
+					donor.setStripeId((String)resultCharge.get(0));
 					
+					donorService.update(donor);
 					cardService.saveCard(card);
 					
 				}else{
+					
 					if(dr.getToken().equals("")){
 						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
 						cardIdStripe = card.getStripeId();
 					}
+					
 					resultCharge=StripeUtils.createDonation(donor.getStripeId(),dr.getDonation().getAmount(), dr.getToken(), cardIdStripe, donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
 					donation.setStripeId(((Charge)resultCharge.get(1)).getId());
+					
 					if(!((String)resultCharge.get(0)).equals("")){
-						
 						CardWrapper card = new CardWrapper();
 						card.setStripeId((String)resultCharge.get(0));
 						card.setDonor(donor.getWrapperObject());
-						
+				
 						cardService.saveCard(card);
 					}
 				}

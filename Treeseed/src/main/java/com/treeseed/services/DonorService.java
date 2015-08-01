@@ -84,4 +84,9 @@ public class DonorService implements DonorServiceInterface {
 				donor.getWebPage()
 				);		
 	}
+	
+	@Override
+	public DonorWrapper update(DonorWrapper donor) {
+		return new DonorWrapper(DonorRepository.update(donor.getWrapperObject()));	
+	}
 }
