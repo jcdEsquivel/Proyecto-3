@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.LoginRequest;
 import com.treeseed.contracts.LoginResponse;
@@ -22,6 +22,7 @@ import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.Utils;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -29,15 +30,61 @@ import com.treeseed.utils.Utils;
 @RequestMapping(value = "rest/login")
 public class LoginController {
 	
+	/** The login service. */
 	@Autowired
 	LoginServiceInterface loginService;
 	
+	/** The user general service. */
 	@Autowired
 	UserGeneralServiceInterface userGeneralService;
 	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;
 	
+	/**
+	 * check the facebook user.
+	 *
+	 * @param facebookId the facebook id
+	 */
+	@RequestMapping(value ="/checkFacebookuser", method = RequestMethod.GET)
+	public BaseResponse checkFacebookuser(@RequestParam("facebookId") String facebookId)
+	{
+		UserGeneralWrapper loggedUser = loginService.checkFacebookUser(facebookId);	
+		LoginResponse response = new LoginResponse();
+		HttpSession currentSession = request.getSession();
+		
+		if(loggedUser.getWrapperObject() == null){
+			response.setCode(401);
+			response.setErrorMessage("Unauthorized User");
+		}else{
+			response.setCode(200);
+			response.setCodeMessage("User authorized");
+			if(loggedUser.getDonor()!=null){
+				response.setIdUser(loggedUser.getDonor().getId());
+				response.setFirstName(loggedUser.getDonor().getName());
+				response.setLastName(loggedUser.getDonor().getLastName());
+				response.setImg(loggedUser.getDonor().getProfilePicture());
+				response.setType("donor");
+			}else if(loggedUser.getNonprofit()!=null){
+				response.setIdUser(loggedUser.getNonprofit().getId());
+				response.setFirstName(loggedUser.getNonprofit().getName());
+				response.setImg(loggedUser.getNonprofit().getProfilePicture());
+				response.setType("nonprofit");
+			}
+			response.setIdSession(loggedUser.getId());
+			currentSession.setAttribute("idUser", loggedUser.getId());
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * Checkuser.
+	 *
+	 * @param lr the lr
+	 * @return the base response
+	 */
 	@RequestMapping(value = "/checkuser", method = RequestMethod.POST)
 	@Transactional
 	public BaseResponse checkuser(@RequestBody LoginRequest lr){	
@@ -45,10 +92,10 @@ public class LoginController {
 		byte[] hash = Utils.encryption(lr.getPassword());
 		  String file_string="";
 		  
-		  for(int i = 0; i < hash.length; i++)
-		     {
-		         file_string += (char)hash[i];
-		     }  
+		 for(int i = 0; i < hash.length; i++)
+	     {
+	         file_string += (char)hash[i];
+	     }  
 		
 		UserGeneralWrapper loggedUser = loginService.checkUserActive(lr.getEmail(), file_string);
 		
@@ -87,7 +134,12 @@ public class LoginController {
 		
 	}
 	
-	
+	/**
+	 * Gets the session.
+	 *
+	 * @param sr the sr
+	 * @return the session
+	 */
 	@RequestMapping(value = "/getSession", method = RequestMethod.POST)
 	@Transactional
 	public SessionResponse getSession(@RequestBody SessionRequest sr){

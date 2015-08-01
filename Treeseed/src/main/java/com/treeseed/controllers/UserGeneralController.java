@@ -55,6 +55,7 @@ import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Handles requests for the application home page.
  */
@@ -62,13 +63,25 @@ import com.treeseed.ejbWrapper.ParentUserWrapper;
 @RequestMapping(value ="rest/protected/users")
 public class UserGeneralController {
 
-	 @Autowired
+	 /** The servlet context. */
+ 	@Autowired
 	 ServletContext servletContext;
+	
+	/** The user general service. */
 	@Autowired
 	 UserGeneralServiceInterface userGeneralService;
+	
+	/** The request. */
 	@Autowired
 	HttpServletRequest request;	
 		
+	/**
+	 * User general create.
+	 *
+	 * @param ur the ur
+	 * @param user the user
+	 * @return the user general response
+	 */
 	protected UserGeneralResponse userGeneralCreate(@RequestBody UserGeneralRequest ur, ParentUserWrapper user){	
 		
 		UserGeneralResponse us = new UserGeneralResponse();
@@ -129,6 +142,12 @@ public class UserGeneralController {
 }
 	
 		
+	/**
+	 * Creates the.
+	 *
+	 * @param email the email
+	 * @return the base response
+	 */
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
 		public BaseResponse create(@RequestBody String email){	
 	

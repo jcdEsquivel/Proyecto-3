@@ -21,7 +21,7 @@
     	"NAVIGATION": "Navegación",
     	"PROFILE": " Perfil",
     	"CREATE-CAMPAIGN": "Crear Campaña",
-    	"SEE-CAMPAIGNS": "Ver Campañas",
+    	"SEE-CAMPAIGNS": "Administrar Campañas",
     	"DONATIONS-REPORT": "Reporte de Donaciones",
     	"TRANSPARENCY-REPORT": "Reportes de Transparencia",
     	"CONFIGURATION": " Configuración",
@@ -77,9 +77,11 @@
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Búsqueda Avanzada de ONG"
+    	
     },
     "CAMPAIGNSEARCH":{
-    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña"
+    	"HEADER-TITLE": "Búsqueda Avanzada de Campaña",
+    	"CAMPAIGN-MANAGEMENT": "Administración de Campañas"
     },
      "GENERALSEARCH":{
     	"SEARCH-BUTTON": "Buscar",
@@ -94,7 +96,10 @@
     	"SEARCH-RESULTS": "Resultados de la Búsqueda:",
     	"BLANK-OPTION": "Seleccione:",
     	"NGONAME-FILTER": "NGO Name",
-    	"RANGEDATE" : "Rango de Fechas"
+    	"RANGEDATE" : "Rango de Fechas",
+    	"ITEMS-PER-PAGE": "Items por páginas",
+    	"CAMPAIGN-STATE": "Estado",
+    	"CAMPAIGN-NAME": "Nombre de campaña"
     },
     "GENERAL-SETTINGS":{
 		"DELETE-PROFILE":"Eliminar Perfil",
@@ -169,12 +174,16 @@
      },
 	"POST-MODAL":{ 
 		"MODAL-OPEN-MODAL": "Agregar post",
-		"MODAL-TITLE": "Agregar nuevo post",
+		"MODAL-TITLE": "Post",
 		"TITLE": "Título",
 		"DESCRIPTION": "Descripción",
 		"DROP-IMAGE": "Arrastre una imagen aqui",
-		"ADD-BUTTON": "Agregar",
+		"ADD-BUTTON": "Aceptar",
 		"CANCEL": "Cancelar"
+	},
+	"DELETE-MODAL-POST":{ 
+   		"MESSAGE": "¿Está seguro de que desea eliminar su actualización?",
+   		"DELETE": "Eliminar"
 	},
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
@@ -206,6 +215,23 @@
          	"BUTTON-FINALIZE":"Crear"
      	}
     },
+    "TRANSPARENCY-REPORT":{ 
+        "TITLE": "Reporte de Transparencia",
+        "CREATE-REPORT": "Crear Reporte de Transparencia",
+        "SEARCH": "Buscar",
+        "CREATE": "Crear",
+        "DESCRIPTION": "Descripción",
+        "SPENT": "Gastado",
+        "EDIT": "Editar",
+        "SAVE": "Guardar",
+        "CANCEL": "Cancelar",
+        "DELETE": "Borrar",
+        "ADD": "Agregar gasto",
+        "MONTH-SPENCES": "Gastos del mes",
+        "SPENT": "Gastado",
+        "COLLECTED": "Recaudado",
+        "CREATE-REPORT": "Crear Reporte"        
+    },
     "LISTCAMPAIGN":{
     	"STATE-COLOR-RED":"Finalizada",
     	"STATE-COLOR-YELLOW":"Próximamente",
@@ -214,6 +240,30 @@
     	"GOAL":"Monto meta",
     	"COLLECTED":"Monto recaudado",
     	"COLLECTEDMESSAGE":"Recaudado"
+    },
+    "CAMPAIGN-STATE":{
+    	"SOON": "Próximamente",
+    	"ACTIVE": "Activa",
+    	"FINISHED": "Finalizada"
+	},
+    "CAMPAIGN":{
+    	"TAB-1":{
+    		"TITLE":"Información",
+    		"DESCRIPTION":"Descripción",
+        	"SUMMARY":"Resumen",
+        	"AMOUNT-DONOR":"Cantidad de Donadores",
+        	"AMOUNT-COLLECTED":"Monto Recaudado",
+        	"AMOUNT-GOAL":"Monto Meta",
+        	"COLLECTED":"Recaudado"
+    	},
+    	"TAB-2":{
+    		"TITLE":"Actualizaciones"
+    	},
+    	"FINISHED-MESSAGE":"Finalizada",
+    	"CONFIRMATION":"¿Está seguro de que desea finalizar su campaña?",
+    	"CLOSE":"Finalizar",
+    	"CANCEL":"Cancelar",
+    	"CLOSE-BUTTON":"Finalizar Campaña"
     }
      
 }

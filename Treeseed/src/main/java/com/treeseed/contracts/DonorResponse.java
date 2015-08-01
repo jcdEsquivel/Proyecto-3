@@ -43,10 +43,6 @@ public class DonorResponse extends BaseResponse {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public List<DonorPOJO> getDonors() {
-		return donors;
-	}
-
 	public DonorPOJO getDonor() {
 		return donor;
 	}
@@ -55,12 +51,12 @@ public class DonorResponse extends BaseResponse {
 		this.donor = donor;
 	}
 
-	public void setDonor(List<DonorPOJO> donors) {
-		this.donors = donors;
-	}
-
-	public List<DonorPOJO> getUsuarios() {
+	public List<DonorPOJO> getDonors() {
 		return donors;
+	}
+	
+	public void setDonors(List<DonorPOJO> donors) {
+		this.donors = donors;
 	}
 
 	public void setUsuarios(List<DonorPOJO> donors) {
