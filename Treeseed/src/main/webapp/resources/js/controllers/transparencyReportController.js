@@ -70,13 +70,25 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 	}
 });
 
-treeSeedAppControllers.controller('searchTransparencyReportController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+treeSeedAppControllers.controller('searchTransparencyReportController', function($http,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $rootScope, $modal,
+		$stateParams, Session) {
 
 	//Variable declarations
 	$scope.baseYear = 2010;
 	$scope.years = [];
+	$scope.reports = [];
+	$scope.totalReports = 0;
+	$scope.reportsPaginCurrentPage = 0;
+	$scope.reportsRequest = {
+		nonProfitId : $stateParams.nonProfitId,
+		pageNumber : '',
+		pageSize : '5',
+		direction : "DESC",
+		sortBy : ['dateTime']
+	};
 
+	//Call to getYears() to initialize the combo box in the view
 	getYears();
 
 	//Function to get the years that will be displayed
@@ -84,9 +96,34 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		$scope.date = new Date();
 		$scope.currentYear = $scope.date.getFullYear();
 		for ($scope.baseYear;$scope.currentYear>=$scope.baseYear;$scope.baseYear++) {
-			alert($scope.baseYear);
 			$scope.years.push($scope.baseYear);
 		};
 	}
+
+	//Gets execute when reports tab is clicked. is called from getNonProfitProfileController
+	$scope.$on('loadReports',function(){
+		$scope.getReports(1);
+	});
+
+	$scope.getReports = function(pageNumber) {
+
+		$scope.reportsRequest.pageNumber = pageNumber;
+		$scope.reportsPaginCurrentPage = pageNumber;
+		
+		$http.post('rest/protected/transparencyReport/getTransparencyReports',
+				$scope.reportsRequest).success(function(data, status) {
+
+			if (data.code == 200) {
+				alert("Yei!");
+			}else{
+				console.log('Error : '+data.errorMessage);
+			}
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});		
+	};
+	//end getReports
 
 });

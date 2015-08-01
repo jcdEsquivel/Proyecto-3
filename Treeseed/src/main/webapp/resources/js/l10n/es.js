@@ -147,7 +147,7 @@
         "UPDATES": "Actualizaciones",
         "DONORS": "Donantes:",
         "DONATIONS": "Donaciones:",
-        "REPORTS": "Transparency Reports",
+        "REPORTS": "Reportes de Transparencia",
         "MONTH": "Mes",
         "YEAR": "Año",
         "SEARCH": "Buscar"
