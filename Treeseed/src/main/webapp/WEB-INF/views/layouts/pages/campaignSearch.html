@@ -64,10 +64,10 @@
 	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
 	        	<li class="list-group-item li-search-size-result" dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
 		          	<a href="#" class="pull-left thumb-md m-r">
-	            		<img ng-src="{{campaign.picture}}" alt="..." class="img-circle search-image-size">
+	            		<img ng-src="{{campaign.picture}}" alt="..." class="img-circle search-image-size" ui-sref="treeSeed.campaign({campaignId: campaign.id})">
 		          	</a>
 		          	<div class="clear">
-		            	<a href="#" class="h4 text-primary m-b-sm block" >{{campaign.nonprofit.name}} - {{campaign.name}} </a>
+		            	<a class="h4 text-primary m-b-sm block" ui-sref="treeSeed.campaign({campaignId: campaign.id})">{{campaign.nonprofit.name}} - {{campaign.name}} </a>
 		            	<div><label>Description: </label> {{campaign.description}}</div>
 		            	<div><label>Amount Collected: </label> {{campaign.amountCollected}}, <label> Amount Goal: </label> {{campaign.amountGoal}}</div>	
 		          	</div>

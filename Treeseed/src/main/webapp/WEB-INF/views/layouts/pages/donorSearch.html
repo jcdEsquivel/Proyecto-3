@@ -53,10 +53,10 @@
 			dir-paginate="donor in donors | itemsPerPage: requestObject.pageSize"
 			total-items="totalItems"><a href="#"
 			class="pull-left thumb-md m-r"> <img
-				ng-src="{{donor.profilePicture}}" alt="..." class="img-circle search-image-size">
+				ng-src="{{donor.profilePicture}}" alt="..." class="img-circle search-image-size" ui-sref="treeSeed.donor({donorId:'{{donor.id}}'})">
 		</a>
 			<div class="clear">
-				<a href="#" class="h4 text-primary m-b-sm block"
+				<a class="h4 text-primary m-b-sm block"
 				ui-sref="treeSeed.donor({donorId:'{{donor.id}}'})">
 					{{donor.name}} {{donor.lastName}}</a>
 				<div>{{donor.description}}</div>
