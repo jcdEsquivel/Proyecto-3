@@ -1,83 +1,119 @@
 <div class="modal-header">
-	<h3 class="modal-title" translate="POST-MODAL.MODAL-TITLE">TITLE</h3>
+	<h3 class="modal-title" translate="DONATION-MODAL.TITLE">TITLE</h3>
 </div>
 
 <div class="modal-body">
 
 	<tabset class="tab-container"
-		ng-init="steps={ step1:true, step2:false}"> <tab
-		active="steps.step1"> <tab-heading translate="">Donacion</tab-heading>
+		ng-init="steps={ step1:true, step2:false}">  
+		
+	<tab active="steps.step1"> 
+		<tab-heading translate="DONATION-MODAL.DONOR-INFO">Donacion</tab-heading>
 
-	<p class="m-b">donante info</p>
-	<progressbar value="percent" class="progress-xs" type="success"></progressbar>
 	<form name="step1" class="form-validation">
 		<div class="form-group">
-			<p>Nombre</p>
-			<input name="name" class="form-control" ng-model="donor.name"
-				ng-blur="progressControl(1,step1.name.$valid)" required>
-
-			<p>Apellidos</p>
-			<input name="lastName" class="form-control" ng-model="donor.lastName"
-				ng-blur="progressControl(2,step1.lastName.$valid)" required>
-
-			<p>Email</p>
-			<input name="email" class="form-control" ng-model="donor.email"
-				ng-blur="progressControl(3,step1.email.$valid)" required>
-
-
+			<label translate="REGISTER-DONOR.NAME">NAME</label>
+			<input name="name" class="form-control" ng-model="donor.name" required>
 		</div>
+		<div class="form-group">
+			<label translate="REGISTER-DONOR.LASTNAME">LASTNAME</label>
+			<input name="lastName" class="form-control" ng-model="donor.lastName" required>
+		</div>
+		<div class="form-group">
+			<label translate="REGISTER-DONOR.EMAIL">Email</label>
+			<input type="email" name="email" is-email-unique="" class="form-control" ng-model="donor.email"  required>		
+			<span class="input-error-message" ng-show="step1.email.$error.unique" translate="REGISTER-DONOR.EXISTEMAIL">
+			</span>
+			<span class="input-error-message" ng-show="step1.email.$touched && step1.email.$error.email" translate="REGISTER-DONOR.INVALID-EMAIL">
+			</span>
+		</div>
+		
+		<div class="form-group">
+			<label translate="REGISTER-DONOR.PASSWORD">password</label>
+		 	<input type="password" ng-model="donor.password" class="form-control" required> 
+		</div>
+		
+		<div class="form-group">
+			<label  translate="REGISTER-DONOR.PASSWORD-CONFIRM"></label>
+       		<input type="password" class="form-control" name="confirm_password" 
+       		required ng-model="donor.confirm_password" ui-validate=" '$value==donor.password' " 
+       		ui-validate-watch=" 'step1.confirm_password' ">
+                      
+         <span ng-show='step1.confirm_password.$error.validator' class="input-error-message" translate="REGISTER-DONOR.PASSWORD-MESSAGE"></span>
+        </div>
+		
 		<div class="m-t m-b">
 			<button type="submit" ng-disabled="step1.$invalid"
-				class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+				class="btn m-b-xs w-xs btn-success btn-rounded" 
+				translate="DONATION-MODAL.NEXT" ng-click="steps.step2=true" >Next</button>
 		</div>
 	</form>
-	</tab> <tab disabled="step1.$invalid" active="steps.step2"> <tab-heading>donacion</tab-heading>
-	<p class="m-b">donacion</p>
-	<progressbar value="percent" class="progress-xs" type="success"></progressbar>
-	<form name="step2" class="form-validation form-horizontal">
+	</tab> 
+		
+	<tab disabled="step1.$invalid" active="steps.step2">
+	<tab-heading translate="DONATION-MODAL.DONATION">donation</tab-heading>
+
+	<form name="step2" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
-			 <label for="card" class="col-sm-2 control-label">Card Number</label>
-			 <div class="col-sm-10">
-				 <input type="text"  class="form-control"  data-stripe="number" ng-model='card'
-				 name="card" ng-blur="progressControl(4,step2.card.$valid)" required/>
-			</div>
+			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Card Number</label>
+			 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
+				payments-format="card" payments-validate="card"  name="card"  required/>
+
+			 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>
+			
 		</div>
 		<div class="form-group">
-			  <label for="cvc" class="col-sm-2 control-label">CVC</label>
-			 <div class="col-sm-10">
+			  <label for="cvc" translate="DONATION-MODAL.CVC" class="control-label">CVC</label>
+			 
 				 <input type="text"  class="form-control"  data-stripe="cvc" ng-model='cvc'
-				 name="cvc" ng-blur="progressControl(5,step2.cvc.$valid)" required/>
-			 </div>
+				 payments-format="cvc"  payments-validate="cvc"  name="cvc" required/>
+			
+			  <span ng-if='step2.cvc.$invalid && step2.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
 		</div>	 
 		<div class="form-group">
-			<label for="cvc" class="col-sm-2 control-label">Expiration Date</label>
-			<div class="col-sm-1">
-				<input type="text"  class="form-control"  data-stripe="exp-month" ng-model='exp_month'
-				name="exp_month" ng-blur="progressControl(6,step2.exp_month.$valid)" required/>
-			</div>
-			
-			<div class="col-sm-1">
-				<input type="text"  class="form-control"  data-stripe="exp-year" ng-model='exp_year'
-				name="exp_year" ng-blur="progressControl(7,step2.exp_year.$valid)" required/>
-			</div>
-			<div class="col-sm-2">
-			</div>
-		</div>
+			  <label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
+
+			 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
+			 payments-format="expiry"  payments-validate="expiry" name="expiry" required/>
+
+			  <span ng-if='step2.expiry.$invalid && step2.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
+		</div>	 
+		
 		<div class="form-group">
-			<label for="cvc" class="col-sm-2 control-label">Amount</label>
-			<div class="col-sm-10">
-				<input type="text"  class="form-control"   ng-model='amount'
-				name="amount" ng-blur="progressControl(8,step2.amount.$valid)" number/>
-			</div>
+			<label for="cvc" class="control-label" translate="DONATION-MODAL.TYPE">Donation Type</label>
+
+				 <select class="form-control m-b" ng-model="donationInfo.donationPlan" ng-change="checkAmount()"
+				 name="donationPlan" required>
+				  <optgroup label="{{'DONATION-PLAN.SIMPLE'| translate}}">
+				    <option value="custom" translate="DONATION-PLAN.CUSTOM"></option>
+				  </optgroup>
+				  <optgroup label="{{'DONATION-PLAN.MONTHLY'| translate}}">
+				    <option value="10" translate="DONATION-PLAN.10">$10</option>
+				    <option value="18" translate="DONATION-PLAN.18">$18</option>
+				    <option value="36" translate="DONATION-PLAN.36">$36</option>
+				    <option value="50" translate="DONATION-PLAN.50">$50</option>
+				    <option value="100" translate="DONATION-PLAN.100">$100</option>
+				    <option value="250" translate="DONATION-PLAN.250">$250</option>
+				  </optgroup>
+				</select> 
+		
+		</div>
+		<div class="form-group" ng-show="donationInfo.donationPlan == 'custom' ">
+			<label for="cvc" translate="DONATION-MODAL.AMOUNT" class="control-label">Amount</label>
+	
+			
+			<input type="number" ui-validate=" '$value>0' "  name="amount" class="form-control"
+					ng-model="donationInfo.amount" min='5'  decimals="2" required />
+	
 		</div>
 		
  		<div class="form-group">
-			<div class="col-sm-offset-1 col-sm-11">
+			
 				<span class="payment-errors text-danger"></span>
-				<button type="submit" ng-disabled="step2.$invalid"
-					class="btn btn-default btn-rounded" ng-click="steps.step2=true">Donar</button>
-			</div>
+				<button type="submit" ng-disabled="step2.$invalid" translate="DONATION-MODAL.DONATE"
+					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">Donar</button>
+
 		</div>
 			
 	</form>
@@ -87,8 +123,8 @@
 </div>
 <div class="modal-footer">
 
-	<button type="submit" class="btn btn-default" ng-click="close()"
-		translate="POST-MODAL.CANCEL">Cancel</button>
+	<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="close()"
+		translate="DONATION-MODAL.CANCEL">Cancel</button>
 	
 
 </div>

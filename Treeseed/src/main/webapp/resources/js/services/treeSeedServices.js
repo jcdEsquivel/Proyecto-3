@@ -9,9 +9,18 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 	return {
 		isEmailUnique : function(email) {
 
-			return $http.post('rest/protected/users/isEmailUnique', email)
+			var request = {
+					
+						email: email
+					
+					
+			};
+			
+			
+			
+			return $http.post('rest/protected/users/isEmailUnique', JSON.stringify(request))
 					.then(function(response) {
-						console.log(response.data.codeMessage);
+					
 
 						if (response.data.codeMessage == 'UNIQUE') {
 							return true;
@@ -22,7 +31,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
-
+/*
 'use strict';
 var treeSeedAppServices = angular.module('treeSeedServices', []);
 
@@ -46,7 +55,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
-
+*/
 
 treeSeedAppServices.service('$sharedData', function($http) {
 	var loggedUser = "";
@@ -104,7 +113,7 @@ treeSeedAppServices.service('$sharedData', function($http) {
 		}// end getUserCountry
 	} // end return
 }); // end shareDataService
-
+/*
 treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 	return {
@@ -123,7 +132,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
-
+*/
 treeSeedAppServices.service('$userData', function() {
 	var users = [ {
 		Name : "Ricardo Bonilla",

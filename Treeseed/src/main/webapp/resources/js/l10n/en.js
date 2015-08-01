@@ -70,21 +70,22 @@
     	"PORTFOLIO": "Portfolio"
     },
     "REGISTER-DONOR": {
-    	"NAME": "Name",
-    	"LASTNAME": "Last Name",
-    	"EMAIL": "Email",
-    	"PASSWORD": "Password",
+    	"NAME": "Name *",
+    	"LASTNAME": "Last Name *",
+    	"EMAIL": "Email *",
+    	"PASSWORD": "Password *",
     	"CAMPAIGN": "Campaign",
-    	"COUNTRY": "Country",
+    	"COUNTRY": "Country *",
     	"PICTUREIMAGE": "Picture Image",
     	"DROPIMAGE" : "Drop an image here to upload.",
     	"TITTLE" : "Register Donor",
     	"REGISTER" : "Register",
         "CANCEL" : "Cancel",
         "PASSWORD-MESSAGE" : "Passwords do not match.",
-    	"PASSWORD-CONFIRM" : "Confirm password",
+    	"PASSWORD-CONFIRM" : "Confirm password *",
     	"REGISTERFACEBOOK" : "Register with facebook",
-    	"EXISTEMAIL": "The email already exists."
+    	"EXISTEMAIL": "The email already exists.",
+    	"INVALID-EMAIL": "Invalid Email"
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
@@ -119,12 +120,12 @@
 	},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
-        "NAME": "Name",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "PASSWORD-CONFIRM": "Confirm password",
-        "CAUSE": "Cause",
-        "COUNTRY": "Country",
+        "NAME": "Name *",
+        "EMAIL": "Email *",
+        "PASSWORD": "Password *",
+        "PASSWORD-CONFIRM": "Confirm password *",
+        "CAUSE": "Cause *",
+        "COUNTRY": "Country *",
         "PICTUREIMAGE": "Profile Picture",
         "DROPIMAGE" : "Drop an image here to upload.",
         "REGISTER-BUTTON": "Register",
@@ -276,5 +277,33 @@
     	"CLOSE":"Finish",
     	"CANCEL":"Cancel",
     	"CLOSE-BUTTON":"Finish Campaign"
+    },
+    "DONATION-PLAN":{
+    	"SIMPLE": "Simple Donation",
+    	"CUSTOM": "Custom Donation",
+    	"MONTHLY": "Donation Plans",
+    	
+    	"10": "Monthly $10",
+    	"18": "Monthly $18",
+    	"36": "Monthly $36",
+    	"50": "Monthly $50",
+    	"100": "Monthly $100",
+    	"250": "Monthly $250"
+    },
+    "DONATION-MODAL":{
+    	"TITLE": "New Donation",
+    	"DONOR-INFO":"Donor Information",
+    	"DONATION": "Donation",
+    	"CARD-NUMBER": "Card Number",
+    	"CVC": "CVC",
+    	"EXP-DATE": "Expiration Date",
+    	"TYPE": "Donation type",
+    	"AMOUNT": "Amount",
+    	"NEXT": "Next",
+    	"DONATE": "Donate",
+    	"CANCEL": "Cancel",
+    	"INVALID-CARD": "Invalid card number format",
+    	"INVALID-CVC": "Invalid CVC",
+    	"INVALID-EXP": "Invalid expiration date"
     }
 }

@@ -3,23 +3,31 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('simpleDonationController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal, $stateParams, StripeService) {
+treeSeedAppControllers.controller('simpleDonationController', function($http, $uniqueDataService,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, StripeService) {
 	
 
 	$scope.percent = 0;
+	
 	$scope.donor = {
 			name:'',
 			lastName:'',
-			email:''
+			email:'',
+			password:'',
+			confirm_password:''
 	};
 	
-	$scope.card = '';
-	$scope.cvc='';
-	$scope.ex_month='';
-	$scope.ex_year='';
-	$scope.amount = '';
+	$scope.donationInfo = {
+		card : '',
+		cvc:'',
+		ex_month:'',
+		ex_year:'',
+		expiry:'',
+		amount : 0,
+		donationPlan: ''
+	};
 	
+
 	$scope.stateInput1 = false;
 	$scope.stateInput2 = false;
 	$scope.stateInput3 = false;
@@ -28,9 +36,9 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	$scope.stateInput6 = false;
 	$scope.stateInput7 = false;
 	$scope.stateInput8 = false;
-
-	
-
+	$scope.stateInput9 = false;
+	$scope.oldVal = '';
+	$scope.emailUnique = false;
 	$scope.errorCard = undefined;
 
 	
@@ -42,6 +50,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	$scope.objectRequestD.donation.amount = "321";
 	$scope.objectRequestD.token="";
 	$scope.stripeResponse={};
+	
 	Stripe.setPublishableKey(StripeService.getStripeApiKey());
 	
 	$scope.resul=true;
@@ -58,6 +67,27 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 
 		
 		return false;
+	};
+	
+	
+	
+	$scope.stripeCallback = function (code, result) {
+	    if (result.error) {
+	        window.alert('it failed! error: ' + result.error.message);
+	    } else {
+	        window.alert('success! token: ' + result.id);
+	    }
+	};
+	
+	
+	$scope.checkAmount = function(){
+		if($scope.donationInfo.donationPlan != 'custom'){
+			
+			$scope.donationInfo.amount = 5;
+		}else{
+			$scope.donationInfo.amount = 0;
+			
+		}
 	};
 	
 	$scope.stripeResponseHandle = function (status,response){
@@ -89,9 +119,11 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	
 	
 	
-	
+	/*
 	$scope.progressControl = function(input, valid) {
-
+		
+		
+		
 		switch (input) {
 		case 1:
 			if (valid) {
@@ -122,7 +154,15 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 			}
 			break;
 		case 3:
-			if (valid) {
+			var temp = false;
+			console.log('unique '+temp);
+			$uniqueDataService.isEmailUnique($scope.donor.email).then( function(value) {
+						temp = value;
+			});
+			
+			console.log('unique '+temp);
+			
+			if (valid && temp == true) {
 				if (!$scope.stateInput3) {
 					$scope.percent = $scope.percent + 12.5;
 					$scope.stateInput3 = true;
@@ -195,23 +235,90 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 			
 			break;
 		case 8:
+			
 			if (valid) {
 				if (!$scope.stateInput8) {
-					$scope.percent = $scope.percent + 12.5;
-					$scope.stateInput8 = true;
+					if($scope.donationInfo.donationPlan == 'custom'){
+						
+						$scope.percent = $scope.percent + 6;
+						$scope.stateInput8 = true;
+					
+					}else if($scope.donationInfo.donationPlan != ''){
+						
+						$scope.percent = $scope.percent + 12.5;
+						$scope.stateInput8 = true;
+					
+					}
+					
+					//$scope.oldVal = $scope.donationInfo.donationPlan;
+					
+				}else{
+					
+					if($scope.donationInfo.donationPlan == 'custom'){
+						
+						$scope.percent = $scope.percent - 6.5;//from amount
+						
+					}else{//is plan
+						
+						if($scope.oldVal == 'custom' ){
+							if($scope.donationInfo.amount == ''){
+								console.log('amount 0');
+								$scope.percent = $scope.percent + 6.5;	
+							}
+						}
+						
+						$scope.donationInfo.amount = '';
+						
+					}
+							
 				}
 
 			} else {
 				if ($scope.stateInput8) {
-					$scope.percent = $scope.percent - 12.5;
-					$scope.stateInput8 = false;
+					if($scope.donationInfo.donationPlan == 'custom'){
+						$scope.percent = $scope.percent - 6;
+						
+					}else if($scope.donationInfo.donationPlan != ''){
+						$scope.percent = $scope.percent - 12.5;
+						$scope.stateInput8 = false;
+					}
+					
+				}
+			}
+			
+			$scope.oldVal = $scope.donationInfo.donationPlan;
+			
+		break;
+			
+	case 9:
+			if (valid) {
+				if (!$scope.stateInput9) {
+					if($scope.donationInfo.donationPlan == 'custom'){
+						$scope.percent = $scope.percent + 6.5;
+						$scope.stateInput9 = true;
+					}
+				}
+					
+
+			} else {
+				if ($scope.stateInput9) {
+					if($scope.donationInfo.donationPlan == 'custom'){
+						$scope.percent = $scope.percent - 6.5;
+						$scope.stateInput9 = false;
+					}
 				}
 			}
 			
 			break;
-			
 		
 		}
+		
+		
+	};*/
+	
+	
+	$scope.onChange= function(){
+		
 	};
 	
 	$scope.close = function() {
@@ -220,7 +327,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http,
 	};
 	
 
-});
+})
 
 treeSeedAppControllers.controller('recurrentDonationController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts,  campaignId ,Session,
