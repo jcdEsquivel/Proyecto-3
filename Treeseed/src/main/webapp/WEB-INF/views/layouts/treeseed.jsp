@@ -21,6 +21,8 @@
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/appLogin.js"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script	src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
 <script src="resources/js/controllers/generalControllers.js"></script>
@@ -39,6 +41,8 @@
 <script src="resources/js/config.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
+
+
 
 <body layout="row" ng-controller="AppCtrl">
 

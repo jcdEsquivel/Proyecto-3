@@ -802,10 +802,10 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
-			templateUrl : modalUrl,
+			templateUrl : 'layouts/components/guestDonationModal.html',
 			controller : 'simpleDonationController',
-			size : 'lg',
-			 resolve : lazyService.load(['https://js.stripe.com/v2/'])
+			size : 'sm'//,
+			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
 		});
 		
 	};

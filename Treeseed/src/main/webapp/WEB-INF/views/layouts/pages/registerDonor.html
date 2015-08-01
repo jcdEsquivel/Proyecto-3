@@ -17,7 +17,7 @@
           <label translate="REGISTER-DONOR.EMAIL">Email</label>
           <input type="text" is-email-unique="" name="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="requestObject.donor.userGeneral.email" class="form-control" required >   
         </md-input-container>
-        <span class="input-error-message" ng-show="registerForm.email.$error.unique">Correo ya registrado
+        <span class="input-error-message" ng-show="registerForm.email.$error.unique" translate="REGISTER-DONOR.EXISTEMAIL">
 		</span>
         <md-input-container flex>
           <label translate="REGISTER-DONOR.PASSWORD">Password</label>
