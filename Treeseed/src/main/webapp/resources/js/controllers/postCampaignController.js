@@ -5,7 +5,7 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal,
-		$stateParams) {
+		$stateParams, Session) {
 
 	$scope.posts = [];
 	$scope.totalPosts = 0;
@@ -94,7 +94,43 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				}
 			}
 		})
-};
+	};
+	
+	$scope.deletePost = function()
+	{
+		
+		$scope.postRequest.postCampaign.campaignId= $stateParams.campaignId;
+		
+		$http.post('rest/protected/postCampaign/deletePostCampaign',
+				$scope.postRequest).then(function(response) {
+					if(response.data.code=="200"){
+						$scope.postRequest.postCampaign.campaignId = $stateParams.campaignId;
+						$scope.getPosts(1);						
+					}
+		});
+	};
+	
+	$scope.openModalDeletePost = function(p) {
+
+		$scope.postRequest.postCampaign.id = p.id;
+		
+		modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/delete_confirmation_post.html',
+			scope: $scope,
+			
+			
+	    })
+	};
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.deletePost(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {	
+		modalInstance.close();
+	};
 
 });
 
