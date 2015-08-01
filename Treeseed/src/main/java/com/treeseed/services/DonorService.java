@@ -63,8 +63,8 @@ public class DonorService implements DonorServiceInterface {
 	}
 
 	@Override
-	public Donor getDonorProfileByID(DonorRequest dr) {
-		return DonorRepository.findByid(dr.getId());
+	public DonorWrapper getDonorProfileByID(int id) {
+		return new DonorWrapper(DonorRepository.findByid(id));
 	}
 	
 	@Override

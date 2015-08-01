@@ -14,6 +14,24 @@ public class DonorWrapper extends ParentUserWrapper{
 	
 
 	private Donor wrapperObject;
+	
+	private String completeName;
+
+	public String getCompleteName() {
+		return completeName;
+	}
+
+	public void setCompleteName(String completeName) {
+		this.completeName = completeName;
+	}
+
+	public String getStripeId() {
+		return wrapperObject.getStripeId();
+	}
+
+	public void setStripeId(String setStripeId) {
+		wrapperObject.setStripeId(setStripeId);
+	}
 
 	public DonorWrapper() {
 		super();

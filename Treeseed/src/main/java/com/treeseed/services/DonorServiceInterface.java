@@ -15,7 +15,7 @@ public interface DonorServiceInterface {
 
 	Donor getSessionDonor(int idUser);
 	
-	Donor getDonorProfileByID(DonorRequest dr);
+	DonorWrapper getDonorProfileByID(int id);
 	
 	void deleteDonor(DonorRequest dr);
 	

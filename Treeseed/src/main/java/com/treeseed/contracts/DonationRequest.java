@@ -16,13 +16,24 @@ public class DonationRequest {
 	private String token;
 	private Date startPeriodDate;
 	private Date endPeriodDate;
+	private int plan;
 	
+	
+
 	public DonationRequest(){
 		super();
 	}
 	
 	public Date getStartPeriodDate() {
 		return startPeriodDate;
+	}
+	
+	public int getPlan() {
+		return plan;
+	}
+
+	public void setPlan(int plan) {
+		this.plan = plan;
 	}
 
 	public void setStartPeriodDate(Date startPeriodDate) {

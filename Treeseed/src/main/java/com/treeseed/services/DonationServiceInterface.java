@@ -11,5 +11,6 @@ public interface DonationServiceInterface {
 	double findAmountPerMonthOfNonProfit(int nonProfitId, Date startDate, Date endDate);
 	int findDonorsPerCampaign(int campaignId);
 	DonationWrapper saveDonation(DonationWrapper donation);
+	void updateDonation(DonationWrapper donation);
 	
 }

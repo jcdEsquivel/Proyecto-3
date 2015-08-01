@@ -10,6 +10,7 @@ public class DonationPOJO {
 	private int donorFatherId;
 	private int nonProfitId;
 	private double amount;
+	private int cardId;
 	private Date donationDate;
 	
 	public int getId() {
@@ -53,6 +54,12 @@ public class DonationPOJO {
 	}
 	public void setDonorFatherId(int donorFatherId) {
 		this.donorFatherId = donorFatherId;
+	}
+	public int getCardId() {
+		return cardId;
+	}
+	public void setCardId(int cardId) {
+		this.cardId = cardId;
 	}
 	
 	

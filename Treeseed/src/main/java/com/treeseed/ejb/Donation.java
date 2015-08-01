@@ -33,6 +33,8 @@ public class Donation implements Serializable {
 	
 	private int donorFatherId;
 	
+	private String stripeId;
+	
 	private boolean isActive;
 
 	public Donation() {
@@ -100,5 +102,13 @@ public class Donation implements Serializable {
 
 	public void setDonorFatherId(int donorFatherId) {
 		this.donorFatherId = donorFatherId;
+	}
+
+	public String getStripeId() {
+		return stripeId;
+	}
+
+	public void setStripeId(String stripeId) {
+		this.stripeId = stripeId;
 	}
 }

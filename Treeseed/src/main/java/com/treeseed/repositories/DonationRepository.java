@@ -36,4 +36,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 */
 	@Query("SELECT COUNT(DISTINCT donorId) From Donation  WHERE campaingId = :campignId")
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
+	
+	void update(Donation donation);
 }
