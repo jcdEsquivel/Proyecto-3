@@ -56,11 +56,11 @@ public class StripeUtils {
 			card = getCard(idDonorStripe, cardStripeId);
 			result.add(0,"");
 		}else{
-			card = createSource(customer, sourceToken);
+			card = createCard(customer, sourceToken);
 			result.add(0,card.getId());
 		}
 		
-		result.add(1,(createCharge(amount, card, idDonation, nonProfit.getId(), idCampaign, nonProfit.getName(), nameCampaign)).getId());
+		result.add(1,(createCharge(amount, card.getId(),customer.getId(), idDonation, nonProfit.getId(), idCampaign, nonProfit.getName(), nameCampaign)).getId());
 		
 		return result;
 
@@ -75,11 +75,11 @@ public class StripeUtils {
 		ArrayList<Object> result = new ArrayList<Object>();
 		
 		Customer customer = createCustomers(completeName, email);
-		Card card = createSource(customer, sourceToken);
+		Card card = createCard(customer, sourceToken);
 		
 		result.add(0, customer.getId());
 		result.add(1, card.getId());
-		result.add(2, (createCharge(amount, card, idDonation, nonProfit.getId(), idCampaign, nonProfit.getName(), nameCampaign).getId()));
+		result.add(2, (createCharge(amount, card.getId(), customer.getId(),idDonation, nonProfit.getId(), idCampaign, nonProfit.getName(), nameCampaign).getId()));
 		
 		
 		return result;
@@ -102,7 +102,7 @@ public class StripeUtils {
 			card = getCard(idDonorStripe, cardStripeId);
 			result.add(0,"");
 		}else{
-			card = createSource(customer, sourceToken);
+			card = createCard(customer, sourceToken);
 			result.add(0,card.getId());
 		}
 		
@@ -121,7 +121,7 @@ public class StripeUtils {
 		ArrayList<Object> result = new ArrayList<Object>();
 		
 		Customer customer = createCustomers(completeName, email);
-		Card card = createSource(customer, sourceToken);
+		Card card = createCard(customer, sourceToken);
 		Plan plan = getPlan(Integer.toString(nonProfit.getId()), Integer.toString(idCampaign), Integer.toString(planNumber));
 		
 		result.add(0, customer.getId());
@@ -167,7 +167,7 @@ public class StripeUtils {
 		Map<String, Object> subscriptionParams = new HashMap<String, Object>();
 
 		subscriptionParams.put("plan", plan.getId());
-		subscriptionParams.put("source", card);
+		subscriptionParams.put("source", card.getId());
 
 		return customer.createSubscription(subscriptionParams);
 
@@ -188,7 +188,7 @@ public class StripeUtils {
 
 	}
 
-	public static Card createSource(Customer customer, String token) throws AuthenticationException, InvalidRequestException,
+	public static Card createCard(Customer customer, String token) throws AuthenticationException, InvalidRequestException,
 					APIConnectionException, CardException, APIException {
 
 		Stripe.apiKey = API_KEY;
@@ -200,7 +200,7 @@ public class StripeUtils {
 
 	}
 
-	public static Charge createCharge(double amount, Card card, int idDonation, int idNonprofit,
+	public static Charge createCharge(double amount, String cardId,String customerId ,int idDonation, int idNonprofit,
 			int idCampaign, String nameNonprofit, String nameCampaign) throws AuthenticationException,
 					InvalidRequestException, APIConnectionException, CardException, APIException {
 
@@ -214,8 +214,8 @@ public class StripeUtils {
 		Map<String, Object> chargeParams = new HashMap<String, Object>();
 		chargeParams.put("amount", amountInt);
 		chargeParams.put("currency", "usd");
-		chargeParams.put("source", card); // obtained with
-													// Stripe.js
+		chargeParams.put("customer", customerId);	
+		chargeParams.put("source", cardId); 
 
 		if (idCampaign > 0) {
 
