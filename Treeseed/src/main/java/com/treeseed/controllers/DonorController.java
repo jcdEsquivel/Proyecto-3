@@ -227,7 +227,7 @@ public class DonorController extends UserGeneralController{
 			tempId= (int) currentSession.getAttribute("idUser");
 		}
 		
-		Donor donor = donorService.getDonorProfileByID(dr);
+		DonorWrapper donor = donorService.getDonorProfileByID(dr.getId());
 		
 		DonorResponse nps = new DonorResponse();
 		

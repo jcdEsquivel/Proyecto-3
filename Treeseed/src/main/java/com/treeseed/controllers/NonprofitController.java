@@ -63,6 +63,7 @@ import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
+import com.treeseed.utils.StripeUtils;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
@@ -243,7 +244,7 @@ public class NonprofitController extends UserGeneralController {
 		int count = 1;
 
 		for (int amount : amounts) {
-			if (Utils.createPlan(count,idNonprofit, 0, nameNonprofit, "", amount).getId().equals(null)){
+			if (StripeUtils.createPlan(count,idNonprofit, 0, nameNonprofit, "", amount).getId().equals(null)){
 				return false;
 			}
 			count++;

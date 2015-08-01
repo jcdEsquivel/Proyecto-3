@@ -79,27 +79,5 @@ public class Utils {
 	    }	
 	}
 
-	public static String stripeApiKey(){
-		return "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
-	}
 	
-	public static Plan createPlan(int count,int idNonprofit,int idCampaign, String nameNonprofit, String nameCampaign, int amount) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
-		
-		Stripe.apiKey = Utils.stripeApiKey();
-		
-		Map<String, Object> planParams = new HashMap<String, Object>();
-		planParams.put("amount", amount);
-		planParams.put("interval", "month");
-		planParams.put("currency", "usd");
-		if(idCampaign>0){
-			planParams.put("id", idNonprofit+"#"+idCampaign+"#"+count);
-			planParams.put("name", idNonprofit+"#"+idCampaign+"#_Plan_#"+nameNonprofit+"#"+nameCampaign+"#"+amount);
-		}else{
-			planParams.put("id", idNonprofit+"#"+count);
-			planParams.put("name", idNonprofit+"#_Plan_#"+nameNonprofit+"#"+amount);
-		}
-		
-		return Plan.create(planParams);
-		
-	}
 }

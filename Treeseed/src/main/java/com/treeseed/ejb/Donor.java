@@ -28,6 +28,8 @@ public class Donor implements Serializable {
 
 	private String webPage;
 	
+	private String stripeId;
+	
 	private boolean isActive;
 
 	//uni-directional many-to-one association to Catalog
@@ -64,6 +66,10 @@ public class Donor implements Serializable {
 	//bi-directional many-to-one association to Usergeneral
 	@OneToMany(mappedBy="donor")
 	private List<UserGeneral> userGenerals;
+	
+	//bi-directional many-to-one association to Card
+	@OneToMany(mappedBy="donor")
+	private List<Card> cards;
 
 	public Donor() {
 	}
@@ -257,5 +263,15 @@ public class Donor implements Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
+	public String getStripeId() {
+		return stripeId;
+	}
+
+	public void setStripeId(String stripeId) {
+		this.stripeId = stripeId;
+	}
+
+
 
 }

@@ -36,4 +36,9 @@ public class DonationService implements DonationServiceInterface{
 		DonationWrapper donationSaved = new DonationWrapper(donationRepository.save(donation.getWrapperObject()));
 		return donationSaved;
 	}
+
+	@Override
+	public void updateDonation(DonationWrapper donation) {
+		donationRepository.update(donation.getWrapperObject());
+	}
 }

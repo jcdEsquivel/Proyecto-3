@@ -265,6 +265,12 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+											})
+										  	.state(
+													'stripeWebHook',
+													{
+														url : '/stripe/webhook',
+														controller: "webhookController"
 											 });
 							
 

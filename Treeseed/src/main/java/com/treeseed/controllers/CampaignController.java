@@ -43,6 +43,7 @@ import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.utils.PageWrapper;
+import com.treeseed.utils.StripeUtils;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 
@@ -307,7 +308,7 @@ public class CampaignController {
 		int count = 1;
 
 		for (int amount : amounts) {
-			if (Utils.createPlan(count, idNonprofit, idCampaign, nameNonprofit, nameCampaign, amount).getId()
+			if (StripeUtils.createPlan(count, idNonprofit, idCampaign, nameNonprofit, nameCampaign, amount).getId()
 					.equals(null)) {
 				return false;
 			}

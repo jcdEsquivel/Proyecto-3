@@ -11,6 +11,14 @@ public class DonationWrapper {
 	private Donation wrapperObject;
 
 
+	public String getStripeId() {
+		return wrapperObject.getStripeId();
+	}
+
+	public void setStripeId(String stripeId) {
+		wrapperObject.setStripeId(stripeId);
+	}
+
 	public DonationWrapper(Donation donation) {
 		super();
 		setWrapperObject(donation);
