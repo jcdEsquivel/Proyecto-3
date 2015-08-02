@@ -175,6 +175,7 @@ public class DonationController {
 					CardWrapper card = new CardWrapper();
 					
 					card.setStripeId((String)resultCharge.get(1));
+					card.setActive(true);
 					
 					donation.setStripeId((String)resultCharge.get(2));
 					donor.setStripeId((String)resultCharge.get(0));
@@ -198,7 +199,9 @@ public class DonationController {
 						CardWrapper card = new CardWrapper();
 						card.setStripeId((String)resultCharge.get(0));
 						card.setDonor(donor.getWrapperObject());
-				
+						card.setActive(true);
+						donor.addCard(card.getWrapperObject());
+						
 						cardService.saveCard(card);
 					}
 				}

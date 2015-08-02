@@ -27,7 +27,7 @@ public class CardService implements CardServiceInterface{
 
 	@Override
 	public Boolean saveCard(CardWrapper card) {
-		// TODO Auto-generated method stub
+		cardRepository.save(card.getWrapperObject());
 		return null;
 	}
 

@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -29,6 +30,7 @@ import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
+import com.stripe.model.CustomerCardCollection;
 import com.stripe.model.Plan;
 import com.stripe.model.StripeObject;
 import com.stripe.model.Subscription;
@@ -237,7 +239,6 @@ public class StripeUtils {
 		
 		return customer;
 	}
-	
 	public static Card getCard(String idDonorStripe, String stripeCardId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		
 		Customer customer = getCustumer(idDonorStripe);

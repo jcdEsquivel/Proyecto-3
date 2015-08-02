@@ -18,14 +18,5 @@ public interface CardRepository extends
 	
 	public static final int PAGE_SIZE = 5;
 	
-	
-	UserGeneral findByDonorId (int idDonor);
- 		
- 	@Modifying
-	@Transactional
-	@Query("UPDATE Card u SET isActive = 0  where u.id = :id") 
-	  public void deleteUserGeneral(
-			   @Param("id") int id
-			   );
 
 }

@@ -135,10 +135,10 @@ public class RecurrableDonationController {
 					CardWrapper card = new CardWrapper();
 
 					card.setStripeId((String) resultCharge.get(1));
-					card.setDonor(donor.getWrapperObject());
 
 					donation.setStripeId((String) resultCharge.get(2));
 					donor.setStripeId((String) resultCharge.get(0));
+					donor.addCard(card.getWrapperObject());
 
 					donorService.update(donor);
 					cardService.saveCard(card);
@@ -158,6 +158,8 @@ public class RecurrableDonationController {
 						CardWrapper card = new CardWrapper();
 						card.setStripeId((String) resultCharge.get(0));
 						card.setDonor(donor.getWrapperObject());
+						card.setActive(true);
+						donor.addCard(card.getWrapperObject());
 
 						cardService.saveCard(card);
 					}
