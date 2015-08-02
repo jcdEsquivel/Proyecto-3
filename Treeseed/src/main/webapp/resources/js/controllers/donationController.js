@@ -3,31 +3,31 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('simpleDonationController', function($http, $uniqueDataService,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, StripeService) {
+treeSeedAppControllers.controller('simpleDonationController', function($http, $donationService,StripeService,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser) {
 	
 
 	$scope.percent = 0;
 	
 	$scope.donor = {
-			name:'',
-			lastName:'',
-			email:'',
-			password:'',
-			confirm_password:''
+			name:'ara',
+			lastName:'ddd',
+			email:'asdf@asdref.com',
+			password:'asdf',
+			confirm_password:'asdf'
 	};
+	
+	$scope.number = '4242 4242 4242 4242';
+	$scope.cvc = '1235';
+	$scope.expiry = '01/2019';
 	
 	$scope.donationInfo = {
-		card : '',
-		cvc:'',
-		ex_month:'',
-		ex_year:'',
-		expiry:'',
-		amount : 0,
-		donationPlan: ''
+		amount : 1000,
+		donationPlan: 'custom'
 	};
 	
-
+/*
+ * For wizard porpuses. Will be use in the future
 	$scope.stateInput1 = false;
 	$scope.stateInput2 = false;
 	$scope.stateInput3 = false;
@@ -37,8 +37,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $u
 	$scope.stateInput7 = false;
 	$scope.stateInput8 = false;
 	$scope.stateInput9 = false;
-	$scope.oldVal = '';
-	$scope.emailUnique = false;
+	*/
 	$scope.errorCard = undefined;
 
 	
@@ -51,11 +50,105 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $u
 	$scope.objectRequestD.token="";
 	$scope.stripeResponse={};
 	
-	Stripe.setPublishableKey(StripeService.getStripeApiKey());
+	//Stripe.setPublishableKey(StripeService.getStripeApiKey());
 	
 	$scope.resul=true;
 	$scope.button=false;
 	$scope.token = "";
+	
+	
+	
+	//Stripe submit method
+	$scope.stripeCallback = function (code, result) {
+	    if (result.error) {
+	        window.alert('it failed! error: ' + result.error.message);
+	    } else {
+	    	console.log("yes");
+	    	$scope.upload = $upload.upload({
+				url : 'rest/protected/donor/register',
+				data : {
+					email:$scope.donor.email,
+					password:$scope.donor.password,
+					name:$scope.donor.name,
+					lastName:$scope.donor.lastName,
+					country: "",
+					facebookId: "",
+					facebookToken: ""
+				},
+				file : ""
+			}).success(function(response){
+				  
+				  if(response.code == "200")
+				  {
+					  $scope.logIn($scope.donor.email, $scope.donor.password);
+					  $donationService.createDonation().then(function(data){
+						  console.log(JSON.stringify(data));
+						  $modalInstance.close();
+					  });
+					  
+					
+				  }
+				  
+			});//end success	
+	    	
+	    }
+	};//end stripe submit
+	
+	
+	$scope.checkAmount = function(){
+		if($scope.donationInfo.donationPlan != 'custom'){
+			
+			$scope.donationInfo.amount = 5;
+		}else{
+			$scope.donationInfo.amount = 0;
+			
+		}
+	};
+	
+	$scope.close = function() {
+		$modalInstance.close();
+		
+	};
+	
+	$scope.createDonation = function(idDonor, stripeToken){
+		
+		$donationService.createDonation(idDonor, stripeToken,
+										$scope.donationInfo.donationPlan, 
+										$scope.donationInfo.amount)
+										.then(function (data){
+											console.log(JSON.stringify(data));
+		
+										});//end then
+		
+	};
+	
+	
+	$scope.logIn = function(email, password ){
+		 var credentials = {
+				    email: email,
+				    password: password
+			   };
+			 	  
+		 AuthService.login(credentials).then(function (user) {
+			  					    	
+		    	if(user.code=="200"){
+		    		if(user.type=="nonprofit"){
+		    			$scope.setCurrentUser(user.idUser, user.firstName, user.img );
+		    			
+		        	}else if(user.type=="donor"){
+		        		setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
+		        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		        		//$state.go('treeSeed.donor', {donorId: response.donorId});
+		        	}
+		    	}
+	    });//end AuthService  
+	};//end logIn
+	
+	
+	
+	/*
+
+	
 	$scope.submit = function (){
 		$scope.$form = angular.element(document.querySelector('#payment-form'));
 		
@@ -69,26 +162,6 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $u
 		return false;
 	};
 	
-	
-	
-	$scope.stripeCallback = function (code, result) {
-	    if (result.error) {
-	        window.alert('it failed! error: ' + result.error.message);
-	    } else {
-	        window.alert('success! token: ' + result.id);
-	    }
-	};
-	
-	
-	$scope.checkAmount = function(){
-		if($scope.donationInfo.donationPlan != 'custom'){
-			
-			$scope.donationInfo.amount = 5;
-		}else{
-			$scope.donationInfo.amount = 0;
-			
-		}
-	};
 	
 	$scope.stripeResponseHandle = function (status,response){
 		 form = angular.element(document.querySelector('#payment-form'));
@@ -116,7 +189,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $u
 
 	     }
 	};
-	
+	*/
 	
 	
 	/*
@@ -315,17 +388,6 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $u
 		
 		
 	};*/
-	
-	
-	$scope.onChange= function(){
-		
-	};
-	
-	$scope.close = function() {
-		$modalInstance.close();
-		
-	};
-	
 
 })
 

@@ -804,7 +804,12 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/guestDonationModal.html',
 			controller : 'simpleDonationController',
-			size : 'sm'//,
+			size : 'sm',//,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.setCurrentUser;
+				}
+			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
 		});
 		
