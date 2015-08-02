@@ -87,6 +87,6 @@ public class DonorService implements DonorServiceInterface {
 	
 	@Override
 	public DonorWrapper update(DonorWrapper donor) {
-		return new DonorWrapper(DonorRepository.update(donor.getWrapperObject()));	
+		return null;//return new DonorWrapper(DonorRepository.update(donor.getWrapperObject()));	
 	}
 }

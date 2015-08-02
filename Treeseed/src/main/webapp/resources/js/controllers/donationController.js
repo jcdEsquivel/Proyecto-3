@@ -3,10 +3,9 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('simpleDonationController', function($http, $donationService,StripeService,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser) {
+treeSeedAppControllers.controller('simpleDonationController', function($http, $donationService,StripeService, $stateParams,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId) {
 	
-
 	$scope.percent = 0;
 	
 	$scope.donor = {
@@ -81,7 +80,10 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $d
 				  if(response.code == "200")
 				  {
 					  $scope.logIn($scope.donor.email, $scope.donor.password);
-					  $donationService.createDonation().then(function(data){
+								  
+					  $donationService.createDonation('campaign',nonprofitId, $stateParams.campaignId, response.donorId,
+							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
+							  0).then(function(data){
 						  console.log(JSON.stringify(data));
 						  $modalInstance.close();
 					  });

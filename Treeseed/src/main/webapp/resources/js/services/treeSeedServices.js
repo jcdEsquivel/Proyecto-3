@@ -36,22 +36,33 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 treeSeedAppServices.service('$donationService', function($http) {
 
 	return {
-		createDonation : function(donorId, stripeToken, plan, amount) {
+		createDonation : function(type, nonprofitId, campaignId, donorId, stripeToken, plan, amount, fatherId) {
 
+		
+			
 			if(plan == 'custom'){//simple donation
 				var request = {
 						id: '',
 						campaignId:'',
 						nonProfitId:'',
-						amount:'',
+						amount: '',
 						donationDate:'',
-						token:'',
+						token: stripeToken,
 						startPeriodDate:'',
 						endPeriodDate:'',
-						plan:''
+						plan:'',
+						donation:{
+							id:'',
+							campaignId: campaignId,
+							donorId: donorId,
+							donorFatherId: fatherId,
+							nonProfitId: nonprofitId,
+							amount: amount,
+							cardId:''
+						}	
 				};
 				
-				return $http.post('rest/protected/donation/simpleDonation', JSON.stringify(request))
+				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
 						.then(function(response) {				
 							return response.data;
 						});

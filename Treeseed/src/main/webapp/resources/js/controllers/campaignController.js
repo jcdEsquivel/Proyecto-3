@@ -542,6 +542,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					var modalInstance = null;
 					$scope.postsLoaded = false;
 					$scope.minDate2 = new Date();
+					$scope.nonprofitId = 0;
 
 					$scope.minDate = function() {
 						$scope.mindate2 = $scope.mindate1;
@@ -559,6 +560,8 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 								.success(
 										function(mydata, status) {
 											$scope.campaign = mydata.campaign;
+											$scope.nonprofitId = mydata.campaign.nonprofit.id;
+											
 											if ($scope.campaign == null) {
 												$state.go("treeSeed.index");
 											}
@@ -808,6 +811,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 			resolve : {
 				setCurrentUser : function() {
 					return $scope.setCurrentUser;
+				},
+				nonprofitId: function(){
+					return $scope.nonprofitId;
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
