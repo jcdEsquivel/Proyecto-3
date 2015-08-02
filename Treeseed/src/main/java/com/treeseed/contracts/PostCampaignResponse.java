@@ -2,6 +2,7 @@ package com.treeseed.contracts;
 
 import java.util.List;
 
+import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 
 // TODO: Auto-generated Javadoc
@@ -11,15 +12,36 @@ import com.treeseed.pojo.PostNonprofitPOJO;
 public class PostCampaignResponse extends BaseResponse {
 
 	/** The posts. */
-	private List<PostNonprofitPOJO> posts;
+	private List<PostCampaignPOJO> posts;
+	
+	/** The post. */
+	private PostCampaignPOJO post;
 	
 	/**
 	 * Gets the posts.
 	 *
 	 * @return the posts
 	 */
-	public List<PostNonprofitPOJO> getPosts() {
+	public List<PostCampaignPOJO> getPosts() {
 		return posts;
+	}
+
+	/**
+	 * Gets the post.
+	 *
+	 * @return the post
+	 */
+	public PostCampaignPOJO getPost() {
+		return post;
+	}
+
+	/**
+	 * Sets the post.
+	 *
+	 * @param post the new post
+	 */
+	public void setPost(PostCampaignPOJO post) {
+		this.post = post;
 	}
 
 	/**
@@ -27,7 +49,7 @@ public class PostCampaignResponse extends BaseResponse {
 	 *
 	 * @param posts the new posts
 	 */
-	public void setPosts(List<PostNonprofitPOJO> posts) {
+	public void setPosts(List<PostCampaignPOJO> posts) {
 		this.posts = posts;
 	}
 

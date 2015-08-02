@@ -8,14 +8,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,12 +27,14 @@ import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejb.PostCampaign;
 import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
@@ -38,6 +43,7 @@ import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.PostCampaignServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
@@ -78,6 +84,9 @@ public abstract class AbstractTestController extends AbstractTest {
     
     /** The request http. */
     @Autowired  HttpServletRequest requestHttp;
+    
+    /** The post campaign service. */
+    @Autowired	PostCampaignServiceInterface postCampaignService;
     
     /**
      * Prepares the test class for execution of web tests. Builds a MockMvc
@@ -509,6 +518,32 @@ public  List<CatalogPOJO> getCatalogPOJOs(String type){
 	
 	
 	/**
+	 * Creates the random post campaign.
+	 *
+	 * @param campaign the campaign
+	 * @return the post nonprofit wrapper
+	 */
+	public  PostCampaignWrapper createRandomPostCampaign(Campaign campaign){
+		
+		String random = getRandomString();
+		PostCampaign post = new PostCampaign();
+		post.setTittle("Title "+random);
+		post.setDescription("Description");
+		post.setCreationDate(new Date());
+		post.setActive(true);
+		post.setPicture(TreeseedConstants.DEFAULT_POST_IMAGE);
+		post.setCampaign(campaign);
+		
+		PostCampaignWrapper wrapper =  new PostCampaignWrapper(post);
+		
+		postCampaignService.savePost(wrapper);
+		
+		return wrapper;
+
+}
+	
+	
+	/**
 	 * Creates the random campaign.
 	 *
 	 * @param nonprofit the nonprofit
@@ -604,5 +639,6 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
         return campaign;
 
     }
+
     
 }
