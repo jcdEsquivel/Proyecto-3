@@ -2,6 +2,7 @@ package com.treeseed.ejbWrapper;
 
 import java.util.List;
 
+import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.DonorSetting;
@@ -15,6 +16,8 @@ public class DonorWrapper extends ParentUserWrapper{
 
 	private Donor wrapperObject;
 	
+
+
 	private String completeName;
 
 	public String getCompleteName() {
@@ -25,6 +28,22 @@ public class DonorWrapper extends ParentUserWrapper{
 		this.completeName = completeName;
 	}
 
+	
+	public List<Card> getCards() {
+		return wrapperObject.getCards();
+	}
+
+	public void setCards(List<Card> cards) {
+		wrapperObject.setCards(cards);
+	}
+
+	public Card addCard(Card card) {
+		return wrapperObject.addCard(card);
+	}
+
+	public Card removeCard(Card card) {
+		return wrapperObject.removeCard(card);
+	}
 	public String getStripeId() {
 		return wrapperObject.getStripeId();
 	}

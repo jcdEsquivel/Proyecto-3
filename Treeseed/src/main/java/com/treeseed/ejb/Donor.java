@@ -208,6 +208,29 @@ public class Donor implements Serializable {
 
 		return notificationdonor;
 	}
+	
+	
+	public List<Card> getCards() {
+		return this.cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
+	public Card addCard(Card card) {
+		getCards().add(card);
+		card.setDonor(this);
+
+		return card;
+	}
+
+	public Card removeCard(Card card) {
+		getCards().remove(card);
+		card.setDonor(null);
+
+		return card;
+	}
 
 
 

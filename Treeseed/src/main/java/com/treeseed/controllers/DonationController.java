@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.DonorRequest;
+import com.treeseed.ejb.Card;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CardWrapper;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -168,16 +169,17 @@ public class DonationController {
 				}
 				donationService.saveDonation(donation);
 				
-				if(donor.getStripeId().equals(null)){
+				if(donor.getStripeId()==null){
 					resultCharge=StripeUtils.createDonationNewCustomer(donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
 					
 					CardWrapper card = new CardWrapper();
 					
 					card.setStripeId((String)resultCharge.get(1));
-					card.setDonor(donor.getWrapperObject());
 					
 					donation.setStripeId((String)resultCharge.get(2));
 					donor.setStripeId((String)resultCharge.get(0));
+					donor.setCards(new ArrayList<Card>());
+					donor.addCard(card.getWrapperObject());
 					
 					donorService.update(donor);
 					cardService.saveCard(card);

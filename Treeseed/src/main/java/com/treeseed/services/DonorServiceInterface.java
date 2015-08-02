@@ -21,5 +21,5 @@ public interface DonorServiceInterface {
 	
 	void updateDonor(DonorWrapper donor);
 	
-	DonorWrapper update(DonorWrapper donor);
+	void update(DonorWrapper donor);
 }
