@@ -39,6 +39,6 @@ public class DonationService implements DonationServiceInterface{
 
 	@Override
 	public void updateDonation(DonationWrapper donation) {
-		donationRepository.update(donation.getWrapperObject());
+		//donationRepository.update(donation.getWrapperObject());
 	}
 }

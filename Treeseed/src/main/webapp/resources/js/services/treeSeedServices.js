@@ -31,6 +31,42 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
+
+
+treeSeedAppServices.service('$donationService', function($http) {
+
+	return {
+		createDonation : function(donorId, stripeToken, plan, amount) {
+
+			if(plan == 'custom'){//simple donation
+				var request = {
+						id: '',
+						campaignId:'',
+						nonProfitId:'',
+						amount:'',
+						donationDate:'',
+						token:'',
+						startPeriodDate:'',
+						endPeriodDate:'',
+						plan:''
+				};
+				
+				return $http.post('rest/protected/donation/simpleDonation', JSON.stringify(request))
+						.then(function(response) {				
+							return response.data;
+						});
+			
+			}else{//monthly donation
+				
+			}
+			
+		}//end createSimpleDonation
+	
+	}
+});
+
+
+
 /*
 'use strict';
 var treeSeedAppServices = angular.module('treeSeedServices', []);
