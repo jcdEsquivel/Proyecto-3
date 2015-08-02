@@ -183,25 +183,6 @@ public class DonorWrapper extends ParentUserWrapper{
 		return wrapperObject.removeNotificationdonor(notificationdonor);
 	}
 
-	public List<RecurrableDonation> getRecurrabledonations() {
-		return wrapperObject.getRecurrabledonations();
-	}
-
-	public void setRecurrabledonations(
-			List<RecurrableDonation> recurrabledonations) {
-		wrapperObject.setRecurrabledonations(recurrabledonations);
-	}
-
-	public RecurrableDonation addRecurrabledonation(
-			RecurrableDonation recurrabledonation) {
-		return wrapperObject.addRecurrabledonation(recurrabledonation);
-	}
-
-	public RecurrableDonation removeRecurrabledonation(
-			RecurrableDonation recurrabledonation) {
-		return wrapperObject.removeRecurrabledonation(recurrabledonation);
-	}
-
 	public List<UserGeneral> getUsergenerals() {
 		return wrapperObject.getUsergenerals();
 	}

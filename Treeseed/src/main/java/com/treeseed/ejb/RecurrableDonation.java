@@ -21,22 +21,24 @@ public class RecurrableDonation implements Serializable {
 	private double amount;
 	
 	private String stripeId;
+	
+	private int donorFatherId;
+	
+	private int donorId;
+
+	private int nonProfitId;
+	
+	@Column(nullable = true)
+	private int campaingId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_time")
 	private Date dateTime;
 
+	
+
 	private boolean isActive;
 
-	//bi-directional many-to-one association to Donor
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="donorId")
-	private Donor donor;
-
-	//bi-directional many-to-one association to Nonprofit
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="nonProfitId")
-	private Nonprofit nonprofit;
 
 	public RecurrableDonation() {
 	}
@@ -73,28 +75,48 @@ public class RecurrableDonation implements Serializable {
 		this.isActive = isActive;
 	}
 
-	public Donor getDonor() {
-		return this.donor;
-	}
-
-	public void setDonor(Donor donor) {
-		this.donor = donor;
-	}
-
-	public Nonprofit getNonprofit() {
-		return this.nonprofit;
-	}
-
-	public void setNonprofit(Nonprofit nonprofit) {
-		this.nonprofit = nonprofit;
-	}
-
 	public String getStripeId() {
 		return stripeId;
 	}
 
 	public void setStripeId(String stripeId) {
 		this.stripeId = stripeId;
+	}
+
+	public int getDonorFatherId() {
+		return donorFatherId;
+	}
+
+	public void setDonorFatherId(int donorFatherId) {
+		this.donorFatherId = donorFatherId;
+	}
+	
+	public int getDonorId() {
+		return donorId;
+	}
+
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
+
+	public int getNonProfitId() {
+		return nonProfitId;
+	}
+
+	public void setNonProfitId(int nonProfitId) {
+		this.nonProfitId = nonProfitId;
+	}
+
+	public int getCampaingId() {
+		return campaingId;
+	}
+
+	public void setCampaingId(int campaingId) {
+		this.campaingId = campaingId;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

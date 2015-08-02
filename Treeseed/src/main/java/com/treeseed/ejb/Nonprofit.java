@@ -65,9 +65,6 @@ public class Nonprofit implements Serializable {
 	@OneToMany(mappedBy="nonprofit")
 	private List<PostNonprofit> postNonprofits;
 
-	//bi-directional many-to-one association to Recurrabledonation
-	@OneToMany(mappedBy="nonprofit")
-	private List<RecurrableDonation> recurrableDonations;
 
 	//bi-directional many-to-one association to Transparencyreport
 	@OneToMany(mappedBy="nonprofit")
@@ -257,27 +254,6 @@ public class Nonprofit implements Serializable {
 		return postnonprofit;
 	}
 
-	public List<RecurrableDonation> getRecurrabledonations() {
-		return this.recurrableDonations;
-	}
-
-	public void setRecurrabledonations(List<RecurrableDonation> recurrabledonations) {
-		this.recurrableDonations = recurrabledonations;
-	}
-
-	public RecurrableDonation addRecurrabledonation(RecurrableDonation recurrabledonation) {
-		getRecurrabledonations().add(recurrabledonation);
-		recurrabledonation.setNonprofit(this);
-
-		return recurrabledonation;
-	}
-
-	public RecurrableDonation removeRecurrabledonation(RecurrableDonation recurrabledonation) {
-		getRecurrabledonations().remove(recurrabledonation);
-		recurrabledonation.setNonprofit(null);
-
-		return recurrabledonation;
-	}
 
 	public List<TransparencyReport> getTransparencyreports() {
 		return this.transparencyReports;
