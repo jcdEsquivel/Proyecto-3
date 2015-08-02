@@ -33,6 +33,7 @@ import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.DonorService;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.RecurrableDonationServiceInterface;
 import com.treeseed.utils.StripeUtils;
 import com.treeseed.utils.Utils;
 import com.stripe.Stripe;
@@ -52,8 +53,8 @@ import com.stripe.model.Event;
  * The Class DonationController.
  */
 @RestController
-@RequestMapping(value = "rest/protected/donation")
-public class DonationController {
+@RequestMapping(value = "rest/protected/recurrabledonation")
+public class RecurrableDonationController {
 
 	/** The donation service. */
 	@Autowired
@@ -73,72 +74,35 @@ public class DonationController {
 
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
-	
+
 	@Autowired
 	CardServiceInterface cardService;
-	
+
 	@Autowired
 	DonorServiceInterface donorService;
-	
 
-	/**
-	 * Gets the nonprofits.
-	 *
-	 * @param dr
-	 *            the Donation Request
-	 * @return the nonprofits
-	 */
-	@RequestMapping(value = "/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
-	public DonationResponse getNonprofits(@RequestBody DonationRequest dr) {
+	@Autowired
+	RecurrableDonationServiceInterface recurrableDonationService;
 
-		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(),
-				dr.getStartPeriodDate(), dr.getEndPeriodDate());
-
-		DonationResponse ds = new DonationResponse();
-
-		DonationPOJO donation = new DonationPOJO();
-		donation.setAmount(totalDonations);
-		donation.setNonProfitId(dr.getNonProfitId());
-
-		ds.setCode(200);
-		ds.setCodeMessage("Donations fetch success");
-		ds.setDonation(donation);
-		return ds;
-	}
-	
-
-	/**
-	 * Donate.
-	 *
-	 * @param dr the Donation Request
-	 * @return the donation response
-	 * @throws AuthenticationException the authentication exception
-	 * @throws InvalidRequestException the invalid request exception
-	 * @throws APIConnectionException the API connection exception
-	 * @throws CardException the card exception
-	 * @throws APIException the API exception
-	 * @throws StripeException the stripe exception
-	 */
-	@RequestMapping(value = "/donate", method = RequestMethod.POST)
+	@RequestMapping(value = "/subscription", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
 			APIConnectionException.class, CardException.class, APIException.class, StripeException.class })
-	public DonationResponse donate(@RequestBody DonationRequest dr) throws AuthenticationException,
+	public DonationResponse donateSubscription(@RequestBody DonationRequest dr) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, CardException, APIException, StripeException {
 
 		DonationResponse ds = new DonationResponse();
-		DonationWrapper donation = new DonationWrapper();
-		String campaignName = "";
-		String cardIdStripe="";
+		RecurrableDonationWrapper donation = new RecurrableDonationWrapper();
+		String cardIdStripe = "";
 		ArrayList<Object> resultCharge = new ArrayList<Object>();
-		
 
 		if (dr.getDonation().getDonorId() > 0) {
 			DonorWrapper donor = donorService.getDonorProfileByID(dr.getDonation().getDonorId());
 			try {
-				donor.getId();
+				donation.setDonorId(donor.getId());
 			} catch (Exception e) {
 				throw e;
 			}
+			
 			if (dr.getDonation().getNonProfitId() > 0) {
 				NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
 
@@ -147,61 +111,60 @@ public class DonationController {
 				} catch (Exception e) {
 					throw e;
 				}
-				
 				donation.setAmount(dr.getDonation().getAmount());
 				donation.setDateTime(new Date());
 				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
 				donation.setDonorId(dr.getDonation().getDonorId());
 				donation.setActive(true);
 
-				if (dr.getDonation().getCampaignId() != 0) {
+				if (dr.getDonation().getCampaignId() >0) {
+					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
 					try {
-						CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
-						campaignName = campaign.getName();
 						donation.setCampaingId(campaign.getId());
-						campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
 						campaignService.updateCampaign(campaign);
 					} catch (Exception e) {
 						throw e;
 					}
-					
 				}
-				donationService.saveDonation(donation);
-				
-				if(donor.getStripeId().equals(null)){
-					resultCharge=StripeUtils.createDonationNewCustomer(donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
-					
+
+				if (donor.getStripeId().equals("")) {
+					resultCharge = StripeUtils.createRecurrableDonationNewCustomer(donor.getCompleteName(),
+							donor.getUsergenerals().get(0).getEmail(), dr.getPlan(), dr.getToken(),
+							nonProfit, dr.getDonation().getCampaignId());
+
 					CardWrapper card = new CardWrapper();
-					
-					card.setStripeId((String)resultCharge.get(1));
+
+					card.setStripeId((String) resultCharge.get(1));
 					card.setDonor(donor.getWrapperObject());
-					
-					donation.setStripeId((String)resultCharge.get(2));
-					donor.setStripeId((String)resultCharge.get(0));
-					
+
+					donation.setStripeId((String) resultCharge.get(2));
+					donor.setStripeId((String) resultCharge.get(0));
+
 					donorService.update(donor);
 					cardService.saveCard(card);
-					
-				}else{
-					
-					if(dr.getToken().equals("")){
+
+				} else {
+
+					if (dr.getToken().equals("")) {
 						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
 						cardIdStripe = card.getStripeId();
 					}
-					
-					resultCharge=StripeUtils.createDonation(donor.getStripeId(),dr.getDonation().getAmount(), dr.getToken(), cardIdStripe, donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
-					donation.setStripeId(((Charge)resultCharge.get(1)).getId());
-					
-					if(!((String)resultCharge.get(0)).equals("")){
+
+					resultCharge = StripeUtils.createRecurrableDonation(donor.getStripeId(), dr.getPlan(),
+							dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId());
+					donation.setStripeId(((Charge) resultCharge.get(1)).getId());
+
+					if (!((String) resultCharge.get(0)).equals("")) {
 						CardWrapper card = new CardWrapper();
-						card.setStripeId((String)resultCharge.get(0));
+						card.setStripeId((String) resultCharge.get(0));
 						card.setDonor(donor.getWrapperObject());
-				
+
 						cardService.saveCard(card);
 					}
 				}
+
+				recurrableDonationService.saveRecurrableDonation(donation);
 				
-				donationService.updateDonation(donation);
 				ds.setCodeMessage("Donation Complete");
 				ds.setCode(200);
 
@@ -216,5 +179,4 @@ public class DonationController {
 
 		return ds;
 	}
-
 }

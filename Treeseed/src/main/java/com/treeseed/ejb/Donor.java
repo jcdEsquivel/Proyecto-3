@@ -59,9 +59,6 @@ public class Donor implements Serializable {
 	@OneToMany(mappedBy="donor")
 	private List<NotificationDonor> notificationDonors;
 
-	//bi-directional many-to-one association to Recurrabledonation
-	@OneToMany(mappedBy="donor")
-	private List<RecurrableDonation> recurrableDonations;
 
 	//bi-directional many-to-one association to Usergeneral
 	@OneToMany(mappedBy="donor")
@@ -212,27 +209,7 @@ public class Donor implements Serializable {
 		return notificationdonor;
 	}
 
-	public List<RecurrableDonation> getRecurrabledonations() {
-		return this.recurrableDonations;
-	}
 
-	public void setRecurrabledonations(List<RecurrableDonation> recurrabledonations) {
-		this.recurrableDonations = recurrabledonations;
-	}
-
-	public RecurrableDonation addRecurrabledonation(RecurrableDonation recurrabledonation) {
-		getRecurrabledonations().add(recurrabledonation);
-		recurrabledonation.setDonor(this);
-
-		return recurrabledonation;
-	}
-
-	public RecurrableDonation removeRecurrabledonation(RecurrableDonation recurrabledonation) {
-		getRecurrabledonations().remove(recurrabledonation);
-		recurrabledonation.setDonor(null);
-
-		return recurrabledonation;
-	}
 
 	public List<UserGeneral> getUsergenerals() {
 		return this.userGenerals;

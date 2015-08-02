@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 import com.treeseed.repositories.DonationRepository;
+import com.treeseed.repositories.RecurrableDonationRepository;
 
 @Service
 public class DonationService implements DonationServiceInterface{
@@ -39,6 +42,6 @@ public class DonationService implements DonationServiceInterface{
 
 	@Override
 	public void updateDonation(DonationWrapper donation) {
-		donationRepository.update(donation.getWrapperObject());
+		donationRepository.update(donation.getId(),donation.getStripeId());	
 	}
 }

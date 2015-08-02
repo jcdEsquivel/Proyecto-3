@@ -2,13 +2,13 @@ package com.treeseed.ejbWrapper;
 
 import java.util.Date;
 
-import com.treeseed.ejb.Donor;
-import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.RecurrableDonation;
 
 public class RecurrableDonationWrapper {
 
 	RecurrableDonation wrapperObject;
+
+	
 
 	public RecurrableDonationWrapper(RecurrableDonation recurrableDonation) {
 		super();
@@ -64,18 +64,6 @@ public class RecurrableDonationWrapper {
 		wrapperObject.setIsActive(isActive);
 	}
 
-	public Donor getDonor() {
-		return wrapperObject.getDonor();
-	}
-
-	public void setDonor(Donor donor) {
-		wrapperObject.setDonor(donor);
-	}
-
-	public Nonprofit getNonprofit() {
-		return wrapperObject.getNonprofit();
-	}
-
 	public String getStripeId() {
 		return wrapperObject.getStripeId();
 	}
@@ -84,9 +72,6 @@ public class RecurrableDonationWrapper {
 		return wrapperObject.hashCode();
 	}
 
-	public void setNonprofit(Nonprofit nonprofit) {
-		wrapperObject.setNonprofit(nonprofit);
-	}
 
 	public void setStripeId(String stripeId) {
 		wrapperObject.setStripeId(stripeId);
@@ -94,5 +79,41 @@ public class RecurrableDonationWrapper {
 
 	public String toString() {
 		return wrapperObject.toString();
+	}
+	
+	public int getDonorId() {
+		return wrapperObject.getDonorId();
+	}
+
+	public void setDonorId(int donorId) {
+		wrapperObject.setDonorId(donorId);
+	}
+
+	public int getNonProfitId() {
+		return wrapperObject.getNonProfitId();
+	}
+
+	public void setNonProfitId(int nonProfitId) {
+		wrapperObject.setNonProfitId(nonProfitId);
+	}
+
+	public int getCampaingId() {
+		return wrapperObject.getCampaingId();
+	}
+
+	public void setCampaingId(int campaingId) {
+		wrapperObject.setCampaingId(campaingId);
+	}
+
+	public void setActive(boolean isActive) {
+		wrapperObject.setActive(isActive);
+	}
+
+	public int getDonorFatherId() {
+		return wrapperObject.getDonorFatherId();
+	}
+
+	public void setDonorFatherId(int donorFatherId) {
+		wrapperObject.setDonorFatherId(donorFatherId);
 	}
 }

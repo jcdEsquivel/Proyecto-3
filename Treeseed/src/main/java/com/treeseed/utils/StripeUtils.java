@@ -106,13 +106,13 @@ public class StripeUtils {
 			result.add(0,card.getId());
 		}
 		
-		result.add(1,(createSubscription(plan, customer, card)));
+		result.add(1,(createSubscription(plan, customer, card)).getId());
 		
 		return result;
 
 	}
 	
-	public static ArrayList<Object> createRecurrableDonationNewCustomer(String completeName,String email,String idDonorStripe,int planNumber ,String sourceToken, String cardStripeId,  NonprofitWrapper nonProfit, int idCampaign)
+	public static ArrayList<Object> createRecurrableDonationNewCustomer(String completeName,String email,int planNumber ,String sourceToken,  NonprofitWrapper nonProfit, int idCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
 
@@ -126,7 +126,7 @@ public class StripeUtils {
 		
 		result.add(0, customer.getId());
 		result.add(1, card.getId());
-		result.add(2, (createSubscription(plan, customer, card)));
+		result.add(2, (createSubscription(plan, customer, card)).getId());
 		
 		
 		return result;
