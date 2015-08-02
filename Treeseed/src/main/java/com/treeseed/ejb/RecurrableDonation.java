@@ -19,6 +19,8 @@ public class RecurrableDonation implements Serializable {
 	private int id;
 
 	private double amount;
+	
+	private String stripeId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_time")
@@ -85,6 +87,14 @@ public class RecurrableDonation implements Serializable {
 
 	public void setNonprofit(Nonprofit nonprofit) {
 		this.nonprofit = nonprofit;
+	}
+
+	public String getStripeId() {
+		return stripeId;
+	}
+
+	public void setStripeId(String stripeId) {
+		this.stripeId = stripeId;
 	}
 
 }

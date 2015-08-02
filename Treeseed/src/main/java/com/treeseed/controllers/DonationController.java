@@ -103,6 +103,7 @@ public class DonationController {
 		ds.setDonation(donation);
 		return ds;
 	}
+	
 
 	@RequestMapping(value = "/donate", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
@@ -147,22 +148,26 @@ public class DonationController {
 					card.setDonor(donor.getWrapperObject());
 					
 					donation.setStripeId((String)resultCharge.get(2));
+					donor.setStripeId((String)resultCharge.get(0));
 					
+					donorService.update(donor);
 					cardService.saveCard(card);
 					
 				}else{
+					
 					if(dr.getToken().equals("")){
 						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
 						cardIdStripe = card.getStripeId();
 					}
+					
 					resultCharge=StripeUtils.createDonation(donor.getStripeId(),dr.getDonation().getAmount(), dr.getToken(), cardIdStripe, donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
 					donation.setStripeId(((Charge)resultCharge.get(1)).getId());
+					
 					if(!((String)resultCharge.get(0)).equals("")){
-						
 						CardWrapper card = new CardWrapper();
 						card.setStripeId((String)resultCharge.get(0));
 						card.setDonor(donor.getWrapperObject());
-						
+				
 						cardService.saveCard(card);
 					}
 				}
@@ -182,53 +187,77 @@ public class DonationController {
 
 		return ds;
 	}
-
-	/*@RequestMapping(value = "/donateSubscription", method = RequestMethod.POST)
+/*
+	@RequestMapping(value = "/donateSubscription", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
 			APIConnectionException.class, CardException.class, APIException.class, StripeException.class })
 	public DonationResponse donateSubscription(@RequestBody DonationRequest dr) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, CardException, APIException, StripeException {
 
 		DonationResponse ds = new DonationResponse();
-		Charge stripeResponse;
 		DonationWrapper donation = new DonationWrapper();
 		String campaignName = "";
-		DonorRequest donorRequest = new DonorRequest();
-		donorRequest.setId(dr.getDonation().getDonorId());
+		String cardIdStripe="";
+		ArrayList<Object> resultCharge = new ArrayList<Object>();
+		
 
 		if (dr.getDonation().getDonorId() > 0) {
-			DonorWrapper donor = new donorService.getDonorProfileByID(dr.getDonation().getDonorId());
+			DonorWrapper donor = donorService.getDonorProfileByID(dr.getDonation().getDonorId());
 			if (dr.getDonation().getNonProfitId() > 0) {
-				if (dr.getPlan() > 0) {
-					NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
+				NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
 
-					donation.setAmount(dr.getDonation().getAmount());
-					donation.setDateTime(new Date());
-					donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
-					donation.setDonorId(dr.getDonation().getDonorId());
-					donation.setNonProfitId(nonProfit.getId());
-					donation.setActive(true);
+				donation.setAmount(dr.getDonation().getAmount());
+				donation.setDateTime(new Date());
+				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+				donation.setDonorId(dr.getDonation().getDonorId());
+				donation.setNonProfitId(nonProfit.getId());
+				donation.setActive(true);
 
-					if (dr.getDonation().getCampaignId() != 0) {
-						CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
-						campaignName = campaign.getName();
-						donation.setCampaingId(campaign.getId());
-						campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
-						campaignService.updateCampaign(campaign);
-					}
-					donationService.saveDonation(donation);
-					
-					if(donor)
-					
-					stripeResponse = StripeUtils.createCharge(dr.getDonation().getAmount(), dr.getToken(),
-							donation.getId(), dr.getDonation().getNonProfitId(), dr.getDonation().getCampaignId(),
-							nonProfit.getName(), campaignName);
-					ds.setCodeMessage("Donation Subscription Complete");
-					ds.setCode(200);
-				} else {
-					ds.setErrorMessage("No Plan specified");
-					ds.setCode(400);
+				if (dr.getDonation().getCampaignId() != 0) {
+					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
+					campaignName = campaign.getName();
+					donation.setCampaingId(campaign.getId());
+					campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
+					campaignService.updateCampaign(campaign);
 				}
+				donationService.saveDonation(donation);
+				
+				if(donor.getStripeId().equals("")){
+					resultCharge=StripeUtils.createDonationNewCustomer(donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
+					
+					CardWrapper card = new CardWrapper();
+					
+					card.setStripeId((String)resultCharge.get(1));
+					card.setDonor(donor.getWrapperObject());
+					
+					donation.setStripeId((String)resultCharge.get(2));
+					donor.setStripeId((String)resultCharge.get(0));
+					
+					donorService.update(donor);
+					cardService.saveCard(card);
+					
+				}else{
+					
+					if(dr.getToken().equals("")){
+						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
+						cardIdStripe = card.getStripeId();
+					}
+					
+					resultCharge=StripeUtils.createDonation(donor.getStripeId(),dr.getDonation().getAmount(), dr.getToken(), cardIdStripe, donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
+					donation.setStripeId(((Charge)resultCharge.get(1)).getId());
+					
+					if(!((String)resultCharge.get(0)).equals("")){
+						CardWrapper card = new CardWrapper();
+						card.setStripeId((String)resultCharge.get(0));
+						card.setDonor(donor.getWrapperObject());
+				
+						cardService.saveCard(card);
+					}
+				}
+				
+				donationService.updateDonation(donation);
+				ds.setCodeMessage("Donation Complete");
+				ds.setCode(200);
 
 			} else {
 				ds.setErrorMessage("No Nonprofit specified");
@@ -240,5 +269,5 @@ public class DonationController {
 		}
 
 		return ds;
-	}*/
+}*/
 }
