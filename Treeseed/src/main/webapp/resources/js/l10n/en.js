@@ -159,7 +159,10 @@
         "REPORTS": "Transparency Reports",
         "MONTH": "Month",
         "YEAR": "Year",
-        "SEARCH": "Search"
+        "SEARCH": "Search",
+        "DETAIL": "Detail",
+        "AMOUNT-IN":"Amount in: ",
+        "AMOUNT-OUT":"Spent : "
     },
     "MONTH": {
         "JAN": "January",

@@ -1,6 +1,7 @@
 package com.treeseed.pojo;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class TransparencyReportPOJO {
 	
@@ -9,6 +10,7 @@ public class TransparencyReportPOJO {
 	private double amountOut;
 	private String description;
 	private Date date;
+	private String dateS;
 	private int nonProfitId;
 	
 	public int getId() {
@@ -40,6 +42,12 @@ public class TransparencyReportPOJO {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getDateS() {
+		return dateS;
+	}
+	public void setDateS(String dateS) {
+		this.dateS = dateS;
 	}
 	public int getNonProfitId() {
 		return nonProfitId;

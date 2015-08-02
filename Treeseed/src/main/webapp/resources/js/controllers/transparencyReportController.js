@@ -76,6 +76,8 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 
 	//Variable declarations
 	$scope.baseYear = 2010;
+	$scope.month;
+	$scope.year;
 	$scope.years = [];
 	$scope.reports = [];
 	$scope.totalReports = 0;
@@ -109,12 +111,15 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 
 		$scope.reportsRequest.pageNumber = pageNumber;
 		$scope.reportsPaginCurrentPage = pageNumber;
-		
+		$scope.reportsRequest.month = $scope.month;
+		$scope.reportsRequest.year = $scope.year;
+
 		$http.post('rest/protected/transparencyReport/getTransparencyReports',
 				$scope.reportsRequest).success(function(data, status) {
 
 			if (data.code == 200) {
-				alert("Yei!");
+				$scope.reports = data.transparencyReports;
+				$scope.totalReports = data.totalElements;
 			}else{
 				console.log('Error : '+data.errorMessage);
 			}
@@ -125,5 +130,4 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		});		
 	};
 	//end getReports
-
 });

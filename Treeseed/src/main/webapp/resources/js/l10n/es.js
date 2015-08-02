@@ -150,7 +150,10 @@
         "REPORTS": "Reportes de Transparencia",
         "MONTH": "Mes",
         "YEAR": "Año",
-        "SEARCH": "Buscar"
+        "SEARCH": "Buscar",
+        "DETAIL": "Detalle",
+        "AMOUNT-IN":"Recaudado: ",
+        "AMOUNT-OUT":"Gastado: "
      },
       "MONTH": {
         "JAN": "Enero",

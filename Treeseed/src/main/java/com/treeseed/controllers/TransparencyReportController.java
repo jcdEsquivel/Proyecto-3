@@ -1,5 +1,6 @@
 package com.treeseed.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.treeseed.contracts.TransparencyReportRequest;
 import com.treeseed.contracts.TransparencyReportResponse;
 import com.treeseed.ejb.TransparencyReport;
@@ -115,8 +117,8 @@ public class TransparencyReportController {
 		{
 			transparencyReportPOJO = new TransparencyReportPOJO();
 			transparencyReportPOJO.setId(objeto.getId());
-			//transparencyReportPOJO.setNonProfitId(objeto.get);
-			//transparencyReportPOJO.setDate(objeto.getDateTime());
+			transparencyReportPOJO.setDate(objeto.getDateTime());
+			transparencyReportPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
 			transparencyReportPOJO.setDescription(objeto.getDescription());
 			transparencyReportPOJO.setAmountIn(objeto.getAmountIn());
 			transparencyReportPOJO.setAmountOut(objeto.getAmountOut());
@@ -124,7 +126,7 @@ public class TransparencyReportController {
 			transparencyReportsPOJO.add(transparencyReportPOJO);
 		};
 
-		ts.setTransparencyReport(transparencyReportPOJO);
+		ts.setTransparencyReports(transparencyReportsPOJO);
 		
 		if(transparencyReportsPOJO.size()>0){
 			ts.setCodeMessage("Transparency reports fetch successfully");
