@@ -127,7 +127,7 @@ public class RecurrableDonationController {
 					}
 				}
 
-				if (donor.getStripeId().equals("")) {
+				if (donor.getStripeId()==null) {
 					resultCharge = StripeUtils.createRecurrableDonationNewCustomer(donor.getCompleteName(),
 							donor.getUsergenerals().get(0).getEmail(), dr.getPlan(), dr.getToken(),
 							nonProfit, dr.getDonation().getCampaignId());
