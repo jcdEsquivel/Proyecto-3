@@ -13,7 +13,21 @@ public class TransparencyReportRequest extends BasePagingRequest {
 	private Date date;
 	private int nonProfitId;
 	private TransparencyReportPOJO transparencyReport;
+	private String month;
+	private String year;
 	
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	public int getId() {
 		return id;
 	}

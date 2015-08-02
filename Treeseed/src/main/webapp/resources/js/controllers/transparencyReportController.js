@@ -130,4 +130,8 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		});		
 	};
 	//end getReports
+
+	$scope.getNewReports = function(newPage){
+		$scope.getReports(newPage);
+	}
 });

@@ -3,6 +3,7 @@ package com.treeseed.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,8 @@ public class TransparencyReportService implements TransparencyReportServiceInter
 		Sort.Direction direction = Sort.Direction.DESC;
 		PageRequest pr = null;
 		PageWrapper<TransparencyReportWrapper> pageWrapper = new PageWrapper<TransparencyReportWrapper>();
+		int month = 0;
+		int year = 0;
 		
 		if (tr.getSortBy().size() > 0) {
 			Sort sort = new Sort(direction, tr.getSortBy());
@@ -48,7 +51,29 @@ public class TransparencyReportService implements TransparencyReportServiceInter
 			pr = new PageRequest(tr.getPageNumber(), tr.getPageSize());
 		}
 		
-		Page<TransparencyReport> transparencyReports = transparencyReportRepository.findByNonprofitId(tr.getNonProfitId(), pr);
+		//If we have correct data for month and year we should retrieve it
+		//Otherwise it should always be null in order to create the query
+		if(tr.getMonth() != null && tr.getMonth() != ""){
+			month = Integer.parseInt(tr.getMonth());
+		}
+		else{
+			tr.setMonth(null);
+		}
+		
+		if(tr.getYear() != null && tr.getYear() != ""){
+			year = Integer.parseInt(tr.getYear());
+		}
+		else{
+			tr.setYear(null);
+		}
+			
+		
+		Page<TransparencyReport> transparencyReports = transparencyReportRepository.findByNonprofitIdAndDate(tr.getNonProfitId(), 
+																											tr.getMonth(),
+																											month,
+																											tr.getYear(), 
+																											year,
+																											pr);
 		 
 		for(TransparencyReport t : transparencyReports.getContent()){
 			pageWrapper.getResults().add(new TransparencyReportWrapper(t));

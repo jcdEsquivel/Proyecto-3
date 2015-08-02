@@ -1,7 +1,5 @@
 package com.treeseed.services;
 
-import org.springframework.data.domain.Page;
-
 import com.treeseed.contracts.TransparencyReportRequest;
 import com.treeseed.ejb.TransparencyReport;
 import com.treeseed.ejbWrapper.TransparencyReportWrapper;
