@@ -227,6 +227,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 	$scope.campaignsLoaded=false;
 	$scope.postsLoaded = false;
+	$scope.reportsLoaded = false;
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
@@ -496,6 +497,13 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		if(!$scope.postsLoaded){
 			$scope.$broadcast('loadPosts');
 			$scope.postsLoaded = true;
+		}
+	}
+
+	$scope.loadReports=function(){
+		if(!$scope.reportsLoaded){
+			$scope.$broadcast('loadReports');
+			$scope.reportsLoaded = true;
 		}
 	}
 	
