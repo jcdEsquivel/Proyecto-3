@@ -13,7 +13,7 @@ public interface TransparencyReportServiceInterface {
 	/**
 	 * Gets the transparency reports.
 	 *
-	 * @param tr the tr
+	 * @param tr the Transparency Report request
 	 * @return Page  with the reports
 	 */
 	 PageWrapper<TransparencyReportWrapper> findTransparencyReport(TransparencyReportRequest tr);

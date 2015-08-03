@@ -105,13 +105,12 @@ public class TransparencyReportController {
 		TransparencyReportPOJO transparencyReportPOJO = null;		
 		TransparencyReportResponse ts = new TransparencyReportResponse();
 		PageWrapper<TransparencyReportWrapper> pageResults = null;
+		List<TransparencyReportPOJO> transparencyReportsPOJO = new ArrayList<TransparencyReportPOJO>();
 		
 		tr.setPageNumber(tr.getPageNumber()-1);
 		pageResults = transparencyReportService.findTransparencyReport(tr);		
 		
 		ts.setTotalElements(pageResults.getTotalItems());
-		
-		List<TransparencyReportPOJO> transparencyReportsPOJO = new ArrayList<TransparencyReportPOJO>();
 		
 		for(TransparencyReportWrapper objeto: pageResults.getResults())
 		{

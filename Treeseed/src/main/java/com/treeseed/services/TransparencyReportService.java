@@ -31,7 +31,7 @@ public class TransparencyReportService implements TransparencyReportServiceInter
 	/**
 	 * Gets the transparency reports.
 	 *
-	 * @param tr the tr
+	 * @param tr the Transparency Report Request
 	 * @return Page  with the reports
 	 */
 	@Override
