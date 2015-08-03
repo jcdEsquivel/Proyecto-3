@@ -121,6 +121,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 				$scope.reports = data.transparencyReports;
 				$scope.totalReports = data.totalElements;
 			}else{
+				$scope.reports = [];
 				console.log('Error : '+data.errorMessage);
 			}
 			
