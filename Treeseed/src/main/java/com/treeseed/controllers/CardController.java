@@ -94,7 +94,7 @@ public class CardController {
 
 				for(CardWrapper card:list){
 					CardPOJO cardPojo = new CardPOJO();
-					com.stripe.model.Card cardStripe = StripeUtils.getCard(Integer.toString(donor.getId()), card.getStripeId());
+					com.stripe.model.Card cardStripe = StripeUtils.getCard(donor.getStripeId(), card.getStripeId());
 					cardPojo.setId(card.getId());
 					cardPojo.setStripeId(cardStripe.getId());
 					cardPojo.setBrand(cardStripe.getBrand());

@@ -522,7 +522,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			animation : $scope.animationsEnabled,
 			templateUrl :modalUrl,
 			controller : controller,
-			size : 'sm',//,
+			size : 'md',//,
 			resolve : {
 				setCurrentUser : function() {
 					return $scope.setCurrentUser;

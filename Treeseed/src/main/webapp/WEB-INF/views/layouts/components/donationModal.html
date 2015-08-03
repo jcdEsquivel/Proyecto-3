@@ -13,35 +13,57 @@
 	<form name="step2" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
-			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Card Number</label>
-			 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
-				payments-format="card" payments-validate="card"  name="card"  required/>
-				
-				
-			<select ng-model="donorCards.oldCard" class="form-control" 
-			ng-options="c.id as c.last4Numbers for c in donorCards.cards"></select>									
-				    		
-
-			 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>
-			
-		</div>
-		<div class="form-group">
-			  <label for="cvc" translate="DONATION-MODAL.CVC" class="control-label">CVC</label>
-			 
+			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Select a credit Card</label>
+			 <div class="row" >
+		 		<div class="col-sm-1">
+		 		   <input type="radio" ng-model="cardRequest.selectedCard" value="new">
+		 		</div>
+		 		<div class="col-sm-11">
+			 		New Credit Card
+			 	</div>
+			 </div>
+			 <div class="row" ng-repeat="c in donorCards.cards">
+			 	<div class="col-sm-1">
+			 		   <input type="radio" ng-model="cardRequest.selectedCard" value="{{c.id}}">
+			 	</div>
+			 	<div class="col-sm-3">
+			 		{{c.brand}}
+			 	</div>
+			 	<div class="col-sm-5">
+			 		{{hide}}{{c.last4Numbers}}
+			 	</div>
+			 	<div class="col-sm-3">
+			 		<span>Exp Date: </span>{{c.expMonth}}/{{c.expYear}}
+			 	</div>
+			 </div>
+		</div>	 
+		<div class="form-group" ng-show="cardRequest.selectedCard == 'new'">
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="card"  class=" control-label">New Credit Card</label>
+				 	 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
+						payments-format="card" payments-validate="card"  name="card"  required/>
+					 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+				<label for="cvc" translate="DONATION-MODAL.CVC" class="control-label">CVC</label>	 
 				 <input type="text"  class="form-control"  data-stripe="cvc" ng-model='cvc'
 				 payments-format="cvc"  payments-validate="cvc"  name="cvc" required/>
-			
-			  <span ng-if='step2.cvc.$invalid && step2.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
-		</div>	 
-		<div class="form-group">
-			  <label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
-
-			 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
-			 payments-format="expiry"  payments-validate="expiry" name="expiry" required/>
-
-			  <span ng-if='step2.expiry.$invalid && step2.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
-		</div>	 
 		
+			  	<span ng-if='step2.cvc.$invalid && step2.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
+					 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
+					 payments-format="expiry"  payments-validate="expiry" name="expiry" required/>
+			  		<span ng-if='step2.expiry.$invalid && step2.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
+				</div>
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="cvc" class="control-label" translate="DONATION-MODAL.TYPE">Donation Type</label>
 
@@ -59,28 +81,25 @@
 				    <option value="6" translate="DONATION-PLAN.250">$250</option>
 				  </optgroup>
 				</select> 
-		
 		</div>
 		<div class="form-group" ng-show="donationInfo.donationPlan == 'custom' ">
 			<label for="cvc" translate="DONATION-MODAL.AMOUNT" class="control-label">Amount</label>
-	
-			
-					
+
 				<div  class="input-group m-b">
 				<span class="input-group-addon">$</span> <input type="number"
 					ui-validate=" '$value>0' "  name="amount" class="form-control"
-					ng-model="donationInfo.amount" min='5' step="100" decimals="2"
+					ng-model="donationInfo.amount" min='5' decimals="2"
 					required>
-					</div>
+				</div>
 	
 		</div>
-		
  		<div class="form-group">
-			
 				<span class="payment-errors text-danger"></span>
-				<button type="submit" ng-disabled="step2.$invalid" translate="DONATION-MODAL.DONATE"
+				<button type="submit" ng-disabled="step2.$invalid" translate="DONATION-MODAL.DONATE" id="btn-submit"
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">Donar</button>
-
+					
+				<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="submitForm()"
+				>Test</button>
 		</div>
 			
 	</form>
