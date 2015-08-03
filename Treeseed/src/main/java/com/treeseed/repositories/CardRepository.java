@@ -1,5 +1,7 @@
 package com.treeseed.repositories;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -18,5 +20,5 @@ public interface CardRepository extends
 	
 	public static final int PAGE_SIZE = 5;
 	
-
+	public List<Card> findByDonor(Donor donor);
 }
