@@ -152,7 +152,7 @@ public class RecurrableDonationController {
 
 					resultCharge = StripeUtils.createRecurrableDonation(donor.getStripeId(), dr.getPlan(),
 							dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId());
-					donation.setStripeId(((Charge) resultCharge.get(1)).getId());
+					donation.setStripeId( (String)resultCharge.get(1));
 
 					if (!((String) resultCharge.get(0)).equals("")) {
 						CardWrapper card = new CardWrapper();
