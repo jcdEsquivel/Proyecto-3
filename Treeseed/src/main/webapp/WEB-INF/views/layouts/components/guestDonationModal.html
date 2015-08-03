@@ -89,12 +89,12 @@
 				    <option value="custom" translate="DONATION-PLAN.CUSTOM"></option>
 				  </optgroup>
 				  <optgroup label="{{'DONATION-PLAN.MONTHLY'| translate}}">
-				    <option value="10" translate="DONATION-PLAN.10">$10</option>
-				    <option value="18" translate="DONATION-PLAN.18">$18</option>
-				    <option value="36" translate="DONATION-PLAN.36">$36</option>
-				    <option value="50" translate="DONATION-PLAN.50">$50</option>
-				    <option value="100" translate="DONATION-PLAN.100">$100</option>
-				    <option value="250" translate="DONATION-PLAN.250">$250</option>
+				    <option value="1" translate="DONATION-PLAN.10">$10</option>
+				    <option value="2" translate="DONATION-PLAN.18">$18</option>
+				    <option value="3" translate="DONATION-PLAN.36">$36</option>
+				    <option value="4" translate="DONATION-PLAN.50">$50</option>
+				    <option value="5" translate="DONATION-PLAN.100">$100</option>
+				    <option value="6" translate="DONATION-PLAN.250">$250</option>
 				  </optgroup>
 				</select> 
 		
@@ -103,8 +103,13 @@
 			<label for="cvc" translate="DONATION-MODAL.AMOUNT" class="control-label">Amount</label>
 	
 			
-			<input type="number" ui-validate=" '$value>0' "  name="amount" class="form-control"
-					ng-model="donationInfo.amount" min='5'  decimals="2" required />
+					
+				<div  class="input-group m-b">
+				<span class="input-group-addon">$</span> <input type="number"
+					ui-validate=" '$value>0' "  name="amount" class="form-control"
+					ng-model="donationInfo.amount" min='5' step="100" decimals="2"
+					required>
+					</div>
 	
 		</div>
 		

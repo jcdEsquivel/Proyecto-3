@@ -53,7 +53,7 @@ import com.stripe.model.Event;
  * The Class DonationController.
  */
 @RestController
-@RequestMapping(value = "rest/protected/recurrabledonation")
+@RequestMapping(value = "rest/protected/recurrableDonation")
 public class RecurrableDonationController {
 
 	/** The donation service. */

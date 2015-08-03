@@ -223,7 +223,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 })
 
 treeSeedAppControllers.controller('getNonProfitProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
 
 	$scope.campaignsLoaded=false;
 	$scope.postsLoaded = false;
@@ -490,14 +490,49 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			$scope.$broadcast('loadCampaigns');
 			$scope.campaignsLoaded = true
 		}
-	}
+	};
 	
 	$scope.loadPosts=function(){
 		if(!$scope.postsLoaded){
 			$scope.$broadcast('loadPosts');
 			$scope.postsLoaded = true;
 		}
-	}
+	};
+	
+	
+	
+	/*************************
+	 * DONATION CALL
+	 *************************/
+	
+	$scope.showDonation = function() {
+		modalUrl = '';
+	    
+		if(Session.userRole == USER_ROLES.guest){
+			modalUrl = 'layouts/components/guestDonationModal.html';
+		}else{
+			modalUrl = 'layouts/components/donationModal.html';
+		}
+		
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/guestDonationModal.html',
+			controller : 'simpleDonationController',
+			size : 'sm',//,
+			resolve : {
+				setCurrentUser : function() {
+					return $scope.setCurrentUser;
+				},
+				nonprofitId: function(){
+					return  $scope.nonprofit.id;
+				}
+			} 
+			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
+		});
+		
+	};//end showDonation
+	
 	
 })
 ;
