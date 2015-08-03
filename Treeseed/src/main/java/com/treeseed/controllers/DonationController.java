@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.DonorRequest;
@@ -193,7 +195,7 @@ public class DonationController {
 					}
 					
 					resultCharge=StripeUtils.createDonation(donor.getStripeId(),dr.getDonation().getAmount(), dr.getToken(), cardIdStripe, donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
-					donation.setStripeId(((Charge)resultCharge.get(1)).getId());
+					donation.setStripeId( (String)resultCharge.get(1));
 					
 					if(!((String)resultCharge.get(0)).equals("")){
 						CardWrapper card = new CardWrapper();

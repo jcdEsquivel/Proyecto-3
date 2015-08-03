@@ -261,6 +261,7 @@ public class StripeUtils {
 	}
 	public static Card getCard(String idDonorStripe, String stripeCardId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
+		
 		Customer customer = getCustumer(idDonorStripe);
 		
 		Card card = (Card)customer.getSources().retrieve(stripeCardId);
@@ -270,6 +271,7 @@ public class StripeUtils {
 	}
 	
 	public static Plan getPlan(String idNonprofit, String idCampaign, String planNumber) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		Stripe.apiKey = API_KEY;
 		Plan plan;
 		Stripe.apiKey = API_KEY;
 		if(idCampaign.equals("0")){

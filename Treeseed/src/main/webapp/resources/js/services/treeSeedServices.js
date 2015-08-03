@@ -47,7 +47,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 						nonProfitId:'',
 						amount: '',
 						donationDate:'',
-						token: stripeToken,
+						token: '',
 						startPeriodDate:'',
 						endPeriodDate:'',
 						plan:'',
@@ -62,6 +62,14 @@ treeSeedAppServices.service('$donationService', function($http) {
 						}	
 				};
 				
+			console.log(type);
+				
+				if(type=='newCard'){
+					request.token = stripeToken;
+				}else{
+					request.donation.cardId = stripeToken;
+				}
+				
 				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
 						.then(function(response) {				
 							return response.data;
@@ -75,7 +83,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 						nonProfitId:'',
 						amount: '',
 						donationDate:'',
-						token: stripeToken,
+						token: '',
 						startPeriodDate:'',
 						endPeriodDate:'',
 						plan: plan,
@@ -87,8 +95,14 @@ treeSeedAppServices.service('$donationService', function($http) {
 							nonProfitId: nonprofitId,
 							amount: '',
 							cardId:''
-						}	
+						}
 				};
+				
+				if(type=='newCard'){
+					requestSuscription.token = stripeToken;
+				}else{
+					requestSuscription.donation.cardId = stripeToken;
+				}
 				
 				return $http.post('rest/protected/recurrableDonation/subscription', JSON.stringify(requestSuscription))
 						.then(function(response) {				
