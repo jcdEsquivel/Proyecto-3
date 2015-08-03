@@ -90,7 +90,7 @@ public class CardController {
 		
 		if(!donor.getWrapperObject().equals(null)){
 			if(!donor.getStripeId().equals("null")){
-				List<CardWrapper> list = cardService.getUserByDonorId(donor.getId());
+				List<CardWrapper> list = cardService.getCardByDonorId(donor.getWrapperObject());
 
 				for(CardWrapper card:list){
 					CardPOJO cardPojo = new CardPOJO();
