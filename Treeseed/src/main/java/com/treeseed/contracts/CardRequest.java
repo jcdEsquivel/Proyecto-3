@@ -10,5 +10,13 @@ public class CardRequest {
 	public CardRequest() {
 		super();
 	}
+
+	public CardPOJO getCard() {
+		return card;
+	}
+
+	public void setCard(CardPOJO card) {
+		this.card = card;
+	}
 	
 }

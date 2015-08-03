@@ -35,6 +35,7 @@ import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
+import com.treeseed.contracts.CardRequest;
 import com.treeseed.contracts.CardResponse;
 import com.treeseed.contracts.CatalogRequest;
 import com.treeseed.contracts.CatalogResponse;
@@ -73,7 +74,7 @@ public class CardController {
 	/**
 	 * Gets the card by donor.
 	 *
-	 * @param prams the prams
+	 * @param prams the card Request
 	 * @return the card by donor
 	 * @throws APIException 
 	 * @throws CardException 
@@ -82,9 +83,9 @@ public class CardController {
 	 * @throws AuthenticationException 
 	 */
 	@RequestMapping(value ="/getbydonor", method = RequestMethod.POST)
-	public CardResponse getCardByDonor(@RequestBody CatalogRequest prams) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+	public CardResponse getCardByDonor(@RequestBody CardRequest prams) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		CardResponse us = new CardResponse();
-		DonorWrapper donor=donorService.getDonorProfileByID(prams.getDonor().getId());
+		DonorWrapper donor=donorService.getDonorProfileByID(prams.getCard().getDonor().getId());
 		List<CardPOJO> viewCardPOJO = new ArrayList<CardPOJO>();
 		
 		if(donor.getWrapperObject().equals(null)){

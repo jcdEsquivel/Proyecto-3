@@ -145,13 +145,27 @@ public class StripeUtils {
 		planParams.put("amount", amount);
 		planParams.put("interval", "month");
 		planParams.put("currency", "usd");
+		
+		
+		/*
+		 * Simbolo del id
+		 *
+		 * # Sepra los id en [Id de la ONG], [Id de la Campaña](De haber), [Numero de Plan](1-$10, 2-$18, 3-$36, 4-$50, 5-$100, 6-$250)
+		 */
+		
+		/*
+		 * Simbolo del nombre
+		 * & Separa los nombres de los id
+		 * _ Separa los nombres en [Palabra 'Plan'], [Nombre de ONG], [Nombre de Campaña](De haber), [Cantidad a cobrar del plan en centavos]
+		 * # Sepra los id en [Id de la ONG], [Id de la Campaña](De haber)
+		 */
 		if (idCampaign > 0) {
 			planParams.put("id", idNonprofit + "#" + idCampaign + "#" + count);
 			planParams.put("name",
-					idNonprofit + "#" + idCampaign + "#_Plan_#" + nameNonprofit + "#" + nameCampaign + "#" + amount);
+					idNonprofit + "#" + idCampaign + "&Plan_" + nameNonprofit + "_" + nameCampaign + "_" + amount);
 		} else {
 			planParams.put("id", idNonprofit + "#" + count);
-			planParams.put("name", idNonprofit + "#_Plan_#" + nameNonprofit + "#" + amount);
+			planParams.put("name", idNonprofit + "&Plan_" + nameNonprofit + "_" + amount);
 		}
 
 		return Plan.create(planParams);
@@ -219,14 +233,20 @@ public class StripeUtils {
 		chargeParams.put("customer", customerId);	
 		chargeParams.put("source", cardId); 
 
+		
+		/*
+		 * Simbolo de la descripción
+		 * & Separa los nombres de los id
+		 * _ Separa los nombres en [Palabra 'Donacion'], [Nombre de ONG], [Nombre de Campaña](De haber)
+		 * # Sepra los id en [Id de la Donacion], [Id de la ONG], [Id de la Campaña](De haber)
+		 */
 		if (idCampaign > 0) {
 
 			chargeParams.put("description",
-					"Donation #" + idDonation + "# Nonprofit #" + idNonprofit + "# Nonprofit Name #" + nameNonprofit
-							+ "# Campaign #" + idCampaign + "# Campaign Name #" + nameCampaign);
+					idDonation + "#" + idNonprofit + "#"+ idCampaign + "&Donation_" + nameNonprofit+"_"+ nameCampaign);
 		} else {
 			chargeParams.put("description",
-					"Donation #" + idDonation + "# Nonprofit #" + idNonprofit + "# Nonprofit Name #" + nameNonprofit);
+					idDonation + "#" + idNonprofit + "&Donation_" + nameNonprofit);
 		}
 
 		return Charge.create(chargeParams);
@@ -252,7 +272,7 @@ public class StripeUtils {
 	public static Plan getPlan(String idNonprofit, String idCampaign, String planNumber) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Plan plan;
 		
-		if(idCampaign.equals("")){
+		if(idCampaign.equals("0")){
 			plan = Plan.retrieve(idNonprofit+"#"+planNumber);
 		}else{
 			plan = Plan.retrieve(idNonprofit+"#"+idCampaign+"#"+planNumber);
