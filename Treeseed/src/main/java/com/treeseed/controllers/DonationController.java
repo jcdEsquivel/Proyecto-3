@@ -85,7 +85,7 @@ public class DonationController {
 		DonationResponse dr = new DonationResponse();
 		
 		
-		dr.setCodeMessage("nonprofits fetch success");
+		dr.setCodeMessage("Donations fetch success");
 		
 		
 		dr.setTotalElements(viewDonations.getTotalElements());

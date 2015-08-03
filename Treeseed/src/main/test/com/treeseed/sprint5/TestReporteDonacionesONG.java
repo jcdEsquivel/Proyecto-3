@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.treeseed.contracts.DonationRequest;
+import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.PostNonprofitRequest;
@@ -64,7 +65,7 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		request.setDirection("DESC");
 		request.setSearchTerm("");
 		request.setSearchColumn("ALL");
-		request.setType("recurrent");
+		request.setType("Single");
 		
 		String jsonObject = mapToJson(request);
 
@@ -80,12 +81,12 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 
 		String content = result.getResponse().getContentAsString();
 
-		NonprofitResponse response = mapFromJson(content,
-				NonprofitResponse.class);
+		DonationResponse response = mapFromJson(content,
+				DonationResponse.class);
 
 		Assert.assertEquals("200", response.getCode().toString());
 		Assert.assertTrue(response.getTotalElements()>0);
-		Assert.assertEquals("nonprofits fetch success", response.getCodeMessage());
+		Assert.assertEquals("Donations fetch success", response.getCodeMessage());
 
 	}
 	

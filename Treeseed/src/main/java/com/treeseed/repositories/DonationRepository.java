@@ -43,8 +43,8 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	   public Page<Donation> findAllSingleDonations(@Param("nonProfitId") int nonProfitId,
 			   Pageable pageable);
 	
-	@Query("SELECT p FROM RecurrableDonation p WHERE (:nonProfitId = nonProfitId) and p.isActive = 1")
+	/*@Query("SELECT d FROM RecurrableDonation d WHERE (:nonProfitId = d.nonProfitId) and d.isActive = 1")
 	   public Page<Donation> findRecurrentDonations(@Param("nonProfitId") int nonProfitId,
 			   Pageable pageable);
-
+*/
 }
