@@ -27,7 +27,12 @@ public class TestBuscarReporteDeTransparencia extends AbstractTestController  {
 		super.setUp();
 
 	}
-
+	
+	/**
+	 * Test gets transparency report succesufully.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetTransparencyReports() throws Exception {
 

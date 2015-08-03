@@ -95,7 +95,7 @@ public class TransparencyReportController {
 	/**
 	 * Gets the transparency reports.
 	 *
-	 * @param tr the tr
+	 * @param tr the transparect report request
 	 * @return the transparency report response
 	 */
 	@RequestMapping(value ="/getTransparencyReports", method = RequestMethod.POST)
