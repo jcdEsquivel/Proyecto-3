@@ -57,18 +57,18 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		
 		
 		DonationRequest request = new DonationRequest();
-		request.setNonProfitId(6);
+		request.setNonProfitId(1);
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
 		request.setPageSize(10);
 		request.setDirection("DESC");
 		request.setSearchTerm("");
 		request.setSearchColumn("ALL");
-		
+		request.setType("recurrent");
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/donation/getSingleDonatios";
+		String uri = "/rest/protected/donation/getDonationReport";
 
 		MvcResult result = mvc
 				.perform(

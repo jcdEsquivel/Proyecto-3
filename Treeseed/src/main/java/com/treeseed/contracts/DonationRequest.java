@@ -13,7 +13,15 @@ public class DonationRequest extends BasePagingRequest{
 	private int nonProfitId;
 	private double amount;
 	private Date donationDate;
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	private Date startPeriodDate;
 	private Date endPeriodDate;
 	

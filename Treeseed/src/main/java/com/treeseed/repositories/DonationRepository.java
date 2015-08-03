@@ -13,6 +13,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.treeseed.ejb.Donation;
+import com.treeseed.ejb.Nonprofit;
 
 public interface DonationRepository extends CrudRepository<Donation, Integer> {
 
@@ -36,4 +37,14 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 */
 	@Query("SELECT COUNT(DISTINCT donorId) From Donation  WHERE campaingId = :campignId")
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
+	
+	
+	@Query("SELECT p FROM Donation p WHERE (:nonProfitId = nonProfitId) and p.isActive = 1")
+	   public Page<Donation> findAllSingleDonations(@Param("nonProfitId") int nonProfitId,
+			   Pageable pageable);
+	
+	@Query("SELECT p FROM RecurrableDonation p WHERE (:nonProfitId = nonProfitId) and p.isActive = 1")
+	   public Page<Donation> findRecurrentDonations(@Param("nonProfitId") int nonProfitId,
+			   Pageable pageable);
+
 }

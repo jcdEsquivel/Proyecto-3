@@ -18,6 +18,7 @@ import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
@@ -73,40 +74,40 @@ public class DonationController {
 	 * @param npr the nonProfitrequest
 	 * @return the nonprofits
 	 */
-	@RequestMapping(value ="/getSingleDonations", method = RequestMethod.POST)
+	@RequestMapping(value ="/getDonationReport", method = RequestMethod.POST)
 	@Transactional
-	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr){	
+	public DonationResponse getDonationReport(@RequestBody DonationRequest drt){	
 		
-		npr.setPageNumber(npr.getPageNumber() - 1);
+		drt.setPageNumber(drt.getPageNumber() - 1);
 		
-		Page<Nonprofit> viewNonprofits = nonProfitService.getNonProfit(npr);
+		Page<Donation> viewDonations = donationService.getDonations(drt);
 		
-		NonprofitResponse nps = new NonprofitResponse();
-		
-		
-		nps.setCodeMessage("nonprofits fetch success");
+		DonationResponse dr = new DonationResponse();
 		
 		
-		nps.setTotalElements(viewNonprofits.getTotalElements());
-		nps.setTotalPages(viewNonprofits.getTotalPages());
+		dr.setCodeMessage("nonprofits fetch success");
 		
-		List<NonprofitPOJO> viewNonprofitsPOJO = new ArrayList<NonprofitPOJO>();
 		
-		for(Nonprofit objeto:viewNonprofits.getContent())
+		dr.setTotalElements(viewDonations.getTotalElements());
+		dr.setTotalPages(viewDonations.getTotalPages());
+		
+		List<DonationPOJO> viewDonationsPOJO = new ArrayList<DonationPOJO>();
+		
+		for(Donation objeto:viewDonations.getContent())
 		{
-			NonprofitPOJO nnonprofit = new NonprofitPOJO();
-			nnonprofit.setId(objeto.getId());
-			nnonprofit.setName(objeto.getName());
-			nnonprofit.setDescription(objeto.getDescription());
-			nnonprofit.setWebPage(objeto.getWebPage());
-			nnonprofit.setProfilePicture(objeto.getProfilePicture());
-			viewNonprofitsPOJO.add(nnonprofit);
+			DonationPOJO donation = new DonationPOJO();
+			donation.setId(objeto.getId());
+			donation.setAmount(objeto.getAmount());;
+			donation.setCampaignId(objeto.getCampaingId());
+			donation.setNonProfitId(objeto.getNonProfitId());
+		
+			viewDonationsPOJO.add(donation);
 		};
 		
 		
-		nps.setNonprofits(viewNonprofitsPOJO);
-		nps.setCode(200);
-		return nps;
+		dr.setDonations(viewDonationsPOJO);
+		dr.setCode(200);
+		return dr;
 			
 	}
 }
