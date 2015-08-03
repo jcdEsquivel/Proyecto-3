@@ -1,5 +1,6 @@
 package com.treeseed.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.treeseed.contracts.UserGeneralRequest;
+import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CardWrapper;
@@ -38,15 +40,20 @@ public class CardService implements CardServiceInterface{
 	}
 
 	@Override
-	public void updateUserGeneral(CardWrapper card) {
+	public void updateCard(CardWrapper card) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<CardWrapper> getUserByDonorId(int idDonor) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CardWrapper> getCardByDonorId(Donor donor) {
+		List<Card> cards = cardRepository.findByDonor(donor);
+		List<CardWrapper> cardsWrapper = new ArrayList<CardWrapper>();
+		for(Card card:cards){
+			CardWrapper cardWrapper = new CardWrapper(card);
+			cardsWrapper.add(cardWrapper);
+		}
+		return cardsWrapper;
 	}
 
 	@Override

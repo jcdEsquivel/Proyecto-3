@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.ejb.Card;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CardWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
@@ -16,9 +17,9 @@ public interface CardServiceInterface {
 	
 	CardWrapper getCardByID(int idUCard);
 	
-	void updateUserGeneral(CardWrapper card);
+	void updateCard(CardWrapper card);
 		
-	List<CardWrapper> getUserByDonorId(int idDonor);
+	List<CardWrapper> getCardByDonorId(Donor donor);
 
 	void deleteCard(CardWrapper card);
 }

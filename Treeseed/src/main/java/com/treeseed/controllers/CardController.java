@@ -88,9 +88,9 @@ public class CardController {
 		DonorWrapper donor=donorService.getDonorProfileByID(prams.getCard().getDonor().getId());
 		List<CardPOJO> viewCardPOJO = new ArrayList<CardPOJO>();
 		
-		if(donor.getWrapperObject().equals(null)){
-			if(!donor.getStripeId().equals(null)){
-				List<CardWrapper> list = cardService.getUserByDonorId(donor.getId());
+		if(!donor.getWrapperObject().equals(null)){
+			if(!donor.getStripeId().equals("")){
+				List<CardWrapper> list = cardService.getCardByDonorId(donor.getWrapperObject());
 				for(CardWrapper card:list){
 					CardPOJO cardPojo = new CardPOJO();
 					com.stripe.model.Card cardStripe = StripeUtils.getCard(Integer.toString(donor.getId()), card.getStripeId());
