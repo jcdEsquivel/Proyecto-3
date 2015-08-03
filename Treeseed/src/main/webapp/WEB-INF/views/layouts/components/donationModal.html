@@ -16,6 +16,11 @@
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Card Number</label>
 			 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
 				payments-format="card" payments-validate="card"  name="card"  required/>
+				
+				
+			<select ng-model="donorCards.oldCard" class="form-control" 
+			ng-options="c.id as c.last4Numbers for c in donorCards.cards"></select>									
+				    		
 
 			 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>
 			

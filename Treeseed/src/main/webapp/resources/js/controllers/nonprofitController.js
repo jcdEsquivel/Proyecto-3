@@ -506,19 +506,22 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	 *************************/
 	
 	$scope.showDonation = function() {
-		modalUrl = '';
-	    
+		
+		var modalUrl = '';
+	    var controller = '';
 		if(Session.userRole == USER_ROLES.guest){
 			modalUrl = 'layouts/components/guestDonationModal.html';
+			controller = 'guestDonationController';
 		}else{
 			modalUrl = 'layouts/components/donationModal.html';
+			controller = 'donorDonationController'
 		}
 		
 		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
-			templateUrl : 'layouts/components/guestDonationModal.html',
-			controller : 'simpleDonationController',
+			templateUrl :modalUrl,
+			controller : controller,
 			size : 'sm',//,
 			resolve : {
 				setCurrentUser : function() {

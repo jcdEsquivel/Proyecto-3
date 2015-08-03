@@ -391,13 +391,146 @@ treeSeedAppControllers.controller('guestDonationController', function($http, $do
 
 })
 
-treeSeedAppControllers.controller('recurrentDonationController', function($http,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts,  campaignId ,Session,
-		$modalInstance) {
+
+
+treeSeedAppControllers.controller('donorDonationController', function($http, $donationService,StripeService, $stateParams, Session,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId) {
+	
+	$scope.percent = 0;
+	
+	$scope.donor = {
+			name:'ara',
+			lastName:'ddd',
+			email:'asdf@asdref.com',
+			password:'asdf',
+			confirm_password:'asdf'
+	};
+	
+	$scope.donorCards = {
+			oldCard : '',
+			cards: []
+	}
+	
+	$scope.cardRequest = {
+			card:{
+				donor:{
+					id: Session.userId
+				}
+			}	
+	};
+	
+	$scope.donorCards = [];
+	
+	$scope.number = '4242 4242 4242 4242';
+	$scope.cvc = '1235';
+	$scope.expiry = '01/2019';
+	
+	$scope.campaignId = 0;
+	
+	$scope.donationInfo = {
+		amount : 1000,
+		donationPlan: 'custom'
+	};
+
+	if($stateParams.campaignId){
+		$scope.campaignId = $stateParams.campaignId;
+	}
+
+	$scope.errorCard = undefined;
 
 	
-
+	$scope.resul=true;
+	$scope.button=false;
+	$scope.token = "";
+	
+	
+	$scope.getCreditCards = function(){
+		console.log(JSON.stringify($scope.cardRequest));
+		
+		$http.post('rest/protected/card/getByDonor', $scope.cardRequest)
+			.success(function(mydata, status) {
+			console.log(JSON.stringify(mydata));
+				$scope.donorCards.cards = mydata.cards;
+				
+		}).error(function(mydata, status) {
+			//we have to do something here
+		});
+	}
+	
+	$scope.getCreditCards();
+	
+	//Stripe submit method
+	$scope.stripeCallback = function (code, result) {
+	    if (result.error) {
+	        window.alert('it failed! error: ' + result.error.message);
+	    } else {
+	    	console.log("yes");
+	    	$scope.upload = $upload.upload({
+				url : 'rest/protected/donor/register',
+				data : {
+					email:$scope.donor.email,
+					password:$scope.donor.password,
+					name:$scope.donor.name,
+					lastName:$scope.donor.lastName,
+					country: "",
+					facebookId: "",
+					facebookToken: ""
+				},
+				file : ""
+			}).success(function(response){
+				  
+				  if(response.code == "200")
+				  {
+					  $scope.logIn($scope.donor.email, $scope.donor.password);
+								  
+					  $donationService.createDonation('campaign',nonprofitId, $scope.campaignId, response.donorId,
+							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
+							  0).then(function(data){
+						  console.log(JSON.stringify(data));
+						  $modalInstance.close();
+					  });
+					  
+					
+				  }
+				  
+			});//end success	
+	    	
+	    }
+	};//end stripe submit
+	
+	
+	$scope.checkAmount = function(){
+		if($scope.donationInfo.donationPlan != 'custom'){
+			
+			$scope.donationInfo.amount = 5;
+		}else{
+			$scope.donationInfo.amount = 0;
+			
+		}
+	};
+	
+	$scope.close = function() {
+		$modalInstance.close();
+		
+	};
+	
+	$scope.createDonation = function(idDonor, stripeToken){
+		
+		$donationService.createDonation(idDonor, stripeToken,
+										$scope.donationInfo.donationPlan, 
+										$scope.donationInfo.amount)
+										.then(function (data){
+											console.log(JSON.stringify(data));
+		
+										});//end then
+		
+	};
+	
+	
+	
+	
 });
+
 
 
 treeSeedAppControllers.controller('webhookController', function($http,$scope) {

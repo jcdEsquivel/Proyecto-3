@@ -82,14 +82,14 @@ public class CardController {
 	 * @throws InvalidRequestException 
 	 * @throws AuthenticationException 
 	 */
-	@RequestMapping(value ="/getbydonor", method = RequestMethod.POST)
+	@RequestMapping(value ="/getByDonor", method = RequestMethod.POST)
 	public CardResponse getCardByDonor(@RequestBody CardRequest prams) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		CardResponse us = new CardResponse();
 		DonorWrapper donor=donorService.getDonorProfileByID(prams.getCard().getDonor().getId());
 		List<CardPOJO> viewCardPOJO = new ArrayList<CardPOJO>();
 		
-		if(donor.getWrapperObject().equals(null)){
-			if(!donor.getStripeId().equals(null)){
+		if(!donor.getWrapperObject().equals(null)){
+			if(!donor.getStripeId().equals("null")){
 				List<CardWrapper> list = cardService.getUserByDonorId(donor.getId());
 				for(CardWrapper card:list){
 					CardPOJO cardPojo = new CardPOJO();
