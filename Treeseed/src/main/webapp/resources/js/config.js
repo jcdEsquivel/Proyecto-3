@@ -265,8 +265,16 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+											 })
+									.state(
+											'treeSeed.nonProfitDonationsReport',
+											{
+												url : 'nonProfitDonationsReport',
+												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
+												controller: "nonProfitReportDonationController",
+												
 											 });
-							
+									
 
 							
 							

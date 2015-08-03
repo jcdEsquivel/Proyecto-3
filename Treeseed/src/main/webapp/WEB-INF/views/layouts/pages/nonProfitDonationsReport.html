@@ -1,0 +1,57 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"> Reporte Donaciones</h1>
+</div>
+<div >
+ 	<div class="panel-body">
+	 	<div class="form-horizontal col-sm-10 col-sm-offset-0">
+		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
+		    <div class="col-sm-12">
+		      <div class="row">
+		        <div class="col-md-3">
+		        	 <label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label> 
+				     <md-input-container flex>	
+		          		<md-select style="width:100%;" ng-model="nonprofit.country" >
+		          			<md-option select disabled></md-option>
+			          	
+				        </md-select>
+		      		</md-input-container>
+		        </div>
+		        
+		         <div class="col-md-3">
+		          	<button type="button" class="btn btn-default" ng-click="searchReport()" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+		        </div>
+		      </div>
+		      <div class="row">
+		      	<div class="col-md-3">
+	        		<select ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
+		        </div>
+		      </div>
+		    </div>
+	    </div>
+	</div>
+    <tabset class="tab-container">
+	   	<tab>
+     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
+		         
+	      	</tab-heading>
+	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
+	        	<li class="list-group-item li-search-size-result" dir-paginate="donation in donations | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
+	          		
+		          	<div class="clear">
+		            	<div> {{donation.amount}}</div>
+		          	</div>
+		        </li>
+		        
+      		</ul>
+      		<div class="other-controller">
+		    	<div class="text-center">
+		      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+		      		</dir-pagination-controls>
+		      	</div>
+			</div>  
+	    </tab>
+	</tabset>      
+  </div>
+
+
+ 
