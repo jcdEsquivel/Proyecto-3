@@ -17,14 +17,18 @@ import com.stripe.model.Event;
 @RequestMapping(value = "rest/protected/stripe")
 public class StripeController {
 	
+	@ResponseBody
 	@RequestMapping(consumes="application/json",
             produces="application/json",
             method=RequestMethod.POST,
             value="/webhook/invocespaysucceeded")
 	public String stripeWebhookEndpoint(@RequestBody String request){
 	
-		Event eventRequest = (Event)JSON.parse(request);
-		System.out.println(eventRequest);
+		Event eventRequest = Event.GSON.fromJson(request, Event.class);
+		/*event*/
+		System.out.println("Hola");
+		System.out.println(eventRequest.getCreated());
+		
 		
 		return null;
 	}
