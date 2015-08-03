@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import com.treeseed.pojo.DonationPOJO;
 
-public class DonationRequest {
+public class DonationRequest extends BasePagingRequest{
 	
 	private DonationPOJO donation;
 	
