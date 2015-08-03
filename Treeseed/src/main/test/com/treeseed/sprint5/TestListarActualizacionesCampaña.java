@@ -48,7 +48,7 @@ public class TestListarActualizacionesCampaña extends AbstractTestController  {
 		pojo.setCampaignId(campaign.getId());
 		request.setNonprofitId( campaign.getNonprofit().getId());
 		request.setPostCampaign(pojo);
-		request.setSortBy(new ArrayList());
+		request.setSortBy(new ArrayList<String>());
 		request.getSortBy().add("creationDate");
 		request.setPageNumber(1);
 		request.setPageSize(10);
@@ -86,7 +86,7 @@ public class TestListarActualizacionesCampaña extends AbstractTestController  {
 		PostCampaignPOJO pojo = new PostCampaignPOJO();
 		pojo.setCampaignId(campaign.getId());
 		request.setNonprofitId( campaign.getNonprofit().getId());
-		request.setSortBy(new ArrayList());
+		request.setSortBy(new ArrayList<String>());
 		request.setPostCampaign(pojo);
 		request.getSortBy().add("creationDate");
 		request.setPageNumber(1);

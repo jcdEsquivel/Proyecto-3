@@ -135,7 +135,11 @@
 				      </tab-heading>
 				     	<div  data-ng-include=" 'layouts/components/postsList.html' " ></div>
 				    </tab>
-      
+      				<tab ng-click="loadReports()">
+				      <tab-heading translate="NONPROFIT-PROFILE.REPORTS">  
+				      </tab-heading>
+				     	<div  data-ng-include=" 'layouts/components/transparencyReports.html' " ></div>
+				    </tab>
   				</tabset>
 	 		</div>
 	 		<div class="col-md-1">

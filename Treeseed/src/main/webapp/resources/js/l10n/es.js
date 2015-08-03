@@ -146,7 +146,28 @@
         "CAMPAIGNS": "Campañas",
         "UPDATES": "Actualizaciones",
         "DONORS": "Donantes:",
-        "DONATIONS": "Donaciones:"
+        "DONATIONS": "Donaciones:",
+        "REPORTS": "Reportes de Transparencia",
+        "MONTH": "Mes",
+        "YEAR": "Año",
+        "SEARCH": "Buscar",
+        "DETAIL": "Detalle",
+        "AMOUNT-IN":"Recaudado: ",
+        "AMOUNT-OUT":"Gastado: "
+     },
+      "MONTH": {
+        "JAN": "Enero",
+        "FEB": "Febrero",
+        "MAR": "Marzo",
+        "APR": "Abril",
+        "MAY": "Mayo",
+        "JUN": "Junio",
+        "JUL": "Julio",
+        "AUG": "Agosto",
+        "SEP": "Setiembre",
+        "OCT": "Octubre",
+        "NOV": "Noviembre",
+        "DEC": "Diciembre"
      },
      "BUTTONS": {
     		"SAVE": "Guardar",
