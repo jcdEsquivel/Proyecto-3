@@ -65,7 +65,6 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		request.setDirection("DESC");
 		request.setSearchTerm("");
 		request.setSearchColumn("ALL");
-		request.setType("Single");
 		
 		String jsonObject = mapToJson(request);
 

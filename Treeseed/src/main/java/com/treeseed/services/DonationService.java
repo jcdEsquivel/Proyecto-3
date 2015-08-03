@@ -58,12 +58,8 @@ public class DonationService implements DonationServiceInterface{
 		
 		int nonProfitId = ur.getNonProfitId();
 		
-		if(ur.getType().equals("Single")){
-			pageResult = donationRepository.findAllSingleDonations(nonProfitId, pr);
-		}//else{
-		//	pageResult = donationRepository.findRecurrentDonations(nonProfitId, pr);
-	//	}
-
+		pageResult = donationRepository.findAllSingleDonations(nonProfitId, pr);
+		
 		return pageResult ;
 	}
 }

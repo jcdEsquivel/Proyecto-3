@@ -92,6 +92,7 @@ public class DonationController {
 		dr.setTotalPages(viewDonations.getTotalPages());
 		
 		List<DonationPOJO> viewDonationsPOJO = new ArrayList<DonationPOJO>();
+
 		
 		for(Donation objeto:viewDonations.getContent())
 		{
