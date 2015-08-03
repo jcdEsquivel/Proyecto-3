@@ -252,7 +252,7 @@ public class StripeUtils {
 	public static Plan getPlan(String idNonprofit, String idCampaign, String planNumber) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Plan plan;
 		
-		if(idCampaign.equals("")){
+		if(idCampaign.equals("0")){
 			plan = Plan.retrieve(idNonprofit+"#"+planNumber);
 		}else{
 			plan = Plan.retrieve(idNonprofit+"#"+idCampaign+"#"+planNumber);

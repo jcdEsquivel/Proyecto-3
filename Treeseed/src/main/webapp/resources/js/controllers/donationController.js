@@ -3,7 +3,7 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('simpleDonationController', function($http, $donationService,StripeService, $stateParams,
+treeSeedAppControllers.controller('guestDonationController', function($http, $donationService,StripeService, $stateParams,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId) {
 	
 	$scope.percent = 0;
@@ -20,10 +20,17 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $d
 	$scope.cvc = '1235';
 	$scope.expiry = '01/2019';
 	
+	$scope.campaignId = 0;
+	
 	$scope.donationInfo = {
 		amount : 1000,
 		donationPlan: 'custom'
 	};
+	
+	
+	if($stateParams.campaignId){
+		$scope.campaignId = $stateParams.campaignId;
+	}
 	
 /*
  * For wizard porpuses. Will be use in the future
@@ -39,16 +46,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $d
 	*/
 	$scope.errorCard = undefined;
 
-	
-	$scope.objectRequestD = {};
-	$scope.objectRequestD.donation ={};
-	$scope.objectRequestD.donation.donorId = "1";
-	$scope.objectRequestD.donation.nonProfitId ="1";
-	$scope.objectRequestD.donation.campaignId = "22";
-	$scope.objectRequestD.donation.amount = "321";
-	$scope.objectRequestD.token="";
-	$scope.stripeResponse={};
-	
+
 	//Stripe.setPublishableKey(StripeService.getStripeApiKey());
 	
 	$scope.resul=true;
@@ -81,7 +79,7 @@ treeSeedAppControllers.controller('simpleDonationController', function($http, $d
 				  {
 					  $scope.logIn($scope.donor.email, $scope.donor.password);
 								  
-					  $donationService.createDonation('campaign',nonprofitId, $stateParams.campaignId, response.donorId,
+					  $donationService.createDonation('campaign',nonprofitId, $scope.campaignId, response.donorId,
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 							  0).then(function(data){
 						  console.log(JSON.stringify(data));
