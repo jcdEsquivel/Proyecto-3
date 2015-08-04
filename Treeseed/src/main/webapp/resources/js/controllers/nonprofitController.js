@@ -508,6 +508,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	}
 	
 })
+
 ;
 
  
