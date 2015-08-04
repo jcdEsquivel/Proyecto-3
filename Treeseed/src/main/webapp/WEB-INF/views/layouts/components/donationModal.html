@@ -13,18 +13,18 @@
 	<form name="step2" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
-			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Select a credit Card</label>
+			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
 			 <div class="row" >
 		 		<div class="col-sm-1">
-		 		   <input type="radio" ng-model="cardRequest.selectedCard" value="new">
+		 		   <input type="radio" name="selectedCard" ng-model="cardRequest.selectedCard" value="new" ng-change="setRequired()" required>
 		 		</div>
 		 		<div class="col-sm-11">
 			 		New Credit Card
 			 	</div>
 			 </div>
-			 <div class="row" ng-repeat="c in donorCards.cards">
+			 <div class="row" ng-repeat="c in donorCards.cards" ng-if="!load.isLoading">
 			 	<div class="col-sm-1">
-			 		   <input type="radio" ng-model="cardRequest.selectedCard" value="{{c.id}}">
+			 		   <input type="radio" name="selectedCard" ng-model="cardRequest.selectedCard" ng-change="setRequired()"  value="{{c.id}}" required>
 			 	</div>
 			 	<div class="col-sm-3">
 			 		{{c.brand}}
@@ -36,13 +36,21 @@
 			 		<span>Exp Date: </span>{{c.expMonth}}/{{c.expYear}}
 			 	</div>
 			 </div>
+			 <div ng-if="load.isLoading">
+			 	<br/>
+			 	<p class="loading-paragraph">Loading creadit cards</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+			 </div>
+			 
 		</div>	 
 		<div class="form-group" ng-show="cardRequest.selectedCard == 'new'">
 			<div class="row">
 				<div class="col-sm-12">
 					<label for="card"  class=" control-label">New Credit Card</label>
 				 	 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
-						payments-format="card" payments-validate="card"  name="card"  required/>
+						payments-format="card" payments-validate="card"  name="card"  required />
 					 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		
 				</div>
 			</div>
@@ -50,7 +58,7 @@
 				<div class="col-sm-12">
 				<label for="cvc" translate="DONATION-MODAL.CVC" class="control-label">CVC</label>	 
 				 <input type="text"  class="form-control"  data-stripe="cvc" ng-model='cvc'
-				 payments-format="cvc"  payments-validate="cvc"  name="cvc" required/>
+				 payments-format="cvc"  payments-validate="cvc"  name="cvc"  required/>
 		
 			  	<span ng-if='step2.cvc.$invalid && step2.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
 				</div>
@@ -59,7 +67,7 @@
 				<div class="col-sm-12">
 					<label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
 					 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
-					 payments-format="expiry"  payments-validate="expiry" name="expiry" required/>
+					 payments-format="expiry"  payments-validate="expiry" name="expiry"  required/>
 			  		<span ng-if='step2.expiry.$invalid && step2.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
 				</div>
 			</div>
@@ -95,11 +103,13 @@
 		</div>
  		<div class="form-group">
 				<span class="payment-errors text-danger"></span>
-				<button type="submit" ng-disabled="step2.$invalid" translate="DONATION-MODAL.DONATE" id="btn-submit"
-					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">Donar</button>
+				<button type="submit" ng-show="hideSubmit"  ng-disabled="step2.$invalid"  id="btn-submit"
+					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">SUBMIT</button>
 					
-				<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="submitForm()"
-				>Test</button>
+				<button type="button" ng-disabled="step2.$invalid" 
+					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
+					translate="DONATION-MODAL.DONATE"
+				>donate</button>
 		</div>
 			
 	</form>

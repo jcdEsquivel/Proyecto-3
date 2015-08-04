@@ -183,6 +183,8 @@ public class DonationController {
 					donor.setStripeId((String)resultCharge.get(0));
 					donor.setCards(new ArrayList<Card>());
 					donor.addCard(card.getWrapperObject());
+					donor.setSubscriptionCard(card.getWrapperObject());
+					
 					
 					cardService.saveCard(card);
 					donorService.updateStripeIdAndSubscriptionCard(donor);

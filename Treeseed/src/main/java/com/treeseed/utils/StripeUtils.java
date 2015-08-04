@@ -109,7 +109,7 @@ public class StripeUtils {
 		}
 		
 		if(!sameCard){
-			updateCustomer(idDonorStripe, cardStripeId);
+			updateCustomer(idDonorStripe, card.getId());
 		}
 		
 		result.add(1,(createSubscription(plan, customer, card)).getId());
