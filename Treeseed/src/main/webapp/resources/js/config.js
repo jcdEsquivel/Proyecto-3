@@ -29,9 +29,10 @@ angular
 			});
 		})
 		.config(
-				function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+				function($stateProvider, $urlRouterProvider, $locationProvider,JQ_CONFIG,
 						MODULE_CONFIG, USER_ROLES) {
 
+					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
 							.state('treeSeed', {
@@ -273,7 +274,7 @@ angular
 														controller: "webhookController"
 											 });
 							
-
+					$locationProvider.html5Mode(true);
 							
 							
 

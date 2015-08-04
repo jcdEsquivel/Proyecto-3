@@ -103,13 +103,14 @@ public class StripeUtils {
 		if(sourceToken.equals("")){
 			card = getCard(idDonorStripe, cardStripeId);
 			result.add(0,"");
+			
 		}else{
 			card = createCard(customer, sourceToken);
 			result.add(0,card.getId());
 		}
 		
 		if(!sameCard){
-			updateCustomer(idDonorStripe, cardStripeId);
+			updateCustomer(idDonorStripe, card.getId());
 		}
 		
 		result.add(1,(createSubscription(plan, customer, card)).getId());
