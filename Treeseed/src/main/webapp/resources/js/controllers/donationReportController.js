@@ -11,7 +11,7 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 	$scope.month;
 	$scope.year;
 	$scope.years = [];
-	$scope.reports = [];
+	$scope.reports = {};
 	$scope.totalReports = 0;
 	$scope.reportsPaginCurrentPage = 0;
 	$scope.reportsRequest = {
@@ -19,9 +19,9 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 		pageNumber : '',
 		pageSize : '5',
 		direction : "DESC",
-		sortBy : []
+		sortBy : ["dateTime"]
 	};
-
+	
 	//Call to getYears() to initialize the combo box in the view
 	getYears();
 
@@ -33,7 +33,7 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 			$scope.years.push($scope.baseYear);
 		};
 	}
-
+	
 	$scope.getReports = function(pageNumber) {
 
 		$scope.reportsRequest.pageNumber = pageNumber;
@@ -46,7 +46,6 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 			if (data.code == 200) {
 				$scope.reports = data.donations;
 				$scope.totalReports = data.totalElements;
-				
 			}else{
 				$scope.reports = [];
 				console.log('Error : '+data.errorMessage);
@@ -62,4 +61,6 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 	$scope.getNewReports = function(newPage){
 		$scope.getReports(newPage);
 	}
+	
+	
 });
