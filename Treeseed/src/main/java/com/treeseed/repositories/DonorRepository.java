@@ -67,12 +67,12 @@ public interface DonorRepository extends
  	@Modifying
 	@Transactional
 	@Query("UPDATE Donor d SET subscriptionCard=:card where d.id = :id") 
- 	public void updateSubscriptionCard(@Param("id") int id,   @Param("cardId") Card card);
+ 	public void updateSubscriptionCard(@Param("id") int id,   @Param("card") Card card);
  	
  	@Modifying
 	@Transactional
 	@Query("UPDATE Donor d SET stripeId=:stripe, subscriptionCard=:card where d.id = :id") 
- 	public void updateStripeIdAndSubscriptionCard(@Param("id") int id,   @Param("stripe") String stripe,   @Param("cardId") Card card);
+ 	public void updateStripeIdAndSubscriptionCard(@Param("id") int id,   @Param("stripe") String stripe,   @Param("card") Card card);
  	
  	
 
