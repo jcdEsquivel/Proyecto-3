@@ -15,7 +15,7 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 	$scope.totalReports = 0;
 	$scope.reportsPaginCurrentPage = 0;
 	$scope.reportsRequest = {
-		nonProfitId : Session.id,
+		nonProfitId : $scope.currentUser.idUser,
 		pageNumber : '',
 		pageSize : '5',
 		direction : "DESC",
@@ -35,7 +35,6 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 	}
 	
 	$scope.getReports = function(pageNumber) {
-
 		$scope.reportsRequest.pageNumber = pageNumber;
 		$scope.reportsPaginCurrentPage = pageNumber;
 		$scope.reportsRequest.month = $scope.month;
