@@ -278,6 +278,9 @@
     	"ACTIVE": "Active",
     	"FINISHED": "Finished"
 	},
+    "RECEIPT-SEARCH":{
+        "TITLE": "Search Donations Receipts"
+    },
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",

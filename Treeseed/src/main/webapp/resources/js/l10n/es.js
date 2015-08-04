@@ -267,6 +267,9 @@
     	"ACTIVE": "Activa",
     	"FINISHED": "Finalizada"
 	},
+    "RECEIPT-SEARCH":{
+        "TITLE": "Buscar Recibos de Donación"
+    },
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Información",

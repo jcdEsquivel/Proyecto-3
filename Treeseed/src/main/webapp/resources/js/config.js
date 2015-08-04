@@ -252,6 +252,19 @@ angular
 												}
 											})
 								  	.state(
+										'treeSeed.donorReceipts',
+										{
+											url : 'donorReceipts',
+											templateUrl : 'layouts/pages/donorReceipts.html',
+											controller : "donorReceiptsController",
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',

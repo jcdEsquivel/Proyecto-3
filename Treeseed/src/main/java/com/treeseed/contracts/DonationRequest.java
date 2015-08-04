@@ -4,19 +4,47 @@ import java.sql.Date;
 
 import com.treeseed.pojo.DonationPOJO;
 
-public class DonationRequest {
+public class DonationRequest extends BasePagingRequest {
 	
 	private DonationPOJO donation;
 	
 	private int id;
 	private int campaignId;
 	private int nonProfitId;
+	private int donorId;
 	private double amount;
-	private Date donationDate;
-	
+	private Date donationDate;	
 	private Date startPeriodDate;
 	private Date endPeriodDate;
+	private String month;
+	private String year;
 	
+	
+	
+	public int getDonorId() {
+		return donorId;
+	}
+
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
 	public DonationRequest(){
 		super();
 	}

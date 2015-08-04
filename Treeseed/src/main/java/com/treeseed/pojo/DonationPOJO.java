@@ -8,8 +8,30 @@ public class DonationPOJO {
 	private int campaignId;
 	private int nonProfitId;
 	private double amount;
+	private String nonprofitName;
 	private Date donationDate;
+	private String dateS;
+	private NonprofitPOJO nonprofit;
 	
+	
+	public String getNonprofitName() {
+		return nonprofitName;
+	}
+	public void setNonprofitName(String nonprofitName) {
+		this.nonprofitName = nonprofitName;
+	}
+	public NonprofitPOJO getNonprofit() {
+		return nonprofit;
+	}
+	public void setNonprofit(NonprofitPOJO nonprofit) {
+		this.nonprofit = nonprofit;
+	}
+	public String getDateS() {
+		return dateS;
+	}
+	public void setDateS(String dateS) {
+		this.dateS = dateS;
+	}
 	public int getId() {
 		return id;
 	}
