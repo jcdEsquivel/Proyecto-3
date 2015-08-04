@@ -272,8 +272,8 @@ angular
 												url : 'nonProfitDonationsReport',
 												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
 												resolve : load([
-																'xeditable',
-																'resources/js/libs/angular/angular-xeditable/dist/js/xeditable.js' ]),
+																'angularUtils.directives.dirPagination',
+																'resources/js/controllers/donationReportController.js' ]),
 												controller: "nonProfitDonationReportController",
 												data : {
 													authorizedRoles : [
