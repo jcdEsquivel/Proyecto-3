@@ -265,8 +265,23 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+											 })
+									.state(
+											'treeSeed.nonProfitDonationsReport',
+											{
+												url : 'nonProfitDonationsReport',
+												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
+												resolve : load([
+																'xeditable',
+																'resources/js/libs/angular/angular-xeditable/dist/js/xeditable.js' ]),
+												controller: "nonProfitDonationReportController",
+												data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit 
+													]
+												}
 											 });
-							
+									
 
 							
 							

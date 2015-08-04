@@ -82,12 +82,14 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 	$scope.reports = [];
 	$scope.totalReports = 0;
 	$scope.reportsPaginCurrentPage = 0;
+	$scope.currentPage = 1;
+	
 	$scope.reportsRequest = {
 		nonProfitId : $stateParams.nonProfitId,
 		pageNumber : '',
 		pageSize : '5',
 		direction : "DESC",
-		sortBy : ['dateTime']
+		sortBy : ['amount']
 	};
 
 	//Call to getYears() to initialize the combo box in the view
@@ -114,6 +116,8 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 
+		console.log(pageNumber)
+		
 		$http.post('rest/protected/transparencyReport/getTransparencyReports',
 				$scope.reportsRequest).success(function(data, status) {
 

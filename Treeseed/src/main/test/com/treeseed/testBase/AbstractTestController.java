@@ -32,6 +32,7 @@ import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostCampaignWrapper;
@@ -42,6 +43,7 @@ import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostCampaignServiceInterface;
@@ -83,6 +85,9 @@ public abstract class AbstractTestController extends AbstractTest {
     
     /** The campaign service. */
     @Autowired	CampaignServiceInterface campaignService;
+    
+    /** The donation service. */
+    @Autowired	DonationServiceInterface donationService;
     
     /** The Transparency Report service. */
     @Autowired	TransparencyReportServiceInterface transparencyReportService;
@@ -666,5 +671,24 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
 		transparencyReportService.saveTransparencyReport(transparencyReport);
 		
         return transparencyReport;
+    }
+    
+    public DonationWrapper createRandomDonation() throws IOException, Exception{
+    	NonprofitWrapper nonProfit = createRandomNonprofit();
+    	CampaignWrapper campaign = createRandomCampaign(nonProfit);   
+    	DonorWrapper donor = createRandomDonor();
+    	
+		DonationWrapper donation = new DonationWrapper();
+		
+		donation.setActive(true);
+		donation.setAmount(5000);
+		donation.setCampaingId(campaign.getWrapperObject().getId());
+		donation.setDonorId(donor.getWrapperObject().getId());
+		donation.setNonProfitId(nonProfit.getWrapperObject().getId());
+		
+		//waiting for the create donation to be ready
+		//donationService.saveDonation(donation);
+		
+        return donation;
     }
 }
