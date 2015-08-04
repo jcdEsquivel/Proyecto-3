@@ -37,7 +37,7 @@ public interface DonationServiceInterface {
 	/**
 	 * Gets the donations.
 	 *
-	 * @param ur the ur
+	 * @param ur the donation request
 	 * @return the donations
 	 */
 	Page<Donation> getDonations(DonationRequest ur);
