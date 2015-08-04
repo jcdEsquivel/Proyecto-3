@@ -40,6 +40,9 @@ public class DonationService implements DonationServiceInterface{
 	@Override
 	public Page<Donation> getDonations(DonationRequest ur) {
 		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
 		Sort.Direction direction = Sort.Direction.DESC;
 		if(ur.getDirection().equals("ASC")){
 			direction = Sort.Direction.ASC;
@@ -58,7 +61,21 @@ public class DonationService implements DonationServiceInterface{
 		
 		int nonProfitId = ur.getNonProfitId();
 		
-		pageResult = donationRepository.findAllSingleDonations(nonProfitId, pr);
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findAllDonations(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
 		
 		return pageResult ;
 	}

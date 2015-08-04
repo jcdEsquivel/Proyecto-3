@@ -58,7 +58,7 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		
 		
 		DonationRequest request = new DonationRequest();
-		request.setNonProfitId(1);
+		request.setNonProfitId(6);
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
 		request.setPageSize(10);

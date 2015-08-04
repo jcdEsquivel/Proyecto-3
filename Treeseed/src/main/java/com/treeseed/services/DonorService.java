@@ -6,8 +6,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
@@ -83,5 +85,15 @@ public class DonorService implements DonorServiceInterface {
 				donor.getProfilePicture(),
 				donor.getWebPage()
 				);		
+	}
+	
+	@Override
+	public DonorWrapper getDonorById(int id){
+		DonorWrapper donor;
+		
+		donor= new DonorWrapper(DonorRepository.findByid(id));
+		
+		return donor;
+		
 	}
 }

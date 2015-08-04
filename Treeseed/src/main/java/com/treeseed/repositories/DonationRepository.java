@@ -40,22 +40,17 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
 	
 	
-	@Query("SELECT p FROM Donation p WHERE (:nonProfitId = nonProfitId) and p.isActive = 1")
-	   public Page<Donation> findAllSingleDonations(@Param("nonProfitId") int nonProfitId,
+	@Query("SELECT p FROM Donation p WHERE (:nonProfitId = nonProfitId) and p.isActive = 1 and "
+			+ "( :monthNull is null or MONTH(p.dateTime)=:month) and "
+			+ "( :yearNull is null or YEAR(p.dateTime)=:year)")
+	   public Page<Donation> findAllDonations(
+			   	@Param("nonProfitId") int nonProfitId,
+			   	@Param("monthNull") String monthNull,
+				@Param("month") int month,
+				@Param("yearNull") String yearNull,
+				@Param("year") int year,
 			   Pageable pageable);
 	
-	@Query("SELECT t FROM RecurrableDonation t inner join t.nonprofit n WHERE (n.id = :nonProfitId) and t.isActive = 1")
-	   public Page<Donation> findRecurrentDonations(@Param("nonProfitId") int nonProfitId,
-			   Pageable pageable);
 	
-	/*@Query("SELECT t FROM TransparencyReport t inner join t.nonprofit n WHERE( n.id = :nonprofitId) and "
-			+ "( :monthNull is null or MONTH(t.dateTime)=:month) and "
-			+ "( :yearNull is null or YEAR(t.dateTime)=:year)")
-	public Page<TransparencyReport> findByNonprofitIdAndDate(@Param("nonprofitId") int nonprofitId,
-															@Param("monthNull") String monthNull,
-															@Param("month") int month,
-															@Param("yearNull") String yearNull,
-															@Param("year") int year,
-															Pageable pageable);*/
 
 }

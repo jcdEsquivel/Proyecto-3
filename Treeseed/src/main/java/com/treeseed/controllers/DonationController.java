@@ -1,5 +1,6 @@
 package com.treeseed.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,15 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -35,6 +42,14 @@ public class DonationController {
 	/** The donation service. */
 	@Autowired
 	DonationServiceInterface donationService;
+	
+	/** The donation service. */
+	@Autowired
+	CampaignServiceInterface campaignService;
+	
+	/** The donation service. */
+	@Autowired
+	DonorServiceInterface donorService;
 	
 	/** The servlet context. */
 	@Autowired
@@ -84,7 +99,6 @@ public class DonationController {
 		
 		DonationResponse dr = new DonationResponse();
 		
-		
 		dr.setCodeMessage("Donations fetch success");
 		
 		
@@ -92,16 +106,37 @@ public class DonationController {
 		dr.setTotalPages(viewDonations.getTotalPages());
 		
 		List<DonationPOJO> viewDonationsPOJO = new ArrayList<DonationPOJO>();
-
+		CampaignPOJO campaignPOJO = null;
+		DonorPOJO donorPOJO = null;
+		
 		
 		for(Donation objeto:viewDonations.getContent())
 		{
 			DonationPOJO donation = new DonationPOJO();
+			
 			donation.setId(objeto.getId());
 			donation.setAmount(objeto.getAmount());;
 			donation.setCampaignId(objeto.getCampaingId());
 			donation.setNonProfitId(objeto.getNonProfitId());
-		
+			donation.setDonorId(objeto.getDonorId());
+			donation.setDonationDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+			if(objeto.getCampaingId() != 0){
+				campaignPOJO = new CampaignPOJO();
+				CampaignWrapper campaignWrapper = new CampaignWrapper();
+				campaignWrapper = campaignService.getCampaignById(objeto.getCampaingId());
+				campaignPOJO.setName(campaignWrapper.getWrapperObject().getName());
+				donation.setCampaign(campaignPOJO);
+			}
+			
+			if(objeto.getDonorId() != 0){
+				donorPOJO = new DonorPOJO();
+				DonorWrapper donorWrapper = new DonorWrapper();
+				donorWrapper = donorService.getDonorById(objeto.getDonorId());
+				donorPOJO.setName(donorWrapper.getWrapperObject().getName());
+				donation.setDonor(donorPOJO);
+			}
+			
+			
 			viewDonationsPOJO.add(donation);
 		};
 		
