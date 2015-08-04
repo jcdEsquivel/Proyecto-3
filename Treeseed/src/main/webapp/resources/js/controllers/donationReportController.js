@@ -41,20 +41,10 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 		
-		console.log(pageNumber)
-		console.log($scope.reportsRequest.pageNumber)
-		console.log($scope.reportsPaginCurrentPage)
-		console.log($scope.reportsRequest.month)
-		console.log($scope.reportsRequest.year)
-		
-		
 		$http.post('rest/protected/donation/getDonationReport',
 				$scope.reportsRequest).success(function(data, status) {
 			if (data.code == 200) {
-				console.log(data);
-				
 				$scope.reports = data.donations;
-				console.log($scope.reports)
 				$scope.totalReports = data.totalElements;
 				
 			}else{

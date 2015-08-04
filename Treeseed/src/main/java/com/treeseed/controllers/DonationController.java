@@ -60,9 +60,9 @@ public class DonationController {
 	HttpServletRequest request;
 	
 	/**
-	 * Gets the nonprofits.
+	 * Gets the donations per month.
 	 *
-	 * @param dr the dr
+	 * @param dr the donation request
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value ="/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
@@ -84,9 +84,9 @@ public class DonationController {
 	
 	
 	/**
-	 * Gets the nonprofits.
+	 * Gets the donations reports.
 	 *
-	 * @param npr the nonProfitrequest
+	 * @param drt the Donation Request
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value ="/getDonationReport", method = RequestMethod.POST)
@@ -135,8 +135,7 @@ public class DonationController {
 				donorPOJO.setName(donorWrapper.getWrapperObject().getName());
 				donation.setDonor(donorPOJO);
 			}
-			
-			
+
 			viewDonationsPOJO.add(donation);
 		};
 		

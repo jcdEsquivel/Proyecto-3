@@ -14,13 +14,21 @@ import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.repositories.DonationRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DonationService.
+ */
 @Service
 public class DonationService implements DonationServiceInterface{
 	
+	/** The donation repository. */
 	@Autowired
 	DonationRepository donationRepository;
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
+	 */
 	@Override
 	@Transactional
 	public double findAmountPerMonthOfNonProfit(int nonProfitId,
@@ -37,6 +45,9 @@ public class DonationService implements DonationServiceInterface{
 		return donationRepository.countDistincDonorIdByCampaingId(campaignId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
 	@Override
 	public Page<Donation> getDonations(DonationRequest ur) {
 		PageRequest pr;
