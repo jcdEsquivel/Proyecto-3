@@ -18,6 +18,8 @@ public class DonorWrapper extends ParentUserWrapper{
 	
 
 
+
+
 	private String completeName;
 
 	public String getCompleteName() {
@@ -228,6 +230,14 @@ public class DonorWrapper extends ParentUserWrapper{
 
 	public String toString() {
 		return wrapperObject.toString();
+	}
+	
+	public Card getSubscriptionCard() {
+		return wrapperObject.getSubscriptionCard();
+	}
+
+	public void setSubscriptionCard(Card subscriptionCard) {
+		wrapperObject.setSubscriptionCard(subscriptionCard);
 	}
 }
 

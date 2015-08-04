@@ -21,5 +21,9 @@ public interface DonorServiceInterface {
 	
 	void updateDonor(DonorWrapper donor);
 	
-	void update(DonorWrapper donor);
+	void updateStripeId(DonorWrapper donor);
+	
+	void updateSubscriptionCard(DonorWrapper donor);
+	
+	void updateStripeIdAndSubscriptionCard(DonorWrapper donor);
 }

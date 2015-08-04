@@ -31,6 +31,13 @@ public class Donor implements Serializable {
 	private String stripeId;
 	
 	private boolean isActive;
+	
+	//uni-directional many-to-one association to Catalog
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="subscriptionCard")
+	private Card subscriptionCard;
+
+
 
 	//uni-directional many-to-one association to Catalog
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -270,6 +277,14 @@ public class Donor implements Serializable {
 
 	public void setStripeId(String stripeId) {
 		this.stripeId = stripeId;
+	}
+	
+	public Card getSubscriptionCard() {
+		return subscriptionCard;
+	}
+
+	public void setSubscriptionCard(Card subscriptionCard) {
+		this.subscriptionCard = subscriptionCard;
 	}
 
 

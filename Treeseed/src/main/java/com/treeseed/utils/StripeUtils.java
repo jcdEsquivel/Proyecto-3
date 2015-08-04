@@ -51,7 +51,7 @@ public class StripeUtils {
 		Stripe.apiKey = API_KEY;		
 		
 		ArrayList<Object> result = new ArrayList<Object>();
-		Customer customer = getCustumer(idDonorStripe);
+		Customer customer = getCustomer(idDonorStripe);
 		Card card;
 
 		if(sourceToken.equals("")){
@@ -88,14 +88,14 @@ public class StripeUtils {
 
 	}
 	
-	public static ArrayList<Object> createRecurrableDonation(String idDonorStripe,int planNumber ,String sourceToken, String cardStripeId,  NonprofitWrapper nonProfit, int idCampaign)
+	public static ArrayList<Object> createRecurrableDonation(String idDonorStripe,int planNumber ,String sourceToken, String cardStripeId,  NonprofitWrapper nonProfit, int idCampaign, boolean sameCard)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
 
 		Stripe.apiKey = API_KEY;		
 		
 		ArrayList<Object> result = new ArrayList<Object>();
-		Customer customer = getCustumer(idDonorStripe);
+		Customer customer = getCustomer(idDonorStripe);
 		Plan plan = getPlan(Integer.toString(nonProfit.getId()), Integer.toString(idCampaign), Integer.toString(planNumber));
 		
 		Card card;
@@ -106,6 +106,10 @@ public class StripeUtils {
 		}else{
 			card = createCard(customer, sourceToken);
 			result.add(0,card.getId());
+		}
+		
+		if(!sameCard){
+			updateCustomer(idDonorStripe, cardStripeId);
 		}
 		
 		result.add(1,(createSubscription(plan, customer, card)).getId());
@@ -253,7 +257,18 @@ public class StripeUtils {
 
 	}
 	
-	public static Customer getCustumer(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+	public static void updateCustomer(String idDonorStripe, String idCardStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		Stripe.apiKey = API_KEY;
+		Customer customer = Customer.retrieve(idDonorStripe);
+		
+		Map<String, Object> customerParams = new HashMap<String, Object>();
+
+		customerParams.put("default_source", idCardStripe);
+		
+		customer.update(customerParams);
+	}
+	
+	public static Customer getCustomer(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Customer customer = Customer.retrieve(idDonorStripe);
 		
@@ -262,7 +277,7 @@ public class StripeUtils {
 	public static Card getCard(String idDonorStripe, String stripeCardId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		
-		Customer customer = getCustumer(idDonorStripe);
+		Customer customer = getCustomer(idDonorStripe);
 		
 		Card card = (Card)customer.getSources().retrieve(stripeCardId);
 			

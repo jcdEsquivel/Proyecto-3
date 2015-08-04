@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Donor;
 
 public interface DonorRepository extends 
@@ -61,6 +62,18 @@ public interface DonorRepository extends
  	@Modifying
 	@Transactional
 	@Query("UPDATE Donor d SET stripeId=:stripe where d.id = :id") 
- 	public void update(@Param("id") int id,   @Param("stripe") String stripe);
+ 	public void updateStripeId(@Param("id") int id,   @Param("stripe") String stripe);
+ 	
+ 	@Modifying
+	@Transactional
+	@Query("UPDATE Donor d SET subscriptionCard=:card where d.id = :id") 
+ 	public void updateSubscriptionCard(@Param("id") int id,   @Param("cardId") Card card);
+ 	
+ 	@Modifying
+	@Transactional
+	@Query("UPDATE Donor d SET stripeId=:stripe, subscriptionCard=:card where d.id = :id") 
+ 	public void updateStripeIdAndSubscriptionCard(@Param("id") int id,   @Param("stripe") String stripe,   @Param("cardId") Card card);
+ 	
+ 	
 
 }

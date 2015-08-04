@@ -86,7 +86,19 @@ public class DonorService implements DonorServiceInterface {
 	}
 	
 	@Override
-	public void update(DonorWrapper donor) {
-		DonorRepository.update(donor.getId(),donor.getStripeId());	
+	public void updateStripeId(DonorWrapper donor) {
+		DonorRepository.updateStripeId(donor.getId(),donor.getStripeId());	
+	}
+
+	@Override
+	public void updateStripeIdAndSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateStripeIdAndSubscriptionCard(donor.getId(),donor.getStripeId(), donor.getSubscriptionCard());	
+		
+	}
+
+	@Override
+	public void updateSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateSubscriptionCard(donor.getId(),donor.getSubscriptionCard());
+		
 	}
 }

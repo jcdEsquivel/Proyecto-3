@@ -184,8 +184,8 @@ public class DonationController {
 					donor.setCards(new ArrayList<Card>());
 					donor.addCard(card.getWrapperObject());
 					
-					donorService.update(donor);
 					cardService.saveCard(card);
+					donorService.updateStripeIdAndSubscriptionCard(donor);
 					
 				}else{
 					

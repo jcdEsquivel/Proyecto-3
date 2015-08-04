@@ -30,7 +30,7 @@ import com.treeseed.utils.StripeUtils;
 @RestController
 @RequestMapping(value = "rest")
 public class StripeController {
-	/*
+	
 	@ResponseBody
 	@RequestMapping( value="/stripewebhookendpoint",  method=RequestMethod.POST)
 	public String stripeWebhookEndpoint(@RequestBody String request){
@@ -38,10 +38,10 @@ public class StripeController {
 		//Event eventRequest = Event.GSON.fromJson(request, Event.class);
 		System.out.println("Hola");
 		System.out.println(request.toString());
-		logger.info();
+		//logger.info();
 		
 		return null;
-	}*/
+	}
 	
 	@RequestMapping(value ="/stripesubscription", method = RequestMethod.POST)
 	public String stripeSubscriptionPaid(String request) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{

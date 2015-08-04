@@ -94,6 +94,7 @@ public class RecurrableDonationController {
 		RecurrableDonationWrapper donation = new RecurrableDonationWrapper();
 		String cardIdStripe = "";
 		ArrayList<Object> resultCharge = new ArrayList<Object>();
+		boolean sameCard=false;
 
 		if (dr.getDonation().getDonorId() > 0) {
 			DonorWrapper donor = donorService.getDonorProfileByID(dr.getDonation().getDonorId());
@@ -140,18 +141,20 @@ public class RecurrableDonationController {
 					donor.setStripeId((String) resultCharge.get(0));
 					donor.addCard(card.getWrapperObject());
 
-					donorService.update(donor);
 					cardService.saveCard(card);
-
+					donorService.updateStripeIdAndSubscriptionCard(donor);
 				} else {
 
 					if (dr.getToken().equals("")) {
 						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
 						cardIdStripe = card.getStripeId();
+						if(donor.getSubscriptionCard().getStripeId().equals(cardIdStripe)){
+							sameCard=true;
+						}
 					}
 
 					resultCharge = StripeUtils.createRecurrableDonation(donor.getStripeId(), dr.getPlan(),
-							dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId());
+							dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId(), sameCard);
 					donation.setStripeId( (String)resultCharge.get(1));
 
 					if (!((String) resultCharge.get(0)).equals("")) {
@@ -160,8 +163,12 @@ public class RecurrableDonationController {
 						card.setDonor(donor.getWrapperObject());
 						card.setActive(true);
 						donor.addCard(card.getWrapperObject());
-
+						
 						cardService.saveCard(card);
+						
+					}
+					if(!sameCard){
+						donorService.updateSubscriptionCard(donor);
 					}
 				}
 
