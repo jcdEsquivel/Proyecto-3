@@ -9,21 +9,21 @@ treeSeedAppControllers.controller('guestDonationController', function($http, $do
 	$scope.percent = 0;
 	
 	$scope.donor = {
-			name:'ara',
-			lastName:'ddd',
-			email:'asdf@asdref.com',
-			password:'asdf',
-			confirm_password:'asdf'
+			name:'',
+			lastName:'',
+			email:'',
+			password:'',
+			confirm_password:''
 	};
 	
-	$scope.number = '4242 4242 4242 4242';
-	$scope.cvc = '1235';
-	$scope.expiry = '01/2019';
+	$scope.number = '';
+	$scope.cvc = '';
+	$scope.expiry = '';
 	
 	$scope.campaignId = 0;
 	
 	$scope.donationInfo = {
-		amount : 1000,
+		amount : 0,
 		donationPlan: 'custom'
 	};
 	
@@ -401,6 +401,15 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		validation: false
 	};
 	
+	$scope.hideSubmit = false;
+	
+	$scope.requieredCard = true;
+	
+	$scope.submitNew = false;
+	
+	$scope.load = {
+		isLoading : true
+	};
 	
 	$scope.hide = ' **** **** **** ';
 	
@@ -439,21 +448,25 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			startPeriodDate: '',
 			endPeriodDate: '',
 			plan: '',
-	}
+	};
 	
 	$scope.donorCards = [];
 	
-	$scope.number = '4242 4242 4242 4242';
-	$scope.cvc = '1235';
-	$scope.expiry = '01/2019';
+	$scope.number = '';
+	$scope.cvc = '';
+	$scope.expiry = '';
 	
 	$scope.campaignId = 0;
 	
 	$scope.donationInfo = {
-		amount : 1000,
+		amount : 0,
 		donationPlan: 'custom'
 	};
 
+	
+	
+	
+	
 	if($stateParams.campaignId){
 		$scope.campaignId = $stateParams.campaignId;
 	}
@@ -465,15 +478,28 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.button=false;
 	$scope.token = "";
 	
+	$scope.setRequired = function(){
+
+		if($scope.cardRequest.selectedCard == 'new'){
+			$scope.requieredCard = true;
+			$scope.number = '';
+			$scope.cvc = '';
+			$scope.expiry = '';
+		}else{
+			$scope.requieredCard = false;
+			$scope.number = '4242 4242 4242 4242';
+			$scope.cvc = '123';
+			$scope.expiry = '02/2099';
+		}
+	};
 	
 	$scope.getCreditCards = function(){
-		console.log(JSON.stringify($scope.cardRequest));
 		
 		$http.post('rest/protected/card/getByDonor', $scope.cardRequest)
 			.success(function(mydata, status) {
 			console.log(JSON.stringify(mydata));
 				$scope.donorCards.cards = mydata.cards;
-				
+				$scope.load.isLoading = false;
 		}).error(function(mydata, status) {
 			//we have to do something here
 		});
@@ -486,17 +512,19 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		
 		if($scope.cardRequest.selectedCard == 'new'){
 			/*var newCreditCard = $scope.number.slice(-4);
-			for (index = 0; index < $scope.donorCards.cards.length; ++index) {
 
+			for (index = 0; index < $scope.donorCards.cards.length; ++index) {
+			console.log(newCreditCard +' - '+$scope.donorCards.cards[index].last4Numbers);
 				if($scope.donorCards.cards[index].last4Numbers == newCreditCard){
 					$scope.sameCard.validation = true;
+					console.log('same');
 					return;
 				}
 				
 			}//end for*/
 			
 			  $timeout(function(){
-				  console.log('new im');
+				 
 				  document.getElementById('btn-submit').click();
 	          });
 			

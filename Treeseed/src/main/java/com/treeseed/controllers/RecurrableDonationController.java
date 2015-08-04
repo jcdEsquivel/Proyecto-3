@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.DonorRequest;
+import com.treeseed.ejb.Card;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CardWrapper;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -139,6 +142,7 @@ public class RecurrableDonationController {
 
 					donation.setStripeId((String) resultCharge.get(2));
 					donor.setStripeId((String) resultCharge.get(0));
+					donor.setSubscriptionCard(card.getWrapperObject());
 					donor.addCard(card.getWrapperObject());
 					donor.setSubscriptionCard(card.getWrapperObject());
 
@@ -165,6 +169,7 @@ public class RecurrableDonationController {
 						card.setActive(true);
 						donor.addCard(card.getWrapperObject());
 						donor.setSubscriptionCard(card.getWrapperObject());
+						
 						cardService.saveCard(card);
 						
 					}
