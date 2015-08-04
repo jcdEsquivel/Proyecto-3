@@ -206,6 +206,13 @@
    		"MESSAGE": "¿Está seguro de que desea eliminar su actualización?",
    		"DELETE": "Eliminar"
 	},
+	"NONPROFIT-DONATION-REPORT":{
+    	"TITLE":"Reporte de Donaciones de la ONG",
+    	"DATE":"Fecha",
+    	"AMOUNT":"Cantidad Donada",
+    	"CAMPAIGN":"Campaña",
+    	"DONOR":"Donante"
+    },
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
      	"TITLE":"Crear Campaña",

@@ -18,12 +18,21 @@ import com.treeseed.ejbWrapper.TransparencyReportWrapper;
 import com.treeseed.repositories.DonationRepository;
 import com.treeseed.utils.PageWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DonationService.
+ */
 @Service
 public class DonationService implements DonationServiceInterface{
 	
+	/** The donation repository. */
 	@Autowired
 	DonationRepository donationRepository;
-
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
+	 */
 	@Override
 	@Transactional
 	public double findAmountPerMonthOfNonProfit(int nonProfitId,
@@ -88,5 +97,51 @@ public class DonationService implements DonationServiceInterface{
 		pageWrapper.setTotalItems(donations.getTotalElements());
 		
 		return pageWrapper;		
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
+	@Override
+	public Page<Donation> getDonations(DonationRequest ur) {
+		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		Page<Donation> pageResult = null;
+		
+		int nonProfitId = ur.getNonProfitId();
+		
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findAllDonations(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		
+		return pageResult ;
 	}
 }
