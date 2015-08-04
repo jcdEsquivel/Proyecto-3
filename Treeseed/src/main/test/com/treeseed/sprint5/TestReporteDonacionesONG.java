@@ -18,6 +18,7 @@ import com.treeseed.contracts.PostNonprofitRequest;
 import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
@@ -54,11 +55,16 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 	 */
 	@Test
 	public void testReporteONG() throws Exception {
-
 		
-		
+		//waiting on the create donation method
+		//DonationWrapper donation = createRandomDonation();
 		DonationRequest request = new DonationRequest();
+		
+		//request.setNonProfitId(reques.getWrapperObject().getId())
+
+		//burn data while is ready
 		request.setNonProfitId(6);
+		
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
 		request.setPageSize(10);

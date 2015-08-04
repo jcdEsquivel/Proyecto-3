@@ -216,6 +216,13 @@
    		"MESSAGE": "Are you sure you want to delete your post?",
    		"DELETE": "Delete"
     },
+    "NONPROFIT-DONATION-REPORT":{
+    	"TITLE":"NGO Donations report",
+    	"DATE":"Date",
+    	"AMOUNT":"Donated Amount",
+    	"CAMPAIGN":"Campaign",
+    	"DONOR":"Donor"
+    },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
     	"TITLE":"Create Campaign",
