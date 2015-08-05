@@ -89,7 +89,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		pageNumber : '',
 		pageSize : '5',
 		direction : "DESC",
-		sortBy : ['amount']
+		sortBy : ['dateTime']
 	};
 
 	//Call to getYears() to initialize the combo box in the view
