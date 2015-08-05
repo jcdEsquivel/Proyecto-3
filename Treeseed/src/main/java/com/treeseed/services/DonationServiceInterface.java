@@ -12,5 +12,6 @@ public interface DonationServiceInterface {
 	int findDonorsPerCampaign(int campaignId);
 	DonationWrapper saveDonation(DonationWrapper donation);
 	void updateDonation(DonationWrapper donation);
+	DonationWrapper getDonationByStripeId(String stripeId);
 	
 }

@@ -44,4 +44,9 @@ public class DonationService implements DonationServiceInterface{
 	public void updateDonation(DonationWrapper donation) {
 		donationRepository.update(donation.getId(),donation.getStripeId());	
 	}
+	
+	@Override
+	public DonationWrapper getDonationByStripeId(String stripeId) {
+		return new DonationWrapper(donationRepository.findByStripeId(stripeId));	
+	}
 }

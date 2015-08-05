@@ -27,13 +27,7 @@ import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
-import com.stripe.model.Card;
-import com.stripe.model.Charge;
-import com.stripe.model.Customer;
-import com.stripe.model.CustomerCardCollection;
-import com.stripe.model.Plan;
-import com.stripe.model.StripeObject;
-import com.stripe.model.Subscription;
+import com.stripe.model.*;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 
@@ -68,7 +62,7 @@ public class StripeUtils {
 
 	}
 	
-	public static ArrayList<Object> createDonationNewCustomer(String completeName,String email, double amount, String sourceToken, int idDonation ,NonprofitWrapper nonProfit, int idCampaign, String nameCampaign)
+	public static ArrayList<Object> createDonationNewCustomer(int idDonor, String completeName,String email, double amount, String sourceToken, int idDonation ,NonprofitWrapper nonProfit, int idCampaign, String nameCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
 
@@ -76,7 +70,7 @@ public class StripeUtils {
 		
 		ArrayList<Object> result = new ArrayList<Object>();
 		
-		Customer customer = createCustomers(completeName, email);
+		Customer customer = createCustomers(idDonor,completeName, email);
 		Card card = createCard(customer, sourceToken);
 		
 		result.add(0, customer.getId());
@@ -119,7 +113,7 @@ public class StripeUtils {
 
 	}
 	
-	public static ArrayList<Object> createRecurrableDonationNewCustomer(String completeName,String email,int planNumber ,String sourceToken,  NonprofitWrapper nonProfit, int idCampaign)
+	public static ArrayList<Object> createRecurrableDonationNewCustomer(int idDonor, String completeName,String email,int planNumber ,String sourceToken,  NonprofitWrapper nonProfit, int idCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
 
@@ -127,7 +121,7 @@ public class StripeUtils {
 		
 		ArrayList<Object> result = new ArrayList<Object>();
 		
-		Customer customer = createCustomers(completeName, email);
+		Customer customer = createCustomers(idDonor,completeName, email);
 		Card card = createCard(customer, sourceToken);
 		Plan plan = getPlan(Integer.toString(nonProfit.getId()), Integer.toString(idCampaign), Integer.toString(planNumber));
 		
@@ -194,7 +188,7 @@ public class StripeUtils {
 
 	}
 
-	public static Customer createCustomers(String completeName, String email)
+	public static Customer createCustomers(int idDonor, String completeName, String email)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
 
@@ -204,6 +198,7 @@ public class StripeUtils {
 
 		customerParams.put("description", completeName);
 		customerParams.put("email", email);
+		customerParams.put("description", idDonor);
 
 		return Customer.create(customerParams);
 
@@ -258,6 +253,15 @@ public class StripeUtils {
 
 	}
 	
+	public static Charge getChargeFromInvoice(String idInvoiceStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		Stripe.apiKey = API_KEY;
+		
+		Invoice invoice = Invoice.retrieve(idInvoiceStripe);
+		Charge charge = Charge.retrieve(invoice.getCharge());
+		
+		return charge;
+	}
+	
 	public static void updateCustomer(String idDonorStripe, String idCardStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Customer customer = Customer.retrieve(idDonorStripe);
@@ -267,6 +271,20 @@ public class StripeUtils {
 		customerParams.put("default_source", idCardStripe);
 		
 		customer.update(customerParams);
+	}
+	
+	public static Invoice getInvoice(String idInvoiceStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		Stripe.apiKey = API_KEY;
+		Invoice invoice = Invoice.retrieve(idInvoiceStripe);
+		
+		return invoice;
+	}
+	
+	public static Charge getCharge(String idChargeStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+		Stripe.apiKey = API_KEY;
+		Charge charge = Charge.retrieve(idChargeStripe);
+		
+		return charge;
 	}
 	
 	public static Customer getCustomer(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{

@@ -172,7 +172,7 @@ public class DonationController {
 				donationService.saveDonation(donation);
 				
 				if(donor.getStripeId() == null){
-					resultCharge=StripeUtils.createDonationNewCustomer(donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
+					resultCharge=StripeUtils.createDonationNewCustomer(donor.getId(),donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
 					
 					CardWrapper card = new CardWrapper();
 					
