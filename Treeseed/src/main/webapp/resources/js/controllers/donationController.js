@@ -3,8 +3,10 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+
 treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES) {
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace) {
+
 	
 	$scope.percent = 0;
 	
@@ -393,7 +395,11 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session,
+<<<<<<< HEAD
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId) {
+=======
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, titleFace, descriptionFace, pictureFace) {
+>>>>>>> 8e12abcda8646d81188104f5167ac1811079bea0
 	
 	$scope.percent = 0;
 	$scope.sameCard={
@@ -571,10 +577,37 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	};
 	
 	$scope.close = function() {
+		$scope.openSummary();
 		$modalInstance.close();
 		
 	};
-	
+
+	$scope.openSummary = function(){
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/page_donationSummary.html',
+			controller : 'summaryController',
+			size : 'md',//,
+			resolve : {
+				$scope : function() {
+					return $scope;
+				},
+				nonprofitId: function(){
+					return nonprofitId;
+				},
+				titleFace: function(){
+					return titleFace;
+				},
+				descriptionFace: function(){
+					return descriptionFace;
+				},
+				pictureFace: function(){
+					return pictureFace;
+				}
+			} 
+			
+		});
+	}
 	
 	
 	
@@ -583,8 +616,24 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 
 
 
-treeSeedAppControllers.controller('webhookController', function($http,$scope) {
-	alert("WebHooks!");
+treeSeedAppControllers.controller('summaryDonationController', function($http, $modalInstance, $stateParams,$scope, nonprofitId, titleFace, descriptionFace, pictureFace, amount, plan ) {
 	
+	$scope.titleFaceS = titleFace;
+	$scope.descriptionFace= descriptionFace;
+	$scope.imageFace=pictureFace;
+	
+	$scope.titleFaceS = "Territorio de Zaguates";
+	$scope.donationMessage= "Plan 1";
+	$scope.amount = "$4000";
+	
+	if($stateParams.campaignId){
+		$scope.campaignId = $stateParams.campaignId;
+	}else{
+		$scope.campaignId = "";
+	}
+	$scope.close = function() {
 
+		$modalInstance.close();
+		
+	};
 });

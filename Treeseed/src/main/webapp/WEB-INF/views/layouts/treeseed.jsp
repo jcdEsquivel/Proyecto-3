@@ -41,6 +41,8 @@
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 
+<!-- <base href="/treeseed.org" /> -->
+
 
 <body layout="row" ng-controller="AppCtrl">
 

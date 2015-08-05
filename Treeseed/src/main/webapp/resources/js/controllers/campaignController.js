@@ -826,6 +826,15 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 				},
 				nonprofitId: function(){
 					return $scope.nonprofitId;
+				},
+				titleFace: function(){
+					return $scope.campaign.name;
+				},
+				descriptionFace: function(){
+					return $scope.campaign.description;
+				},
+				pictureFace: function(){
+					return $scope.campaign.picture;
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
