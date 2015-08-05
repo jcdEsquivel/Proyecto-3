@@ -303,6 +303,10 @@
     	"CANCEL": "Cancel",
     	"INVALID-CARD": "Invalid card number format",
     	"INVALID-CVC": "Invalid CVC",
-    	"INVALID-EXP": "Invalid expiration date"
+    	"INVALID-EXP": "Invalid expiration date",
+    	"NEW-CARD-NUMBER": "New Card",
+    	"LOADING-CARDS": "Loading Cards",
+    	"DONATE": "Donate"
+    	
     }
 }

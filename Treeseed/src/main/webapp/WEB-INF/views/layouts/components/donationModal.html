@@ -18,7 +18,7 @@
 		 		<div class="col-sm-1">
 		 		   <input type="radio" name="selectedCard" ng-model="cardRequest.selectedCard" value="new" ng-change="setRequired()" required>
 		 		</div>
-		 		<div class="col-sm-11">
+		 		<div class="col-sm-11" translate="DONATION-MODAL.NEW-CARD-NUMBER">
 			 		New Credit Card
 			 	</div>
 			 </div>
@@ -33,12 +33,12 @@
 			 		{{hide}}{{c.last4Numbers}}
 			 	</div>
 			 	<div class="col-sm-3">
-			 		<span>Exp Date: </span>{{c.expMonth}}/{{c.expYear}}
+			 		<span translate="DONATION-MODAL.EXP-DATE">Exp Date: </span>{{c.expMonth}}/{{c.expYear}}
 			 	</div>
 			 </div>
 			 <div ng-if="load.isLoading">
 			 	<br/>
-			 	<p class="loading-paragraph">Loading creadit cards</p>
+			 	<p class="loading-paragraph" translate="DONATION-MODAL.LOADING-CARDS">Loading creadit cards</p>
 			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
 			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
 			 	<br/>
@@ -48,7 +48,7 @@
 		<div class="form-group" ng-show="cardRequest.selectedCard == 'new'">
 			<div class="row">
 				<div class="col-sm-12">
-					<label for="card"  class=" control-label">New Credit Card</label>
+					<label for="card"  class=" control-label"  translate="DONATION-MODAL.NEW-CARD-NUMBER">New Credit Card</label>
 				 	 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
 						payments-format="card" payments-validate="card"  name="card"  required />
 					 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		

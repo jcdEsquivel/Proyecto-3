@@ -3,8 +3,10 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
-treeSeedAppControllers.controller('guestDonationController', function($http, $donationService,StripeService, $stateParams,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, titleFace, descriptionFace, pictureFace) {
+
+treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace) {
+
 	
 	$scope.percent = 0;
 	
@@ -53,8 +55,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, $do
 	$scope.button=false;
 	$scope.token = "";
 	
-	
-	
+
 	//Stripe submit method
 	$scope.stripeCallback = function (code, result) {
 	    if (result.error) {
@@ -394,7 +395,11 @@ treeSeedAppControllers.controller('guestDonationController', function($http, $do
 
 
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session,
+<<<<<<< HEAD
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId) {
+=======
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, titleFace, descriptionFace, pictureFace) {
+>>>>>>> 8e12abcda8646d81188104f5167ac1811079bea0
 	
 	$scope.percent = 0;
 	$scope.sameCard={
@@ -402,6 +407,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	};
 	
 	$scope.hideSubmit = false;
+	
+
 	
 	$scope.requieredCard = true;
 	
@@ -416,7 +423,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.donorCards = {
 			oldCard : '',
 			cards: []
-	}
+	};
 	
 	$scope.cardRequest = {
 			selectedCard:'',
@@ -464,9 +471,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	};
 
 	
-	
-	
-	
+
 	if($stateParams.campaignId){
 		$scope.campaignId = $stateParams.campaignId;
 	}
