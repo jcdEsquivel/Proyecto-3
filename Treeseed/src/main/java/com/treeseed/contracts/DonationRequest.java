@@ -79,10 +79,20 @@ public class DonationRequest extends BasePagingRequest{
 		this.year = year;
 	}
 	
+	/**
+	 * Gets the donor id.
+	 *
+	 *@return the donor id
+	 */
 	public int getDonorId() {
 		return donorId;
 	}
-
+	
+	/**
+	 * Sets the donor id.
+	 *
+	 * @param the donor id
+	 */
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
 	}
