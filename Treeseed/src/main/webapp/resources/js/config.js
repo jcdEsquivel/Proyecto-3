@@ -274,7 +274,7 @@ angular
 														controller: "webhookController"
 											 });
 							
-					$locationProvider.html5Mode(true);
+					//$locationProvider.html5Mode(true);
 							
 							
 
