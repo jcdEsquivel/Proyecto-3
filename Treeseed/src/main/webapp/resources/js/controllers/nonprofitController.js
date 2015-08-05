@@ -524,7 +524,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		
 		
 		
-			var modalInstance = $modal.open({
+			/*var modalInstance = $modal.open({
 				animation : $scope.animationsEnabled,
 				templateUrl : 'layouts/components/page_donationSummary.html',
 				controller : 'summaryDonationController',
@@ -548,10 +548,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 					pictureFace: function(){
 						return $scope.nonprofit.profilePicture;
 					}
-				} 
+				} */
 			
-			
-			/*var modalInstance = $modal.open({
+			var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl :modalUrl,
 			controller : controller,
@@ -572,7 +571,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				pictureFace: function(){
 					return $scope.nonprofit.profilePicture;
 				}
-			}*/
+			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
 		});
 		
