@@ -265,6 +265,39 @@
     	"CLOSE":"Finalizar",
     	"CANCEL":"Cancelar",
     	"CLOSE-BUTTON":"Finalizar Campaña"
+    },
+    
+    "DONATION-PLAN":{
+    	"SIMPLE": "Donación Simple",
+    	"CUSTOM": "Donación Personalizada",
+    	"MONTHLY": "Planes de donación",
+    	
+    	"10": "Mensualmente $10",
+    	"18": "Mensualmente $18",
+    	"36": "Mensualmente $36",
+    	"50": "Mensualmente $50",
+    	"100": "Mensualmente $100",
+    	"250": "Mensualmente $250"
+    },
+    "DONATION-MODAL":{
+    	"TITLE": "Nueva Donación",
+    	"DONOR-INFO":"Información del Donante",
+    	"DONATION": "Donación",
+    	"CARD-NUMBER": "Número de tarjeta",
+    	"CVC": "CVC",
+    	"EXP-DATE": "Fecha de Expiración",
+    	"TYPE": "Tipo de Donación",
+    	"AMOUNT": "Monto",
+    	"NEXT": "Siguiente",
+    	"DONATE": "Donar",
+    	"CANCEL": "Cancelar",
+    	"INVALID-CARD": "Número de tarjeta inválido",
+    	"INVALID-CVC": "CVC Inválido",
+    	"INVALID-EXP": "Fecha de Expiración",
+    	"NEW-CARD-NUMBER": "Nueva Tarjeta",
+    	"LOADING-CARDS": "Cargando tarjetas",
+    	"DONATE": "Donar"
+    	
     }
      
 }

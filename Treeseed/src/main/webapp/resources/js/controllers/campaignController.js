@@ -530,6 +530,7 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController',
 treeSeedAppControllers.controller('getCampaingProfileController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, $state , MODULE_CONFIG,lazyService, USER_ROLES) {
 
+					$scope.showDonationButton = true;
 					$scope.postsLoaded = false;
 					$scope.campaign = {};
 					$scope.campaign.id = $stateParams.campaignId;
@@ -548,8 +549,17 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						$scope.mindate2 = $scope.mindate1;
 					}
 
+					
+					
+					
+					
 					$scope.init = function() {
-
+						//show donate button
+						if(Session.userRole == USER_ROLES.nonprofit){
+							$scope.showDonationButton = false;
+						}
+						
+						
 						$scope.requestObject.idUser = Session.userId;
 						$scope.requestObject.campaign.id = $scope.campaign.id;
 

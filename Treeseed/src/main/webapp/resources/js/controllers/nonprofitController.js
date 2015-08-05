@@ -231,11 +231,16 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
 	$scope.isOwner = true;	
-	
+	$scope.showDonationButton = true;
 	
 
 	$scope.init = function() {
-
+		//Show donate button
+		if(Session.userRole == USER_ROLES.nonprofit){
+			$scope.showDonationButton = false;
+		}
+		
+		
 		$scope.requestObject.idUser= Session.userId;
 		$scope.requestObject.id = $scope.nonprofit.id;
 		
