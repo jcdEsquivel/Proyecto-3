@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.model.Event;
@@ -64,33 +66,36 @@ public class StripeController {
 		
 		return response;
 	}
-		
+	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
+			APIConnectionException.class, CardException.class, APIException.class, StripeException.class,JsonParseException.class , JsonMappingException.class, IOException.class})	
 	@RequestMapping(value ="invoice/payment", method = RequestMethod.POST, consumes = {"application/json"}, produces={"application/json"})
 	public StripeResponse stripeWebhookEndpoint(HttpServletRequest  request) throws JsonParseException, JsonMappingException, IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 	
 		StripeResponse response;
 
 		String jsonBody = IOUtils.toString( request.getInputStream());
+		System.out.println(jsonBody);
 		Event eventRequest = Event.GSON.fromJson(jsonBody, Event.class);
 		Invoice invoice = (Invoice)eventRequest.getData().getObject();
 		Charge charge = StripeUtils.getCharge(invoice.getCharge());
 		
-		if(!donationService.getDonationByStripeId(charge.getId()).getWrapperObject().equals(null)){
+		if(donationService.getDonationByStripeId(charge.getId()).getWrapperObject()==null){
 			DonationWrapper donation = new DonationWrapper();
 			Customer customer = StripeUtils.getCustomer(invoice.getCustomer());
 			
-			String planId = invoice.getLines().getData().get(4).getId();
+			String planId = invoice.getLines().getData().get(0).getPlan().getId();
 			String[] planIds = planId.split("#");
 			
 			NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
 			String paymentText = n.format(charge.getAmount() / 100.0);
+			paymentText = paymentText.replace("$", "");
 			
-			donation.setAmount(Integer.parseInt(paymentText));
+			donation.setAmount(Double.parseDouble(paymentText));
 			donation.setDateTime(new Date(charge.getCreated()));
 			donation.setDonorId(Integer.parseInt(customer.getDescription()));
 			donation.setActive(true);
-			
-			if(planId.length()>2){
+			donation.setStripeId(charge.getId());
+			if(planIds.length>2){
 				try {
 					CampaignWrapper campaign = campaignService.getCampaignById(Integer.parseInt(planIds[2]));
 					donation.setCampaingId(campaign.getId());
@@ -105,7 +110,9 @@ public class StripeController {
 				donation.setNonProfitId(Integer.parseInt(planIds[0]));
 			} catch (Exception e) {
 				throw e;
-			}			
+			}
+			
+			donationService.saveDonation(donation);
 		}
 		
 		if(jsonBody!=null){

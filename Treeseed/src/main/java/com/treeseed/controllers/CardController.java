@@ -88,7 +88,7 @@ public class CardController {
 		DonorWrapper donor=donorService.getDonorProfileByID(prams.getCard().getDonor().getId());
 		List<CardPOJO> viewCardPOJO = new ArrayList<CardPOJO>();
 		
-		if(!donor.getWrapperObject().equals(null)){
+		if(donor.getWrapperObject()!=null){
 			if(donor.getStripeId()!=null){
 				List<CardWrapper> list = cardService.getCardByDonorId(donor.getWrapperObject());
 

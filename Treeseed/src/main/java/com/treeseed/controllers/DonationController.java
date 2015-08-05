@@ -156,6 +156,9 @@ public class DonationController {
 				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
 				donation.setDonorId(dr.getDonation().getDonorId());
 				donation.setActive(true);
+				if(dr.getDonation().getDonorFatherId()>0){
+					donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+				}
 
 				if (dr.getDonation().getCampaignId() != 0) {
 					try {
