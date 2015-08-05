@@ -64,6 +64,26 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	@Query("SELECT COUNT(DISTINCT donorId) From Donation  WHERE campaingId = :campignId")
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
 	
+	/**
+	 * Find by nonprofitId.
+	 *
+	 * @param nonProfit id
+	 * @Param String monthNull,
+	 * @Param String month,
+	 * @Param String yearNull,
+	 * @Param String year,
+     * @param pageable the pageable
+	 * @return the page
+	 */
+	@Query("SELECT d FROM Donation d WHERE( donorId = :donorId) and "
+			+ "( :monthNull is null or MONTH(dateTime)=:month) and "
+			+ "( :yearNull is null or YEAR(dateTime)=:year)")
+	public Page<Donation> findDonationsOfDonor(@Param("donorId") int donorId,
+											   @Param("monthNull") String monthNull,
+											   @Param("month") int month,
+											   @Param("yearNull") String yearNull,
+											   @Param("year") int year,
+											   Pageable pageable);
 	
 	/**
 	 * Find all donations.
@@ -86,7 +106,5 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 				@Param("yearNull") String yearNull,
 				@Param("year") int year,
 			   Pageable pageable);
-	
-	
 
 }

@@ -22,11 +22,26 @@ public class DonationRequest extends BasePagingRequest{
 	/** The non profit id. */
 	private int nonProfitId;
 	
+	/**  The donor id. */
+	private int donorId;
+	
 	/** The amount. */
 	private double amount;
 	
 	/** The donation date. */
-	private Date donationDate;
+	private Date donationDate;	
+	
+	/** The month. */
+	private String month;
+	
+	/** The year. */
+	private String year;
+	
+	/** The start period date. */
+	private Date startPeriodDate;
+	
+	/** The end period date. */
+	private Date endPeriodDate;
 	
 	/**
 	 * Gets the month.
@@ -64,18 +79,23 @@ public class DonationRequest extends BasePagingRequest{
 		this.year = year;
 	}
 	
-	/** The month. */
-	private String month;
+	/**
+	 * Gets the donor id.
+	 *
+	 *@return the donor id
+	 */
+	public int getDonorId() {
+		return donorId;
+	}
 	
-	/** The year. */
-	private String year;
-	
-	/** The start period date. */
-	private Date startPeriodDate;
-	
-	/** The end period date. */
-	private Date endPeriodDate;
-	
+	/**
+	 * Sets the donor id.
+	 *
+	 * @param the donor id
+	 */
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
 	/**
 	 * Instantiates a new donation request.
 	 */

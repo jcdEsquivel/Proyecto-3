@@ -252,6 +252,22 @@ angular
 												}
 											})
 								  	.state(
+										'treeSeed.donorReceipts',
+										{
+											url : 'donorReceipts',
+											templateUrl : 'layouts/pages/donorReceipts.html',
+											controller : "donorReceiptsController",
+											resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/nonprofitController.js' ]),
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',

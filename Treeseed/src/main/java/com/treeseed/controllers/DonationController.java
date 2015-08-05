@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Donation;
@@ -29,7 +30,9 @@ import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
+import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
+import com.treeseed.utils.PageWrapper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -38,6 +41,10 @@ import com.treeseed.services.DonorServiceInterface;
 @RestController
 @RequestMapping(value = "rest/protected/donation")
 public class DonationController {
+	
+	/** The donation service. */
+	@Autowired
+	NonprofitServiceInterface nonProfitService;
 	
 	/** The donation service. */
 	@Autowired
@@ -82,8 +89,52 @@ public class DonationController {
 		return ds;	
 	}
 	
-	
 	/**
+	 * Gets the donations of a donor.
+	 *
+	 * @param dr the donation request
+	 * @return the donation response
+	 */
+	@RequestMapping(value ="/getDonationOfDonorPerMonth", method = RequestMethod.POST)
+	public DonationResponse getDonationOfDonorPerMonth(@RequestBody DonationRequest dr){	
+
+		DonationPOJO donationPOJO = null;		
+		DonationResponse ds = new DonationResponse();
+		PageWrapper<DonationWrapper> pageResults = null;
+		List<DonationPOJO> donationsPOJO = new ArrayList<DonationPOJO>();
+
+		dr.setPageNumber(dr.getPageNumber()-1);
+		
+		pageResults = donationService.findDonationsOfDonor(dr);		
+		
+		ds.setTotalElements(pageResults.getTotalItems());
+		
+		for(DonationWrapper objeto: pageResults.getResults())
+		{
+			donationPOJO = new DonationPOJO();
+			donationPOJO.setAmount(objeto.getAmount());
+			donationPOJO.setCampaignId(objeto.getCampaingId());
+			donationPOJO.setNonProfitId(objeto.getNonProfitId());
+			donationPOJO.setNonprofitName(nonProfitService.getNonProfitById(objeto.getNonProfitId()).getName());
+			donationPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+			
+			donationsPOJO.add(donationPOJO);
+		};
+
+		ds.setDonations(donationsPOJO);
+		
+		if(donationsPOJO.size()>0){
+			ds.setCodeMessage("Transparency reports fetch successfully");
+			ds.setCode(200);
+		}else{
+			ds.setErrorMessage("Transparency reports fetch unsuccessfully");
+			ds.setCode(400);
+		}
+		
+		return ds;
+	}
+	
+		/**
 	 * Gets the donations reports.
 	 *
 	 * @param drt the Donation Request

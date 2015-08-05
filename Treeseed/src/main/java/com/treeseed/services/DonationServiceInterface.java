@@ -1,7 +1,10 @@
 package com.treeseed.services;
 
 import java.sql.Date;
-import java.util.List;
+
+import com.treeseed.contracts.DonationRequest;
+import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.utils.PageWrapper;
 
 import org.springframework.data.domain.Page;
 
@@ -33,6 +36,14 @@ public interface DonationServiceInterface {
 	 * @return the int
 	 */
 	int findDonorsPerCampaign(int campaignId);
+	
+	/**
+	 * Gets the donations of Donor.
+	 *
+	 * @param dr the donation request
+	 * @return the donations
+	 */
+	PageWrapper<DonationWrapper> findDonationsOfDonor(DonationRequest dr);
 	
 	/**
 	 * Gets the donations.

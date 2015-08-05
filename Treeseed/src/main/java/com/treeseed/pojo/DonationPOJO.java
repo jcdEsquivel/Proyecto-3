@@ -22,8 +22,16 @@ public class DonationPOJO {
 	/** The amount. */
 	private double amount;
 	
+	/** The amount. */
+	private String nonprofitName;
 	/** The donation date. */
 	private Date donationDate;
+	
+	/** The amount. */
+	private String dateS;
+	
+	/** The amount. */
+	private NonprofitPOJO nonprofit;
 	
 	/** The donor id. */
 	private int donorId;
@@ -37,6 +45,55 @@ public class DonationPOJO {
 	/** The donor. */
 	private DonorPOJO donor;
 	
+	/**
+	 * Gets the donor name.
+	 *
+	 * @return the donor name
+	 */
+	public String getNonprofitName() {
+		return nonprofitName;
+	}
+
+	/**
+	 * Sets the non profit name.
+	 *
+	 * @param non profit name
+	 */
+	public void setNonprofitName(String nonprofitName) {
+		this.nonprofitName = nonprofitName;
+	}
+
+	/**
+	 * Gets the date string.
+	 *
+	 * @return the date string
+	 */
+	public String getDateS() {
+		return dateS;
+	}
+	
+	/**
+	 * Sets the non profit name.
+	 *
+	 * @param non profit name
+	 */
+	public void setDateS(String dateS) {
+		this.dateS = dateS;
+	}
+
+	public NonprofitPOJO getNonprofit() {
+		return nonprofit;
+	}
+	
+	/**
+	 * Sets the non profit name.
+	 *
+	 * @param non profit name
+	 */
+	public void setNonprofit(NonprofitPOJO nonprofit) {
+		this.nonprofit = nonprofit;
+	}
+
 	/**
 	 * Gets the donor.
 	 *
