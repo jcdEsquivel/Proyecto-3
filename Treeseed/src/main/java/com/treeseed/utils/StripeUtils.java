@@ -34,10 +34,33 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import javassist.expr.NewArray;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StripeUtils.
+ */
 public class StripeUtils {
 
+	/** The api key. */
 	private static String API_KEY = "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
 
+	/**
+	 * Creates the donation.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @param amount the amount
+	 * @param sourceToken the source token
+	 * @param cardStripeId the card stripe id
+	 * @param idDonation the id donation
+	 * @param nonProfit the non profit
+	 * @param idCampaign the id campaign
+	 * @param nameCampaign the name campaign
+	 * @return the array list
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static ArrayList<Object> createDonation(String idDonorStripe, double amount, String sourceToken, String cardStripeId ,int idDonation,  NonprofitWrapper nonProfit, int idCampaign, String nameCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -62,6 +85,25 @@ public class StripeUtils {
 
 	}
 	
+	/**
+	 * Creates the donation new customer.
+	 *
+	 * @param idDonor the id donor
+	 * @param completeName the complete name
+	 * @param email the email
+	 * @param amount the amount
+	 * @param sourceToken the source token
+	 * @param idDonation the id donation
+	 * @param nonProfit the non profit
+	 * @param idCampaign the id campaign
+	 * @param nameCampaign the name campaign
+	 * @return the array list
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static ArrayList<Object> createDonationNewCustomer(int idDonor, String completeName,String email, double amount, String sourceToken, int idDonation ,NonprofitWrapper nonProfit, int idCampaign, String nameCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -82,6 +124,23 @@ public class StripeUtils {
 
 	}
 	
+	/**
+	 * Creates the recurrable donation.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @param planNumber the plan number
+	 * @param sourceToken the source token
+	 * @param cardStripeId the card stripe id
+	 * @param nonProfit the non profit
+	 * @param idCampaign the id campaign
+	 * @param sameCard the same card
+	 * @return the array list
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static ArrayList<Object> createRecurrableDonation(String idDonorStripe,int planNumber ,String sourceToken, String cardStripeId,  NonprofitWrapper nonProfit, int idCampaign, boolean sameCard)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -113,6 +172,23 @@ public class StripeUtils {
 
 	}
 	
+	/**
+	 * Creates the recurrable donation new customer.
+	 *
+	 * @param idDonor the id donor
+	 * @param completeName the complete name
+	 * @param email the email
+	 * @param planNumber the plan number
+	 * @param sourceToken the source token
+	 * @param nonProfit the non profit
+	 * @param idCampaign the id campaign
+	 * @return the array list
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static ArrayList<Object> createRecurrableDonationNewCustomer(int idDonor, String completeName,String email,int planNumber ,String sourceToken,  NonprofitWrapper nonProfit, int idCampaign)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -134,6 +210,22 @@ public class StripeUtils {
 
 	}
 
+	/**
+	 * Creates the plan.
+	 *
+	 * @param count the count
+	 * @param idNonprofit the id nonprofit
+	 * @param idCampaign the id campaign
+	 * @param nameNonprofit the name nonprofit
+	 * @param nameCampaign the name campaign
+	 * @param amount the amount
+	 * @return the plan
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Plan createPlan(int count, int idNonprofit, int idCampaign, String nameNonprofit, String nameCampaign,
 			int amount) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 					APIException {
@@ -173,6 +265,19 @@ public class StripeUtils {
 	
 	
 	
+	/**
+	 * Creates the subscription.
+	 *
+	 * @param plan the plan
+	 * @param customer the customer
+	 * @param card the card
+	 * @return the subscription
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Subscription createSubscription(Plan plan, Customer customer, Card card)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -188,6 +293,19 @@ public class StripeUtils {
 
 	}
 
+	/**
+	 * Creates the customers.
+	 *
+	 * @param idDonor the id donor
+	 * @param completeName the complete name
+	 * @param email the email
+	 * @return the customer
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Customer createCustomers(int idDonor, String completeName, String email)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -204,6 +322,18 @@ public class StripeUtils {
 
 	}
 
+	/**
+	 * Creates the card.
+	 *
+	 * @param customer the customer
+	 * @param token the token
+	 * @return the card
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Card createCard(Customer customer, String token) throws AuthenticationException, InvalidRequestException,
 					APIConnectionException, CardException, APIException {
 
@@ -216,6 +346,24 @@ public class StripeUtils {
 
 	}
 
+	/**
+	 * Creates the charge.
+	 *
+	 * @param amount the amount
+	 * @param cardId the card id
+	 * @param customerId the customer id
+	 * @param idDonation the id donation
+	 * @param idNonprofit the id nonprofit
+	 * @param idCampaign the id campaign
+	 * @param nameNonprofit the name nonprofit
+	 * @param nameCampaign the name campaign
+	 * @return the charge
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Charge createCharge(double amount, String cardId,String customerId ,int idDonation, int idNonprofit,
 			int idCampaign, String nameNonprofit, String nameCampaign) throws AuthenticationException,
 					InvalidRequestException, APIConnectionException, CardException, APIException {
@@ -253,6 +401,17 @@ public class StripeUtils {
 
 	}
 	
+	/**
+	 * Gets the charge from invoice.
+	 *
+	 * @param idInvoiceStripe the id invoice stripe
+	 * @return the charge from invoice
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Charge getChargeFromInvoice(String idInvoiceStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		
@@ -262,6 +421,17 @@ public class StripeUtils {
 		return charge;
 	}
 	
+	/**
+	 * Update customer.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @param idCardStripe the id card stripe
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static void updateCustomer(String idDonorStripe, String idCardStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Customer customer = Customer.retrieve(idDonorStripe);
@@ -273,6 +443,17 @@ public class StripeUtils {
 		customer.update(customerParams);
 	}
 	
+	/**
+	 * Gets the invoice.
+	 *
+	 * @param idInvoiceStripe the id invoice stripe
+	 * @return the invoice
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Invoice getInvoice(String idInvoiceStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Invoice invoice = Invoice.retrieve(idInvoiceStripe);
@@ -280,6 +461,17 @@ public class StripeUtils {
 		return invoice;
 	}
 	
+	/**
+	 * Gets the charge.
+	 *
+	 * @param idChargeStripe the id charge stripe
+	 * @return the charge
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Charge getCharge(String idChargeStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Charge charge = Charge.retrieve(idChargeStripe);
@@ -287,12 +479,36 @@ public class StripeUtils {
 		return charge;
 	}
 	
+	/**
+	 * Gets the customer.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @return the customer
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Customer getCustomer(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Customer customer = Customer.retrieve(idDonorStripe);
 		
 		return customer;
 	}
+	
+	/**
+	 * Gets the card.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @param stripeCardId the stripe card id
+	 * @return the card
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Card getCard(String idDonorStripe, String stripeCardId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		
@@ -304,6 +520,19 @@ public class StripeUtils {
 		return card;
 	}
 	
+	/**
+	 * Gets the plan.
+	 *
+	 * @param idNonprofit the id nonprofit
+	 * @param idCampaign the id campaign
+	 * @param planNumber the plan number
+	 * @return the plan
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	public static Plan getPlan(String idNonprofit, String idCampaign, String planNumber) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		Stripe.apiKey = API_KEY;
 		Plan plan;

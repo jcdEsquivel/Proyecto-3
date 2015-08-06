@@ -15,10 +15,21 @@ import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.UserGeneral;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface CardRepository.
+ */
 public interface CardRepository extends 
 	CrudRepository<Card,Integer> {
 	
+	/** The Constant PAGE_SIZE. */
 	public static final int PAGE_SIZE = 5;
 	
+	/**
+	 * Find by donor.
+	 *
+	 * @param donor the donor
+	 * @return the list
+	 */
 	public List<Card> findByDonor(Donor donor);
 }

@@ -47,16 +47,27 @@ import com.treeseed.utils.StripeUtils;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StripeController.
+ */
 @RestController
 @RequestMapping(value="rest/stripe/")
 public class StripeController {
 	
+	/** The donation service. */
 	@Autowired
 	DonationServiceInterface donationService;
 	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
+	/**
+	 * Gets the.
+	 *
+	 * @return the response entity
+	 */
 	@RequestMapping(value ="stripe/get", method = RequestMethod.GET)
 	public ResponseEntity<String> get(){
 	
@@ -66,6 +77,21 @@ public class StripeController {
 		
 		return response;
 	}
+	
+	/**
+	 * Stripe webhook endpoint.
+	 *
+	 * @param request the stripe request
+	 * @return the stripe response
+	 * @throws JsonParseException the json parse exception
+	 * @throws JsonMappingException the json mapping exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
 			APIConnectionException.class, CardException.class, APIException.class, StripeException.class,JsonParseException.class , JsonMappingException.class, IOException.class})	
 	@RequestMapping(value ="invoice/payment", method = RequestMethod.POST, consumes = {"application/json"}, produces={"application/json"})
