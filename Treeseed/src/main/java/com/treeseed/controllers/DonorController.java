@@ -262,14 +262,113 @@ public class DonorController extends UserGeneralController{
 		return nps;	
 	}
 	
-	/**
-	 * Edits the donor.
-	 *
-	 * @param dr the dr
-	 * @param fileCover the file cover
-	 * @param fileProfile the file profile
-	 * @return the donor response
-	 */
+
+	@RequestMapping(value ="/getTreeSimplify", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public DonorResponse getDonorTreeSimplify(@RequestBody DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
+			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+		
+		String profileImageName = "";
+		
+		DonorResponse us = new DonorResponse();
+		DonorPOJO donorPOJO = new DonorPOJO();
+		
+		UserGeneral ug = new UserGeneral();
+		ug = userGeneralService.getUGByID(dr.getIdUser());
+		
+		if(ug.getEmail().equals(dr.getEmail())){
+			
+				DonorWrapper donor = new DonorWrapper();
+	
+				if(fileProfile!=null){
+					profileImageName = Utils.writeToFile(fileProfile,servletContext);
+				}
+
+				if(!profileImageName.equals("")){
+					donor.setProfilePicture(profileImageName);
+				}else{
+					donor.setProfilePicture(dr.getProfilePicture());
+				}
+					
+				donor.setId(dr.getId());
+				donor.setName(dr.getName());
+				donor.setLastName(dr.getLastName());
+				donor.setDescription(dr.getDescription());
+				donor.setWebPage(dr.getWebPage());
+				
+				Donor donorobject = new Donor();
+				donorPOJO = new DonorPOJO();
+				
+				donorService.updateDonor(donor);
+				
+				donorobject= donorService.getSessionDonor(dr.getId());
+				
+				donorPOJO.setName(donorobject.getName());
+				donorPOJO.setLastName(donorobject.getLastName());
+				donorPOJO.setDescription(donorobject.getDescription());
+				donorPOJO.setProfilePicture(donorobject.getProfilePicture());
+				donorPOJO.setWebPage(donorobject.getWebPage());
+				donorPOJO.setId(donorobject.getId());
+				
+				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+				
+				userGeneralPOJO.setEmail(ug.getEmail());
+				
+				donorPOJO.setUserGeneral(userGeneralPOJO);
+				
+				us.setDonor(donorPOJO);
+				us.setCode(200);
+				us.setCodeMessage("Donor updated sucessfully");
+		}else{
+			
+			Boolean alreadyUser=userGeneralService.userExist(dr.getEmail());
+			dr.setEmail(dr.getEmail().toLowerCase());
+
+			if(validator.isValid(dr.getEmail())){
+				if(!alreadyUser){
+			
+					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+					userGeneral.setEmail(dr.getEmail());
+					userGeneral.setId(dr.getId());
+					
+					UserGeneral userGeneralobject = new UserGeneral();
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					
+					userGeneralService.updateUserGeneral(userGeneral);
+					
+					userGeneralPOJO.setEmail(userGeneral.getEmail());
+					
+					donorPOJO.setName(dr.getName());
+					donorPOJO.setLastName(dr.getLastName());
+					donorPOJO.setDescription(dr.getDescription());
+					donorPOJO.setProfilePicture(dr.getProfilePicture());
+					donorPOJO.setWebPage(dr.getWebPage());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					donorPOJO.setId(dr.getId());
+					
+					us.setDonor(donorPOJO);
+					us.setCode(200);
+					us.setCodeMessage("Donor updated sucessfully");	
+		
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("EMAIL ALREADY IN USE");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					us.setDonor(donorPOJO);
+				}
+			}else{
+					us.setCode(400);
+					us.setCodeMessage("BAD EMAIL");
+					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+					userGeneralPOJO.setEmail(ug.getEmail());
+					donorPOJO.setUserGeneral(userGeneralPOJO);
+					us.setDonor(donorPOJO);
+				}
+		}
+		return us;		
+	}
+	
 	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public DonorResponse editDonor(@RequestPart(value="data") DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
