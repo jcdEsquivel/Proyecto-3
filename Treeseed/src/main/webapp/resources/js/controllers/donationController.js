@@ -525,7 +525,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,
 
 treeSeedAppControllers.controller('summaryDonationController', function($http,
 		$modalInstance, $stateParams, $scope ,nonprofitId, titleFace,
-		descriptionFace, pictureFace, amount, plan, $rootScope) {
+		descriptionFace, pictureFace, amount, plan, $rootScope) { 
 
 	
 	
