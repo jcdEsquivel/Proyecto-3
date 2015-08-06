@@ -138,24 +138,18 @@ public class NonprofitController extends UserGeneralController {
 	/**
 	 * Non profit create.
 	 *
-	 * @param name
-	 *            the name
-	 * @param email
-	 *            the email
-	 * @param password
-	 *            the password
-	 * @param country
-	 *            the country
-	 * @param cause
-	 *            the cause
-	 * @param file
-	 *            the file
+	 * @param name            the name
+	 * @param email            the email
+	 * @param password            the password
+	 * @param country            the country
+	 * @param cause            the cause
+	 * @param file            the file
 	 * @return the nonprofit response
-	 * @throws APIException 
-	 * @throws CardException 
-	 * @throws APIConnectionException 
-	 * @throws InvalidRequestException 
-	 * @throws AuthenticationException 
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
@@ -238,6 +232,19 @@ public class NonprofitController extends UserGeneralController {
 
 	}
 
+	/**
+	 * Creates the nonprofit plans.
+	 *
+	 * @param idNonprofit the id nonprofit
+	 * @param nameNonprofit the name nonprofit
+	 * @param amounts the amounts
+	 * @return the boolean
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	private Boolean createNonprofitPlans(int idNonprofit, String nameNonprofit, int[] amounts) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 					APIException {
 

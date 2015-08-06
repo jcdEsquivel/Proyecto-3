@@ -12,12 +12,20 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.NonprofitRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NonprofitService.
+ */
 @Service
 public class NonprofitService implements NonprofitServiceInterface{
 
+	/** The nonprofits repository. */
 	@Autowired
 	NonprofitRepository nonprofitsRepository;
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getNonProfit(com.treeseed.contracts.NonprofitRequest)
+	 */
 	@Override
 	@Transactional
 	public Page<Nonprofit> getNonProfit(NonprofitRequest ur) {
@@ -57,6 +65,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#saveNonprofit(com.treeseed.ejbWrapper.NonprofitWrapper)
+	 */
 	@Override
 	@Transactional
 	public int saveNonprofit(NonprofitWrapper nonProfit) {
@@ -67,29 +78,44 @@ public class NonprofitService implements NonprofitServiceInterface{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getSessionNonprofit(int)
+	 */
 	@Override
 	public NonprofitWrapper getSessionNonprofit(int idNonprofit) {
 		return new NonprofitWrapper(nonprofitsRepository.findOne(idNonprofit));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getByName(java.lang.String)
+	 */
 	@Override
 	public Page<Nonprofit> getByName(String name) {
 		PageRequest pr = null;
 		return nonprofitsRepository.findByNameContaining(name,pr);	
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getByCountry(com.treeseed.contracts.NonprofitRequest)
+	 */
 	@Override
 	public Page<Nonprofit> getByCountry(NonprofitRequest ur) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getByCause(com.treeseed.contracts.NonprofitRequest)
+	 */
 	@Override
 	public Page<Nonprofit> getByCause(NonprofitRequest ur) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getNonProfitByID(com.treeseed.contracts.NonprofitRequest)
+	 */
 	@Override
 	public NonprofitWrapper getNonProfitByID(NonprofitRequest ur) {
 		
@@ -102,12 +128,18 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return nonProfitWrapper;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#getNonProfitById(int)
+	 */
 	@Override
 	public NonprofitWrapper getNonProfitById(int id) {
 		return new NonprofitWrapper(nonprofitsRepository.findOne(id));
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#updateNonProfit(com.treeseed.ejbWrapper.NonprofitWrapper)
+	 */
 	@Override
 	@Transactional
 	public Nonprofit updateNonProfit(NonprofitWrapper nonProfit) {
@@ -124,6 +156,9 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return nonprofitsRepository.findOne(nonProfit.getId());
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#deteteNonprofit(com.treeseed.ejbWrapper.NonprofitWrapper)
+	 */
 	@Override
 	@Transactional
 	public Nonprofit deteteNonprofit(NonprofitWrapper nonProfit) {
