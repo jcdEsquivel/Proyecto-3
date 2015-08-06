@@ -397,7 +397,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
+		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
 	
 	$scope.percent = 0;
@@ -582,10 +582,18 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	};
 
 	$scope.openSummary = function(){
+		
+		$translate('DONATION-MODAL.SUCCESS-1').then(
+				function successFn(translation) {
+					 $scope.titleMessage1 = translation;
+					 console.log(translation);
+				});
+		console.log(JSON.stringify($translate('DONATION-MODAL.SUCCESS-1')+'123'));
+		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/page_donationSummary.html',
-			controller : 'summaryController',
+			controller : 'summaryDonationController',
 			size : 'md',//,
 			resolve : {
 				$scope : function() {
@@ -602,6 +610,12 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 				},
 				pictureFace: function(){
 					return pictureFace;
+				},
+				amount: function(){
+					return $scope.donationInfo.amount;
+				},
+				plan: function(){
+					return $scope.donationInfo.donationPlan;
 				}
 			}
 			
@@ -615,12 +629,12 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 
 
 treeSeedAppControllers.controller('summaryDonationController', function($http,
-  $modalInstance, $stateParams, $scope ,nonprofitId, titleFace,
+  $modalInstance, $stateParams, $scope ,nonprofitId, titleFace,$translate,
   descriptionFace, pictureFace, amount, plan) { 
 
 	 $scope.titleMessage1 = '';
 	 $scope.titleMessage2 = '';
-	 $scope.donationTypeCustom = '';
+	 $scope.donationTypeCustom = 'ara';
 	 $scope.donationTypePlan = '';
 	 $scope.month = '';
 	 $scope.year = '';
@@ -628,40 +642,43 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
  $scope.titleFaceS = titleFace;
  $scope.descriptionFace = descriptionFace;
  $scope.imageFace = pictureFace;
- $scope.leng = $scope.selectLang;
  
  $scope.donationMessage = "";
  $scope.planMessage = "";
  $scope.amount = "";
  
  
- $translate('SUCCESS-1').then(
+ $translate('DONATION-MODAL.SUCCESS-1').then(
 	function successFn(translation) {
-		 $scope.titleMessage1 = translation
+		 $scope.titleMessage1 = translation;
+		 console.log(translation);
 	});
  
- $translate('SUCCESS-2').then(
+ $translate('DONATION-MODAL.SUCCESS-2').then(
 			function successFn(translation) {
-				 $scope.titleMessage2 = translation
+				 $scope.titleMessage2 = translation;
+				 console.log(translation);
 			});
  
- $translate('SUCCESS-DONATION-TYPE-CUSTOM').then(
+ $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-CUSTOM').then(
 			function successFn(translation) {
-				 $scope.donationTypeCustom = translation
+				 $scope.donationTypeCustom = translation;
+				 
 			});
+
+ console.log($scope.donationTypeCustom);
  
- 
- $translate('SUCCESS-DONATION-TYPE-PLAN').then(
+ $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-PLAN').then(
 			function successFn(translation) {
 				 $scope.donationTypePlan = translation
 			});
  
- $translate('SUCCESS-MONTH').then(
+ $translate('DONATION-MODAL.SUCCESS-MONTH').then(
 			function successFn(translation) {
 				$scope.month = translation
 			});
  
- $translate('SUCCESS-YEAR').then(
+ $translate('DONATION-MODAL.SUCCESS-YEAR').then(
 			function successFn(translation) {
 				$scope.year = translation
 			});
@@ -670,21 +687,9 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
  if (plan == 'custom') {
   $scope.amount = "$"+amount;
-  
-  if($scope.leng=="English"){
-	   $scope.donationMessage ="Custom donation"
-	  }else if($scope.leng=="Español"){
-	   $scope.donationMessage ="Donación personalizada"
-	  }
-  
+ 
  } else {
-  if($scope.leng=="English"){
-   $scope.donationMessage ="Donation by subscription"
-   $scope.planMessage = "/month";
-  }else if($scope.leng=="Español"){
-   $scope.planMessage = "/mes";
-   $scope.donationMessage ="Donación por subscripción"
-  }
+  
   switch (plan) {
   case '1':
    $scope.amount = "$10";
@@ -709,11 +714,13 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
    break;
   }
  }
+ 
  if ($stateParams.campaignId) {
   $scope.campaignId = $stateParams.campaignId;
  } else {
   $scope.campaignId = "";
  }
+ 
  $scope.close = function() {
 
   $modalInstance.close();
