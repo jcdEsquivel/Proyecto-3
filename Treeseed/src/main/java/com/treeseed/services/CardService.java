@@ -22,29 +22,47 @@ import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.CardRepository;
 import com.treeseed.repositories.UserGeneralRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CardService.
+ */
 @Service
 public class CardService implements CardServiceInterface{
+	
+	/** The card repository. */
 	@Autowired
 	CardRepository cardRepository;
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CardServiceInterface#saveCard(com.treeseed.ejbWrapper.CardWrapper)
+	 */
 	@Override
 	public Boolean saveCard(CardWrapper card) {
 		cardRepository.save(card.getWrapperObject());
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CardServiceInterface#getCardByID(int)
+	 */
 	@Override
 	public CardWrapper getCardByID(int idCard) {
 		// TODO Auto-generated method stub
 		return new CardWrapper(cardRepository.findOne(idCard));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CardServiceInterface#updateCard(com.treeseed.ejbWrapper.CardWrapper)
+	 */
 	@Override
 	public void updateCard(CardWrapper card) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CardServiceInterface#getCardByDonorId(com.treeseed.ejb.Donor)
+	 */
 	@Override
 	public List<CardWrapper> getCardByDonorId(Donor donor) {
 		List<Card> cards = cardRepository.findByDonor(donor);
@@ -56,6 +74,9 @@ public class CardService implements CardServiceInterface{
 		return cardsWrapper;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CardServiceInterface#deleteCard(com.treeseed.ejbWrapper.CardWrapper)
+	 */
 	@Override
 	public void deleteCard(CardWrapper card) {
 		// TODO Auto-generated method stub

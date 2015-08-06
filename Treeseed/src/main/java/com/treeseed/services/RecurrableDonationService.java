@@ -11,13 +11,21 @@ import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 import com.treeseed.repositories.DonationRepository;
 import com.treeseed.repositories.RecurrableDonationRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RecurrableDonationService.
+ */
 @Service
 public class RecurrableDonationService implements RecurrableDonationServiceInterface{
 	
+	/** The recurrable donation repository. */
 	@Autowired
 	RecurrableDonationRepository recurrableDonationRepository;
 
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.RecurrableDonationServiceInterface#saveRecurrableDonation(com.treeseed.ejbWrapper.RecurrableDonationWrapper)
+	 */
 	@Override
 	public RecurrableDonationWrapper saveRecurrableDonation(RecurrableDonationWrapper recurrableDonation) {
 		RecurrableDonationWrapper recurrableDonationSaved = new RecurrableDonationWrapper(recurrableDonationRepository.save(recurrableDonation.getWrapperObject()));

@@ -539,14 +539,19 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 	$scope.amount = "";
 	
 	if($scope.leng=="English"){
-		$scope.titleMessage1 ="¡Treeseed.org and "
-		$scope.titleMessage2 = " le agradecen por su contribución!";
+		$scope.titleMessage1 ="Treeseed.org and "
+		$scope.titleMessage2 = "thanks you for your contribution !";
 	}else if($scope.leng=="Español"){
-		$scope.titleMessage1 = "Treeseed.org y ";
-		$scope.titleMessage2 =" thanks you for your contribution!"
+		$scope.titleMessage1 = "¡Treeseed.org y ";
+		$scope.titleMessage2 =" le agradecen por su contribución!"
 	}
 	if (plan == 'custom') {
 		$scope.amount = "$"+amount;
+		if($scope.leng=="English"){
+			$scope.donationMessage ="Custom donation"
+		}else if($scope.leng=="Español"){
+			$scope.donationMessage ="Donación personalizada"
+		}
 	} else {
 		if($scope.leng=="English"){
 			$scope.donationMessage ="Donation by subscription"

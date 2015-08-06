@@ -57,11 +57,12 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	 *
 	 * @param campaignNameNull the campaign name null
 	 * @param campaignName the campaign name
-	 * @param ngoNameNull the ngo name null
-	 * @param ngoName the ngo name
-	 * @param cause the cause
 	 * @param startDate the start date
 	 * @param endDate the end date
+	 * @param startDateSoon the start date soon
+	 * @param startDateActive the start date active
+	 * @param endDateActive the end date active
+	 * @param endDateFinished the end date finished
 	 * @param nonprofitId the nonprofit id
 	 * @param pageable the pageable
 	 * @return the page
@@ -114,8 +115,8 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	/**
 	 * Find by id.
 	 *
-	 * @param id the id
-	 * @param pageable the pageable
+	 * @param Id the id
+	 * @param isActive the is active
 	 * @return the page
 	 */
 
@@ -139,17 +140,25 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	@Query("UPDATE Campaign SET isActive=:state WHERE id=:idCampaign")
 	void updateIsActiveById(@Param("idCampaign")int Id,@Param("state") boolean isActive);
 
+	/**
+	 * Find by nonprofit id.
+	 *
+	 * @param Id the id
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<Campaign> findByNonprofitId(int Id, Pageable pageable);
 	
 	/**
 	 * Updates the campaign.
 	 *
-	 * @param Id the id
+	 * @param id the id
 	 * @param name the campaign name
 	 * @param description the campaign description
 	 * @param dueDate the campaign duedate
-	 * @param amoutCollected the campaign amountCollected
-	 * @param aountGoal the campaign amountGoal
+	 * @param startDate the start date
+	 * @param amountCollected the amount collected
+	 * @param amountGoal the amount goal
 	 * @param picture the campaign picture
 	 */
 	@Modifying

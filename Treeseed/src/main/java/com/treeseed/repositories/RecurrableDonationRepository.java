@@ -15,12 +15,29 @@ import org.springframework.data.repository.query.Param;
 import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.RecurrableDonation;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface RecurrableDonationRepository.
+ */
 public interface RecurrableDonationRepository extends CrudRepository<RecurrableDonation, Integer> {
 
+	/** The Constant PAGE_SIZE. */
 	public static final int PAGE_SIZE = 5;
 
+	/**
+	 * Find all.
+	 *
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	Page<RecurrableDonation> findAll(Pageable pageable);
 
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
 	List<RecurrableDonation> findById(int id);
 	
 }

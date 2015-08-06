@@ -74,12 +74,15 @@ public class DonationController {
 	@Autowired
 	CampaignServiceInterface campaignService;
 
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 	
+	/** The card service. */
 	@Autowired
 	CardServiceInterface cardService;
 	
+	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
 	

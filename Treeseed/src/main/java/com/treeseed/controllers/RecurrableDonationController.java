@@ -75,18 +75,34 @@ public class RecurrableDonationController {
 	@Autowired
 	CampaignServiceInterface campaignService;
 
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 
+	/** The card service. */
 	@Autowired
 	CardServiceInterface cardService;
 
+	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
 
+	/** The recurrable donation service. */
 	@Autowired
 	RecurrableDonationServiceInterface recurrableDonationService;
 
+	/**
+	 * Donate subscription.
+	 *
+	 * @param dr the Donation Request
+	 * @return the donation response
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 * @throws StripeException the stripe exception
+	 */
 	@RequestMapping(value = "/subscription", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
 			APIConnectionException.class, CardException.class, APIException.class, StripeException.class })

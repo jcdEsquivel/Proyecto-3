@@ -64,6 +64,7 @@ public class CardController {
 	@Autowired
 	CardServiceInterface cardService;
 	
+	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
 	
@@ -76,11 +77,11 @@ public class CardController {
 	 *
 	 * @param prams the card Request
 	 * @return the card by donor
-	 * @throws APIException 
-	 * @throws CardException 
-	 * @throws APIConnectionException 
-	 * @throws InvalidRequestException 
-	 * @throws AuthenticationException 
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
 	 */
 	@RequestMapping(value ="/getByDonor", method = RequestMethod.POST)
 	public CardResponse getCardByDonor(@RequestBody CardRequest prams) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
