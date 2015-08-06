@@ -327,7 +327,15 @@
     	"INVALID-EXP": "Fecha de Expiración",
     	"NEW-CARD-NUMBER": "Nueva Tarjeta",
     	"LOADING-CARDS": "Cargando tarjetas",
-    	"DONATE": "Donar"
+    	"DONATE": "Donar",
+    	"SUCCESS-1":"Treeseed.org y ",
+    	"SUCCESS-2": " estan muy agradecidos por tu donación! ",
+    	"SUCCESS-DONATION-TYPE-CUSTOM": "Donación Personalizada" ,
+    	"SUCCESS-DONATION-TYPE-PLAN": "Donación por suscripción",
+    	"SUCCESS-MONTH": "/mes",
+    	"SUCCESS-YEAR": "/año",
+    	"MESSAGE": "Información de la donación: ",
+    	"PLAN-MESSAGE": "Mensual "
     	
     }
      

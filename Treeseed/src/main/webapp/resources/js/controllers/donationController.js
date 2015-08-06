@@ -61,7 +61,6 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 	    if (result.error) {
 	        window.alert('it failed! error: ' + result.error.message);
 	    } else {
-	    	console.log("yes");
 	    	$scope.upload = $upload.upload({
 				url : 'rest/protected/donor/register',
 				data : {
@@ -83,7 +82,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 					  $donationService.createDonation('newCard', nonprofitId, $scope.campaignId, response.donorId,
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 							  0).then(function(data){
-						  console.log(JSON.stringify(data));
+						  
 						  
 						  $scope.close();
 						  
@@ -119,8 +118,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 										$scope.donationInfo.donationPlan, 
 										$scope.donationInfo.amount)
 										.then(function (data){
-											console.log(JSON.stringify(data));
-		
+											
 										});//end then
 		
 	};
@@ -501,7 +499,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		
 		$http.post('rest/protected/card/getByDonor', $scope.cardRequest)
 			.success(function(mydata, status) {
-			console.log(JSON.stringify(mydata));
+			
 				$scope.donorCards.cards = mydata.cards;
 				$scope.load.isLoading = false;
 		}).error(function(mydata, status) {
@@ -537,7 +535,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			$donationService.createDonation('oldCard', nonprofitId, $scope.campaignId, Session.userId ,
 					  $scope.cardRequest.selectedCard, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 					  0).then(function(data){
-				  console.log(JSON.stringify(data));
+				 
 				  $scope.close();
 			  });
 				
@@ -548,7 +546,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	
 	//Stripe submit method
 	$scope.stripeCallback = function (code, result) {
-		console.log('new');
+		
 	    if (result.error) {
 	        window.alert('it failed! error: ' + result.error.message);
 	    } else {
@@ -556,7 +554,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			  $donationService.createDonation('newCard', nonprofitId, $scope.campaignId, Session.userId ,
 					  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 					  0).then(function(data){
-				  console.log(JSON.stringify(data));
+				 
 				  $scope.close();
 			  });
 					  
@@ -586,9 +584,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		$translate('DONATION-MODAL.SUCCESS-1').then(
 				function successFn(translation) {
 					 $scope.titleMessage1 = translation;
-					 console.log(translation);
+					 
 				});
-		console.log(JSON.stringify($translate('DONATION-MODAL.SUCCESS-1')+'123'));
 		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
@@ -596,9 +593,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			controller : 'summaryDonationController',
 			size : 'md',//,
 			resolve : {
-				$scope : function() {
-					return $scope;
-				},
+				
 				nonprofitId: function(){
 					return nonprofitId;
 				},
@@ -634,7 +629,7 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
 	 $scope.titleMessage1 = '';
 	 $scope.titleMessage2 = '';
-	 $scope.donationTypeCustom = 'ara';
+	 $scope.donationTypeCustom = '';
 	 $scope.donationTypePlan = '';
 	 $scope.month = '';
 	 $scope.year = '';
@@ -646,50 +641,63 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
  $scope.donationMessage = "";
  $scope.planMessage = "";
  $scope.amount = "";
- 
+ $scope.amount = "";
+ $scope.type = '';
  
  $translate('DONATION-MODAL.SUCCESS-1').then(
 	function successFn(translation) {
 		 $scope.titleMessage1 = translation;
-		 console.log(translation);
+		
 	});
+ 
  
  $translate('DONATION-MODAL.SUCCESS-2').then(
 			function successFn(translation) {
 				 $scope.titleMessage2 = translation;
-				 console.log(translation);
 			});
  
- $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-CUSTOM').then(
-			function successFn(translation) {
-				 $scope.donationTypeCustom = translation;
-				 
-			});
 
- console.log($scope.donationTypeCustom);
  
- $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-PLAN').then(
+
+ 
+
+ 
+ $translate('DONATION-MODAL.MESSAGE').then(
 			function successFn(translation) {
-				 $scope.donationTypePlan = translation
+				$scope.donationMessage = translation
 			});
  
- $translate('DONATION-MODAL.SUCCESS-MONTH').then(
-			function successFn(translation) {
-				$scope.month = translation
-			});
  
- $translate('DONATION-MODAL.SUCCESS-YEAR').then(
+ $translate('DONATION-MODAL.MESSAGE').then(
 			function successFn(translation) {
 				$scope.year = translation
 			});
+
  
 
 
  if (plan == 'custom') {
   $scope.amount = "$"+amount;
  
+  $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-CUSTOM').then(
+			function successFn(translation) {
+				 $scope.type = translation;
+				 
+			});
+  
  } else {
   
+	 $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-PLAN').then(
+				function successFn(translation) {
+					 $scope.type = translation
+				});
+	 
+	 $translate('DONATION-MODAL.PLAN-MESSAGE').then(
+				function successFn(translation) {
+					 $scope.planMessage = translation
+				});
+	 
+	 
   switch (plan) {
   case '1':
    $scope.amount = "$10";
