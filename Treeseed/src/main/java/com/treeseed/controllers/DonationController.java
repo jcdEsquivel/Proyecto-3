@@ -156,6 +156,9 @@ public class DonationController {
 				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
 				donation.setDonorId(dr.getDonation().getDonorId());
 				donation.setActive(true);
+				if(dr.getDonation().getDonorFatherId()>0){
+					donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+				}
 
 				if (dr.getDonation().getCampaignId() != 0) {
 					try {
@@ -172,7 +175,7 @@ public class DonationController {
 				donationService.saveDonation(donation);
 				
 				if(donor.getStripeId() == null){
-					resultCharge=StripeUtils.createDonationNewCustomer(donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
+					resultCharge=StripeUtils.createDonationNewCustomer(donor.getId(),donor.getCompleteName(), donor.getUsergenerals().get(0).getEmail(), dr.getDonation().getAmount(), dr.getToken(), donation.getId(),nonProfit, dr.getDonation().getCampaignId(), campaignName);
 					
 					CardWrapper card = new CardWrapper();
 					

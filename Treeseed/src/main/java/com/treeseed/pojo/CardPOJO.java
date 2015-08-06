@@ -20,8 +20,18 @@ public class CardPOJO {
 	
 	private DonorPOJO donor;
 	
+	private boolean isDefault;
+	
 	public String getBrand() {
 		return brand;
+	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
 	}
 
 	public void setBrand(String brand) {

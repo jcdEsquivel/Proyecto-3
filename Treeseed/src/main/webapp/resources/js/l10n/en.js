@@ -282,7 +282,6 @@
     	"SIMPLE": "Simple Donation",
     	"CUSTOM": "Custom Donation",
     	"MONTHLY": "Donation Plans",
-    	
     	"10": "Monthly $10",
     	"18": "Monthly $18",
     	"36": "Monthly $36",

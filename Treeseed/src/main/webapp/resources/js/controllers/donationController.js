@@ -4,7 +4,7 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
-treeSeedAppControllers.controller('guestDonationController', function($http,$modal, Session, $donationService,StripeService, $stateParams,
+treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace) {
 
 	
@@ -84,37 +84,6 @@ treeSeedAppControllers.controller('guestDonationController', function($http,$mod
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 							  0).then(function(data){
 						  console.log(JSON.stringify(data));
-						  
-						  
-						/*  var modalInstance = $modal.open({
-								animation : $scope.animationsEnabled,
-								templateUrl : 'layouts/components/page_donationSummary.html',
-								controller : 'summaryDonationController',
-								size : 'md',//,
-								resolve : {
-									nonprofitId: function(){
-										return  nonprofitId;
-									},
-									amount: function(){
-										return $scope.donationInfo.amount;
-									},
-									plan: function(){
-										return $scope.donationInfo.donationPlan;
-									},
-									titleFace: function(){
-										return $scope.nonprofit.name;
-									},
-									descriptionFace: function(){
-										return $scope.nonprofit.description;
-									},
-									pictureFace: function(){
-										return $scope.nonprofit.profilePicture;
-									}
-								} 
-						  */
-						  
-						  
-						  
 						  $modalInstance.close();
 					  });
 					  
@@ -426,10 +395,8 @@ treeSeedAppControllers.controller('guestDonationController', function($http,$mod
 
 
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId, titleFace, descriptionFace, pictureFace) {
-
-	
 	
 	$scope.percent = 0;
 	$scope.sameCard={

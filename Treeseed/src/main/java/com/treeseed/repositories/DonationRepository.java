@@ -14,6 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.DonationWrapper;
 
 public interface DonationRepository extends CrudRepository<Donation, Integer> {
 
@@ -42,4 +43,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	@Transactional
 	@Query("UPDATE Donation d SET stripeId=:stripe where d.id = :id") 
  	public void update(@Param("id") int id,   @Param("stripe") String stripe);
+	
+	Donation findByStripeId(String stripeId);
 }
