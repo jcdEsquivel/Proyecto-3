@@ -372,7 +372,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.donor = {};
 	$scope.donor.id = $stateParams.donorId;
 	$scope.requestObject = {};
+	$scope.tmpImg="";
+	$scope.img2="resources/file-storage/darth_vader_profile_pic.jpg";
 
+	$scope.changeImage=function(){
+		$scope.tmpImg=$scope.donor.profilePicture;
+		$scope.donor.profilePicture = $scope.img2;
+		$scope.img2=$scope.tmpImg;
+		
+		
+	}
 	// init function, calls the java controller
 	$scope.init = function() {
 		$scope.requestObject.idUser = Session.id;

@@ -3,7 +3,13 @@
 	<script src="resources/js/libs/d3/d3.js"></script>
 
 	
-<div ng-controller="treeController" class="divtree">
+<div  class="divtree">
+<svg id="mySvg" width="80" height="80">
+      <defs id="mdef">
+        <pattern id="image" x="0" y="0" height="40" width="40">
+          <image x="0" y="0" width="40" height="40" xlink:href="{{donor.profilePicture}}"></image>
+        </pattern>
+  </defs>
 
 <script type="text/javascript">
 var margin = {
@@ -11,7 +17,7 @@ var margin = {
 		right : 120,
 		bottom : 20,
 		left : 120
-	}, width = 960 - margin.right - margin.left, height = 800 - margin.top
+	}, width = 960 - margin.right - margin.left, height = 500 - margin.top
 			- margin.bottom;
 	//Duración de animacion de carga de los links
 	var i = 0, duration = 1500, root;
@@ -47,8 +53,14 @@ var margin = {
 		root.children.forEach(collapse);
 		update(root);
 	});
-
+	
 	d3.select(self.frameElement).style("height", "800px");
+	/*
+	d3.select(self.frameElement).styel("transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
+	d3.select(self.frameElement).styel("-webkit-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
+	d3.select(self.frameElement).styel("-moz-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
+	d3.select(self.frameElement).styel("-o-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
+	d3.select(self.frameElement).styel("-ms-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");*/
 
 	function update(source) {
 
@@ -77,7 +89,7 @@ var margin = {
 		});
 		//Propiedades del texto
 		nodeEnter.append("text").attr("x", function(d) {
-			return d.children || d._children ? -20 : 20;//Posicion en X con respento al centro del circulo
+			return d.children || d._children ? 0 :0;//Posicion en X con respento al borde derecho
 			//})nodeEnter.append("text").attr("y", function(d) {
 			//	return d.children || d._children ? -20 : 20;Posicion en y con respento al centro del circulo
 		}).attr("dy", ".35em").attr("text-anchor", function(d) {
@@ -91,9 +103,9 @@ var margin = {
 				function(d) {
 					return "translate(" + d.y + "," + d.x + ")";
 				});
-		//Radio del circulo luego de la animacion
+		//Radio del circulo luego de la primera carga
 		nodeUpdate.select("circle").attr("r", 15).style("fill", function(d) {
-			return d._children ? "lightsteelblue" : "#fff";
+			return d._children ? "url(#image)" : "url(#image)";
 		});
 
 		nodeUpdate.select("text").style("fill-opacity", 1);
