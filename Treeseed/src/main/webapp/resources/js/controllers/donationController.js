@@ -4,7 +4,7 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
-treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams,
+treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams, $modal,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace) {
 
 	
@@ -84,7 +84,9 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 							  0).then(function(data){
 						  console.log(JSON.stringify(data));
-						  $modalInstance.close();
+						  
+						  $scope.close();
+						  
 					  });
 					  
 					
@@ -394,7 +396,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 
 
-treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session,
+treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
 	
@@ -536,7 +538,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 					  $scope.cardRequest.selectedCard, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 					  0).then(function(data){
 				  console.log(JSON.stringify(data));
-				  $modalInstance.close();
+				  $scope.close();
 			  });
 				
 		}
@@ -555,7 +557,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 					  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 					  0).then(function(data){
 				  console.log(JSON.stringify(data));
-				  $modalInstance.close();
+				  $scope.close();
 			  });
 					  
 
@@ -601,7 +603,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 				pictureFace: function(){
 					return pictureFace;
 				}
-			} 
+			}
 			
 		});
 	}
