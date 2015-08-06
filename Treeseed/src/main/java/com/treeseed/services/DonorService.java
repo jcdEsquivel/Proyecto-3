@@ -6,8 +6,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
@@ -78,10 +80,19 @@ public class DonorService implements DonorServiceInterface {
 
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(int)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
 	 */
 	@Override
 	public DonorWrapper getDonorProfileByID(int id) {
 		return new DonorWrapper(DonorRepository.findByid(id));
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
+	 */
+	@Override
+	public Donor getDonorProfileByID(DonorRequest dr) {
+		return DonorRepository.findByid(dr.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -108,6 +119,7 @@ public class DonorService implements DonorServiceInterface {
 				);		
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonorServiceInterface#updateStripeId(com.treeseed.ejbWrapper.DonorWrapper)
 	 */
@@ -131,6 +143,16 @@ public class DonorService implements DonorServiceInterface {
 	@Override
 	public void updateSubscriptionCard(DonorWrapper donor) {
 		DonorRepository.updateSubscriptionCard(donor.getId(),donor.getSubscriptionCard());
+	}
+	
+
+	@Override
+	public DonorWrapper getDonorById(int id){
+		DonorWrapper donor;
+		
+		donor= new DonorWrapper(DonorRepository.findByid(id));
+		
+		return donor;
 		
 	}
 }

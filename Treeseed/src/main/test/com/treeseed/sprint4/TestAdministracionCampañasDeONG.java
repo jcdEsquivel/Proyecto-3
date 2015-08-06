@@ -1,4 +1,4 @@
-package com.treeseeed.sprint4;
+package com.treeseed.sprint4;
 
 import java.util.ArrayList;
 import java.util.Calendar;

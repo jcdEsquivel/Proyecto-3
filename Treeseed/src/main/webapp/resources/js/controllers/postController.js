@@ -230,11 +230,11 @@ treeSeedAppControllers.controller('editPostController', function($http,
 
 	$scope.getPosts = getPosts;
 	
-	
 	$scope.post = {
 			nonprofitId : Session.userId,
 			title : post.title,
-			description : post.description
+			description : post.description,
+			picture : post.picture
 		};
 	
 	$scope.postRequestModal = {

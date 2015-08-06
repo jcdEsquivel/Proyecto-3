@@ -227,6 +227,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 	$scope.campaignsLoaded=false;
 	$scope.postsLoaded = false;
+	$scope.reportsLoaded = false;
 	$scope.nonprofit = {};
 	$scope.nonprofit.id = $stateParams.nonProfitId;
 	$scope.requestObject = {};
@@ -502,10 +503,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			$scope.$broadcast('loadPosts');
 			$scope.postsLoaded = true;
 		}
+
 	};
 	
-	
-	
+
 	/*************************
 	 * DONATION CALL
 	 *************************/
@@ -577,8 +578,15 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		
 	};//end showDonation
 	
+
+
+	$scope.loadReports=function(){
+		if(!$scope.reportsLoaded){
+			$scope.$broadcast('loadReports');
+			$scope.reportsLoaded = true;
+		}
+	}
 	
-})
-;
+});
 
  

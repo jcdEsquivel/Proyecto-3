@@ -253,6 +253,22 @@ angular
 												}
 											})
 								  	.state(
+										'treeSeed.donorReceipts',
+										{
+											url : 'donorReceipts',
+											templateUrl : 'layouts/pages/donorReceipts.html',
+											controller : "donorReceiptsController",
+											resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/nonprofitController.js' ]),
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',
@@ -272,9 +288,26 @@ angular
 													{
 														url : '/stripe/webhook',
 														controller: "webhookController"
-											 });
 							
-					//$locationProvider.html5Mode(true);
+											 })
+									.state(
+											'treeSeed.nonProfitDonationsReport',
+											{
+												url : 'nonProfitDonationsReport',
+												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
+												resolve : load([
+																'angularUtils.directives.dirPagination',
+																'resources/js/controllers/donationReportController.js' ]),
+												controller: "nonProfitDonationReportController",
+												data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit 
+													]
+												}
+											 });
+									
+
+//$locationProvider.html5Mode(true);
 							
 							
 

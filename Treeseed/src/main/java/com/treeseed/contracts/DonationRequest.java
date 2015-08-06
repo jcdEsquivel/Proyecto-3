@@ -8,7 +8,9 @@ import com.treeseed.pojo.DonationPOJO;
 /**
  * The Class DonationRequest.
  */
-public class DonationRequest {
+
+public class DonationRequest extends BasePagingRequest{
+
 	
 	/** The donation. */
 	private DonationPOJO donation;
@@ -30,6 +32,15 @@ public class DonationRequest {
 	
 	/** The token. */
 	private String token;
+
+	/**  The donor id. */
+	private int donorId;
+
+	/** The month. */
+	private String month;
+	
+	/** The year. */
+	private String year;
 	
 	/** The start period date. */
 	private Date startPeriodDate;
@@ -37,11 +48,8 @@ public class DonationRequest {
 	/** The end period date. */
 	private Date endPeriodDate;
 	
-	/** The plan. */
 	private int plan;
 	
-	
-
 	/**
 	 * Instantiates a new donation request.
 	 */
@@ -49,6 +57,60 @@ public class DonationRequest {
 		super();
 	}
 	
+	/**
+	 * Gets the month.
+	 *
+	 * @return the month
+	 */
+	public String getMonth() {
+		return month;
+	}
+
+	/**
+	 * Sets the month.
+	 *
+	 * @param month the new month
+	 */
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	/**
+	 * Gets the year.
+	 *
+	 * @return the year
+	 */
+	public String getYear() {
+		return year;
+	}
+
+	/**
+	 * Sets the year.
+	 *
+	 * @param year the new year
+	 */
+	public void setYear(String year) {
+		this.year = year;
+	}
+	
+	/**
+	 * Gets the donor id.
+	 *
+	 *@return the donor id
+	 */
+	public int getDonorId() {
+		return donorId;
+	}
+	
+	/**
+	 * Sets the donor id.
+	 *
+	 * @param the donor id
+	 */
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
+
 	/**
 	 * Gets the start period date.
 	 *

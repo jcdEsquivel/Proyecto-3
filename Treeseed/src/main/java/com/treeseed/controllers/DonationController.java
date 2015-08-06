@@ -6,12 +6,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.ExceptionEvent;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +53,18 @@ import com.stripe.net.StripeResponse;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.model.Event;
+import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.contracts.NonprofitResponse;
+import com.treeseed.ejb.Donation;
+import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.utils.PageWrapper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,8 +76,19 @@ public class DonationController {
 
 	/** The donation service. */
 	@Autowired
+	NonprofitServiceInterface nonProfitService;
+	
+	/** The donation service. */
+	@Autowired
 	DonationServiceInterface donationService;
 
+	
+	
+	
+	/** The donation service. */
+	@Autowired
+	DonorServiceInterface donorService;
+	
 	/** The servlet context. */
 	@Autowired
 	ServletContext servletContext;
@@ -82,16 +109,11 @@ public class DonationController {
 	@Autowired
 	CardServiceInterface cardService;
 	
-	/** The donor service. */
-	@Autowired
-	DonorServiceInterface donorService;
 	
 
 	/**
-	 * Gets the nonprofits.
-	 *
-	 * @param dr
-	 *            the Donation Request
+	 * Gets the donations per month.
+	 * @param dr the donation request
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value = "/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
@@ -231,4 +253,113 @@ public class DonationController {
 		return ds;
 	}
 
+	
+	/**
+	 * Gets the donations of a donor.
+	 *
+	 * @param dr the donation request
+	 * @return the donation response
+	 */
+	@RequestMapping(value ="/getDonationOfDonorPerMonth", method = RequestMethod.POST)
+	public DonationResponse getDonationOfDonorPerMonth(@RequestBody DonationRequest dr){	
+
+		DonationPOJO donationPOJO = null;		
+		DonationResponse ds = new DonationResponse();
+		PageWrapper<DonationWrapper> pageResults = null;
+		List<DonationPOJO> donationsPOJO = new ArrayList<DonationPOJO>();
+
+		dr.setPageNumber(dr.getPageNumber()-1);
+		
+		pageResults = donationService.findDonationsOfDonor(dr);		
+		
+		ds.setTotalElements(pageResults.getTotalItems());
+		
+		for(DonationWrapper objeto: pageResults.getResults())
+		{
+			donationPOJO = new DonationPOJO();
+			donationPOJO.setAmount(objeto.getAmount());
+			donationPOJO.setCampaignId(objeto.getCampaingId());
+			donationPOJO.setNonProfitId(objeto.getNonProfitId());
+			donationPOJO.setNonprofitName(nonProfitService.getNonProfitById(objeto.getNonProfitId()).getName());
+			donationPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+			
+			donationsPOJO.add(donationPOJO);
+		};
+
+		ds.setDonations(donationsPOJO);
+		
+		if(donationsPOJO.size()>0){
+			ds.setCodeMessage("Transparency reports fetch successfully");
+			ds.setCode(200);
+		}else{
+			ds.setErrorMessage("Transparency reports fetch unsuccessfully");
+			ds.setCode(400);
+		}
+		
+		return ds;
+	}
+	
+		/**
+	 * Gets the donations reports.
+	 *
+	 * @param drt the Donation Request
+	 * @return the nonprofits
+	 */
+	@RequestMapping(value ="/getDonationReport", method = RequestMethod.POST)
+	@Transactional
+	public DonationResponse getDonationReport(@RequestBody DonationRequest drt){	
+		
+		drt.setPageNumber(drt.getPageNumber() - 1);
+		
+		Page<Donation> viewDonations = donationService.getDonations(drt);
+		
+		DonationResponse dr = new DonationResponse();
+		
+		dr.setCodeMessage("Donations fetch success");
+		
+		
+		dr.setTotalElements(viewDonations.getTotalElements());
+		dr.setTotalPages(viewDonations.getTotalPages());
+		
+		List<DonationPOJO> viewDonationsPOJO = new ArrayList<DonationPOJO>();
+		CampaignPOJO campaignPOJO = null;
+		DonorPOJO donorPOJO = null;
+		
+		
+		for(Donation objeto:viewDonations.getContent())
+		{
+			DonationPOJO donation = new DonationPOJO();
+			
+			donation.setId(objeto.getId());
+			donation.setAmount(objeto.getAmount());;
+			donation.setCampaignId(objeto.getCampaingId());
+			donation.setNonProfitId(objeto.getNonProfitId());
+			donation.setDonorId(objeto.getDonorId());
+			donation.setDonationDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+			if(objeto.getCampaingId() != 0){
+				campaignPOJO = new CampaignPOJO();
+				CampaignWrapper campaignWrapper = new CampaignWrapper();
+				campaignWrapper = campaignService.getCampaignById(objeto.getCampaingId());
+				campaignPOJO.setName(campaignWrapper.getWrapperObject().getName());
+				donation.setCampaign(campaignPOJO);
+			}
+			
+			if(objeto.getDonorId() != 0){
+				donorPOJO = new DonorPOJO();
+				DonorWrapper donorWrapper = new DonorWrapper();
+				donorWrapper = donorService.getDonorById(objeto.getDonorId());
+				donorPOJO.setName(donorWrapper.getWrapperObject().getName());
+				donation.setDonor(donorPOJO);
+			}
+
+			viewDonationsPOJO.add(donation);
+		};
+		
+		
+		dr.setDonations(viewDonationsPOJO);
+		dr.setCode(200);
+		return dr;
+			
+	}
 }
+

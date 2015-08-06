@@ -44,6 +44,14 @@ public interface DonorServiceInterface {
 	 * @return the donor profile by id
 	 */
 	DonorWrapper getDonorProfileByID(int id);
+
+	/**
+	 * Gets the donor profile by id.
+	 *
+	 * @param dr the dr
+	 * @return the donor profile by id
+	 */
+	Donor getDonorProfileByID(DonorRequest dr);
 	
 	/**
 	 * Delete donor.
@@ -79,4 +87,12 @@ public interface DonorServiceInterface {
 	 * @param donor the donor
 	 */
 	void updateStripeIdAndSubscriptionCard(DonorWrapper donor);
+
+	/**
+	 * Gets the donor by id.
+	 *
+	 * @param id the id
+	 * @return the donor by id
+	 */
+	public DonorWrapper getDonorById(int id);
 }

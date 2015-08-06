@@ -38,6 +38,8 @@
 <script src="resources/js/controllers/postCampaignController.js"></script>
 <script src="resources/js/controllers/transparencyReportController.js"></script>
 <script src="resources/js/config.js"></script>
+<script src="resources/js/controllers/donorReceiptsController.js"></script>
+<script src="resources/js/controllers/donationReportController.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 
