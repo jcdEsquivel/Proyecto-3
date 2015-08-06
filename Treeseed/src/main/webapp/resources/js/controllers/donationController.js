@@ -615,24 +615,110 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 
 
 
-treeSeedAppControllers.controller('summaryDonationController', function($http, $modalInstance, $stateParams,$scope, nonprofitId, titleFace, descriptionFace, pictureFace, amount, plan ) {
-	
-	$scope.titleFaceS = titleFace;
-	$scope.descriptionFace= descriptionFace;
-	$scope.imageFace=pictureFace;
-	
-	$scope.titleFaceS = "Territorio de Zaguates";
-	$scope.donationMessage= "Plan 1";
-	$scope.amount = "$4000";
-	
-	if($stateParams.campaignId){
-		$scope.campaignId = $stateParams.campaignId;
-	}else{
-		$scope.campaignId = "";
-	}
-	$scope.close = function() {
 
-		$modalInstance.close();
-		
-	};
+treeSeedAppControllers.controller('summaryDonationController', function($http,
+  $modalInstance, $stateParams, $scope ,nonprofitId, titleFace,
+  descriptionFace, pictureFace, amount, plan) { 
+
+	 $scope.titleMessage1 = '';
+	 $scope.titleMessage2 = '';
+	 $scope.donationTypeCustom = '';
+	 $scope.donationTypePlan = '';
+	 $scope.month = '';
+	 $scope.year = '';
+ 
+ $scope.titleFaceS = titleFace;
+ $scope.descriptionFace = descriptionFace;
+ $scope.imageFace = pictureFace;
+ $scope.leng = $scope.selectLang;
+ 
+ $scope.donationMessage = "";
+ $scope.planMessage = "";
+ $scope.amount = "";
+ 
+ 
+ $translate('SUCCESS-1').then(
+	function successFn(translation) {
+		 $scope.titleMessage1 = translation
+	});
+ 
+ $translate('SUCCESS-2').then(
+			function successFn(translation) {
+				 $scope.titleMessage2 = translation
+			});
+ 
+ $translate('SUCCESS-DONATION-TYPE-CUSTOM').then(
+			function successFn(translation) {
+				 $scope.donationTypeCustom = translation
+			});
+ 
+ 
+ $translate('SUCCESS-DONATION-TYPE-PLAN').then(
+			function successFn(translation) {
+				 $scope.donationTypePlan = translation
+			});
+ 
+ $translate('SUCCESS-MONTH').then(
+			function successFn(translation) {
+				$scope.month = translation
+			});
+ 
+ $translate('SUCCESS-YEAR').then(
+			function successFn(translation) {
+				$scope.year = translation
+			});
+ 
+
+
+ if (plan == 'custom') {
+  $scope.amount = "$"+amount;
+  
+  if($scope.leng=="English"){
+	   $scope.donationMessage ="Custom donation"
+	  }else if($scope.leng=="Español"){
+	   $scope.donationMessage ="Donación personalizada"
+	  }
+  
+ } else {
+  if($scope.leng=="English"){
+   $scope.donationMessage ="Donation by subscription"
+   $scope.planMessage = "/month";
+  }else if($scope.leng=="Español"){
+   $scope.planMessage = "/mes";
+   $scope.donationMessage ="Donación por subscripción"
+  }
+  switch (plan) {
+  case '1':
+   $scope.amount = "$10";
+   break;
+  case '2':
+   $scope.amount = "$18";
+   break;
+  case '3':
+   $scope.amount = "$36";
+   break;
+  case '4':
+   $scope.amount = "$50";
+   break;
+  case '5':
+   $scope.amount = "$100";
+   break;
+  case '6':
+   $scope.amount = "$250";
+   break;
+
+  default:
+   break;
+  }
+ }
+ if ($stateParams.campaignId) {
+  $scope.campaignId = $stateParams.campaignId;
+ } else {
+  $scope.campaignId = "";
+ }
+ $scope.close = function() {
+
+  $modalInstance.close();
+
+ };
 });

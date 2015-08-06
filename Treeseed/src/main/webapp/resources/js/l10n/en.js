@@ -306,7 +306,14 @@
     	"INVALID-EXP": "Invalid expiration date",
     	"NEW-CARD-NUMBER": "New Card",
     	"LOADING-CARDS": "Loading Cards",
-    	"DONATE": "Donate"
+    	"DONATE": "Donate",
+    	"SUCCESS-1":"Treeseed.org and ",
+    	"SUCCESS-2": "are thank full for your donation!",
+    	"SUCCESS-DONATION-TYPE-CUSTOM": "Custom Donation" ,
+    	"SUCCESS-DONATION-TYPE-PLAN": "Donation by suscription",
+    	"SUCCESS-MONTH": "/month",
+    	"SUCCESS-YEAR": "/year",
+    	
     	
     }
 }
