@@ -13,7 +13,14 @@
 		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.date}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalFilled(p)"><i class="fa fa-edit"></i></button>
 		            		<button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="DELETE-MODAL-POST.DELETE"></button>
 		            	</span> 
-		            	<div> {{p.description}}</div>
+		            	<span > {{p.description}}
+		            		<br>
+	            			<div ng-controller="facebookController">
+	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebook()" ></label></a>
+	        				</div>
+		            	</span>
 		          	</div>
 		        </li>        
       		</ul>

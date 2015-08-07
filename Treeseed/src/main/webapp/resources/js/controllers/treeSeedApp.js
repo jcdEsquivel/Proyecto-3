@@ -8,8 +8,9 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       
       $scope.currentUser = null;
       $scope.remebermeUser = false;
-     
-/*
+      $scope.fatherId = "";
+      
+     /*
       $window.onbeforeunload = function (e) {
     	  alert("hola");
     	  if(!$scope.remebermeUser){

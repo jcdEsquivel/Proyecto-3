@@ -144,7 +144,8 @@
     	"LINKEDIN": "Login with Linkedin",
     	"DO-YOU": "Do not have an account?",
 		"CREATE": "Create an account",
-		"EMAIL-ERROR": "Wrong email or password."	
+		"EMAIL-ERROR": "Wrong email or password.",
+		"SHAREFACEBOOK": "Share in facebook"
        },
 
    	"NONPROFIT-PROFILE": {

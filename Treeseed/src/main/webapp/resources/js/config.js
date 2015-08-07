@@ -29,9 +29,9 @@ angular
 			});
 		})
 		.config(
-				function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+				function($stateProvider, $urlRouterProvider, JQ_CONFIG, $locationProvider,
 						MODULE_CONFIG, USER_ROLES) {
-
+					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
 							.state('treeSeed', {
@@ -265,12 +265,14 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
-											 });
-							
-
-							
-							
-
+																			
+											});
+									
+					//$locationProvider.html5Mode(true);		
+					$locationProvider.html5Mode({
+		                 enabled: true
+					});
+					
 					function load(srcs, callback) {
 						return {
 							deps : [

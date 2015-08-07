@@ -136,7 +136,8 @@
     	"LINKEDIN": "Iniciar con Linkedin",
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
-		"EMAIL-ERROR": "Email o contraseña incorrectos."   	
+		"EMAIL-ERROR": "Email o contraseña incorrectos.", 
+		"SHAREFACEBOOK": "Compartir con facebook"
      },
       "NONPROFIT-PROFILE": {
     	"PROFILE": "Perfil",
