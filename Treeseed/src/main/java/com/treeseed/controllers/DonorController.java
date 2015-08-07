@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
@@ -30,6 +32,7 @@ import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CatalogServiceInterface;
@@ -263,110 +266,55 @@ public class DonorController extends UserGeneralController{
 	}
 	
 
-	@RequestMapping(value ="/getTreeSimplify", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-	public DonorResponse getDonorTreeSimplify(@RequestBody DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
-			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){
+	@RequestMapping(value ="/getTree", method = RequestMethod.POST)
+	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
+		DonorResponse response = new DonorResponse();
+		DonorWrapper donor = donorService.getDonorById(dr.getId());
+		DonorTreePOJO tree = new DonorTreePOJO();
+		tree.setId(donor.getId());
+		tree.setName(donor.getName());
+		tree.setProfilePicture(donor.getProfilePicture());
+		tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
 		
-		String profileImageName = "";
-		
-		DonorResponse us = new DonorResponse();
-		DonorPOJO donorPOJO = new DonorPOJO();
-		
-		UserGeneral ug = new UserGeneral();
-		ug = userGeneralService.getUGByID(dr.getIdUser());
-		
-		if(ug.getEmail().equals(dr.getEmail())){
-			
-				DonorWrapper donor = new DonorWrapper();
+		response.setTree(tree);
+		return response;		
+	}
 	
-				if(fileProfile!=null){
-					profileImageName = Utils.writeToFile(fileProfile,servletContext);
-				}
-
-				if(!profileImageName.equals("")){
-					donor.setProfilePicture(profileImageName);
+	/**
+	 * Gets the tree.
+	 *
+	 * @param donor the donor
+	 * @param levelX the number of sons per donor
+	 * @param levelY the number of level
+	 * @return the tree
+	 */
+	public List<DonorTreePOJO> getTree(DonorWrapper donor, int levelX, int levelY){
+		List<DonorTreePOJO> sons=new ArrayList<DonorTreePOJO>();
+		int levelXDo = levelX;
+		List<Donor> sonslist = donor.getSons();
+		if(sonslist.size()>0){
+			int number = 0;
+			while(number<sonslist.size()&&levelXDo>0){
+				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
+				DonorTreePOJO donorPojo = new DonorTreePOJO();
+				donorPojo.setId(donorWrapper.getId());
+				donorPojo.setName(donorWrapper.getName());
+				donorPojo.setProfilePicture(donorWrapper.getProfilePicture());
+				if(donorWrapper.getSons().size()>0){
+					if(levelY>1){
+						donorPojo.setChildren(getTree(donorWrapper,levelX,levelY-1));
+					}else{
+						donorPojo.setChildren(new ArrayList<DonorTreePOJO>());
+					}
 				}else{
-					donor.setProfilePicture(dr.getProfilePicture());
+					donorPojo.setChildren(new ArrayList<DonorTreePOJO>());
 				}
-					
-				donor.setId(dr.getId());
-				donor.setName(dr.getName());
-				donor.setLastName(dr.getLastName());
-				donor.setDescription(dr.getDescription());
-				donor.setWebPage(dr.getWebPage());
-				
-				Donor donorobject = new Donor();
-				donorPOJO = new DonorPOJO();
-				
-				donorService.updateDonor(donor);
-				
-				donorobject= donorService.getSessionDonor(dr.getId());
-				
-				donorPOJO.setName(donorobject.getName());
-				donorPOJO.setLastName(donorobject.getLastName());
-				donorPOJO.setDescription(donorobject.getDescription());
-				donorPOJO.setProfilePicture(donorobject.getProfilePicture());
-				donorPOJO.setWebPage(donorobject.getWebPage());
-				donorPOJO.setId(donorobject.getId());
-				
-				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-				
-				userGeneralPOJO.setEmail(ug.getEmail());
-				
-				donorPOJO.setUserGeneral(userGeneralPOJO);
-				
-				us.setDonor(donorPOJO);
-				us.setCode(200);
-				us.setCodeMessage("Donor updated sucessfully");
-		}else{
-			
-			Boolean alreadyUser=userGeneralService.userExist(dr.getEmail());
-			dr.setEmail(dr.getEmail().toLowerCase());
-
-			if(validator.isValid(dr.getEmail())){
-				if(!alreadyUser){
-			
-					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-					userGeneral.setEmail(dr.getEmail());
-					userGeneral.setId(dr.getId());
-					
-					UserGeneral userGeneralobject = new UserGeneral();
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-					
-					userGeneralService.updateUserGeneral(userGeneral);
-					
-					userGeneralPOJO.setEmail(userGeneral.getEmail());
-					
-					donorPOJO.setName(dr.getName());
-					donorPOJO.setLastName(dr.getLastName());
-					donorPOJO.setDescription(dr.getDescription());
-					donorPOJO.setProfilePicture(dr.getProfilePicture());
-					donorPOJO.setWebPage(dr.getWebPage());
-					donorPOJO.setUserGeneral(userGeneralPOJO);
-					donorPOJO.setId(dr.getId());
-					
-					us.setDonor(donorPOJO);
-					us.setCode(200);
-					us.setCodeMessage("Donor updated sucessfully");	
-		
-			}else{
-					us.setCode(400);
-					us.setCodeMessage("EMAIL ALREADY IN USE");
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-					userGeneralPOJO.setEmail(ug.getEmail());
-					donorPOJO.setUserGeneral(userGeneralPOJO);
-					us.setDonor(donorPOJO);
-				}
-			}else{
-					us.setCode(400);
-					us.setCodeMessage("BAD EMAIL");
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-					userGeneralPOJO.setEmail(ug.getEmail());
-					donorPOJO.setUserGeneral(userGeneralPOJO);
-					us.setDonor(donorPOJO);
-				}
+				number++;
+				levelXDo--;
+				sons.add(donorPojo);
+			}
 		}
-		return us;		
+		return sons;
 	}
 	
 	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})

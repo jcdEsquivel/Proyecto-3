@@ -698,5 +698,18 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 treeSeedAppControllers.controller('treeController', function($scope, $http,
 		Session, $state) {
 	
+	$scope.requestObject = {};
+	$scope.requestObject.treeLevelY=3;
+	$scope.requestObject.id=$scope.donor.id;
+	$scope.requestObject.treeLevelX=5;
+
+	$http.post('rest/protected/donor/getTree', $scope.requestObject)
+	.then(function(response) {
+		if (response.data.code == "200") {
+			$scope.donors=response.tree;
+		} else if (response.data.code == "400") {
+			console.log("ERROR");
+		}
+	});
 
 });
