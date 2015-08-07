@@ -37,11 +37,18 @@
 <script src="resources/js/controllers/postController.js"></script>
 <script src="resources/js/controllers/postCampaignController.js"></script>
 <script src="resources/js/controllers/transparencyReportController.js"></script>
+<<<<<<< HEAD
+<script src="resources/js/controllers/facebookController.js"></script>
+<script src="resources/js/config.js"></script>
+<script src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
+<script src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
+<base href="/treeseed.org/*" />
+=======
 <script src="resources/js/controllers/donorReceiptsController.js"></script>
 <script src="resources/js/controllers/donationReportController.js"></script>
-<script src="resources/js/controllers/facebookController.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
+>>>>>>> 10a3428f0a09bb18464e4fb2040eb15da4791931
 
 <body layout="row" ng-controller="AppCtrl">
 

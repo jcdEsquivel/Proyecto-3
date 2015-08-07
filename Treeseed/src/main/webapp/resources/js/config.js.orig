@@ -281,6 +281,16 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+<<<<<<< HEAD
+																			
+											});
+									
+					//$locationProvider.html5Mode(true);		
+					$locationProvider.html5Mode({
+		                 enabled: true
+					});
+					
+=======
 											 })
 									.state(
 											'treeSeed.nonProfitDonationsReport',
@@ -302,6 +312,7 @@ angular
 							
 							
 
+>>>>>>> 10a3428f0a09bb18464e4fb2040eb15da4791931
 					function load(srcs, callback) {
 						return {
 							deps : [

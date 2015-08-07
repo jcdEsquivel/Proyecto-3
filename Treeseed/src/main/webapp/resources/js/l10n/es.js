@@ -147,7 +147,28 @@
         "CAMPAIGNS": "Campañas",
         "UPDATES": "Actualizaciones",
         "DONORS": "Donantes:",
-        "DONATIONS": "Donaciones:"
+        "DONATIONS": "Donaciones:",
+        "REPORTS": "Reportes de Transparencia",
+        "MONTH": "Mes",
+        "YEAR": "Año",
+        "SEARCH": "Buscar",
+        "DETAIL": "Detalle",
+        "AMOUNT-IN":"Recaudado: ",
+        "AMOUNT-OUT":"Gastado: "
+     },
+      "MONTH": {
+        "JAN": "Enero",
+        "FEB": "Febrero",
+        "MAR": "Marzo",
+        "APR": "Abril",
+        "MAY": "Mayo",
+        "JUN": "Junio",
+        "JUL": "Julio",
+        "AUG": "Agosto",
+        "SEP": "Setiembre",
+        "OCT": "Octubre",
+        "NOV": "Noviembre",
+        "DEC": "Diciembre"
      },
      "BUTTONS": {
     		"SAVE": "Guardar",
@@ -186,6 +207,13 @@
    		"MESSAGE": "¿Está seguro de que desea eliminar su actualización?",
    		"DELETE": "Eliminar"
 	},
+	"NONPROFIT-DONATION-REPORT":{
+    	"TITLE":"Reporte de Donaciones de la ONG",
+    	"DATE":"Fecha",
+    	"AMOUNT":"Cantidad Donada",
+    	"CAMPAIGN":"Campaña",
+    	"DONOR":"Donante"
+    },
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
      	"TITLE":"Crear Campaña",
@@ -247,6 +275,9 @@
     	"ACTIVE": "Activa",
     	"FINISHED": "Finalizada"
 	},
+    "RECEIPT-SEARCH":{
+        "TITLE": "Buscar Recibos de Donación"
+    },
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Información",
