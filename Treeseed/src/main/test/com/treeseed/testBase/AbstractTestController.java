@@ -32,19 +32,23 @@ import com.treeseed.ejb.PostNonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.PostCampaignWrapper;
 import com.treeseed.ejbWrapper.PostNonprofitWrapper;
+import com.treeseed.ejbWrapper.TransparencyReportWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.pojo.CatalogPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.PostCampaignServiceInterface;
 import com.treeseed.services.PostNonprofitServiceInterface;
+import com.treeseed.services.TransparencyReportServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
 import com.treeseed.utils.TreeseedConstants;
@@ -81,6 +85,12 @@ public abstract class AbstractTestController extends AbstractTest {
     
     /** The campaign service. */
     @Autowired	CampaignServiceInterface campaignService;
+    
+    /** The donation service. */
+    @Autowired	DonationServiceInterface donationService;
+    
+    /** The Transparency Report service. */
+    @Autowired	TransparencyReportServiceInterface transparencyReportService;
     
     /** The request http. */
     @Autowired  HttpServletRequest requestHttp;
@@ -640,5 +650,45 @@ public CampaignWrapper createRandomCampaign(NonprofitWrapper nonprofit, Date sta
 
     }
 
+    /**
+     * Creates the random campaign.
+     *
+     * @return the campaign wrapper
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws Exception the exception
+     */
+    public TransparencyReportWrapper createRandomTransparencyReport() throws IOException, Exception{
+    	NonprofitWrapper nonprofit = createRandomNonprofit();
+		     
+		TransparencyReportWrapper transparencyReport = new TransparencyReportWrapper();
+		
+		transparencyReport.setDescription("Spences of non profit");
+		transparencyReport.setAmountIn(800);
+		transparencyReport.setAmountOut(800);
+		transparencyReport.setDateTime(new Date());
+		transparencyReport.setNonprofit(nonprofit.getWrapperObject());
+		
+		transparencyReportService.saveTransparencyReport(transparencyReport);
+		
+        return transparencyReport;
+    }
     
+    public DonationWrapper createRandomDonation() throws IOException, Exception{
+    	NonprofitWrapper nonProfit = createRandomNonprofit();
+    	CampaignWrapper campaign = createRandomCampaign(nonProfit);   
+    	DonorWrapper donor = createRandomDonor();
+    	
+		DonationWrapper donation = new DonationWrapper();
+		
+		donation.setActive(true);
+		donation.setAmount(5000);
+		donation.setCampaingId(campaign.getWrapperObject().getId());
+		donation.setDonorId(donor.getWrapperObject().getId());
+		donation.setNonProfitId(nonProfit.getWrapperObject().getId());
+		
+		//waiting for the create donation to be ready
+		//donationService.saveDonation(donation);
+		
+        return donation;
+    }
 }

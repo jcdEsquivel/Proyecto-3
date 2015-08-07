@@ -252,6 +252,22 @@ angular
 												}
 											})
 								  	.state(
+										'treeSeed.donorReceipts',
+										{
+											url : 'donorReceipts',
+											templateUrl : 'layouts/pages/donorReceipts.html',
+											controller : "donorReceiptsController",
+											resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/nonprofitController.js' ]),
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',
@@ -265,8 +281,23 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+											 })
+									.state(
+											'treeSeed.nonProfitDonationsReport',
+											{
+												url : 'nonProfitDonationsReport',
+												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
+												resolve : load([
+																'angularUtils.directives.dirPagination',
+																'resources/js/controllers/donationReportController.js' ]),
+												controller: "nonProfitDonationReportController",
+												data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit 
+													]
+												}
 											 });
-							
+									
 
 							
 							

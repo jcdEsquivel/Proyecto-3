@@ -155,8 +155,29 @@
    		"CAMPAIGNS": "Campaigns",
    		"UPDATES": "Updates",
    		"DONORS": "Donors:",
-   		"DONATIONS": "Donations:"
+   		"DONATIONS": "Donations:",
+        "REPORTS": "Transparency Reports",
+        "MONTH": "Month",
+        "YEAR": "Year",
+        "SEARCH": "Search",
+        "DETAIL": "Detail",
+        "AMOUNT-IN":"Amount in: ",
+        "AMOUNT-OUT":"Spent : "
     },
+    "MONTH": {
+        "JAN": "January",
+        "FEB": "February",
+        "MAR": "March",
+        "APR": "April",
+        "MAY": "May",
+        "JUN": "June",
+        "JUL": "July",
+        "AUG": "August",
+        "SEP": "September",
+        "OCT": "October",
+        "NOV": "November",
+        "DEC": "December"
+     },
     "BUTTONS": {
    		"SAVE": "Save",
    		"CANCEL": "Cancel"
@@ -194,6 +215,13 @@
     "DELETE-MODAL-POST":{ 
    		"MESSAGE": "Are you sure you want to delete your post?",
    		"DELETE": "Delete"
+    },
+    "NONPROFIT-DONATION-REPORT":{
+    	"TITLE":"NGO Donations report",
+    	"DATE":"Date",
+    	"AMOUNT":"Donated Amount",
+    	"CAMPAIGN":"Campaign",
+    	"DONOR":"Donor"
     },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
@@ -257,6 +285,9 @@
     	"ACTIVE": "Active",
     	"FINISHED": "Finished"
 	},
+    "RECEIPT-SEARCH":{
+        "TITLE": "Search Donations Receipts"
+    },
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",
