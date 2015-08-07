@@ -18,10 +18,10 @@
 	  			<div ui-butterbar></div>
     			<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".md-aside" ></a>
     			
-	  			<div  class=" main" ui-view></div>
+	  			<div  class=" main" style="width: 100%; height: 85%; position: absolute;" ui-view></div>
 	  		</div>
 	  <!-- / view -->
 	 </div>
 	 
-	<div  ng-init="app.settings.container = false;" class="text-muted" data-ng-include=" 'layouts/components/page_footer.html' " >
+	<div  ng-init="app.settings.container = false;" class="text-muted" style="position: fixed; bottom: 0; width: 100%;" data-ng-include=" 'layouts/components/page_footer.html' " >
 	</div>
