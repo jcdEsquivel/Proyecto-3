@@ -30,7 +30,7 @@
 							<label class="labels-dropdowns"
 								translate="GENERALSEARCH.RANGEDATE">Range Date</label> <br>
 							<md-input-container flex>
-							<div class="col-md-12 col-sm-offset-0">
+							<div class="col-md-12 col-sm-offset-0" >
 								<input ng-model="range" ui-jq="daterangepicker"
 									ng-disabled="datesDisable" ng-change="usingDateRangeState()"
 									ui-options="{
@@ -80,8 +80,12 @@
 					<div class="row">
 						<div class="col-md-4">
 							<a class="h4 m-b-sm block " style="color: #2196f3" ui-sref="treeSeed.campaign({campaignId: campaign.id})">
-								{{campaign.name}}</a> <span translate="LISTCAMPAIGN.GOAL"></span>
+								{{campaign.name}}</a> 
+								<div ng-if="campaign.dueDate">
+									<span translate="LISTCAMPAIGN.GOAL"></span>
 							<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
+								</div>
+								
 						</div>
 
 						<div class="col-md-5">
@@ -90,7 +94,7 @@
 								<div class="h4 text-success">${{campaign.amountCollected}}</div>
 							</div>
 							<div class="col-md-7">
-								<div>
+								<div ng-if="campaign.dueDate">
 									<div ui-jq="easyPieChart"
 										ui-options="{
                       percent: {{campaign.percent}},

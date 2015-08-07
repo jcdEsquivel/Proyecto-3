@@ -1,14 +1,16 @@
 package com.treeseed.contracts;
 
 import java.sql.Date;
-
+import com.stripe.net.StripeResponse;
 import com.treeseed.pojo.DonationPOJO;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class DonationRequest.
  */
+
 public class DonationRequest extends BasePagingRequest{
+
 	
 	/** The donation. */
 	private DonationPOJO donation;
@@ -22,15 +24,18 @@ public class DonationRequest extends BasePagingRequest{
 	/** The non profit id. */
 	private int nonProfitId;
 	
-	/**  The donor id. */
-	private int donorId;
-	
 	/** The amount. */
 	private double amount;
 	
 	/** The donation date. */
-	private Date donationDate;	
+	private Date donationDate;
 	
+	/** The token. */
+	private String token;
+
+	/**  The donor id. */
+	private int donorId;
+
 	/** The month. */
 	private String month;
 	
@@ -42,6 +47,15 @@ public class DonationRequest extends BasePagingRequest{
 	
 	/** The end period date. */
 	private Date endPeriodDate;
+	
+	private int plan;
+	
+	/**
+	 * Instantiates a new donation request.
+	 */
+	public DonationRequest(){
+		super();
+	}
 	
 	/**
 	 * Gets the month.
@@ -96,13 +110,7 @@ public class DonationRequest extends BasePagingRequest{
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
 	}
-	/**
-	 * Instantiates a new donation request.
-	 */
-	public DonationRequest(){
-		super();
-	}
-	
+
 	/**
 	 * Gets the start period date.
 	 *
@@ -110,6 +118,24 @@ public class DonationRequest extends BasePagingRequest{
 	 */
 	public Date getStartPeriodDate() {
 		return startPeriodDate;
+	}
+	
+	/**
+	 * Gets the plan.
+	 *
+	 * @return the plan
+	 */
+	public int getPlan() {
+		return plan;
+	}
+
+	/**
+	 * Sets the plan.
+	 *
+	 * @param plan the new plan
+	 */
+	public void setPlan(int plan) {
+		this.plan = plan;
 	}
 
 	/**
@@ -245,6 +271,24 @@ public class DonationRequest extends BasePagingRequest{
 	 */
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
+	}
+
+	/**
+	 * Gets the token.
+	 *
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * Sets the token.
+	 *
+	 * @param token the new token
+	 */
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

@@ -15,15 +15,19 @@ public class DonationPOJO {
 	
 	/** The campaign id. */
 	private int campaignId;
+	private int donorFatherId;
 	
 	/** The non profit id. */
 	private int nonProfitId;
 	
 	/** The amount. */
 	private double amount;
+	private int cardId;
+	
 	
 	/** The amount. */
 	private String nonprofitName;
+	
 	/** The donation date. */
 	private Date donationDate;
 	
@@ -157,23 +161,8 @@ public class DonationPOJO {
 		this.donationDateS = donationDateS;
 	}
 	
-	/**
-	 * Gets the donor id.
-	 *
-	 * @return the donor id
-	 */
-	public int getDonorId() {
-		return donorId;
-	}
 	
-	/**
-	 * Sets the donor id.
-	 *
-	 * @param donorId the new donor id
-	 */
-	public void setDonorId(int donorId) {
-		this.donorId = donorId;
-	}
+	
 	
 	/**
 	 * Sets the id.
@@ -254,6 +243,24 @@ public class DonationPOJO {
 	 */
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
+	}
+	public int getDonorId() {
+		return donorId;
+	}
+	public void setDonorId(int donorId) {
+		this.donorId = donorId;
+	}
+	public int getDonorFatherId() {
+		return donorFatherId;
+	}
+	public void setDonorFatherId(int donorFatherId) {
+		this.donorFatherId = donorFatherId;
+	}
+	public int getCardId() {
+		return cardId;
+	}
+	public void setCardId(int cardId) {
+		this.cardId = cardId;
 	}
 	
 	

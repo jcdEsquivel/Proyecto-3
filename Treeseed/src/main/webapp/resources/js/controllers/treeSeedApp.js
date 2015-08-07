@@ -1,4 +1,4 @@
-var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies']);
+var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies', 'angularPayments']);
 treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
@@ -8,9 +8,11 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       
       $scope.currentUser = null;
       $scope.remebermeUser = false;
-      $scope.fatherId = "";
+     
       
-     /*
+      //Stripe public key setup
+      $window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
+/*
       $window.onbeforeunload = function (e) {
     	  alert("hola");
     	  if(!$scope.remebermeUser){
