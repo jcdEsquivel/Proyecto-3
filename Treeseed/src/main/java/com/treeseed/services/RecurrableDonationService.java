@@ -42,15 +42,15 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 	 * @see com.treeseed.services.RecurrableDonationServiceInterface#getRecurrableDonation(int, java.lang.String)
 	 */
 	@Override
-	public List<RecurrableDonationWrapper> getRecurrableDonation(int id, String type){
+	public List<RecurrableDonationWrapper> getRecurrableDonation(int donorId, int nonprofitId, int campaignId){
 		
 		List<RecurrableDonationWrapper> wrapperList = new ArrayList<RecurrableDonationWrapper>();
 		List<RecurrableDonation> list = new ArrayList<RecurrableDonation>();
 		
-		if(type == "campaign"){
-			list =  recurrableDonationRepository.findByCampaignId(id);
+		if(campaignId  > 0 ){
+			list =  recurrableDonationRepository.findByCampaingIdAndDonorId(campaignId, donorId);
 		}else{
-			list = recurrableDonationRepository.findByCampaignId(id);
+			list = recurrableDonationRepository.findByNonProfitIdAndDonorId(nonprofitId, donorId);
 		}
 		
 		for (RecurrableDonation r : list) {

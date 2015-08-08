@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.RecurrableDonationRequest;
+import com.treeseed.contracts.RecurrableDonationResponse;
 import com.treeseed.ejb.Card;
+import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CardWrapper;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -30,6 +33,7 @@ import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CardServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
@@ -243,8 +247,41 @@ public class RecurrableDonationController {
 		 }
 	
 	
-	
-	public
+	@RequestMapping(value = "/getRecurrableDonations", method = RequestMethod.POST)
+	public  RecurrableDonationResponse getRecurrableDonations(@RequestBody RecurrableDonationRequest request){
+		
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
+		RecurrableDonationPOJO pojoTemp = null;
+		List<RecurrableDonationWrapper> wrappers = recurrableDonationService
+											.getRecurrableDonation(request.getDonorId(),
+																	request.getNonprofitId(),
+																	request.getCampaignId());
+		
+		
+		for (RecurrableDonationWrapper r : wrappers) {
+			pojoTemp = new RecurrableDonationPOJO();
+			
+			pojoTemp.setId(r.getId());
+			pojoTemp.setAmount(r.getAmount());
+			pojoTemp.setCampaingId(r.getCampaingId());
+			pojoTemp.setDate(r.getDateTime().toString());
+			pojoTemp.setId(r.getId());
+			pojoTemp.setDonorId(r.getDonorId());
+			pojoTemp.setNonProfitId(r.getNonProfitId());
+			pojoTemp.setPlanId(r.getPlanId());
+			pojoTemp.setStripeId(r.getStripeId());
+			
+			donationList.add(pojoTemp);
+		}
+		
+		response.setDonations(donationList);
+		response.setCode(200);
+		response.setCodeMessage("Donations fetch");
+		
+		return response;
+		
+	}
 	
 }
 

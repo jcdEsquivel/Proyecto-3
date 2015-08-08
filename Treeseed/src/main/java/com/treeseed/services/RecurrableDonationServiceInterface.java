@@ -23,13 +23,14 @@ public interface RecurrableDonationServiceInterface {
 	RecurrableDonationWrapper saveRecurrableDonation(RecurrableDonationWrapper recurrableDonation);
 	
 	
+	
 	/**
 	 * Gets the recurrable donation.
 	 *
-	 * @param id
-	 * @param type as campaign or NGO
+	 * @param nonprofitId the nonprofit id
+	 * @param campaignId the campaign id
 	 * @return the recurrable donation
 	 */
-	List<RecurrableDonationWrapper> getRecurrableDonation(int id, String type);
+	List<RecurrableDonationWrapper> getRecurrableDonation(int donorId, int nonprofitId, int campaignId);
 	
 }

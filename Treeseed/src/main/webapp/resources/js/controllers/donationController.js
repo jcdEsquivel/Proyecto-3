@@ -740,19 +740,35 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
 
 
-treeSeedAppControllers.controller('editRecurrableDonation', function($http,
+treeSeedAppControllers.controller('editRecurrableDonation', function($http, $scope,
 		  $modal, Session) { 
 	
 	$scope.recurrableDonations = [];
+	$scope.request= {
+			nonprofitId: $scope.nonprofitId,			
+			campaignId:$scope.campaignId,			
+			donorId: Session.userId,			
+			stripeId:''
+	};
 	//nonprofitId
 	
-	$scope.getCurrentDonations = function(){
-		if($scope.campaignId != 0 ){
-			
-		}else{
-			
-		}
-	}
 	
+	
+	$scope.getCurrentDonations = function(){
+
+		$http.post('rest/protected/recurrableDonation/getRecurrableDonations',$scope.requestObject1)
+		.success(function(response) {
+			$scope.recurrableDonations = response.donations;
+		});
+		
+	};
+	
+	
+	$scope.init = function(){
+		$scope.getCurrentDonations();
+	};
+	
+	
+	$scope.init();
 
 });

@@ -349,6 +349,5 @@
     	"NEW-DONATION": "New Donation",
     	"EDIT-DONATION": "Edit Donation"
     	
-    	
     }
 }
