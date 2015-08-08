@@ -9,13 +9,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
+import com.treeseed.repositories.DonationRepository;
+import com.treeseed.repositories.RecurrableDonationRepository;
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.TransparencyReport;
-import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.TransparencyReportWrapper;
-import com.treeseed.repositories.DonationRepository;
 import com.treeseed.utils.PageWrapper;
 
 // TODO: Auto-generated Javadoc
@@ -28,7 +31,7 @@ public class DonationService implements DonationServiceInterface{
 	/** The donation repository. */
 	@Autowired
 	DonationRepository donationRepository;
-	
+
 	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
@@ -48,6 +51,34 @@ public class DonationService implements DonationServiceInterface{
 
 		return donationRepository.countDistincDonorIdByCampaingId(campaignId);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#saveDonation(com.treeseed.ejbWrapper.DonationWrapper)
+	 */
+	@Override
+	public DonationWrapper saveDonation(DonationWrapper donation) {
+		DonationWrapper donationSaved = new DonationWrapper(donationRepository.save(donation.getWrapperObject()));
+		return donationSaved;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#updateDonation(com.treeseed.ejbWrapper.DonationWrapper)
+	 */
+	@Override
+	public void updateDonation(DonationWrapper donation) {
+		donationRepository.update(donation.getId(),donation.getStripeId());	
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonationByStripeId(java.lang.String)
+	 */
+	@Override
+	public DonationWrapper getDonationByStripeId(String stripeId) {
+		return new DonationWrapper(donationRepository.findByStripeId(stripeId));	
+	}
+
+
 	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#findDonorsPerCampaign(int)

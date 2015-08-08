@@ -40,6 +40,14 @@ public interface DonorServiceInterface {
 	/**
 	 * Gets the donor profile by id.
 	 *
+	 * @param id the id
+	 * @return the donor profile by id
+	 */
+	DonorWrapper getDonorProfileByID(int id);
+
+	/**
+	 * Gets the donor profile by id.
+	 *
 	 * @param dr the dr
 	 * @return the donor profile by id
 	 */
@@ -59,6 +67,27 @@ public interface DonorServiceInterface {
 	 */
 	void updateDonor(DonorWrapper donor);
 	
+	/**
+	 * Update stripe id.
+	 *
+	 * @param donor the donor
+	 */
+	void updateStripeId(DonorWrapper donor);
+	
+	/**
+	 * Update subscription card.
+	 *
+	 * @param donor the donor
+	 */
+	void updateSubscriptionCard(DonorWrapper donor);
+	
+	/**
+	 * Update stripe id and subscription card.
+	 *
+	 * @param donor the donor
+	 */
+	void updateStripeIdAndSubscriptionCard(DonorWrapper donor);
+
 	/**
 	 * Gets the donor by id.
 	 *

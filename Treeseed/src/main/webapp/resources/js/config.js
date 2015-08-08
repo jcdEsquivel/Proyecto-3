@@ -29,9 +29,10 @@ angular
 			});
 		})
 		.config(
-				function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+				function($stateProvider, $urlRouterProvider, $locationProvider,JQ_CONFIG,
 						MODULE_CONFIG, USER_ROLES) {
 
+					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
 							.state('treeSeed', {
@@ -281,6 +282,13 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
+											})
+										  	.state(
+													'stripeWebHook',
+													{
+														url : '/stripe/webhook',
+														controller: "webhookController"
+							
 											 })
 									.state(
 											'treeSeed.nonProfitDonationsReport',
@@ -299,6 +307,7 @@ angular
 											 });
 									
 
+//$locationProvider.html5Mode(true);
 							
 							
 
@@ -350,6 +359,8 @@ angular
 						}
 					}
 				});
+
+
 
 angular.module('treeSeed').config(
 		[
@@ -565,7 +576,11 @@ angular
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]
-						} ])
+						},
+						{
+							name: 'stripe.api',
+							files: ['https://js.stripe.com/v2/']
+						}])
 // oclazyload config
 angular.module('treeSeed').config(
 		[ '$ocLazyLoadProvider', 'MODULE_CONFIG',
