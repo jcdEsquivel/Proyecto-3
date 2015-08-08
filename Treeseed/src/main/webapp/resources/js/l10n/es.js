@@ -99,7 +99,8 @@
     	"RANGEDATE" : "Rango de Fechas",
     	"ITEMS-PER-PAGE": "Items por páginas",
     	"CAMPAIGN-STATE": "Estado",
-    	"CAMPAIGN-NAME": "Nombre de campaña"
+    	"CAMPAIGN-NAME": "Nombre de campaña",
+    	"RESULTS-COUNT": "Number of results"
     },
     "GENERAL-SETTINGS":{
 		"DELETE-PROFILE":"Eliminar Perfil",
@@ -337,6 +338,18 @@
     	"MESSAGE": "Información de la donación: ",
     	"PLAN-MESSAGE": "Mensual "
     	
+    },
+    "REGISTER-SELECT-NONPROFIT":{
+    	"TITLE": "Ventajas de registrame como una ONG",
+    	"ADVANTAGE1": "Crear campañas de donacion, para asi recibir donaciones sin tener que gastar mucho dinero.",
+    	"ADVANTAGE2": "Crear reportes de transparencia, y asi informar a los donantes de los gastos de la organizacion.",
+    	"ADVANTAGE3": "Si fijo, manana mae"
+    },
+    "REGISTER-SELECT-DONOR":{
+    	"TITLE": "Ventajas de registrame como un donante",
+    	"ADVANTAGE1": "Un lugar centralizado para buscar organizaciones y conocer mas de estas, y sus diferentes causas.",
+    	"ADVANTAGE2": "Crear donaciones de una manera facil y segura",
+    	"ADVANTAGE3": "Compartir las donaciones en redes sociales, e invitar a los amigos para hacer lo mismo"
     }
      
 }

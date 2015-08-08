@@ -106,7 +106,8 @@
     	"RANGEDATE" : "Range Date",
     	"ITEMS-PER-PAGE": "Items per page",
     	"CAMPAIGN-STATE": "State",
-    	"CAMPAIGN-NAME": "Campaign Name"
+    	"CAMPAIGN-NAME": "Campaign Name",
+    	"RESULTS-COUNT": "Number of results"
     	
     },
     "GENERAL-SETTINGS":{
@@ -348,5 +349,18 @@
     	"PLAN-MESSAGE": "Monthly "
     	
     	
+    },
+    "REGISTER-SELECT-NONPROFIT":{
+    	"TITLE": "What can i do as a Nonprofit",
+    	"ADVANTAGE1": "Create donation campaigns, in this way, they can receive money in an easy way, and without having to expend a lot of money.",
+    	"ADVANTAGE2": "Create transparecy reports, so this way donors can check where do the non-profit expenses go",
+    	"ADVANTAGE3": "Si fijo, manana mae"
+    },
+    "REGISTER-SELECT-DONOR":{
+    	"TITLE": "What can i do as a Donor",
+    	"ADVANTAGE1": "Centralize location where user can look for all of the nonprofits of his preference and get to know how are they contributing to the world",
+    	"ADVANTAGE2": "Create donations in an easy and secure way.",
+    	"ADVANTAGE3": "Share his donations on social networks and invites his friends to do the same thing."
     }
+				
 }

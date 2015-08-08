@@ -1,43 +1,58 @@
 <div style="height: 100%" class="panel panel-default " ng-controller="selectUserController">
-	<div class="panel-heading font-bold">
-		<h1 class="m-n font-thin h3" translate="SELECT-USER.TITLE"></h1>
-	</div>
 	<div class="row wrapper-lg bg-light dk r-r">
-	<div class="col-sm-2"></div>
-	<div class="col-sm-3 ">
-		<div>
-			<p class="landing-events-text m-t-lg">What can I do as a Donor?</p>
+	<div class="col-sm-1"></div>
+	<div class="col-sm-4 ">
+		<div style="height: 250px;">
+			<div style="height: 20%;">
+				<p class="landing-events-text m-t-lg" translate="REGISTER-SELECT-DONOR.TITLE">What can I do as a Donor?</p>
+			</div>
 			<ul>
-				<li>
-					Advantage 1
+				<li translate="REGISTER-SELECT-DONOR.ADVANTAGE1">
+					Un lugar centralizado donde puedan informarse sobre las distintas ONG que apoyan y las actividades de estas. 
 				</li>
-				
+				<li translate="REGISTER-SELECT-DONOR.ADVANTAGE2">	
+					Forma fácil y confiable de poder realizar donaciones.
+				</li>
+				<li translate="REGISTER-SELECT-DONOR.ADVANTAGE3">	
+					Compartir las donaciones en redes sociales e invitar a sus amigos a donar por una buena causa.
+				</li>
 			</ul>
 		</div>
-		<a ui-sref="treeSeed.registerDonor"> <img
-			ng-mouseover="hoverDonor()" ng-mouseleave="unHoverDonor()"
-			class="imagediv " ng-src="{{srcDonor}}">
-		</a>
+		<div>
+			<a ui-sref="treeSeed.registerDonor"> <img
+				ng-mouseover="hoverDonor()" ng-mouseleave="unHoverDonor()"
+				class="imagediv " ng-src="{{srcDonor}}">
+			</a>
+		</div>
 	</div>
 	<div class="col-sm-2"></div>
-	<div class="col-sm-3 ">
-		<div>
-			<p class="landing-events-text m-t-lg">What can I do as a Nonprofit?</p>
+	<div class="col-sm-4 ">
+		<div style="height: 250px;">
+			<div style="height: 20%;">
+				<p class="landing-events-text m-t-lg" translate="REGISTER-SELECT-NONPROFIT.TITLE">What can I do as a Nonprofit?</p>
+			</div>
 			<ul>
-				<li>
-					Advantage 1
+				<li translate="REGISTER-SELECT-NONPROFIT.ADVANTAGE1">
+					Crear campañas de donaciones para asi poder recibir estas de una manera sencilla y confiable.
+				</li>
+				<li translate="REGISTER-SELECT-NONPROFIT.ADVANTAGE2">
+					Crear Reportes de transparencia para asi informar a los donantes de sus gastos y mantener la confiabilidad con estos.
+				</li>
+				<li translate="REGISTER-SELECT-NONPROFIT.ADVANTAGE3">
+					Crear Reportes de transparencia para asi informar a los donantes de sus gastos y mantener la confiabilidad con estos.
 				</li>
 				
 			</ul>
 		</div>	
-	
-		<a ui-sref="treeSeed.registerNonProfit"> <img
-			ng-mouseover="hoverNonprofit()" ng-mouseleave="unHoverNonprofit()"
-			class="imagediv"
-			ng-src="{{srcNonprofit}}">
-		</a>
+		<div>
+			<a ui-sref="treeSeed.registerNonProfit"> <img
+				ng-mouseover="hoverNonprofit()" ng-mouseleave="unHoverNonprofit()"
+				class="imagediv"
+				ng-src="{{srcNonprofit}}">
+			</a>
+		</div>
 	</div>
-	<div class="col-sm-2">
+	<div class="col-sm-1">
 	</div>
 	</div>
 </div>
