@@ -268,6 +268,8 @@ public class DonorController extends UserGeneralController{
 
 	@RequestMapping(value ="/getTree", method = RequestMethod.POST)
 	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
+		
+		ObjectMapper mapper = new ObjectMapper();
 		DonorResponse response = new DonorResponse();
 		DonorWrapper donor = donorService.getDonorById(dr.getId());
 		DonorTreePOJO tree = new DonorTreePOJO();
@@ -277,6 +279,7 @@ public class DonorController extends UserGeneralController{
 		tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
 		
 		response.setTree(tree);
+		System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tree));
 		return response;		
 	}
 	
