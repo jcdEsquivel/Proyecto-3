@@ -52,6 +52,7 @@ public class CampaignRequest extends BasePagingRequest {
 	/** The is active. */
 	private boolean isActive;
 	
+	/** The state. */
 	private String state;
 
 	/** The nonprofit. */
@@ -83,6 +84,7 @@ public class CampaignRequest extends BasePagingRequest {
 	/**
 	 * Sets the startDateData.
 	 *
+	 * @param startDateData the new start date data
 	 */
 	public void setStartDateData(Date startDateData) {
 		this.startDateData = startDateData;
@@ -97,19 +99,29 @@ public class CampaignRequest extends BasePagingRequest {
 		return dueDateData;
 	}
 
+	/**
+	 * Sets the due date data.
+	 *
+	 * @param dueDateData the new due date data
+	 */
 	public void setDueDateData(Date dueDateData) {
 		this.dueDateData = dueDateData;
 	}
 	
 	/**
+	 * Gets the nonprofit name.
 	 *
-	 *
-	 *@return nonProfitName
+	 * @return nonProfitName
 	 */
 	public String getNonprofitName() {
 		return nonprofitName;
 	}
 
+	/**
+	 * Gets the amount collected.
+	 *
+	 * @return the amount collected
+	 */
 	public double getAmountCollected() {
 		return amountCollected;
 	}
@@ -117,12 +129,17 @@ public class CampaignRequest extends BasePagingRequest {
 	/**
 	 * Sets the aount collected.
 	 *
-	 * @param amountCollected
+	 * @param amountCollected the new amount collected
 	 */
 	public void setAmountCollected(double amountCollected) {
 		this.amountCollected = amountCollected;
 	}
 
+	/**
+	 * Gets the amount goal.
+	 *
+	 * @return the amount goal
+	 */
 	public double getAmountGoal() {
 		return amountGoal;
 	}
@@ -130,25 +147,35 @@ public class CampaignRequest extends BasePagingRequest {
 	/**
 	 * Sets the amount goal.
 	 *
-	 * @param aoutGoal amount goal
+	 * @param amountGoal the new amount goal
 	 */
 	public void setAmountGoal(double amountGoal) {
 		this.amountGoal = amountGoal;
 	}
 
+	/**
+	 * Gets the creation date.
+	 *
+	 * @return the creation date
+	 */
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
 	/**
-	 * Sets the creation Date
+	 * Sets the creation Date.
 	 *
-	 * @param creationDate
+	 * @param creationDate the new creation date
 	 */
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 
+	/**
+	 * Gets the description.
+	 *
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
@@ -156,7 +183,7 @@ public class CampaignRequest extends BasePagingRequest {
 	/**
 	 * Sets the desciption.
 	 *
-	 * @param description
+	 * @param description the new description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -389,10 +416,20 @@ public class CampaignRequest extends BasePagingRequest {
 		this.startDate = startDate;
 	}
 	
+	/**
+	 * Gets the state.
+	 *
+	 * @return the state
+	 */
 	public String getState() {
 		return state;
 	}
 
+	/**
+	 * Sets the state.
+	 *
+	 * @param state the new state
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}

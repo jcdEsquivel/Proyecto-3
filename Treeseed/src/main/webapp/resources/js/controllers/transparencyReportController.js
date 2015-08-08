@@ -116,7 +116,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 
-		console.log(pageNumber)
+		
 		
 		$http.post('rest/protected/transparencyReport/getTransparencyReports',
 				$scope.reportsRequest).success(function(data, status) {

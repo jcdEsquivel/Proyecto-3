@@ -201,24 +201,6 @@ public class NonprofitWrapper extends ParentUserWrapper{
 		return wrapperObject.removePostnonprofit(postnonprofit);
 	}
 
-	public List<RecurrableDonation> getRecurrabledonations() {
-		return wrapperObject.getRecurrabledonations();
-	}
-
-	public void setRecurrabledonations(
-			List<RecurrableDonation> recurrabledonations) {
-		wrapperObject.setRecurrabledonations(recurrabledonations);
-	}
-
-	public RecurrableDonation addRecurrabledonation(
-			RecurrableDonation recurrabledonation) {
-		return wrapperObject.addRecurrabledonation(recurrabledonation);
-	}
-
-	public RecurrableDonation removeRecurrabledonation(
-			RecurrableDonation recurrabledonation) {
-		return wrapperObject.removeRecurrabledonation(recurrabledonation);
-	}
 
 	public List<TransparencyReport> getTransparencyreports() {
 		return wrapperObject.getTransparencyreports();

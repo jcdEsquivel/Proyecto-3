@@ -97,6 +97,8 @@ public class DonorController extends UserGeneralController{
 		
 		
 		String resultFileName = "";
+		CatalogWrapper Countrytype = null;
+		CatalogWrapper userType = null;
 		
 		DonorResponse us = new DonorResponse();
 		
@@ -113,9 +115,12 @@ public class DonorController extends UserGeneralController{
 		
 	   if(validator.isValid(email)){
 		   if(!alreadyUser){
-				   
-				CatalogWrapper Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
-				CatalogWrapper userType = catalogService.getAllByType("DonorType").get(0);
+				   if(country.equals("") == false){
+					   Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
+				   }else{
+					   Countrytype = new CatalogWrapper(null);
+				   }
+				userType = catalogService.getAllByType("DonorType").get(0);
 				
 				
 				if (file == null)
@@ -227,7 +232,7 @@ public class DonorController extends UserGeneralController{
 			tempId= (int) currentSession.getAttribute("idUser");
 		}
 		
-		Donor donor = donorService.getDonorProfileByID(dr);
+		DonorWrapper donor = donorService.getDonorProfileByID(dr.getId());
 		
 		DonorResponse nps = new DonorResponse();
 		

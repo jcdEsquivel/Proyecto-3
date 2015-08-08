@@ -23,41 +23,43 @@ treeSeedAppControllers.controller('indexController', function($state,
 	 */
 });
 
-treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, $http,
-		$rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
+treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
+		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
 
-	
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
 	$sharedData.getUserCountry();
 	$scope.country = "";
-	
-	$scope.goProfile=function(){
+
+	$scope.goProfile = function() {
 		if (Session.userRole == $scope.userRoles.nonprofit) {
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+			$state.go('treeSeed.nonProfit', {
+				nonProfitId : Session.userId
+			});
 		} else if (Session.userRole == $scope.userRoles.donor) {
-			$state.go('treeSeed.donor', {donorId: Session.userId});
+			$state.go('treeSeed.donor', {
+				donorId : Session.userId
+			});
 		}
 	}
-	
+
 	$scope.temps = [];
-	
+
 	$scope.generalSearch = function(val) {
 		$scope.country = $sharedData.getUserCountry();
 		console.log('in');
-		return $http.post('rest/protected/generalSearch/search',
-				{filter: val, country:$scope.country })
-				.then(function(response) {
-					return response.data.results;	
-					
-				}); // end $http.post
-	};//end generalSearch
-	
-	
-	
+		return $http.post('rest/protected/generalSearch/search', {
+			filter : val,
+			country : $scope.country
+		}).then(function(response) {
+			return response.data.results;
+
+		}); // end $http.post
+	};// end generalSearch
+
 	$scope.animationsEnabled = true;
 
-	$scope.init = function(){
+	$scope.init = function() {
 
 		if (Session.userRole == $scope.userRoles.guest) {
 			$scope.logButton = true;
@@ -65,7 +67,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, 
 		} else {
 			$scope.logged = true;
 			$scope.logButton = false;
-		
+
 			$scope.user = $scope.currentUser;
 			$scope.name = $scope.user.userName;
 			$scope.img = $scope.user.userImage;
@@ -103,23 +105,21 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location, 
 	};
 
 	$scope.init();
-	
-	
 
 });// end header controller
 
 treeSeedAppControllers.controller('leftMenuCtrl', function($state, $location,
 		$sharedData, $scope, AUTH_EVENTS, Session) {
 
-	$scope.init = function(){
-		
+	$scope.init = function() {
+
 		if (Session.userRole == $scope.userRoles.nonprofit) {
 			$scope.menu = "layouts/components/nGOMenu.html";
 		} else if (Session.userRole == $scope.userRoles.donor) {
 			$scope.menu = "layouts/components/donorMenu.html";
 		}
 	};
-	
+
 	$scope.$on(AUTH_EVENTS.loginSuccess, function() {
 		if (Session.userRole == $scope.userRoles.nonprofit) {
 			$scope.menu = "layouts/components/nGOMenu.html";
@@ -127,18 +127,13 @@ treeSeedAppControllers.controller('leftMenuCtrl', function($state, $location,
 			$scope.menu = "layouts/components/donorMenu.html";
 		}
 	});
-	
-	
+
 	$scope.$on(AUTH_EVENTS.logoutSuccess, function() {
 		$scope.menu = "";
 	})
-	
-	
+
 	$scope.init();
 }); // end leftMenuCtrl
-
-
-
 
 treeSeedAppControllers.controller('navigateController', function($state,
 		$location, $sharedData, $scope) {
@@ -155,14 +150,16 @@ treeSeedAppControllers.controller('navigateController', function($state,
 	}
 });
 
-treeSeedAppControllers.controller('sideMenuNonprofitController', function($state, $scope,Session) {
-	$scope.goProfile=function(){
-		
-			$state.go('treeSeed.nonProfit', {nonProfitId: Session.userId});
+treeSeedAppControllers.controller('sideMenuNonprofitController', function(
+		$state, $scope, Session) {
+	$scope.goProfile = function() {
+
+		$state.go('treeSeed.nonProfit', {
+			nonProfitId : Session.userId
+		});
 	}
 
 });
-
 
 treeSeedAppControllers.controller('HeaderCtrl', [
 		'$scope',
@@ -192,3 +189,5 @@ treeSeedAppControllers.controller('HeaderCtrl', [
 			};
 
 		} ]);
+
+

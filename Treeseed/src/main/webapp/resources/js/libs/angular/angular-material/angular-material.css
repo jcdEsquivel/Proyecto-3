@@ -4258,6 +4258,7 @@ md-input-container {
   overflow-x: hidden;
   padding: 2px;
   padding-bottom: 26px;
+  color:black;
   /*
    * The .md-input class is added to the input/textarea
    */ }
@@ -4290,6 +4291,8 @@ md-input-container {
     transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
     transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
     -webkit-transform-origin: left top;
+    color:black;
+    font-size: 14px;
             transform-origin: left top; }
     html[dir=rtl] md-input-container label:not(.md-no-float), html[dir=rtl] md-input-container .md-placeholder:not(.md-select-label) {
       -webkit-transform-origin: right top;
@@ -4310,7 +4313,7 @@ md-input-container {
     transition: none;
     opacity: 0; }
   md-input-container:not(.md-input-has-value) input:not(:focus) {
-    color: transparent; }
+    color: black; }
   md-input-container .md-input {
     -webkit-flex: 1 1 auto;
         -ms-flex: 1 1 auto;

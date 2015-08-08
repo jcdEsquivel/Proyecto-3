@@ -1,6 +1,6 @@
 
 'use strict';
-var treeSeedAppServices = angular.module('treeSeed.services', [ 'ngCookies' ]);
+var treeSeedAppServices = angular.module('treeSeedServices', [ 'ngCookies' ]);
 
 treeSeedAppServices.value('version', '0.1');
 
@@ -9,9 +9,18 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 	return {
 		isEmailUnique : function(email) {
 
-			return $http.post('rest/protected/users/isEmailUnique', email)
+			var request = {
+					
+						email: email
+					
+					
+			};
+			
+			
+			
+			return $http.post('rest/protected/users/isEmailUnique', JSON.stringify(request))
 					.then(function(response) {
-						console.log(response.data.codeMessage);
+					
 
 						if (response.data.codeMessage == 'UNIQUE') {
 							return true;
@@ -23,6 +32,94 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 	}
 });
 
+
+treeSeedAppServices.service('$donationService', function($http) {
+
+	return {
+		createDonation : function(type, nonprofitId, campaignId, donorId, stripeToken, plan, amount, fatherId) {
+
+		
+			
+			if(plan == 'custom'){//simple donation
+				var request = {
+						id: '',
+						campaignId:'',
+						nonProfitId:'',
+						amount: '',
+						donationDate:'',
+						token: '',
+						startPeriodDate:'',
+						endPeriodDate:'',
+						plan:'',
+						donation:{
+							id:'',
+							campaignId: campaignId,
+							donorId: donorId,
+							donorFatherId: fatherId,
+							nonProfitId: nonprofitId,
+							amount: amount,
+							cardId:''
+						}	
+				};
+				
+			console.log(type);
+				
+				if(type=='newCard'){
+					request.token = stripeToken;
+				}else{
+					request.donation.cardId = stripeToken;
+				}
+				
+				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
+						.then(function(response) {				
+							return response.data;
+						});
+			
+			}else{//monthly donation
+				
+				var requestSuscription = {
+						id: '',
+						campaignId:'',
+						nonProfitId:'',
+						amount: '',
+						donationDate:'',
+						token: '',
+						startPeriodDate:'',
+						endPeriodDate:'',
+						plan: plan,
+						donation:{
+							id:'',
+							campaignId: campaignId,
+							donorId: donorId,
+							donorFatherId: fatherId,
+							nonProfitId: nonprofitId,
+							amount: '',
+							cardId:''
+						}
+				};
+				
+				if(type=='newCard'){
+					requestSuscription.token = stripeToken;
+				}else{
+					requestSuscription.donation.cardId = stripeToken;
+				}
+				
+				return $http.post('rest/protected/recurrableDonation/subscription', JSON.stringify(requestSuscription))
+						.then(function(response) {				
+							return response.data;
+						});
+				
+				
+			}
+			
+		}//end createSimpleDonation
+	
+	}
+});
+
+
+
+/*
 'use strict';
 var treeSeedAppServices = angular.module('treeSeedServices', []);
 
@@ -46,7 +143,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
-
+*/
 
 treeSeedAppServices.service('$sharedData', function($http) {
 	var loggedUser = "";
@@ -104,7 +201,7 @@ treeSeedAppServices.service('$sharedData', function($http) {
 		}// end getUserCountry
 	} // end return
 }); // end shareDataService
-
+/*
 treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 	return {
@@ -123,7 +220,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		}
 	}
 });
-
+*/
 treeSeedAppServices.service('$userData', function() {
 	var users = [ {
 		Name : "Ricardo Bonilla",
@@ -173,7 +270,56 @@ treeSeedAppServices.service('$userData', function() {
 	}
 });
 
-/** ****************************************************Factories********************************************** */
+treeSeedAppServices.service('lazyService',['JQ_CONFIG','MODULE_CONFIG', function(JQ_CONFIG,MODULE_CONFIG) {
+
+	this.load = function(srcs, callback) {
+		return {
+			deps : [
+					'$ocLazyLoad',
+					'$q',
+					function($ocLazyLoad, $q) {
+						var deferred = $q.defer();
+						var promise = false;
+						srcs = angular.isArray(srcs) ? srcs
+								: srcs.split(/\s+/);
+						if (!promise) {
+							promise = deferred.promise;
+						}
+						angular
+								.forEach(
+										srcs,
+										function(src) {
+											console.log(src);
+											promise = promise
+													.then(function() {
+														if (JQ_CONFIG[src]) {
+															return $ocLazyLoad
+																	.load(JQ_CONFIG[src]);
+														}
+														angular
+																.forEach(
+																		MODULE_CONFIG,
+																		function(
+																				module) {
+																			if (module.name == src) {
+																				name = module.name;
+																			} else {
+																				name = src;
+																			}
+																		});
+														return $ocLazyLoad
+																.load(name);
+													});
+										});
+						deferred.resolve();
+						return callback ? promise
+								.then(function() {
+									return callback();
+								}) : promise;
+					} ]
+		}
+	}
+}])
 
 treeSeedAppServices.service('Session', function() {
 
@@ -188,6 +334,26 @@ treeSeedAppServices.service('Session', function() {
 		this.userRole = null;
 	};
 })
+
+treeSeedAppServices.service('StripeService', function() {
+
+	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y";
+
+	return {
+		getStripeApiKey : function() {
+			return stripeApiKey;
+		}/*,
+		setStripeApiKey : function(value) {
+			stripeApiKey = value;
+		}*/
+	}
+})
+
+
+
+/** ****************************************************Factories********************************************** */
+
+
 
 treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, USER_ROLES ) {
 	var authService = {};

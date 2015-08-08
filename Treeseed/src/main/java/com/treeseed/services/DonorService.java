@@ -79,6 +79,15 @@ public class DonorService implements DonorServiceInterface {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(int)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
+	 */
+	@Override
+	public DonorWrapper getDonorProfileByID(int id) {
+		return new DonorWrapper(DonorRepository.findByid(id));
+	}
+	
+	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
 	 */
 	@Override
@@ -110,9 +119,33 @@ public class DonorService implements DonorServiceInterface {
 				);		
 	}
 	
+	
 	/* (non-Javadoc)
-	 * @see com.treeseed.services.DonorServiceInterface#getDonorById(int)
+	 * @see com.treeseed.services.DonorServiceInterface#updateStripeId(com.treeseed.ejbWrapper.DonorWrapper)
 	 */
+	@Override
+	public void updateStripeId(DonorWrapper donor) {
+		DonorRepository.updateStripeId(donor.getId(),donor.getStripeId());	
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateStripeIdAndSubscriptionCard(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
+	@Override
+	public void updateStripeIdAndSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateStripeIdAndSubscriptionCard(donor.getId(),donor.getStripeId(), donor.getSubscriptionCard());	
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateSubscriptionCard(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
+	@Override
+	public void updateSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateSubscriptionCard(donor.getId(),donor.getSubscriptionCard());
+	}
+	
+
 	@Override
 	public DonorWrapper getDonorById(int id){
 		DonorWrapper donor;

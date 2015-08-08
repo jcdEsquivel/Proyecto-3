@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
+import com.treeseed.contracts.EmailUniqueRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
@@ -149,9 +150,9 @@ public class UserGeneralController {
 	 * @return the base response
 	 */
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
-		public BaseResponse create(@RequestBody String email){	
+		public BaseResponse create(@RequestBody EmailUniqueRequest request){	
 	
-			Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
+			Boolean isEmailUnique = userGeneralService.isEmailUnique(request.getEmail());
 			BaseResponse response = new BaseResponse();
 			response.setCode(200);
 			
