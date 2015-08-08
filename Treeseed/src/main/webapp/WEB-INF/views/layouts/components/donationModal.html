@@ -5,12 +5,12 @@
 <div class="modal-body">
 
 	<tabset class="tab-container"
-		ng-init="steps={ step1:true, step2:false}">  
+		ng-init="steps={ newDonation:true, editDonation:false}">  
 			
-	<tab active="steps.step2">
-	<tab-heading translate="DONATION-MODAL.DONATION">donation</tab-heading>
+	<tab active="steps.newDonation:true,">
+	<tab-heading translate="DONATION-MODAL.NEW-DONATION">donation</tab-heading>
 
-	<form name="step2" class="form-validation" stripe-form="stripeCallback">
+	<form name="frmNewDonation" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
@@ -51,7 +51,7 @@
 					<label for="card"  class=" control-label"  translate="DONATION-MODAL.NEW-CARD-NUMBER">New Credit Card</label>
 				 	 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
 						payments-format="card" payments-validate="card"  name="card"  required />
-					 <span ng-if='step2.card.$invalid &&  step2.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		
+					 <span ng-if='frmNewDonation.card.$invalid &&  frmNewDonation.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		
 				</div>
 			</div>
 			<div class="row">
@@ -60,7 +60,7 @@
 				 <input type="text"  class="form-control"  data-stripe="cvc" ng-model='cvc'
 				 payments-format="cvc"  payments-validate="cvc"  name="cvc"  required/>
 		
-			  	<span ng-if='step2.cvc.$invalid && step2.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
+			  	<span ng-if='frmNewDonation.cvc.$invalid && frmNewDonation.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
 				</div>
 			</div>
 			<div class="row">
@@ -68,7 +68,7 @@
 					<label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
 					 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
 					 payments-format="expiry"  payments-validate="expiry" name="expiry"  required/>
-			  		<span ng-if='step2.expiry.$invalid && step2.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
+			  		<span ng-if='frmNewDonation.expiry.$invalid && frmNewDonation.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
 				</div>
 			</div>
 		</div>
@@ -103,10 +103,10 @@
 		</div>
  		<div class="form-group">
 				<span class="payment-errors text-danger"></span>
-				<button type="submit" ng-show="hideSubmit"  ng-disabled="step2.$invalid"  id="btn-submit"
-					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">SUBMIT</button>
+				<button type="submit" ng-show="hideSubmit"  ng-disabled="frmNewDonation.$invalid"  id="btn-submit"
+					class="btn m-b-xs w-xs btn-success btn-rounded" >SUBMIT</button>
 					
-				<button type="button" ng-disabled="step2.$invalid" 
+				<button type="button" ng-disabled="frmNewDonation.$invalid" 
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
 					translate="DONATION-MODAL.DONATE"
 				>donate</button>
@@ -114,6 +114,36 @@
 			
 	</form>
 	</tab> 
+	
+	<tab ng-controller="editRecurrableDonation">
+		<tab-heading translate="DONATION-MODAL.EDIT-DONATION">edit donation</tab-heading>
+		
+		<h3>Your Current Donations</h3>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="donations-scroll">
+					<div class="row">
+						<div class="col-md-12">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<form name="frmEditDonation" class="form-validation">
+			<div class="form-group">
+				<div class="row"  ng-repeat="r in recurrableDonations" >
+		 			<div class="col-sm-12">
+		 		   		<input type="radio" name="plan" value="new" ng-change="editRecurrable(r)">
+		 		   		<span translate="DONATION-PLAN.{{r.planId}}">$</span>
+		 			</div>
+		 		</div>
+			</div>
+		</form>
+	</tab>
+	
 </tabset>
 
 </div>

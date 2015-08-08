@@ -345,7 +345,9 @@
     	"SUCCESS-MONTH": "/month",
     	"SUCCESS-YEAR": "/year",
     	"MESSAGE": "Donation Info: ",
-    	"PLAN-MESSAGE": "Monthly "
+    	"PLAN-MESSAGE": "Monthly ",
+    	"NEW-DONATION": "New Donation",
+    	"EDIT-DONATION": "Edit Donation"
     	
     	
     }

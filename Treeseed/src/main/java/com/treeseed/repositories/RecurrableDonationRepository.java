@@ -40,4 +40,20 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	 */
 	List<RecurrableDonation> findById(int id);
 	
+	/**
+	 * Find by nonprofit id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
+	List<RecurrableDonation> findByNonprofitId(int id);
+	
+	/**
+	 * Find by campaign id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
+	List<RecurrableDonation> findByCampaignId(int id);
+	
 }

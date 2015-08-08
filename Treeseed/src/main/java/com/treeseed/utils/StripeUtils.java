@@ -41,7 +41,9 @@ import javassist.expr.NewArray;
 public class StripeUtils {
 
 	/** The api key. */
-	private static String API_KEY = "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+	//private static String API_KEY = "sk_test_0L9gz0bNILLeY5efuPFuz2Qa";
+	//Llave Aramis
+	private static String API_KEY = "sk_test_BRgvc8BesZp5Ycu9RTjHXrbg";
 
 	/**
 	 * Creates the donation.
@@ -263,6 +265,17 @@ public class StripeUtils {
 
 	}
 	
+	
+	public static void editPlan(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
+	APIException{
+		Stripe.apiKey = API_KEY;
+		
+		Customer cu = getCustomer(idDonorStripe);
+		Subscription subscription = cu.getSubscriptions().retrieve("sub_6ktT7dBcrYpjPX");
+		Map<String, Object> updateParams = new HashMap<String, Object>();
+		updateParams.put("plan", "gold21323");
+		subscription.update(updateParams);
+	}
 	
 	
 	/**

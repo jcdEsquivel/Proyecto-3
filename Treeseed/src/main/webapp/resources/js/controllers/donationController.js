@@ -397,7 +397,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal,
 		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
-	
+//VARIABLES DEFINITION	
 	$scope.percent = 0;
 	$scope.sameCard={
 		validation: false
@@ -405,7 +405,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	
 	$scope.hideSubmit = false;
 	
-
+	$scope.nonprofitId = nonprofitId;
 	
 	$scope.requieredCard = true;
 	
@@ -479,6 +479,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.resul=true;
 	$scope.button=false;
 	$scope.token = "";
+	
+// END VARIABLES DEFINITION	
 	
 	$scope.setRequired = function(){
 
@@ -734,4 +736,23 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
   $modalInstance.close();
 
  };
+});
+
+
+
+treeSeedAppControllers.controller('editRecurrableDonation', function($http,
+		  $modal, Session) { 
+	
+	$scope.recurrableDonations = [];
+	//nonprofitId
+	
+	$scope.getCurrentDonations = function(){
+		if($scope.campaignId != 0 ){
+			
+		}else{
+			
+		}
+	}
+	
+
 });
