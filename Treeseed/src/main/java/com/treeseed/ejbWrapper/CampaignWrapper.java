@@ -358,7 +358,12 @@ public class CampaignWrapper {
 	 * @return the due date s
 	 */
 	public String getDueDateS() {
-		setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getDueDate()));
+		
+		if(getDueDate()!=null){
+			setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getDueDate()));
+		}else{
+			setDueDateS("∞");
+		}
 		return dueDateS;
 	}
 
@@ -420,10 +425,14 @@ public class CampaignWrapper {
 	 * @return true, if is end
 	 */
 	public boolean isEnd() {
-		if(getDueDate().after(new Date())){
-			setEnd(true);
+		if(getDueDate()!=null){
+			if(getDueDate().after(new Date())){
+				setEnd(true);
+			}else{
+				setEnd(false);
+			}
 		}else{
-			setEnd(false);
+			setEnd(true);
 		}
 		return end;
 	}

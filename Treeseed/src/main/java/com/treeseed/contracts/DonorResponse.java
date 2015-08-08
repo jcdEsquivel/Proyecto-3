@@ -13,6 +13,7 @@ import com.treeseed.pojo.UserGeneralPOJO;
 public class DonorResponse extends BaseResponse {
 
 	/** The donors. */
+	/** The donors. */
 	private List<DonorPOJO> donors;
 
 	/** The tree. */
@@ -30,6 +31,11 @@ public class DonorResponse extends BaseResponse {
 	/** The user general. */
 	private UserGeneralPOJO userGeneral;
 
+	/**
+	 * Gets the user general.
+	 *
+	 * @return the user general
+	 */
 	/**
 	 * Gets the user general.
 	 *
@@ -90,11 +96,19 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Instantiates a new donor response.
 	 */
+	/**
+	 * Instantiates a new donor response.
+	 */
 	public DonorResponse() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Gets the donor.
+	 *
+	 * @return the donor
+	 */
 	/**
 	 * Gets the donor.
 	 *
@@ -128,6 +142,11 @@ public class DonorResponse extends BaseResponse {
 	 *
 	 * @param donors
 	 *            the new donors
+	 */
+	/**
+	 * Sets the donors.
+	 *
+	 * @param donors the new donors
 	 */
 	public void setDonors(List<DonorPOJO> donors) {
 		this.donors = donors;

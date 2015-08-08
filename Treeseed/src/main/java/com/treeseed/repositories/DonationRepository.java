@@ -13,6 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.treeseed.ejb.Donation;
+import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.TransparencyReport;
 
@@ -65,6 +67,25 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
 	
 	/**
+	 * Update.
+	 *
+	 * @param id the id
+	 * @param stripe the stripe
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE Donation d SET stripeId=:stripe where d.id = :id") 
+ 	public void update(@Param("id") int id,   @Param("stripe") String stripe);
+	
+	/**
+	 * Find by stripe id.
+	 *
+	 * @param stripeId the stripe id
+	 * @return the donation
+	 */
+	Donation findByStripeId(String stripeId);
+	
+	/*
 	 * Find by nonprofitId.
 	 *
 	 * @param nonProfit id
@@ -106,5 +127,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 				@Param("yearNull") String yearNull,
 				@Param("year") int year,
 			   Pageable pageable);
+
 
 }

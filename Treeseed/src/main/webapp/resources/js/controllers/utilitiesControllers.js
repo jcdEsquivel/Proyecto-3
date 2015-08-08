@@ -2,7 +2,6 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('dragnDropController', function($scope){
-	console.log('asdf');
 	$scope.showImage=false;
 	$scope.imageDropped = function(){
 	    $scope.$emit('profilePicture', $scope.uploadedFile);

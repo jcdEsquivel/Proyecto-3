@@ -34,7 +34,7 @@ public interface CampaignServiceInterface {
 	/**
 	 * Save campaign.
 	 *
-	 * @param campaign the campaign
+	 * @param nonProfit the non profit
 	 * @return the int
 	 */
 	public int saveCampaign(CampaignWrapper nonProfit);

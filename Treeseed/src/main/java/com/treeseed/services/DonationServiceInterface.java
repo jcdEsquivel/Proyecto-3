@@ -38,6 +38,29 @@ public interface DonationServiceInterface {
 	int findDonorsPerCampaign(int campaignId);
 	
 	/**
+	 * Save donation.
+	 *
+	 * @param donation the donation
+	 * @return the donation wrapper
+	 */
+	DonationWrapper saveDonation(DonationWrapper donation);
+	
+	/**
+	 * Update donation.
+	 *
+	 * @param donation the donation
+	 */
+	void updateDonation(DonationWrapper donation);
+	
+	/**
+	 * Gets the donation by stripe id.
+	 *
+	 * @param stripeId the stripe id
+	 * @return the donation by stripe id
+	 */
+	DonationWrapper getDonationByStripeId(String stripeId);
+
+	/**
 	 * Gets the donations of Donor.
 	 *
 	 * @param dr the donation request
