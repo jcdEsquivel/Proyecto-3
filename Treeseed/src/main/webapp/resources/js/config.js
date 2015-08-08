@@ -69,7 +69,6 @@ angular
 												templateUrl : 'layouts/pages/donor.html',
 												controller: "getDonorProfileController",
 												params: {donorId: null},
-												//resolve: load([ 'http://requirejs.org/docs/release/2.1.20/r.js']), 
 												data : {
 													authorizedRoles : [
 															USER_ROLES.donor,
@@ -577,10 +576,6 @@ angular
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]
-						},
-						{
-							name: 'stripe.api',
-							files: ['https://js.stripe.com/v2/']
 						}])
 // oclazyload config
 angular.module('treeSeed').config(

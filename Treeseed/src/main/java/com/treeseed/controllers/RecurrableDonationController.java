@@ -136,6 +136,7 @@ public class RecurrableDonationController {
 				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
 				donation.setDonorId(dr.getDonation().getDonorId());
 				donation.setActive(true);
+				donation.setAmount(getPlanAmount(dr.getPlan()));
 
 				if (dr.getDonation().getCampaignId() >0) {
 					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
@@ -209,5 +210,36 @@ public class RecurrableDonationController {
 		}
 
 		return ds;
+	}
+	
+	
+	private double getPlanAmount(int plan){
+		double amount=0;
+		
+		switch (plan) {
+		case 1:
+			amount=10;
+			break;
+		case 2:
+			amount=18;
+			break;
+		case 3:
+			amount=36;
+			break;
+		case 4:
+			amount=50;
+			break;
+		case 5:
+			amount=100;
+			break;
+		case 6:
+			amount=250;
+			break;
+		
+		default:
+			break;
+		}
+		
+		return amount;
 	}
 }

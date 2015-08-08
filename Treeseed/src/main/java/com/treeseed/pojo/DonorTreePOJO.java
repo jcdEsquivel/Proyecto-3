@@ -4,7 +4,7 @@ import java.util.List;
 
 public class DonorTreePOJO {
 	
-	private int id;
+	private int identity;
 
 	private String name;
 
@@ -18,13 +18,7 @@ public class DonorTreePOJO {
 	public DonorTreePOJO() {
 	}
 
-	public int getId() {
-		return this.id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return this.name;
@@ -48,6 +42,18 @@ public class DonorTreePOJO {
 
 	public void setChildren(List<DonorTreePOJO> children) {
 		this.children = children;
+	}
+
+
+
+	public int getIdentity() {
+		return identity;
+	}
+
+
+
+	public void setIdentity(int identity) {
+		this.identity = identity;
 	}
 
 }

@@ -271,14 +271,14 @@ public class DonorController extends UserGeneralController{
 	}
 	
 
-	@RequestMapping(value ="/getTree", method = RequestMethod.POST)
+	@RequestMapping(value ="/getTree", consumes = {"application/json"}, method = RequestMethod.POST)
 	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		DonorResponse response = new DonorResponse();
 		DonorWrapper donor = donorService.getDonorById(dr.getId());
 		DonorTreePOJO tree = new DonorTreePOJO();
-		tree.setId(donor.getId());
+		tree.setIdentity(donor.getId());
 		tree.setName(donor.getName());
 		tree.setProfilePicture(donor.getProfilePicture());
 		tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
@@ -305,17 +305,17 @@ public class DonorController extends UserGeneralController{
 			while(number<sonslist.size()&&levelXDo>0){
 				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
 				DonorTreePOJO donorPojo = new DonorTreePOJO();
-				donorPojo.setId(donorWrapper.getId());
+				donorPojo.setIdentity(donorWrapper.getId());
 				donorPojo.setName(donorWrapper.getName());
 				donorPojo.setProfilePicture(donorWrapper.getProfilePicture());
 				if(donorWrapper.getSons().size()>0){
 					if(levelY>1){
 						donorPojo.setChildren(getTree(donorWrapper,levelX,levelY-1));
 					}else{
-						donorPojo.setChildren(new ArrayList<DonorTreePOJO>());
+						donorPojo.setChildren(null);
 					}
 				}else{
-					donorPojo.setChildren(new ArrayList<DonorTreePOJO>());
+					donorPojo.setChildren(null);
 				}
 				number++;
 				levelXDo--;
