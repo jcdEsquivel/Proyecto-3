@@ -303,12 +303,7 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
-											 });
-									
-
-//$locationProvider.html5Mode(true);
-							
-							
+											 });							
 
 					function load(srcs, callback) {
 						return {

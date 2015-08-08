@@ -634,15 +634,17 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 	 $scope.month = '';
 	 $scope.year = '';
  
- $scope.titleFaceS = titleFace;
- $scope.descriptionFace = descriptionFace;
- $scope.imageFace = pictureFace;
- 
- $scope.donationMessage = "";
- $scope.planMessage = "";
- $scope.amount = "";
- $scope.amount = "";
- $scope.type = '';
+	 //take
+	 $scope.titleFaceS = titleFace;
+	 $scope.descriptionFace = descriptionFace;
+	 $scope.imageFace = pictureFace;
+	 //take
+	 
+	 $scope.donationMessage = "";
+	 $scope.planMessage = "";
+	 $scope.amount = "";
+	 $scope.amount = "";
+	 $scope.type = '';
  
  $translate('DONATION-MODAL.SUCCESS-1').then(
 	function successFn(translation) {

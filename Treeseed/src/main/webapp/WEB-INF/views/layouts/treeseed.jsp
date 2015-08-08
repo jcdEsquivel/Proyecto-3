@@ -21,11 +21,7 @@
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/appLogin.js"></script>
-<<<<<<< HEAD
 <script src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
-=======
-<script	src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
->>>>>>> f44ceab2f061db96f56f0acc7695622bfaebd813
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
 <script src="resources/js/controllers/generalControllers.js"></script>

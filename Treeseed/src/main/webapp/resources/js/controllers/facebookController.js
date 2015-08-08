@@ -75,12 +75,12 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
   		})
   	} 
   	
-  	$scope.postInFacebook = function()
+  	$scope.postInFacebook = function(titleFace,descriptionFace,pictureFace)
   	{
-  		postInFacebook();
+  		postInFacebook(titleFace,descriptionFace,pictureFace);
   	}
   	
-  	var postInFacebookMe = function()
+  	var postInFacebookMe = function(titleFace,descriptionFace,pictureFace)
   	{
   		var cause = "Animals";
   		var donateAmount = "1000";
@@ -88,18 +88,15 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
   		var campaignTittle = "Save the Animals";
   		var body = "";
   		
-		body = "We are grateful to "+ $scope.currentUser.userName +" " +
-		   "for helping in the cause of "+ cause +", " +
-		   "with a "+ donateAmount +" donation amount. " +
-		   "With this we are closer to achieve! Thank You So Much.";
+		body = descriptionFace;
 		
-		var encrypted = CryptoJS.AES.encrypt($scope.idShareUser, "golondrinasTicas");
+		//var encrypted = CryptoJS.AES.encrypt($scope.idShareUser, "golondrinasTicas");
 		
 		FB.api('/me/feed','post', { 
 			message: body, 
 			link: "http://127.0.0.1:8080/treeseed.org",	
-			picture: 'http://graph.facebook.com/850507415003734/picture?type=large',
-			name: campaignTittle,
+			picture: pictureFace,
+			name: titleFace,
 			description: descripcionC
 		}, function(response) {
 		    if (!response || response.error)
