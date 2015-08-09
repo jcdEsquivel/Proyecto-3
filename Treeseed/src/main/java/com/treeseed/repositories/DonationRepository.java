@@ -85,6 +85,17 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 */
 	Donation findByStripeId(String stripeId);
 	
+	/**
+	 * Find donations of donor.
+	 *
+	 * @param donorId the donor id
+	 * @param monthNull the month null
+	 * @param month the month
+	 * @param yearNull the year null
+	 * @param year the year
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	/*
 	 * Find by nonprofitId.
 	 *
@@ -129,4 +140,13 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 			   Pageable pageable);
 
 
+	/**
+	 * Sum amount by donor.
+	 *
+	 * @param id the id
+	 * @return the double
+	 */
+	@Query("select COALESCE(sum(amount),0) From Donation where donorId = :id") 
+ 	public double sumAmountByDonor(@Param("id") int id);
+	
 }

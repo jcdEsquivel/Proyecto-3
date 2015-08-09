@@ -650,23 +650,35 @@ border-bottom-right-radius:5px;
   fill: #fff;
   stroke: steelblue;
   stroke-width: 1.5px;
+  transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-webkit-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-moz-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-o-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-ms-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
 }
 
 .node text {
   font: 10px sans-serif;
-  transform: rotate(270deg) scale(1) skew(1deg) translate(0px);
--webkit-transform: rotate(270deg) scale(1) skew(1deg) translate(0px);
--moz-transform: rotate(270deg) scale(1) skew(1deg) translate(0px);
--o-transform: rotate(270deg) scale(1) skew(1deg) translate(0px);
--ms-transform: rotate(270deg) scale(1) skew(1deg) translate(0px);
+  transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-webkit-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-moz-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-o-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-ms-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
 }
 
 .link {
   fill: none;
-  stroke: #61380B;
-  stroke-width: 1.5px;
+  stroke: #24aa35;
+  stroke-width: 3px;
 
 }
 
+svg:not(:root){
+transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+-webkit-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+-moz-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+-o-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+-ms-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+}
 
 

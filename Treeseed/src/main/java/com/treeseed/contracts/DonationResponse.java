@@ -13,6 +13,9 @@ public class DonationResponse extends BaseResponse {
 /** The donations. */
 private List<DonationPOJO> donations;
 
+/** The tree donation. */
+private double treeDonation;
+
 /** The donation. */
 private DonationPOJO donation;
 	
@@ -58,6 +61,24 @@ private DonationPOJO donation;
 	 */
 	public void setDonation(DonationPOJO donation) {
 		this.donation = donation;
+	}
+
+	/**
+	 * Gets the tree donation.
+	 *
+	 * @return the tree donation
+	 */
+	public double getTreeDonation() {
+		return treeDonation;
+	}
+
+	/**
+	 * Sets the tree donation.
+	 *
+	 * @param treeDonation the new tree donation
+	 */
+	public void setTreeDonation(double treeDonation) {
+		this.treeDonation = treeDonation;
 	}	
 	
 }

@@ -284,7 +284,7 @@ public class DonorController extends UserGeneralController{
 		tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
 		
 		response.setTree(tree);
-		System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tree));
+		
 		return response;		
 	}
 	

@@ -48,6 +48,15 @@ public class DonationRequest extends BasePagingRequest{
 	/** The end period date. */
 	private Date endPeriodDate;
 	
+	/** The tree level x. */
+	private int treeLevelX;
+	
+	/** The tree level y. */
+	private int treeLevelY;
+	
+	
+
+	/** The plan. */
 	private int plan;
 	
 	/**
@@ -105,7 +114,7 @@ public class DonationRequest extends BasePagingRequest{
 	/**
 	 * Sets the donor id.
 	 *
-	 * @param the donor id
+	 * @param donorId the new donor id
 	 */
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
@@ -289,6 +298,42 @@ public class DonationRequest extends BasePagingRequest{
 	 */
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	/**
+	 * Gets the tree level x.
+	 *
+	 * @return the tree level x
+	 */
+	public int getTreeLevelX() {
+		return treeLevelX;
+	}
+
+	/**
+	 * Sets the tree level x.
+	 *
+	 * @param treeLevelX the new tree level x
+	 */
+	public void setTreeLevelX(int treeLevelX) {
+		this.treeLevelX = treeLevelX;
+	}
+
+	/**
+	 * Gets the tree level y.
+	 *
+	 * @return the tree level y
+	 */
+	public int getTreeLevelY() {
+		return treeLevelY;
+	}
+
+	/**
+	 * Sets the tree level y.
+	 *
+	 * @param treeLevelY the new tree level y
+	 */
+	public void setTreeLevelY(int treeLevelY) {
+		this.treeLevelY = treeLevelY;
 	}
 	
 	

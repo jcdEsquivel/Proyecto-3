@@ -696,40 +696,54 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 });
 
 treeSeedAppControllers.controller('treeController', function($scope, $http,
-		Session, $state, d3, requirejs) {
+		Session, $state, d3) {
 	$scope.fooBar = d3.version;
+	$scope.donorArrayList=[];
+	$scope.showAmount = false;
 	
-	/*$scope.requestObject = {};
-	$scope.requestObject.treeLevelY=3;
+	$scope.requestObject = {};
+	$scope.requestObject.treeLevelY=2;
 	$scope.requestObject.id=$scope.donor.id;
-	$scope.requestObject.treeLevelX=5;
-	$scope.graph= {
-			'top':20,
-			'right':120,
-			'bottom': 20,
-			'left':120,
-			'width':960 , 
-			'height' : 800 
-	};
-	$scope.graph.width = $scope.graph.right-$scope.graph.left;
-	$scope.graph.height = $scope.graph.top-$scope.graph.bottom;
-*/
-	$http.post('rest/protected/donor/getTree', $scope.requestObject)
-	.then(function(response) {
-		if (response.data.code == "200") {
-			$scope.donors=response.tree;
-			loadTreeSeed($scope.donors);
-		} else if (response.data.code == "400") {
-			console.log("ERROR");
+	$scope.requestObject.treeLevelX=3;
+	
+	$scope.requestObject1 = {};
+	$scope.requestObject1.treeLevelY=$scope.requestObject.treeLevelY;
+	$scope.requestObject1.donorId=$scope.requestObject.id;
+	$scope.requestObject1.treeLevelX=$scope.requestObject.treeLevelX;
+	
+	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
+	.then(function(response){
+		if(response.code==200){
+			if(response.treeDonation!=0){
+				$scope.showAmount = true;
+				$scope.totalAmount = response.treeDonation;
+				
+				console.log(response.treeDonation);
+			}
 		}
-	});
+		console.log(response.code);
+	})
+	
+	$scope.donorArray = function(tree){
+		$scope.list = [];
+		$scope.donorObject = {"id":"", "image":""};
+		$scope.donorObject.id=tree.identity;
+		$scope.donorObject.image=tree.profilePicture;
+		$scope.list.push($scope.donorObject);
+		if(tree.children != null){
+			tree.children.forEach(function(son){
+				$scope.list=$scope.list.concat($scope.donorArray(son));
+			})
+		}
+		return $scope.list;
+	}
 	
 	var margin = {
-			top : 20,
-			right : 120,
-			bottom : 20,
-			left : 120
-		}, width = 960 - margin.right - margin.left, height = 800 - margin.top
+			top : 30,
+			right : 30,
+			bottom : 30,
+			left : 30
+		}, width = 300 - margin.right - margin.left, height = 600 - margin.top
 				- margin.bottom;
 		//Duración de animacion de carga de los links
 		var i = 0, duration = 1500, root;
@@ -740,23 +754,19 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			return [ d.y, d.x ];
 		});
 
-		var svg = d3.select("body").append("svg").attr("width",
+		var svg = d3.select("#treeDiv").append("svg").attr("width",
 				width + margin.right + margin.left).attr("height",
 				height + margin.top + margin.bottom).append("g").attr(
 				"transform",
 				"translate(" + margin.left + "," + margin.top + ")");
 
-		var requestObject={};
-		requestObject.id=6;
-		requestObject.treeLevelY=3;
-		requestObject.treeLevelX=5;
 		//Carga
 		d3.json("rest/protected/donor/getTree", function(error, flare) {
 			if (error)
 				throw error;
 			//Animacion de carga
-			$scope.donors = flare.tree;
-			console.log($scope.donors);
+			$scope.donors = $scope.donorArray(flare.tree);
+			//console.log(JSON.stringify($scope.donors));
 			root = flare.tree;
 			root.x0 = height / 2;
 			root.y0 = 0;
@@ -769,18 +779,12 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				}
 			}
 
-			root.children.forEach(collapse);
+			//root.children.forEach(collapse);
 			update(root);
-		}).header("Content-Type","application/json").send("POST", JSON.stringify(requestObject));
+		}).header("Content-Type","application/json").send("POST", JSON.stringify($scope.requestObject));
 
-		d3.select(self.frameElement).style("height", "800px");
-		/*
-		d3.select(self.frameElement).styel("transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
-		d3.select(self.frameElement).styel("-webkit-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
-		d3.select(self.frameElement).styel("-moz-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
-		d3.select(self.frameElement).styel("-o-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
-		d3.select(self.frameElement).styel("-ms-transform","rotate(90deg) scale(1) skew(1deg) translate(0px)");
-*/
+		d3.select(self.frameElement).style("height", "500px");
+
 		function update(source) {
 
 			// Compute the new tree layout.
@@ -808,21 +812,19 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			//Estilo del circulo al inicio de la carga(Animacion)
 			nodeEnter.append("circle").attr("r", 1e-6).style("fill",
 					function(d) {
-				console.log(d.identity);
 						return d._children ? "url(#" + d.identity
 								+ ")" : "url(#" + d.identity
 								+ ")";
 					});
 			//Propiedades del texto
 			nodeEnter.append("text").attr("x", function(d) {
-				return d.children || d._children ? -10 : 10;//Posicion en X con respento al borde derecho
-				//})nodeEnter.append("text").attr("y", function(d) {
-				//	return d.children || d._children ? -20 : 20;Posicion en y con respento al centro del circulo
-			}).attr("dy", ".35em").attr("text-anchor", function(d) {
-				return d.children || d._children ? "end" : "start";
+				return d.children || d._children ? 0 : 0;//Posicion en X con respento al borde derecho
+			}).attr("dy", "2.5em").attr("text-anchor", function(d) {
+				return d.children || d._children ? "middle " : "middle";//Alineacion
 			}).text(function(d) {
 				return d.name;
-			}).style("fill-opacity", 1e-6);
+			}).style("fill", "#000000").style("font-weight","bold")
+			.style("font-size","15px");
 
 			// Transition nodes to their new position.
 			var nodeUpdate = node.transition().duration(duration).attr(
@@ -830,10 +832,9 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 						return "translate(" + d.y + "," + d.x + ")";
 					});
 			//Radio del circulo luego de la primera carga
-			nodeUpdate.select("circle").attr("r", 15).style(
+			nodeUpdate.select("circle").attr("r", 20).style(
 					"fill",
 					function(d) {
-						console.log(d.identity);
 						return d._children ? "url(#" + d.identity
 								+ ")" : "url(#" + d.identity
 								+ ")";

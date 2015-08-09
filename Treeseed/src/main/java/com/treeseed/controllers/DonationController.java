@@ -57,12 +57,14 @@ import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Donation;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.utils.PageWrapper;
 
@@ -360,6 +362,50 @@ public class DonationController {
 		dr.setCode(200);
 		return dr;
 			
+	}
+	
+	/**
+	 * Gets the donations of a donor.
+	 *
+	 * @param dr the donation request
+	 * @return the donation response
+	 */
+	@RequestMapping(value ="/gettreedonation", method = RequestMethod.POST)
+	public DonationResponse getTreeDonation(@RequestBody DonationRequest dr){	
+	
+		DonationResponse ds = new DonationResponse();
+		try {
+			DonorWrapper donor = donorService.getDonorById(dr.getDonorId());
+			ds.setTreeDonation(donationService.getSumDonationsByDonor(donor.getId()));
+			ds.setTreeDonation(ds.getTreeDonation()+getTreeDonationSons(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+			System.out.println(ds.getTreeDonation());
+			ds.setCode(200);
+		} catch (Exception e) {
+			ds.setCode(400);
+		}
+		
+		return ds;
+	}
+	
+	public double getTreeDonationSons(DonorWrapper donor, int levelX, int levelY){
+		double total=0;
+		int levelXDo = levelX;
+		List<Donor> sonslist = donor.getSons();
+		if(sonslist.size()>0){
+			int number = 0;
+			while(number<sonslist.size()&&levelXDo>0){
+				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
+				total=donationService.getSumDonationsByDonor(donorWrapper.getId());
+				if(donorWrapper.getSons().size()>0){
+					if(levelY>1){
+						total+=getTreeDonationSons(donorWrapper,levelX,levelY-1);
+					}
+				}
+				number++;
+				levelXDo--;
+			}
+		}
+		return total;
 	}
 }
 

@@ -1,17 +1,29 @@
-<meta charset="utf-8">
 
-<!--  ng-controller="treeController" -->
-<div ng-controller="treeController" >
-	 
-		<svg id="mySvg" width="80" height="80">
-      <defs id="mdef">
-      <div ng-repeat="donor in donors">
-        <pattern ng-attr-id="{{donor.identity}}" x="0" y="0" height="40" width="40">
-          <image x="0" y="0" width="40" height="40"
-				xlink:href="resources/file-storage/darth_vader_profile_pic.jpg"></image>
-        </pattern>
-</div>
-  </defs>
-	
-	
+<div ng-controller="treeController">
+
+	<div class="column">
+		<div class="row"> 
+		<div class="col-md-2"></div>
+		<div class="col-md-8" ng-show="showAmount">
+		<span class=pull-left translate="TREE.MESSAGE"></span><span class="pull-right">${{totalAmount}}</span>
+		</div>
+		<div class="col-md-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8" id="treeDiv"></div>
+			<div class="col-md-2">
+				<div ng-repeat="donor in donors">
+					<svg id="mySvg" width="0" height="0">
+     			<defs id="mdef">
+       			<pattern id="{{donor.id}}" x="0" y="0" height="40" width="40">
+         				<image x="0" y="0" width="40" height="40"
+							xlink:href="{{donor.image}}"></image>
+       			</pattern>
+ 				</defs>
+		
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

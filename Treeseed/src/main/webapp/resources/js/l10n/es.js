@@ -337,6 +337,9 @@
     	"MESSAGE": "Información de la donación: ",
     	"PLAN-MESSAGE": "Mensual "
     	
+    },
+    "TREE":{
+    	"MESSAGE":"Has ayudado a recaudar:"
     }
      
 }

@@ -348,5 +348,8 @@
     	"PLAN-MESSAGE": "Monthly "
     	
     	
+    },
+    "TREE":{
+    	"MESSAGE":"You've helped raise:"
     }
 }
