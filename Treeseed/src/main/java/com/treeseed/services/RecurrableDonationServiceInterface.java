@@ -32,5 +32,20 @@ public interface RecurrableDonationServiceInterface {
 	 * @return the recurrable donation
 	 */
 	List<RecurrableDonationWrapper> getRecurrableDonation(int donorId, int nonprofitId, int campaignId);
+
 	
+	/**
+	 * Gets the by id.
+	 *
+	 * @param id the id
+	 * @return the by id
+	 */
+	public RecurrableDonationWrapper getById(int id);
+	
+	/**
+	 * Edits the recurrable donation.
+	 *
+	 * @param donation the donation
+	 */
+	public void editRecurrableDonation(RecurrableDonationWrapper donation);
 }

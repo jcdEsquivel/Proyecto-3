@@ -59,5 +59,14 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 		
 		return wrapperList;
 	}
+	
+	
+	public RecurrableDonationWrapper getById(int id){	
+		return new RecurrableDonationWrapper(recurrableDonationRepository.findOne(id));
+	}
+	
+	public void editRecurrableDonation(RecurrableDonationWrapper donation){
+		recurrableDonationRepository.save(donation.getWrapperObject());
+	}
 
 }

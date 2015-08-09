@@ -748,21 +748,46 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 			nonprofitId: $scope.nonprofitId,			
 			campaignId:$scope.campaignId,			
 			donorId: Session.userId,			
-			stripeId:''
+			stripeId:'',
+			donationId: '',
+			planId: ''
 	};
-	//nonprofitId
+
+	$scope.modal = {
+			selectedDonorPlan:null,
+			selectedPlan: '',
+			samePlan:''
+			
+	};
 	
-	
+	$scope.editRecurrable = function(donationId, amount){
+		$scope.modal.samePlan= amount;
+		$scope.request.donationId = donationId;
+	};
 	
 	$scope.getCurrentDonations = function(){
-
-		$http.post('rest/protected/recurrableDonation/getRecurrableDonations',$scope.requestObject1)
+		
+		$http.post('rest/protected/recurrableDonation/getRecurrableDonations',$scope.request)
 		.success(function(response) {
 			$scope.recurrableDonations = response.donations;
 		});
 		
 	};
 	
+	$scope.editPlan = function(){
+		
+		$scope.request.planId = $scope.modal.selectedPlan;//seletedPlan;
+		
+		console.log(JSON.stringify($scope.request));
+		
+		$http.post('rest/protected/recurrableDonation/editRecurrableDonation',$scope.request)
+		.success(function(response) {
+			console.log(JSON.stringify(response));
+			$scope.modal.selectedDonorPlan = '';
+			$scope.modal.selectedPlan = '';
+			$scope.getCurrentDonations();
+		});
+	};
 	
 	$scope.init = function(){
 		$scope.getCurrentDonations();

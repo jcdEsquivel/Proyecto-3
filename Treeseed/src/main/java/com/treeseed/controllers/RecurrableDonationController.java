@@ -283,6 +283,42 @@ public class RecurrableDonationController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/editRecurrableDonation", method = RequestMethod.POST)
+	public  RecurrableDonationResponse editRecurrableDonation(@RequestBody RecurrableDonationRequest request){
+	
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		
+		try{
+			String plan = "";
+			NonprofitWrapper nonprofit = nonprofitService.getNonProfitById(request.getNonprofitId());
+			DonorWrapper donor = donorService.getDonorById(request.getDonorId());
+			RecurrableDonationWrapper donation = recurrableDonationService.getById(request.getDonationId());
+			CampaignWrapper campaign = null;
+			
+			plan = nonprofit.getId()+"#"+request.getPlanId();
+			
+			if(request.getCampaignId() != 0){//donation is for campaing
+				campaign = campaignService.getCampaignById(request.getCampaignId());
+				plan += "#"+request.getCampaignId();
+			}
+
+			StripeUtils.editPlan(donor.getStripeId(), donation.getStripeId(), plan);
+			
+			//update recurrable donation
+			donation.setAmount(getPlanAmount(request.getPlanId()));
+			recurrableDonationService.editRecurrableDonation(donation);
+			
+			response.setCode(200);
+			response.setCodeMessage("Donation was updated");
+			
+		}catch(Exception ex){
+			response.setCodeMessage(ex.getMessage());
+		}
+	
+		return response;
+	}
+	
 }
 
 

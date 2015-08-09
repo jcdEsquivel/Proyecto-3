@@ -118,30 +118,46 @@
 	<tab ng-controller="editRecurrableDonation">
 		<tab-heading translate="DONATION-MODAL.EDIT-DONATION">edit donation</tab-heading>
 		
-		<h3>Your Current Donations</h3>
+		<h3 translate="DONATION-MODAL.SELECT-DONATION">Select  Donations</h3>
 		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="donations-scroll">
-					<div class="row">
-						<div class="col-md-12">
-						
-						</div>
-					</div>
+					<div class="row"  ng-repeat="r in recurrableDonations" >
+			 			<div class="col-sm-12">
+			 		   		<input type="radio" name="plan" ng-model="modal.selectedDonorPlan" value="{{r}}" ng-change="editRecurrable(r.id, r.amount)">
+			 		   		<span translate="DONATION-PLAN.{{r.amount}}">$</span>
+			 			</div>
+		 			</div>
 				</div>
 			</div>
 		</div>
+		<br/><br/>
+		<div class="row">
+			<div class="col-md-12">
+				<form name="frmEditDonation" class="form-validation" ng-show="modal.selectedDonorPlan != null">
+					<div class="form-group">
+						<label for="cvc" class="control-label" translate="DONATION-PLAN.MONTHLY">Donation Type</label>
 		
-		<form name="frmEditDonation" class="form-validation">
-			<div class="form-group">
-				<div class="row"  ng-repeat="r in recurrableDonations" >
-		 			<div class="col-sm-12">
-		 		   		<input type="radio" name="plan" value="new" ng-change="editRecurrable(r)">
-		 		   		<span translate="DONATION-PLAN.{{r.planId}}">$</span>
-		 			</div>
-		 		</div>
+						 <select class="form-control m-b" ng-model="modal.selectedPlan" 
+						 name="selectedPlan" required>
+						    <option value="1" translate="DONATION-PLAN.10" ng-if="modal.samePlan != 10">$10</option>
+						    <option value="2" translate="DONATION-PLAN.18" ng-if="modal.samePlan != 18">$18</option>
+						    <option value="3" translate="DONATION-PLAN.36" ng-if="modal.samePlan != 36">$36</option>
+						    <option value="4" translate="DONATION-PLAN.50" ng-if="modal.samePlan != 50">$50</option>
+						    <option value="5" translate="DONATION-PLAN.100" ng-if="modal.samePlan != 100">$100</option>
+						    <option value="6" translate="DONATION-PLAN.250" ng-if="modal.samePlan != 250">$250</option>	  
+						</select> 
+					</div>
+					<div class="form-group">
+						<button type="button" ng-disabled="frmEditDonation.$invalid" 
+							class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="editPlan()"
+							translate="DONATION-MODAL.EDIT-PLAN">edit</button>
+					</div>
+				</form>
 			</div>
-		</form>
+		</div>
+	
 	</tab>
 	
 </tabset>

@@ -19,7 +19,41 @@ public class RecurrableDonationRequest extends BasePagingRequest{
 	/** The stripe id. */
 	private String stripeId;
 	
+	/** The donation id. */
+	private int donationId;
 	
+	/** The plan id. */
+	private int planId;
+	
+	
+	
+	
+	public int getPlanId() {
+		return planId;
+	}
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
+
+	/**
+	 * Gets the donation id.
+	 *
+	 * @return the donation id
+	 */
+	public int getDonationId() {
+		return donationId;
+	}
+
+	/**
+	 * Sets the donation id.
+	 *
+	 * @param donationId the new donation id
+	 */
+	public void setDonationId(int donationId) {
+		this.donationId = donationId;
+	}
+
 	/**
 	 * Gets the nonprofit id.
 	 *

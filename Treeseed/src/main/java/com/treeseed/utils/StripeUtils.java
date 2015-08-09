@@ -266,14 +266,24 @@ public class StripeUtils {
 	}
 	
 	
-	public static void editPlan(String idDonorStripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
+	/**
+	 * Edits the plan.
+	 *
+	 * @param idDonorStripe the id donor stripe
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
+	public static void editPlan(String idDonorStripe, String subcriptionId, String planId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 	APIException{
 		Stripe.apiKey = API_KEY;
 		
 		Customer cu = getCustomer(idDonorStripe);
-		Subscription subscription = cu.getSubscriptions().retrieve("sub_6ktT7dBcrYpjPX");
+		Subscription subscription = cu.getSubscriptions().retrieve(subcriptionId);
 		Map<String, Object> updateParams = new HashMap<String, Object>();
-		updateParams.put("plan", "gold21323");
+		updateParams.put("plan", planId);
 		subscription.update(updateParams);
 	}
 	

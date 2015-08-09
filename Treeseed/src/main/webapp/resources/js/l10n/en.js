@@ -347,7 +347,9 @@
     	"MESSAGE": "Donation Info: ",
     	"PLAN-MESSAGE": "Monthly ",
     	"NEW-DONATION": "New Donation",
-    	"EDIT-DONATION": "Edit Donation"
+    	"EDIT-DONATION": "Edit Donation",
+    	"SELECT-DONATION": "Select the donation you want to edit",
+    	"EDIT-PLAN": "Edit Plan"
     	
     }
 }
