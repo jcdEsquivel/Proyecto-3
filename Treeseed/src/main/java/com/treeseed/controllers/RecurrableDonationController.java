@@ -295,12 +295,13 @@ public class RecurrableDonationController {
 			DonorWrapper donor = donorService.getDonorById(request.getDonorId());
 			RecurrableDonationWrapper donation = recurrableDonationService.getById(request.getDonationId());
 			CampaignWrapper campaign = null;
-			
-			plan = nonprofit.getId()+"#"+request.getPlanId();
+		
 			
 			if(request.getCampaignId() != 0){//donation is for campaing
 				campaign = campaignService.getCampaignById(request.getCampaignId());
-				plan += "#"+request.getCampaignId();
+				plan = nonprofit.getId()+"#"+request.getCampaignId()+"#"+request.getPlanId();
+			}else{
+				plan = nonprofit.getId()+"#"+request.getPlanId();
 			}
 
 			StripeUtils.editPlan(donor.getStripeId(), donation.getStripeId(), plan);

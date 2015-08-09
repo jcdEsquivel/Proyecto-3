@@ -398,6 +398,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
 //VARIABLES DEFINITION	
+    $scope.hasDonations = false;
 	$scope.percent = 0;
 	$scope.sameCard={
 		validation: false
@@ -504,6 +505,11 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			
 				$scope.donorCards.cards = mydata.cards;
 				$scope.load.isLoading = false;
+			
+				if(Object.keys(mydata.cards).length > 0){
+					$scope.hasDonations = true;//shows edit donation tab
+				}
+				
 		}).error(function(mydata, status) {
 			//we have to do something here
 		});
@@ -741,8 +747,9 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
 
 treeSeedAppControllers.controller('editRecurrableDonation', function($http, $scope,
-		  $modal, Session) { 
-	
+		  $modal, Session, $timeout) { 
+	$scope.showFeedBackMessage = false;
+	$scope.disableEdit = false;
 	$scope.recurrableDonations = [];
 	$scope.request= {
 			nonprofitId: $scope.nonprofitId,			
@@ -775,17 +782,18 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 	};
 	
 	$scope.editPlan = function(){
-		
+		$scope.disableEdit = true;
 		$scope.request.planId = $scope.modal.selectedPlan;//seletedPlan;
-		
-		console.log(JSON.stringify($scope.request));
 		
 		$http.post('rest/protected/recurrableDonation/editRecurrableDonation',$scope.request)
 		.success(function(response) {
 			console.log(JSON.stringify(response));
-			$scope.modal.selectedDonorPlan = '';
+			$scope.modal.selectedDonorPlan = null;
 			$scope.modal.selectedPlan = '';
+			$scope.modal.samePlan='';
 			$scope.getCurrentDonations();
+			$scope.showSuccessFeedBack();
+			$scope.disableEdit = false;
 		});
 	};
 	
@@ -793,6 +801,15 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 		$scope.getCurrentDonations();
 	};
 	
+	
+	$scope.showSuccessFeedBack = function(){
+		$scope.showFeedBackMessage = true;
+		$timeout($scope.hiddeFeedBack, 5000);
+	};
+	
+	$scope.hiddeFeedBack = function(){
+		$scope.showFeedBackMessage = false
+	};
 	
 	$scope.init();
 

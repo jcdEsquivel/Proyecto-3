@@ -321,12 +321,13 @@
     	"250": "Monthly $250"
     },
     "DONATION-MODAL":{
-    	"TITLE": "New Donation",
+    	"TITLE": "Donation",
     	"DONOR-INFO":"Donor Information",
     	"DONATION": "Donation",
     	"CARD-NUMBER": "Card Number",
     	"CVC": "CVC",
     	"EXP-DATE": "Expiration Date",
+    	"EXP-DATE-SMALL": "Exp ",
     	"TYPE": "Donation type",
     	"AMOUNT": "Amount",
     	"NEXT": "Next",
@@ -349,7 +350,8 @@
     	"NEW-DONATION": "New Donation",
     	"EDIT-DONATION": "Edit Donation",
     	"SELECT-DONATION": "Select the donation you want to edit",
-    	"EDIT-PLAN": "Edit Plan"
+    	"EDIT-PLAN": "Edit Plan",
+    	"EDIT-SUCCESS": "Your donation Plan was updated successfully"
     	
     }
 }
