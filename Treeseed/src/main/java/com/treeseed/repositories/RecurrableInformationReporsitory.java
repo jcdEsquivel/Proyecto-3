@@ -1,11 +1,15 @@
 package com.treeseed.repositories;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import com.treeseed.pojo.RecurrableInformationResultPOJO;
 import com.treeseed.rowMappers.RecurrableInformationResultRowMapper;
 
+@Repository
 public class RecurrableInformationReporsitory implements RecurrableInformationRepositoryInterface{
 	
 	private JdbcTemplate jdbcTemplate;
