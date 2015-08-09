@@ -26,6 +26,7 @@
  					<div class="col-md-12">
  						<b translate="GENERAL-PROFILE.WEBPAGE"></b>
  						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 						
  						<div ng-show="webPageInEdition">
 				          	<div>
 				          		<input ng-model="nonprofit.webPage">
@@ -58,10 +59,9 @@
  						<br>			
  					</div>
  				</div>
- 				<div class="row">
- 					<div class="col-md-3"></div>
- 					<div class="col-md-9">
- 						<md-button class="btn  btn-warning btn-addon" ng-if="showDonationButton" ng-click="showDonation()" translate="DONATION-MODAL.DONATE">
+ 				<div class="row m-b-md">
+ 					<div class="col-sm-12">
+ 						<md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" style="width:100%;" ng-click="showDonation()" translate="DONATION-MODAL.DONATE">
 	        		 		<i class="fa fa-dollar"></i>
 	        				<span translate="DONATION-MODAL.DONATE">Donate</span>
 	      				</md-button>

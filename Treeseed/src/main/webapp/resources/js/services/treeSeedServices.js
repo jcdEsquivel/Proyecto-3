@@ -71,8 +71,10 @@ treeSeedAppServices.service('$donationService', function($http) {
 				}
 				
 				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
-						.then(function(response) {				
+						.success(function(response) {				
 							return response.data;
+						}).error(function(error){
+							return error;
 						});
 			
 			}else{//monthly donation
@@ -105,8 +107,10 @@ treeSeedAppServices.service('$donationService', function($http) {
 				}
 				
 				return $http.post('rest/protected/recurrableDonation/subscription', JSON.stringify(requestSuscription))
-						.then(function(response) {				
+						.success(function(response) {				
 							return response.data;
+						}).error(function(error){
+							return error;
 						});
 				
 				

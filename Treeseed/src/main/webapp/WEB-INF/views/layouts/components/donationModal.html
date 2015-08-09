@@ -10,7 +10,7 @@
 	<tab active="steps.step2">
 	<tab-heading translate="DONATION-MODAL.DONATION">donation</tab-heading>
 
-	<form name="step2" class="form-validation" stripe-form="stripeCallback">
+	<form name="step2" id="payment-form" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
@@ -102,7 +102,7 @@
 	
 		</div>
  		<div class="form-group">
-				<span class="payment-errors text-danger"></span>
+				<span class="payment-errors text-danger"></span><br>
 				<button type="submit" ng-show="hideSubmit"  ng-disabled="step2.$invalid"  id="btn-submit"
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">SUBMIT</button>
 					
@@ -110,6 +110,8 @@
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
 					translate="DONATION-MODAL.DONATE"
 				>donate</button>
+				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="close()"
+				translate="DONATION-MODAL.CANCEL">Cancel</button>
 		</div>
 			
 	</form>
@@ -117,10 +119,4 @@
 </tabset>
 
 </div>
-<div class="modal-footer">
 
-	<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="close()"
-		translate="DONATION-MODAL.CANCEL">Cancel</button>
-	
-
-</div>
