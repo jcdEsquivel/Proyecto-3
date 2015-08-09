@@ -679,6 +679,7 @@ transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
 -moz-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
 -o-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
 -ms-transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
+right:0
 }
 
 

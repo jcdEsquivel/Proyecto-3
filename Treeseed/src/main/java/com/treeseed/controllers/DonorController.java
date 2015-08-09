@@ -271,10 +271,17 @@ public class DonorController extends UserGeneralController{
 	}
 	
 
+	/**
+	 * Gets the donor tree.
+	 *
+	 * @param dr the dr
+	 * @return the donor tree
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@RequestMapping(value ="/getTree", consumes = {"application/json"}, method = RequestMethod.POST)
 	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
 		
-		ObjectMapper mapper = new ObjectMapper();
+
 		DonorResponse response = new DonorResponse();
 		DonorWrapper donor = donorService.getDonorById(dr.getId());
 		DonorTreePOJO tree = new DonorTreePOJO();
@@ -325,6 +332,14 @@ public class DonorController extends UserGeneralController{
 		return sons;
 	}
 	
+	/**
+	 * Edits the donor.
+	 *
+	 * @param dr the dr
+	 * @param fileCover the file cover
+	 * @param fileProfile the file profile
+	 * @return the donor response
+	 */
 	@RequestMapping(value ="/editDonor", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public DonorResponse editDonor(@RequestPart(value="data") DonorRequest dr, @RequestPart(value="fileCover", required=false) MultipartFile fileCover,
 			@RequestPart(value="fileProfile", required=false) MultipartFile fileProfile){

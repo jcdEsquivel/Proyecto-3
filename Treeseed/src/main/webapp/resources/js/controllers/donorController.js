@@ -713,15 +713,14 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	
 	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
 	.then(function(response){
-		if(response.code==200){
+		if(response.data.code==200){
 			if(response.treeDonation!=0){
 				$scope.showAmount = true;
-				$scope.totalAmount = response.treeDonation;
+				$scope.totalAmount = response.data.treeDonation;
 				
-				console.log(response.treeDonation);
+				console.log(response.data.treeDonation);
 			}
 		}
-		console.log(response.code);
 	})
 	
 	$scope.donorArray = function(tree){

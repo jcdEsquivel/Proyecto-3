@@ -387,6 +387,14 @@ public class DonationController {
 		return ds;
 	}
 	
+	/**
+	 * Gets the tree donation sons.
+	 *
+	 * @param donor the donor
+	 * @param levelX the level x
+	 * @param levelY the level y
+	 * @return the tree donation sons
+	 */
 	public double getTreeDonationSons(DonorWrapper donor, int levelX, int levelY){
 		double total=0;
 		int levelXDo = levelX;
