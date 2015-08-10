@@ -773,7 +773,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			update(root,true);
 		}).header("Content-Type","application/json").send("POST", JSON.stringify($scope.requestObject));
 
-		d3.select(self.frameElement).style("height", "500px");
+		d3.select(self.frameElement).style("height", "600px");
 
 		function update(source,first) {
 
@@ -795,7 +795,6 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			});
 			
 			
-			
 
 			// Enter any new nodes at the parent's previous position.
 			var nodeEnter = node.enter().append("g").attr("class", "node")
@@ -813,13 +812,13 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 								+ ")";
 					});
 				
-			/*
+			
 			if(first){
-				nodeEnter.append("svg:image").attr("xlink:href", "resources/images/treeBlue.png").attr("x", "-75")
-				.attr("y", "-159")
-                .attr("width", "150")
-                .attr("height", "150");
-			}*/
+			nodeEnter.append("svg:image").attr("xlink:href", "resources/images/treeBlue.png").attr("x", "-75")
+			.attr("y", "-159")
+            .attr("width", "150")
+            .attr("height", "150");
+		}
 			
 			//Propiedades del texto
 			nodeEnter.append("text").attr("x", function(d) {
@@ -837,14 +836,12 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			// Transition nodes to their new position.
 			var nodeUpdate = node.transition().duration(duration).attr(
 					"transform", function(d) {
-						
 						return "translate(" + d.y + "," + d.x + ")";
 					});
 			//Radio del circulo luego de la primera carga
 			nodeUpdate.select("circle").attr("r", 20).style(
 					"fill",
 					function(d) {
-						
 						return d._children ? "url(#" + d.identity
 								+ ")" : "url(#" + d.identity
 								+ ")";

@@ -3,11 +3,11 @@
 
 	<div class="column">
 		<div class="row"> 
-		<div class="col-md-4"></div>
-		<div class="col-md-4" ng-show="showAmount">
-		<span class="pull-left h4" translate="TREE.MESSAGE"></span><span class="pull-right text-success h4">${{totalAmount}}</span>
+		<div class="col-md-3"></div>
+		<div class="col-md-6" ng-show="showAmount" style="text-align: center;">
+		<span class=" h3" translate="TREE.MESSAGE"></span><span class="text-success h3"> {{totalAmount| currency}}</span>
 		</div>
-		<div class="col-md-4"></div>
+		<div class="col-md-3"></div>
 		</div>
 		<div class="row">
 			<div class="col-md-2"></div>
