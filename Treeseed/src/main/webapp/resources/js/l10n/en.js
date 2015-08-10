@@ -189,7 +189,9 @@
         "TREE": "Treeseed",
         "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
-        "MONEY-BROUGHT": "Money brought: "
+        "MONEY-BROUGHT": "Money brought: ",
+        "TITLE": "Bill Report",
+        "BILLREPORT": "Bill Report"
     },
     "SELECT-USER":{
     	"TITLE":"Sign up as:"

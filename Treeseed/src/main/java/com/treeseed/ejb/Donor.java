@@ -69,11 +69,13 @@ public class Donor implements Serializable {
 	@JoinColumn(name="father")
 	private Donor father;
 
+
 	/** The sons. */
 	//bi-directional many-to-one association to Donor
 	@OneToMany(mappedBy="father")
 	private List<Donor> sons;
 
+	
 	/** The donor settings. */
 	//bi-directional many-to-one association to Donorsetting
 	@OneToMany(mappedBy="donor")

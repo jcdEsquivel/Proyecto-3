@@ -69,12 +69,13 @@ angular
 												templateUrl : 'layouts/pages/donor.html',
 												controller: "getDonorProfileController",
 												params: {donorId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
 												data : {
 													authorizedRoles : [
 															USER_ROLES.donor,
 															USER_ROLES.guest,
-															USER_ROLES.nonprofit ]
-												
+															USER_ROLES.nonprofit ]	
 												}
 											})
 									.state(

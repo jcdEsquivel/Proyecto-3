@@ -75,4 +75,22 @@ public interface DonationServiceInterface {
 	 * @return the donations
 	 */
 	Page<Donation> getDonations(DonationRequest ur);
+
+	/**
+	 * Gets the report donations.
+	 *
+	 * @param ur the ur
+	 * @return the report donations
+	 */
+	Page<Donation> getReportDonations(DonationRequest ur);
+	
+	
+	/**
+	 * Gets the donations donor.
+	 *
+	 * @param ur the ur
+	 * @return the donations donor
+	 */
+	Page<Donation> getDonationsDonor(DonationRequest ur);
+	
 }

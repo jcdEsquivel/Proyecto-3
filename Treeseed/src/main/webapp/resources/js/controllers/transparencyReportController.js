@@ -3,6 +3,8 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+
+
 treeSeedAppControllers.controller('createTransparencyReportController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, editableOptions, editableThemes) {
 
@@ -116,8 +118,6 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 
-		
-		
 		$http.post('rest/protected/transparencyReport/getTransparencyReports',
 				$scope.reportsRequest).success(function(data, status) {
 
