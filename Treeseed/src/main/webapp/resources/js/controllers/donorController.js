@@ -372,16 +372,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.donor = {};
 	$scope.donor.id = $stateParams.donorId;
 	$scope.requestObject = {};
-	$scope.tmpImg="";
-	$scope.img2="resources/file-storage/darth_vader_profile_pic.jpg";
-
-	$scope.changeImage=function(){
-		$scope.tmpImg=$scope.donor.profilePicture;
-		$scope.donor.profilePicture = $scope.img2;
-		$scope.img2=$scope.tmpImg;
-		
-		
-	}
+	
 	// init function, calls the java controller
 	$scope.init = function() {
 		$scope.requestObject.idUser = Session.id;
@@ -741,8 +732,8 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			top : 30,
 			right : 30,
 			bottom : 30,
-			left : 30
-		}, width = 300 - margin.right - margin.left, height = 600 - margin.top
+			left : 180
+		}, width = 450 - margin.right - margin.left, height = 600 - margin.top
 				- margin.bottom;
 		//Duración de animacion de carga de los links
 		var i = 0, duration = 1500, root;
@@ -779,19 +770,22 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			}
 
 			//root.children.forEach(collapse);
-			update(root);
+			update(root,true);
 		}).header("Content-Type","application/json").send("POST", JSON.stringify($scope.requestObject));
 
 		d3.select(self.frameElement).style("height", "500px");
 
-		function update(source) {
+		function update(source,first) {
 
 			// Compute the new tree layout.
 			var nodes = tree.nodes(root).reverse(), links = tree.links(nodes);
 
+			
+			
 			// Normalize for fixed-depth.
 			//Largo de los links
 			nodes.forEach(function(d) {
+				
 				d.y = d.depth * 100;
 			});
 
@@ -799,6 +793,9 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			var node = svg.selectAll("g.node").data(nodes, function(d) {
 				return d.id || (d.id = ++i);
 			});
+			
+			
+			
 
 			// Enter any new nodes at the parent's previous position.
 			var nodeEnter = node.enter().append("g").attr("class", "node")
@@ -815,8 +812,18 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 								+ ")" : "url(#" + d.identity
 								+ ")";
 					});
+				
+			/*
+			if(first){
+				nodeEnter.append("svg:image").attr("xlink:href", "resources/images/treeBlue.png").attr("x", "-75")
+				.attr("y", "-159")
+                .attr("width", "150")
+                .attr("height", "150");
+			}*/
+			
 			//Propiedades del texto
 			nodeEnter.append("text").attr("x", function(d) {
+				
 				return d.children || d._children ? 0 : 0;//Posicion en X con respento al borde derecho
 			}).attr("dy", "2.5em").attr("text-anchor", function(d) {
 				return d.children || d._children ? "middle " : "middle";//Alineacion
@@ -824,20 +831,26 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				return d.name;
 			}).style("fill", "#000000").style("font-weight","bold")
 			.style("font-size","15px");
+			
+			
 
 			// Transition nodes to their new position.
 			var nodeUpdate = node.transition().duration(duration).attr(
 					"transform", function(d) {
+						
 						return "translate(" + d.y + "," + d.x + ")";
 					});
 			//Radio del circulo luego de la primera carga
 			nodeUpdate.select("circle").attr("r", 20).style(
 					"fill",
 					function(d) {
+						
 						return d._children ? "url(#" + d.identity
 								+ ")" : "url(#" + d.identity
 								+ ")";
 					});
+			
+			
 
 			nodeUpdate.select("text").style("fill-opacity", 1);
 
@@ -900,7 +913,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				d.children = d._children;
 				d._children = null;
 			}
-			update(d);
+			update(d,false);
 		}
 
 });

@@ -666,9 +666,18 @@ border-bottom-right-radius:5px;
 -ms-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
 }
 
+.node image {
+  transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-webkit-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-moz-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-o-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+-ms-transform: rotate(270deg) scale(1) skew(0deg) translate(0px);
+}
+
+
 .link {
   fill: none;
-  stroke: #24aa35;
+  stroke: #82c341;
   stroke-width: 3px;
 
 }

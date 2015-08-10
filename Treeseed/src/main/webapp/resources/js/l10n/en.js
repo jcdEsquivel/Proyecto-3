@@ -350,6 +350,6 @@
     	
     },
     "TREE":{
-    	"MESSAGE":"You've helped raise:"
+    	"MESSAGE":"You helped raise:"
     }
 }
