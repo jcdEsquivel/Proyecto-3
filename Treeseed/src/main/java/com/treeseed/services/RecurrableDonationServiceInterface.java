@@ -48,4 +48,13 @@ public interface RecurrableDonationServiceInterface {
 	 * @param donation the donation
 	 */
 	public void editRecurrableDonation(RecurrableDonationWrapper donation);
+	
+	
+	/**
+	 * Gets the recurrable donation from donor.
+	 *
+	 * @param donorId the donor id
+	 * @return the recurrable donation from donor
+	 */
+	public List<RecurrableDonationWrapper> getRecurrableDonationFromDonor(int donorId);
 }

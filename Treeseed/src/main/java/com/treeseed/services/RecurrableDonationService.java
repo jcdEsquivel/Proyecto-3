@@ -61,12 +61,39 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.RecurrableDonationServiceInterface#getById(int)
+	 */
 	public RecurrableDonationWrapper getById(int id){	
 		return new RecurrableDonationWrapper(recurrableDonationRepository.findOne(id));
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.RecurrableDonationServiceInterface#editRecurrableDonation(com.treeseed.ejbWrapper.RecurrableDonationWrapper)
+	 */
 	public void editRecurrableDonation(RecurrableDonationWrapper donation){
 		recurrableDonationRepository.save(donation.getWrapperObject());
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.RecurrableDonationServiceInterface#getRecurrableDonationFromDonor(int)
+	 */
+	@Override
+	public List<RecurrableDonationWrapper> getRecurrableDonationFromDonor(int donorId){
+		
+		List<RecurrableDonationWrapper> wrapperList = new ArrayList<RecurrableDonationWrapper>();
+		List<RecurrableDonation> list = new ArrayList<RecurrableDonation>();
+		
+		
+		list = recurrableDonationRepository.findByDonorId(donorId);
+		
+		
+		for (RecurrableDonation r : list) {
+		    wrapperList.add(new RecurrableDonationWrapper(r));
+		}
+		
+		return wrapperList;
 	}
 
 }

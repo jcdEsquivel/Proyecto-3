@@ -1,5 +1,9 @@
 package com.treeseed.contracts;
 
+import java.util.List;
+
+import com.treeseed.pojo.RecurrableDonationPOJO;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,13 +29,42 @@ public class RecurrableDonationRequest extends BasePagingRequest{
 	/** The plan id. */
 	private int planId;
 	
+	/** The donations. */
+	private List<RecurrableDonationPOJO> donations;
 	
 	
-	
+	/**
+	 * Gets the donations.
+	 *
+	 * @return the donations
+	 */
+	public List<RecurrableDonationPOJO> getDonations() {
+		return donations;
+	}
+
+	/**
+	 * Sets the donations.
+	 *
+	 * @param donations the new donations
+	 */
+	public void setDonations(List<RecurrableDonationPOJO> donations) {
+		this.donations = donations;
+	}
+
+	/**
+	 * Gets the plan id.
+	 *
+	 * @return the plan id
+	 */
 	public int getPlanId() {
 		return planId;
 	}
 
+	/**
+	 * Sets the plan id.
+	 *
+	 * @param planId the new plan id
+	 */
 	public void setPlanId(int planId) {
 		this.planId = planId;
 	}

@@ -814,3 +814,114 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 	$scope.init();
 
 });
+
+
+
+
+treeSeedAppControllers.controller('editPortfolioDonations', function($http, $scope, donorId,$modalInstance,
+		  $modal, Session) { 
+//VARIABLES
+	$scope.isSubmited = false;
+	
+	$scope.request= {
+			nonprofitId: '',			
+			campaignId:'',			
+			donorId: donorId,			
+			stripeId:'',
+			donationId: '',
+			planId: '',
+			donations: []
+	};
+
+//VARIABLES END	
+
+	$scope.getCurrentDonations = function(){
+		
+		$http.post('rest/protected/recurrableDonation/getRecurrableDonationsPortfolio',$scope.request)
+		.success(function(response) {
+			console.log(response);
+			$scope.request.donations = response.donations;
+		});
+		
+	};
+	
+	
+	$scope.saveDonations = function(){
+		
+		$scope.isSubmited = true;
+		$http.post('rest/protected/recurrableDonation/editMultipleRecurrableDonation',$scope.request)
+		.success(function(response) {
+			console.log(response);
+			$scope.feedBack();
+			//has to refersh portfolio here
+			$scope.isSubmited = false;
+			$modalInstance.close();
+		});
+	};
+	
+	$scope.setChanged = function(r){
+		var amountPlan = 0;
+	
+		switch(parseInt(r.planId)){
+		case 1:
+			amountPlan = 10;
+			break;
+		case 2:
+			amountPlan = 18;
+			break;
+		case 3:
+			amountPlan = 36;
+			break;
+		case 4:
+			amountPlan = 50;
+			break;
+		case 5:
+			amountPlan = 100;
+			break;
+		case 6:
+			amountPlan = 250;
+			break;
+		}
+		
+		
+		
+		if(amountPlan == r.amount){
+			r.changed = false;
+		}else{
+			r.changed = true;
+		}
+		
+
+	};
+	
+	$scope.init=function(){
+		$scope.getCurrentDonations();
+	};
+
+
+	
+	$scope.feedBack = function(){
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl :'layouts/components/feedbackModal.html',
+			controller : 'feedbackCtrl',
+			size : 'sm',//,
+			resolve : {
+				title : function() {
+					return "FEEDBAKC-MODAL.UPDATED-DONATIONS-TITLE";
+				},
+				text: function(){
+					return  "FEEDBAKC-MODAL.UPDATED-DONATIONS-TEXT";
+				}
+			}
+		});
+	};
+	
+	$scope.init();
+
+});
+
+
+
+
+

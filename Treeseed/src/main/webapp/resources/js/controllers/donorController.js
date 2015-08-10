@@ -530,6 +530,25 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			modalInstance.close();
 		};
 	//Finish editing profile
+		
+		
+		$scope.recurrableDonations = function(){
+			
+			var modalInstance = $modal.open({
+				animation : $scope.animationsEnabled,
+				templateUrl :'layouts/components/editPortfolioModal.html',
+				controller : 'editPortfolioDonations',
+				size : 'md',//,
+				resolve : {
+					
+					donorId: function(){
+						return   $scope.donor.id;
+					}
+				}
+			
+			});//end modal
+		};//end function
+		
 });
 
 

@@ -352,6 +352,15 @@
     	"SELECT-DONATION": "Select the donation you want to edit",
     	"EDIT-PLAN": "Edit Plan",
     	"EDIT-SUCCESS": "Your donation Plan was updated successfully"
-    	
+    },
+    "PORTFOLIO-MODAL":{
+    	"YOUR-DONATIONS": "Your Current Donations",
+    	"SAVE": "Save",
+    	"TITLE": "Recurrable Donations"
+    },
+    "FEEDBAKC-MODAL":{
+    	"ACCEPT": "Acept",
+    	"UPDATED-DONATIONS-TEXT":"Your Donations Were Updated",
+    	"UPDATED-DONATIONS-TITLE": "Updated Donations"
     }
 }
