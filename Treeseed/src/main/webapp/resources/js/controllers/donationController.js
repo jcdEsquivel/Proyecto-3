@@ -787,7 +787,7 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 		
 		$http.post('rest/protected/recurrableDonation/editRecurrableDonation',$scope.request)
 		.success(function(response) {
-			console.log(JSON.stringify(response));
+			
 			$scope.modal.selectedDonorPlan = null;
 			$scope.modal.selectedPlan = '';
 			$scope.modal.samePlan='';
@@ -839,7 +839,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 		
 		$http.post('rest/protected/recurrableDonation/getRecurrableDonationsPortfolio',$scope.request)
 		.success(function(response) {
-			console.log(response);
+			
 			$scope.request.donations = response.donations;
 		});
 		
@@ -851,7 +851,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 		$scope.isSubmited = true;
 		$http.post('rest/protected/recurrableDonation/editMultipleRecurrableDonation',$scope.request)
 		.success(function(response) {
-			console.log(response);
+			
 			$scope.feedBack();
 			//has to refersh portfolio here
 			$scope.isSubmited = false;
@@ -915,6 +915,10 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 				}
 			}
 		});
+	};
+	
+	$scope.close = function(){
+		$modalInstance.close();
 	};
 	
 	$scope.init();

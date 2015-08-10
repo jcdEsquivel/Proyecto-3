@@ -342,7 +342,16 @@
     	"EDIT-DONATION": "Editar Donación",
     	"EDIT-PLAN": "Editar Plan",
     	"EDIT-SUCCESS": "Su donación ha sido modificada con éxito"
-    	
+    },
+    "PORTFOLIO-MODAL":{
+    	"YOUR-DONATIONS": "Donaciones Actuales",
+    	"SAVE": "Guardar",
+    	"TITLE": "Donaciones Recurrentes"
+    },
+    "FEEDBAKC-MODAL":{
+    	"ACCEPT": "Aceptar",
+    	"UPDATED-DONATIONS-TEXT":"Tus donaciones han sido actualizadas",
+    	"UPDATED-DONATIONS-TITLE": "Actualizar Donaciones"
     }
      
 }
