@@ -77,15 +77,11 @@
 				</div>
 			</div>
 			<div class="col-sm-1"></div>
-			<div class="col-sm-5 md-whiteframe-treeseed" ng-controller="dragnDropController">
-				<label class="labels-dropdowns" translate="REGISTER-NONPROFIT.PICTUREIMAGE"></label>
-				<div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b" nv-file-over="" imagedrop on-image-drop="imageDropped()" ng-over-class="b-info" uploader="uploader" translate="REGISTER-NONPROFIT.DROPIMAGE">
-              Base drop zone
-          </div>
-			<img id="fileDisplayArea" style="width: 200px; height: 200px;" />		
-					
-					
-				<!-- <div class="panel wrapper" layout-align="center center">
+			<div class="col-sm-5 md-whiteframe-treeseed" 
+				ng-controller="dragnDropController">
+				<label class="labels-dropdowns"
+					translate="REGISTER-NONPROFIT.PICTUREIMAGE"></label>
+				<div class="panel wrapper" layout-align="center center">
 					<img id="fileDisplayArea" style="width: 200px; height: 200px;" />
 					<div ng-controller="dragnDropController" id="file-drop"
 						style="width: 200px; height: 200px;"
@@ -93,7 +89,7 @@
 						imagedrop on-image-drop="imageDropped()"
 						translate="REGISTER-NONPROFIT.DROPIMAGE">Drop an image here
 						to upload.</div>
-				</div> -->
+				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-5 col-sm-offset-9">

@@ -340,7 +340,7 @@
     	"LOADING-CARDS": "Loading Cards",
     	"DONATE": "Donate",
     	"SUCCESS-1":"Treeseed.org and ",
-    	"SUCCESS-2": " are thankful \for your donation! ",
+    	"SUCCESS-2": " are thankful for your donation! ",
     	"SUCCESS-DONATION-TYPE-CUSTOM": "Custom Donation" ,
     	"SUCCESS-DONATION-TYPE-PLAN": "Donation by suscription",
     	"SUCCESS-MONTH": "/month",

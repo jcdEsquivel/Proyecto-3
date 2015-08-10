@@ -12,12 +12,9 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 			var request = {
 					
 						email: email
-					
-					
+									
 			};
-			
-			
-			
+	
 			return $http.post('rest/protected/users/isEmailUnique', JSON.stringify(request))
 					.then(function(response) {
 					
@@ -37,9 +34,6 @@ treeSeedAppServices.service('$donationService', function($http) {
 
 	return {
 		createDonation : function(type, nonprofitId, campaignId, donorId, stripeToken, plan, amount, fatherId) {
-
-		
-			
 			if(plan == 'custom'){//simple donation
 				var request = {
 						id: '',
@@ -112,8 +106,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 						}).error(function(error){
 							return error;
 						});
-				
-				
+
 			}
 			
 		}//end createSimpleDonation

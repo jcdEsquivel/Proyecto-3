@@ -14,22 +14,20 @@
 		<hr>
 		
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" style="padding-left: 50px;">
 				<h3>{{type}}</h3>
 			</div>
 		</div>
-		
-		<div class="row" style="padding-left: 30px; padding-right: 30px;">
-			<div class="col-md-4">
+		<br>
+		<div class="row" style="padding-left: 100px; padding-right: 150px;">
+			<div class="col-md-6">
 				<span  class="pull-left" style="padding-left: 20px;"> <h4 class="m-n font-thin h4" >{{donationMessage}}</h4></span>
 				
 			</div>
-			<div class="col-md-4">
-			<span class="pull-right" style="padding-right: 20px"> <h4 class="m-n font-thin h4" >{{planMessage}}{{amount}}</h4></span>
-				
+			<div class="col-md-6">
+				<span class="pull-right" style="padding-right: 20px"> <h4 class="m-n font-thin h4" >{{amount}} {{planMessage}}</h4></span>				
 			</div>
-			
-			
+
 		</div>
 		
 		<div class="row">
@@ -39,7 +37,7 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="pull-right" style="padding-right: 20px; padding-top: 20px">
+			<div class="text-center" style="padding-right: 20px; padding-top: 20px">
 			<button type="button" class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="close()"
 			>Accept</button>
 			</div>

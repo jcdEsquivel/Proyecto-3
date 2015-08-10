@@ -101,8 +101,15 @@
 				</div>
 	
 		</div>
- 		<div class="form-group">
-				<span class="payment-errors text-danger"></span><br>
+		<div ng-if="loadDonation.isLoading == '1'">
+			 	<br/>
+			 	<p class="loading-paragraph" >Haciendo la donacion</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+		 </div>
+ 		<div class="form-group" ng-if="loadDonation.isLoading == '0'">
+				<span class="payment-errors text-danger"></span><br><br>
 				<button type="submit" ng-show="hideSubmit"  ng-disabled="step2.$invalid"  id="btn-submit"
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">SUBMIT</button>
 					
@@ -110,7 +117,7 @@
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
 					translate="DONATION-MODAL.DONATE"
 				>donate</button>
-				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="close()"
+				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="closeWithoutDonation()"
 				translate="DONATION-MODAL.CANCEL">Cancel</button>
 		</div>
 			
