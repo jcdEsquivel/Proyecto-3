@@ -691,4 +691,14 @@ transform: rotate(90deg) scale(1) skew(0deg) translate(0px);
 right:0
 }
 
+ .md-button.md-default-theme.md-fab {
+    background-color: #2196f3;
+    width: 40px!important;
+    height: 40px!important;
+}
+
+ .md-button.md-default-theme.md-fab:not([disabled]):hover{
+ 	background-color: #2196f3;
+ }
+
 

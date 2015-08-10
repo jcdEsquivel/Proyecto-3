@@ -144,15 +144,4 @@
             </plugin>
         </plugins>
     </build>
-    
-    
-    <dependencyManagement>
-    	<dependencies>
-    		<dependency>
-    			<groupId>de.matrixweb.nodejs</groupId>
-    			<artifactId>nodejs</artifactId>
-    			<version>0.4.1</version>
-    		</dependency>
-    	</dependencies>
-    </dependencyManagement>
 </project>

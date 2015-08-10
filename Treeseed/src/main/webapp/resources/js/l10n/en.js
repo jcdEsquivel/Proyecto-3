@@ -350,6 +350,8 @@
     	
     },
     "TREE":{
-    	"MESSAGE":"You helped raise:"
+    	"MESSAGE":"You helped raise:",
+    	"COMPLETE-MESSAGE": "Please complete your profile bringing at least three user to us!",
+    	"SHARE-MESSAGE": "You can bring more people to Treeseed by sharing nonprofits, campaigns, donations..."
     }
 }

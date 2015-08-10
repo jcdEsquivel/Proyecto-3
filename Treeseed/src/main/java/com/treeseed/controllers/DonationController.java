@@ -373,18 +373,27 @@ public class DonationController {
 	@RequestMapping(value ="/gettreedonation", method = RequestMethod.POST)
 	public DonationResponse getTreeDonation(@RequestBody DonationRequest dr){	
 	
-		DonationResponse ds = new DonationResponse();
+		DonationResponse response = new DonationResponse();
+	
 		try {
-			DonorWrapper donor = donorService.getDonorById(dr.getDonorId());
-			ds.setTreeDonation(donationService.getSumDonationsByDonor(donor.getId()));
-			ds.setTreeDonation(ds.getTreeDonation()+getTreeDonationSons(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
-			System.out.println(ds.getTreeDonation());
-			ds.setCode(200);
+			if(dr.getDonorId()>0){
+				DonorWrapper donor = donorService.getDonorById(dr.getDonorId());
+				response.setTreeDonation(donationService.getSumDonationsByDonor(donor.getId()));
+				response.setTreeDonation(response.getTreeDonation()+getTreeDonationSons(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+
+				response.setCodeMessage("Correct donation");
+				response.setCode(200);
+			}else{
+				response.setErrorMessage("Donor do not receive");
+				response.setCode(400);
+			}
 		} catch (Exception e) {
-			ds.setCode(400);
+			response.setErrorMessage(e.getMessage());
+			response.setCode(500);
 		}
 		
-		return ds;
+		
+		return response;
 	}
 	
 	/**

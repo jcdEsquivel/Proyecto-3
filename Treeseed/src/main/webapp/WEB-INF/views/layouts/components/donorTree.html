@@ -1,35 +1,32 @@
 
 <div ng-controller="treeController">
+	<div class="row" style="text-align: center;">
+	<div class="col-sm-11">
+		<span class=" h3" translate="TREE.MESSAGE"></span><span
+			class="text-success h3"> {{totalAmount| currency}}</span><br>
+			<p ng-show="showComplete">
+			<span  class="text-danger h4"translate="TREE.COMPLETE-MESSAGE"> </span>
+			<button class="btn btn-rounded btn-sm btn-icon btn-info " ui-toggle-class="show" target="#moreless" ><i style="text-align: center" class="icon-question"></i></button>
+       <br> <span translate="TREE.SHARE-MESSAGE" id="moreless" class="hide"></span>
+    </p>
+    </div>
+			<div class="col-sm-1"></div>
+	</div>
 
-	<div class="column">
-		<div class="row"> 
-		<div class="col-md-3"></div>
-		<div class="col-md-6" ng-show="showAmount" style="text-align: center;">
-		<span class=" h3" translate="TREE.MESSAGE"></span><span class="text-success h3"> {{totalAmount| currency}}</span>
+	<div class="row">
+
+		<div id="treeDiv" class="col-sm-11"
+			style="text-align: center;padding-top: 0; max-height: 720px;">
 		</div>
-		<div class="col-md-3"></div>
-		</div>
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8" id="treeDiv"></div>
-			<div class="col-md-2">
-			<!--  <svg id="mySvg" width="0" height="0">
-     			<defs id="mdef">
-       			<pattern id="treeImage" x="0" y="0" height="40" width="40">
-         				<image x="0" y="0" width="40" height="40"
-							xlink:href="resources/file-storage/treeGreen.png"></image>
-       			</pattern>
- 				</defs>-->
-				<div ng-repeat="donor in donors">
-					<svg id="mySvg" width="0" height="0">
+		<div class="col-sm-1">
+			<div ng-repeat="donor in donors">
+				<svg id="mySvg" width="0" height="0">
      			<defs id="mdef">
        			<pattern id="{{donor.id}}" x="0" y="0" height="40" width="40">
          				<image x="0" y="0" width="40" height="40"
-							xlink:href="{{donor.image}}"></image>
+						xlink:href="{{donor.image}}"></image>
        			</pattern>
  				</defs>
-		
-				</div>
 			</div>
 		</div>
 	</div>

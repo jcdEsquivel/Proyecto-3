@@ -280,17 +280,29 @@ public class DonorController extends UserGeneralController{
 	 */
 	@RequestMapping(value ="/getTree", consumes = {"application/json"}, method = RequestMethod.POST)
 	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
-		
-
 		DonorResponse response = new DonorResponse();
-		DonorWrapper donor = donorService.getDonorById(dr.getId());
-		DonorTreePOJO tree = new DonorTreePOJO();
-		tree.setIdentity(donor.getId());
-		tree.setName(donor.getName());
-		tree.setProfilePicture(donor.getProfilePicture());
-		tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+	
+		try {
+			if(dr.getId()>0){
+				DonorWrapper donor = donorService.getDonorById(dr.getId());
+				DonorTreePOJO tree = new DonorTreePOJO();
+				tree.setIdentity(donor.getId());
+				tree.setName(donor.getName());
+				tree.setProfilePicture(donor.getProfilePicture());
+				tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+				
+				response.setTree(tree);
+				response.setCodeMessage("Tree Created");
+				response.setCode(200);
+			}else{
+				response.setErrorMessage("Donor do not found");
+				response.setCode(400);
+			}
+		} catch (Exception e) {
+			response.setErrorMessage(e.getMessage());
+			response.setCode(500);
+		}
 		
-		response.setTree(tree);
 		
 		return response;		
 	}

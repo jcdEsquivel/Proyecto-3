@@ -339,7 +339,9 @@
     	
     },
     "TREE":{
-    	"MESSAGE":"Has ayudado a recaudar:"
+    	"MESSAGE":"Has ayudado a recaudar:",
+    	"COMPLETE-MESSAGE": "¡Por favor completa tu perfil trayendo al menos tres usuarios a Treeseed!",
+    	"SHARE-MESSAGE": "Puedes traer mas personas a Treeseed compartiendo ONG, campañas, donaciones..."
     }
      
 }

@@ -693,9 +693,10 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	$scope.showAmount = false;
 	
 	$scope.requestObject = {};
-	$scope.requestObject.treeLevelY=2;
+	$scope.requestObject.treeLevelY=2;//Solo trae dos generaciones de donadore por debajo del usuario
 	$scope.requestObject.id=$scope.donor.id;
-	$scope.requestObject.treeLevelX=3;
+	$scope.requestObject.treeLevelX=3;//Solo trae tres hijos por donador
+	$scope.showComplete=false;
 	
 	$scope.requestObject1 = {};
 	$scope.requestObject1.treeLevelY=$scope.requestObject.treeLevelY;
@@ -707,9 +708,8 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 		if(response.data.code==200){
 			if(response.treeDonation!=0){
 				$scope.showAmount = true;
-				$scope.totalAmount = response.data.treeDonation;
+				$scope.totalAmount = response.data.treeDonation;				
 				
-				console.log(response.data.treeDonation);
 			}
 		}
 	})
@@ -733,9 +733,9 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			right : 30,
 			bottom : 30,
 			left : 180
-		}, width = 450 - margin.right - margin.left, height = 600 - margin.top
+		}, width = 450 - margin.right - margin.left, height = 700 - margin.top
 				- margin.bottom;
-		//Duración de animacion de carga de los links
+		// Duración de animacion de carga de los links
 		var i = 0, duration = 1500, root;
 
 		var tree = d3.layout.tree().size([ height, width ]);
@@ -750,17 +750,22 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				"transform",
 				"translate(" + margin.left + "," + margin.top + ")");
 
-		//Carga
+		// Carga
 		d3.json("rest/protected/donor/getTree", function(error, flare) {
 			if (error)
 				throw error;
-			//Animacion de carga
+			// Animacion de carga
 			$scope.donors = $scope.donorArray(flare.tree);
-			//console.log(JSON.stringify($scope.donors));
+			if(flare.tree.children.length<3){
+				if($scope.isOwner){
+					$scope.showComplete=true;
+				}
+			}
+			// console.log(JSON.stringify($scope.donors));
 			root = flare.tree;
 			root.x0 = height / 2;
 			root.y0 = 0;
-			//Conlapsa todos los nodos al carga
+			// Conlapsa todos los nodos al carga
 			function collapse(d) {
 				if (d.children) {
 					d._children = d.children;
@@ -769,13 +774,13 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				}
 			}
 
-			//root.children.forEach(collapse);
-			update(root,true);
+			// root.children.forEach(collapse);
+			update(root);
 		}).header("Content-Type","application/json").send("POST", JSON.stringify($scope.requestObject));
 
-		d3.select(self.frameElement).style("height", "600px");
+		d3.select(self.frameElement).style("height", "700px");
 
-		function update(source,first) {
+		function update(source) {
 
 			// Compute the new tree layout.
 			var nodes = tree.nodes(root).reverse(), links = tree.links(nodes);
@@ -783,9 +788,8 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			
 			
 			// Normalize for fixed-depth.
-			//Largo de los links
+			// Largo de los links
 			nodes.forEach(function(d) {
-				
 				d.y = d.depth * 100;
 			});
 
@@ -804,7 +808,9 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 								return "translate(" + source.y0 + ","
 										+ source.x0 + ")";
 							}).on("click", click);
-			//Estilo del circulo al inicio de la carga(Animacion)
+			
+			
+			// Estilo del circulo al inicio de la carga(Animacion)
 			nodeEnter.append("circle").attr("r", 1e-6).style("fill",
 					function(d) {
 						return d._children ? "url(#" + d.identity
@@ -813,19 +819,49 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 					});
 				
 			
-			if(first){
-			nodeEnter.append("svg:image").attr("xlink:href", "resources/images/treeBlue.png").attr("x", "-75")
-			.attr("y", "-159")
-            .attr("width", "150")
-            .attr("height", "150");
-		}
-			
-			//Propiedades del texto
-			nodeEnter.append("text").attr("x", function(d) {
+			nodeEnter.append("svg:image").attr("x", "-90")
+			.attr("y",function(d){
+				if(d.identity==$scope.donor.id){
+        		return "-185";
+
+	        	}else{
+	        		return "0";
+	        	}
+        	})
+            .attr("width",function(d){
+				if(d.identity==$scope.donor.id){
+	        		return "180";
+
+		        	}else{
+		        		return "0";
+		        	}
+	        })
+            .attr("height",function(d){
+				if(d.identity==$scope.donor.id){
+	        		return "180";
+
+		        	}else{
+		        		return "0";
+		        	}
+	        })
+            .attr("xlink:href",function(d){
+            	if(d.identity==$scope.donor.id){
+            		return "resources/images/treeBlue.png";
+            	}else{
+            		return undefined;
+            	}
+            })
 				
-				return d.children || d._children ? 0 : 0;//Posicion en X con respento al borde derecho
+			
+			// Propiedades del texto
+			nodeEnter.append("text").attr("x", function(d) {
+				console.log(d.identity);
+				
+				return d.children || d._children ? 0 : 0;// Posicion en X con
+															// respento al borde
+															// derecho
 			}).attr("dy", "2.5em").attr("text-anchor", function(d) {
-				return d.children || d._children ? "middle " : "middle";//Alineacion
+				return d.children || d._children ? "middle " : "middle";// Alineacion
 			}).text(function(d) {
 				return d.name;
 			}).style("fill", "#000000").style("font-weight","bold")
@@ -838,7 +874,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 					"transform", function(d) {
 						return "translate(" + d.y + "," + d.x + ")";
 					});
-			//Radio del circulo luego de la primera carga
+			// Radio del circulo luego de la primera carga
 			nodeUpdate.select("circle").attr("r", 20).style(
 					"fill",
 					function(d) {
@@ -910,7 +946,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				d.children = d._children;
 				d._children = null;
 			}
-			update(d,false);
+			update(d);
 		}
 
 });
