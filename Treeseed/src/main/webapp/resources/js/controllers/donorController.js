@@ -645,15 +645,16 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
 
+	$scope.d3 = {
+		series: {}
+	};
 	$scope.requestObject = {};
 	$scope.requestObject.donorId = $stateParams.donorId;
-	$scope.causes;
 
 	$scope.getRecurrableData = function() {
 		$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
 			$scope.requestObject).then(function(response) {
 				if(response.data.code=="200"){
-					console.log("COOL");
 					$scope.d3 = response.data.results;
 					setData();
 				}
@@ -675,11 +676,6 @@ treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 			}
 		};
 	}
-
-    /*$scope.d3 = [ 
-      { label: "Water", data: 400 }, 
-      { label: "Anmals", data: 5000 }
-    ];*/
 });
 
 
