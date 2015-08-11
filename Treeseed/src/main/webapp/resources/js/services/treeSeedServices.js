@@ -55,7 +55,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 					}
 				};
 
-				console.log(type);
+				
 
 				if (type == 'newCard') {
 					request.token = stripeToken;
@@ -189,7 +189,7 @@ treeSeedAppServices.service('$sharedData', function($http) {
  * return { isEmailUnique : function(email) {
  * 
  * return $http.post('rest/protected/users/isEmailUnique', email)
- * .then(function(response) { console.log(response.data.codeMessage);
+ * .then(function(response) { 
  * 
  * if (response.data.codeMessage == 'UNIQUE') { return true; } else { return
  * false; } }); } } });

@@ -213,6 +213,12 @@ public class RecurrableDonationController {
 	}
 	
 	
+	/**
+	 * Gets the plan amount.
+	 *
+	 * @param plan the plan
+	 * @return the plan amount
+	 */
 	private double getPlanAmount(int plan){
 		double amount=0;
 		
