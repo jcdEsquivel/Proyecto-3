@@ -686,6 +686,43 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 
 });
 
+<<<<<<< HEAD
+treeSeedAppControllers.controller('donorPortfolioController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
+
+	$scope.d3 = {
+		series: {}
+	};
+	$scope.requestObject = {};
+	$scope.requestObject.donorId = $stateParams.donorId;
+
+	$scope.getRecurrableData = function() {
+		$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
+			$scope.requestObject).then(function(response) {
+				if(response.data.code=="200"){
+					$scope.d3 = response.data.results;
+					setData();
+				}
+				else if(response.data.code=="400"){
+					console.log("ERROR");
+				}
+		});
+	};
+
+	$scope.getRecurrableData();
+
+	function setData(){
+		for (var i = $scope.d3.length - 1; i >= 0; i--) {
+			$scope.d3[i].data = $scope.d3[i].amount;
+			if($scope.selectLang == 'English'){
+				$scope.d3[i].label = $scope.d3[i].englishCause;
+			}else{
+				$scope.d3[i].label = $scope.d3[i].spanishCause;
+			}
+		};
+	}
+});
+=======
 treeSeedAppControllers.controller('treeController', function($scope, $http,
 		Session, $state, d3) {
 	$scope.fooBar = d3.version;
@@ -773,6 +810,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 					d.children = null;
 				}
 			}
+>>>>>>> fa1d2e70c9d579394112c4bd567eed5d158db037
 
 			// root.children.forEach(collapse);
 			update(root);
@@ -948,42 +986,5 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			}
 			update(d);
 		}
-	
+
 });
-	
-treeSeedAppControllers.controller('donorPortfolioController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
-
-	$scope.d3 = {
-		series: {}
-	};
-	$scope.requestObject = {};
-	$scope.requestObject.donorId = $stateParams.donorId;
-
-	$scope.getRecurrableData = function() {
-		$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
-			$scope.requestObject).then(function(response) {
-				if(response.data.code=="200"){
-					$scope.d3 = response.data.results;
-					setData();
-				}
-				else if(response.data.code=="400"){
-					console.log("ERROR");
-				}
-		});
-	};
-
-	$scope.getRecurrableData();
-
-	function setData(){
-		for (var i = $scope.d3.length - 1; i >= 0; i--) {
-			$scope.d3[i].data = $scope.d3[i].amount;
-			if($scope.selectLang == 'English'){
-				$scope.d3[i].label = $scope.d3[i].englishCause;
-			}else{
-				$scope.d3[i].label = $scope.d3[i].spanishCause;
-			}
-		};
-	}
-});
-
