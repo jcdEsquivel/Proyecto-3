@@ -339,6 +339,11 @@
     	"MESSAGE": "Información de la donación: ",
     	"PLAN-MESSAGE": "Mensual "
     	
+    },
+    "TREE":{
+    	"MESSAGE":"Has ayudado a recaudar:",
+    	"COMPLETE-MESSAGE": "¡Por favor completa tu perfil trayendo al menos tres usuarios a Treeseed!",
+    	"SHARE-MESSAGE": "Puedes traer mas personas a Treeseed compartiendo ONG, campañas, donaciones..."
     }
      
 }

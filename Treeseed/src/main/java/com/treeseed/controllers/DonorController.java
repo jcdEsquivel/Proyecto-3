@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.NonprofitRequest;
@@ -30,6 +32,7 @@ import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.services.CatalogServiceInterface;
@@ -265,6 +268,80 @@ public class DonorController extends UserGeneralController{
 		nps.setDonor(donorPOJO);
 		nps.setCode(200);
 		return nps;	
+	}
+	
+
+	/**
+	 * Gets the donor tree.
+	 *
+	 * @param dr the dr
+	 * @return the donor tree
+	 * @throws JsonProcessingException the json processing exception
+	 */
+	@RequestMapping(value ="/getTree", consumes = {"application/json"}, method = RequestMethod.POST)
+	public DonorResponse getDonorTree(@RequestBody DonorRequest dr) throws JsonProcessingException{
+		DonorResponse response = new DonorResponse();
+	
+		try {
+			if(dr.getId()>0){
+				DonorWrapper donor = donorService.getDonorById(dr.getId());
+				DonorTreePOJO tree = new DonorTreePOJO();
+				tree.setIdentity(donor.getId());
+				tree.setName(donor.getName());
+				tree.setProfilePicture(donor.getProfilePicture());
+				tree.setChildren(getTree(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+				
+				response.setTree(tree);
+				response.setCodeMessage("Tree Created");
+				response.setCode(200);
+			}else{
+				response.setErrorMessage("Donor do not found");
+				response.setCode(400);
+			}
+		} catch (Exception e) {
+			response.setErrorMessage(e.getMessage());
+			response.setCode(500);
+		}
+		
+		
+		return response;		
+	}
+	
+	/**
+	 * Gets the tree.
+	 *
+	 * @param donor the donor
+	 * @param levelX the number of sons per donor
+	 * @param levelY the number of level
+	 * @return the tree
+	 */
+	public List<DonorTreePOJO> getTree(DonorWrapper donor, int levelX, int levelY){
+		List<DonorTreePOJO> sons=new ArrayList<DonorTreePOJO>();
+		int levelXDo = levelX;
+		List<Donor> sonslist = donor.getSons();
+		if(sonslist.size()>0){
+			int number = 0;
+			while(number<sonslist.size()&&levelXDo>0){
+				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
+				DonorTreePOJO donorPojo = new DonorTreePOJO();
+				donorPojo.setIdentity(donorWrapper.getId());
+				donorPojo.setName(donorWrapper.getName());
+				donorPojo.setProfilePicture(donorWrapper.getProfilePicture());
+				if(donorWrapper.getSons().size()>0){
+					if(levelY>1){
+						donorPojo.setChildren(getTree(donorWrapper,levelX,levelY-1));
+					}else{
+						donorPojo.setChildren(null);
+					}
+				}else{
+					donorPojo.setChildren(null);
+				}
+				number++;
+				levelXDo--;
+				sons.add(donorPojo);
+			}
+		}
+		return sons;
 	}
 	
 	/**

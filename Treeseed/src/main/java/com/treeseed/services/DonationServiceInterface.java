@@ -75,22 +75,20 @@ public interface DonationServiceInterface {
 	 * @return the donations
 	 */
 	Page<Donation> getDonations(DonationRequest ur);
+	
+	/**
+	 * Gets the sum donations by donor.
+	 *
+	 * @param idDonor the id donor
+	 * @return the sum donations by donor
+	 */
+	double getSumDonationsByDonor(int idDonor);
 
 	/**
-	 * Gets the report donations.
+	 * Gets the sum donations by donor.
 	 *
-	 * @param ur the ur
-	 * @return the report donations
+	 * @param idDonor the id donor
+	 * @return the sum donations by donor
 	 */
-	Page<Donation> getReportDonations(DonationRequest ur);
-	
-	
-	/**
-	 * Gets the donations donor.
-	 *
-	 * @param ur the ur
-	 * @return the donations donor
-	 */
-	Page<Donation> getDonationsDonor(DonationRequest ur);
-	
+	double getSumDonationsByDonor(int idDonor);
 }

@@ -269,4 +269,11 @@ public class DonationService implements DonationServiceInterface{
 		
 		return pageResult ;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getSumDonationsByDonor(int)
+	 */
+	public double getSumDonationsByDonor(int idDonor){
+		return donationRepository.sumAmountByDonor(idDonor);
+	}
 }
