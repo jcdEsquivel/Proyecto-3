@@ -567,19 +567,25 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 					return $scope.image;
 				}
 			}
-		})
+		});
 	};
 
-	$scope.closeModal = function() {
-		modalInstance.close();
-		$scope.editDonor();
-	};
+		$scope.closeModal = function() {		
+			modalInstance.close();
+			$scope.editDonor(); 
+		};
+		
+		$scope.closeModalWithoutEdit = function() {
+			modalInstance.close();
+		};
+	//Finish editing profile
+		
+		
+	
+		
+});// Finish editing profile
 
-	$scope.closeModalWithoutEdit = function() {
-		modalInstance.close();
-	};
-	// Finish editing profile
-});
+
 
 treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$http, $location, $modal, $log, $timeout) {
@@ -957,12 +963,15 @@ treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 	$scope.d3 = {
 		series: {}
 	};
+
+	
 	$scope.requestObject = {};
 	$scope.requestObject.donorId = $stateParams.donorId;
 
 	$scope.getRecurrableData = function() {
 		$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
 			$scope.requestObject).then(function(response) {
+
 				if(response.data.code=="200"){
 					$scope.d3 = response.data.results;
 					setData();
@@ -984,6 +993,27 @@ treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 				$scope.d3[i].label = $scope.d3[i].spanishCause;
 			}
 		};
-	}
+	};
+	
+	$scope.recurrableDonations = function(){
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl :'layouts/components/editPortfolioModal.html',
+			controller : 'editPortfolioDonations',
+			size : 'md',//,
+			resolve : {
+				
+				donorId: function(){
+					return   $scope.requestObject.donorId;
+				},
+				refreshPortfolio: function(){
+					return $scope.getRecurrableData;
+				}
+			}
+		
+		});//end modal
+	};//end function
+	
 });
 

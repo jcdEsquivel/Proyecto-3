@@ -1,4 +1,6 @@
 <div ng-controller = "donorPortfolioController">
+	<button type="button"  class="btn  btn-success btn-rounded" ng-if="isOwner"
+	ng-click="recurrableDonations()" translate="DONOR-PROFILE.EDIT-PORTFOLIO">Edit</button>
 	<div class="panel-body">
 	    <div ui-jq="plot" ui-options="
 	      {{d3}},

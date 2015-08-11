@@ -189,7 +189,8 @@
         "TREE": "Treeseed",
         "PHILANTROPIC-PORTFOLIO": "Philanthropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
-        "MONEY-BROUGHT": "Money brought: "
+        "MONEY-BROUGHT": "Money brought: ",
+        "EDIT-PORTFOLIO": "Edit Portfolio"
     },
     "SELECT-USER":{
     	"TITLE":"Sign up as:"
@@ -321,12 +322,13 @@
     	"250": "Monthly $250"
     },
     "DONATION-MODAL":{
-    	"TITLE": "New Donation",
+    	"TITLE": "Donation",
     	"DONOR-INFO":"Donor Information",
     	"DONATION": "Donation",
     	"CARD-NUMBER": "Card Number",
     	"CVC": "CVC",
     	"EXP-DATE": "Expiration Date",
+    	"EXP-DATE-SMALL": "Exp ",
     	"TYPE": "Donation type",
     	"AMOUNT": "Amount",
     	"NEXT": "Next",
@@ -345,9 +347,23 @@
     	"SUCCESS-MONTH": "/month",
     	"SUCCESS-YEAR": "/year",
     	"MESSAGE": "Donation Info: ",
-    	"PLAN-MESSAGE": "Monthly "
-    	
-    	
+		"PLAN-MESSAGE": "Monthly ",
+    	"PLAN-MESSAGE": "Monthly ",
+    	"NEW-DONATION": "New Donation",
+    	"EDIT-DONATION": "Edit Donation",
+    	"SELECT-DONATION": "Select the donation you want to edit",
+    	"EDIT-PLAN": "Edit Plan",
+    	"EDIT-SUCCESS": "Your donation Plan was updated successfully"
+    },
+    "PORTFOLIO-MODAL":{
+    	"YOUR-DONATIONS": "Your Current Donations",
+    	"SAVE": "Save",
+    	"TITLE": "Recurrable Donations"
+    },
+    "FEEDBAKC-MODAL":{
+    	"ACCEPT": "Acept",
+    	"UPDATED-DONATIONS-TEXT":"Your Donations Were Updated",
+    	"UPDATED-DONATIONS-TITLE": "Updated Donations"    	
     },
     "TREE":{
     	"MESSAGE":"You helped raise:",

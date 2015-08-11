@@ -243,4 +243,25 @@ public class RecurrableDonationWrapper {
 	public void setDonorFatherId(int donorFatherId) {
 		wrapperObject.setDonorFatherId(donorFatherId);
 	}
+	
+	public int getPlanId(){
+		switch((int)getAmount()){
+		case 10:
+			return 1;
+		case 18:
+			return 2;
+		case 36:
+			return 3;
+		case 50:
+			return 4;
+		case 100:
+			return 5;
+		case 250:
+			return 6;
+		}
+		
+		return 0;
+	}
+	
+	
 }
