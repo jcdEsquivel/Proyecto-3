@@ -1,6 +1,9 @@
 package com.treeseed.contracts;
 
+import java.util.List;
+
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,6 +43,13 @@ public class DonorRequest extends BasePagingRequest {
 	
 	/** The is active. */
 	private int isActive;
+	
+	/** The tree level x. */
+	private int treeLevelX;
+	
+	/** The tree level y. */
+	private int treeLevelY;
+	
 	
 	/**
 	 * Gets the checks if is active.
@@ -262,5 +272,41 @@ public class DonorRequest extends BasePagingRequest {
 	@Override
 	public String toString() {
 		return "DonorRequest [nonprofit=" + donor + "]";
+
+	}
+	/**
+	 * Gets the tree level x.
+	 *
+	 * @return the tree level x
+	 */
+	public int getTreeLevelX() {
+		return treeLevelX;
+	}
+
+	/**
+	 * Sets the tree level x.
+	 *
+	 * @param treeLevelX the new tree level x
+	 */
+	public void setTreeLevelX(int treeLevelX) {
+		this.treeLevelX = treeLevelX;
+	}
+
+	/**
+	 * Gets the tree level y.
+	 *
+	 * @return the tree level y
+	 */
+	public int getTreeLevelY() {
+		return treeLevelY;
+	}
+
+	/**
+	 * Sets the tree level y.
+	 *
+	 * @param treeLevelY the new tree level y
+	 */
+	public void setTreeLevelY(int treeLevelY) {
+		this.treeLevelY = treeLevelY;
 	}
 }
