@@ -64,7 +64,6 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 
 		//burn data while is ready
 		request.setNonProfitId(6);
-		
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
 		request.setPageSize(10);
