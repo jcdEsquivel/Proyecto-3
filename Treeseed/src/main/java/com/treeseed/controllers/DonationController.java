@@ -57,12 +57,14 @@ import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.ejb.Donation;
+import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.utils.PageWrapper;
 
@@ -85,6 +87,7 @@ public class DonationController {
 	/** The donation service. */
 	@Autowired
 	DonorServiceInterface donorService;
+	
 	
 	/** The servlet context. */
 	@Autowired
@@ -333,7 +336,6 @@ public class DonationController {
 			donation.setNonProfitId(objeto.getNonProfitId());
 			donation.setDonorId(objeto.getDonorId());
 			donation.setDonationDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
-			
 			if(objeto.getCampaingId() != 0){
 				campaignPOJO = new CampaignPOJO();
 				CampaignWrapper campaignWrapper = new CampaignWrapper();
@@ -429,6 +431,67 @@ public class DonationController {
 		dr.setCode(200);
 		return dr;
 			
+	}
+	
+	/**
+	 * Gets the tree donation sons.
+	 *
+	 * @param donor the donor
+	 * @param levelX the level x
+	 * @param levelY the level y
+	 * @return the tree donation sons
+	 */
+	public double getTreeDonationSons(DonorWrapper donor, int levelX, int levelY){
+		double total=0;
+		int levelXDo = levelX;
+		List<Donor> sonslist = donor.getSons();
+		if(sonslist.size()>0){
+			int number = 0;
+			while(number<sonslist.size()&&levelXDo>0){
+				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
+				total=donationService.getSumDonationsByDonor(donorWrapper.getId());
+				if(donorWrapper.getSons().size()>0){
+					if(levelY>1){
+						total+=getTreeDonationSons(donorWrapper,levelX,levelY-1);
+					}
+				}
+				number++;
+				levelXDo--;
+			}
+		}
+		return total;
+	}
+
+	/**
+	 * Gets the donations of a donor.
+	 *
+	 * @param dr the donation request
+	 * @return the donation response
+	 */
+	@RequestMapping(value ="/gettreedonation", method = RequestMethod.POST)
+	public DonationResponse getTreeDonation(@RequestBody DonationRequest dr){	
+	
+		DonationResponse response = new DonationResponse();
+	
+		try {
+			if(dr.getDonorId()>0){
+				DonorWrapper donor = donorService.getDonorById(dr.getDonorId());
+				response.setTreeDonation(donationService.getSumDonationsByDonor(donor.getId()));
+				response.setTreeDonation(response.getTreeDonation()+getTreeDonationSons(donor, dr.getTreeLevelX(), dr.getTreeLevelY()));
+
+				response.setCodeMessage("Correct donation");
+				response.setCode(200);
+			}else{
+				response.setErrorMessage("Donor do not receive");
+				response.setCode(400);
+			}
+		} catch (Exception e) {
+			response.setErrorMessage(e.getMessage());
+			response.setCode(500);
+		}
+		
+		
+		return response;
 	}
 }
 

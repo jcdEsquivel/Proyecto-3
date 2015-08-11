@@ -1,4 +1,4 @@
-package com.treeseed.sprint5;
+package com.treeseed.sprint6;
 
 import java.util.ArrayList;
 
@@ -12,23 +12,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
-import com.treeseed.contracts.NonprofitRequest;
-import com.treeseed.contracts.NonprofitResponse;
-import com.treeseed.contracts.PostNonprofitRequest;
-import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
-import com.treeseed.ejb.Nonprofit;
-import com.treeseed.ejbWrapper.DonationWrapper;
-import com.treeseed.pojo.NonprofitPOJO;
-import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TestBuscarONG.
- */
-public class TestReporteDonacionesONG extends AbstractTestController  {
-
+public class TestReporteGastosAdministracion extends AbstractTestController{
+	
+	
 	/**
 	 * Sets the up.
 	 *
@@ -46,7 +35,6 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		super.setUp();
 
 	}
-
 	
 	/**
 	 * Test get posts from nonprofit.
@@ -54,7 +42,7 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testReporteONG() throws Exception {
+	public void testReporteGastosAdministrativos() throws Exception {
 		
 		//waiting on the create donation method
 		//DonationWrapper donation = createRandomDonation();
@@ -63,17 +51,17 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 		//request.setNonProfitId(reques.getWrapperObject().getId())
 
 		//burn data while is ready
-		request.setNonProfitId(6);
+		request.setDonorId(1);
 		request.setSortBy(new ArrayList());
 		request.setPageNumber(1);
-		request.setPageSize(10);
+		request.setPageSize(5);
 		request.setDirection("DESC");
 		request.setSearchTerm("");
 		request.setSearchColumn("ALL");
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/donation/getDonationReport";
+		String uri = "/rest/protected/donation/getDonationDonorReport";
 
 		MvcResult result = mvc
 				.perform(
@@ -94,6 +82,6 @@ public class TestReporteDonacionesONG extends AbstractTestController  {
 
 	}
 	
-	
-	
+
+
 }
