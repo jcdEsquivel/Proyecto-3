@@ -224,7 +224,8 @@
     	"DATE":"Date",
     	"AMOUNT":"Donated Amount",
     	"CAMPAIGN":"Campaign",
-    	"DONOR":"Donor"
+    	"DONOR":"Donor",
+    	"NONPROFIT":"NonProfit"
     },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",

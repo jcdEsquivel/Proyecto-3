@@ -213,7 +213,8 @@
     	"DATE":"Fecha",
     	"AMOUNT":"Cantidad Donada",
     	"CAMPAIGN":"Campaña",
-    	"DONOR":"Donante"
+    	"DONOR":"Donante",
+    	"NONPROFIT":"ONG"
     },
      "CREATE-CAMPAIGN": {
      	"BAR": "Proceso de creación:",
