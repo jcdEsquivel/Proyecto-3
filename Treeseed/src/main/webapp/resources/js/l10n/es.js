@@ -180,7 +180,8 @@
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
         "MONEY-BROUGHT": "Dinero traído: ",
-        "TITLE": "Reporte de Gastos",
+        "EDIT-PORTFOLIO": "Edit Portfolio",
+		"TITLE": "Reporte de Gastos",
         "BILLREPORT": "Reporte de Gastos"
      },
      "SELECT-USER":{
@@ -314,12 +315,13 @@
     	"250": "Mensualmente $250"
     },
     "DONATION-MODAL":{
-    	"TITLE": "Nueva Donación",
+    	"TITLE": "Donación",
     	"DONOR-INFO":"Información del Donante",
     	"DONATION": "Donación",
     	"CARD-NUMBER": "Número de tarjeta",
     	"CVC": "CVC",
     	"EXP-DATE": "Fecha de Expiración",
+    	"EXP-DATE-SMALL": "Exp ",
     	"TYPE": "Tipo de Donación",
     	"AMOUNT": "Monto",
     	"NEXT": "Siguiente",
@@ -338,8 +340,23 @@
     	"SUCCESS-MONTH": "/mes",
     	"SUCCESS-YEAR": "/año",
     	"MESSAGE": "Información de la donación: ",
-    	"PLAN-MESSAGE": "Mensual "
-    	
+		"PLAN-MESSAGE": "Mensual ",
+    	"PLAN-MESSAGE": "Mensual ",
+    	"NEW-DONATION": "Nueva Donación",
+    	"SELECT-DONATION": "Seleccione la donación que desea editar",
+    	"EDIT-DONATION": "Editar Donación",
+    	"EDIT-PLAN": "Editar Plan",
+    	"EDIT-SUCCESS": "Su donación ha sido modificada con éxito"
+    },
+    "PORTFOLIO-MODAL":{
+    	"YOUR-DONATIONS": "Donaciones Actuales",
+    	"SAVE": "Guardar",
+    	"TITLE": "Donaciones Recurrentes"
+    },
+    "FEEDBAKC-MODAL":{
+    	"ACCEPT": "Aceptar",
+    	"UPDATED-DONATIONS-TEXT":"Tus donaciones han sido actualizadas",
+    	"UPDATED-DONATIONS-TITLE": "Actualizar Donaciones"
     },
     "TREE":{
     	"MESSAGE":"Has ayudado a recaudar:",

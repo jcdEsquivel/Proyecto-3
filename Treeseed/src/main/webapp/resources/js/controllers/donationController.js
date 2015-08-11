@@ -466,7 +466,8 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal,
 		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
-	
+//VARIABLES DEFINITION	
+    $scope.hasDonations = false;
 	$scope.percent = 0;
 	$scope.sameCard={
 		validation: false
@@ -474,7 +475,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	
 	$scope.hideSubmit = false;
 	
-
+	$scope.nonprofitId = nonprofitId;
 	
 	$scope.requieredCard = true;
 	
@@ -549,6 +550,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.button=false;
 	$scope.token = "";
 	
+// END VARIABLES DEFINITION	
+	
 	$scope.setRequired = function(){
 
 		if($scope.cardRequest.selectedCard == 'new'){
@@ -571,6 +574,11 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			
 				$scope.donorCards.cards = mydata.cards;
 				$scope.load.isLoading = false;
+			
+				if(Object.keys(mydata.cards).length > 0){
+					$scope.hasDonations = true;//shows edit donation tab
+				}
+				
 		}).error(function(mydata, status) {
 			//we have to do something here
 		});
@@ -802,3 +810,191 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
  };
 });
+
+
+
+treeSeedAppControllers.controller('editRecurrableDonation', function($http, $scope,
+		  $modal, Session, $timeout) { 
+	$scope.showFeedBackMessage = false;
+	$scope.disableEdit = false;
+	$scope.recurrableDonations = [];
+	$scope.request= {
+			nonprofitId: $scope.nonprofitId,			
+			campaignId:$scope.campaignId,			
+			donorId: Session.userId,			
+			stripeId:'',
+			donationId: '',
+			planId: ''
+	};
+
+	$scope.modal = {
+			selectedDonorPlan:null,
+			selectedPlan: '',
+			samePlan:''
+			
+	};
+	
+	$scope.editRecurrable = function(donationId, amount){
+		$scope.modal.samePlan= amount;
+		$scope.request.donationId = donationId;
+	};
+	
+	$scope.getCurrentDonations = function(){
+		
+		$http.post('rest/protected/recurrableDonation/getRecurrableDonations',$scope.request)
+		.success(function(response) {
+			$scope.recurrableDonations = response.donations;
+		});
+		
+	};
+	
+	$scope.editPlan = function(){
+		$scope.disableEdit = true;
+		$scope.request.planId = $scope.modal.selectedPlan;//seletedPlan;
+		
+		$http.post('rest/protected/recurrableDonation/editRecurrableDonation',$scope.request)
+		.success(function(response) {
+			
+			$scope.modal.selectedDonorPlan = null;
+			$scope.modal.selectedPlan = '';
+			$scope.modal.samePlan='';
+			$scope.getCurrentDonations();
+			$scope.showSuccessFeedBack();
+			$scope.disableEdit = false;
+		});
+	};
+	
+	$scope.init = function(){
+		$scope.getCurrentDonations();
+	};
+	
+	
+	$scope.showSuccessFeedBack = function(){
+		$scope.showFeedBackMessage = true;
+		$timeout($scope.hiddeFeedBack, 5000);
+	};
+	
+	$scope.hiddeFeedBack = function(){
+		$scope.showFeedBackMessage = false
+	};
+	
+	$scope.init();
+
+});
+
+
+
+
+treeSeedAppControllers.controller('editPortfolioDonations', function($http, $scope, donorId, refreshPortfolio, $modalInstance,
+		  $modal, Session) { 
+//VARIABLES
+	$scope.isSubmited = false;
+	
+	$scope.refreshPortfolio = refreshPortfolio;
+	
+	$scope.request= {
+			nonprofitId: '',			
+			campaignId:'',			
+			donorId: donorId,			
+			stripeId:'',
+			donationId: '',
+			planId: '',
+			donations: []
+	};
+
+//VARIABLES END	
+
+	$scope.getCurrentDonations = function(){
+		
+		$http.post('rest/protected/recurrableDonation/getRecurrableDonationsPortfolio',$scope.request)
+		.success(function(response) {
+			
+			$scope.request.donations = response.donations;
+		});
+		
+	};
+	
+	
+	$scope.saveDonations = function(){
+		
+		$scope.isSubmited = true;
+		$http.post('rest/protected/recurrableDonation/editMultipleRecurrableDonation',$scope.request)
+		.success(function(response) {
+			
+			$scope.feedBack();
+			$scope.refreshPortfolio();
+			$scope.isSubmited = false;
+			$modalInstance.close();
+		});
+	};
+	
+	$scope.setChanged = function(r){
+		var amountPlan = 0;
+	
+		switch(parseInt(r.planId)){
+		case 1:
+			amountPlan = 10;
+			break;
+		case 2:
+			amountPlan = 18;
+			break;
+		case 3:
+			amountPlan = 36;
+			break;
+		case 4:
+			amountPlan = 50;
+			break;
+		case 5:
+			amountPlan = 100;
+			break;
+		case 6:
+			amountPlan = 250;
+			break;
+		}
+		
+		
+		
+		if(amountPlan == r.amount){
+			r.changed = false;
+		}else{
+			r.changed = true;
+		}
+		
+
+	};
+	
+	$scope.init=function(){
+		$scope.getCurrentDonations();
+	};
+
+
+	
+	$scope.feedBack = function(){
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl :'layouts/components/feedbackModal.html',
+			controller : 'feedbackCtrl',
+			size : 'sm',//,
+			resolve : {
+				title : function() {
+					return "FEEDBAKC-MODAL.UPDATED-DONATIONS-TITLE";
+				},
+				text: function(){
+					return  "FEEDBAKC-MODAL.UPDATED-DONATIONS-TEXT";
+				}
+			}
+		});
+	};
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	};
+	
+	$scope.init();
+
+});
+
+
+
+
+

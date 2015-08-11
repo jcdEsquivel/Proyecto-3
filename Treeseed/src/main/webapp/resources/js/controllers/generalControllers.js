@@ -191,3 +191,14 @@ treeSeedAppControllers.controller('HeaderCtrl', [
 		} ]);
 
 
+treeSeedAppControllers.controller('feedbackCtrl', function($modalInstance ,  $scope, title, text) {
+
+	$scope.title = title;
+	$scope.text = text;
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	};
+
+});
+

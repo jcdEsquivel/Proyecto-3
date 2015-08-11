@@ -641,6 +641,13 @@ border-bottom-right-radius:5px;
     font-size: 18px;
 }
 
+
+.donation-edit-feedback{
+	color: green;
+    font-weight: bold;
+}
+
+
 .node {
   cursor: pointer;
   
