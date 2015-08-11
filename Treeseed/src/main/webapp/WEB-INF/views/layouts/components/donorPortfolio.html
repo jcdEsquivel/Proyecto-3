@@ -1,0 +1,14 @@
+<div ng-controller = "donorPortfolioController">
+	<div class="panel-body">
+	    <div ui-jq="plot" ui-options="
+	      {{d3}},
+	      {
+	        series: { pie: { show: true, innerRadius: 0.5, stroke: { width: 0 }, label: { show: true, threshold: 0.05 } } },
+	        colors: ['{{app.color.primary}}','{{app.color.info}}','{{app.color.success}}','{{app.color.warning}}','{{app.color.danger}}'],
+	        grid: { hoverable: false, clickable: true, borderWidth: 0, color: '#ccc' },   
+	        tooltip: true,
+	        tooltipOpts: { content: '%s: %p.0%' }
+	      }
+	    " style="height:240px"></div>
+  	</div>
+</div>

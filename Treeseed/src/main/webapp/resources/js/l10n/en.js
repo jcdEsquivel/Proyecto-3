@@ -187,7 +187,7 @@
         "INFORMATION": "Information",
         "WHO": "Who am I?",
         "TREE": "Treeseed",
-        "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
+        "PHILANTROPIC-PORTFOLIO": "Philanthropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: ",
         "TITLE": "Bill Report",
