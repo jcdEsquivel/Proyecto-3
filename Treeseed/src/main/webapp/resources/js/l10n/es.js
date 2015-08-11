@@ -336,6 +336,7 @@
     	"SUCCESS-MONTH": "/mes",
     	"SUCCESS-YEAR": "/año",
     	"MESSAGE": "Información de la donación: ",
+		"PLAN-MESSAGE": "Mensual ",
     	"PLAN-MESSAGE": "Mensual ",
     	"NEW-DONATION": "Nueva Donación",
     	"SELECT-DONATION": "Seleccione la donación que desea editar",
@@ -352,6 +353,11 @@
     	"ACCEPT": "Aceptar",
     	"UPDATED-DONATIONS-TEXT":"Tus donaciones han sido actualizadas",
     	"UPDATED-DONATIONS-TITLE": "Actualizar Donaciones"
+    },
+    "TREE":{
+    	"MESSAGE":"Has ayudado a recaudar:",
+    	"COMPLETE-MESSAGE": "¡Por favor completa tu perfil trayendo al menos tres usuarios a Treeseed!",
+    	"SHARE-MESSAGE": "Puedes traer mas personas a Treeseed compartiendo ONG, campañas, donaciones..."
     }
      
 }

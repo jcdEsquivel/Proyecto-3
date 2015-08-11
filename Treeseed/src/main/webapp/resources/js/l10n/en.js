@@ -187,7 +187,7 @@
         "INFORMATION": "Information",
         "WHO": "Who am I?",
         "TREE": "Treeseed",
-        "PHILANTROPIC-PORTFOLIO": "Philantropic Portfolio",
+        "PHILANTROPIC-PORTFOLIO": "Philanthropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: "
     },
@@ -346,6 +346,7 @@
     	"SUCCESS-MONTH": "/month",
     	"SUCCESS-YEAR": "/year",
     	"MESSAGE": "Donation Info: ",
+		"PLAN-MESSAGE": "Monthly ",
     	"PLAN-MESSAGE": "Monthly ",
     	"NEW-DONATION": "New Donation",
     	"EDIT-DONATION": "Edit Donation",
@@ -361,6 +362,11 @@
     "FEEDBAKC-MODAL":{
     	"ACCEPT": "Acept",
     	"UPDATED-DONATIONS-TEXT":"Your Donations Were Updated",
-    	"UPDATED-DONATIONS-TITLE": "Updated Donations"
+    	"UPDATED-DONATIONS-TITLE": "Updated Donations"    	
+    },
+    "TREE":{
+    	"MESSAGE":"You helped raise:",
+    	"COMPLETE-MESSAGE": "Please complete your profile bringing at least three user to us!",
+    	"SHARE-MESSAGE": "You can bring more people to Treeseed by sharing nonprofits, campaigns, donations..."
     }
 }

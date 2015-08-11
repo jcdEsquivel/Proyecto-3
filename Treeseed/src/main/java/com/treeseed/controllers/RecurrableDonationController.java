@@ -218,6 +218,7 @@ public class RecurrableDonationController {
 		return ds;
 	}
 	
+
 	/**
 	 * Gets the plan amount.
 	 *
@@ -225,6 +226,7 @@ public class RecurrableDonationController {
 	 * @return the plan amount
 	 */
 	private double getPlanAmount(int plan){
+
 		  double amount=0;
 		  
 		  switch (plan) {
@@ -252,7 +254,7 @@ public class RecurrableDonationController {
 		  }
 		  
 		  return amount;
-		 }
+}
 	
 	
 	/**
