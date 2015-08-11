@@ -761,7 +761,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 					$scope.showComplete=true;
 				}
 			}
-			// console.log(JSON.stringify($scope.donors));
+			
 			root = flare.tree;
 			root.x0 = height / 2;
 			root.y0 = 0;
@@ -855,7 +855,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			
 			// Propiedades del texto
 			nodeEnter.append("text").attr("x", function(d) {
-				console.log(d.identity);
+
 				
 				return d.children || d._children ? 0 : 0;// Posicion en X con
 															// respento al borde
