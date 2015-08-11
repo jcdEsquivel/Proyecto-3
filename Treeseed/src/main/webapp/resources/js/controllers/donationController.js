@@ -818,10 +818,12 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 
 
 
-treeSeedAppControllers.controller('editPortfolioDonations', function($http, $scope, donorId,$modalInstance,
+treeSeedAppControllers.controller('editPortfolioDonations', function($http, $scope, donorId, refreshPortfolio, $modalInstance,
 		  $modal, Session) { 
 //VARIABLES
 	$scope.isSubmited = false;
+	
+	$scope.refreshPortfolio = refreshPortfolio;
 	
 	$scope.request= {
 			nonprofitId: '',			
@@ -853,7 +855,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 		.success(function(response) {
 			
 			$scope.feedBack();
-			//has to refersh portfolio here
+			$scope.refreshPortfolio();
 			$scope.isSubmited = false;
 			$modalInstance.close();
 		});

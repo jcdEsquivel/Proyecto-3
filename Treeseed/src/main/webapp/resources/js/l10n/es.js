@@ -179,7 +179,8 @@
         "TREE": "Árbol de influencia",
         "PHILANTROPIC-PORTFOLIO": "Portafolio Filantrópico",
         "TOTAL-DONATIONS": "Total de donaciones: ",
-        "MONEY-BROUGHT": "Dinero traído: "
+        "MONEY-BROUGHT": "Dinero traído: ",
+        "EDIT-PORTFOLIO": "Edit Portfolio"
      },
      "SELECT-USER":{
      	"TITLE":"Registrarse como:"
