@@ -1,4 +1,3 @@
-
 'use strict';
 var treeSeedAppServices = angular.module('treeSeedServices', [ 'ngCookies' ]);
 
@@ -10,57 +9,57 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 		isEmailUnique : function(email) {
 
 			var request = {
-					
-						email: email
-									
-			};
-	
-			return $http.post('rest/protected/users/isEmailUnique', JSON.stringify(request))
-					.then(function(response) {
-					
 
-						if (response.data.codeMessage == 'UNIQUE') {
-							return true;
-						} else {
-							return false;
-						}
-					});
+				email : email
+
+			};
+
+			return $http.post('rest/protected/users/isEmailUnique',
+					JSON.stringify(request)).then(function(response) {
+
+				if (response.data.codeMessage == 'UNIQUE') {
+					return true;
+				} else {
+					return false;
+				}
+			});
 		}
 	}
 });
 
-
 treeSeedAppServices.service('$donationService', function($http) {
 
 	return {
-		createDonation : function(type, nonprofitId, campaignId, donorId, stripeToken, plan, amount, fatherId) {
-			if(plan == 'custom'){//simple donation
+		createDonation : function(type, nonprofitId, campaignId, donorId,
+				stripeToken, plan, amount, fatherId) {
+
+			if (plan == 'custom') {// simple donation
 				var request = {
-						id: '',
-						campaignId:'',
-						nonProfitId:'',
-						amount: '',
-						donationDate:'',
-						token: '',
-						startPeriodDate:'',
-						endPeriodDate:'',
-						plan:'',
-						donation:{
-							id:'',
-							campaignId: campaignId,
-							donorId: donorId,
-							donorFatherId: fatherId,
-							nonProfitId: nonprofitId,
-							amount: amount,
-							cardId:''
-						}	
+					id : '',
+					campaignId : '',
+					nonProfitId : '',
+					amount : '',
+					donationDate : '',
+					token : '',
+					startPeriodDate : '',
+					endPeriodDate : '',
+					plan : '',
+					donation : {
+						id : '',
+						campaignId : campaignId,
+						donorId : donorId,
+						donorFatherId : fatherId,
+						nonProfitId : nonprofitId,
+						amount : amount,
+						cardId : ''
+					}
 				};
+
 				
-			console.log(type);
-				
-				if(type=='newCard'){
+
+				if (type == 'newCard') {
 					request.token = stripeToken;
-				}else{
+				} else {
 					request.donation.cardId = stripeToken;
 				}
 				
@@ -74,29 +73,29 @@ treeSeedAppServices.service('$donationService', function($http) {
 			}else{//monthly donation
 				
 				var requestSuscription = {
-						id: '',
-						campaignId:'',
-						nonProfitId:'',
-						amount: '',
-						donationDate:'',
-						token: '',
-						startPeriodDate:'',
-						endPeriodDate:'',
-						plan: plan,
-						donation:{
-							id:'',
-							campaignId: campaignId,
-							donorId: donorId,
-							donorFatherId: fatherId,
-							nonProfitId: nonprofitId,
-							amount: '',
-							cardId:''
-						}
+					id : '',
+					campaignId : '',
+					nonProfitId : '',
+					amount : '',
+					donationDate : '',
+					token : '',
+					startPeriodDate : '',
+					endPeriodDate : '',
+					plan : plan,
+					donation : {
+						id : '',
+						campaignId : campaignId,
+						donorId : donorId,
+						donorFatherId : fatherId,
+						nonProfitId : nonprofitId,
+						amount : '',
+						cardId : ''
+					}
 				};
-				
-				if(type=='newCard'){
+
+				if (type == 'newCard') {
 					requestSuscription.token = stripeToken;
-				}else{
+				} else {
 					requestSuscription.donation.cardId = stripeToken;
 				}
 				
@@ -108,39 +107,28 @@ treeSeedAppServices.service('$donationService', function($http) {
 						});
 
 			}
-			
-		}//end createSimpleDonation
-	
+
+		}// end createSimpleDonation
+
 	}
 });
-
-
 
 /*
-'use strict';
-var treeSeedAppServices = angular.module('treeSeedServices', []);
-
-treeSeedAppServices.value('version', '0.1');
-
-treeSeedAppServices.service('$uniqueDataService', function($http) {
-
-	return {
-		isEmailUnique : function(email) {
-
-			return $http.post('rest/protected/users/isEmailUnique', email)
-					.then(function(response) {
-						console.log(response.data.codeMessage);
-
-						if (response.data.codeMessage == 'UNIQUE') {
-							return true;
-						} else {
-							return false;
-						}
-					});
-		}
-	}
-});
-*/
+ * 'use strict'; var treeSeedAppServices = angular.module('treeSeedServices',
+ * []);
+ * 
+ * treeSeedAppServices.value('version', '0.1');
+ * 
+ * treeSeedAppServices.service('$uniqueDataService', function($http) {
+ * 
+ * return { isEmailUnique : function(email) {
+ * 
+ * return $http.post('rest/protected/users/isEmailUnique', email)
+ * .then(function(response) { console.log(response.data.codeMessage);
+ * 
+ * if (response.data.codeMessage == 'UNIQUE') { return true; } else { return
+ * false; } }); } } });
+ */
 
 treeSeedAppServices.service('$sharedData', function($http) {
 	var loggedUser = "";
@@ -183,41 +171,32 @@ treeSeedAppServices.service('$sharedData', function($http) {
 		},
 		getUserCountry : function() {
 			if (userCountry == "") {
-				//ipinfo to get the users country
+				// ipinfo to get the users country
 				$http.get('http://ipinfo.io/json').then(function(data) {
-					var jsonData = JSON.parse(JSON.stringify( data));
+					var jsonData = JSON.parse(JSON.stringify(data));
 					userCountry = jsonData.data.country;
-					
+
 					return userCountry;
 				});
 			}
-			
+
 			return userCountry;
-		
 
 		}// end getUserCountry
 	} // end return
 }); // end shareDataService
 /*
-treeSeedAppServices.service('$uniqueDataService', function($http) {
+ * treeSeedAppServices.service('$uniqueDataService', function($http) {
+ * 
+ * return { isEmailUnique : function(email) {
+ * 
+ * return $http.post('rest/protected/users/isEmailUnique', email)
+ * .then(function(response) { 
+ * 
+ * if (response.data.codeMessage == 'UNIQUE') { return true; } else { return
+ * false; } }); } } });
+ */
 
-	return {
-		isEmailUnique : function(email) {
-
-			return $http.post('rest/protected/users/isEmailUnique', email)
-					.then(function(response) {
-						console.log(response.data.codeMessage);
-
-						if (response.data.codeMessage == 'UNIQUE') {
-							return true;
-						} else {
-							return false;
-						}
-					});
-		}
-	}
-});
-*/
 treeSeedAppServices.service('$userData', function() {
 	var users = [ {
 		Name : "Ricardo Bonilla",
@@ -267,56 +246,50 @@ treeSeedAppServices.service('$userData', function() {
 	}
 });
 
-treeSeedAppServices.service('lazyService',['JQ_CONFIG','MODULE_CONFIG', function(JQ_CONFIG,MODULE_CONFIG) {
+treeSeedAppServices.service('lazyService', [
+		'JQ_CONFIG',
+		'MODULE_CONFIG',
+		function(JQ_CONFIG, MODULE_CONFIG) {
 
-	this.load = function(srcs, callback) {
-		return {
-			deps : [
-					'$ocLazyLoad',
-					'$q',
-					function($ocLazyLoad, $q) {
-						var deferred = $q.defer();
-						var promise = false;
-						srcs = angular.isArray(srcs) ? srcs
-								: srcs.split(/\s+/);
-						if (!promise) {
-							promise = deferred.promise;
-						}
-						angular
-								.forEach(
-										srcs,
-										function(src) {
-											console.log(src);
-											promise = promise
-													.then(function() {
-														if (JQ_CONFIG[src]) {
-															return $ocLazyLoad
-																	.load(JQ_CONFIG[src]);
-														}
-														angular
-																.forEach(
-																		MODULE_CONFIG,
-																		function(
-																				module) {
-																			if (module.name == src) {
-																				name = module.name;
-																			} else {
-																				name = src;
-																			}
-																		});
-														return $ocLazyLoad
-																.load(name);
-													});
-										});
-						deferred.resolve();
-						return callback ? promise
-								.then(function() {
+			this.load = function(srcs, callback) {
+				return {
+					deps : [
+							'$ocLazyLoad',
+							'$q',
+							function($ocLazyLoad, $q) {
+								var deferred = $q.defer();
+								var promise = false;
+								srcs = angular.isArray(srcs) ? srcs : srcs
+										.split(/\s+/);
+								if (!promise) {
+									promise = deferred.promise;
+								}
+								angular.forEach(srcs, function(src) {
+									console.log(src);
+									promise = promise.then(function() {
+										if (JQ_CONFIG[src]) {
+											return $ocLazyLoad
+													.load(JQ_CONFIG[src]);
+										}
+										angular.forEach(MODULE_CONFIG,
+												function(module) {
+													if (module.name == src) {
+														name = module.name;
+													} else {
+														name = src;
+													}
+												});
+										return $ocLazyLoad.load(name);
+									});
+								});
+								deferred.resolve();
+								return callback ? promise.then(function() {
 									return callback();
 								}) : promise;
-					} ]
-		}
-	}
-}])
+							} ]
+				}
+			}
+		} ])
 
 treeSeedAppServices.service('Session', function() {
 
@@ -339,20 +312,17 @@ treeSeedAppServices.service('StripeService', function() {
 	return {
 		getStripeApiKey : function() {
 			return stripeApiKey;
-		}/*,
-		setStripeApiKey : function(value) {
-			stripeApiKey = value;
-		}*/
+		}/*
+			 * , setStripeApiKey : function(value) { stripeApiKey = value; }
+			 */
 	}
 })
-
-
 
 /** ****************************************************Factories********************************************** */
 
 
-
-treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, USER_ROLES ) {
+treeSeedAppServices.factory('AuthService', function($http, $cookies, Session,
+		USER_ROLES) {
 	var authService = {};
 
 	authService.login = function(credentials) {
@@ -379,13 +349,16 @@ treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, US
 					return res.data;
 				});
 	};
-	
+
 	authService.getSession = function() {
-		
-		var sessionrequest= {id: Session.id, role: Session.userRole}
-		
+
+		var sessionrequest = {
+			id : Session.id,
+			role : Session.userRole
+		}
+
 		return $http.post('rest/login/getSession', sessionrequest).then(
-				function(res) {	
+				function(res) {
 					console.log(res.id)
 					return res;
 				});
@@ -401,7 +374,7 @@ treeSeedAppServices.factory('AuthService', function($http, $cookies, Session, US
 		$cookies['idUserTree'] = "0";
 		$cookies['userRoleTree'] = USER_ROLES.guest;
 		$cookies['userNameTree'] = "0";
-	    $cookies['userImageTree'] =  "0";
+		$cookies['userImageTree'] = "0";
 	}
 
 	authService.isAuthorized = function(authorizedRoles) {
