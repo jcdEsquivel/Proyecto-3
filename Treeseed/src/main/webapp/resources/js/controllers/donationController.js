@@ -66,7 +66,6 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		$scope.$form = angular.element(document.querySelector('#payment-form'));  
 		
 		$scope.loadDonation.isLoading = 1;
-		console.log($scope.$form) 
 		
 		if (result.error) {
 	        window.alert('it failed! error: ' + result.error.message);
@@ -733,8 +732,7 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 	 $scope.nonProfitImg='';
 	 $scope.campaignImg=''
 		 
- console.log(nonprofitId)
-		 
+ 		 
  $scope.titleFaceS = titleFace;
  $scope.descriptionFace = descriptionFace;
  $scope.imageFace = pictureFace;
