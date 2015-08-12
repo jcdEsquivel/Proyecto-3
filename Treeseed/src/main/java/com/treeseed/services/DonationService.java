@@ -1,6 +1,8 @@
 package com.treeseed.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -181,5 +183,22 @@ public class DonationService implements DonationServiceInterface{
 	 */
 	public double getSumDonationsByDonor(int idDonor){
 		return donationRepository.sumAmountByDonor(idDonor);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonationsByNonprofit(int, int)
+	 */
+	@Override
+	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId, int cant) {
+		
+		List<Donation> donations =donationRepository.getByNonProfitIdDashboard(nonProfitId, cant);
+		List<DonationWrapper> donationsWrapper = new ArrayList<DonationWrapper>();
+		
+		for(Donation donation:donations){
+			DonationWrapper donationWrapper = new DonationWrapper(donation);
+			donationsWrapper.add(donationWrapper);
+		}
+		
+		return donationsWrapper;
 	}
 }

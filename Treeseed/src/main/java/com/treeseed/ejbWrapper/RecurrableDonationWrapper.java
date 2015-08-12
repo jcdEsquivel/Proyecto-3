@@ -2,7 +2,10 @@ package com.treeseed.ejbWrapper;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.treeseed.ejb.RecurrableDonation;
+import com.treeseed.services.CampaignServiceInterface;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,10 +13,16 @@ import com.treeseed.ejb.RecurrableDonation;
  */
 public class RecurrableDonationWrapper {
 
+	/** The campaign service. */
+	@Autowired
+	private CampaignServiceInterface campaignService;
 	/** The wrapper object. */
 	RecurrableDonation wrapperObject;
 
+	/** The campaign. */
+	CampaignWrapper campaign;
 	
+	DonorWrapper donor;
 
 	/**
 	 * Instantiates a new recurrable donation wrapper.
@@ -244,6 +253,11 @@ public class RecurrableDonationWrapper {
 		wrapperObject.setDonorFatherId(donorFatherId);
 	}
 	
+	/**
+	 * Gets the plan id.
+	 *
+	 * @return the plan id
+	 */
 	public int getPlanId(){
 		switch((int)getAmount()){
 		case 10:
@@ -261,6 +275,27 @@ public class RecurrableDonationWrapper {
 		}
 		
 		return 0;
+	}
+	
+	/**
+	 * Gets the campaign.
+	 *
+	 * @return the campaign
+	 */
+	public CampaignWrapper getCampaign() {
+		if(campaign.getWrapperObject()==null){
+			setCampaign(campaignService.getCampaignById(getCampaingId()));
+		}
+		return campaign;
+	}
+
+	/**
+	 * Sets the campaign.
+	 *
+	 * @param campaign the new campaign
+	 */
+	private void setCampaign(CampaignWrapper campaign) {
+		this.campaign = campaign;
 	}
 	
 	

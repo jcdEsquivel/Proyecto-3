@@ -285,6 +285,7 @@ public class DonationController {
 			donationPOJO.setNonprofitName(nonProfitService.getNonProfitById(objeto.getNonProfitId()).getName());
 			donationPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
 			
+			
 			donationsPOJO.add(donationPOJO);
 		};
 

@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,13 +54,17 @@ import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
 import com.treeseed.services.CatalogServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
+import com.treeseed.services.RecurrableDonationServiceInterface;
 import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
@@ -67,8 +72,10 @@ import com.treeseed.utils.StripeUtils;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.ParentUserWrapper;
+import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -96,6 +103,13 @@ public class NonprofitController extends UserGeneralController {
 	/** The user general service. */
 	@Autowired
 	UserGeneralServiceInterface userGeneralService;
+	
+	/** The donation service. */
+	@Autowired
+	DonationServiceInterface donationService;
+	
+	@Autowired
+	RecurrableDonationServiceInterface recurrableDonationService;
 
 	/** The request. */
 	@Autowired
@@ -481,6 +495,72 @@ public class NonprofitController extends UserGeneralController {
 				us.setNonprofit(nonprofitPOJO);
 			}
 		}
+		return us;
+	}
+	
+	/**
+	 * Gets the dashboard.
+	 *
+	 * @param request the request
+	 * @return the dashboard
+	 */
+	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public NonprofitResponse getDashboard(@RequestBody NonprofitRequest nonprofitRequest) {
+
+		NonprofitResponse us = new NonprofitResponse();
+		HttpSession currentSession = request.getSession();
+		List<DonationPOJO> donationsPojo = new ArrayList<DonationPOJO>();
+		List<RecurrableDonationPOJO> subscriptionsPojo=new ArrayList<RecurrableDonationPOJO>();
+		List<DonationWrapper> donations;
+		List<RecurrableDonationWrapper> subscriptions;
+		
+		
+		
+		if (nonprofitRequest.getIdUser() > 0) {
+			if(nonprofitRequest.getIdUser() == (int) currentSession.getAttribute("idUser")){
+				donations = donationService.getDonationsByNonprofit(nonprofitRequest.getIdUser(),10);
+				subscriptions = recurrableDonationService.getRecurrableDonationsByNonprofit(nonprofitRequest.getIdUser(), 10);
+				
+				for(DonationWrapper donation: donations){
+					DonationPOJO donationPojo = new DonationPOJO();
+					donationPojo = new DonationPOJO();
+					donationPojo.setId(donation.getId());
+					donationPojo.setAmount(donation.getAmount());
+					donationPojo.setCampaignId(donation.getCampaingId());
+					if(donation.getCampaingId()>0){
+						donationPojo.setCampaign(donation.getCampaign().getCampaignPojo());
+					}					
+					donationPojo.setNonProfitId(donation.getNonProfitId());
+					donationPojo.setNonprofitName(nonProfitService.getNonProfitById(donation.getNonProfitId()).getName());
+					donationPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(donation.getDateTime()));
+					
+					donationsPojo.add(donationPojo);
+				}
+				
+				for(RecurrableDonationWrapper subscription: subscriptions){
+					RecurrableDonationPOJO subscriptionPojo = new RecurrableDonationPOJO();
+					
+					subscriptionPojo.setId(subscription.getId());
+					subscriptionPojo.setAmount(subscription.getAmount());
+					subscriptionPojo.setCampaingId(subscription.getCampaingId());
+					if(subscription.getCampaingId()>0){
+						subscriptionPojo.setCampaignName(subscription.getCampaign().getName());
+					}
+					subscriptionPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(subscription.getDateTime()));
+					//subscriptionPojo
+					
+				}
+			}else{
+				us.setCode(400);
+				us.setErrorMessage("User session do not match");
+			}
+		}else{
+			us.setCode(400);
+			us.setErrorMessage("Nonprofit do not receive");
+		}
+		
+
+		
 		return us;
 	}
 }

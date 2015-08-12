@@ -95,6 +95,21 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.nonProfitDashboard',
+											{
+												url : 'nonProfit/:nonProfitId',
+												templateUrl : 'layouts/pages/nonprofitDashboard.html',
+												controller: "nonprofitDashboardController",
+												params: {nonProfitId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit ]
+
+												}
+											})
+									.state(
 										'treeSeed.nonProfitSettings',
 										{
 											url : 'nonProfitSettings',

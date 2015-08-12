@@ -589,4 +589,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	
 });
 
+treeSeedAppControllers.controller('nonprofitDashboardController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	
+});
+
  

@@ -27,6 +27,7 @@ public interface RecurrableDonationServiceInterface {
 	/**
 	 * Gets the recurrable donation.
 	 *
+	 * @param donorId the donor id
 	 * @param nonprofitId the nonprofit id
 	 * @param campaignId the campaign id
 	 * @return the recurrable donation
@@ -57,4 +58,13 @@ public interface RecurrableDonationServiceInterface {
 	 * @return the recurrable donation from donor
 	 */
 	public List<RecurrableDonationWrapper> getRecurrableDonationFromDonor(int donorId);
+	
+	/**
+	 * Gets the recurrable donations by nonprofit.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @param cant the cant
+	 * @return the recurrable donations by nonprofit
+	 */
+	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId, int cant);
 }

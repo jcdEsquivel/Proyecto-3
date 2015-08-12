@@ -54,9 +54,6 @@ import com.treeseed.utils.Utils;
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
 public class CampaignController {
-	/** The campaign service. */
-	@Autowired
-	DonationServiceInterface donationService;
 
 	/** The campaign service. */
 	@Autowired
@@ -405,22 +402,7 @@ public class CampaignController {
 
 				CampaignPOJO campaignPojo = new CampaignPOJO();
 
-				campaignPojo = new CampaignPOJO();
-				campaignPojo.setId(campaign.getId());
-				campaignPojo.setName(campaign.getName());
-				campaignPojo.setDescription(campaign.getDescription());
-				campaignPojo.setPicture(campaign.getPicture());
-				campaignPojo.setAmountCollected(campaign.getAmountCollected());
-				campaignPojo.setAmountGoal(campaign.getAmountGoal());
-				campaignPojo.setPercent((int) Math.round(campaign.getPercent()));
-				campaignPojo.setStartDate(campaign.getStartDate());
-				campaignPojo.setStartDateS(campaign.getStartDateS());
-				campaignPojo.setStart(campaign.isStart());
-				campaignPojo.setEnd(campaign.isEnd());
-				campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
-				campaignPojo.setDueDate(campaign.getDueDate());
-				campaignPojo.setDueDateS(campaign.getDueDateS());
-				campaignPojo.setState(campaign.getState());
+				campaignPojo  = campaign.getCampaignPojo();
 
 				NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 
@@ -494,23 +476,7 @@ public class CampaignController {
 		campaignService.updateCampaign(campaign);
 		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
 
-		campaignPOJO.setId(campaignWrapper.getId());
-		campaignPOJO.setName(campaignWrapper.getName());
-		campaignPOJO.setDescription(campaignWrapper.getDescription());
-		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-		campaignPOJO.setPicture(campaignWrapper.getPicture());
-		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-		campaignPOJO.setPercent((int) Math.round(campaignWrapper.getPercent()));
-		campaignPOJO.setStartDate(campaignWrapper.getStartDate());
-		campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
-		campaignPOJO.setStart(campaignWrapper.isStart());
-		campaignPOJO.setEnd(campaignWrapper.isEnd());
-		campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
-		campaignPOJO.setDueDate(campaignWrapper.getDueDate());
-		campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
-		campaignPOJO.setState(campaignWrapper.getState());
+		campaignPOJO=campaignWrapper.getCampaignPojo();
 
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 

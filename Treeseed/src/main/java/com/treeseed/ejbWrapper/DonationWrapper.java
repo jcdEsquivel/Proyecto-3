@@ -3,7 +3,13 @@ package com.treeseed.ejbWrapper;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.treeseed.ejb.Donation;
+import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.services.CampaignServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
 
 
 // TODO: Auto-generated Javadoc
@@ -14,7 +20,18 @@ public class DonationWrapper {
 	
 	/** The wrapper object. */
 	private Donation wrapperObject;
+	
+	/** The campaign service. */
+	@Autowired
+	private CampaignServiceInterface campaignService;
+	
 
+
+	/** The campaign. */
+	private CampaignWrapper campaign;
+	
+	/** The campaign pojo. */
+	private CampaignPOJO campaignPojo;
 
 	/**
 	 * Gets the stripe id.
@@ -235,5 +252,27 @@ public class DonationWrapper {
 		return wrapperObject.toString();
 	}
 
+
+
+	/**
+	 * Gets the campaign.
+	 *
+	 * @return the campaign
+	 */
+	public CampaignWrapper getCampaign() {
+		if(campaign.getWrapperObject()==null){
+			setCampaign(campaignService.getCampaignById(getCampaingId()));
+		}
+		return campaign;
+	}
+
+	/**
+	 * Sets the campaign.
+	 *
+	 * @param campaign the new campaign
+	 */
+	private void setCampaign(CampaignWrapper campaign) {
+		this.campaign = campaign;
+	}
 	
 }

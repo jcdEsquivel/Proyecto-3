@@ -1,6 +1,7 @@
 package com.treeseed.services;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -83,4 +84,13 @@ public interface DonationServiceInterface {
 	 * @return the sum donations by donor
 	 */
 	double getSumDonationsByDonor(int idDonor);
+	
+	/**
+	 * Gets the donations by nonprofit.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @param cant the cant
+	 * @return the donations by nonprofit
+	 */
+	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId, int cant);
 }
