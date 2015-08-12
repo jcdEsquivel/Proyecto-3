@@ -469,7 +469,7 @@ treeSeedAppDirectives.directive("isEmailUnique", function($http,
 				var currentValue = element.val();
 				$uniqueDataService.isEmailUnique(currentValue).then(
 						function(value) {
-							console.log('restuldo: ' + value);
+							
 							ngModel.$setValidity('unique', value);
 
 						});
@@ -537,3 +537,5 @@ treeSeedAppDirectives.directive('loginDialog', function(AUTH_EVENTS) {
     }
   };
 });
+
+

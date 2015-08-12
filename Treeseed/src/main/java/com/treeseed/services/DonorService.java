@@ -6,17 +6,27 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.ejb.Donor;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.repositories.DonorRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DonorService.
+ */
 @Service
 public class DonorService implements DonorServiceInterface {
 
+	/** The Donor repository. */
 	@Autowired
 	DonorRepository DonorRepository;
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getAll(com.treeseed.contracts.DonorRequest)
+	 */
 	@Override
 	@Transactional
 	public Page<Donor> getAll(DonorRequest ur) {
@@ -49,6 +59,9 @@ public class DonorService implements DonorServiceInterface {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#saveDonor(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
 	@Override
 	@Transactional
 	public int saveDonor(DonorWrapper user) {
@@ -56,23 +69,44 @@ public class DonorService implements DonorServiceInterface {
 		return nuser.getId();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getSessionDonor(int)
+	 */
 	@Override
 	@Transactional
 	public Donor getSessionDonor(int idUser) {
 		return DonorRepository.findOne(idUser);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(int)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
+	 */
+	@Override
+	public DonorWrapper getDonorProfileByID(int id) {
+		return new DonorWrapper(DonorRepository.findByid(id));
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#getDonorProfileByID(com.treeseed.contracts.DonorRequest)
+	 */
 	@Override
 	public Donor getDonorProfileByID(DonorRequest dr) {
 		return DonorRepository.findByid(dr.getId());
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#deleteDonor(com.treeseed.contracts.DonorRequest)
+	 */
 	@Override
 	public void deleteDonor(DonorRequest dr)
 	{	
 		DonorRepository.deleteDonor(dr.getId());		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateDonor(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
 	@Override
 	@Transactional
 	public void updateDonor(DonorWrapper donor) {
@@ -83,5 +117,42 @@ public class DonorService implements DonorServiceInterface {
 				donor.getProfilePicture(),
 				donor.getWebPage()
 				);		
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateStripeId(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
+	@Override
+	public void updateStripeId(DonorWrapper donor) {
+		DonorRepository.updateStripeId(donor.getId(),donor.getStripeId());	
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateStripeIdAndSubscriptionCard(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
+	@Override
+	public void updateStripeIdAndSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateStripeIdAndSubscriptionCard(donor.getId(),donor.getStripeId(), donor.getSubscriptionCard());	
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonorServiceInterface#updateSubscriptionCard(com.treeseed.ejbWrapper.DonorWrapper)
+	 */
+	@Override
+	public void updateSubscriptionCard(DonorWrapper donor) {
+		DonorRepository.updateSubscriptionCard(donor.getId(),donor.getSubscriptionCard());
+	}
+	
+
+	@Override
+	public DonorWrapper getDonorById(int id){
+		DonorWrapper donor;
+		
+		donor= new DonorWrapper(DonorRepository.findByid(id));
+		
+		return donor;
+		
 	}
 }

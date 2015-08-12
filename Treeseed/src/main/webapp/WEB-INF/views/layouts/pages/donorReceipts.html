@@ -1,0 +1,151 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3" translate="RECEIPT-SEARCH.TITLE"></h1>
+</div>
+<div class="row m-b-md" style="padding: 50px;">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-3">
+		<div class="input-group-btn dropdown" dropdown>
+            <select name="account" class="form-control m-b" ng-model="month">
+	            <option selected Translate="NONPROFIT-PROFILE.MONTH"></option>
+	            <option Translate="MONTH.JAN">01</option>
+	            <option Translate="MONTH.FEB">02</option>
+	            <option Translate="MONTH.MAR">03</option>
+	            <option Translate="MONTH.APR">04</option>
+	            <option Translate="MONTH.MAY">05</option>
+	            <option Translate="MONTH.JUN">06</option>
+	            <option Translate="MONTH.JUL">07</option>
+	            <option Translate="MONTH.AUG">08</option>
+	            <option Translate="MONTH.SEP">09</option>
+	            <option Translate="MONTH.OCT">10</option>
+	            <option Translate="MONTH.NOV">11</option>
+	            <option Translate="MONTH.DEC">12</option>
+            </select>
+       	</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="input-group-btn dropdown" dropdown>
+            <select name="account" class="form-control m-b" ng-model="year">
+	            <option selected Translate="NONPROFIT-PROFILE.YEAR"></option>
+	            <option ng-repeat="year in years">{{year}}</option>
+            </select>
+       	</div>
+	</div>
+	<div class="col-sm-3">
+		<button type="submit" class="btn btn-info m-b-lg " ng-click="getReceipts(1)" translate="NONPROFIT-PROFILE.SEARCH"></button>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+<div class="panel-body">
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
+				<li class="list-group-item li-posts-result" 
+        		dir-paginate="r in receipts | itemsPerPage: receiptsRequest.pageSize" total-items="totalReceipts" pagination-id="receipt-pagin" current-page="receiptsPaginCurrentPage">	          
+		          	<div class="row">
+		          		<div class="col-sm-2">
+		          		</div>
+		          		<div class="col-sm-3">
+		          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.DATE">Date</span>
+		          			<span> {{r.dateS}}</span>
+		          		</div>
+		          		<div class="col-sm-3">
+		          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.AMOUNT">Amount</span>
+		          			<span>{{r.amount}}</span>
+		          		</div>
+		          		<div class="col-sm-4">
+		          			<span class=" post-title h4 text-primary m-b-sm block" translate="MENU-HEADER.NGO"></span>
+		          			<span>{{r.nonprofitName}}</span>
+	          			</div>
+		          	</div>
+		        </li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="other-controller">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true"
+					on-page-change="getNewReceipts(newPageNumber)"
+					pagination-id="receipt-pagin"
+					template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+ 
+<!--<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3" translate="RECEIPT-SEARCH.TITLE"></h1>
+</div>
+<div class="row m-b-md">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-2">
+		<div class="input-group-btn dropdown" dropdown>
+            <select name="account" class="form-control m-b" ng-model="month">
+              <option selected Translate="NONPROFIT-PROFILE.MONTH"></option>
+              <option Translate="MONTH.JAN">01</option>
+              <option Translate="MONTH.FEB">02</option>
+              <option Translate="MONTH.MAR">03</option>
+              <option Translate="MONTH.APR">04</option>
+              <option Translate="MONTH.MAY">05</option>
+              <option Translate="MONTH.JUN">06</option>
+              <option Translate="MONTH.JUL">07</option>
+              <option Translate="MONTH.AUG">08</option>
+              <option Translate="MONTH.SEP">09</option>
+              <option Translate="MONTH.OCT">10</option>
+              <option Translate="MONTH.NOV">11</option>
+              <option Translate="MONTH.DEC">12</option>
+            </select>
+      	</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="input-group-btn dropdown" dropdown>
+            <select name="account" class="form-control m-b" ng-model="year">
+              <option selected Translate="NONPROFIT-PROFILE.YEAR"></option>
+              <option ng-repeat="year in years">{{year}}</option>
+            </select>
+      	</div>
+	</div>
+	<div class="col-sm-2">
+		<button type="submit" class="btn btn-info m-b-lg " ng-click="getReceipts(1)" translate="NONPROFIT-PROFILE.SEARCH"></button>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<ul
+			class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
+			<li class="list-group-item li-posts-result" 
+        		dir-paginate="r in receipts | itemsPerPage: receiptsRequest.pageSize" total-items="totalReceipts" pagination-id="receipt-pagin" current-page="receiptsPaginCurrentPage">
+
+        		<div class="row">
+	          		<div class="col-sm-4">
+	          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.DATE">Date</span>
+	          			<span> {{r.dateS}}</span>
+	          		</div>
+	          		<div class="col-sm-4">
+	          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.AMOUNT">Amount</span>
+	          			<span>{{r.amount}}</span>
+	          		</div>
+	          		<div class="col-sm-4">
+	          			<span class=" post-title h4 text-primary m-b-sm block" translate="MENU-HEADER.NGO"></span>
+	          			<span>{{r.nonprofitName}}</span>
+	          		</div>
+	          	</div>
+	        </li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="other-controller">
+		<div class="text-center">
+			<dir-pagination-controls boundary-links="true"
+				on-page-change="getNewReceipts(newPageNumber)"
+				pagination-id="receipt-pagin"
+				template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+			</dir-pagination-controls>
+		</div>
+	</div>
+</div>-->
