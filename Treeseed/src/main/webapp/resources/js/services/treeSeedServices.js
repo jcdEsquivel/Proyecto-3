@@ -62,14 +62,16 @@ treeSeedAppServices.service('$donationService', function($http) {
 				} else {
 					request.donation.cardId = stripeToken;
 				}
-
-				return $http.post('rest/protected/donation/donate',
-						JSON.stringify(request)).then(function(response) {
-					return response.data;
-				});
-
-			} else {// monthly donation
-
+				
+				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
+						.success(function(response) {				
+							return response.data;
+						}).error(function(error){
+							return error;
+						});
+			
+			}else{//monthly donation
+				
 				var requestSuscription = {
 					id : '',
 					campaignId : '',
@@ -96,12 +98,12 @@ treeSeedAppServices.service('$donationService', function($http) {
 				} else {
 					requestSuscription.donation.cardId = stripeToken;
 				}
-
-				return $http.post(
-						'rest/protected/recurrableDonation/subscription',
-						JSON.stringify(requestSuscription)).then(
-						function(response) {
+				
+				return $http.post('rest/protected/recurrableDonation/subscription', JSON.stringify(requestSuscription))
+						.success(function(response) {				
 							return response.data;
+						}).error(function(error){
+							return error;
 						});
 
 			}

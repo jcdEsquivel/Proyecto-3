@@ -18,17 +18,30 @@ import com.treeseed.controllers.NonprofitController;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestListarCampannaONG.
+ */
 public class TestListarCampannaONG extends AbstractTestController{
 
+	/** The user general service. */
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	 
 	 
 	 
-	  protected void setUp(NonprofitController controller) {
+	  /**
+  	 * Sets the up.
+  	 *
+  	 * @param controller the new up
+  	 */
+  	protected void setUp(NonprofitController controller) {
 	         mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	     }
 	 
-	   @Before
+	   /* (non-Javadoc)
+   	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+   	 */
+   	@Before
 	     public void setUp() {
 	         super.setUp();
 	         
@@ -36,7 +49,13 @@ public class TestListarCampannaONG extends AbstractTestController{
 	   
 	   
 
-	     @Test
+	     /**
+     	 * Gets the campaigns by nonprofit with campaigns.
+     	 *
+     	 * @return the campaigns by nonprofit with campaigns
+     	 * @throws Exception the exception
+     	 */
+     	@Test
 	     public void getCampaignsByNonprofitWithCampaigns() throws Exception {
 	    
 	     
@@ -71,7 +90,13 @@ public class TestListarCampannaONG extends AbstractTestController{
 
 	     }
 	     
-	     @Test
+	     /**
+     	 * Gets the campaigns by nonprofit without campaigns.
+     	 *
+     	 * @return the campaigns by nonprofit without campaigns
+     	 * @throws Exception the exception
+     	 */
+     	@Test
 	     public void getCampaignsByNonprofitWithoutCampaigns() throws Exception {
 	    
 	     

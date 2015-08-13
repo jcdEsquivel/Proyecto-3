@@ -10,7 +10,7 @@
 	<tab active="steps.newDonation">
 	<tab-heading translate="DONATION-MODAL.NEW-DONATION">donation</tab-heading>
 
-	<form name="frmNewDonation" class="form-validation" stripe-form="stripeCallback">
+	<form name="frmNewDonation" id="payment-form" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
@@ -101,15 +101,24 @@
 				</div>
 	
 		</div>
- 		<div class="form-group">
-				<span class="payment-errors text-danger"></span>
+		<div ng-if="loadDonation.isLoading == '1'">
+			 	<br/>
+			 	<p class="loading-paragraph" >Haciendo la donacion</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+		 </div>
+ 		<div class="form-group" ng-if="loadDonation.isLoading == '0'">
+				<span class="payment-errors text-danger"></span><br><br>
 				<button type="submit" ng-show="hideSubmit"  ng-disabled="frmNewDonation.$invalid"  id="btn-submit"
-					class="btn m-b-xs w-xs btn-success btn-rounded" >SUBMIT</button>
+					class="btn m-b-xs w-xs btn-success btn-rounded">SUBMIT</button>
 					
 				<button type="button" ng-disabled="frmNewDonation.$invalid" 
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
 					translate="DONATION-MODAL.DONATE"
 				>donate</button>
+				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="closeWithoutDonation()"
+				translate="DONATION-MODAL.CANCEL">Cancel</button>
 		</div>
 			
 	</form>
@@ -164,10 +173,4 @@
 </tabset>
 
 </div>
-<div class="modal-footer">
 
-	<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="close()"
-		translate="DONATION-MODAL.CANCEL">Cancel</button>
-	
-
-</div>
