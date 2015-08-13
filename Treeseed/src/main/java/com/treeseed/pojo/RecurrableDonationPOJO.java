@@ -46,6 +46,8 @@ public class RecurrableDonationPOJO {
 	/** The date s. */
 	private String dateS;
 	
+	private DonorPOJO donor;
+	
 	/**
 	 * Gets the nonprofit name.
 	 *
@@ -278,6 +280,14 @@ public class RecurrableDonationPOJO {
 	 */
 	public void setDateS(String dateS) {
 		this.dateS = dateS;
+	}
+
+	public DonorPOJO getDonor() {
+		return donor;
+	}
+
+	public void setDonor(DonorPOJO donor) {
+		this.donor = donor;
 	}
 	
 	

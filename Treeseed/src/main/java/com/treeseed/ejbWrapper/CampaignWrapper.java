@@ -46,8 +46,6 @@ public class CampaignWrapper {
 	//Star due date is after today?
 	private boolean end;
 	
-	/** The campaign pojo. */
-	private CampaignPOJO campaignPojo;
 
 
 	/**
@@ -498,7 +496,7 @@ public class CampaignWrapper {
 	 * @return the campaign pojo
 	 */
 	public CampaignPOJO getCampaignPojo() {
-
+		CampaignPOJO campaignPojo = new CampaignPOJO();
 		campaignPojo.setId(getId());
 		campaignPojo.setName(getName());
 		campaignPojo.setDescription(getDescription());

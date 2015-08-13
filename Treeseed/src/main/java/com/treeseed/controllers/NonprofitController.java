@@ -502,7 +502,7 @@ public class NonprofitController extends UserGeneralController {
 	 * Gets the dashboard.
 	 *
 	 * @param request the request
-	 * @return the dashboard
+	 * @return the dashboard information
 	 */
 	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public NonprofitResponse getDashboard(@RequestBody NonprofitRequest nonprofitRequest) {
@@ -533,7 +533,7 @@ public class NonprofitController extends UserGeneralController {
 					donationPojo.setNonProfitId(donation.getNonProfitId());
 					donationPojo.setNonprofitName(nonProfitService.getNonProfitById(donation.getNonProfitId()).getName());
 					donationPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(donation.getDateTime()));
-					
+					donationPojo.setDonor(donation.getDonor().getDonorPojo());
 					donationsPojo.add(donationPojo);
 				}
 				
@@ -547,9 +547,16 @@ public class NonprofitController extends UserGeneralController {
 						subscriptionPojo.setCampaignName(subscription.getCampaign().getName());
 					}
 					subscriptionPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(subscription.getDateTime()));
-					//subscriptionPojo
+					subscriptionPojo.setDonor(subscription.getDonor().getDonorPojo());
+					subscriptionsPojo.add(subscriptionPojo);
 					
 				}
+				
+				us.setDashboardSubscription(subscriptionsPojo);
+				us.setDashboardDonations(donationsPojo);
+				
+				us.setCode(200);
+				us.setErrorMessage("Success");
 			}else{
 				us.setCode(400);
 				us.setErrorMessage("User session do not match");

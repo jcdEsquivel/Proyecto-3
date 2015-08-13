@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.services.CampaignServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -22,7 +23,13 @@ public class RecurrableDonationWrapper {
 	/** The campaign. */
 	CampaignWrapper campaign;
 	
-	DonorWrapper donor;
+	/** The campaign service. */
+	@Autowired
+	private DonorServiceInterface donorService;
+
+
+	/** The campaign. */
+	private DonorWrapper donor;
 
 	/**
 	 * Instantiates a new recurrable donation wrapper.
@@ -297,6 +304,19 @@ public class RecurrableDonationWrapper {
 	private void setCampaign(CampaignWrapper campaign) {
 		this.campaign = campaign;
 	}
+	
+	public DonorWrapper getDonor() {
+		if(donor.getWrapperObject()==null){
+			setDonor(donorService.getDonorById(getDonorId()));
+		}
+		
+		return donor;
+	}
+
+	private void setDonor(DonorWrapper donor) {
+		this.donor = donor;
+	}
+
 	
 	
 }

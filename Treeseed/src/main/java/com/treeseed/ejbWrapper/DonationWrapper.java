@@ -10,6 +10,7 @@ import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 
 
 // TODO: Auto-generated Javadoc
@@ -21,6 +22,17 @@ public class DonationWrapper {
 	/** The wrapper object. */
 	private Donation wrapperObject;
 	
+	
+	/** The campaign service. */
+	@Autowired
+	private DonorServiceInterface donorService;
+	
+	/** The campaign. */
+	private DonorWrapper father;
+
+	/** The campaign. */
+	private DonorWrapper donor;
+	
 	/** The campaign service. */
 	@Autowired
 	private CampaignServiceInterface campaignService;
@@ -30,8 +42,6 @@ public class DonationWrapper {
 	/** The campaign. */
 	private CampaignWrapper campaign;
 	
-	/** The campaign pojo. */
-	private CampaignPOJO campaignPojo;
 
 	/**
 	 * Gets the stripe id.
@@ -273,6 +283,30 @@ public class DonationWrapper {
 	 */
 	private void setCampaign(CampaignWrapper campaign) {
 		this.campaign = campaign;
+	}
+
+	public DonorWrapper getDonor() {
+		if(donor.getWrapperObject()==null){
+			setDonor(donorService.getDonorById(getDonorId()));
+		}
+		
+		return donor;
+	}
+
+	private void setDonor(DonorWrapper donor) {
+		this.donor = donor;
+	}
+
+	public DonorWrapper getFather() {
+		if(father.getWrapperObject()==null){
+			setFather(donorService.getDonorById(getDonorFatherId()));
+		}
+		
+		return father;
+	}
+
+	private void setFather(DonorWrapper father) {
+		this.father = father;
 	}
 	
 }

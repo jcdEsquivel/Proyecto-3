@@ -24,8 +24,7 @@ public class DonorWrapper extends ParentUserWrapper{
 	/** The wrapper object. */
 	private Donor wrapperObject;
 	
-	/** The donor pojo. */
-	private DonorPOJO donorPojo;
+
 
 	/** The complete name. */
 	private String completeName;
@@ -522,6 +521,8 @@ public class DonorWrapper extends ParentUserWrapper{
 	 * @return the donor pojo
 	 */
 	public DonorPOJO getDonorPojo() {
+		DonorPOJO donorPojo = new DonorPOJO();
+		
 		donorPojo.setName(getName());
 		donorPojo.setLastName(getLastName());
 		donorPojo.setProfilePicture(getProfilePicture());

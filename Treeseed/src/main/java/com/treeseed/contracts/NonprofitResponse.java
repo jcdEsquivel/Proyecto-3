@@ -2,7 +2,9 @@ package com.treeseed.contracts;
 
 import java.util.List;
 
+import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 
 public class NonprofitResponse extends BaseResponse{
@@ -12,8 +14,26 @@ public class NonprofitResponse extends BaseResponse{
 	private int nonProfitId;
 	private boolean isOwner;
 	private UserGeneralPOJO userGeneral;
+	List<DonationPOJO> dashboardDonations;
+	List<RecurrableDonationPOJO> dashboardSubscription;
 
 
+
+	public List<DonationPOJO> getDashboardDonations() {
+		return dashboardDonations;
+	}
+
+	public void setDashboardDonations(List<DonationPOJO> dashboardDonations) {
+		this.dashboardDonations = dashboardDonations;
+	}
+
+	public List<RecurrableDonationPOJO> getDashboardSubscription() {
+		return dashboardSubscription;
+	}
+
+	public void setDashboardSubscription(List<RecurrableDonationPOJO> dashboardSubscription) {
+		this.dashboardSubscription = dashboardSubscription;
+	}
 
 	public UserGeneralPOJO getUserGeneral() {
 		return userGeneral;
