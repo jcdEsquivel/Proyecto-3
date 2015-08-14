@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.classic.Logger;
+
 import com.stripe.Stripe;
 import com.stripe.exception.APIConnectionException;
 import com.stripe.exception.APIException;
@@ -271,11 +273,14 @@ public class NonprofitController extends UserGeneralController {
 	@Transactional
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr) {
 
+		
+		
 		npr.setPageNumber(npr.getPageNumber() - 1);
+		NonprofitResponse nps = new NonprofitResponse();
+		
+		try{
 
 		Page<Nonprofit> viewNonprofits = nonProfitService.getNonProfit(npr);
-
-		NonprofitResponse nps = new NonprofitResponse();
 
 		nps.setCodeMessage("nonprofits fetch success");
 
@@ -292,13 +297,21 @@ public class NonprofitController extends UserGeneralController {
 			nnonprofit.setWebPage(objeto.getWebPage());
 			nnonprofit.setProfilePicture(objeto.getProfilePicture());
 			viewNonprofitsPOJO.add(nnonprofit);
-		}
-		;
+			};
 
 		nps.setNonprofits(viewNonprofitsPOJO);
 		nps.setCode(200);
 		return nps;
 
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			if(e.getMessage().contains("could not extract ResultSet")){
+				nps.setCode(10);
+			}else{
+				nps.setCode(500);
+			}
+			return nps;
+		}
 	}
 
 	/**
