@@ -5,7 +5,8 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 
 treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams, $modal,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace) {
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, 
+		nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace, $timeout, $translate) {
 
 	
 	$scope.percent = 0;
@@ -17,6 +18,10 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 			password:'',
 			confirm_password:''
 	};
+	
+	$scope.loadDonation = {
+			isLoading : 0
+		};
 	
 	$scope.number = '';
 	$scope.cvc = '';
@@ -58,7 +63,11 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 	//Stripe submit method
 	$scope.stripeCallback = function (code, result) {
-	    if (result.error) {
+		$scope.$form = angular.element(document.querySelector('#payment-form'));  
+		
+		$scope.loadDonation.isLoading = 1;
+		
+		if (result.error) {
 	        window.alert('it failed! error: ' + result.error.message);
 	    } else {
 	    	$scope.upload = $upload.upload({
@@ -81,15 +90,22 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 								  
 					  $donationService.createDonation('newCard', nonprofitId, $scope.campaignId, response.donorId,
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
-							  0).then(function(data){
-						  
-						  
-						  $scope.close();
-						  
-					  });
+							  0).success(function(data){  
+								  $scope.loadDonation.isLoading = 0;
+								  $scope.close();
+					  }).error(function(error){
+						  	$scope.loadDonation.isLoading = 0;
+						  	console.log(error)
+	    					$timeout(function() {
+	    					$scope.$form.find('.payment-errors').text(error.message);
+	    					   }, 250);
+						   
+		    			});
 					  
 					
 				  }
+					  
+				  
 				  
 			});//end success	
 	    	
@@ -107,25 +123,73 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		}
 	};
 	
+	
 	$scope.close = function() {
+		$scope.openSummary();
+		$modalInstance.close();
+	};
+	
+	$scope.closeWithoutDonation = function() {
 		$modalInstance.close();
 		
 	};
 	
-	$scope.createDonation = function(idDonor, stripeToken){
+	$scope.openSummary = function(){
 		
+		$translate('DONATION-MODAL.SUCCESS-1').then(
+				function successFn(translation) {
+					 $scope.titleMessage1 = translation;
+					 
+				});
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/page_donationSummary.html',
+			controller : 'summaryDonationController',
+			size : 'md',//,
+			resolve : {
+				
+				nonprofitId: function(){
+					return nonprofitId;
+				},
+				titleFace: function(){
+					return titleFace;
+				},
+				descriptionFace: function(){
+					return descriptionFace;
+				},
+				pictureFace: function(){
+					return pictureFace;
+				},
+				amount: function(){
+					return $scope.donationInfo.amount;
+				},
+				plan: function(){
+					return $scope.donationInfo.donationPlan;
+				}
+			}
+			
+		});
+	}
+	
+	$scope.createDonation = function(idDonor, stripeToken){
 		$donationService.createDonation(idDonor, stripeToken,
 										$scope.donationInfo.donationPlan, 
 										$scope.donationInfo.amount)
-										.then(function (data){
-											
-										});//end then
+										.success(function (data){
+											$scope.loadDonation.isLoading = 0;
+										}).error(function(error){
+											$scope.loadDonation.isLoading = 0;
+					    					$timeout(function() {
+					    						$scope.$form.find('.payment-errors').text(error.message);
+					    					    }, 250);
+						    			});//end then
 		
 	};
 	
 	
 	$scope.logIn = function(email, password ){
-		 var credentials = {
+		var credentials = {
 				    email: email,
 				    password: password
 			   };
@@ -416,6 +480,12 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 		isLoading : true
 	};
 	
+	$scope.loadDonation = {
+			isLoading : 0
+		};
+	
+	
+	
 	$scope.hide = ' **** **** **** ';
 	
 	$scope.donorCards = {
@@ -519,6 +589,7 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	
 	
 	$scope.submitForm = function(){
+		$scope.$form = angular.element(document.querySelector('#payment-form'));
 		
 		if($scope.cardRequest.selectedCard == 'new'){
 			/*var newCreditCard = $scope.number.slice(-4);
@@ -534,18 +605,25 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 			}//end for*/
 			
 			  $timeout(function(){
-				 
+				  
 				  document.getElementById('btn-submit').click();
+				  $scope.loadDonation.isLoading = 1;
 	          });
 			
-		}else{//create donation with old crea
-	
+		}else{//create donation with old card
+			$scope.loadDonation.isLoading = 1;
 			$donationService.createDonation('oldCard', nonprofitId, $scope.campaignId, Session.userId ,
 					  $scope.cardRequest.selectedCard, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
-					  0).then(function(data){
-				 
-				  $scope.close();
-			  });
+					  0).success(function(data){
+						  $scope.loadDonation.isLoading = 0;
+						  $scope.close();
+					  }).error(function(error){
+						  $scope.loadDonation.isLoading = 0;
+						  $timeout(function() {
+    						$scope.$form.find('.payment-errors').text(error.message);
+    					    }, 250);
+						  
+					  });
 				
 		}
 		
@@ -554,19 +632,23 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	
 	//Stripe submit method
 	$scope.stripeCallback = function (code, result) {
-		
+		  
 	    if (result.error) {
 	        window.alert('it failed! error: ' + result.error.message);
 	    } else {
-	    				
-			  $donationService.createDonation('newCard', nonprofitId, $scope.campaignId, Session.userId ,
-					  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
-					  0).then(function(data){
-				 
-				  $scope.close();
-			  });
-					  
-
+	    	$donationService.createDonation('newCard', nonprofitId, $scope.campaignId, Session.userId ,
+	    			result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
+	    			0).success(function(data, status){
+	    				$scope.loadDonation.isLoading = 0;
+	    				$scope.close();
+	    			}).error(function(error){
+    					$scope.loadDonation.isLoading = 0;
+    					$timeout(function() {
+    						$scope.$form.find('.payment-errors').text(error.message);
+    					    }, 250);
+    					
+	    			});
+	    	
 	    }
 	};//end stripe submit
 	
@@ -582,7 +664,13 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	};
 	
 	$scope.close = function() {
+		
 		$scope.openSummary();
+		$modalInstance.close();
+		
+	};
+	
+	$scope.closeWithoutDonation = function() {
 		$modalInstance.close();
 		
 	};
@@ -641,7 +729,10 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 	 $scope.donationTypePlan = '';
 	 $scope.month = '';
 	 $scope.year = '';
- 
+	 $scope.nonProfitImg='';
+	 $scope.campaignImg=''
+		 
+ 		 
  $scope.titleFaceS = titleFace;
  $scope.descriptionFace = descriptionFace;
  $scope.imageFace = pictureFace;
@@ -663,26 +754,16 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 			function successFn(translation) {
 				 $scope.titleMessage2 = translation;
 			});
- 
 
- 
-
- 
-
- 
  $translate('DONATION-MODAL.MESSAGE').then(
 			function successFn(translation) {
 				$scope.donationMessage = translation
 			});
  
- 
  $translate('DONATION-MODAL.MESSAGE').then(
 			function successFn(translation) {
 				$scope.year = translation
 			});
-
- 
-
 
  if (plan == 'custom') {
   $scope.amount = "$"+amount;
@@ -693,8 +774,7 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 				 
 			});
   
- } else {
-  
+ } else { 
 	 $translate('DONATION-MODAL.SUCCESS-DONATION-TYPE-PLAN').then(
 				function successFn(translation) {
 					 $scope.type = translation
@@ -706,42 +786,41 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 				});
 	 
 	 
-  switch (plan) {
-  case '1':
-   $scope.amount = "$10";
-   break;
-  case '2':
-   $scope.amount = "$18";
-   break;
-  case '3':
-   $scope.amount = "$36";
-   break;
-  case '4':
-   $scope.amount = "$50";
-   break;
-  case '5':
-   $scope.amount = "$100";
-   break;
-  case '6':
-   $scope.amount = "$250";
-   break;
-
-  default:
-   break;
-  }
- }
- 
- if ($stateParams.campaignId) {
-  $scope.campaignId = $stateParams.campaignId;
- } else {
-  $scope.campaignId = "";
- }
- 
- $scope.close = function() {
-
-  $modalInstance.close();
-
- };
+	  switch (plan) {
+	  case '1':
+	   $scope.amount = "$10";
+	   break;
+	  case '2':
+	   $scope.amount = "$18";
+	   break;
+	  case '3':
+	   $scope.amount = "$36";
+	   break;
+	  case '4':
+	   $scope.amount = "$50";
+	   break;
+	  case '5':
+	   $scope.amount = "$100";
+	   break;
+	  case '6':
+	   $scope.amount = "$250";
+	   break;
+	
+	  default:
+	   break;
+	  }
+	 }
+	 
+	 if ($stateParams.campaignId) {
+	  $scope.campaignId = $stateParams.campaignId;
+	 } else {
+	  $scope.campaignId = "";
+	 }
+	 
+	 $scope.close = function() { 
+	  $modalInstance.close();
+	
+	 };
 });
 
 
