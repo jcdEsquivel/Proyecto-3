@@ -90,11 +90,17 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
   		
 		body = descriptionFace;
 		
-		//var encrypted = CryptoJS.AES.encrypt($scope.idShareUser, "golondrinasTicas");
+		var id = $scope.idShareUser + "";
+		
+		var encrypted = CryptoJS.AES.encrypt(id, "golondrinasTicas");
+		
+		//var decrypted = CryptoJS.AES.decrypt(encrypted, "golondrinasTicas");
+		//var result = decrypted.toString(CryptoJS.enc.Utf8);
+		//console.log(result);
 		
 		FB.api('/me/feed','post', { 
 			message: body, 
-			link: "http://127.0.0.1:8080/treeseed.org",	
+			link: "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + encrypted,	
 			picture: pictureFace,
 			name: titleFace,
 			description: descripcionC

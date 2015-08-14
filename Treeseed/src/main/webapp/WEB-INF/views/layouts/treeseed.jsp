@@ -35,15 +35,16 @@
 <script src="resources/js/controllers/nonprofitController.js"></script>
 <script src="resources/js/controllers/donorController.js"></script>
 <script src="resources/js/controllers/postController.js"></script>
+<script src="resources/js/controllers/loadingController.js"></script>
 <script src="resources/js/controllers/postCampaignController.js"></script>
 <script src="resources/js/controllers/transparencyReportController.js"></script>
-<script src="resources/js/config.js"></script>
 <script src="resources/js/controllers/donorReceiptsController.js"></script>
 <script src="resources/js/controllers/donationReportController.js"></script>
 <script src="resources/js/controllers/facebookController.js"></script>
+<script src="resources/js/config.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
-
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 <!-- <base href="/treeseed.org" /> -->
 
 

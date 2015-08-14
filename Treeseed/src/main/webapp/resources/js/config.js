@@ -77,6 +77,20 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.sharedDonation',
+											{
+												url : 'sharedDonation/:donorId',
+												templateUrl : 'layouts/pages/loading.html',
+												params: {donorId: null},
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
+											})
+									.state(
 											'treeSeed.nonProfit',
 											{
 												url : 'nonProfit/:nonProfitId',
