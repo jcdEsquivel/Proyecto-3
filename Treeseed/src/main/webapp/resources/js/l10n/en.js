@@ -70,21 +70,22 @@
     	"PORTFOLIO": "Portfolio"
     },
     "REGISTER-DONOR": {
-    	"NAME": "Name",
-    	"LASTNAME": "Last Name",
-    	"EMAIL": "Email",
-    	"PASSWORD": "Password",
+    	"NAME": "Name *",
+    	"LASTNAME": "Last Name *",
+    	"EMAIL": "Email *",
+    	"PASSWORD": "Password *",
     	"CAMPAIGN": "Campaign",
-    	"COUNTRY": "Country",
+    	"COUNTRY": "Country *",
     	"PICTUREIMAGE": "Picture Image",
     	"DROPIMAGE" : "Drop an image here to upload.",
     	"TITTLE" : "Register Donor",
     	"REGISTER" : "Register",
         "CANCEL" : "Cancel",
         "PASSWORD-MESSAGE" : "Passwords do not match.",
-    	"PASSWORD-CONFIRM" : "Confirm password",
+    	"PASSWORD-CONFIRM" : "Confirm password *",
     	"REGISTERFACEBOOK" : "Register with facebook",
-    	"EXISTEMAIL": "The email already exists."
+    	"EXISTEMAIL": "The email already exists.",
+    	"INVALID-EMAIL": "Invalid Email"
     },
     "NONPROFITSEARCH":{
     	"HEADER-TITLE": "Non Profits Advanced Search"
@@ -119,12 +120,12 @@
 	},
     "REGISTER-NONPROFIT": {
     	"TITLE": "Nonprofit Registration",
-        "NAME": "Name",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "PASSWORD-CONFIRM": "Confirm password",
-        "CAUSE": "Cause",
-        "COUNTRY": "Country",
+        "NAME": "Name *",
+        "EMAIL": "Email *",
+        "PASSWORD": "Password *",
+        "PASSWORD-CONFIRM": "Confirm password *",
+        "CAUSE": "Cause *",
+        "COUNTRY": "Country *",
         "PICTUREIMAGE": "Profile Picture",
         "DROPIMAGE" : "Drop an image here to upload.",
         "REGISTER-BUTTON": "Register",
@@ -144,7 +145,8 @@
     	"LINKEDIN": "Login with Linkedin",
     	"DO-YOU": "Do not have an account?",
 		"CREATE": "Create an account",
-		"EMAIL-ERROR": "Wrong email or password."	
+		"EMAIL-ERROR": "Wrong email or password.",
+		"SHAREFACEBOOK": "Share in facebook"
        },
 
    	"NONPROFIT-PROFILE": {
@@ -155,8 +157,29 @@
    		"CAMPAIGNS": "Campaigns",
    		"UPDATES": "Updates",
    		"DONORS": "Donors:",
-   		"DONATIONS": "Donations:"
+   		"DONATIONS": "Donations:",
+        "REPORTS": "Transparency Reports",
+        "MONTH": "Month",
+        "YEAR": "Year",
+        "SEARCH": "Search",
+        "DETAIL": "Detail",
+        "AMOUNT-IN":"Amount in: ",
+        "AMOUNT-OUT":"Spent : "
     },
+    "MONTH": {
+        "JAN": "January",
+        "FEB": "February",
+        "MAR": "March",
+        "APR": "April",
+        "MAY": "May",
+        "JUN": "June",
+        "JUL": "July",
+        "AUG": "August",
+        "SEP": "September",
+        "OCT": "October",
+        "NOV": "November",
+        "DEC": "December"
+     },
     "BUTTONS": {
    		"SAVE": "Save",
    		"CANCEL": "Cancel"
@@ -195,6 +218,13 @@
    		"MESSAGE": "Are you sure you want to delete your post?",
    		"DELETE": "Delete"
     },
+    "NONPROFIT-DONATION-REPORT":{
+    	"TITLE":"NGO Donations report",
+    	"DATE":"Date",
+    	"AMOUNT":"Donated Amount",
+    	"CAMPAIGN":"Campaign",
+    	"DONOR":"Donor"
+    },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
     	"TITLE":"Create Campaign",
@@ -215,7 +245,8 @@
         	"BUTTON-NEXT":"Next",
         	"PLACEHOLDER-DATE1":"Start Date",
         	"PLACEHOLDER-DATE2":"End Date",
-        	"PLACEHOLDER-AMOUNT":"Amount goal"
+        	"PLACEHOLDER-AMOUNT":"Amount goal",
+        	"NO-END-CAMPAIGN":"Endless Campaign"
         },
     	"TAB-3":{
     		"TITLE":"Image",
@@ -257,6 +288,9 @@
     	"ACTIVE": "Active",
     	"FINISHED": "Finished"
 	},
+    "RECEIPT-SEARCH":{
+        "TITLE": "Search Donations Receipts"
+    },
     "CAMPAIGN":{
     	"TAB-1":{
     		"TITLE":"Information",
@@ -275,5 +309,45 @@
     	"CLOSE":"Finish",
     	"CANCEL":"Cancel",
     	"CLOSE-BUTTON":"Finish Campaign"
+    },
+    "DONATION-PLAN":{
+    	"SIMPLE": "Simple Donation",
+    	"CUSTOM": "Custom Donation",
+    	"MONTHLY": "Donation Plans",
+    	"10": "Monthly $10",
+    	"18": "Monthly $18",
+    	"36": "Monthly $36",
+    	"50": "Monthly $50",
+    	"100": "Monthly $100",
+    	"250": "Monthly $250"
+    },
+    "DONATION-MODAL":{
+    	"TITLE": "New Donation",
+    	"DONOR-INFO":"Donor Information",
+    	"DONATION": "Donation",
+    	"CARD-NUMBER": "Card Number",
+    	"CVC": "CVC",
+    	"EXP-DATE": "Expiration Date",
+    	"TYPE": "Donation type",
+    	"AMOUNT": "Amount",
+    	"NEXT": "Next",
+    	"DONATE": "Donate",
+    	"CANCEL": "Cancel",
+    	"INVALID-CARD": "Invalid card number format",
+    	"INVALID-CVC": "Invalid CVC",
+    	"INVALID-EXP": "Invalid expiration date",
+    	"NEW-CARD-NUMBER": "New Card",
+    	"LOADING-CARDS": "Loading Cards",
+    	"DONATE": "Donate",
+    	"SUCCESS-1":"Treeseed.org and ",
+    	"SUCCESS-2": " are thank full \for your donation! ",
+    	"SUCCESS-DONATION-TYPE-CUSTOM": "Custom Donation" ,
+    	"SUCCESS-DONATION-TYPE-PLAN": "Donation by suscription",
+    	"SUCCESS-MONTH": "/month",
+    	"SUCCESS-YEAR": "/year",
+    	"MESSAGE": "Donation Info: ",
+    	"PLAN-MESSAGE": "Monthly "
+    	
+    	
     }
 }

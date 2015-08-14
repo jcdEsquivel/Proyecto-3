@@ -78,6 +78,15 @@
             </div>
          </div>
          <div class="col wrapper-lg w-lg bg-light dk r-r">
+         	<div class="row m-b-md">
+         		<div class="col-sm-2"></div>
+         		<div class="col-sm-10">
+	         	<md-button class="btn  btn-warning btn-addon" ng-if="showDonationButton" ng-click="showDonation()">
+	        		 <i class="fa fa-dollar"></i>
+	        		<span translate="DONATION-MODAL.DONATE">Donate</span>
+	      		</md-button>
+	      		</div>
+         	</div>
             <h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>
             <div class="">
                <div class="">
@@ -93,7 +102,7 @@
                </h4>
                <span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
             </div>
-            <div class="">
+            <div class="" ng-if="campaign.dueDate">
                <h4 ng-hide="amountGoalInEdition">
                   <span class="pull-right text-info" >{{campaign.amountGoal}}</span>
                </h4>
@@ -114,12 +123,11 @@
                   <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="amountGoalClicked()"><i class="fa fa-edit"></i></button>
                </div>
             </div>
-            <div>
+            <div ng-if="campaign.dueDate">
                <div ui-jq="easyPieChart"
                   ui-options="{percent: {{campaign.percent}} ,
                   lineWidth: 15 ,
                   trackColor: '{{app.color.light}}' ,
-                  barColor: '{{app.color.success}}' ,
                   scaleColor: '{{app.color.light}}' ,
                   size: 230 ,
                   lineCap: 'butt' ,

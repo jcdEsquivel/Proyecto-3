@@ -1,0 +1,53 @@
+<div class="w-auto-xs column">
+	<span  ng-click="close()">
+		<a ui-toggle-class="show"
+		class="glyphicon glyphicon-remove pull-right"></a>
+	</span>
+		
+
+	<div style="padding-left: 20px; padding-top: 20px">
+  
+</div>
+	<div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; padding-top: 20px">
+	
+		<span style="text-align: center;"> <h2 class="m-n font-thin h3" >{{titleMessage1}}{{titleFaceS}}{{titleMessage2}}</h1></span>
+		<hr>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<h3>{{type}}</h3>
+			</div>>
+		</div>
+		
+		<div class="row" style="padding-left: 30px; padding-right: 30px;">
+			<div class="col-md-4">
+				<span  class="pull-left" style="padding-left: 20px;"> <h4 class="m-n font-thin h4" >{{donationMessage}}</h4></span>
+				
+			</div>
+			<div class="col-md-4">
+			<span class="pull-right" style="padding-right: 20px"> <h4 class="m-n font-thin h4" >{{planMessage}}{{amount}}</h4></span>
+				
+			</div>
+		</div>	
+		<div class="row">
+			<div class="col-md-12">
+				
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div ng-controller="facebookController">
+	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebook(titleFace,descriptionFace,pictureFace)" ></label></a>						
+	        </div>
+			<div class="pull-right" style="padding-right: 20px; padding-top: 20px">
+			<button type="button" class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="close()"
+			>Accept</button>
+			</div>
+		</div>
+	</div>
+	<div class="text-center row" ng-include="'layouts/components/page_footer.html'">
+	{% include	'blocks/page_footer.html' %}
+	</div>
+</div>

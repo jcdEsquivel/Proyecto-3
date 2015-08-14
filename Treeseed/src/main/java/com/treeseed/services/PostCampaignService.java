@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.PostCampaignRequest;
 import com.treeseed.contracts.PostNonprofitRequest;
@@ -83,6 +84,45 @@ public class PostCampaignService implements PostCampaignServiceInterface{
 		return pageWrapper ;
 		
 	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#updatePostCampaign(com.treeseed.ejbWrapper.PostCampaignWrapper)
+	 */
+	@Override
+	@Transactional
+	public PostCampaignWrapper updatePostCampaign(PostCampaignWrapper wrapper) {
+		postRepository.update(wrapper.getId(),
+				wrapper.getTittle(), 
+				wrapper.getDescription(),
+				wrapper.getPicture()
+				
+				);
+		
+		PostCampaign post = new PostCampaign();
+		PostCampaignWrapper postWrapper = new PostCampaignWrapper();
+		
+		post= postRepository.findOne(wrapper.getId());
+		
+		postWrapper.setId(post.getId());
+		postWrapper.setDescription(post.getDescription());
+		postWrapper.setTittle(post.getTittle());
+		postWrapper.setPicture(post.getPicture());
+		
+		return postWrapper;
+	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.PostCampaignServiceInterface#deletePostCampaign(com.treeseed.contracts.PostCampaignRequest)
+	 */
+	@Override
+	@Transactional
+	public void deletePostCampaign(PostCampaignRequest request)  {
+		int id =request.getPostCampaign().getId();
+		postRepository.deletePost(id);
+		
+	}
 	
 }

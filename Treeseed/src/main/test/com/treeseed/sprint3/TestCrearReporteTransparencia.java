@@ -1,5 +1,4 @@
-package com.treeseed.sprint4;
-
+package com.treeseed.sprint3;
 import java.io.FileInputStream;
 
 import org.junit.Assert;
@@ -11,15 +10,15 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.treeseed.contracts.PostCampaignRequest;
-import com.treeseed.contracts.PostCampaignResponse;
+import com.treeseed.contracts.PostNonprofitRequest;
+import com.treeseed.contracts.PostNonprofitResponse;
 import com.treeseed.controllers.NonprofitController;
-import com.treeseed.ejbWrapper.CampaignWrapper;
-import com.treeseed.pojo.PostCampaignPOJO;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestCrearActualizacionDeCampañas extends AbstractTestController{
+public class TestCrearReporteTransparencia extends AbstractTestController{
 
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	
@@ -34,36 +33,27 @@ public class TestCrearActualizacionDeCampañas extends AbstractTestController{
 	        super.setUp();
 	        
 	    }
-	  
-	  
-	  
 
-		/**
-		 * Test get campaign from nonprofit.
-		 *
-		 * @throws Exception the exception
-		 */
+
+
+		
 		@Test
-		public void testCreatePostCampaign() throws Exception {
+		public void testCreatePostONG() throws Exception {
 
-			CampaignWrapper campaign = createRandomCampaign();
-			int userId = campaign.getNonprofit().getUsergenerals().get(0).getId();
+			NonprofitWrapper nonprofit = createRandomNonprofit();
+			int userId = nonprofit.getUsergenerals().get(0).getId();
 					
-			PostCampaignRequest request = new PostCampaignRequest();
-			PostCampaignPOJO pojo = new PostCampaignPOJO();
-			pojo.setTitle("Campaign Post");
+			PostNonprofitRequest request = new PostNonprofitRequest();
+			PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+			pojo.setTitle("ONG Post");
 			pojo.setDescription("Post description");
-			pojo.setCampaignId(campaign.getId());
+			pojo.setNonprofitId(nonprofit.getId());
 			
-			request.setPostCampaign(pojo);
-			request.setNonprofitId(campaign.getNonprofit().getId());
-
-			pojo.setId(campaign.getId());
-			
+			request.setPostNonprofit(pojo);
 
 			String jsonObject = mapToJson(request);
 
-			String uri = "/rest/protected/postCampaign/register";
+			String uri = "/rest/protected/postNonprofit/register";
 
 			MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
 			
@@ -82,50 +72,41 @@ public class TestCrearActualizacionDeCampañas extends AbstractTestController{
 			
 			String content = result.getResponse().getContentAsString();
 
-			PostCampaignResponse response = mapFromJson(content,
-					PostCampaignResponse.class);
+			PostNonprofitResponse response = mapFromJson(content,
+					PostNonprofitResponse.class);
 
 			Assert.assertEquals("Post created", response.getCodeMessage());
 
 
 		}
 		
+
 		
-		
-		/**
-		 * Test get campaign from nonprofit.
-		 *
-		 * @throws Exception the exception
-		 */
 		@Test
-		public void testCreatePostCampaignNullFile() throws Exception {
+		public void testCreatePostONGWithoutFile() throws Exception {
 
-			CampaignWrapper campaign = createRandomCampaign();
-			int userId = campaign.getNonprofit().getUsergenerals().get(0).getId();
+			NonprofitWrapper nonprofit = createRandomNonprofit();
+			int userId = nonprofit.getUsergenerals().get(0).getId();
 					
-			PostCampaignRequest request = new PostCampaignRequest();
-			PostCampaignPOJO pojo = new PostCampaignPOJO();
-			pojo.setTitle("Campaign Post");
+			PostNonprofitRequest request = new PostNonprofitRequest();
+			PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+			pojo.setTitle("ONG Post");
 			pojo.setDescription("Post description");
-			pojo.setCampaignId(campaign.getId());
+			pojo.setNonprofitId(nonprofit.getId());
 			
-			request.setPostCampaign(pojo);
-			request.setNonprofitId(campaign.getNonprofit().getId());
-
-			pojo.setId(campaign.getId());
-			
+			request.setPostNonprofit(pojo);
 
 			String jsonObject = mapToJson(request);
 
-			String uri = "/rest/protected/postCampaign/register";
+			String uri = "/rest/protected/postNonprofit/register";
 
 			MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
-			
 		
 
 			
 			MvcResult result = mvc.perform(
 			        		MockMvcRequestBuilders.fileUpload(uri)
+			        				//.file(file)
 				                    .file(jsonFile)
 				                    .sessionAttr("idUser", userId))
 			        				.andReturn();
@@ -133,8 +114,8 @@ public class TestCrearActualizacionDeCampañas extends AbstractTestController{
 			
 			String content = result.getResponse().getContentAsString();
 
-			PostCampaignResponse response = mapFromJson(content,
-					PostCampaignResponse.class);
+			PostNonprofitResponse response = mapFromJson(content,
+					PostNonprofitResponse.class);
 
 			Assert.assertEquals("Post created", response.getCodeMessage());
 
@@ -143,32 +124,29 @@ public class TestCrearActualizacionDeCampañas extends AbstractTestController{
 		
 		
 		
+
 		/**
 		 * Test get campaign from nonprofit.
 		 *
 		 * @throws Exception the exception
 		 */
 		@Test
-		public void testCreateInvalidPostCampaign() throws Exception {
+		public void testCreatePostONGInvalid() throws Exception {
 
-			CampaignWrapper campaign = createRandomCampaign();
+			NonprofitWrapper nonprofit = createRandomNonprofit();
 			int userId = -1;
 					
-			PostCampaignRequest request = new PostCampaignRequest();
-			PostCampaignPOJO pojo = new PostCampaignPOJO();
-			pojo.setTitle("Campaign Post");
+			PostNonprofitRequest request = new PostNonprofitRequest();
+			PostNonprofitPOJO pojo = new PostNonprofitPOJO();
+			pojo.setTitle("ONG Post");
 			pojo.setDescription("Post description");
-			pojo.setCampaignId(campaign.getId());
+			pojo.setNonprofitId(nonprofit.getId());
 			
-			request.setPostCampaign(pojo);
-			request.setNonprofitId(campaign.getNonprofit().getId());
-
-			pojo.setId(campaign.getId());
-			
+			request.setPostNonprofit(pojo);
 
 			String jsonObject = mapToJson(request);
 
-			String uri = "/rest/protected/postCampaign/register";
+			String uri = "/rest/protected/postNonprofit/register";
 
 			MockMultipartFile jsonFile = new MockMultipartFile("data", "", "application/json", jsonObject.getBytes());
 			
@@ -187,8 +165,8 @@ public class TestCrearActualizacionDeCampañas extends AbstractTestController{
 			
 			String content = result.getResponse().getContentAsString();
 
-			PostCampaignResponse response = mapFromJson(content,
-					PostCampaignResponse.class);
+			PostNonprofitResponse response = mapFromJson(content,
+					PostNonprofitResponse.class);
 
 			Assert.assertEquals("Invalid request", response.getCodeMessage());
 
