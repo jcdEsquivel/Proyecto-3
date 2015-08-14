@@ -189,9 +189,9 @@ public class DonationService implements DonationServiceInterface{
 	 * @see com.treeseed.services.DonationServiceInterface#getDonationsByNonprofit(int, int)
 	 */
 	@Override
-	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId, int cant) {
+	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId) {
 		
-		List<Donation> donations =donationRepository.getByNonProfitIdDashboard(nonProfitId, cant);
+		List<Donation> donations =donationRepository.findTop10getByNonProfitIdDashboard(nonProfitId);
 		List<DonationWrapper> donationsWrapper = new ArrayList<DonationWrapper>();
 		
 		for(Donation donation:donations){

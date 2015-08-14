@@ -97,8 +97,8 @@ angular
 									.state(
 											'treeSeed.nonProfitDashboard',
 											{
-												url : 'nonProfit/:nonProfitId',
-												templateUrl : 'layouts/pages/nonprofitDashboard.html',
+												url : 'dashboard1',
+												templateUrl : 'layouts/components/nonprofitDashboard.html',
 												controller: "nonprofitDashboardController",
 												params: {nonProfitId: null},
 												resolve : load([

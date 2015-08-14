@@ -156,7 +156,7 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 * @param cant the cant
 	 * @return the by non profit id
 	 */
-	@Query("SELECT * FROM donation where nonProfitId = :nonProfitId and isActive = true order by dateTime Desc Limit :cant ") 
-	List<Donation> getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, @Param("cant") int cant);
+	@Query("SELECT d FROM Donation d where d.nonProfitId = :nonProfitId and d.isActive = true order by d.dateTime Desc ") 
+	List<Donation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId);
 	
 }

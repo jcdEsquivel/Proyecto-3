@@ -73,7 +73,7 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	 * @param cant the cant
 	 * @return the by non profit id dashboard
 	 */
-	@Query("SELECT * FROM recurrableDonation where nonProfitId = :nonProfitId and isActive = true order by dateTime Desc Limit :cant ") 
-	List<RecurrableDonation> getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, @Param("cant") int cant);
+	@Query("SELECT r FROM RecurrableDonation r where r.nonProfitId = :nonProfitId and r.isActive = true order by r.dateTime Desc ") 
+	List<RecurrableDonation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId);
 	
 }

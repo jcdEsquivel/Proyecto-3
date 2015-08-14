@@ -66,5 +66,5 @@ public interface RecurrableDonationServiceInterface {
 	 * @param cant the cant
 	 * @return the recurrable donations by nonprofit
 	 */
-	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId, int cant);
+	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId);
 }

@@ -101,9 +101,9 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 	 * @see com.treeseed.services.RecurrableDonationServiceInterface#getRecurrableDonationsByNonprofit(int, int)
 	 */
 	@Override
-	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId, int cant) {
+	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId) {
 
-		List<RecurrableDonation> recurrableDonations =recurrableDonationRepository.getByNonProfitIdDashboard(nonProfitId, cant);
+		List<RecurrableDonation> recurrableDonations =recurrableDonationRepository.findTop10getByNonProfitIdDashboard(nonProfitId);
 		List<RecurrableDonationWrapper> recurrableDonationsWrapper = new ArrayList<RecurrableDonationWrapper>();
 		
 		for(RecurrableDonation subscription:recurrableDonations){

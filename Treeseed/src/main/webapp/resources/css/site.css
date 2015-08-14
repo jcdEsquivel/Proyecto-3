@@ -121,7 +121,7 @@ margin-right: 10px;
 }
 
 .landing-header-image{
-    background-image: url('../images/landing-treeseed1.jpg') ;
+    background-image: url('../images/landing-treeseed1(1).jpg') ;
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -129,6 +129,14 @@ margin-right: 10px;
  color:white;
  text-align: center;
  background-size: 100% 100%;
+ min-height: 700px;
+ display: -webkit-flex; /* Safari */
+    -webkit-flex-flow: row wrap; /* Safari 6.1+ */
+    -webkit-align-content: space-around; /* Safari 7.0+ */
+ display: flex;
+    flex-flow: row wrap;
+    align-content:center;
+ 
 }
 
 
@@ -180,7 +188,7 @@ padding-right: 15%;
 
 
 .landing-events-image1{
-    background-image: url('../images/landing-kid2.png') ;
+    background-image: url('../images/landing-kid2(1).png') ;
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -197,7 +205,7 @@ background-size: 100% 100%;
 }
 
 .landing-events-image2{
-    background-image: url('../images/landing-ngo2.png') ;
+    background-image: url('../images/landing-ngo2(1).png') ;
    -webkit-background-size: cover;
    -moz-background-size: cover;
    -o-background-size: cover;
@@ -211,7 +219,7 @@ background-size: 100% 100%;
 }
 
 .landing-events-image3{
-    background-image: url('../images/landing-ngo7.png') ;
+    background-image: url('../images/landing-ngo7(1).png') ;
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

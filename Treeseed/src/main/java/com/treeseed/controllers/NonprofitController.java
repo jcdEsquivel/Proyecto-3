@@ -518,8 +518,8 @@ public class NonprofitController extends UserGeneralController {
 		
 		if (nonprofitRequest.getIdUser() > 0) {
 			if(nonprofitRequest.getIdUser() == (int) currentSession.getAttribute("idUser")){
-				donations = donationService.getDonationsByNonprofit(nonprofitRequest.getIdUser(),10);
-				subscriptions = recurrableDonationService.getRecurrableDonationsByNonprofit(nonprofitRequest.getIdUser(), 10);
+				donations = donationService.getDonationsByNonprofit(nonprofitRequest.getIdUser());
+				subscriptions = recurrableDonationService.getRecurrableDonationsByNonprofit(nonprofitRequest.getIdUser());
 				
 				for(DonationWrapper donation: donations){
 					DonationPOJO donationPojo = new DonationPOJO();
