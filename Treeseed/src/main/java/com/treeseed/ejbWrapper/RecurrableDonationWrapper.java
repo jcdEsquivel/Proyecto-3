@@ -14,22 +14,14 @@ import com.treeseed.services.DonorServiceInterface;
  */
 public class RecurrableDonationWrapper {
 
-	/** The campaign service. */
-	@Autowired
-	private CampaignServiceInterface campaignService;
+
 	/** The wrapper object. */
 	RecurrableDonation wrapperObject;
 
 	/** The campaign. */
 	CampaignWrapper campaign;
 	
-	/** The campaign service. */
-	@Autowired
-	private DonorServiceInterface donorService;
 
-
-	/** The campaign. */
-	private DonorWrapper donor;
 
 	/**
 	 * Instantiates a new recurrable donation wrapper.
@@ -283,39 +275,7 @@ public class RecurrableDonationWrapper {
 		
 		return 0;
 	}
-	
-	/**
-	 * Gets the campaign.
-	 *
-	 * @return the campaign
-	 */
-	public CampaignWrapper getCampaign() {
-		if(campaign.getWrapperObject()==null){
-			setCampaign(campaignService.getCampaignById(getCampaingId()));
-		}
-		return campaign;
-	}
 
-	/**
-	 * Sets the campaign.
-	 *
-	 * @param campaign the new campaign
-	 */
-	private void setCampaign(CampaignWrapper campaign) {
-		this.campaign = campaign;
-	}
-	
-	public DonorWrapper getDonor() {
-		if(donor.getWrapperObject()==null){
-			setDonor(donorService.getDonorById(getDonorId()));
-		}
-		
-		return donor;
-	}
-
-	private void setDonor(DonorWrapper donor) {
-		this.donor = donor;
-	}
 
 	
 	

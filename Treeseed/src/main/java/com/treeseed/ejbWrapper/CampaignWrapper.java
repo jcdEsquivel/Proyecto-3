@@ -510,7 +510,6 @@ public class CampaignWrapper {
 		campaignPojo.setStartDateS(getStartDateS());
 		campaignPojo.setStart(isStart());
 		campaignPojo.setEnd(isEnd());
-		campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(getId()));
 		campaignPojo.setDueDate(getDueDate());
 		campaignPojo.setDueDateS(getDueDateS());
 		campaignPojo.setState(getState());

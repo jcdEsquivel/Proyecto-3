@@ -60,6 +60,7 @@ import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 import com.treeseed.repositories.UserGeneralRepository;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
@@ -88,6 +89,12 @@ public class NonprofitController extends UserGeneralController {
 	/** The catalog service. */
 	@Autowired
 	CatalogServiceInterface catalogService;
+	
+	@Autowired
+	CampaignServiceInterface campaignService;
+	
+	@Autowired
+	DonorServiceInterface donorService;
 
 	/** The validator. */
 	EmailValidator validator = EmailValidator.getInstance();
@@ -504,7 +511,7 @@ public class NonprofitController extends UserGeneralController {
 	 * @param request the request
 	 * @return the dashboard information
 	 */
-	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST)
 	public NonprofitResponse getDashboard(@RequestBody NonprofitRequest nonprofitRequest) {
 
 		NonprofitResponse us = new NonprofitResponse();
@@ -517,7 +524,7 @@ public class NonprofitController extends UserGeneralController {
 		
 		
 		if (nonprofitRequest.getIdUser() > 0) {
-			if(nonprofitRequest.getIdUser() == (int) currentSession.getAttribute("idUser")){
+			if(nonprofitRequest.getId() == (int) currentSession.getAttribute("idUser")){
 				donations = donationService.getDonationsByNonprofit(nonprofitRequest.getIdUser());
 				subscriptions = recurrableDonationService.getRecurrableDonationsByNonprofit(nonprofitRequest.getIdUser());
 				
@@ -528,12 +535,12 @@ public class NonprofitController extends UserGeneralController {
 					donationPojo.setAmount(donation.getAmount());
 					donationPojo.setCampaignId(donation.getCampaingId());
 					if(donation.getCampaingId()>0){
-						donationPojo.setCampaign(donation.getCampaign().getCampaignPojo());
+						donationPojo.setCampaign(campaignService.getCampaignById(donation.getCampaingId()).getCampaignPojo());
 					}					
 					donationPojo.setNonProfitId(donation.getNonProfitId());
 					donationPojo.setNonprofitName(nonProfitService.getNonProfitById(donation.getNonProfitId()).getName());
-					donationPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(donation.getDateTime()));
-					donationPojo.setDonor(donation.getDonor().getDonorPojo());
+					donationPojo.setDateS(new SimpleDateFormat("dd MMM yyyy").format(donation.getDateTime()));
+					donationPojo.setDonor(donorService.getDonorById(donation.getDonorId()).getDonorPojo());
 					donationsPojo.add(donationPojo);
 				}
 				
@@ -544,10 +551,10 @@ public class NonprofitController extends UserGeneralController {
 					subscriptionPojo.setAmount(subscription.getAmount());
 					subscriptionPojo.setCampaingId(subscription.getCampaingId());
 					if(subscription.getCampaingId()>0){
-						subscriptionPojo.setCampaignName(subscription.getCampaign().getName());
+						subscriptionPojo.setCampaignName(campaignService.getCampaignById(subscription.getCampaingId()).getName());
 					}
-					subscriptionPojo.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(subscription.getDateTime()));
-					subscriptionPojo.setDonor(subscription.getDonor().getDonorPojo());
+					subscriptionPojo.setDateS(new SimpleDateFormat("dd MMM yyyy").format(subscription.getDateTime()));
+					subscriptionPojo.setDonor(donorService.getDonorById(subscription.getDonorId()).getDonorPojo());
 					subscriptionsPojo.add(subscriptionPojo);
 					
 				}

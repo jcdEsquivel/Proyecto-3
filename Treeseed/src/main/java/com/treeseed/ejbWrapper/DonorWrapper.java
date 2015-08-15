@@ -526,9 +526,14 @@ public class DonorWrapper extends ParentUserWrapper{
 		donorPojo.setName(getName());
 		donorPojo.setLastName(getLastName());
 		donorPojo.setProfilePicture(getProfilePicture());
-		donorPojo.setCountryS(getCountry().getName());
-		donorPojo.setTypeSSpanish(getType().getSpanish());
-		donorPojo.setTypeSEnglish(getType().getEnglish());
+		if(getCountry()!=null){
+			donorPojo.setCountryS(getCountry().getName());
+		}
+		if(getType()!=null){
+			donorPojo.setTypeSSpanish(getType().getSpanish());
+			donorPojo.setTypeSEnglish(getType().getEnglish());
+		}
+
 		return donorPojo;
 	}
 

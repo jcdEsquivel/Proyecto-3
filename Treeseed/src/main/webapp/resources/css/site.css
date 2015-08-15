@@ -408,18 +408,39 @@ fieldset[disabled] .btn-primary.active {
 }
 
 .divAround{
-	
+	height: 300px;
     display: -webkit-flex; /* Safari */
     -webkit-flex-flow: row wrap; /* Safari 6.1+ */
     -webkit-align-content: space-around; /* Safari 7.0+ */
-    display: flex;
+ display: -webkit-flex; /* Safari */
+    -webkit-flex-flow: row wrap; /* Safari 6.1+ */
+    -webkit-align-content: space-around; /* Safari 7.0+ */
+ display: flex;
     flex-flow: row wrap;
-    align-content: space-around;
-    height: 100%;
-  	margin-top: 0;
- 	margin-bottom: 0;
+    align-content:center;
+    
+
     
 }
+
+.divrootdash{
+	border-left:solid 6px #82c341; 
+	border-bottom:solid 6px #82c341;
+	    -moz-border-radius-topleft: 5px;
+-moz-border-radius-topright:5px;
+-moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px;
+-webkit-border-top-left-radius:5px;
+-webkit-border-top-right-radius:5px;
+-webkit-border-bottom-left-radius:5px;
+-webkit-border-bottom-right-radius:5px;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+border-bottom-left-radius:5px;
+border-bottom-right-radius:5px;
+}
+
+
 
 
 .inside-full-height {
@@ -724,4 +745,10 @@ right:0
     border-color: #fff;
     width:100px;
     margin-top: 25px;
+}
+.divDashboard{
+	 background-image: url('../images/ts_ext.png') ;
+   
+  height: 100px;
+  width: 500px;
 }

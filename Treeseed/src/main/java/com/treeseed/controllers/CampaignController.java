@@ -58,6 +58,10 @@ public class CampaignController {
 	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
+	
+	@Autowired
+	DonationServiceInterface donationService;
+	
 
 	/** The servlet context. */
 	@Autowired
@@ -477,6 +481,7 @@ public class CampaignController {
 		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
 
 		campaignPOJO=campaignWrapper.getCampaignPojo();
+		campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(cr.getId()));
 
 		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 
