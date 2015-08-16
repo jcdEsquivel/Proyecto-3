@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -83,40 +84,51 @@ public class CampaignController {
 	 */
 	@RequestMapping(value = "/advanceGet", method = RequestMethod.POST)
 	public CampaignResponse getNonprofits(@RequestBody CampaignRequest cr) {
-
+		
+		CampaignResponse cs = new CampaignResponse();
 		cr.setPageNumber(cr.getPageNumber() - 1);
 
-		Page<Campaign> viewCampaign = campaignService.getAllCampaigns(cr);
-
-		CampaignResponse cs = new CampaignResponse();
-
-		cs.setCodeMessage("campaigns fetch success");
-
-		cs.setTotalElements(viewCampaign.getTotalElements());
-		cs.setTotalPages(viewCampaign.getTotalPages());
-
-		List<CampaignPOJO> viewCampaignPOJO = new ArrayList<CampaignPOJO>();
-
-		for (Campaign objeto : viewCampaign.getContent()) {
-			CampaignPOJO campaign = new CampaignPOJO();
-			campaign.setId(objeto.getId());
-			campaign.setName(objeto.getName());
-			campaign.setDescription(objeto.getDescription());
-			campaign.setAmountCollected(objeto.getAmountCollected());
-			campaign.setAmountGoal(objeto.getAmountGoal());
-			campaign.setPicture(objeto.getPicture());
-
-			NonprofitPOJO cp = new NonprofitPOJO();
-			cp.setName(objeto.getNonprofit().getName());
-			cp.setId(objeto.getNonprofit().getId());
-
-			campaign.setNonprofit(cp);
-			viewCampaignPOJO.add(campaign);
+		try{
+			Page<Campaign> viewCampaign = campaignService.getAllCampaigns(cr);
+	
+			cs.setCodeMessage("campaigns fetch success");
+	
+			cs.setTotalElements(viewCampaign.getTotalElements());
+			cs.setTotalPages(viewCampaign.getTotalPages());
+	
+			List<CampaignPOJO> viewCampaignPOJO = new ArrayList<CampaignPOJO>();
+	
+			for (Campaign objeto : viewCampaign.getContent()) {
+				CampaignPOJO campaign = new CampaignPOJO();
+				campaign.setId(objeto.getId());
+				campaign.setName(objeto.getName());
+				campaign.setDescription(objeto.getDescription());
+				campaign.setAmountCollected(objeto.getAmountCollected());
+				campaign.setAmountGoal(objeto.getAmountGoal());
+				campaign.setPicture(objeto.getPicture());
+	
+				NonprofitPOJO cp = new NonprofitPOJO();
+				cp.setName(objeto.getNonprofit().getName());
+				cp.setId(objeto.getNonprofit().getId());
+	
+				campaign.setNonprofit(cp);
+				viewCampaignPOJO.add(campaign);
+			}
+			;
+	
+			cs.setCampaigns(viewCampaignPOJO);
+			cs.setCode(200);
+			
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
 		}
-		;
-
-		cs.setCampaigns(viewCampaignPOJO);
-		cs.setCode(200);
+		
 		return cs;
 
 	}
@@ -164,78 +176,90 @@ public class CampaignController {
 		Boolean statePlans = false;
 		int[] amounts = {1000,1800,3600,5000,10000,25000};
 
-		if (nonprofit.getWrapperObject() != null) {
-			if (file != null) {
-
-				CampaignWrapper campaign = new CampaignWrapper();
-
-				resultFileName = Utils.writeToFile(file, servletContext);
-
-				if (!resultFileName.equals("")) {
-					campaign.setPicture(resultFileName);
-				} else {
-					campaign.setPicture(TreeseedConstants.DEFAULT_CAPAIGN_IMAGE);
-				}
-				
-
-				date1 = date1.replace('"', '0');
-				dateTmp1 = date1.split("-");
-				dateTmp1[2] = dateTmp1[2].split("T")[0];
-
-				startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1]) - 1,
-						Integer.parseInt(dateTmp1[2]), 0, 00, 0);
-
-				if (!date2.equals("undefined")) {
-					date2 = date2.replace('"', '0');
-					dateTmp = date2.split("-");
-					dateTmp[2] = dateTmp[2].split("T")[0];
-
-					dueDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1]) - 1,
-							Integer.parseInt(dateTmp[2]), 23, 59, 0);
-					campaign.setDueDate(dueDate.getTime());
-					campaign.setAmountGoal(Double.parseDouble(amount));
-				}
-				
-				campaign.setName(name);
-				campaign.setActive(true);
-				campaign.setCreationDate(new Date());
-				campaign.setDescription(description);
-				campaign.setStartDate(startDate.getTime());
-				campaign.setNonprofit(nonprofit.getWrapperObject());
-
-				int campaingId = campaignService.saveCampaign(campaign);
-
-				if (campaingId > 0) {
-					if (date2.equals("undefined")) {
-						statePlans = createCampaignPlans(campaign.getNonprofit().getId(), campaingId,
-								campaign.getNonprofit().getName(), campaign.getName(),amounts);
+		try{
+		
+			if (nonprofit.getWrapperObject() != null) {
+				if (file != null) {
+	
+					CampaignWrapper campaign = new CampaignWrapper();
+	
+					resultFileName = Utils.writeToFile(file, servletContext);
+	
+					if (!resultFileName.equals("")) {
+						campaign.setPicture(resultFileName);
 					} else {
-						statePlans = true;
+						campaign.setPicture(TreeseedConstants.DEFAULT_CAPAIGN_IMAGE);
 					}
-					response.setCampaignId(campaingId);
-					if (statePlans) {
-
-						response.setCode(200);
-						response.setCodeMessage("campaign created successfully");
+					
+	
+					date1 = date1.replace('"', '0');
+					dateTmp1 = date1.split("-");
+					dateTmp1[2] = dateTmp1[2].split("T")[0];
+	
+					startDate.set(Integer.parseInt(dateTmp1[0]), Integer.parseInt(dateTmp1[1]) - 1,
+							Integer.parseInt(dateTmp1[2]), 0, 00, 0);
+	
+					if (!date2.equals("undefined")) {
+						date2 = date2.replace('"', '0');
+						dateTmp = date2.split("-");
+						dateTmp[2] = dateTmp[2].split("T")[0];
+	
+						dueDate.set(Integer.parseInt(dateTmp[0]), Integer.parseInt(dateTmp[1]) - 1,
+								Integer.parseInt(dateTmp[2]), 23, 59, 0);
+						campaign.setDueDate(dueDate.getTime());
+						campaign.setAmountGoal(Double.parseDouble(amount));
+					}
+					
+					campaign.setName(name);
+					campaign.setActive(true);
+					campaign.setCreationDate(new Date());
+					campaign.setDescription(description);
+					campaign.setStartDate(startDate.getTime());
+					campaign.setNonprofit(nonprofit.getWrapperObject());
+	
+					int campaingId = campaignService.saveCampaign(campaign);
+	
+					if (campaingId > 0) {
+						if (date2.equals("undefined")) {
+							statePlans = createCampaignPlans(campaign.getNonprofit().getId(), campaingId,
+									campaign.getNonprofit().getName(), campaign.getName(),amounts);
+						} else {
+							statePlans = true;
+						}
+						response.setCampaignId(campaingId);
+						if (statePlans) {
+	
+							response.setCode(200);
+							response.setCodeMessage("campaign created successfully");
+						} else {
+							response.setErrorMessage("can't create plans");
+							response.setCode(400);
+						}
+	
 					} else {
-						response.setErrorMessage("can't create plans");
 						response.setCode(400);
+						response.setCodeMessage("campaign creation unsuccessful");
 					}
-
 				} else {
 					response.setCode(400);
-					response.setCodeMessage("campaign creation unsuccessful");
+					response.setCodeMessage("NO IMAGE SPECIFIED");
 				}
-			} else {
+	
+			} else
+	
+			{
 				response.setCode(400);
-				response.setCodeMessage("NO IMAGE SPECIFIED");
+				response.setCodeMessage("NONPROFIT DO NOT EXIST");
 			}
-
-		} else
-
-		{
-			response.setCode(400);
-			response.setCodeMessage("NONPROFIT DO NOT EXIST");
+		
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
 
 		return response;
@@ -252,47 +276,59 @@ public class CampaignController {
 	@RequestMapping(value = "/nonprofitCampaigns", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr) {
+		CampaignResponse cs = new CampaignResponse();
 		CampaignPOJO campaignPojo = null;
 		cr.setPageNumber(cr.getPageNumber() - 1);
-		PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
-
-		CampaignResponse cs = new CampaignResponse();
-
-		cs.setTotalElements(pageResults.getTotalItems());
-
-		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
-
-		for (CampaignWrapper objeto : pageResults.getResults()) {
-			campaignPojo = new CampaignPOJO();
-
-			campaignPojo.setId(objeto.getId());
-			campaignPojo.setName(objeto.getName());
-			campaignPojo.setDescription(objeto.getDescription());
-			campaignPojo.setPicture(objeto.getPicture());
-			campaignPojo.setAmountCollected(objeto.getAmountCollected());
-			campaignPojo.setAmountGoal(objeto.getAmountGoal());
-			campaignPojo.setPercent((int) Math.round((objeto.getAmountCollected() / objeto.getAmountGoal()) * 100));
-			campaignPojo.setStartDate(objeto.getStartDate());
-			campaignPojo.setStartDateS(objeto.getStartDateS());
-			campaignPojo.setDueDate(objeto.getDueDate());
-			campaignPojo.setDueDateS(objeto.getDueDateS());
-			campaignPojo.setState(objeto.getState());
-			campaignPojo.setStart(objeto.isStart());
-			campaignPojo.setEnd(objeto.isEnd());
-
-			viewCampaignsPOJO.add(campaignPojo);
-
-		}
-		;
-
-		cs.setCampaigns(viewCampaignsPOJO);
-
-		if (viewCampaignsPOJO.size() > 0) {
-			cs.setCodeMessage("campaigns fetch success");
-			cs.setCode(200);
-		} else {
-			cs.setErrorMessage("campaigns fetch unsuccessful");
-			cs.setCode(400);
+		
+		try{
+		
+			PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
+			
+			cs.setTotalElements(pageResults.getTotalItems());
+	
+			List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
+	
+			for (CampaignWrapper objeto : pageResults.getResults()) {
+				campaignPojo = new CampaignPOJO();
+	
+				campaignPojo.setId(objeto.getId());
+				campaignPojo.setName(objeto.getName());
+				campaignPojo.setDescription(objeto.getDescription());
+				campaignPojo.setPicture(objeto.getPicture());
+				campaignPojo.setAmountCollected(objeto.getAmountCollected());
+				campaignPojo.setAmountGoal(objeto.getAmountGoal());
+				campaignPojo.setPercent((int) Math.round((objeto.getAmountCollected() / objeto.getAmountGoal()) * 100));
+				campaignPojo.setStartDate(objeto.getStartDate());
+				campaignPojo.setStartDateS(objeto.getStartDateS());
+				campaignPojo.setDueDate(objeto.getDueDate());
+				campaignPojo.setDueDateS(objeto.getDueDateS());
+				campaignPojo.setState(objeto.getState());
+				campaignPojo.setStart(objeto.isStart());
+				campaignPojo.setEnd(objeto.isEnd());
+	
+				viewCampaignsPOJO.add(campaignPojo);
+	
+			}
+			;
+	
+			cs.setCampaigns(viewCampaignsPOJO);
+	
+			if (viewCampaignsPOJO.size() > 0) {
+				cs.setCodeMessage("campaigns fetch success");
+				cs.setCode(200);
+			} else {
+				cs.setErrorMessage("campaigns fetch unsuccessful");
+				cs.setCode(400);
+			}
+			
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
 		}
 
 		return cs;
@@ -330,46 +366,56 @@ public class CampaignController {
 	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr) {
 
 		CampaignPOJO campaignPojo = null;
-
-		PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
-
 		CampaignResponse cs = new CampaignResponse();
+		
+		try{
 
-		cs.setTotalElements(pageResults.getTotalItems());
+			PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
+	
+			cs.setTotalElements(pageResults.getTotalItems());
+	
+			List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
+	
+			for (CampaignWrapper objeto : pageResults.getResults()) {
+				campaignPojo = new CampaignPOJO();
+				campaignPojo.setId(objeto.getId());
+				campaignPojo.setName(objeto.getName());
+				campaignPojo.setDescription(objeto.getDescription());
+				campaignPojo.setPicture(objeto.getPicture());
+				campaignPojo.setAmountCollected(objeto.getAmountCollected());
+				campaignPojo.setAmountGoal(objeto.getAmountGoal());
+				campaignPojo.setPercent((int) Math.round((objeto.getAmountCollected() / objeto.getAmountGoal()) * 100));
+				campaignPojo.setStartDate(objeto.getStartDate());
+				campaignPojo.setStartDateS(objeto.getStartDateS());
+				campaignPojo.setDueDate(objeto.getDueDate());
+				campaignPojo.setDueDateS(objeto.getDueDateS());
+				campaignPojo.setState(objeto.getState());
+				campaignPojo.setStart(objeto.isStart());
+				campaignPojo.setEnd(objeto.isEnd());
+	
+				viewCampaignsPOJO.add(campaignPojo);
+			}
+			;
+	
+			cs.setCampaigns(viewCampaignsPOJO);
+	
+			if (viewCampaignsPOJO.size() > 0) {
+				cs.setCodeMessage("campaigns fetch success");
+				cs.setCode(200);
+			} else {
+				cs.setErrorMessage("campaigns fetch unsuccessful");
+				cs.setCode(400);
+			}
 
-		List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
-
-		for (CampaignWrapper objeto : pageResults.getResults()) {
-			campaignPojo = new CampaignPOJO();
-			campaignPojo.setId(objeto.getId());
-			campaignPojo.setName(objeto.getName());
-			campaignPojo.setDescription(objeto.getDescription());
-			campaignPojo.setPicture(objeto.getPicture());
-			campaignPojo.setAmountCollected(objeto.getAmountCollected());
-			campaignPojo.setAmountGoal(objeto.getAmountGoal());
-			campaignPojo.setPercent((int) Math.round((objeto.getAmountCollected() / objeto.getAmountGoal()) * 100));
-			campaignPojo.setStartDate(objeto.getStartDate());
-			campaignPojo.setStartDateS(objeto.getStartDateS());
-			campaignPojo.setDueDate(objeto.getDueDate());
-			campaignPojo.setDueDateS(objeto.getDueDateS());
-			campaignPojo.setState(objeto.getState());
-			campaignPojo.setStart(objeto.isStart());
-			campaignPojo.setEnd(objeto.isEnd());
-
-			viewCampaignsPOJO.add(campaignPojo);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
 		}
-		;
-
-		cs.setCampaigns(viewCampaignsPOJO);
-
-		if (viewCampaignsPOJO.size() > 0) {
-			cs.setCodeMessage("campaigns fetch success");
-			cs.setCode(200);
-		} else {
-			cs.setErrorMessage("campaigns fetch unsuccessful");
-			cs.setCode(400);
-		}
-
 		return cs;
 
 	}
@@ -388,63 +434,74 @@ public class CampaignController {
 		HttpSession currentSession = request.getSession();
 		int tempId = 0;
 		CampaignResponse cs = new CampaignResponse();
+		
+		try{
 
-		if (cr.getIdUser() != 0) {
-			tempId = (int) currentSession.getAttribute("idUser");
-		}
-
-		if (cr.getCampaign().getId() != 0) {
-			CampaignWrapper campaign = campaignService.getCampaignById(cr.getCampaign().getId());
-
-			if (campaign.getWrapperObject() != null) {
-				if (tempId == campaign.getNonprofit().getUsergenerals().get(0).getId()) {
-					cs.setOwner(true);
+			if (cr.getIdUser() != 0) {
+				tempId = (int) currentSession.getAttribute("idUser");
+			}
+	
+			if (cr.getCampaign().getId() != 0) {
+				CampaignWrapper campaign = campaignService.getCampaignById(cr.getCampaign().getId());
+	
+				if (campaign.getWrapperObject() != null) {
+					if (tempId == campaign.getNonprofit().getUsergenerals().get(0).getId()) {
+						cs.setOwner(true);
+					} else {
+						cs.setOwner(false);
+					}
+	
+					CampaignPOJO campaignPojo = new CampaignPOJO();
+	
+					campaignPojo = new CampaignPOJO();
+					campaignPojo.setId(campaign.getId());
+					campaignPojo.setName(campaign.getName());
+					campaignPojo.setDescription(campaign.getDescription());
+					campaignPojo.setPicture(campaign.getPicture());
+					campaignPojo.setAmountCollected(campaign.getAmountCollected());
+					campaignPojo.setAmountGoal(campaign.getAmountGoal());
+					campaignPojo.setPercent((int) Math.round(campaign.getPercent()));
+					campaignPojo.setStartDate(campaign.getStartDate());
+					campaignPojo.setStartDateS(campaign.getStartDateS());
+					campaignPojo.setStart(campaign.isStart());
+					campaignPojo.setEnd(campaign.isEnd());
+					campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
+					campaignPojo.setDueDate(campaign.getDueDate());
+					campaignPojo.setDueDateS(campaign.getDueDateS());
+					campaignPojo.setState(campaign.getState());
+	
+					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+	
+					nonprofitPOJO.setId(campaign.getNonprofit().getId());
+					nonprofitPOJO.setName(campaign.getNonprofit().getName());
+					nonprofitPOJO.setProfilePicture(campaign.getNonprofit().getProfilePicture());
+	
+					campaignPojo.setNonprofit(nonprofitPOJO);
+	
+					cs.setCampaign(campaignPojo);
+	
+					cs.setCode(200);
+					cs.setCodeMessage("campaign search success");
+	
 				} else {
-					cs.setOwner(false);
+					cs.setCode(400);
+					cs.setErrorMessage("campaign search unsuccessful");
+	
 				}
-
-				CampaignPOJO campaignPojo = new CampaignPOJO();
-
-				campaignPojo = new CampaignPOJO();
-				campaignPojo.setId(campaign.getId());
-				campaignPojo.setName(campaign.getName());
-				campaignPojo.setDescription(campaign.getDescription());
-				campaignPojo.setPicture(campaign.getPicture());
-				campaignPojo.setAmountCollected(campaign.getAmountCollected());
-				campaignPojo.setAmountGoal(campaign.getAmountGoal());
-				campaignPojo.setPercent((int) Math.round(campaign.getPercent()));
-				campaignPojo.setStartDate(campaign.getStartDate());
-				campaignPojo.setStartDateS(campaign.getStartDateS());
-				campaignPojo.setStart(campaign.isStart());
-				campaignPojo.setEnd(campaign.isEnd());
-				campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
-				campaignPojo.setDueDate(campaign.getDueDate());
-				campaignPojo.setDueDateS(campaign.getDueDateS());
-				campaignPojo.setState(campaign.getState());
-
-				NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-
-				nonprofitPOJO.setId(campaign.getNonprofit().getId());
-				nonprofitPOJO.setName(campaign.getNonprofit().getName());
-				nonprofitPOJO.setProfilePicture(campaign.getNonprofit().getProfilePicture());
-
-				campaignPojo.setNonprofit(nonprofitPOJO);
-
-				cs.setCampaign(campaignPojo);
-
-				cs.setCode(200);
-				cs.setCodeMessage("campaign search success");
-
 			} else {
 				cs.setCode(400);
-				cs.setErrorMessage("campaign search unsuccessful");
-
+				cs.setErrorMessage("campaign do not received");
 			}
-		} else {
-			cs.setCode(400);
-			cs.setErrorMessage("campaign do not received");
-		}
 
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
+		}
 		return cs;
 
 	}
@@ -452,10 +509,8 @@ public class CampaignController {
 	/**
 	 * Edits the campaign.
 	 *
-	 * @param cr
-	 *            the campaign request
-	 * @param fileCampaign
-	 *            the campaign picture
+	 * @param cr the campaign request
+	 * @param fileCampaign the campaign picture
 	 * @return the campaign response
 	 */
 	@RequestMapping(value = "/editCampaign", method = RequestMethod.POST, consumes = { "multipart/form-data" })
@@ -491,47 +546,57 @@ public class CampaignController {
 		campaign.setAmountGoal(cr.getAmountGoal());
 		campaign.setAmountCollected(cr.getAmountCollected());
 
-		campaignService.updateCampaign(campaign);
-		CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
-
-		campaignPOJO.setId(campaignWrapper.getId());
-		campaignPOJO.setName(campaignWrapper.getName());
-		campaignPOJO.setDescription(campaignWrapper.getDescription());
-		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-		campaignPOJO.setPicture(campaignWrapper.getPicture());
-		campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-		campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-		campaignPOJO.setPercent((int) Math.round(campaignWrapper.getPercent()));
-		campaignPOJO.setStartDate(campaignWrapper.getStartDate());
-		campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
-		campaignPOJO.setStart(campaignWrapper.isStart());
-		campaignPOJO.setEnd(campaignWrapper.isEnd());
-		campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
-		campaignPOJO.setDueDate(campaignWrapper.getDueDate());
-		campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
-		campaignPOJO.setState(campaignWrapper.getState());
-
-		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-
-		nonprofitPOJO.setId(campaignWrapper.getNonprofit().getId());
-		nonprofitPOJO.setName(campaignWrapper.getNonprofit().getName());
-		nonprofitPOJO.setProfilePicture(campaignWrapper.getNonprofit().getProfilePicture());
-
-		campaignPOJO.setNonprofit(nonprofitPOJO);
-
-		cs.setCode(200);
-		cs.setCodeMessage("Campaign updated sucessfully");
-		cs.setCampaign(campaignPOJO);
-
+		try{
+		
+			campaignService.updateCampaign(campaign);
+			CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
+	
+			campaignPOJO.setId(campaignWrapper.getId());
+			campaignPOJO.setName(campaignWrapper.getName());
+			campaignPOJO.setDescription(campaignWrapper.getDescription());
+			campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+			campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+			campaignPOJO.setPicture(campaignWrapper.getPicture());
+			campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
+			campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
+			campaignPOJO.setPercent((int) Math.round(campaignWrapper.getPercent()));
+			campaignPOJO.setStartDate(campaignWrapper.getStartDate());
+			campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
+			campaignPOJO.setStart(campaignWrapper.isStart());
+			campaignPOJO.setEnd(campaignWrapper.isEnd());
+			campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
+			campaignPOJO.setDueDate(campaignWrapper.getDueDate());
+			campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
+			campaignPOJO.setState(campaignWrapper.getState());
+	
+			NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+	
+			nonprofitPOJO.setId(campaignWrapper.getNonprofit().getId());
+			nonprofitPOJO.setName(campaignWrapper.getNonprofit().getName());
+			nonprofitPOJO.setProfilePicture(campaignWrapper.getNonprofit().getProfilePicture());
+	
+			campaignPOJO.setNonprofit(nonprofitPOJO);
+	
+			cs.setCode(200);
+			cs.setCodeMessage("Campaign updated sucessfully");
+			cs.setCampaign(campaignPOJO);
+			
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
+		}
 		return cs;
 	}
 
 	/**
 	 * Delete non profit.
 	 *
-	 * @param cr
-	 *            the campaign request
+	 * @param cr the campaign request
 	 * @return the campaign response
 	 */
 	@RequestMapping(value = "/close", method = RequestMethod.POST)
@@ -542,38 +607,48 @@ public class CampaignController {
 		CampaignResponse cs = new CampaignResponse();
 		int tempId = 0;
 
-		if (cr.getIdUser() != 0) {
-			tempId = (int) currentSession.getAttribute("idUser");
-		}
-		if (tempId == cr.getIdUser()) {
-			if (cr.getCampaign().getId() != 0) {
-				wrapper = campaignService.getCampaignById(cr.getCampaign().getId());
-				if (wrapper.getWrapperObject() != null) {
-					try {
-						campaignService.closeCampaign(wrapper.getId());
-
-						cs.setCode(200);
-						cs.setCodeMessage("campaign closed");
-
-					} catch (Exception e) {
+		try{
+		
+			if (cr.getIdUser() != 0) {
+				tempId = (int) currentSession.getAttribute("idUser");
+			}
+			if (tempId == cr.getIdUser()) {
+				if (cr.getCampaign().getId() != 0) {
+					wrapper = campaignService.getCampaignById(cr.getCampaign().getId());
+					if (wrapper.getWrapperObject() != null) {
+						try {
+							campaignService.closeCampaign(wrapper.getId());
+	
+							cs.setCode(200);
+							cs.setCodeMessage("campaign closed");
+	
+						} catch (Exception e) {
+							cs.setCode(400);
+							cs.setErrorMessage("ERROR DATABASE");
+						}
+					} else {
 						cs.setCode(400);
-						cs.setErrorMessage("ERROR DATABASE");
+						cs.setErrorMessage("campaign do not found");
 					}
+	
 				} else {
 					cs.setCode(400);
-					cs.setErrorMessage("campaign do not found");
+					cs.setErrorMessage("campaign do not received");
 				}
-
+	
 			} else {
 				cs.setCode(400);
-				cs.setErrorMessage("campaign do not received");
+				cs.setErrorMessage("No owner");
 			}
-
-		} else {
-			cs.setCode(400);
-			cs.setErrorMessage("No owner");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				cs.setCode(10);
+				cs.setErrorMessage("Data Base error");
+			}else{
+				cs.setCode(500);
+			}
+			
 		}
-
 		return cs;
 	}
 

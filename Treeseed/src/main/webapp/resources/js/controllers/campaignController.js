@@ -42,7 +42,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$scope.requestObject1.lenguage = $scope.selectLang;
 		$scope.requestObject1.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',
-				$scope.requestObject1).then(function(response) {
+				$scope.requestObject1).success(function(response) {
 			$scope.selectSortOptionsCause = response.data.catalogs;
 		});
 	}
@@ -85,12 +85,16 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 
 		$http.post('rest/protected/campaing/advanceGet', $scope.requestObject)
 				.success(function(mydata, status) {
-					$scope.campaigns = mydata.campaigns;
-					$scope.totalItems = mydata.totalElements;
+					if(mydata.code==200){
+						$scope.campaigns = mydata.campaigns;
+						$scope.totalItems = mydata.totalElements;
+					}
+					else{
+						$scope.errorServer(mydata.code);
+					}
 
-				}).error(function(mydata, status) {
-					console.log(status);
-					console.log("No data found");
+				}).error(function(status) {
+					$scope.errorServer(status);
 				});
 
 	};
@@ -143,12 +147,17 @@ treeSeedAppControllers.controller('campaingCreateController',
 						},
 						file : $scope.image,
 					}).success(function(response) {
-
-						$state.go('treeSeed.campaign', {
-							campaignId : response.campaignId
+						if(response.code==200){
+							$state.go('treeSeed.campaign', {
+								campaignId : response.campaignId
+							});
+						}else{
+							$scope.errorServer(response.code);
+						}	
+						}).error(function(status) {
+							$scope.errorServer(status);
 						});
 
-					})
 				}else{
 					$scope.upload = $upload.upload({
 						url : 'rest/protected/campaing/create',
@@ -161,12 +170,17 @@ treeSeedAppControllers.controller('campaingCreateController',
 						},
 						file : $scope.image,
 					}).success(function(response) {
+						if(response.code==200){
+							$state.go('treeSeed.campaign', {
+								campaignId : response.campaignId
+							});
+						}else{
+							$scope.errorServer(response.code);
+						}
 
-						$state.go('treeSeed.campaign', {
-							campaignId : response.campaignId
-						});
-
-					})
+					}).error(function(status) {
+						$scope.errorServer(status);
+					});
 				}
 				$scope.uploadImage = false;
 				this.onError = false;
@@ -349,15 +363,18 @@ function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
 		$scope.requestObjectCampaigns.pageNumber = page;
 
 		$http.post('rest/protected/campaing/nonprofitCampaigns',
-				$scope.requestObjectCampaigns).success(
+			$scope.requestObjectCampaigns).success(
 				function(mydata, status) {
-					$scope.campaigns = mydata.campaigns;
-					$scope.totalItems = mydata.totalElements;
-
-				}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
-		});
+					
+					if(mydata.code==200){
+						$scope.campaigns = mydata.campaigns;
+						$scope.totalItems = mydata.totalElements;
+					}else{
+						$scope.errorServer(mydata.code);
+					}
+				}).error(function(status) {
+					$scope.errorServer(status);
+				});
 
 	};
 
@@ -474,12 +491,15 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController',
 						'rest/protected/campaing/searchCampaignsForNonprofit',
 
 						$scope.requestObject).success(function(mydata, status) {
-					$scope.campaigns = mydata.campaigns;
-					$scope.totalItems = mydata.totalElements;
+							if(mydata.code==200){
+								$scope.campaigns = mydata.campaigns;
+								$scope.totalItems = mydata.totalElements;
+							}else{
+								$scope.errorServer(mydata.code);
+							}
 
-				}).error(function(mydata, status) {
-					console.log(status);
-					console.log("No data found");
+				}).error(function(status) {
+					$scope.errorServer(status);
 				});
 
 			};
@@ -548,17 +568,12 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.minDate = function() {
 						$scope.mindate2 = $scope.mindate1;
 					}
-
-					
-					
-					
 					
 					$scope.init = function() {
 						//show donate button
 						if(Session.userRole == USER_ROLES.nonprofit){
 							$scope.showDonationButton = false;
 						}
-						
 						
 						$scope.requestObject.idUser = Session.userId;
 						$scope.requestObject.campaign.id = $scope.campaign.id;
@@ -569,27 +584,30 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 										$scope.requestObject)
 								.success(
 										function(mydata, status) {
-											$scope.campaign = mydata.campaign;
-											$scope.nonprofitId = mydata.campaign.nonprofit.id;
-											
-											if ($scope.campaign == null) {
-												$state.go("treeSeed.index");
-											}
-											if (mydata.owner == true) {
-												$scope.isOwner = true;
-												if (mydata.campaign.state != "finished") {
-													$scope.editable = true;
+											if(mydata.code==200){
+												$scope.campaign = mydata.campaign;
+												$scope.nonprofitId = mydata.campaign.nonprofit.id;
+												
+												if ($scope.campaign == null) {
+													$state.go("treeSeed.index");
 												}
-											} else {
-												$scope.isOwner = false;
+												if (mydata.owner == true) {
+													$scope.isOwner = true;
+													if (mydata.campaign.state != "finished") {
+														$scope.editable = true;
+													}
+												} else {
+													$scope.isOwner = false;
+												}
+												if (mydata.campaign.state == "finished") {
+													$scope.isOpen = false;
+												}
+											}else{
+												$scope.errorServer(mydata.code);
 											}
-											if (mydata.campaign.state == "finished") {
-												$scope.isOpen = false;
-											}
-											
-										}).error(function(mydata, status) {
-
-								});
+										}).error(function(status) {
+											$scope.errorServer(status);
+										});
 
 					};
 
@@ -621,11 +639,16 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						$http.post('rest/protected/campaing/close',
 								$scope.requestClose).success(
 								function(response) {
-									$scope.closeModal();
-									$state.go($state.current, {}, {
-										reload : true
-									});
-
+									if(response.code==200){
+										$scope.closeModal();
+										$state.go($state.current, {}, {
+											reload : true
+										});
+									}else{
+										$scope.errorServer(status);	
+									}
+								}).error(function(status) {
+									$scope.errorServer(status);
 								});
 					}
 
@@ -686,8 +709,14 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 								})
 								.success(
 										function(data, status, headers, config) {
-											$scope.campaign = data.campaign;
-											$scope.campaign.picture = data.campaign.picture;
+											if(data.code==200){
+												$scope.campaign = data.campaign;
+												$scope.campaign.picture = data.campaign.picture;
+											}else{
+												$scope.errorServer(data.code);
+											}
+										}).error(function(status) {
+											$scope.errorServer(status);
 										});
 					};
 

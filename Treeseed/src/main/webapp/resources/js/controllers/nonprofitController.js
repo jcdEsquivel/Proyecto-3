@@ -14,18 +14,19 @@ treeSeedAppControllers.controller('nonprofitSettingsController', function($scope
 	{
 		
 		$http.post('rest/protected/nonprofit/delete',
-				$scope.nonprofit).then(function(response) {
-					if(response.data.code=="200"){	
+				$scope.nonprofit).success(function(response) {
+					if(response.code=="200"){	
 						AuthService.guestSession()
 						$scope.currentUser = null;
 						$state.go("treeSeed.index");
 						$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
 					}
-					else if(response.data.code=="400")
-					{
-						console.log("ERROR");
+					else{
+						$scope.errorServer(response.code);
 					}
-		});
+				}).error(function(status) {
+					$scope.errorServer(status);
+				});
 	}
 	
 	$scope.openModalConfirmation = function() {
@@ -129,8 +130,6 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	    },
 	    file : $scope.image,
 	   }).success(function(response){
-			   
-		  console.log(response.nonProfitId)
 		   
 		  var credentials = {
 			    email: $scope.nonprofit.userGeneral.email,
@@ -147,11 +146,12 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		        	}else if(user.type=="donor"){
 		        		$scope.setCurrentUser(user.idUser, user.firstName+" "+user.lastName, user.img );
 		        	}	    		
-		    	}
-
-		    });
-
-		   
+		    	}else{
+					$scope.errorServer(user.code);
+				}
+			}).error(function(status) {
+				$scope.errorServer(status);
+			});		   
 	   }) 
 	
 	};
@@ -180,11 +180,16 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 	$scope.requestObject.searchTerm = "";
 
 	$scope.init = function() {
+		
+		$scope.requestObject.country = $scope.country;
+		
 		$scope.requestObject1.lenguage = $scope.selectLang;
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).then(function(response) {
 			$scope.selectSortOptionsCountry = response.data.catalogs;
+			
+			
 		});
 		$scope.requestObject2.lenguage = $scope.requestObject1.lenguage;
 		$scope.requestObject2.type = "cause";
@@ -204,14 +209,20 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$scope.requestObject.country = $scope.nonprofit.country.id;
 		$scope.requestObject.cause = $scope.nonprofit.cause.id;
 
+	
 		$http.post('rest/protected/nonprofit/advanceGet',
 				$scope.requestObject).success(function(mydata, status) {
-			$scope.nonprofits = mydata.nonprofits;
-			$scope.totalItems = mydata.totalElements;
-			console.log($scope.nonprofits[1].id)
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+			
+					if(mydata.code==200){
+						$scope.nonprofits = mydata.nonprofits;
+						$scope.totalItems = mydata.totalElements;
+					}
+					else{
+						$scope.errorServer(mydata.code);
+					}
+					
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 
 		$scope.pageChangeHandler = function(num) {
@@ -241,22 +252,25 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			$scope.showDonationButton = false;
 		}
 		
-		
 		$scope.requestObject.idUser= Session.userId;
 		$scope.requestObject.id = $scope.nonprofit.id;
 		
 		$http.post('rest/protected/nonprofit/getNonProfitProfile',
 				$scope.requestObject).success(function(mydata, status) {
-					$scope.nonprofit = mydata.nonprofit;
-					if(mydata.owner==true){
-						$scope.isOwner=true;
-					}else{
-						$scope.isOwner=false;
+					if(mydata.code==200){
+						$scope.nonprofit = mydata.nonprofit;
+						if(mydata.owner==true){
+							$scope.isOwner=true;
+						}else{
+							$scope.isOwner=false;
+						}
 					}
-			
-		}).error(function(mydata, status) {
-			alert(status);
-		});	
+					else{
+						$scope.errorServer(mydata.code);
+					}
+				}).error(function(status) {
+					$scope.errorServer(status);
+				});	
 
 	}
 
@@ -411,11 +425,14 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				  if(data.code=="400"){
 		    		$scope.error = true;
 		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
+		    		$scope.errorServer(data.code)
 				  }
 				  
 				  $scope.nonprofit.mainPicture =  data.nonprofit.mainPicture;
 				  $scope.nonprofit.profilePicture = data.nonprofit.profilePicture;
 				  $scope.currentUser.userImage = data.nonprofit.profilePicture;
+			  }).error(function(status) {
+				$scope.errorServer(status);
 			  });
 		
 	};

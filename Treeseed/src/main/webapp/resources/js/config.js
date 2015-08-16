@@ -102,7 +102,6 @@ angular
 											controller : "nonprofitSettingsController",
 											data : {
 												authorizedRoles : [
-														USER_ROLES.guest,
 														USER_ROLES.nonprofit ]
 											
 											}

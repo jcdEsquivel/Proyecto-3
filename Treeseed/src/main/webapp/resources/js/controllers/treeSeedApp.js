@@ -1,5 +1,5 @@
 var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies', 'angularPayments']);
-treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session, $modal ) {
+treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session, $modal) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -131,7 +131,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       
       
 	$scope.errorServer = function(status) {
-		console.log(status)
+		
 		var modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl :'layouts/components/feedbackModal.html',

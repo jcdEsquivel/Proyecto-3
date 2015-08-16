@@ -106,8 +106,7 @@ public class NonprofitController extends UserGeneralController {
 	/**
 	 * Delete non profit.
 	 *
-	 * @param dr
-	 *            the donor request
+	 * @param dr the donor request
 	 * @return the nonprofit response
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -131,7 +130,7 @@ public class NonprofitController extends UserGeneralController {
 
 		} catch (Exception e) {
 			us.setCode(400);
-			us.setCodeMessage("ERROR DATABASE");
+			us.setCodeMessage("DATABASE ERROR");
 		}
 
 		return us;
@@ -265,16 +264,12 @@ public class NonprofitController extends UserGeneralController {
 	/**
 	 * Gets the nonprofits.
 	 *
-	 * @param npr
-	 *            the nonProfitrequest
+	 * @param npr the nonProfitrequest
 	 * @return the nonprofits
 	 */
 	@RequestMapping(value = "/advanceGet", method = RequestMethod.POST)
-	@Transactional
 	public NonprofitResponse getNonprofits(@RequestBody NonprofitRequest npr) {
 
-		
-		
 		npr.setPageNumber(npr.getPageNumber() - 1);
 		NonprofitResponse nps = new NonprofitResponse();
 		
@@ -301,71 +296,84 @@ public class NonprofitController extends UserGeneralController {
 
 		nps.setNonprofits(viewNonprofitsPOJO);
 		nps.setCode(200);
-		return nps;
+		
 
 		}catch(Exception e){
-			System.out.println(e.getMessage());
-			if(e.getMessage().contains("could not extract ResultSet")){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				nps.setCode(10);
+				nps.setErrorMessage("Data Base error");
 			}else{
 				nps.setCode(500);
 			}
-			return nps;
+			
 		}
+		return nps;
+		
 	}
 
 	/**
 	 * Gets the non profit profile.
 	 *
-	 * @param npr
-	 *            the nonProfitRequest
+	 * @param npr the nonProfitRequest
 	 * @return the non profit profile
 	 */
 	@RequestMapping(value = "/getNonProfitProfile", method = RequestMethod.POST)
 	@Transactional
 	public NonprofitResponse getNonProfitProfile(@RequestBody NonprofitRequest npr) {
 
+		NonprofitResponse nps = new NonprofitResponse();
 		HttpSession currentSession = request.getSession();
 		int tempId = 0;
 
 		if (npr.getIdUser() != 0) {
 			tempId = (int) currentSession.getAttribute("idUser");
 		}
+		
+		try{
 
-		NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
-
-		NonprofitResponse nps = new NonprofitResponse();
-
-		if (tempId == nonprofit.getWrapperObject().getUsergenerals().get(0).getId()) {
-			nps.setOwner(true);
-		} else {
-			nps.setOwner(false);
+			NonprofitWrapper nonprofit = nonProfitService.getNonProfitByID(npr);
+	
+			if (tempId == nonprofit.getWrapperObject().getUsergenerals().get(0).getId()) {
+				nps.setOwner(true);
+			} else {
+				nps.setOwner(false);
+			}
+	
+			nps.setCode(200);
+			nps.setCodeMessage("nonprofit search success");
+	
+			NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+	
+			nonprofitPOJO.setId(nonprofit.getWrapperObject().getId());
+			nonprofitPOJO.setName(nonprofit.getWrapperObject().getName());
+			nonprofitPOJO.setDescription(nonprofit.getWrapperObject().getDescription());
+			nonprofitPOJO.setWebPage(nonprofit.getWrapperObject().getWebPage());
+			nonprofitPOJO.setProfilePicture(nonprofit.getWrapperObject().getProfilePicture());
+			nonprofitPOJO.setMainPicture(nonprofit.getWrapperObject().getMainPicture());
+			nonprofitPOJO.setMision(nonprofit.getWrapperObject().getMision());
+			nonprofitPOJO.setReason(nonprofit.getWrapperObject().getReason());
+	
+			UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+			UserGeneral userGeneral;
+			userGeneral = nonprofit.getWrapperObject().getUsergenerals().get(0);
+	
+			userGeneralPOJO.setEmail(userGeneral.getEmail());
+	
+			nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+	
+			nps.setNonprofit(nonprofitPOJO);
+			nps.setCode(200);
+			
 		}
-
-		nps.setCode(200);
-		nps.setCodeMessage("nonprofit search success");
-
-		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-
-		nonprofitPOJO.setId(nonprofit.getWrapperObject().getId());
-		nonprofitPOJO.setName(nonprofit.getWrapperObject().getName());
-		nonprofitPOJO.setDescription(nonprofit.getWrapperObject().getDescription());
-		nonprofitPOJO.setWebPage(nonprofit.getWrapperObject().getWebPage());
-		nonprofitPOJO.setProfilePicture(nonprofit.getWrapperObject().getProfilePicture());
-		nonprofitPOJO.setMainPicture(nonprofit.getWrapperObject().getMainPicture());
-		nonprofitPOJO.setMision(nonprofit.getWrapperObject().getMision());
-		nonprofitPOJO.setReason(nonprofit.getWrapperObject().getReason());
-
-		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-		UserGeneral userGeneral;
-		userGeneral = nonprofit.getWrapperObject().getUsergenerals().get(0);
-
-		userGeneralPOJO.setEmail(userGeneral.getEmail());
-
-		nonprofitPOJO.setUserGeneral(userGeneralPOJO);
-
-		nps.setNonprofit(nonprofitPOJO);
-		nps.setCode(200);
+		catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				nps.setCode(10);
+				nps.setErrorMessage("Data Base error");
+			}else{
+				nps.setCode(500);
+			}
+		}
+		
 		return nps;
 
 	}
@@ -373,12 +381,9 @@ public class NonprofitController extends UserGeneralController {
 	/**
 	 * Edits the non profit.
 	 *
-	 * @param npr
-	 *            the NonProfitRequest
-	 * @param fileCover
-	 *            the file cover
-	 * @param fileProfile
-	 *            the file profile
+	 * @param npr the NonProfitRequest
+	 * @param fileCover  the file cover
+	 * @param fileProfile the file profile
 	 * @return the nonprofit response
 	 */
 	@RequestMapping(value = "/editNonProfit", method = RequestMethod.POST, consumes = { "multipart/form-data" })
@@ -391,109 +396,121 @@ public class NonprofitController extends UserGeneralController {
 
 		NonprofitResponse us = new NonprofitResponse();
 
-		UserGeneral ug = new UserGeneral();
-		ug = userGeneralService.getUGByID(npr.getIdUser());
-
-		NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
-
-		if (ug.getEmail().equals(npr.getEmail())) {
-
-			NonprofitWrapper nonprofit = new NonprofitWrapper();
-
-			if (fileCover != null) {
-				coverImageName = Utils.writeToFile(fileCover, servletContext);
-			}
-
-			if (fileProfile != null) {
-				profileImageName = Utils.writeToFile(fileProfile, servletContext);
-			}
-
-			if (!coverImageName.equals("")) {
-				nonprofit.setMainPicture(coverImageName);
+		try{
+		
+			UserGeneral ug = new UserGeneral();
+			ug = userGeneralService.getUGByID(npr.getIdUser());
+	
+			NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
+	
+			if (ug.getEmail().equals(npr.getEmail())) {
+	
+				NonprofitWrapper nonprofit = new NonprofitWrapper();
+	
+				if (fileCover != null) {
+					coverImageName = Utils.writeToFile(fileCover, servletContext);
+				}
+	
+				if (fileProfile != null) {
+					profileImageName = Utils.writeToFile(fileProfile, servletContext);
+				}
+	
+				if (!coverImageName.equals("")) {
+					nonprofit.setMainPicture(coverImageName);
+				} else {
+					nonprofit.setMainPicture(npr.getMainPicture());
+				}
+	
+				if (!profileImageName.equals("")) {
+					nonprofit.setProfilePicture(profileImageName);
+				} else {
+					nonprofit.setProfilePicture(npr.getProfilePicture());
+				}
+	
+				nonprofit.setId(npr.getId());
+				nonprofit.setName(npr.getName());
+				nonprofit.setDescription(npr.getDescription());
+				nonprofit.setMision(npr.getMision());
+				nonprofit.setReason(npr.getReason());
+				nonprofit.setWebPage(npr.getWebPage());
+	
+				nonprofitPOJO = new NonprofitPOJO();
+	
+				nonProfitService.updateNonProfit(nonprofit);
+	
+				NonprofitWrapper nonprofitobject = nonProfitService.getNonProfitByID(npr);
+	
+				nonprofitPOJO.setName(nonprofitobject.getWrapperObject().getName());
+				nonprofitPOJO.setDescription(nonprofitobject.getWrapperObject().getDescription());
+				nonprofitPOJO.setMision(nonprofitobject.getWrapperObject().getMision());
+				nonprofitPOJO.setReason(nonprofitobject.getWrapperObject().getReason());
+				nonprofitPOJO.setWebPage(nonprofitobject.getWrapperObject().getWebPage());
+				nonprofitPOJO.setMainPicture(nonprofitobject.getWrapperObject().getMainPicture());
+				nonprofitPOJO.setProfilePicture(nonprofitobject.getWrapperObject().getProfilePicture());
+	
+				us.setNonprofit(nonprofitPOJO);
+				us.setCode(200);
+				us.setCodeMessage("Nonprofit updated sucessfully");
 			} else {
-				nonprofit.setMainPicture(npr.getMainPicture());
-			}
-
-			if (!profileImageName.equals("")) {
-				nonprofit.setProfilePicture(profileImageName);
-			} else {
-				nonprofit.setProfilePicture(npr.getProfilePicture());
-			}
-
-			nonprofit.setId(npr.getId());
-			nonprofit.setName(npr.getName());
-			nonprofit.setDescription(npr.getDescription());
-			nonprofit.setMision(npr.getMision());
-			nonprofit.setReason(npr.getReason());
-			nonprofit.setWebPage(npr.getWebPage());
-
-			nonprofitPOJO = new NonprofitPOJO();
-
-			nonProfitService.updateNonProfit(nonprofit);
-
-			NonprofitWrapper nonprofitobject = nonProfitService.getNonProfitByID(npr);
-
-			nonprofitPOJO.setName(nonprofitobject.getWrapperObject().getName());
-			nonprofitPOJO.setDescription(nonprofitobject.getWrapperObject().getDescription());
-			nonprofitPOJO.setMision(nonprofitobject.getWrapperObject().getMision());
-			nonprofitPOJO.setReason(nonprofitobject.getWrapperObject().getReason());
-			nonprofitPOJO.setWebPage(nonprofitobject.getWrapperObject().getWebPage());
-			nonprofitPOJO.setMainPicture(nonprofitobject.getWrapperObject().getMainPicture());
-			nonprofitPOJO.setProfilePicture(nonprofitobject.getWrapperObject().getProfilePicture());
-
-			us.setNonprofit(nonprofitPOJO);
-			us.setCode(200);
-			us.setCodeMessage("Nonprofit updated sucessfully");
-		} else {
-
-			Boolean alreadyUser = userGeneralService.userExist(npr.getEmail());
-			npr.setEmail(npr.getEmail().toLowerCase());
-
-			if (validator.isValid(npr.getEmail())) {
-				if (!alreadyUser) {
-
-					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-
-					userGeneral.setEmail(npr.getEmail());
-					userGeneral.setId(npr.getIdUser());
-
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-
-					userGeneralService.updateUserGeneral(userGeneral);
-
-					userGeneralPOJO.setEmail(userGeneral.getEmail());
-
-					nonprofitPOJO.setName(npr.getName());
-					nonprofitPOJO.setDescription(npr.getDescription());
-					nonprofitPOJO.setMision(npr.getMision());
-					nonprofitPOJO.setReason(npr.getReason());
-					nonprofitPOJO.setWebPage(npr.getWebPage());
-					nonprofitPOJO.setId(npr.getId());
-					nonprofitPOJO.setMainPicture(npr.getMainPicture());
-					nonprofitPOJO.setProfilePicture(npr.getProfilePicture());
-
-					us.setNonprofit(nonprofitPOJO);
-
-					us.setCode(200);
-					us.setCodeMessage("Nonprofit updated sucessfully");
-
+	
+				Boolean alreadyUser = userGeneralService.userExist(npr.getEmail());
+				npr.setEmail(npr.getEmail().toLowerCase());
+	
+				if (validator.isValid(npr.getEmail())) {
+					if (!alreadyUser) {
+	
+						UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+	
+						userGeneral.setEmail(npr.getEmail());
+						userGeneral.setId(npr.getIdUser());
+	
+						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+	
+						userGeneralService.updateUserGeneral(userGeneral);
+	
+						userGeneralPOJO.setEmail(userGeneral.getEmail());
+	
+						nonprofitPOJO.setName(npr.getName());
+						nonprofitPOJO.setDescription(npr.getDescription());
+						nonprofitPOJO.setMision(npr.getMision());
+						nonprofitPOJO.setReason(npr.getReason());
+						nonprofitPOJO.setWebPage(npr.getWebPage());
+						nonprofitPOJO.setId(npr.getId());
+						nonprofitPOJO.setMainPicture(npr.getMainPicture());
+						nonprofitPOJO.setProfilePicture(npr.getProfilePicture());
+	
+						us.setNonprofit(nonprofitPOJO);
+	
+						us.setCode(200);
+						us.setCodeMessage("Nonprofit updated sucessfully");
+	
+					} else {
+						us.setCode(400);
+						us.setCodeMessage("EMAIL ALREADY IN USE");
+						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+						userGeneralPOJO.setEmail(ug.getEmail());
+						nonprofitPOJO.setUserGeneral(userGeneralPOJO);
+						us.setNonprofit(nonprofitPOJO);
+					}
 				} else {
 					us.setCode(400);
-					us.setCodeMessage("EMAIL ALREADY IN USE");
+					us.setCodeMessage("BAD EMAIL");
 					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 					userGeneralPOJO.setEmail(ug.getEmail());
 					nonprofitPOJO.setUserGeneral(userGeneralPOJO);
 					us.setNonprofit(nonprofitPOJO);
 				}
-			} else {
-				us.setCode(400);
-				us.setCodeMessage("BAD EMAIL");
-				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-				userGeneralPOJO.setEmail(ug.getEmail());
-				nonprofitPOJO.setUserGeneral(userGeneralPOJO);
-				us.setNonprofit(nonprofitPOJO);
 			}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
+			
 		}
+		
 		return us;
 	}
 }

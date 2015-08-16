@@ -219,11 +219,10 @@ treeSeedAppControllers.controller('feedbackCtrl', function($modalInstance ,  $sc
 });
 
 
-treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance ,  $scope, code) {
-
-	console.log(code)
-	$scope.title= "FEEDBACK-MODAL.GENERAL-TITLE"
+treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $scope, code, $state, AUTH_EVENTS, 
+		$rootScope, AuthService, $location, $sharedData) {
 	
+	$scope.title= "FEEDBACK-MODAL.GENERAL-TITLE"
 	
 	switch(code) {
     case 400:
@@ -239,8 +238,9 @@ treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance , 
     	$scope.text = "FEEDBACK-MODAL.ERROR-404-TEXT";
         break;
     case 500:
-    	$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
-        break;
+		$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+		$state.go("treeSeed.index");
+		break;
     case 520:
     	$scope.text = "FEEDBACK-MODAL.ERROR-520-TEXT";
         break;
@@ -249,6 +249,8 @@ treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance , 
         break;
     default:
     	$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+	    $state.go("treeSeed.index");
+		
 	}
 	
 	$scope.close = function(){

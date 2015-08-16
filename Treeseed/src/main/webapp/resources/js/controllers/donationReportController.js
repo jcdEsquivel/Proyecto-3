@@ -47,12 +47,12 @@ treeSeedAppControllers.controller('nonProfitDonationReportController', function(
 				$scope.totalReports = data.totalElements;
 			}else{
 				$scope.reports = [];
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(status);
+				
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});		
 	};
 	//end getReports
