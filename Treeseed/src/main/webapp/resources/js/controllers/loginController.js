@@ -82,23 +82,22 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 		  $scope.facebookId = response.id;
   		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).success(
   				function(res) {
-  					if (res.data.code == "200") {
-  					   console.log(res.data);
-			    	   if(res.data.type=="donor"){
+  					if (res.code == "200") {
+			    	   if(res.type=="donor"){
 			        		Session.destroy();
-							Session.create(res.data.idSession, res.data.idUser,
+							Session.create(res.idSession, res.idUser,
 									USER_ROLES.donor);
 							$cookies['userRoleTree'] = USER_ROLES.donor;
-			        		setCurrentUser(res.data.idUser, res.data.firstName+" "+res.data.lastName, res.data.img );
+			        		setCurrentUser(res.idUser, res.firstName+" "+res.lastName, res.img );
 			        	}
-			    		$cookies['idSessionTree'] = res.data.idSession;
-						$cookies['idUserTree'] = res.data.idUser;
+			    		$cookies['idSessionTree'] = res.idSession;
+						$cookies['idUserTree'] = res.idUser;
 						
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			    		//$scope.remebermeUser = $scope.rememberMe;
 			    		$modalInstance.close()	;
 			    		if(Session.userRole==USER_ROLES.donor){
-			    			$state.go('treeSeed.donor', {donorId: res.data.idUser});
+			    			$state.go('treeSeed.donor', {donorId: res.idUser});
 			    		}
 			    	}else{
 			    		
