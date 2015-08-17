@@ -156,9 +156,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 			}, function(status){
 				 $scope.errorServer(status.status);
 			});		   
-	   }.error(function(status){
-		   $scope.errorServer(status);
-	   })) 
+	   }); 
 	
 	};
 	
@@ -457,7 +455,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				  if(data.code=="400"){
 		    		$scope.error = true;
 		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
-		    		$scope.errorServer(data.code)
+		    		
 				  }
 				  
 				  $scope.nonprofit.mainPicture =  data.nonprofit.mainPicture;
