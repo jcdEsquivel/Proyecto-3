@@ -763,3 +763,21 @@ border-radius: 15px;
  -webkit-text-stroke-width: 2px;
    -webkit-text-stroke-color: white;
 }
+
+.divDashboard2{
+	 background-image: url('../images/circleGreen.png') ;
+	  background-size: 300px 300px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    background-position: center;	
+    display: flex;
+    flex-flow: row wrap;
+    align-content:flex-end; 
+    border:solid 6px #2382c8;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+border-radius: 15px;
+ text-align: center; min-height: 350px;
+ -webkit-text-stroke-width: 2px;
+   -webkit-text-stroke-color: white;
+}

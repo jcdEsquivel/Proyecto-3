@@ -93,4 +93,19 @@ public interface NonprofitServiceInterface {
 	 * @return the nonprofit
 	 */
 	Nonprofit deteteNonprofit(NonprofitWrapper nonProfit);	
+	
+	/**
+	 * Donor recomendation.
+	 *
+	 * @param idDonor the id donor
+	 * @return the list
+	 */
+	List<NonprofitWrapper> donorRecomendation(int idDonor);
+	
+	/**
+	 * Donor recomendation random.
+	 *
+	 * @return the list
+	 */
+	List<NonprofitWrapper> donorRecomendationRandom();
 }

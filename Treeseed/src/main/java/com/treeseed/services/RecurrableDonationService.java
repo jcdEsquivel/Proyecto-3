@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,8 +103,8 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 	 */
 	@Override
 	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId) {
-
-		List<RecurrableDonation> recurrableDonations =recurrableDonationRepository.findTop10getByNonProfitIdDashboard(nonProfitId);
+		PageRequest pr=new PageRequest(0,10);
+		List<RecurrableDonation> recurrableDonations =recurrableDonationRepository.findTop10getByNonProfitIdDashboard(nonProfitId,pr).getContent();
 		List<RecurrableDonationWrapper> recurrableDonationsWrapper = new ArrayList<RecurrableDonationWrapper>();
 		
 		for(RecurrableDonation subscription:recurrableDonations){

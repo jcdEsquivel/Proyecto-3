@@ -99,7 +99,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 			    		//$scope.remebermeUser = $scope.rememberMe;
 			    		$modalInstance.close()	;
 			    		if(Session.userRole==USER_ROLES.donor){
-			    			$state.go('treeSeed.donor', {donorId: res.data.idUser});
+			    			$state.go('treeSeed.donorDashboard');
 			    		}
 			    	}else{
 			    		
@@ -125,7 +125,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 		    		if(Session.userRole==USER_ROLES.nonprofit){
 		    			$state.go('treeSeed.nonProfitDashboard');
 		    		}else if(Session.userRole==USER_ROLES.donor){
-		    			$state.go('treeSeed.donor', {donorId: user.idUser});
+		    			$state.go('treeSeed.donorDashboard');
 		    		}
 		    	}else{
 		    		

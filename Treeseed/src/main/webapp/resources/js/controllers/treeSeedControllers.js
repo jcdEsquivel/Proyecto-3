@@ -31,7 +31,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 		if(Session.userRole==USER_ROLES.nonprofit){
 			$state.go('treeSeed.nonProfitDashboard');
 		}else if(Session.userRole==USER_ROLES.donor){
-			//$state.go('treeSeed.donor', {donorId: user.idUser});
+			$state.go('treeSeed.donorDashboard');
 		}
 	}
 

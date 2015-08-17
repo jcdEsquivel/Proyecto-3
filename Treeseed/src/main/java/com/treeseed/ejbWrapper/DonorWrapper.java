@@ -2,7 +2,6 @@ package com.treeseed.ejbWrapper;
 
 import java.util.List;
 
-import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.isolateAggregation;
 
 import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Catalog;

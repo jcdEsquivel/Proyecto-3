@@ -1022,6 +1022,45 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 		}
 	
 });
+
+treeSeedAppControllers.controller('donorDashboardController', function($scope,
+		$http, $location, $modal, $state,$log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	$scope.requestObject={};
+	$scope.myInterval = 5000;
+	$scope.nonprofits;
+	$scope.campaigns;
+	
+	$scope.requestObject.idUser=$scope.currentUser.idUser;
+	$scope.requestObject.id=Session.id;
+	$http.post('rest/protected/donor/getdashboard',
+			$scope.requestObject).success(function(mydata) {
+				$scope.nonprofits = mydata.dashboardNonprofits;
+				$scope.campaigns = mydata.dashboardCampaigns;
+				
+		
+	}).error(function(mydata, status) {
+		alert(status);
+	});	
+	
+	$scope.goNonprofit = function(id){
+		$state.go('treeSeed.nonProfit', {nonProfitId: id});
+	}
+	
+	$scope.goCampaign = function(id){
+		$state.go('treeSeed.campaign', {campaignId: id});
+	}
+	
+	$scope.getCause = function(nonprofit){
+		if($scope.selectLang=="English"){
+			return nonprofit.causeNameEnglish;
+		}else if($scope.selectLang=="Español"){
+			return nonprofit.causeNameSpanish;
+		}
+	}
+});
+
+
 	/*
 treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {

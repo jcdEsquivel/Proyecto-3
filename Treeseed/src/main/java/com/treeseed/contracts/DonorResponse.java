@@ -2,8 +2,10 @@ package com.treeseed.contracts;
 
 import java.util.List;
 
+import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.DonorTreePOJO;
+import com.treeseed.pojo.NonprofitPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 
 // TODO: Auto-generated Javadoc
@@ -30,6 +32,12 @@ public class DonorResponse extends BaseResponse {
 
 	/** The user general. */
 	private UserGeneralPOJO userGeneral;
+	
+	/** The dashboard nonprofits. */
+	private List<NonprofitPOJO> dashboardNonprofits;
+	
+	/** The dashboard campaigns. */
+	private List<CampaignPOJO> dashboardCampaigns;
 
 	/**
 	 * Gets the user general.
@@ -180,6 +188,42 @@ public class DonorResponse extends BaseResponse {
 	 */
 	public void setTree(DonorTreePOJO tree) {
 		this.tree = tree;
+	}
+
+	/**
+	 * Gets the dashboard nonprofits.
+	 *
+	 * @return the dashboard nonprofits
+	 */
+	public List<NonprofitPOJO> getDashboardNonprofits() {
+		return dashboardNonprofits;
+	}
+
+	/**
+	 * Sets the dashboard nonprofits.
+	 *
+	 * @param dashboardNonprofits the new dashboard nonprofits
+	 */
+	public void setDashboardNonprofits(List<NonprofitPOJO> dashboardNonprofits) {
+		this.dashboardNonprofits = dashboardNonprofits;
+	}
+
+	/**
+	 * Gets the dashboard campaigns.
+	 *
+	 * @return the dashboard campaigns
+	 */
+	public List<CampaignPOJO> getDashboardCampaigns() {
+		return dashboardCampaigns;
+	}
+
+	/**
+	 * Sets the dashboard campaigns.
+	 *
+	 * @param dashboardCampaigns the new dashboard campaigns
+	 */
+	public void setDashboardCampaigns(List<CampaignPOJO> dashboardCampaigns) {
+		this.dashboardCampaigns = dashboardCampaigns;
 	}
 
 }
