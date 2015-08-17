@@ -480,10 +480,14 @@ treeSeedAppControllers.controller('searchCampaignFromNonProfitController',
 
 				if (startDate != "") {
 					$scope.requestObject.startDate = startDate.getTime();
+				}else{
+					$scope.requestObject.startDate = '';
 				}
 
 				if (endDate != "") {
 					$scope.requestObject.dueDate = endDate.getTime();
+				}else{
+					$scope.requestObject.dueDate = '';
 				}
 
 				$scope.requestObject.pageNumber = page;

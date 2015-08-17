@@ -2,6 +2,7 @@ package com.treeseed.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -214,6 +215,12 @@ public class CampaignController {
 					campaign.setActive(true);
 					campaign.setCreationDate(new Date());
 					campaign.setDescription(description);
+			
+					startDate.set(Calendar.MILLISECOND, 0);
+					startDate.set(Calendar.SECOND, 0);
+					startDate.set(Calendar.MINUTE, 0);
+					startDate.set(Calendar.HOUR_OF_DAY, 0);
+					
 					campaign.setStartDate(startDate.getTime());
 					campaign.setNonprofit(nonprofit.getWrapperObject());
 	
@@ -308,17 +315,14 @@ public class CampaignController {
 	
 				viewCampaignsPOJO.add(campaignPojo);
 	
-			}
-			;
+			};
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			if (viewCampaignsPOJO.size() > 0) {
-				cs.setCodeMessage("campaigns fetch success");
-				cs.setCode(200);
-			} else {
-				cs.setCode(400);
-			}
+			
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+			
 			
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
@@ -398,13 +402,10 @@ public class CampaignController {
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			if (viewCampaignsPOJO.size() > 0) {
-				cs.setCodeMessage("campaigns fetch success");
-				cs.setCode(200);
-			} else {
-				cs.setErrorMessage("campaigns fetch unsuccessful");
-				cs.setCode(400);
-			}
+			
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+		
 
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
