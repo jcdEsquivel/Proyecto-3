@@ -18,7 +18,7 @@ import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestEditarCampaña extends AbstractTestController  {
+public class TestEditarCampania extends AbstractTestController  {
 	
 	
 

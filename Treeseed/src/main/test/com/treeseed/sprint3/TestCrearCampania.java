@@ -17,7 +17,7 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestCrearCampaña  extends AbstractTestController{
+public class TestCrearCampania  extends AbstractTestController{
 
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	

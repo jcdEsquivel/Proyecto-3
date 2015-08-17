@@ -1028,6 +1028,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 	};
 	
 	$scope.close = function(){
+		$scope.refreshPortfolio();
 		$modalInstance.close();
 	};
 	

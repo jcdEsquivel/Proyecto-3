@@ -21,7 +21,7 @@ import com.treeseed.pojo.PostCampaignPOJO;
 import com.treeseed.pojo.PostNonprofitPOJO;
 import com.treeseed.testBase.AbstractTestController;
 
-public class TestListarActualizacionesCampaña extends AbstractTestController  {
+public class TestListarActualizacionesCampania extends AbstractTestController  {
 
 	protected void setUp(NonprofitController controller) {
 		mvc = MockMvcBuilders.standaloneSetup(controller).build();
