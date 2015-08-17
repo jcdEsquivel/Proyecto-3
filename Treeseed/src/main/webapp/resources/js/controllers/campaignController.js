@@ -44,7 +44,9 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
 			$scope.selectSortOptionsCause = response.data.catalogs;
-		});
+		}.error(function(status){
+			$scope.errorServer(status);
+		}));
 	}
 
 	$scope.init();
@@ -645,7 +647,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 											reload : true
 										});
 									}else{
-										$scope.errorServer(status);	
+										$scope.errorServer(response.code);	
 									}
 								}).error(function(status) {
 									$scope.errorServer(status);

@@ -101,11 +101,11 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 		$scope.postRequest.postNonprofit.nonprofitId= Session.id;
 		$http.post('rest/protected/postNonprofit/deletePostNonProfit',
 				$scope.postRequest).success(function(response) {
-					if(response.data.code=="200"){
+					if(response.code==200){
 						$scope.postRequest.postNonprofit.nonprofitId= $stateParams.nonProfitId;
 						$scope.getPosts(1);						
 					}else{
-						$scope.errorServer(status);
+						$scope.errorServer(data.code);
 						
 					}
 		}).error(function(status) {
@@ -214,7 +214,7 @@ treeSeedAppControllers.controller('createPostController', function($http,
 					if(data.code==200){
 						$scope.close();
 					}else{
-						$scope.errorServer(status);
+						$scope.errorServer(data.code);
 						
 					}
 		}).error(function(status) {
@@ -318,7 +318,7 @@ treeSeedAppControllers.controller('editPostController', function($http,
 					if(data.code==200){
 						$scope.close();
 					}else{
-						$scope.errorServer(status);
+						$scope.errorServer(data.code);
 						
 					}
 		}).error(function(status) {

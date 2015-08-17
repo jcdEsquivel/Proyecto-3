@@ -112,7 +112,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
   	}
 	
 		  $scope.login = function (credentials) {
-		    AuthService.login(credentials).success(function (user) {
+		    AuthService.login(credentials).then(function (user) {
 		    	if(user.code=="200"){
 		    		
 		    		if(user.type=="nonprofit"){
@@ -135,9 +135,9 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 				      $scope.error=true;
 		    	}
 		      
-		    }).error(function(status) {
-				$scope.errorServer(status);
-			});
+		    }, function(error){
+		    	$scope.errorServer(error);
+		    });
 		  };
 		  
 		  $scope.close=function(){

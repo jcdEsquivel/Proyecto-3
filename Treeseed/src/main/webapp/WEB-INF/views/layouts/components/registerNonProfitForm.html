@@ -16,8 +16,11 @@
 					<div class="col-sm-12">
 						<md-input-container flex> <label
 							translate="REGISTER-NONPROFIT.NAME"></label> <input type="text"
+							is-name-unique="" name="name"
 							ng-model="nonprofit.name" class="form-control" required>
 						</md-input-container>
+						<span class="red-error" ng-show="registerForm.name.$error.unique"
+							translate="REGISTER-NONPROFIT.NAME-MESSAGE"></span>
 					</div>
 					<div class="col-sm-12">
 						<md-input-container flex id="emailValidate">
@@ -26,7 +29,7 @@
 							ng-keypress="validateEmail()"
 							ng-model="nonprofit.userGeneral.email" class="form-control"
 							required> </md-input-container>
-						<span class="" ng-show="registerForm.email.$error.unique"
+						<span class="red-error" ng-show="registerForm.email.$error.unique"
 							translate="REGISTER-NONPROFIT.EMAIL-MESSAGE"></span>
 					</div>
 					<div class="col-sm-6">

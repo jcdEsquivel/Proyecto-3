@@ -59,8 +59,16 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			filter : val,
 			country : $scope.country
 		}).then(function(response) {
-			return response.data.results;
+			if(response.data.code == 200){
+				return response.data.results;
+			}else{
+				$scope.errorServer(response.data.code);
+				return null;
+			}
+			
 
+		},function(status){
+			$scope.errorServer(status.status);
 		}); // end $http.post
 	};// end generalSearch
 

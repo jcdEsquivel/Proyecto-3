@@ -76,6 +76,8 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		    .then(function(response){
 		     $scope.selectSortOptionsCountry =  response.data.catalogs;
 		     $scope.nonprofit.country =  response.data.catalogs[0];
+		}, function(status){
+			 $scope.errorServer(status.status);
 		});
 		$scope.requestObject2.lenguage=$scope.requestObject1.lenguage;
 		$scope.requestObject2.type = "cause";
@@ -83,6 +85,8 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		    .then(function(response){
 		     $scope.selectSortOptionsCause =  response.data.catalogs;
 		     $scope.nonprofit.cause =  response.data.catalogs[0];
+		}, function(status){
+			 $scope.errorServer(status.status);
 		});
 	}
 	
@@ -149,10 +153,12 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		    	}else{
 					$scope.errorServer(user.code);
 				}
-			}).error(function(status) {
-				$scope.errorServer(status);
+			}, function(status){
+				 $scope.errorServer(status.status);
 			});		   
-	   }) 
+	   }.error(function(status){
+		   $scope.errorServer(status);
+	   })) 
 	
 	};
 	
@@ -190,6 +196,8 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 			$scope.selectSortOptionsCountry = response.data.catalogs;
 			
 			
+		}, function(status){
+			 $scope.errorServer(status.status);
 		});
 		$scope.requestObject2.lenguage = $scope.requestObject1.lenguage;
 		$scope.requestObject2.type = "cause";
@@ -197,6 +205,8 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 				$scope.requestObject2).then(function(response) {
 			$scope.selectSortOptionsCause = response.data.catalogs;
 
+		}, function(status){
+			 $scope.errorServer(status.status);
 		});
 	}
 

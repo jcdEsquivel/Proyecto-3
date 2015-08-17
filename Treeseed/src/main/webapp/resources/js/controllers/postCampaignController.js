@@ -102,7 +102,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 		
 		$http.post('rest/protected/postCampaign/deletePostCampaign',
 				$scope.postRequest).success(function(response) {
-					if(response.data.code=="200"){
+					if(response.code==200){
 						$scope.postRequest.postCampaign.campaignId = $stateParams.campaignId;
 						$scope.getPosts(1);						
 					}else{

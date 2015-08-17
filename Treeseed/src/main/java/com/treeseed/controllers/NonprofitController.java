@@ -47,6 +47,8 @@ import com.stripe.model.Plan;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
+import com.treeseed.contracts.EmailUniqueRequest;
+import com.treeseed.contracts.NameUniqueRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
@@ -513,4 +515,41 @@ public class NonprofitController extends UserGeneralController {
 		
 		return us;
 	}
+	
+	
+	/**
+	 * Creates the.
+	 *
+	 * @param email the email
+	 * @return the base response
+	 */
+	@RequestMapping(value ="/isNameUnique", method = RequestMethod.POST)
+		public BaseResponse isNameUnique(@RequestBody NameUniqueRequest request){	
+	
+			BaseResponse response = new BaseResponse();
+			
+			try{
+			
+				Boolean isNameUnique =  nonProfitService.isNameUnique(request.getName());
+				
+				response.setCode(200);
+				
+				if(isNameUnique){
+					response.setCodeMessage("UNIQUE");
+				}else{
+					response.setCodeMessage("NOT-UNIQUE");
+				}
+			
+			}catch(Exception e){
+				if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+					response.setCode(10);
+					response.setErrorMessage("Data Base error");
+				}else{
+					response.setCode(500);
+				}
+			}
+			return response;
+	}
+	
+	
 }
