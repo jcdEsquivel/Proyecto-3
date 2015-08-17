@@ -366,9 +366,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 						$scope.donors = mydata.donors;
 						$scope.totalItems = mydata.totalElements;
 					}else{
-						
 						$scope.errorServer(mydata.code);
-						
 					}
 				}).error(function(status) {
 					$scope.errorServer(status);
@@ -771,7 +769,7 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 
 		$http.post('rest/protected/donor/deleteDonor', $scope.requestObject)
 				.success(function(response) {
-					if (response.data.code == "200") {
+					if (response.code == "200") {
 						AuthService.guestSession()
 						$scope.currentUser = null;
 						$state.go("treeSeed.index");
