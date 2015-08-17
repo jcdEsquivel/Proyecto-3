@@ -46,7 +46,7 @@ treeSeedAppControllers.controller('donorReceiptsController', function($scope,
 				$scope.totalReceipts = data.totalElements;
 			}else{
 				$scope.receipts = [];
-				$scope.errorServer(status);
+				$scope.errorServer(data.code);
 				
 			}
 			

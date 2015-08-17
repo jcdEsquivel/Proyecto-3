@@ -66,7 +66,7 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 					if(mydata.code==200){
 						modalInstance.close();
 					}else{
-						$scope.errorServer(status);
+						$scope.errorServer(mydata.code);
 					}
 		}).error(function(status) {
 			$scope.errorServer(status);
@@ -130,7 +130,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 				$scope.totalReports = data.totalElements;
 			}else{
 				$scope.reports = [];
-				$scope.errorServer(status);
+				$scope.errorServer(data.code);
 				
 			}
 			

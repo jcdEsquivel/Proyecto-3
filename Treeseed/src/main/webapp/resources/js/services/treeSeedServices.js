@@ -23,8 +23,28 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 					return false;
 				}
 			});
+		},
+		
+		isNameUnique : function(name) {
+
+			var request = {
+
+				name : name
+
+			};
+
+			return $http.post('rest/protected/nonprofit/isNameUnique',
+					JSON.stringify(request)).then(function(response) {
+
+				if (response.data.codeMessage == 'UNIQUE') {
+					return true;
+				} else {
+					return false;
+				}
+			});
 		}
 	}
+	
 });
 
 treeSeedAppServices.service('$donationService', function($http) {

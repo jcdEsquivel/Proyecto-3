@@ -717,3 +717,7 @@ right:0
     width:100px;
     margin-top: 25px;
 }
+
+.red-error{
+	color:red;
+}

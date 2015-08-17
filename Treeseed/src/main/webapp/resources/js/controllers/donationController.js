@@ -95,7 +95,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 								  $scope.close();
 					  }).error(function(error){
 						  	$scope.loadDonation.isLoading = 0;
-						  	console.log(error)
+						  
 	    					$timeout(function() {
 	    					$scope.$form.find('.payment-errors').text(error.message);
 	    					   }, 250);
@@ -588,8 +588,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 					$scope.hasDonations = true;//shows edit donation tab
 				}
 				
-		}).error(function(mydata, status) {
-			//we have to do something here
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	}
 	
@@ -866,7 +866,7 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 			if(response.code==200){
 				$scope.recurrableDonations = response.donations;
 			}else{
-				$scope.errorServer(status);	
+				$scope.errorServer(response.code);	
 			}
 		}).error(function(status) {
 			$scope.errorServer(status);
@@ -888,7 +888,7 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 				$scope.showSuccessFeedBack();
 				$scope.disableEdit = false;
 			}else{
-				$scope.errorServer(status);
+				$scope.errorServer(response.code);
 			}
 		}).error(function(status) {
 			$scope.errorServer(status);
@@ -942,7 +942,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 			if(response.code==200){
 				$scope.request.donations = response.donations;	
 			}else{
-				$scope.errorServer(status);
+				$scope.errorServer(response.code);
 			}	
 		}).error(function(status) {
 			$scope.errorServer(status);
@@ -962,7 +962,7 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 				$scope.isSubmited = false;
 				$modalInstance.close();
 			}else{
-				$scope.errorServer(status);
+				$scope.errorServer(response.code);
 			}
 		}).error(function(status) {
 			$scope.errorServer(status);
