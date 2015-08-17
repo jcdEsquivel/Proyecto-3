@@ -832,10 +832,35 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 								})
 					};
 
-	$scope.amountGoalSaveEditing = function(){
-		$scope.editCampaign();
-		$scope.amountGoalInEdition = false;
-	};
+					$scope.closeDateModalWithoutEdit = function() {
+						modalInstance.close();
+					}
+
+					$scope.closeDateModal = function(startDate, dueDate) {
+						$scope.campaign.startDate = new Date(startDate);
+						$scope.campaign.dueDate = new Date(dueDate);
+						modalInstance.close();
+						$scope.editCampaign();
+					}
+
+					//Amount edit clicked
+					$scope.amountGoalClicked = function() {
+						$scope.amountGoalInEdition = true;
+						$scope.error = false;
+						$scope.campaignEdit ={
+				  				amountGoal: $scope.campaign.amountGoal
+				  		}
+					};
+
+					$scope.amountGoalSaveEditing = function(){
+						$scope.campaign.amountGoal = $scope.campaignEdit.amountGoal
+						$scope.editCampaign();
+						$scope.amountGoalInEdition = false;
+					};
+
+					$scope.amountGoalCancelEditing = function() {
+						$scope.amountGoalInEdition = false;
+					};
 	
 	
 	/*************************
