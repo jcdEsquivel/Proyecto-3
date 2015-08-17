@@ -331,7 +331,7 @@ treeSeedAppServices.service('Session', function() {
 
 treeSeedAppServices.service('StripeService', function() {
 
-	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y";
+	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y ";
 
 	return {
 		getStripeApiKey : function() {
