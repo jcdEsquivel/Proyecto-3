@@ -64,9 +64,11 @@ public class DonorController extends UserGeneralController{
 	@Autowired
 	DonorServiceInterface donorService;
 	
+	/** The nonprofit service. */
 	@Autowired
 	NonprofitServiceInterface nonprofitService;
 	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
@@ -507,6 +509,12 @@ public class DonorController extends UserGeneralController{
 		return us;		
 	}
 	
+	/**
+	 * Gets the dashboard.
+	 *
+	 * @param donorRequest the donor request
+	 * @return the dashboard
+	 */
 	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST)
 	public DonorResponse getDashboard(@RequestBody DonorRequest donorRequest) {
 

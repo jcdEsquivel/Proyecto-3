@@ -48,6 +48,11 @@ public class TestDonorDashboard extends AbstractTestController  {
 
 	
 
+	/**
+	 * Test get donor dashboard succes sful.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetDonorDashboardSuccesSful() throws Exception {
 
@@ -81,6 +86,11 @@ public class TestDonorDashboard extends AbstractTestController  {
 
 	}
 	
+	/**
+	 * Test get donor dashboard without nonprofit.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetDonorDashboardWithoutNonprofit() throws Exception {
 		
@@ -111,6 +121,11 @@ public class TestDonorDashboard extends AbstractTestController  {
 
 	}
 	
+	/**
+	 * Test get donor dashboard without session.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testGetDonorDashboardWithoutSession() throws Exception {
 
