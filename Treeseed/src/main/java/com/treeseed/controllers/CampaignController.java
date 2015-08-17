@@ -317,7 +317,6 @@ public class CampaignController {
 				cs.setCodeMessage("campaigns fetch success");
 				cs.setCode(200);
 			} else {
-				cs.setErrorMessage("campaigns fetch unsuccessful");
 				cs.setCode(400);
 			}
 			

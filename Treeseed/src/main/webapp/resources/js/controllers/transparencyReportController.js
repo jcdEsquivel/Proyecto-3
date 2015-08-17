@@ -130,7 +130,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 				$scope.totalReports = data.totalElements;
 			}else{
 				$scope.reports = [];
-				$scope.errorServer(data.code);
+				$scope.zeroReports = true;
 				
 			}
 			

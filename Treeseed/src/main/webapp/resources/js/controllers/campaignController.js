@@ -373,7 +373,7 @@ function($scope, $http, $location, $modal, $log, $timeout, $stateParams) {
 						$scope.campaigns = mydata.campaigns;
 						$scope.totalItems = mydata.totalElements;
 					}else{
-						$scope.errorServer(mydata.code);
+						$scope.zeroCampaigns = true;
 					}
 				}).error(function(status) {
 					$scope.errorServer(status);
