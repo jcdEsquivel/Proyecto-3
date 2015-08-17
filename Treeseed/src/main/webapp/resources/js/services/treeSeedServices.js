@@ -22,7 +22,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 				}  else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
 				}else{
-					
+					return true;
 				}
 			});
 		},
@@ -43,7 +43,7 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 				} else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
 				}else{
-					
+					return true;
 				}
 			});
 		}

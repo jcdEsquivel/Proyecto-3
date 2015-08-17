@@ -134,6 +134,8 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	    },
 	    file : $scope.image,
 	   }).success(function(response){
+		  
+		   if(response.code == 200){
 		   
 		  var credentials = {
 			    email: $scope.nonprofit.userGeneral.email,
@@ -155,7 +157,11 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 				}
 			}, function(status){
 				 $scope.errorServer(status.status);
-			});		   
+			});	
+		  
+	   }else{
+		   $scope.errorServer(response.code)
+	   }
 	   }); 
 	
 	};
@@ -321,7 +327,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.nameSaveEditing = function(){
-		$scope.nonprofit.name = $scope.nonprofitEdit.name;
+		if($scope.nonprofitEdit.name){
+			$scope.nonprofit.name = $scope.nonprofitEdit.name;
+		}
+		
 		$scope.editNonProfit();
 		$scope.nameInEdition = false;
 	};
