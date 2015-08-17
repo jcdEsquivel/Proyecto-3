@@ -19,8 +19,10 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 				if (response.data.codeMessage == 'UNIQUE') {
 					return true;
-				} else {
+				}  else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
+				}else{
+					
 				}
 			});
 		},
@@ -38,8 +40,10 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 				if (response.data.codeMessage == 'UNIQUE') {
 					return true;
-				} else {
+				} else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
+				}else{
+					
 				}
 			});
 		}

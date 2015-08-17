@@ -52,6 +52,8 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 
 	$scope.temps = [];
 
+	
+	
 	$scope.generalSearch = function(val) {
 		$scope.country = $sharedData.getUserCountry();
 		console.log('in');
