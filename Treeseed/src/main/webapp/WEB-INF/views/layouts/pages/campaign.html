@@ -78,14 +78,14 @@
             </div>
          </div>
          <div class="col wrapper-lg w-lg bg-light dk r-r">
-         	<div class="row m-b-md">
-         		<div class="col-sm-12">
-	         	<md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" ng-click="showDonation()" style="width:100%;">
-	        		 <i class="fa fa-dollar"></i>
-	        		<h2 translate="DONATION-MODAL.DONATE">Donate</h2>
-	      		</md-button>
-	      		</div>
-         	</div>
+            <div class="row m-b-md">
+               <div class="col-sm-12">
+               <md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" ng-click="showDonation()" style="width:100%;">
+                <i class="fa fa-dollar"></i>
+               <h2 translate="DONATION-MODAL.DONATE">Donate</h2>
+               </md-button>
+               </div>
+            </div>
             <h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>
             <div class="">
                <div class="">
@@ -109,7 +109,7 @@
                   <span class="input-group-addon">$</span> <input type="number"
                      ui-validate=" '$value>0' " name="amount" class="form-control"
                      placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-AMOUNT'| translate}}"
-                     ng-model="campaign.amountGoal" min='0' step="100" decimals="2"
+                     ng-model="campaignEdit.amountGoal" min='0' step="100" decimals="2"
                      required ng-blur="progressControl(4,step2.amount.$valid)">
                   <div>
                      <br>
