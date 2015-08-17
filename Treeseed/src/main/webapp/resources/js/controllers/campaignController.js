@@ -47,7 +47,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 			$scope.selectSortOptionsCause = response.catalogs;
 		}).error(function(status){
 			$scope.errorServer(status);
-		}));
+		});
 	}
 
 	$scope.init();
