@@ -89,7 +89,6 @@ public interface DonationServiceInterface {
 	 * Gets the donations by nonprofit.
 	 *
 	 * @param nonProfitId the non profit id
-	 * @param cant the cant
 	 * @return the donations by nonprofit
 	 */
 	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId);

@@ -90,9 +90,11 @@ public class NonprofitController extends UserGeneralController {
 	@Autowired
 	CatalogServiceInterface catalogService;
 	
+	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
+	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
 
@@ -115,6 +117,7 @@ public class NonprofitController extends UserGeneralController {
 	@Autowired
 	DonationServiceInterface donationService;
 	
+	/** The recurrable donation service. */
 	@Autowired
 	RecurrableDonationServiceInterface recurrableDonationService;
 
@@ -508,7 +511,7 @@ public class NonprofitController extends UserGeneralController {
 	/**
 	 * Gets the dashboard.
 	 *
-	 * @param request the request
+	 * @param nonprofitRequest the nonprofit request
 	 * @return the dashboard information
 	 */
 	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST)

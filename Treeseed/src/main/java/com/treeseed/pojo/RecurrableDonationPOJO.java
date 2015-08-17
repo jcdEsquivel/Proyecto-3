@@ -46,6 +46,7 @@ public class RecurrableDonationPOJO {
 	/** The date s. */
 	private String dateS;
 	
+	/** The donor. */
 	private DonorPOJO donor;
 	
 	/**
@@ -282,10 +283,20 @@ public class RecurrableDonationPOJO {
 		this.dateS = dateS;
 	}
 
+	/**
+	 * Gets the donor.
+	 *
+	 * @return the donor
+	 */
 	public DonorPOJO getDonor() {
 		return donor;
 	}
 
+	/**
+	 * Sets the donor.
+	 *
+	 * @param donor the new donor
+	 */
 	public void setDonor(DonorPOJO donor) {
 		this.donor = donor;
 	}

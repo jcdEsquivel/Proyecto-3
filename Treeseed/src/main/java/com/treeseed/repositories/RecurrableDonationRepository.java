@@ -70,7 +70,6 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	 * Gets the by non profit id dashboard.
 	 *
 	 * @param nonProfitId the non profit id
-	 * @param cant the cant
 	 * @return the by non profit id dashboard
 	 */
 	@Query("SELECT r FROM RecurrableDonation r where r.nonProfitId = :nonProfitId and r.isActive = true order by r.dateTime Desc ") 

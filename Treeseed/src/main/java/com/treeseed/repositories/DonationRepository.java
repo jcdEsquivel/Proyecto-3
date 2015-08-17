@@ -153,7 +153,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 * Gets the by non profit id.
 	 *
 	 * @param nonProfitId the non profit id
-	 * @param cant the cant
 	 * @return the by non profit id
 	 */
 	@Query("SELECT d FROM Donation d where d.nonProfitId = :nonProfitId and d.isActive = true order by d.dateTime Desc ") 
