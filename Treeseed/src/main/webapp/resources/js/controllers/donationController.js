@@ -8,11 +8,11 @@ treeSeedAppControllers.controller('loadingController', function($scope,
 		console.log("entre");
 	$scope.redirectToProfile = function()
 	{
-		var idDes = $stateParams.donorId + "";
-		var decrypted = CryptoJS.AES.decrypt(idDes, "golondrinasTicas");
-		var id = decrypted.toString(CryptoJS.enc.Utf8);
+		//var idDes = $stateParams.donorId;
+		//var decrypted = CryptoJS.AES.decrypt(idDes, "golondrinasTicas");
+		//var id = decrypted.toString(CryptoJS.enc.Utf8);
 		$scope.fatherId = $stateParams.donorId;
-		$state.go('treeSeed.donor', {donorId: id});
+		$state.go('treeSeed.donor', {donorId: $stateParams.donorId});
 	}
 	
 	$scope.redirectToProfile();

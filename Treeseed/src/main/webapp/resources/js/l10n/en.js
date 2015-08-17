@@ -146,7 +146,8 @@
     	"DO-YOU": "Do not have an account?",
 		"CREATE": "Create an account",
 		"EMAIL-ERROR": "Wrong email or password.",
-		"SHAREFACEBOOK": "Share in facebook"
+		"SHAREFACEBOOK": "Share in facebook",
+		"SHAREPROFILEFACEBOOK" : "Share Profile in facebook"
        },
 
    	"NONPROFIT-PROFILE": {

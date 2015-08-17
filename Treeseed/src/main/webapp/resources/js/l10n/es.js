@@ -137,7 +137,8 @@
     	"DO-YOU": "¿No tienes una cuenta?",
     	"CREATE": "Crear una cuenta",
 		"EMAIL-ERROR": "Email o contraseña incorrectos.", 
-		"SHAREFACEBOOK": "Compartir con facebook"
+		"SHAREFACEBOOK": "Compartir con facebook",
+		"SHAREPROFILEFACEBOOK" : "Compartir Perfil facebook"
      },
       "NONPROFIT-PROFILE": {
     	"PROFILE": "Perfil",

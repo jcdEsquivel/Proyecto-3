@@ -3,10 +3,11 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 treeSeedAppLoginControllers.controller('facebookController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, USER_ROLES, Session) {
 	
 	$scope.name = "";
-	$scope.idFacebook = "";
 	$scope.descripcionCampaign = "";
+	$scope.profilePicture = "";
 	$scope.idShareUser = "";
 	var app_id = '319610508162843';
+	$scope.idFacebook = "";
 	
 	$scope.init = function()
 	{
@@ -54,15 +55,28 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
       		callback(response);
     	});
   	}
-  		
-  	var postInFacebook = function() {
+  	
+  	$scope.postInFacebook = function(type)
+  	{
+  		postInFacebook(type);
+  	}
+  	
+  	$scope.postInFacebookBylist = function(p)
+  	{
+  		$scope.name = p.title;
+  		$scope.descripcionCampaign = p.description;
+  		$scope.profilePicture = p.picture;
+  		postInFacebook(2);
+  	}
+  		  	
+  	var postInFacebook = function(type) {
   		checkLoginState(function(data) {
   			if (data.status !== 'connected') {
   				FB.login(function(response) {
   					if (response.status === 'connected')
   						{
   						  $scope.idShareUser = Session.userId;
-  						  postInFacebookMe();
+  						  postInFacebookMe(type);
   						}
   						
   				}, {scope: 'email,user_location, publish_actions'});
@@ -70,40 +84,53 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
   			else if (data.status === 'connected')
   			{
   				$scope.idShareUser = Session.userId;
-  				postInFacebookMe();
+  				postInFacebookMe(type);
   			}
   		})
   	} 
   	
-  	$scope.postInFacebook = function(titleFace,descriptionFace,pictureFace)
+  	var postInFacebookMe = function(type)
   	{
-  		postInFacebook(titleFace,descriptionFace,pictureFace);
-  	}
-  	
-  	var postInFacebookMe = function(titleFace,descriptionFace,pictureFace)
-  	{
-  		var cause = "Animals";
-  		var donateAmount = "1000";
-  		var descripcionC = "Campaign for the Animals";
-  		var campaignTittle = "Save the Animals";
   		var body = "";
-  		
-		body = descriptionFace;
-		
+  		var name = "";
+  		var picture = "";
 		var id = $scope.idShareUser + "";
 		
-		var encrypted = CryptoJS.AES.encrypt(id, "golondrinasTicas");
-		
+		if(type == 0)
+		{
+			body = $scope.titleFace;
+			name = $scope.descriptionFace;
+			picture = $scope.pictureFace;
+		}
+		else if(type == 1)
+		{
+			body = $scope.donor.description;
+			name = $scope.donor.name;
+			picture = $scope.donor.profilePicture;
+		}
+		else if (type == 2)
+		{
+			body = $scope.name;
+			name = $scope.descripcionCampaign;
+			picture = $scope.profilePicture;
+		}
+		else if(type == 3)
+		{
+			body = $scope.campaign.description;
+			name = $scope.campaign.name;
+			picture = $scope.campaign.nonprofit.profilePicture;
+		}
+	
+		//var encrypted = CryptoJS.AES.encrypt(id, "golondrinasTicas");
 		//var decrypted = CryptoJS.AES.decrypt(encrypted, "golondrinasTicas");
 		//var result = decrypted.toString(CryptoJS.enc.Utf8);
-		//console.log(result);
 		
 		FB.api('/me/feed','post', { 
 			message: body, 
-			link: "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + encrypted,	
-			picture: pictureFace,
-			name: titleFace,
-			description: descripcionC
+			link: "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + id,	
+			picture: picture,
+			name: name,
+			description: body
 		}, function(response) {
 		    if (!response || response.error)
 		    {
@@ -160,7 +187,7 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 						
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			    		//$scope.remebermeUser = $scope.rememberMe;
-			    		$modalInstance.close()	;	
+			    		$modalInstance.close();	
 			    		if(Session.userRole==USER_ROLES.donor){
 			    			$state.go('treeSeed.donor', {donorId: res.data.idUser});
 			    		}

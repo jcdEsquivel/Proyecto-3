@@ -81,6 +81,7 @@ angular
 											{
 												url : 'sharedDonation/:donorId',
 												templateUrl : 'layouts/pages/loading.html',
+												controller: "loadingController",
 												params: {donorId: null},
 												data : {
 													authorizedRoles : [
