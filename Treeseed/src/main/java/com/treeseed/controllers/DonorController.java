@@ -105,72 +105,83 @@ public class DonorController extends UserGeneralController{
 		
 		DonorResponse us = new DonorResponse();
 		
-		Boolean alreadyUser=userGeneralService.userExist(email);
-		  email = email.toLowerCase();
-		  
-	    Boolean result = userGeneralService.validateFacebookId(facebookId); 
-		if (result == true)  
-		{
-			us.setCode(400);
-		    us.setCodeMessage("ID FACEBOOK ALREADY REGISTER");
-			return us;
-		}
+		try{
 		
-	   if(validator.isValid(email)){
-		   if(!alreadyUser){
-				   if(country.equals("") == false){
-					   Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
-				   }else{
-					   Countrytype = new CatalogWrapper(null);
-				   }
-				userType = catalogService.getAllByType("DonorType").get(0);
-				
-				
-				if (file == null)
-				{
-					resultFileName = "resources/file-storage/1436319975812.jpg";
-				}
-				else
-				{
-					resultFileName = Utils.writeToFile(file,servletContext);
-				}
-		
-				DonorWrapper user = new DonorWrapper();
-				user.setName(name);
-				user.setLastName(lastName);
-				user.setActive(true);
-				user.setProfilePicture(resultFileName);
-				user.setCountry(Countrytype.getWrapperObject());
-				user.setType(userType.getWrapperObject());
+			Boolean alreadyUser=userGeneralService.userExist(email);
+			  email = email.toLowerCase();
+			  
+		    Boolean result = userGeneralService.validateFacebookId(facebookId); 
+			if (result == true)  
+			{
+				us.setCode(400);
+			    us.setCodeMessage("ID FACEBOOK ALREADY REGISTER");
+				return us;
+			}
 			
-				int donorID = donorService.saveDonor(user);
-				if(donorID>0){	
-				    UserGeneralRequest ug = new UserGeneralRequest();
-					UserGeneralResponse ugr = new UserGeneralResponse();
-					UserGeneralPOJO userG=new UserGeneralPOJO();
-					userG.setEmail(email);
-					userG.setPassword(password);
-					userG.setFacebookId(facebookId);
-					userG.setFacebookToken(facebookToken);
-					ug.setUserGeneral(userG);
-					ugr= userGeneralCreate(ug,user);
+		   if(validator.isValid(email)){
+			   if(!alreadyUser){
+					   if(country.equals("") == false){
+						   Countrytype = catalogService.findCatalogById(Integer.parseInt(country));
+					   }else{
+						   Countrytype = new CatalogWrapper(null);
+					   }
+					userType = catalogService.getAllByType("DonorType").get(0);
 					
-					if(ugr.getCode()==200){
-						us.setDonorId(donorID);
-						us.setCode(200);
-						us.setCodeMessage("user created succesfully");
-					}else{
-						us.setCode(ugr.getCode());
-						us.setCodeMessage(ugr.getCodeMessage());
+					
+					if (file == null)
+					{
+						resultFileName = "resources/file-storage/1436319975812.jpg";
 					}
-				}	
-		   	}else{
-			    us.setCode(400);
-			    us.setCodeMessage("EMAIL ALREADY IN USE");
-			}	   
-		}else{
-		   us.setCode(400);
-		   us.setCodeMessage("BAD EMAIL");
+					else
+					{
+						resultFileName = Utils.writeToFile(file,servletContext);
+					}
+			
+					DonorWrapper user = new DonorWrapper();
+					user.setName(name);
+					user.setLastName(lastName);
+					user.setActive(true);
+					user.setProfilePicture(resultFileName);
+					user.setCountry(Countrytype.getWrapperObject());
+					user.setType(userType.getWrapperObject());
+				
+					int donorID = donorService.saveDonor(user);
+					if(donorID>0){	
+					    UserGeneralRequest ug = new UserGeneralRequest();
+						UserGeneralResponse ugr = new UserGeneralResponse();
+						UserGeneralPOJO userG=new UserGeneralPOJO();
+						userG.setEmail(email);
+						userG.setPassword(password);
+						userG.setFacebookId(facebookId);
+						userG.setFacebookToken(facebookToken);
+						ug.setUserGeneral(userG);
+						ugr= userGeneralCreate(ug,user);
+						
+						if(ugr.getCode()==200){
+							us.setDonorId(donorID);
+							us.setCode(200);
+							us.setCodeMessage("user created succesfully");
+						}else{
+							us.setCode(ugr.getCode());
+							us.setCodeMessage(ugr.getCodeMessage());
+						}
+					}	
+			   	}else{
+				    us.setCode(400);
+				    us.setCodeMessage("EMAIL ALREADY IN USE");
+				}	   
+			}else{
+			   us.setCode(400);
+			   us.setCodeMessage("BAD EMAIL");
+			}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
+			
 		}
 		return us;
 		
@@ -187,34 +198,45 @@ public class DonorController extends UserGeneralController{
 	public DonorResponse getDonors(@RequestBody DonorRequest dr){	
 		
 		dr.setPageNumber(dr.getPageNumber() - 1);
-		
-		Page<Donor> viewDonors = donorService.getAll(dr);
-		
 		DonorResponse ds = new DonorResponse();
 		
-		ds.setCode(200);
-		ds.setCodeMessage("donors fetch success");
-				
-		ds.setTotalElements(viewDonors.getTotalElements());
-		ds.setTotalPages(viewDonors.getTotalPages());
+		try{
 		
-		List<DonorPOJO> viewDonorsPOJO = new ArrayList<DonorPOJO>();
-		
-		for(Donor objeto:viewDonors.getContent())
-		{
-			DonorPOJO ndonor = new DonorPOJO();
-			ndonor.setId(objeto.getId());
-			ndonor.setName(objeto.getName());
-			ndonor.setWebPage(objeto.getWebPage());
-			ndonor.setLastName(objeto.getLastName());
-			ndonor.setProfilePicture(objeto.getProfilePicture());
-			ndonor.setDescription(objeto.getDescription());
-			viewDonorsPOJO.add(ndonor);
-		};
-		
-		
-		ds.setDonors(viewDonorsPOJO);
-		ds.setCode(200);
+			Page<Donor> viewDonors = donorService.getAll(dr);
+			
+			ds.setCode(200);
+			ds.setCodeMessage("donors fetch success");
+					
+			ds.setTotalElements(viewDonors.getTotalElements());
+			ds.setTotalPages(viewDonors.getTotalPages());
+			
+			List<DonorPOJO> viewDonorsPOJO = new ArrayList<DonorPOJO>();
+			
+			for(Donor objeto:viewDonors.getContent())
+			{
+				DonorPOJO ndonor = new DonorPOJO();
+				ndonor.setId(objeto.getId());
+				ndonor.setName(objeto.getName());
+				ndonor.setWebPage(objeto.getWebPage());
+				ndonor.setLastName(objeto.getLastName());
+				ndonor.setProfilePicture(objeto.getProfilePicture());
+				ndonor.setDescription(objeto.getDescription());
+				viewDonorsPOJO.add(ndonor);
+			};
+			
+			
+			ds.setDonors(viewDonorsPOJO);
+			ds.setCode(200);
+			
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				ds.setCode(10);
+				ds.setErrorMessage("Data Base error");
+			}else{
+				ds.setCode(500);
+			}
+			
+		}
 		return ds;	
 	}
 	
@@ -228,45 +250,57 @@ public class DonorController extends UserGeneralController{
 	@Transactional
 	public DonorResponse getDonorProfile(@RequestBody DonorRequest dr){	
 		
-		HttpSession currentSession = request.getSession();
-		int tempId= 0;
-		
-		if(dr.getIdUser()!=0){
-			tempId= (int) currentSession.getAttribute("idUser");
-		}
-		
-		DonorWrapper donor = donorService.getDonorProfileByID(dr.getId());
-		
 		DonorResponse nps = new DonorResponse();
 		
-		if(tempId==donor.getUsergenerals().get(0).getId()){
-			nps.setOwner(true);
-		}else{
-			nps.setOwner(false);
-		}
+		try{
 		
-		nps.setCode(200);
-		nps.setCodeMessage("nonprofit fetch success");
+			HttpSession currentSession = request.getSession();
+			int tempId= 0;
 			
-		DonorPOJO donorPOJO = new DonorPOJO();
-
-		donorPOJO.setId(donor.getId());
-		donorPOJO.setName(donor.getName());
-		donorPOJO.setLastName(donor.getLastName());
-		donorPOJO.setDescription(donor.getDescription());
-		donorPOJO.setWebPage(donor.getWebPage());
-		donorPOJO.setProfilePicture(donor.getProfilePicture());
+			if(dr.getIdUser()!=0){
+				tempId= (int) currentSession.getAttribute("idUser");
+			}
+			
+			DonorWrapper donor = donorService.getDonorProfileByID(dr.getId());
+			
+			if(tempId==donor.getUsergenerals().get(0).getId()){
+				nps.setOwner(true);
+			}else{
+				nps.setOwner(false);
+			}
+			
+			nps.setCode(200);
+			nps.setCodeMessage("nonprofit fetch success");
+				
+			DonorPOJO donorPOJO = new DonorPOJO();
+	
+			donorPOJO.setId(donor.getId());
+			donorPOJO.setName(donor.getName());
+			donorPOJO.setLastName(donor.getLastName());
+			donorPOJO.setDescription(donor.getDescription());
+			donorPOJO.setWebPage(donor.getWebPage());
+			donorPOJO.setProfilePicture(donor.getProfilePicture());
+			
+			UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+			UserGeneral userGeneral;
+			userGeneral= donor.getUsergenerals().get(0);
+			
+			userGeneralPOJO.setEmail(userGeneral.getEmail());
+			
+			donorPOJO.setUserGeneral(userGeneralPOJO);
+			
+			nps.setDonor(donorPOJO);
+			nps.setCode(200);
 		
-		UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-		UserGeneral userGeneral;
-		userGeneral= donor.getUsergenerals().get(0);
-		
-		userGeneralPOJO.setEmail(userGeneral.getEmail());
-		
-		donorPOJO.setUserGeneral(userGeneralPOJO);
-		
-		nps.setDonor(donorPOJO);
-		nps.setCode(200);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				nps.setCode(10);
+				nps.setErrorMessage("Data Base error");
+			}else{
+				nps.setCode(500);
+			}
+			
+		}
 		return nps;	
 	}
 	
@@ -298,12 +332,16 @@ public class DonorController extends UserGeneralController{
 				response.setErrorMessage("Donor do not found");
 				response.setCode(400);
 			}
-		} catch (Exception e) {
-			response.setErrorMessage(e.getMessage());
-			response.setCode(500);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
-		
-		
+
 		return response;		
 	}
 	
@@ -361,99 +399,110 @@ public class DonorController extends UserGeneralController{
 		DonorResponse us = new DonorResponse();
 		DonorPOJO donorPOJO = new DonorPOJO();
 		
-		UserGeneral ug = new UserGeneral();
-		ug = userGeneralService.getUGByID(dr.getIdUser());
+		try{
 		
-		if(ug.getEmail().equals(dr.getEmail())){
+			UserGeneral ug = new UserGeneral();
+			ug = userGeneralService.getUGByID(dr.getIdUser());
 			
-				DonorWrapper donor = new DonorWrapper();
+			if(ug.getEmail().equals(dr.getEmail())){
+				
+					DonorWrapper donor = new DonorWrapper();
+		
+					if(fileProfile!=null){
+						profileImageName = Utils.writeToFile(fileProfile,servletContext);
+					}
 	
-				if(fileProfile!=null){
-					profileImageName = Utils.writeToFile(fileProfile,servletContext);
-				}
-
-				if(!profileImageName.equals("")){
-					donor.setProfilePicture(profileImageName);
-				}else{
-					donor.setProfilePicture(dr.getProfilePicture());
-				}
+					if(!profileImageName.equals("")){
+						donor.setProfilePicture(profileImageName);
+					}else{
+						donor.setProfilePicture(dr.getProfilePicture());
+					}
+						
+					donor.setId(dr.getId());
+					donor.setName(dr.getName());
+					donor.setLastName(dr.getLastName());
+					donor.setDescription(dr.getDescription());
+					donor.setWebPage(dr.getWebPage());
 					
-				donor.setId(dr.getId());
-				donor.setName(dr.getName());
-				donor.setLastName(dr.getLastName());
-				donor.setDescription(dr.getDescription());
-				donor.setWebPage(dr.getWebPage());
-				
-				Donor donorobject = new Donor();
-				donorPOJO = new DonorPOJO();
-				
-				donorService.updateDonor(donor);
-				
-				donorobject= donorService.getSessionDonor(dr.getId());
-				
-				donorPOJO.setName(donorobject.getName());
-				donorPOJO.setLastName(donorobject.getLastName());
-				donorPOJO.setDescription(donorobject.getDescription());
-				donorPOJO.setProfilePicture(donorobject.getProfilePicture());
-				donorPOJO.setWebPage(donorobject.getWebPage());
-				donorPOJO.setId(donorobject.getId());
-				
-				UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-				
-				userGeneralPOJO.setEmail(ug.getEmail());
-				
-				donorPOJO.setUserGeneral(userGeneralPOJO);
-				
-				us.setDonor(donorPOJO);
-				us.setCode(200);
-				us.setCodeMessage("Donor updated sucessfully");
-		}else{
-			
-			Boolean alreadyUser=userGeneralService.userExist(dr.getEmail());
-			dr.setEmail(dr.getEmail().toLowerCase());
-
-			if(validator.isValid(dr.getEmail())){
-				if(!alreadyUser){
-			
-					UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-					userGeneral.setEmail(dr.getEmail());
-					userGeneral.setId(dr.getId());
+					Donor donorobject = new Donor();
+					donorPOJO = new DonorPOJO();
 					
-					UserGeneral userGeneralobject = new UserGeneral();
+					donorService.updateDonor(donor);
+					
+					donorobject= donorService.getSessionDonor(dr.getId());
+					
+					donorPOJO.setName(donorobject.getName());
+					donorPOJO.setLastName(donorobject.getLastName());
+					donorPOJO.setDescription(donorobject.getDescription());
+					donorPOJO.setProfilePicture(donorobject.getProfilePicture());
+					donorPOJO.setWebPage(donorobject.getWebPage());
+					donorPOJO.setId(donorobject.getId());
+					
 					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 					
-					userGeneralService.updateUserGeneral(userGeneral);
+					userGeneralPOJO.setEmail(ug.getEmail());
 					
-					userGeneralPOJO.setEmail(userGeneral.getEmail());
-					
-					donorPOJO.setName(dr.getName());
-					donorPOJO.setLastName(dr.getLastName());
-					donorPOJO.setDescription(dr.getDescription());
-					donorPOJO.setProfilePicture(dr.getProfilePicture());
-					donorPOJO.setWebPage(dr.getWebPage());
 					donorPOJO.setUserGeneral(userGeneralPOJO);
-					donorPOJO.setId(dr.getId());
 					
 					us.setDonor(donorPOJO);
 					us.setCode(200);
-					us.setCodeMessage("Donor updated sucessfully");	
-		
+					us.setCodeMessage("Donor updated sucessfully");
 			}else{
-					us.setCode(400);
-					us.setCodeMessage("EMAIL ALREADY IN USE");
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-					userGeneralPOJO.setEmail(ug.getEmail());
-					donorPOJO.setUserGeneral(userGeneralPOJO);
-					us.setDonor(donorPOJO);
-				}
+				
+				Boolean alreadyUser=userGeneralService.userExist(dr.getEmail());
+				dr.setEmail(dr.getEmail().toLowerCase());
+	
+				if(validator.isValid(dr.getEmail())){
+					if(!alreadyUser){
+				
+						UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+						userGeneral.setEmail(dr.getEmail());
+						userGeneral.setId(dr.getId());
+						
+						UserGeneral userGeneralobject = new UserGeneral();
+						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+						
+						userGeneralService.updateUserGeneral(userGeneral);
+						
+						userGeneralPOJO.setEmail(userGeneral.getEmail());
+						
+						donorPOJO.setName(dr.getName());
+						donorPOJO.setLastName(dr.getLastName());
+						donorPOJO.setDescription(dr.getDescription());
+						donorPOJO.setProfilePicture(dr.getProfilePicture());
+						donorPOJO.setWebPage(dr.getWebPage());
+						donorPOJO.setUserGeneral(userGeneralPOJO);
+						donorPOJO.setId(dr.getId());
+						
+						us.setDonor(donorPOJO);
+						us.setCode(200);
+						us.setCodeMessage("Donor updated sucessfully");	
+			
+				}else{
+						us.setCode(400);
+						us.setCodeMessage("EMAIL ALREADY IN USE");
+						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+						userGeneralPOJO.setEmail(ug.getEmail());
+						donorPOJO.setUserGeneral(userGeneralPOJO);
+						us.setDonor(donorPOJO);
+					}
+				}else{
+						us.setCode(400);
+						us.setCodeMessage("BAD EMAIL");
+						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
+						userGeneralPOJO.setEmail(ug.getEmail());
+						donorPOJO.setUserGeneral(userGeneralPOJO);
+						us.setDonor(donorPOJO);
+					}
+			}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
 			}else{
-					us.setCode(400);
-					us.setCodeMessage("BAD EMAIL");
-					UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
-					userGeneralPOJO.setEmail(ug.getEmail());
-					donorPOJO.setUserGeneral(userGeneralPOJO);
-					us.setDonor(donorPOJO);
-				}
+				us.setCode(500);
+			}
+			
 		}
 		return us;		
 	}
@@ -484,8 +533,12 @@ public class DonorController extends UserGeneralController{
 			
 		
 		}catch(Exception e){
-			us.setCode(400);
-			us.setCodeMessage("Error Database");
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
 			
 		}
 	

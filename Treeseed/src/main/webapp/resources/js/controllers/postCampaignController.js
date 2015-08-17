@@ -38,12 +38,11 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				$scope.totalPosts = data.totalElements;
 				console.log($scope.totalPosts);
 			}else{
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(data.code);	
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 		
 	};//end getPosts
@@ -102,11 +101,16 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 		$scope.postRequest.postCampaign.campaignId= $stateParams.campaignId;
 		
 		$http.post('rest/protected/postCampaign/deletePostCampaign',
-				$scope.postRequest).then(function(response) {
-					if(response.data.code=="200"){
+				$scope.postRequest).success(function(response) {
+					if(response.code==200){
 						$scope.postRequest.postCampaign.campaignId = $stateParams.campaignId;
 						$scope.getPosts(1);						
+					}else{
+						$scope.errorServer(response.code);
+					
 					}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	};
 	
@@ -213,8 +217,12 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 				}).success(function(data, status, headers, config) {
 					if(data.code == 200){
 						$scope.close();
+					}else{
+						$scope.errorServer(data.code);		
 					}
 			
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 
 	};
@@ -309,7 +317,14 @@ treeSeedAppControllers.controller('editPostCampaignController', function($http,
 					}
 
 				}).success(function(data, status, headers, config) {
-			$scope.close();
+					if(data.code==200){
+						$scope.close();
+					}else{
+						$scope.errorServer(data.code);
+						
+					}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 
 	};

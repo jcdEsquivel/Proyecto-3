@@ -41,10 +41,11 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 
 		$scope.requestObject1.lenguage = $scope.selectLang;
 		$scope.requestObject1.type = "cause";
+		
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
 			$scope.selectSortOptionsCause = response.catalogs;
-		}.error(function(status){
+		}).error(function(status){
 			$scope.errorServer(status);
 		}));
 	}

@@ -60,4 +60,7 @@ public interface NonprofitRepository extends
 	  public void delete(
 			   @Param("id") int id);
 			  
+	
+	public Nonprofit findByName(String name);
+	
 }

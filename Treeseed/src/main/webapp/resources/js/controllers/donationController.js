@@ -95,7 +95,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 								  $scope.close();
 					  }).error(function(error){
 						  	$scope.loadDonation.isLoading = 0;
-						  	console.log(error)
+						  
 	    					$timeout(function() {
 	    					$scope.$form.find('.payment-errors').text(error.message);
 	    					   }, 250);
@@ -103,10 +103,14 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		    			});
 					  
 					
+				  }else{
+					  $scope.errorServer(response.code); 
 				  }
 					  
 				  
 				  
+			}).error(function(status) {
+				$scope.errorServer(status);
 			});//end success	
 	    	
 	    }
@@ -194,7 +198,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 				    password: password
 			   };
 			 	  
-		 AuthService.login(credentials).then(function (user) {
+		 AuthService.login(credentials).sucess(function (user) {
 			  					    	
 		    	if(user.code=="200"){
 		    		if(user.type=="nonprofit"){
@@ -205,8 +209,12 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		        		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 		        		//$state.go('treeSeed.donor', {donorId: response.donorId});
 		        	}
+		    	}else{
+		    		$scope.errorServer(user.code);
 		    	}
-	    });//end AuthService  
+	    }).error(function(status) {
+			$scope.errorServer(status);
+		});//end AuthService  
 	};//end logIn
 	
 	
@@ -580,8 +588,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 					$scope.hasDonations = true;//shows edit donation tab
 				}
 				
-		}).error(function(mydata, status) {
-			//we have to do something here
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	}
 	
@@ -855,7 +863,13 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 		
 		$http.post('rest/protected/recurrableDonation/getRecurrableDonations',$scope.request)
 		.success(function(response) {
-			$scope.recurrableDonations = response.donations;
+			if(response.code==200){
+				$scope.recurrableDonations = response.donations;
+			}else{
+				$scope.errorServer(response.code);	
+			}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 		
 	};
@@ -866,13 +880,18 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 		
 		$http.post('rest/protected/recurrableDonation/editRecurrableDonation',$scope.request)
 		.success(function(response) {
-			
-			$scope.modal.selectedDonorPlan = null;
-			$scope.modal.selectedPlan = '';
-			$scope.modal.samePlan='';
-			$scope.getCurrentDonations();
-			$scope.showSuccessFeedBack();
-			$scope.disableEdit = false;
+			if(response.code==200){
+				$scope.modal.selectedDonorPlan = null;
+				$scope.modal.selectedPlan = '';
+				$scope.modal.samePlan='';
+				$scope.getCurrentDonations();
+				$scope.showSuccessFeedBack();
+				$scope.disableEdit = false;
+			}else{
+				$scope.errorServer(response.code);
+			}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	};
 	
@@ -920,8 +939,13 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 		
 		$http.post('rest/protected/recurrableDonation/getRecurrableDonationsPortfolio',$scope.request)
 		.success(function(response) {
-			
-			$scope.request.donations = response.donations;
+			if(response.code==200){
+				$scope.request.donations = response.donations;	
+			}else{
+				$scope.errorServer(response.code);
+			}	
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 		
 	};
@@ -932,11 +956,16 @@ treeSeedAppControllers.controller('editPortfolioDonations', function($http, $sco
 		$scope.isSubmited = true;
 		$http.post('rest/protected/recurrableDonation/editMultipleRecurrableDonation',$scope.request)
 		.success(function(response) {
-			
-			$scope.feedBack();
-			$scope.refreshPortfolio();
-			$scope.isSubmited = false;
-			$modalInstance.close();
+			if(response.code==200){
+				$scope.feedBack();
+				$scope.refreshPortfolio();
+				$scope.isSubmited = false;
+				$modalInstance.close();
+			}else{
+				$scope.errorServer(response.code);
+			}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	};
 	

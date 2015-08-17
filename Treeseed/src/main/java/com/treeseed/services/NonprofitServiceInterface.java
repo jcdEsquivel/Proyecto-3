@@ -93,4 +93,7 @@ public interface NonprofitServiceInterface {
 	 * @return the nonprofit
 	 */
 	Nonprofit deteteNonprofit(NonprofitWrapper nonProfit);	
+	
+	
+	boolean isNameUnique(String name);
 }

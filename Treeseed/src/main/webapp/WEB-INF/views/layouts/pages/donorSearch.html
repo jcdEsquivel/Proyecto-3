@@ -18,9 +18,10 @@
 							<label class="labels-dropdowns" translate="GENERALSEARCH.COUNTRY-FILTER"></label>
 							
 								<div>
-									<select class="form-control m-b" style="width:100%; " ng-model="donor.country">
+									<!--<select class="form-control m-b" style="width:100%; " ng-model="donor.country">
 										<option ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{country.message }}</md-option> 
-									</select>
+									</select>-->
+									<select ng-model="donor.country" class="form-control m-b" ng-options="s as s.message for s in selectSortOptionsCountry"></select>
 								</div>
 						</div>
 					</div>

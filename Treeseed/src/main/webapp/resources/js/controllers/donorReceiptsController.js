@@ -46,13 +46,13 @@ treeSeedAppControllers.controller('donorReceiptsController', function($scope,
 				$scope.totalReceipts = data.totalElements;
 			}else{
 				$scope.receipts = [];
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(data.code);
+				
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
-		});		
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});	
 	};
 	//end getReports
 

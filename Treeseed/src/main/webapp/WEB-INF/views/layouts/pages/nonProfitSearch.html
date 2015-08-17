@@ -12,17 +12,20 @@
 				        </div>
 				        <div class="col-md-3">
 		        	 		<label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label>
-			          		<select class="form-control m-b" style="width:100%;" ng-model="nonprofit.country" >
+			          		<!-- <select class="form-control m-b" style="width:100%;" ng-model="nonprofit.country" >
 			          			<option select disabled></option>
 				          		<option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.message }}</option>
-					        </select>	
+					        </select> -->
+					        <select ng-model="nonprofit.country" class="form-control" ng-options="s as s.message for s in selectSortOptionsCountry"></select>	
 				        </div>
 				        <div class="col-md-3">
 			        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
-				          	<select class="form-control m-b" style="width:100%;" ng-model="nonprofit.cause" >
+				          <!-- 	<select class="form-control m-b" style="width:100%;" ng-model="nonprofit.cause" >
 				          		<option select disabled></md-option>
 				          		<option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
 				        	</select>
+				        	-->
+				        	<select ng-model="nonprofit.cause" class="form-control" ng-options="s as s.message for s in selectSortOptionsCause"></select>
 				        </div>
 		        	</div>
 		        	<div class="row">

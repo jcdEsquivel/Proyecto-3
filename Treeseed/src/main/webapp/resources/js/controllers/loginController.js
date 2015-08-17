@@ -1,6 +1,6 @@
 var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
-treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session) {
+treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session, $modal) {
 	$scope.error = false;
 	$scope.rememberMe = false;
 	$scope.credentials = {
@@ -80,8 +80,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
   		
 		FB.api('/me?fields=id,first_name,last_name,location,email', function(response) {
 		  $scope.facebookId = response.id;
-  		  console.log(response);
-  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).then(
+  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).success(
   				function(res) {
   					if (res.data.code == "200") {
   					   console.log(res.data);
@@ -106,6 +105,8 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed); 
 					    $scope.error=true;
 			    	}
+  				}).error(function(status) {
+  					$scope.errorServer(status);
   				});
 		});
   	}
@@ -134,12 +135,31 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 				      $scope.error=true;
 		    	}
 		      
-		    });
+		    }, function(status){
+		    	$scope.errorServer(status);
+		      });
+			
 		  };
 		  
 		  $scope.close=function(){
 			  $modalInstance.close();
 		  }
+		  
+	
+		  $scope.errorServer = function(status) {
+				
+				var modalInstance = $modal.open({
+					animation : $scope.animationsEnabled,
+					templateUrl :'layouts/components/feedbackModal.html',
+					controller : 'errorHandlerCtlr',
+					size : 'sm',//,
+					resolve : {
+						code : function() {
+							return status;
+						}
+					}
+				});
+			}
 })
 ;
 

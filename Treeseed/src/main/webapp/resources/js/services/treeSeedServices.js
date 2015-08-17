@@ -19,12 +19,36 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 				if (response.data.codeMessage == 'UNIQUE') {
 					return true;
-				} else {
+				}  else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
+				}else{
+					
+				}
+			});
+		},
+		
+		isNameUnique : function(name) {
+
+			var request = {
+
+				name : name
+
+			};
+
+			return $http.post('rest/protected/nonprofit/isNameUnique',
+					JSON.stringify(request)).then(function(response) {
+
+				if (response.data.codeMessage == 'UNIQUE') {
+					return true;
+				} else if(response.data.codeMessage == 'NOT-UNIQUE'){
+					return false;
+				}else{
+					
 				}
 			});
 		}
 	}
+	
 });
 
 treeSeedAppServices.service('$donationService', function($http) {
