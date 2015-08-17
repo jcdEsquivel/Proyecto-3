@@ -21,24 +21,27 @@
 			        	<div class="col-md-3">
 			        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
 					 		
-				          		<select class="form-control m-b" style="width:100%;" ng-model="campaign.cause" >
+				          		<!--<select class="form-control m-b" style="width:100%;" ng-model="campaign.cause" >
 				          			<option select disabled></option>
 				          			<option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</option>
-				        		<select>
-							       
+				        		<select>-->
+				        		<select ng-model="campaign.cause" class="form-control" ng-options="s as s.message for s in selectSortOptionsCause"></select>	       
 			        	</div>
-			        	<div class="col-md-3">
+			        	
+		        	</div>
+		        	<br>
+		        	<div class="row">
+			      		
+				      	<div class="col-md-3">
 			        			<label class="labels-dropdowns"  translate="GENERALSEARCH.RANGEDATE">Range Date</label>
 				            	<input ng-model="campaign.rangeDate" ui-jq="daterangepicker" ui-options="{
 				                format: 'YYYY-MM-DD',
 				                startDate: '2015-01-01',
 				                endDate: '2015-12-31'
-				              	}" class="form-control w-md" />
+				              	}" class="form-control w-md" style="width:100%;"/>
 							       
 			        	</div>
-		        	</div>
-		        	<div class="row">
-			      		<div class="col-md-2">
+			        	<div class="col-md-2">
 	         	  			<label class="labels-dropdowns"  translate="GENERALSEARCH.RESULTS-COUNT">Number of results</label>
 			        		<select  class="form-control m-b" style="width: 150px;" ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
 				      	</div>

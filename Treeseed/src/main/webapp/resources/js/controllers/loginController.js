@@ -1,6 +1,6 @@
 var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
-treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session) {
+treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session, $modal) {
 	$scope.error = false;
 	$scope.rememberMe = false;
 	$scope.credentials = {
@@ -112,7 +112,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
   	}
 	
 		  $scope.login = function (credentials) {
-		    AuthService.login(credentials).success(function (user) {
+		    AuthService.login(credentials).then(function (user) {
 		    	if(user.code=="200"){
 		    		
 		    		if(user.type=="nonprofit"){
@@ -135,14 +135,31 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 				      $scope.error=true;
 		    	}
 		      
-		    }).error(function(status) {
-				$scope.errorServer(status);
-			});
+		    }, function(status){
+		    	$scope.errorServer(status);
+		      });
+			
 		  };
 		  
 		  $scope.close=function(){
 			  $modalInstance.close();
 		  }
+		  
+	
+		  $scope.errorServer = function(status) {
+				
+				var modalInstance = $modal.open({
+					animation : $scope.animationsEnabled,
+					templateUrl :'layouts/components/feedbackModal.html',
+					controller : 'errorHandlerCtlr',
+					size : 'sm',//,
+					resolve : {
+						code : function() {
+							return status;
+						}
+					}
+				});
+			}
 })
 ;
 

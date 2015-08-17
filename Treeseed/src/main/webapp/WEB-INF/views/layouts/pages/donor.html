@@ -22,7 +22,7 @@
  						<b ng-hide="webPageInEdition">{{donor.webPage}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
 				          	<div>
-				          		<input ng-model="donor.webPage">
+				          		<input ng-model="donorEdit.webPage">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -35,7 +35,7 @@
  						<b ng-hide="emailInEdition">{{donor.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="emailInEdition">
 				          	<div>
-				          		<input ng-model="donor.userGeneral.email">
+				          		<input ng-model="donorEdit.email">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -65,11 +65,11 @@
 				        		<h2 ng-hide="nameInEdition">{{donor.name}} {{donor.lastName}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
 						          <div ng-show="nameInEdition">
 						          	<div>
-						          		<input ng-model="donor.name">
+						          		<input ng-model="donorEdit.name">
 						          	</div>
 						          	<br>
 						          	<div>
-						          		<input ng-model="donor.lastName">
+						          		<input ng-model="donorEdit.lastName">
 						          	</div>
 						          	<div>
 						          		<br>
@@ -85,7 +85,7 @@
 				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
-				          		<textarea rows="6" cols="90" ng-model="donor.description">
+				          		<textarea rows="6" cols="90" ng-model="donorEdit.description">
 					      		</textarea>
 				          	</div>
 				          	<div>

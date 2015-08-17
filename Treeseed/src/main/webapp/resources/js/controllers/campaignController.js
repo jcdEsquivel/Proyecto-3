@@ -43,7 +43,8 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		$scope.requestObject1.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
-			$scope.selectSortOptionsCause = response.data.catalogs;
+				
+			$scope.selectSortOptionsCause = response.catalogs;
 		});
 	}
 
@@ -780,6 +781,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.aboutEditClicked = function() {
 						$scope.aboutInEdition = true;
 						$scope.error = false;
+						$scope.campaignEdit ={
+				  				description: $scope.campaign.description
+				  		}
 					};
 
 					$scope.aboutCancelEditing = function() {
@@ -787,6 +791,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					};
 
 					$scope.aboutSaveEditing = function() {
+						$scope.campaign.description = $scope.campaignEdit.description;
 						$scope.editCampaign();
 						$scope.aboutInEdition = false;
 					};
@@ -795,6 +800,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.nameEditClicked = function() {
 						$scope.nameInEdition = true;
 						$scope.error = false;
+						$scope.campaignEdit ={
+				  				name: $scope.campaign.name
+				  		}
 					};
 
 					$scope.nameCancelEditing = function() {
@@ -802,6 +810,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					};
 
 					$scope.nameSaveEditing = function() {
+						$scope.campaign.name = $scope.campaignEdit.name;
 						$scope.editCampaign();
 						$scope.nameInEdition = false;
 					};

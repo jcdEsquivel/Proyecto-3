@@ -29,7 +29,7 @@
  						
  						<div ng-show="webPageInEdition">
 				          	<div>
-				          		<input ng-model="nonprofit.webPage">
+				          		<input ng-model="nonprofitEdit.webPage">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -43,7 +43,7 @@
  						<b ng-hide="emailInEdition">{{nonprofit.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="emailInEdition">
 				          	<div>
-				          		<input ng-model="nonprofit.userGeneral.email">
+				          		<input ng-model="nonprofitEdit.email">
 				          	</div>
 				          	<div>
 				          		<br>
@@ -79,7 +79,7 @@
 				        	<h2 ng-hide="nameInEdition"> {{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
 			          	  	<div ng-show="nameInEdition">
 				          		<div>
-				          			<input class="form-control input-lg" ng-model="nonprofit.name">
+				          			<input class="form-control input-lg" ng-model=nonprofitEdit.name>
 				          		</div>
 				          		<div>
 				          			<br>
@@ -93,7 +93,7 @@
 				          	<p ng-hide="descriptionInEdition"> {{nonprofit.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>				           
 						   	<div ng-show="descriptionInEdition">
 				          		<div>
-				          			<textarea rows="6" cols="90" ng-model="nonprofit.description">
+				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.description">
 					      			</textarea>
 				          		</div>
 				          		<div>
@@ -107,7 +107,7 @@
 							<p ng-hide="misionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="misionEditClicked()"><i class="fa fa-edit"></i></button></p>						  
 						   	<div ng-show="misionInEdition">
 				          		<div>
-				          			<textarea rows="6" cols="90" ng-model="nonprofit.mision">
+				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.mision">
 					      			</textarea>
 				          		</div>
 				          		<div>
@@ -121,7 +121,7 @@
 			          	  	<p ng-hide="reasonInEdition">{{nonprofit.reason}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="reasonEditClicked()"><i class="fa fa-edit"></i></button></p>
 					  		<div ng-show="reasonInEdition">
 				          		<div>
-				          			<textarea rows="6" cols="90" ng-model="nonprofit.reason">
+				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.reason">
 					      			</textarea>
 				          		</div>
 				          		<div>

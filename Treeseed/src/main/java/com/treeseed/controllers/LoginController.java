@@ -101,8 +101,6 @@ public class LoginController {
 	@Transactional
 	public BaseResponse checkuser(@RequestBody LoginRequest lr){	
 		
-		
-		
 		byte[] hash = Utils.encryption(lr.getPassword());
 		  String file_string="";
 		  

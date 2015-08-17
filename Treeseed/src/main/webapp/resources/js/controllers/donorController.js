@@ -425,7 +425,9 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.aboutEditClicked = function() {
 		$scope.aboutInEdition = true;
 		$scope.error = false;
-		// $scope.aboutEdit = $scope.donor.description;
+		$scope.donorEdit ={
+  				description: $scope.donor.description
+  		}
 	};
 
 	$scope.aboutCancelEditing = function() {
@@ -433,6 +435,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.aboutSaveEditing = function() {
+		$scope.donor.description = $scope.donorEdit.description;
 		$scope.editDonor();
 		$scope.aboutInEdition = false;
 	};
@@ -441,8 +444,10 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.nameEditClicked = function() {
 		$scope.nameInEdition = true;
 		$scope.error = false;
-		// $scope.nameEdit = $scope.donor.name;
-		// $scope.lastNameEdit = $scope.donor.lastName;
+		$scope.donorEdit ={
+  				name: $scope.donor.name,
+  				lastName: $scope.donor.lastName
+  		}
 	};
 
 	$scope.nameCancelEditing = function() {
@@ -450,6 +455,8 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.nameSaveEditing = function() {
+		$scope.donor.name = $scope.donorEdit.name;
+		$scope.donor.lastName = $scope.donorEdit.lastName;
 		$scope.editDonor();
 		$scope.nameInEdition = false;
 	};
@@ -458,7 +465,9 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.emailEditClicked = function() {
 		$scope.emailInEdition = true;
 		$scope.error = false;
-		// $scope.emailEdit = $scope.email;
+		$scope.donorEdit ={
+  				email: $scope.donor.userGeneral.email
+  		}
 	};
 
 	$scope.emailCancelEditing = function() {
@@ -466,6 +475,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.emailSaveEditing = function() {
+		$scope.donor.userGeneral.email = $scope.donorEdit.email;
 		$scope.editDonor();
 		$scope.emailInEdition = false;
 	};
@@ -474,7 +484,9 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.webPageEditClicked = function() {
 		$scope.webPageInEdition = true;
 		$scope.error = false;
-		// $scope.webPageEdit = $scope.donor.webPage;
+		$scope.donorEdit ={
+  				webPage: $scope.donor.webPage
+  		}
 	};
 
 	$scope.webPageCancelEditing = function() {
@@ -482,6 +494,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.webPageSaveEditing = function() {
+		$scope.donor.webPage = $scope.donorEdit.webPage;
 		$scope.editDonor();
 		$scope.webPageInEdition = false;
 	};
@@ -798,10 +811,10 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	
 	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
 	.success(function(response){
-		if(response.data.code==200){
+		if(response.code==200){
 			if(response.treeDonation!=0){
 				$scope.showAmount = true;
-				$scope.totalAmount = response.data.treeDonation;			
+				$scope.totalAmount = response.treeDonation;			
 			}
 		}else{
 			$scope.errorServer(status);

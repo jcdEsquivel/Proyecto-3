@@ -280,6 +280,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
   	$scope.misionEditClicked = function() {
   		$scope.misionInEdition = true;
   		$scope.error = false;
+  		$scope.nonprofitEdit ={
+  				mision: $scope.nonprofit.mision
+  		}
   		
 	};
 
@@ -288,22 +291,29 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.misionSaveEditing = function(){
+		$scope.nonprofit.mision= $scope.nonprofitEdit.mision;
 		$scope.editNonProfit();
 		$scope.misionInEdition = false;
+		
 	};
 
 	//Name Edit
 	$scope.nameEditClicked = function() {
-  		$scope.nameInEdition = true;
+		$scope.nameInEdition = true;
   		$scope.error = false;
-  		
+  		$scope.nonprofitEdit ={
+  				name: $scope.nonprofit.name
+  		}
+
 	};
 
 	$scope.nameCancelEditing = function(){
 		$scope.nameInEdition = false;
+		
 	};
 
 	$scope.nameSaveEditing = function(){
+		$scope.nonprofit.name = $scope.nonprofitEdit.name;
 		$scope.editNonProfit();
 		$scope.nameInEdition = false;
 	};
@@ -312,8 +322,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.descriptionEditClicked = function() {
   		$scope.descriptionInEdition = true;
   		$scope.error = false;
-  		
-  		
+  		$scope.nonprofitEdit ={
+  				description: $scope.nonprofit.description
+  		}
 	};
 
 	$scope.descriptionCancelEditing = function(){
@@ -321,7 +332,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.descriptionSaveEditing = function(){
-		
+		$scope.nonprofit.description = $scope.nonprofitEdit.description;
 		$scope.editNonProfit();
 		$scope.descriptionInEdition = false;
 	};
@@ -330,7 +341,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.reasonEditClicked = function() {
   		$scope.reasonInEdition = true;
   		$scope.error = false;
-  		
+  		$scope.nonprofitEdit ={
+  				reason: $scope.nonprofit.reason
+  		}
 	};
 
 	$scope.reasonCancelEditing = function(){
@@ -338,6 +351,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.reasonSaveEditing = function(){
+		$scope.nonprofit.reason = $scope.nonprofitEdit.reason;
 		$scope.editNonProfit();
 		$scope.reasonInEdition = false;
 	};
@@ -346,7 +360,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
   	$scope.webPageEditClicked = function() {
   		$scope.webPageInEdition = true;
   		$scope.error = false;
-  		
+  		$scope.nonprofitEdit ={
+  				webPage: $scope.nonprofit.webPage
+  		}
 	};
 
 	$scope.webPageCancelEditing = function(){
@@ -354,6 +370,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.webPageSaveEditing = function(){
+		$scope.nonprofit.webPage = $scope.nonprofitEdit.webPage;
 		$scope.editNonProfit();
 		$scope.webPageInEdition = false;
 	};
@@ -362,7 +379,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
   	$scope.emailEditClicked = function() {
   		$scope.emailInEdition = true;
   		$scope.error = false;
-  		
+  		$scope.nonprofitEdit ={
+  				email: $scope.nonprofit.userGeneral.email
+  		}
 	};
 
 	$scope.emailCancelEditing = function(){
@@ -370,6 +389,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	};
 
 	$scope.emailSaveEditing = function(){
+		$scope.nonprofit.userGeneral.email = $scope.nonprofitEdit.email;
 		$scope.editNonProfit();
 		$scope.emailInEdition = false;
 	};
@@ -397,6 +417,8 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		$scope.requestObjectEdit.id= $scope.nonprofit.id; 
 		$scope.requestObjectEdit.idUser= Session.id;
 		
+		console.log($scope.nonprofit.name);
+		console.log($scope.requestObjectEdit.name)
 		$http({
 			   method : 'POST',
 			   url : 'rest/protected/nonprofit/editNonProfit',
@@ -472,13 +494,10 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 		if(type == 'cover'){
 			$scope.imageCover=true;
-			console.log("es cover")
-			console.log($scope.imageCover)
 			
 		}else if(type=='profile'){
 			$scope.imageCover=false;
-			console.log("es profile")
-			console.log($scope.imageCover)		
+				
 		}
 		
 		modalInstance = $modal.open({
