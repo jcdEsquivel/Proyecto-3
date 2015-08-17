@@ -167,6 +167,7 @@ public class NonprofitController extends UserGeneralController {
 		Boolean statePlans=false;
 		int[] amounts = {1000,1800,3600,5000,10000,25000};
 
+		try	{
 		if (validator.isValid(email)) {
 			if (!alreadyUser) {
 
@@ -229,6 +230,14 @@ public class NonprofitController extends UserGeneralController {
 		} else {
 			us.setCode(400);
 			us.setCodeMessage("BAD EMAIL");
+		}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
 		}
 
 		return us;

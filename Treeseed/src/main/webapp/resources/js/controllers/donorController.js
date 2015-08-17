@@ -250,13 +250,16 @@ treeSeedAppControllers
 																	$scope.errorServer(status.status);
 																});
 											} else {
-												if (response.code == "400") {
+												if (response.code == 400) {
 													$scope.facebookFail = true;
 													$scope.requestObject.donor.name = "";
 													$scope.requestObject.donor.lastName = "";
 													$scope.requestObject.donor.userGeneral.email = "";
 													
 												}
+												
+												$scope.errorServer(response.code);
+												
 											}
 
 										});
@@ -457,8 +460,15 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	};
 
 	$scope.nameSaveEditing = function() {
-		$scope.donor.name = $scope.donorEdit.name;
-		$scope.donor.lastName = $scope.donorEdit.lastName;
+		if($scope.donorEdit.name){
+			$scope.donor.name = $scope.donorEdit.name;
+		}
+		
+		if($scope.donorEdit.lastName){
+			$scope.donor.lastName = $scope.donorEdit.lastName;
+		}
+		
+		
 		$scope.editDonor();
 		$scope.nameInEdition = false;
 	};
