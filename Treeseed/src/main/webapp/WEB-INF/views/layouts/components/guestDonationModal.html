@@ -10,7 +10,7 @@
 	<tab active="steps.step1"> 
 		<tab-heading translate="DONATION-MODAL.DONOR-INFO">Donacion</tab-heading>
 
-	<form name="step1" class="form-validation">
+	<form name="step1"  class="form-validation">
 		<div class="form-group">
 			<label translate="REGISTER-DONOR.NAME">NAME</label>
 			<input name="name" class="form-control" ng-model="donor.name" required>
@@ -53,7 +53,7 @@
 	<tab disabled="step1.$invalid" active="steps.step2">
 	<tab-heading translate="DONATION-MODAL.DONATION">donation</tab-heading>
 
-	<form name="step2" class="form-validation" stripe-form="stripeCallback">
+	<form id="payment-form" name="step2" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
 		
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class=" control-label">Card Number</label>
@@ -109,15 +109,24 @@
 					ui-validate=" '$value>0' "  name="amount" class="form-control"
 					ng-model="donationInfo.amount" min='5' decimals="2"
 					required>
-					</div>
+				</div>
 	
 		</div>
 		
- 		<div class="form-group">
-			
-				<span class="payment-errors text-danger"></span>
+		
+		<div ng-if="loadDonation.isLoading == '1'">
+			 	<br/>
+			 	<p class="loading-paragraph" >Haciendo la donacion</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+		 </div>
+ 		<div class="form-group" ng-if="loadDonation.isLoading == '0'">
+				<span class="payment-errors text-danger"></span><br><br>
 				<button type="submit" ng-disabled="step2.$invalid" translate="DONATION-MODAL.DONATE"
 					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="steps.step2=true">Donar</button>
+				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="closeWithoutDonation()"
+		translate="DONATION-MODAL.CANCEL">Cancel</button>
 
 		</div>
 			
@@ -126,10 +135,4 @@
 </tabset>
 
 </div>
-<div class="modal-footer">
 
-	<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="close()"
-		translate="DONATION-MODAL.CANCEL">Cancel</button>
-	
-
-</div>

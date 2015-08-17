@@ -24,6 +24,7 @@
 <script src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
+<script src="resources/js/services/d3Services.js"></script>
 <script src="resources/js/controllers/generalControllers.js"></script>
 <script src="resources/js/filters/treeSeedFilters.js"></script>
 <script src="resources/js/directives/treeSeedDirectives.js"></script>

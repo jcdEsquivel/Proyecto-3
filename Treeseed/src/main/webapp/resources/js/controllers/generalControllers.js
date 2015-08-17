@@ -25,7 +25,6 @@ treeSeedAppControllers.controller('indexController', function($state,
 
 treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
-
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
 	$sharedData.getUserCountry();
@@ -40,6 +39,14 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			$state.go('treeSeed.donor', {
 				donorId : Session.userId
 			});
+		}
+	}
+	
+	$scope.goSettings = function() {
+		if (Session.userRole == $scope.userRoles.nonprofit) {
+			$state.go('treeSeed.nonProfitSettings');
+		} else if (Session.userRole == $scope.userRoles.donor) {
+			$state.go('treeSeed.donorSettings');
 		}
 	}
 
@@ -153,9 +160,18 @@ treeSeedAppControllers.controller('navigateController', function($state,
 treeSeedAppControllers.controller('sideMenuNonprofitController', function(
 		$state, $scope, Session) {
 	$scope.goProfile = function() {
-
 		$state.go('treeSeed.nonProfit', {
 			nonProfitId : Session.userId
+		});
+	}
+
+});
+
+treeSeedAppControllers.controller('sideMenuDonorController', function(
+		$state, $scope, Session) {
+	$scope.goProfile = function() {
+		$state.go('treeSeed.donor', {
+			donorId : Session.userId
 		});
 	}
 
@@ -190,4 +206,15 @@ treeSeedAppControllers.controller('HeaderCtrl', [
 
 		} ]);
 
+
+treeSeedAppControllers.controller('feedbackCtrl', function($modalInstance ,  $scope, title, text) {
+
+	$scope.title = title;
+	$scope.text = text;
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	};
+
+});
 

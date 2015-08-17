@@ -11,7 +11,9 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
      
       
       //Stripe public key setup
-      $window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
+      //$window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
+      //Llave Aramis
+      $window.Stripe.setPublishableKey('pk_test_AtFfQvJrqNu2WtBJdTPUSz2L');
 /*
       $window.onbeforeunload = function (e) {
     	  alert("hola");

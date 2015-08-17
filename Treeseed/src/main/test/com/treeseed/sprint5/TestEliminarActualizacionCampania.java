@@ -39,7 +39,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestDeletePostNonprofit.
  */
-public class TestEliminarActualizacionCampana extends AbstractTestController {
+public class TestEliminarActualizacionCampania extends AbstractTestController {
 
 	/** The wac. */
 	@Autowired WebApplicationContext wac; 

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.ExceptionEvent;
@@ -22,7 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.DonorRequest;
+import com.treeseed.contracts.PostNonprofitResponse;
+import com.treeseed.contracts.RecurrableDonationRequest;
+import com.treeseed.contracts.RecurrableDonationResponse;
 import com.treeseed.ejb.Card;
+import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CardWrapper;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -30,6 +35,7 @@ import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CardServiceInterface;
 import com.treeseed.services.DonationServiceInterface;
@@ -136,6 +142,7 @@ public class RecurrableDonationController {
 				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
 				donation.setDonorId(dr.getDonation().getDonorId());
 				donation.setActive(true);
+				donation.setAmount(getPlanAmount(dr.getPlan()));
 
 				if (dr.getDonation().getCampaignId() >0) {
 					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
@@ -210,4 +217,258 @@ public class RecurrableDonationController {
 
 		return ds;
 	}
+	
+
+	/**
+	 * Gets the plan amount.
+	 *
+	 * @param plan the plan
+	 * @return the plan amount
+	 */
+	private double getPlanAmount(int plan){
+
+		  double amount=0;
+		  
+		  switch (plan) {
+		  case 1:
+		   amount=10;
+		   break;
+		  case 2:
+		   amount=18;
+		   break;
+		  case 3:
+		   amount=36;
+		   break;
+		  case 4:
+		   amount=50;
+		   break;
+		  case 5:
+		   amount=100;
+		   break;
+		  case 6:
+		   amount=250;
+		   break;
+		  
+		  default:
+		   break;
+		  }
+		  
+		  return amount;
 }
+	
+	
+	/**
+	 * Gets the recurrable donations.
+	 *
+	 * @param request the request
+	 * @return the recurrable donations
+	 */
+	@RequestMapping(value = "/getRecurrableDonations", method = RequestMethod.POST)
+	public  RecurrableDonationResponse getRecurrableDonations(@RequestBody RecurrableDonationRequest request){
+		
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
+		RecurrableDonationPOJO pojoTemp = null;
+		List<RecurrableDonationWrapper> wrappers = recurrableDonationService
+											.getRecurrableDonation(request.getDonorId(),
+																	request.getNonprofitId(),
+																	request.getCampaignId());
+		
+		
+		for (RecurrableDonationWrapper r : wrappers) {
+			pojoTemp = new RecurrableDonationPOJO();
+			
+			pojoTemp.setId(r.getId());
+			pojoTemp.setAmount(r.getAmount());
+			pojoTemp.setCampaingId(r.getCampaingId());
+			pojoTemp.setDate(r.getDateTime().toString());
+			pojoTemp.setId(r.getId());
+			pojoTemp.setDonorId(r.getDonorId());
+			pojoTemp.setNonProfitId(r.getNonProfitId());
+			pojoTemp.setPlanId(r.getPlanId());
+			pojoTemp.setStripeId(r.getStripeId());
+			
+			donationList.add(pojoTemp);
+		}
+		
+		response.setDonations(donationList);
+		response.setCode(200);
+		response.setCodeMessage("Donations fetch");
+		
+		return response;
+		
+	}
+	
+	
+	/**
+	 * Edits the recurrable donation.
+	 *
+	 * @param request the request
+	 * @return the recurrable donation response
+	 */
+	@RequestMapping(value = "/editRecurrableDonation", method = RequestMethod.POST)
+	public  RecurrableDonationResponse editRecurrableDonation(@RequestBody RecurrableDonationRequest request){
+	
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		
+		try{
+			String plan = "";
+			NonprofitWrapper nonprofit = nonprofitService.getNonProfitById(request.getNonprofitId());
+			DonorWrapper donor = donorService.getDonorById(request.getDonorId());
+			RecurrableDonationWrapper donation = recurrableDonationService.getById(request.getDonationId());
+			CampaignWrapper campaign = null;
+		
+			
+			if(request.getCampaignId() != 0){//donation is for campaing
+				campaign = campaignService.getCampaignById(request.getCampaignId());
+				plan = nonprofit.getId()+"#"+request.getCampaignId()+"#"+request.getPlanId();
+			}else{
+				plan = nonprofit.getId()+"#"+request.getPlanId();
+			}
+
+			StripeUtils.editPlan(donor.getStripeId(), donation.getStripeId(), plan);
+			
+			//update recurrable donation
+			donation.setAmount(getPlanAmount(request.getPlanId()));
+			recurrableDonationService.editRecurrableDonation(donation);
+			
+			response.setCode(200);
+			response.setCodeMessage("Donation was updated");
+			
+		}catch(Exception ex){
+			response.setCodeMessage(ex.getMessage());
+		}
+	
+		return response;
+	}
+	
+	
+
+	/**
+	 * Gets the recurrable donations from portfolio.
+	 *
+	 * @param request the request
+	 * @return the recurrable donations from portfolio
+	 */
+	@RequestMapping(value = "/getRecurrableDonationsPortfolio", method = RequestMethod.POST)
+	public  RecurrableDonationResponse getRecurrableDonationsFromPortfolio(@RequestBody RecurrableDonationRequest request){
+		
+		CampaignWrapper campaign = null;
+		NonprofitWrapper nonprofit = null;
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
+		RecurrableDonationPOJO pojoTemp = null;
+		List<RecurrableDonationWrapper> wrappers = recurrableDonationService
+								.getRecurrableDonationFromDonor(request.getDonorId());
+		
+		
+		for (RecurrableDonationWrapper r : wrappers) {
+			pojoTemp = new RecurrableDonationPOJO();
+			
+			pojoTemp.setId(r.getId());
+			pojoTemp.setAmount(r.getAmount());
+			pojoTemp.setCampaingId(r.getCampaingId());
+			pojoTemp.setDate(r.getDateTime().toString());
+			pojoTemp.setId(r.getId());
+			pojoTemp.setDonorId(r.getDonorId());
+			pojoTemp.setNonProfitId(r.getNonProfitId());
+			pojoTemp.setPlanId(r.getPlanId());
+			pojoTemp.setStripeId(r.getStripeId());
+			pojoTemp.setChanged(false);
+			if(r.getCampaingId() > 0){
+				//gets campaign and sets name
+				campaign = campaignService.getCampaignById(r.getCampaingId());
+				pojoTemp.setCampaignName("-"+campaign.getName());
+				pojoTemp.setNonprofitName(campaign.getNonprofit().getName());
+			}else{
+				//gets nonprofit
+				nonprofit = nonprofitService.getNonProfitById(r.getNonProfitId());
+				pojoTemp.setCampaignName(" ");
+				pojoTemp.setNonprofitName(nonprofit.getName());
+			}
+			
+			donationList.add(pojoTemp);
+		}
+		
+		
+		
+		response.setDonations(donationList);
+		response.setCode(200);
+		response.setCodeMessage("Donations fetch");
+		
+		return response;
+		
+	}
+	
+	
+	
+
+	/**
+	 * Edits the multiple recurrable donation.
+	 *
+	 * @param requestObj the request obj
+	 * @return the recurrable donation response
+	 */
+	@RequestMapping(value = "/editMultipleRecurrableDonation", method = RequestMethod.POST)
+	public  RecurrableDonationResponse editMultipleRecurrableDonation(@RequestBody RecurrableDonationRequest requestObj){
+	
+		RecurrableDonationResponse response = new RecurrableDonationResponse();
+		
+		try{
+			HttpSession currentSession = request.getSession();
+			int sessionId = (int) currentSession.getAttribute("idUser");
+			String plan = "";
+			
+			DonorWrapper donor = donorService.getDonorById(requestObj.getDonorId());
+			CampaignWrapper campaign = null;
+			RecurrableDonationWrapper donationWrapper = null;
+		
+			if(sessionId == donor.getUsergenerals().get(0).getId()){
+				
+				for (RecurrableDonationPOJO pojo : requestObj.getDonations()) {
+
+					if(pojo.getChanged()){//if plan was changed, we update everything from the donation
+						
+						donationWrapper = recurrableDonationService.getById(pojo.getId());
+						
+						if(pojo.getCampaingId() != 0){//donation is for campaing
+							campaign = campaignService.getCampaignById(requestObj.getCampaignId());
+							plan = pojo.getNonProfitId()+"#"+pojo.getCampaingId()+"#"+pojo.getPlanId();
+						}else{
+							plan = pojo.getNonProfitId()+"#"+pojo.getPlanId();
+						}
+
+						StripeUtils.editPlan(donor.getStripeId(), donationWrapper.getStripeId(), plan);
+						
+						//update recurrable donation
+						donationWrapper.setAmount(getPlanAmount(pojo.getPlanId()));
+						recurrableDonationService.editRecurrableDonation(donationWrapper);
+					}
+	
+				}
+				
+				response.setCode(200);
+				response.setCodeMessage("Donations were updated");
+				
+				
+			}else{//security problem
+				response.setCode(500);
+				response.setErrorMessage("Invalid request");
+				
+				return response;
+			}
+			
+			
+			
+		}catch(Exception ex){
+			response.setCodeMessage(ex.getMessage());
+		}
+	
+		return response;
+	}
+	
+	
+}
+
+
+

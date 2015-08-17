@@ -97,7 +97,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		
 		var file = args;	
 		var imageType = /image.*/;
-
+		
 		if (file.type.match(imageType)) {
 		  var reader = new FileReader();
 

@@ -3,6 +3,7 @@ package com.treeseed.contracts;
 import java.util.List;
 
 import com.treeseed.pojo.DonorPOJO;
+import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
 
 // TODO: Auto-generated Javadoc
@@ -10,23 +11,31 @@ import com.treeseed.pojo.UserGeneralPOJO;
  * The Class DonorResponse.
  */
 public class DonorResponse extends BaseResponse {
-	
+
+	/** The donors. */
 	/** The donors. */
 	private List<DonorPOJO> donors;
-	
+
+	/** The tree. */
+	private DonorTreePOJO tree;
+
 	/** The donor. */
 	private DonorPOJO donor;
-	
+
 	/** The is owner. */
 	private boolean isOwner;
-	
+
 	/** The donor id. */
 	private int donorId;
-	
+
 	/** The user general. */
 	private UserGeneralPOJO userGeneral;
 
-
+	/**
+	 * Gets the user general.
+	 *
+	 * @return the user general
+	 */
 	/**
 	 * Gets the user general.
 	 *
@@ -39,7 +48,8 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Sets the user general.
 	 *
-	 * @param userGeneral the new user general
+	 * @param userGeneral
+	 *            the new user general
 	 */
 	public void setUserGeneral(UserGeneralPOJO userGeneral) {
 		this.userGeneral = userGeneral;
@@ -57,7 +67,8 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Sets the donor id.
 	 *
-	 * @param donorId the new donor id
+	 * @param donorId
+	 *            the new donor id
 	 */
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
@@ -75,12 +86,16 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Sets the owner.
 	 *
-	 * @param isOwner the new owner
+	 * @param isOwner
+	 *            the new owner
 	 */
 	public void setOwner(boolean isOwner) {
 		this.isOwner = isOwner;
 	}
-	
+
+	/**
+	 * Instantiates a new donor response.
+	 */
 	/**
 	 * Instantiates a new donor response.
 	 */
@@ -88,7 +103,12 @@ public class DonorResponse extends BaseResponse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	/**
+	 * Gets the donor.
+	 *
+	 * @return the donor
+	 */
 	/**
 	 * Gets the donor.
 	 *
@@ -101,7 +121,8 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Sets the donor.
 	 *
-	 * @param donor the new donor
+	 * @param donor
+	 *            the new donor
 	 */
 	public void setDonor(DonorPOJO donor) {
 		this.donor = donor;
@@ -115,7 +136,13 @@ public class DonorResponse extends BaseResponse {
 	public List<DonorPOJO> getDonors() {
 		return donors;
 	}
-	
+
+	/**
+	 * Sets the donors.
+	 *
+	 * @param donors
+	 *            the new donors
+	 */
 	/**
 	 * Sets the donors.
 	 *
@@ -128,10 +155,31 @@ public class DonorResponse extends BaseResponse {
 	/**
 	 * Sets the usuarios.
 	 *
-	 * @param donors the new usuarios
+	 * @param donors
+	 *            the new usuarios
 	 */
 	public void setUsuarios(List<DonorPOJO> donors) {
 		this.donors = donors;
+	}
+
+	/**
+	 * Gets the tree.
+	 *
+	 * @return the tree
+	 */
+	public DonorTreePOJO getTree() {
+		return tree;
+	}
+
+
+	/**
+	 * Sets the tree.
+	 *
+	 * @param tree
+	 *            the new tree
+	 */
+	public void setTree(DonorTreePOJO tree) {
+		this.tree = tree;
 	}
 
 }

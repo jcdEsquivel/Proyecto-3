@@ -10,7 +10,8 @@
         <!-- brand -->
         <a ui-sref="treeSeed.index"  class="navbar-brand treeseed-a-img">
          
-         <img src="resources/images/nombre.jpg"   alt="."  class="treeseed-img">
+         <img src="resources/images/nombre.png"   alt="."  class="treeseed-img">
+          
         </a>
         <!-- / brand -->
       </div>
@@ -122,12 +123,12 @@
             <ul class="dropdown-menu animated fadeInRight w">
              
               <li>
-                <a href>
+                <a ng-click='goSettings()'>
                   <span translate="MENU-HEADER.CONFIGURATION">Configuration</span>
                 </a>
               </li>
               <li>
-                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profil</a>
+                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profile</a>
               </li>
               <li>
                 <a  translate="MENU-HEADER.HELP">
