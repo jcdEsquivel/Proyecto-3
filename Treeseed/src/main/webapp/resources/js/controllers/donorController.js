@@ -918,7 +918,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	        })
             .attr("xlink:href",function(d){
             	if(d.identity==$scope.donor.id){
-            		return "resources/images/treeBlue.png";
+            		return "resources/images/treeGreen.png";
             	}else{
             		return undefined;
             	}

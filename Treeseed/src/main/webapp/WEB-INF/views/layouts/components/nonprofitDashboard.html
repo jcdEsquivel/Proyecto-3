@@ -1,0 +1,139 @@
+<meta charset="utf-8" />
+<div class="wrapper-md">
+	<div class="row divDashboard">
+			<div class="col-md-2"></div>
+			<div class="col-md-8" style="text-align: center">
+				<span class="landing-header-text h1 "
+					style="color: #2382c8;" translate="DASHBOARD1.WELCOME-MESSAGE">¡Bienvenido!</span>
+			</div>
+			<div class="col-md-2">
+			</div>
+			<!-- <p class="landing-header-parragraph" translate="LANDING.HEADER-TEXT">
+				HEADER-TEXT</p> -->
+
+	</div>
+	<div class="row">
+		<br>
+	</div>
+	<div class="row" style="padding-left: 8.3%;">
+
+		<div class="col-md-5 md-whiteframe-treeseed">
+			<span class="h3" translate="DASHBOARD1.TITLE1">Ultimas 10 donaciones</span>
+			<div class="row">
+				<br>
+				<div class="col-md-1"></div>
+				<div class="col-md-11">
+					<div class="row" style="vertical-align: middle">
+						<div class="col-md-3">
+							<small class="font-thin" translate="DASHBOARD1.HEADER1"></small>
+						</div>
+						<div class="col-md-2">
+							<small class="font-thin" translate="DASHBOARD1.HEADER2"></small>
+						</div>
+						<div class="col-md-4">
+							<small class="font-thin" translate="DASHBOARD1.HEADER3"></small>
+						</div>
+						<div class="col-md-3">
+							<small class="font-thin" translate="DASHBOARD1.HEADER4"></small>
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+			<hr>
+			<div ng-repeat="donation in donations">
+				<br>
+				<div class="row">
+					<div class="col-md-1">
+						<div class="md-list-item-left">
+							<img src="{{donation.donor.profilePicture}}"
+								class="w-full img-circle">
+						</div>
+					</div>
+					<div class="col-md-11">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="text-md">{{donation.donor.name}}</h3>
+							</div>
+							<div class="col-md-2">
+								<h3 class="text-md text-success">{{donation.amount|currency}}</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 class="text-md" ng-show="{{donation.campaign}}">{{donation.campaign.name}}</h3>
+							</div>
+							<div class="col-md-3">
+								<h3 class="text-md">{{donation.dateS}}</h3>
+							</div>
+
+						</div>
+
+
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-5 md-whiteframe-treeseed">
+			<span class="h3" translate="DASHBOARD1.TITLE2">Ultimas 10 Subscripciones</span>
+			<div class="row">
+				<br>
+				<div class="col-md-1"></div>
+				<div class="col-md-11">
+					<div class="row" style="vertical-align: middle">
+						<div class="col-md-3">
+							<small class="font-thin" translate="DASHBOARD1.HEADER1"></small>
+						</div>
+						<div class="col-md-2">
+							<small class="font-thin" translate="DASHBOARD1.HEADER2"></small>
+						</div>
+						<div class="col-md-4">
+							<small class="font-thin" translate="DASHBOARD1.HEADER3"></small>
+						</div>
+						<div class="col-md-3">
+							<small class="font-thin" translate="DASHBOARD1.HEADER4"></small>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+			<hr>
+			<div ng-repeat="subscription in subscriptions">
+				<br>
+				<div class="row">
+					<div class="col-md-1">
+						<div class="md-list-item-left">
+							<img src="{{subscription.donor.profilePicture}}"
+								class="w-full img-circle">
+						</div>
+					</div>
+					<div class="col-md-11">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="text-md">{{subscription.donor.name}}</h3>
+							</div>
+							<div class="col-md-2">
+								<h3 class="text-md text-success">{{subscription.amount|currency}}</h3>
+							</div>
+							<div class="col-md-4">
+								<h3 class="text-md" ng-show="{{subscription.campaignName}}">{{subscription.campaignName}}</h3>
+							</div>
+							<div class="col-md-3">
+								<h3 class="text-md">{{subscription.dateS}}</h3>
+							</div>
+
+						</div>
+
+
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</div>
