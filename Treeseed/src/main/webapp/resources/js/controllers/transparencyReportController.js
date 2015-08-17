@@ -63,10 +63,14 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 		
 		$http.post('rest/protected/transparencyReport/create',
 				$scope.requestObject).success(function(mydata, status) {
-					modalInstance.close();
-		}).error(function(mydata, status) {
-			alert(status);
-		});	
+					if(mydata.code==200){
+						modalInstance.close();
+					}else{
+						$scope.errorServer(status);
+					}
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});
 	}
 });
 
@@ -126,13 +130,13 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 				$scope.totalReports = data.totalElements;
 			}else{
 				$scope.reports = [];
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(status);
+				
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
-		});		
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});
 	};
 	//end getReports
 

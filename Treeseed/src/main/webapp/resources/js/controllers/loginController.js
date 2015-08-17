@@ -80,8 +80,7 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
   		
 		FB.api('/me?fields=id,first_name,last_name,location,email', function(response) {
 		  $scope.facebookId = response.id;
-  		  console.log(response);
-  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).then(
+  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).success(
   				function(res) {
   					if (res.data.code == "200") {
   					   console.log(res.data);
@@ -106,12 +105,14 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed); 
 					    $scope.error=true;
 			    	}
+  				}).error(function(status) {
+  					$scope.errorServer(status);
   				});
 		});
   	}
 	
 		  $scope.login = function (credentials) {
-		    AuthService.login(credentials).then(function (user) {
+		    AuthService.login(credentials).success(function (user) {
 		    	if(user.code=="200"){
 		    		
 		    		if(user.type=="nonprofit"){
@@ -134,7 +135,9 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 				      $scope.error=true;
 		    	}
 		      
-		    });
+		    }).error(function(status) {
+				$scope.errorServer(status);
+			});
 		  };
 		  
 		  $scope.close=function(){

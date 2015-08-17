@@ -116,105 +116,115 @@ public class RecurrableDonationController {
 			InvalidRequestException, APIConnectionException, CardException, APIException, StripeException {
 
 		DonationResponse ds = new DonationResponse();
-		RecurrableDonationWrapper donation = new RecurrableDonationWrapper();
-		String cardIdStripe = "";
-		ArrayList<Object> resultCharge = new ArrayList<Object>();
-		boolean sameCard=false;
-
-		if (dr.getDonation().getDonorId() > 0) {
-			DonorWrapper donor = donorService.getDonorProfileByID(dr.getDonation().getDonorId());
-			try {
-				donation.setDonorId(donor.getId());
-			} catch (Exception e) {
-				throw e;
-			}
-			
-			if (dr.getDonation().getNonProfitId() > 0) {
-				NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
-
+		
+		try{
+		
+			RecurrableDonationWrapper donation = new RecurrableDonationWrapper();
+			String cardIdStripe = "";
+			ArrayList<Object> resultCharge = new ArrayList<Object>();
+			boolean sameCard=false;
+	
+			if (dr.getDonation().getDonorId() > 0) {
+				DonorWrapper donor = donorService.getDonorProfileByID(dr.getDonation().getDonorId());
 				try {
-					donation.setNonProfitId(nonProfit.getId());
+					donation.setDonorId(donor.getId());
 				} catch (Exception e) {
 					throw e;
 				}
-				donation.setAmount(dr.getDonation().getAmount());
-				donation.setDateTime(new Date());
-				donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
-				donation.setDonorId(dr.getDonation().getDonorId());
-				donation.setActive(true);
-				donation.setAmount(getPlanAmount(dr.getPlan()));
-
-				if (dr.getDonation().getCampaignId() >0) {
-					CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
+				
+				if (dr.getDonation().getNonProfitId() > 0) {
+					NonprofitWrapper nonProfit = nonprofitService.getNonProfitById(dr.getDonation().getNonProfitId());
+	
 					try {
-						donation.setCampaingId(campaign.getId());
-						campaignService.updateCampaign(campaign);
+						donation.setNonProfitId(nonProfit.getId());
 					} catch (Exception e) {
 						throw e;
 					}
-				}
-
-				if (donor.getStripeId()==null) {
-					resultCharge = StripeUtils.createRecurrableDonationNewCustomer(donor.getId(),donor.getCompleteName(),
-							donor.getUsergenerals().get(0).getEmail(), dr.getPlan(), dr.getToken(),
-							nonProfit, dr.getDonation().getCampaignId());
-
-					CardWrapper card = new CardWrapper();
-
-					card.setStripeId((String) resultCharge.get(1));
-
-					donation.setStripeId((String) resultCharge.get(2));
-					donor.setStripeId((String) resultCharge.get(0));
-					donor.setSubscriptionCard(card.getWrapperObject());
-					donor.addCard(card.getWrapperObject());
-					donor.setSubscriptionCard(card.getWrapperObject());
-
-					cardService.saveCard(card);
-					donorService.updateStripeIdAndSubscriptionCard(donor);
-				} else {
-
-					if (dr.getToken().equals("")) {
-						CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
-						cardIdStripe = card.getStripeId();
-						if(donor.getSubscriptionCard().getStripeId().equals(cardIdStripe)){
-							sameCard=true;
+					donation.setAmount(dr.getDonation().getAmount());
+					donation.setDateTime(new Date());
+					donation.setDonorFatherId(dr.getDonation().getDonorFatherId());
+					donation.setDonorId(dr.getDonation().getDonorId());
+					donation.setActive(true);
+					donation.setAmount(getPlanAmount(dr.getPlan()));
+	
+					if (dr.getDonation().getCampaignId() >0) {
+						CampaignWrapper campaign = campaignService.getCampaignById(dr.getDonation().getCampaignId());
+						try {
+							donation.setCampaingId(campaign.getId());
+							campaignService.updateCampaign(campaign);
+						} catch (Exception e) {
+							throw e;
 						}
 					}
-
-					resultCharge = StripeUtils.createRecurrableDonation(donor.getStripeId(), dr.getPlan(),
-							dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId(), sameCard);
-					donation.setStripeId( (String)resultCharge.get(1));
-
-					if (!((String) resultCharge.get(0)).equals("")) {
+	
+					if (donor.getStripeId()==null) {
+						resultCharge = StripeUtils.createRecurrableDonationNewCustomer(donor.getId(),donor.getCompleteName(),
+								donor.getUsergenerals().get(0).getEmail(), dr.getPlan(), dr.getToken(),
+								nonProfit, dr.getDonation().getCampaignId());
+	
 						CardWrapper card = new CardWrapper();
-						card.setStripeId((String) resultCharge.get(0));
-						card.setDonor(donor.getWrapperObject());
-						card.setActive(true);
+	
+						card.setStripeId((String) resultCharge.get(1));
+	
+						donation.setStripeId((String) resultCharge.get(2));
+						donor.setStripeId((String) resultCharge.get(0));
+						donor.setSubscriptionCard(card.getWrapperObject());
 						donor.addCard(card.getWrapperObject());
 						donor.setSubscriptionCard(card.getWrapperObject());
-						
+	
 						cardService.saveCard(card);
-						
+						donorService.updateStripeIdAndSubscriptionCard(donor);
+					} else {
+	
+						if (dr.getToken().equals("")) {
+							CardWrapper card = cardService.getCardByID(dr.getDonation().getCardId());
+							cardIdStripe = card.getStripeId();
+							if(donor.getSubscriptionCard().getStripeId().equals(cardIdStripe)){
+								sameCard=true;
+							}
+						}
+	
+						resultCharge = StripeUtils.createRecurrableDonation(donor.getStripeId(), dr.getPlan(),
+								dr.getToken(), cardIdStripe, nonProfit, dr.getDonation().getCampaignId(), sameCard);
+						donation.setStripeId( (String)resultCharge.get(1));
+	
+						if (!((String) resultCharge.get(0)).equals("")) {
+							CardWrapper card = new CardWrapper();
+							card.setStripeId((String) resultCharge.get(0));
+							card.setDonor(donor.getWrapperObject());
+							card.setActive(true);
+							donor.addCard(card.getWrapperObject());
+							donor.setSubscriptionCard(card.getWrapperObject());
+							
+							cardService.saveCard(card);
+							
+						}
+						if(!sameCard){
+							donorService.updateSubscriptionCard(donor);
+						}
 					}
-					if(!sameCard){
-						donorService.updateSubscriptionCard(donor);
-					}
+	
+					recurrableDonationService.saveRecurrableDonation(donation);
+					
+					ds.setCodeMessage("Donation Complete");
+					ds.setCode(200);
+	
+				} else {
+					ds.setErrorMessage("No Nonprofit specified");
+					ds.setCode(400);
 				}
-
-				recurrableDonationService.saveRecurrableDonation(donation);
-				
-				ds.setCodeMessage("Donation Complete");
-				ds.setCode(200);
-
 			} else {
-				ds.setErrorMessage("No Nonprofit specified");
+				ds.setErrorMessage("No donor specified");
 				ds.setCode(400);
 			}
-		} else {
-			ds.setErrorMessage("No donor specified");
-			ds.setCode(400);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				ds.setCode(10);
+				ds.setErrorMessage("Data Base error");
+			}else{
+				ds.setCode(500);
+			}
 		}
-
 		return ds;
 	}
 	
@@ -267,34 +277,44 @@ public class RecurrableDonationController {
 	public  RecurrableDonationResponse getRecurrableDonations(@RequestBody RecurrableDonationRequest request){
 		
 		RecurrableDonationResponse response = new RecurrableDonationResponse();
-		List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
-		RecurrableDonationPOJO pojoTemp = null;
-		List<RecurrableDonationWrapper> wrappers = recurrableDonationService
-											.getRecurrableDonation(request.getDonorId(),
-																	request.getNonprofitId(),
-																	request.getCampaignId());
+		try{
 		
+			List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
+			RecurrableDonationPOJO pojoTemp = null;
+			List<RecurrableDonationWrapper> wrappers = recurrableDonationService
+												.getRecurrableDonation(request.getDonorId(),
+																		request.getNonprofitId(),
+																		request.getCampaignId());
+			
+			
+			for (RecurrableDonationWrapper r : wrappers) {
+				pojoTemp = new RecurrableDonationPOJO();
+				
+				pojoTemp.setId(r.getId());
+				pojoTemp.setAmount(r.getAmount());
+				pojoTemp.setCampaingId(r.getCampaingId());
+				pojoTemp.setDate(r.getDateTime().toString());
+				pojoTemp.setId(r.getId());
+				pojoTemp.setDonorId(r.getDonorId());
+				pojoTemp.setNonProfitId(r.getNonProfitId());
+				pojoTemp.setPlanId(r.getPlanId());
+				pojoTemp.setStripeId(r.getStripeId());
+				
+				donationList.add(pojoTemp);
+			}
+			
+			response.setDonations(donationList);
+			response.setCode(200);
+			response.setCodeMessage("Donations fetch");
 		
-		for (RecurrableDonationWrapper r : wrappers) {
-			pojoTemp = new RecurrableDonationPOJO();
-			
-			pojoTemp.setId(r.getId());
-			pojoTemp.setAmount(r.getAmount());
-			pojoTemp.setCampaingId(r.getCampaingId());
-			pojoTemp.setDate(r.getDateTime().toString());
-			pojoTemp.setId(r.getId());
-			pojoTemp.setDonorId(r.getDonorId());
-			pojoTemp.setNonProfitId(r.getNonProfitId());
-			pojoTemp.setPlanId(r.getPlanId());
-			pojoTemp.setStripeId(r.getStripeId());
-			
-			donationList.add(pojoTemp);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
 		}
-		
-		response.setDonations(donationList);
-		response.setCode(200);
-		response.setCodeMessage("Donations fetch");
-		
 		return response;
 		
 	}
@@ -335,8 +355,13 @@ public class RecurrableDonationController {
 			response.setCode(200);
 			response.setCodeMessage("Donation was updated");
 			
-		}catch(Exception ex){
-			response.setCodeMessage(ex.getMessage());
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
 		}
 	
 		return response;
@@ -356,45 +381,57 @@ public class RecurrableDonationController {
 		CampaignWrapper campaign = null;
 		NonprofitWrapper nonprofit = null;
 		RecurrableDonationResponse response = new RecurrableDonationResponse();
-		List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
-		RecurrableDonationPOJO pojoTemp = null;
-		List<RecurrableDonationWrapper> wrappers = recurrableDonationService
-								.getRecurrableDonationFromDonor(request.getDonorId());
 		
-		
-		for (RecurrableDonationWrapper r : wrappers) {
-			pojoTemp = new RecurrableDonationPOJO();
+		try{
 			
-			pojoTemp.setId(r.getId());
-			pojoTemp.setAmount(r.getAmount());
-			pojoTemp.setCampaingId(r.getCampaingId());
-			pojoTemp.setDate(r.getDateTime().toString());
-			pojoTemp.setId(r.getId());
-			pojoTemp.setDonorId(r.getDonorId());
-			pojoTemp.setNonProfitId(r.getNonProfitId());
-			pojoTemp.setPlanId(r.getPlanId());
-			pojoTemp.setStripeId(r.getStripeId());
-			pojoTemp.setChanged(false);
-			if(r.getCampaingId() > 0){
-				//gets campaign and sets name
-				campaign = campaignService.getCampaignById(r.getCampaingId());
-				pojoTemp.setCampaignName("-"+campaign.getName());
-				pojoTemp.setNonprofitName(campaign.getNonprofit().getName());
-			}else{
-				//gets nonprofit
-				nonprofit = nonprofitService.getNonProfitById(r.getNonProfitId());
-				pojoTemp.setCampaignName(" ");
-				pojoTemp.setNonprofitName(nonprofit.getName());
+			List<RecurrableDonationPOJO> donationList = new ArrayList<RecurrableDonationPOJO>();
+			RecurrableDonationPOJO pojoTemp = null;
+			List<RecurrableDonationWrapper> wrappers = recurrableDonationService
+									.getRecurrableDonationFromDonor(request.getDonorId());
+			
+			
+			for (RecurrableDonationWrapper r : wrappers) {
+				pojoTemp = new RecurrableDonationPOJO();
+				
+				pojoTemp.setId(r.getId());
+				pojoTemp.setAmount(r.getAmount());
+				pojoTemp.setCampaingId(r.getCampaingId());
+				pojoTemp.setDate(r.getDateTime().toString());
+				pojoTemp.setId(r.getId());
+				pojoTemp.setDonorId(r.getDonorId());
+				pojoTemp.setNonProfitId(r.getNonProfitId());
+				pojoTemp.setPlanId(r.getPlanId());
+				pojoTemp.setStripeId(r.getStripeId());
+				pojoTemp.setChanged(false);
+				if(r.getCampaingId() > 0){
+					//gets campaign and sets name
+					campaign = campaignService.getCampaignById(r.getCampaingId());
+					pojoTemp.setCampaignName("-"+campaign.getName());
+					pojoTemp.setNonprofitName(campaign.getNonprofit().getName());
+				}else{
+					//gets nonprofit
+					nonprofit = nonprofitService.getNonProfitById(r.getNonProfitId());
+					pojoTemp.setCampaignName(" ");
+					pojoTemp.setNonprofitName(nonprofit.getName());
+				}
+				
+				donationList.add(pojoTemp);
 			}
 			
-			donationList.add(pojoTemp);
+			
+			
+			response.setDonations(donationList);
+			response.setCode(200);
+			response.setCodeMessage("Donations fetch");
+		
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
 		}
-		
-		
-		
-		response.setDonations(donationList);
-		response.setCode(200);
-		response.setCodeMessage("Donations fetch");
 		
 		return response;
 		
@@ -460,8 +497,13 @@ public class RecurrableDonationController {
 			
 			
 			
-		}catch(Exception ex){
-			response.setCodeMessage(ex.getMessage());
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
 		}
 	
 		return response;

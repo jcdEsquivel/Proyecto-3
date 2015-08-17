@@ -255,10 +255,13 @@ treeSeedAppControllers
 													$scope.requestObject.donor.name = "";
 													$scope.requestObject.donor.lastName = "";
 													$scope.requestObject.donor.userGeneral.email = "";
+													
 												}
 											}
 
-										})
+										}).error(function(status) {
+											$scope.errorServer(status);
+										});
 
 					};
 
@@ -351,12 +354,19 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$scope.requestObject.country = $scope.donor.country.id;
 		$scope.requestObject.lastName = $scope.lastName;
 
+		console.log($scope.requestObject.country)
 		$http.post('rest/protected/donor/advanceGet', $scope.requestObject)
 				.success(function(mydata, status) {
-					$scope.donors = mydata.donors;
-					$scope.totalItems = mydata.totalElements;
-				}).error(function(mydata, status) {
-
+					if(mydata.code==200){
+						$scope.donors = mydata.donors;
+						$scope.totalItems = mydata.totalElements;
+					}else{
+						
+						$scope.errorServer(status);
+						
+					}
+				}).error(function(status) {
+					$scope.errorServer(status);
 				});
 
 		$scope.pageChangeHandler = function(num) {
@@ -381,17 +391,21 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$http
 				.post('rest/protected/donor/getDonorProfile',
 						$scope.requestObject).success(function(mydata, status) {
-					$scope.donor = mydata.donor;
-
-					if (mydata.owner == true) {
-						$scope.isOwner = true;
-					} else {
-						$scope.isOwner = false;
-					}
-				}).error(function(mydata, status) {
-					console.log(status);
-					console.log("No data found")
-				});
+					
+							if(mydata.code==200){
+								$scope.donor = mydata.donor;
+	
+								if (mydata.owner == true) {
+									$scope.isOwner = true;
+								} else {
+									$scope.isOwner = false;
+								}
+							}else{	
+								$scope.errorServer(status);
+								}
+						}).error(function(status) {
+							$scope.errorServer(status);
+						});
 	}
 	$scope.init();
 
@@ -507,13 +521,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 					}
 
 				}).success(function(data, status, headers, config) {
-			if (data.code == "400") {
-				$scope.error = true;
-				$scope.donor.userGeneral.email = data.donor.userGeneral.email;
-			}
-
-			$scope.donor.profilePicture = data.donor.profilePicture;
-			$scope.currentUser.userImage = data.donor.profilePicture;
+					if (data.code == "400") {
+						$scope.error = true;
+						$scope.donor.userGeneral.email = data.donor.userGeneral.email;
+					}
+				
+					
+					$scope.donor.profilePicture = data.donor.profilePicture;
+					$scope.currentUser.userImage = data.donor.profilePicture;
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	};
 
@@ -631,10 +648,14 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 
 		$http.post('rest/protected/donor/advanceGet', $scope.requestObject)
 				.success(function(mydata, status) {
-					$scope.donors = mydata.donors;
-					$scope.totalItems = mydata.totalElements;
-				}).error(function(mydata, status) {
-
+					if(mydata.code==200){
+						$scope.donors = mydata.donors;
+						$scope.totalItems = mydata.totalElements;
+					}else{
+						$scope.errorServer(mydata.code)
+					}
+				}).error(function(status) {
+					$scope.errorServer(status);
 				});
 
 		$scope.pageChangeHandler = function(num) {
@@ -658,15 +679,17 @@ treeSeedAppControllers.controller('donorSettingsController', function($scope,
 		$scope.requestObject.id = $scope.donor.id;
 
 		$http.post('rest/protected/donor/deleteDonor', $scope.requestObject)
-				.then(function(response) {
+				.success(function(response) {
 					if (response.data.code == "200") {
 						AuthService.guestSession()
 						$scope.currentUser = null;
 						$state.go("treeSeed.index");
 						$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-					} else if (response.data.code == "400") {
-						console.log("ERROR");
+					} else if (response.code == "400") {
+						$scope.errorServer(response.code)
 					}
+				}).error(function(status) {
+					$scope.errorServer(status);
 				});
 	};
 
@@ -710,15 +733,19 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	$scope.requestObject1.treeLevelX=$scope.requestObject.treeLevelX;
 	
 	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
-	.then(function(response){
+	.success(function(response){
 		if(response.data.code==200){
 			if(response.treeDonation!=0){
 				$scope.showAmount = true;
-				$scope.totalAmount = response.data.treeDonation;				
-				
+				$scope.totalAmount = response.data.treeDonation;			
 			}
+		}else{
+			$scope.errorServer(status);
+			
 		}
-	})
+	}).error(function(status) {
+		$scope.errorServer(status);
+	});
 	
 	$scope.donorArray = function(tree){
 		$scope.list = [];
@@ -970,15 +997,19 @@ treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 
 	$scope.getRecurrableData = function() {
 		$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
-			$scope.requestObject).then(function(response) {
+			$scope.requestObject).success(function(response) {
 
 				if(response.data.code=="200"){
 					$scope.d3 = response.data.results;
 					setData();
 				}
 				else if(response.data.code=="400"){
-					console.log("ERROR");
+					$scope.errorServer(status);
+					
+					
 				}
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 	};
 

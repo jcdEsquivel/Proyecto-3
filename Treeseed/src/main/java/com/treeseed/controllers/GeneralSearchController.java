@@ -40,15 +40,19 @@ public class GeneralSearchController {
 		GeneralSearchResponse response = new GeneralSearchResponse();
 		
 		try{
-			
 			response.setResults(searchService.search(request.getFilter(), request.getCountry()));
 		
 			response.setCode(200);
 			response.setCodeMessage("Genereal Search");
 			
-		}catch(Exception ex){
-			response.setCode(500);
-			response.setErrorMessage("Server error");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
 		
 		
