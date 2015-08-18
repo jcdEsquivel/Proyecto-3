@@ -87,5 +87,5 @@ public interface CampaignServiceInterface {
 	 *
 	 * @return the list
 	 */
-	List<CampaignWrapper> donorRecomendationRandom();
+	List<CampaignWrapper> donorRecomendationRandom(List<Integer> list);
 }

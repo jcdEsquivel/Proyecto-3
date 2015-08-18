@@ -110,5 +110,5 @@ public interface NonprofitServiceInterface {
 	 *
 	 * @return the list
 	 */
-	List<NonprofitWrapper> donorRecomendationRandom();
+	List<NonprofitWrapper> donorRecomendationRandom(List<Integer> list);
 }

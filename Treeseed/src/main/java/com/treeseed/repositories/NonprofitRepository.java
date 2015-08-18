@@ -146,8 +146,8 @@ public interface NonprofitRepository extends
 	 * @return the list
 	 */
 	@Transactional
-	@Query("select DISTINCT p from Nonprofit p where p.isActive = true order by rand()") 
-	  public Page<Nonprofit> findTop10DonorRecomendationsRandom(Pageable pageable);
+	@Query("select DISTINCT p from Nonprofit p where p.isActive = true and p.id not in :ids order by rand()") 
+	  public Page<Nonprofit> findTop10DonorRecomendationsRandom(Pageable pageable, @Param("ids") List<Integer> list);
 			  
 	
 	public Nonprofit findByName(String name);
