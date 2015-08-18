@@ -1,10 +1,13 @@
 package com.treeseed.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.utils.PageWrapper;
 
 
@@ -70,4 +73,19 @@ public interface CampaignServiceInterface {
 	 * @param id the id
 	 */
 	void closeCampaign(int id);
+	
+	/**
+	 * Donor recomendation.
+	 *
+	 * @param idDonor the id donor
+	 * @return the list
+	 */
+	List<CampaignWrapper> donorRecomendation(int idDonor);
+	
+	/**
+	 * Donor recomendation random.
+	 *
+	 * @return the list
+	 */
+	List<CampaignWrapper> donorRecomendationRandom();
 }
