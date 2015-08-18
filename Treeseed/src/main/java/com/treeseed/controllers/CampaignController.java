@@ -308,13 +308,10 @@ public class CampaignController {
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			if (viewCampaignsPOJO.size() > 0) {
+			
 				cs.setCodeMessage("campaigns fetch success");
 				cs.setCode(200);
-			} else {
-				cs.setErrorMessage("campaigns fetch unsuccessful");
-				cs.setCode(400);
-			}
+			
 
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
@@ -409,13 +406,9 @@ public class CampaignController {
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			if (viewCampaignsPOJO.size() > 0) {
-				cs.setCodeMessage("campaigns fetch success");
-				cs.setCode(200);
-			} else {
-				cs.setErrorMessage("campaigns fetch unsuccessful");
-				cs.setCode(400);
-			}
+			cs.setCodeMessage("campaigns fetch success");
+			cs.setCode(200);
+			
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				cs.setCode(10);

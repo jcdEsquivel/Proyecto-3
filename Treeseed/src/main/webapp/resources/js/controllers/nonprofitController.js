@@ -580,7 +580,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			controller = 'donorDonationController'
 		}
 		
-		
+console.log( $scope.getFatherId());
 		
 			/*var modalInstance = $modal.open({
 				animation : $scope.animationsEnabled,
