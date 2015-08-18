@@ -62,7 +62,6 @@ treeSeedAppControllers
 												});
 									});
 						};
-
 					}
 
 					var statusChangeCallback = function(response, callback) {
@@ -142,7 +141,7 @@ treeSeedAppControllers
 									if (response.status === 'connected')
 										getFacebookData();
 								}, {
-									scope : 'email,user_location'
+									scope : 'email,user_location, publish_actions'
 								});
 							} else if (data.status === 'connected') {
 								getFacebookData();
@@ -201,7 +200,8 @@ treeSeedAppControllers
 												country : $scope.requestObject.donor.country.id,
 												fatherId:"0",
 												facebookId : $scope.requestObject.donor.facebookId,
-												facebookToken : $scope.requestObject.donor.facebookToken
+												facebookToken : $scope.requestObject.donor.facebookToken,
+												fatherId : $scope.getFatherId()
 											},
 											file : $scope.image,
 										})
