@@ -23,7 +23,6 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, 
 		nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace, $timeout, $translate) {
 
-	
 	$scope.percent = 0;
 	
 	$scope.donor = {
