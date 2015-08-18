@@ -123,10 +123,8 @@ public class DonationController {
 
 		DonationResponse ds = new DonationResponse();
 		try{
-		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(),
-				dr.getStartPeriodDate(), dr.getEndPeriodDate());
-
-		
+		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getMonth(),
+				dr.getNonProfitId());
 
 		DonationPOJO donation = new DonationPOJO();
 		donation.setAmount(totalDonations);

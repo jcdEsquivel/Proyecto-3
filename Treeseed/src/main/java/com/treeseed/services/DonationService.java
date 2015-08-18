@@ -34,16 +34,6 @@ public class DonationService implements DonationServiceInterface{
 
 	
 	/* (non-Javadoc)
-	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
-	 */
-	@Override
-	@Transactional
-	public double findAmountPerMonthOfNonProfit(int nonProfitId,
-			Date startDate, Date endDate) {
-		return donationRepository.findAmountPerMonthOfNonProfit(nonProfitId, startDate, endDate);
-	}
-	
-	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#findDonorsPerCampaign(int)
 	 */
 	@Override
@@ -181,5 +171,17 @@ public class DonationService implements DonationServiceInterface{
 	 */
 	public double getSumDonationsByDonor(int idDonor){
 		return donationRepository.sumAmountByDonor(idDonor);
+	}
+
+	/*
+	 * 
+	 * /* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
+	 */
+	@Override
+	@Transactional
+	public double findAmountPerMonthOfNonProfit(String pmonth, int nonProfitId) {
+		int month = Integer.parseInt(pmonth);
+		return donationRepository.findAmountPerMonthOfNonProfit(month, nonProfitId);
 	}
 }
