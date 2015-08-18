@@ -518,8 +518,6 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 
 	$scope.editDonor = function() {
 
-		console.log($scope.donor.description)
-
 		$scope.requestObjectEdit.email = $scope.donor.userGeneral.email;
 		$scope.requestObjectEdit.name = $scope.donor.name;
 		$scope.requestObjectEdit.lastName = $scope.donor.lastName;
@@ -556,14 +554,19 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 					}
 
 				}).success(function(data, status, headers, config) {
-					if (data.code == "400") {
+					if(data.code == 200){
+						$scope.donor.profilePicture = data.donor.profilePicture;
+						$scope.currentUser.userImage = data.donor.profilePicture;
+					}
+					else if (data.code == 400) {
 						$scope.error = true;
 						$scope.donor.userGeneral.email = data.donor.userGeneral.email;
+					}else{
+						$scope.errorServer(data.code);
 					}
 				
 					
-					$scope.donor.profilePicture = data.donor.profilePicture;
-					$scope.currentUser.userImage = data.donor.profilePicture;
+				
 		}).error(function(status) {
 			$scope.errorServer(status);
 		});
