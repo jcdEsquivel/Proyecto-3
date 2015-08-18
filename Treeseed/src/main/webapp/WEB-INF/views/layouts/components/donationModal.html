@@ -1,0 +1,176 @@
+<div class="modal-header">
+	<h3 class="modal-title" translate="DONATION-MODAL.TITLE">TITLE</h3>
+</div>
+
+<div class="modal-body">
+
+	<tabset class="tab-container"
+		ng-init="steps={ newDonation:true, editDonation:false}">  
+			
+	<tab active="steps.newDonation">
+	<tab-heading translate="DONATION-MODAL.NEW-DONATION">donation</tab-heading>
+
+	<form name="frmNewDonation" id="payment-form" class="form-validation" stripe-form="stripeCallback">
+		<div class="form-group">
+		
+			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
+			 <div class="row" >
+		 		<div class="col-sm-1">
+		 		   <input type="radio" name="selectedCard" ng-model="cardRequest.selectedCard" value="new" ng-change="setRequired()" required>
+		 		</div>
+		 		<div class="col-sm-11" translate="DONATION-MODAL.NEW-CARD-NUMBER">
+			 		New Credit Card
+			 	</div>
+			 </div>
+			 <div class="row" ng-repeat="c in donorCards.cards" ng-if="!load.isLoading">
+			 	<div class="col-sm-1">
+			 		   <input type="radio" name="selectedCard" ng-model="cardRequest.selectedCard" ng-change="setRequired()"  value="{{c.id}}" required>
+			 	</div>
+			 	<div class="col-sm-3">
+			 		{{c.brand}}
+			 	</div>
+			 	<div class="col-sm-5">
+			 		{{hide}}{{c.last4Numbers}}
+			 	</div>
+			 	<div class="col-sm-3">
+			 		<span translate="DONATION-MODAL.EXP-DATE-SMALL">Exp Date: </span>{{c.expMonth}}/{{c.expYear}}
+			 	</div>
+			 </div>
+			 <div ng-if="load.isLoading">
+			 	<br/>
+			 	<p class="loading-paragraph" translate="DONATION-MODAL.LOADING-CARDS">Loading creadit cards</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+			 </div>
+			 
+		</div>	 
+		<div class="form-group" ng-show="cardRequest.selectedCard == 'new'">
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="card"  class=" control-label"  translate="DONATION-MODAL.NEW-CARD-NUMBER">New Credit Card</label>
+				 	 <input type="text"  class="form-control"  data-stripe="number" ng-model='number'
+						payments-format="card" payments-validate="card"  name="card"  required />
+					 <span ng-if='frmNewDonation.card.$invalid &&  frmNewDonation.card.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CARD"></span>		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+				<label for="cvc" translate="DONATION-MODAL.CVC" class="control-label">CVC</label>	 
+				 <input type="text"  class="form-control"  data-stripe="cvc" ng-model='cvc'
+				 payments-format="cvc"  payments-validate="cvc"  name="cvc"  required/>
+		
+			  	<span ng-if='frmNewDonation.cvc.$invalid && frmNewDonation.cvc.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-CVC"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="cvc" translate="DONATION-MODAL.EXP-DATE" class="control-label">exp date</label>
+					 <input type="text"  class="form-control"  data-stripe="exp" ng-model='expiry'
+					 payments-format="expiry"  payments-validate="expiry" name="expiry"  required/>
+			  		<span ng-if='frmNewDonation.expiry.$invalid && frmNewDonation.expiry.$touched' class="input-error-message" translate="DONATION-MODAL.INVALID-EXP"></span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="cvc" class="control-label" translate="DONATION-MODAL.TYPE">Donation Type</label>
+
+				 <select class="form-control m-b" ng-model="donationInfo.donationPlan" ng-change="checkAmount()"
+				 name="donationPlan" required>
+				  <optgroup label="{{'DONATION-PLAN.SIMPLE'| translate}}">
+				    <option value="custom" translate="DONATION-PLAN.CUSTOM"></option>
+				  </optgroup>
+				  <optgroup label="{{'DONATION-PLAN.MONTHLY'| translate}}">
+				    <option value="1" translate="DONATION-PLAN.10">$10</option>
+				    <option value="2" translate="DONATION-PLAN.18">$18</option>
+				    <option value="3" translate="DONATION-PLAN.36">$36</option>
+				    <option value="4" translate="DONATION-PLAN.50">$50</option>
+				    <option value="5" translate="DONATION-PLAN.100">$100</option>
+				    <option value="6" translate="DONATION-PLAN.250">$250</option>
+				  </optgroup>
+				</select> 
+		</div>
+		<div class="form-group" ng-show="donationInfo.donationPlan == 'custom' ">
+			<label for="cvc" translate="DONATION-MODAL.AMOUNT" class="control-label">Amount</label>
+
+				<div  class="input-group m-b">
+				<span class="input-group-addon">$</span> <input type="number"
+					ui-validate=" '$value>0' "  name="amount" class="form-control"
+					ng-model="donationInfo.amount" min='5' decimals="2"
+					required>
+				</div>
+	
+		</div>
+		<div ng-if="loadDonation.isLoading == '1'">
+			 	<br/>
+			 	<p class="loading-paragraph" >Haciendo la donacion</p>
+			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
+			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
+			 	<br/>
+		 </div>
+ 		<div class="form-group" ng-if="loadDonation.isLoading == '0'">
+				<span class="payment-errors text-danger"></span><br><br>
+				<button type="submit" ng-show="hideSubmit"  ng-disabled="frmNewDonation.$invalid"  id="btn-submit"
+					class="btn m-b-xs w-xs btn-success btn-rounded">SUBMIT</button>
+					
+				<button type="button" ng-disabled="frmNewDonation.$invalid" 
+					class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="submitForm()"
+					translate="DONATION-MODAL.DONATE"
+				>donate</button>
+				<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="closeWithoutDonation()"
+				translate="DONATION-MODAL.CANCEL">Cancel</button>
+		</div>
+			
+	</form>
+	</tab> 
+	
+	<tab ng-controller="editRecurrableDonation" ng-if="hasDonations">
+		<tab-heading translate="DONATION-MODAL.EDIT-DONATION">edit donation</tab-heading>
+		
+		<h3 translate="DONATION-MODAL.SELECT-DONATION">Select  Donations</h3>
+		<p ng-if="showFeedBackMessage" class="donation-edit-feedback" translate="DONATION-MODAL.EDIT-SUCCESS"></p>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="donations-scroll">
+					<div class="row"  ng-repeat="r in recurrableDonations" >
+			 			<div class="col-sm-12">
+			 		   		<input type="radio" name="plan" ng-model="modal.selectedDonorPlan" value="{{r}}" ng-change="editRecurrable(r.id, r.amount)">
+			 		   		<span translate="DONATION-PLAN.{{r.amount}}">$</span>
+			 			</div>
+		 			</div>
+				</div>
+				
+			</div>
+		</div>
+		<br/><br/>
+		<div class="row">
+			<div class="col-md-12">
+				<form name="frmEditDonation" class="form-validation" ng-show="modal.selectedDonorPlan != null">
+					<div class="form-group">
+						<label for="cvc" class="control-label" translate="DONATION-PLAN.MONTHLY">Donation Type</label>
+		
+						 <select class="form-control m-b" ng-model="modal.selectedPlan" 
+						 name="selectedPlan" required>
+						    <option value="1" translate="DONATION-PLAN.10" ng-if="modal.samePlan != 10">$10</option>
+						    <option value="2" translate="DONATION-PLAN.18" ng-if="modal.samePlan != 18">$18</option>
+						    <option value="3" translate="DONATION-PLAN.36" ng-if="modal.samePlan != 36">$36</option>
+						    <option value="4" translate="DONATION-PLAN.50" ng-if="modal.samePlan != 50">$50</option>
+						    <option value="5" translate="DONATION-PLAN.100" ng-if="modal.samePlan != 100">$100</option>
+						    <option value="6" translate="DONATION-PLAN.250" ng-if="modal.samePlan != 250">$250</option>	  
+						</select> 
+					</div>
+					<div class="form-group">
+						<button type="button" ng-disabled="frmEditDonation.$invalid || disableEdit" 
+							class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="editPlan()"
+							translate="DONATION-MODAL.EDIT-PLAN">edit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	
+	</tab>
+	
+</tabset>
+
+</div>
+

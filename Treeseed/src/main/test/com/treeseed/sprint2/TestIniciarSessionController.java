@@ -67,7 +67,7 @@ public class TestIniciarSessionController extends AbstractTestController{
 
 	    }
 	 
-	 @Test
+	    /*@Test
 	    public void facebookloginSuccessful() throws Exception {
 		 
 		    LoginRequest req = new LoginRequest();
@@ -90,7 +90,7 @@ public class TestIniciarSessionController extends AbstractTestController{
 	        
 	        Assert.assertEquals("User authorized", response.getCodeMessage());
 	      
-	    }
+	    }*/
 	 
 	 @Test
 	    public void loginWrongEmail() throws Exception {

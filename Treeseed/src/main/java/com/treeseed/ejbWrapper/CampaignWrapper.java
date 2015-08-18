@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.PostCampaign;
+import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.services.DonationServiceInterface;
 
 // TODO: Auto-generated Javadoc
@@ -18,6 +19,10 @@ import com.treeseed.services.DonationServiceInterface;
 public class CampaignWrapper {
 	/** The wrapper object. */
 	private Campaign wrapperObject;
+	
+	/** The campaign service. */
+	@Autowired
+	DonationServiceInterface donationService;
 	
 	/** The state. */
 	private String state;
@@ -40,6 +45,7 @@ public class CampaignWrapper {
 	/** The end. */
 	//Star due date is after today?
 	private boolean end;
+	
 
 
 	/**
@@ -358,7 +364,12 @@ public class CampaignWrapper {
 	 * @return the due date s
 	 */
 	public String getDueDateS() {
-		setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getDueDate()));
+		
+		if(getDueDate()!=null){
+			setDueDateS(new SimpleDateFormat("dd/MMM/yyyy").format(getDueDate()));
+		}else{
+			setDueDateS("∞");
+		}
 		return dueDateS;
 	}
 
@@ -420,10 +431,14 @@ public class CampaignWrapper {
 	 * @return true, if is end
 	 */
 	public boolean isEnd() {
-		if(getDueDate().after(new Date())){
-			setEnd(true);
+		if(getDueDate()!=null){
+			if(getDueDate().after(new Date())){
+				setEnd(true);
+			}else{
+				setEnd(false);
+			}
 		}else{
-			setEnd(false);
+			setEnd(true);
 		}
 		return end;
 	}
@@ -475,6 +490,31 @@ public class CampaignWrapper {
 		this.state = state;
 	}
 
-	
+	/**
+	 * Gets the campaign pojo.
+	 *
+	 * @return the campaign pojo
+	 */
+	public CampaignPOJO getCampaignPojo() {
+		CampaignPOJO campaignPojo = new CampaignPOJO();
+		campaignPojo.setId(getId());
+		campaignPojo.setName(getName());
+		campaignPojo.setDescription(getDescription());
+		campaignPojo.setAmountGoal(getAmountGoal());
+		campaignPojo.setAmountCollected(getAmountCollected());
+		campaignPojo.setPicture(getPicture());
+		campaignPojo.setAmountCollected(getAmountCollected());
+		campaignPojo.setAmountGoal(getAmountGoal());
+		campaignPojo.setPercent((int) Math.round(getPercent()));
+		campaignPojo.setStartDate(getStartDate());
+		campaignPojo.setStartDateS(getStartDateS());
+		campaignPojo.setStart(isStart());
+		campaignPojo.setEnd(isEnd());
+		campaignPojo.setDueDate(getDueDate());
+		campaignPojo.setDueDateS(getDueDateS());
+		campaignPojo.setState(getState());
+		
+		return campaignPojo;
+	}	
 	
 }

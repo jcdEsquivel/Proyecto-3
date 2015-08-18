@@ -8,9 +8,9 @@
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a href="#/treeseed.org/index"  class="navbar-brand treeseed-a-img">
+        <a href="" ng-click="goDashboard()" class="navbar-brand treeseed-a-img">
          
-         <img src="resources/images/nombre.jpg"   alt="."  class="treeseed-img">
+         <img src="resources/images/nombre.png"   alt="."  class="treeseed-img">
           
         </a>
         <!-- / brand -->
@@ -50,7 +50,7 @@
         <!-- / link and dropdown -->
 
       	<script type="text/ng-template" id="customTemplate.html">
-  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{match.model.id}}'})" class="general-search-result">
+  			<a  href="#/{{match.model.type}}/{{match.model.id}}" class="general-search-result">
 				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
  				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
  				
@@ -123,17 +123,12 @@
             <ul class="dropdown-menu animated fadeInRight w">
              
               <li>
-                <a href>
+                <a ng-click='goSettings()'>
                   <span translate="MENU-HEADER.CONFIGURATION">Configuration</span>
                 </a>
               </li>
               <li>
-                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profil</a>
-              </li>
-              <li>
-                <a  translate="MENU-HEADER.HELP">
-                  help
-                </a>
+                <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profile</a>
               </li>
               <li class="divider"></li>
               <li ng-controller='logoutController'>

@@ -2,7 +2,6 @@
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('dragnDropController', function($scope){
-	console.log('asdf');
 	$scope.showImage=false;
 	$scope.imageDropped = function(){
 	    $scope.$emit('profilePicture', $scope.uploadedFile);
@@ -115,6 +114,18 @@ treeSeedAppControllers.controller('selectUserController', function($scope){
 	
 });
 
+treeSeedAppControllers.controller('sliderController', function($scope){
+	$scope.myInterval = 5000;
+    var slides = $scope.slides = [];
+    $scope.addSlide = function() {
+      slides.push({
+        image: 'img/c' + slides.length + '.jpg',
+        text: ['Carousel text #0','Carousel text #1','Carousel text #2','Carousel text #3'][slides.length % 4]
+      });
+    };
+    for (var i=0; i<4; i++) {
+      $scope.addSlide();
+    }
 
-
+});
  

@@ -29,9 +29,9 @@ angular
 			});
 		})
 		.config(
-				function($stateProvider, $urlRouterProvider, JQ_CONFIG,
+				function($stateProvider, $urlRouterProvider, $locationProvider,JQ_CONFIG,
 						MODULE_CONFIG, USER_ROLES) {
-
+					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
 							.state('treeSeed', {
@@ -68,12 +68,42 @@ angular
 												templateUrl : 'layouts/pages/donor.html',
 												controller: "getDonorProfileController",
 												params: {donorId: null},
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]	
+												}
+											})
+									.state(
+											'treeSeed.sharedDonation',
+											{
+												url : 'sharedDonation/:donorId',
+												templateUrl : 'layouts/pages/loading.html',
+												controller: "loadingController",
+												params: {donorId: null},
 												data : {
 													authorizedRoles : [
 															USER_ROLES.donor,
 															USER_ROLES.guest,
 															USER_ROLES.nonprofit ]
 												
+												}
+											})
+									.state(
+											'treeSeed.donorDashboard',
+											{
+												url : 'dashboard2',
+												templateUrl : 'layouts/components/donorDashboard.html',
+												controller: "donorDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.donor ]
+
 												}
 											})
 									.state(
@@ -94,6 +124,20 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.nonProfitDashboard',
+											{
+												url : 'dashboard1',
+												templateUrl : 'layouts/components/nonprofitDashboard.html',
+												controller: "nonprofitDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit ]
+
+												}
+											})
+									.state(
 										'treeSeed.nonProfitSettings',
 										{
 											url : 'nonProfitSettings',
@@ -101,7 +145,6 @@ angular
 											controller : "nonprofitSettingsController",
 											data : {
 												authorizedRoles : [
-														USER_ROLES.guest,
 														USER_ROLES.nonprofit ]
 											
 											}
@@ -252,6 +295,22 @@ angular
 												}
 											})
 								  	.state(
+										'treeSeed.donorReceipts',
+										{
+											url : 'donorReceipts',
+											templateUrl : 'layouts/pages/donorReceipts.html',
+											controller : "donorReceiptsController",
+											resolve : load([
+														'angularUtils.directives.dirPagination',
+														'resources/js/controllers/nonprofitController.js' ]),
+											data : {
+												authorizedRoles : [
+														USER_ROLES.donor
+														 ]
+											
+												}
+											})
+								  	.state(
 											'treeSeed.transparencyReport',
 											{
 												url : 'transparencyReport',
@@ -265,11 +324,29 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
-											 });
+											})
+										  	.state(
+													'stripeWebHook',
+													{
+														url : '/stripe/webhook',
+														controller: "webhookController"
 							
-
-							
-							
+											 })
+									.state(
+											'treeSeed.nonProfitDonationsReport',
+											{
+												url : 'nonProfitDonationsReport',
+												templateUrl : 'layouts/pages/nonProfitDonationsReport.html',
+												resolve : load([
+																'angularUtils.directives.dirPagination',
+																'resources/js/controllers/donationReportController.js' ]),
+												controller: "nonProfitDonationReportController",
+												data : {
+													authorizedRoles : [
+													USER_ROLES.nonprofit 
+													]
+												}
+											 });							
 
 					function load(srcs, callback) {
 						return {
@@ -319,6 +396,8 @@ angular
 						}
 					}
 				});
+
+
 
 angular.module('treeSeed').config(
 		[
@@ -534,7 +613,7 @@ angular
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]
-						} ])
+						}])
 // oclazyload config
 angular.module('treeSeed').config(
 		[ '$ocLazyLoadProvider', 'MODULE_CONFIG',
