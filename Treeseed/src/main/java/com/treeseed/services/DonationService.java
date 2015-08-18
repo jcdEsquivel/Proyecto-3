@@ -122,6 +122,54 @@ public class DonationService implements DonationServiceInterface{
 		return pageWrapper;		
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
+	@Override
+	public Page<Donation> getReportDonations(DonationRequest ur) {
+		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		Page<Donation> pageResult = null;
+		
+		int donorId = ur.getDonorId();
+		
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findAllDonations(donorId, ur.getMonth(), month, ur.getYear(), year, pr);
+		
+		return pageResult ;
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
 	 */
@@ -163,7 +211,53 @@ public class DonationService implements DonationServiceInterface{
 			ur.setYear(null);
 		}
 		
-		pageResult = donationRepository.findAllDonations(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		pageResult = donationRepository.findDonationsOfDonor(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		
+		return pageResult ;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
+	@Override
+	public Page<Donation> getDonationsDonor(DonationRequest ur) {
+		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		Page<Donation> pageResult = null;
+		
+		int donorId = ur.getDonorId();
+		
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findDonationsOfDonor(donorId, ur.getMonth(), month, ur.getYear(), year, pr);
 		
 		return pageResult ;
 	}

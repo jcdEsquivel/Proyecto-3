@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treeseed.contracts.DonationRequest;
+import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.TransparencyReportRequest;
 import com.treeseed.contracts.TransparencyReportResponse;
 import com.treeseed.ejb.TransparencyReport;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.TransparencyReportWrapper;
+import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.TransparencyReportPOJO;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.TransparencyReportServiceInterface;
 import com.treeseed.utils.PageWrapper;
@@ -36,6 +41,10 @@ public class TransparencyReportController {
 	/** The transparency report service. */
 	@Autowired
 	TransparencyReportServiceInterface transparencyReportService;
+	
+	/** The donation report service. */
+	@Autowired
+	DonationServiceInterface donationService;
 	
 	/** The servlet context. */
 	@Autowired

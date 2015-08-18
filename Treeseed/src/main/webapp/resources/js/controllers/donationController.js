@@ -19,6 +19,76 @@ treeSeedAppControllers.controller('loadingController', function($scope,
 	
 });
 
+
+treeSeedAppControllers.controller('BillReportController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload) {
+	
+	//Variable declarations
+	$scope.baseYear = 2010;
+	$scope.month;
+	$scope.year;
+	$scope.years = [];
+	$scope.reports = [];
+	$scope.totalReports = 0;
+	$scope.reportsPaginCurrentPage = 0;
+	$scope.currentPage = 1;
+	
+	$scope.reportsRequest = {
+		donorId : $stateParams.donorId,
+		pageNumber : '',
+		pageSize : '5',
+		direction : "DESC",
+		sortBy : ['dateTime']
+	};
+
+	//Call to getYears() to initialize the combo box in the view
+	getYears();
+
+	//Function to get the years that will be displaye
+	function getYears(){
+		$scope.date = new Date();
+		$scope.currentYear = $scope.date.getFullYear();
+		for ($scope.baseYear;$scope.currentYear>=$scope.baseYear;$scope.baseYear++) {
+			$scope.years.push($scope.baseYear);
+		};
+	}
+	
+	$scope.getReports = function(pageNumber) {
+
+		$scope.reportsRequest.pageNumber = pageNumber;
+		$scope.reportsPaginCurrentPage = pageNumber;
+		$scope.reportsRequest.month = $scope.month;
+		$scope.reportsRequest.year = $scope.year;
+		
+		console.log($scope.reportsRequest);
+
+		$http.post('rest/protected/donation/getDonationDonorReport',
+				$scope.reportsRequest).success(function(data, status) {
+			if (data.code == 200) {
+				
+				console.log(data);
+				
+				$scope.reports = data.donations;
+				$scope.totalReports = data.totalElements;
+				
+			}else{
+				$scope.reports = [];
+				console.log('Error : '+data.errorMessage);
+			}
+			
+		}).error(function(mydata, status) {
+			console.log(status);
+			console.log("No data found");
+		});		
+	};
+	//end getReports
+
+	$scope.getNewReports = function(newPage){
+		$scope.getReports(newPage);
+	}
+		
+});
+
 treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams, $modal,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, fatherId,
 		nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace, $timeout, $translate, errorFunction) {
