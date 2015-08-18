@@ -24,11 +24,10 @@ public interface DonationServiceInterface {
 	 * Find amount per month of non profit.
 	 *
 	 * @param nonProfitId the non profit id
-	 * @param startDate the start date
-	 * @param endDate the end date
+	 * @param month the month
 	 * @return the double
 	 */
-	double findAmountPerMonthOfNonProfit(int nonProfitId, Date startDate, Date endDate);
+	double findAmountPerMonthOfNonProfit(String month, int nonProfitId);
 	
 	/**
 	 * Find donors per campaign.
