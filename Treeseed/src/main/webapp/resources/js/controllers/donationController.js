@@ -3,6 +3,21 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+treeSeedAppControllers.controller('loadingController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, $state) {
+
+	$scope.redirectToProfile = function()
+	{
+		//var idDes = $stateParams.donorId;
+		//var decrypted = CryptoJS.AES.decrypt(idDes, "golondrinasTicas");
+		//var id = decrypted.toString(CryptoJS.enc.Utf8);
+		$scope.setFatherId($stateParams.donorId);
+		$state.go('treeSeed.donor', {donorId: $stateParams.donorId});
+	}
+	
+	$scope.redirectToProfile();
+	
+});
 
 treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams, $modal,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, 
@@ -736,12 +751,6 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
  $scope.titleFaceS = titleFace;
  $scope.descriptionFace = descriptionFace;
  $scope.imageFace = pictureFace;
- 
- $scope.donationMessage = "";
- $scope.planMessage = "";
- $scope.amount = "";
- $scope.amount = "";
- $scope.type = '';
  
  $translate('DONATION-MODAL.SUCCESS-1').then(
 	function successFn(translation) {

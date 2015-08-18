@@ -31,7 +31,6 @@ angular
 		.config(
 				function($stateProvider, $urlRouterProvider, $locationProvider,JQ_CONFIG,
 						MODULE_CONFIG, USER_ROLES) {
-
 					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
@@ -68,6 +67,21 @@ angular
 												url : 'donor/:donorId',
 												templateUrl : 'layouts/pages/donor.html',
 												controller: "getDonorProfileController",
+												params: {donorId: null},
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
+											})
+									.state(
+											'treeSeed.sharedDonation',
+											{
+												url : 'sharedDonation/:donorId',
+												templateUrl : 'layouts/pages/loading.html',
+												controller: "loadingController",
 												params: {donorId: null},
 												data : {
 													authorizedRoles : [
@@ -332,12 +346,7 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
-											 });
-									
-
-//$locationProvider.html5Mode(true);
-							
-							
+											 });							
 
 					function load(srcs, callback) {
 						return {
