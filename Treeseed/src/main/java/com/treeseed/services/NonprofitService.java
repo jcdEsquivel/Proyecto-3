@@ -195,10 +195,10 @@ public class NonprofitService implements NonprofitServiceInterface{
 	 * @see com.treeseed.services.NonprofitServiceInterface#donorRecomendationRandom()
 	 */
 	@Override
-	public List<NonprofitWrapper> donorRecomendationRandom() {
+	public List<NonprofitWrapper> donorRecomendationRandom(List<Integer> list) {
 		PageRequest pr=new PageRequest(0,10);
 		
-		List<Nonprofit> nonprofits = nonprofitsRepository.findTop10DonorRecomendationsRandom(pr).getContent();
+		List<Nonprofit> nonprofits = nonprofitsRepository.findTop10DonorRecomendationsRandom(pr,list).getContent();
 		List<NonprofitWrapper> nonprofitsWrapper = new ArrayList<NonprofitWrapper>();
 		
 		

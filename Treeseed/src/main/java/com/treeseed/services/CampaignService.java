@@ -270,9 +270,9 @@ public class CampaignService implements CampaignServiceInterface{
 	 * @see com.treeseed.services.CampaignServiceInterface#donorRecomendationRandom()
 	 */
 	@Override
-	public List<CampaignWrapper> donorRecomendationRandom() {
+	public List<CampaignWrapper> donorRecomendationRandom(List<Integer> list) {
 		PageRequest pr=new PageRequest(0,10);
-		List<Campaign> campaings = campaignRepository.findTop10DonorRecomendationsRandom(pr).getContent();
+		List<Campaign> campaings = campaignRepository.findTop10DonorRecomendationsRandom(pr, list).getContent();
 		List<CampaignWrapper> campaignsWrapper = new ArrayList<CampaignWrapper>();
 		
 		
