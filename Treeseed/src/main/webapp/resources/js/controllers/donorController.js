@@ -142,7 +142,7 @@ treeSeedAppControllers
 									if (response.status === 'connected')
 										getFacebookData();
 								}, {
-									scope : 'email,user_location'
+									scope : 'email,user_location, publish_actions'
 								});
 							} else if (data.status === 'connected') {
 								getFacebookData();
