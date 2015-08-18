@@ -5,13 +5,13 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('loadingController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, $state) {
-		console.log("entre");
+
 	$scope.redirectToProfile = function()
 	{
 		//var idDes = $stateParams.donorId;
 		//var decrypted = CryptoJS.AES.decrypt(idDes, "golondrinasTicas");
 		//var id = decrypted.toString(CryptoJS.enc.Utf8);
-		$scope.fatherId = $stateParams.donorId;
+		$scope.setFatherId($stateParams.donorId);
 		$state.go('treeSeed.donor', {donorId: $stateParams.donorId});
 	}
 	

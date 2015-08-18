@@ -62,7 +62,6 @@ treeSeedAppControllers
 												});
 									});
 						};
-
 					}
 
 					var statusChangeCallback = function(response, callback) {
@@ -200,7 +199,8 @@ treeSeedAppControllers
 												lastName : $scope.requestObject.donor.lastName,
 												country : $scope.requestObject.donor.country.id,
 												facebookId : $scope.requestObject.donor.facebookId,
-												facebookToken : $scope.requestObject.donor.facebookToken
+												facebookToken : $scope.requestObject.donor.facebookToken,
+												fatherId : $scope.getFatherId()
 											},
 											file : $scope.image,
 										})

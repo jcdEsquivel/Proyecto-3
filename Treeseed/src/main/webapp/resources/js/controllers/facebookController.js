@@ -6,6 +6,7 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 	$scope.descripcionCampaign = "";
 	$scope.profilePicture = "";
 	$scope.idShareUser = "";
+	$scope.shareLink = "";
 	var app_id = '319610508162843';
 	$scope.idFacebook = "";
 	
@@ -37,7 +38,9 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 		  		  }
 		    	statusChangeCallback(response, function() {});
 		  	});
-	  	};		  
+	  	};	
+	  	
+	  	$scope.shareLink = "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + Session.userId;
 	}
 	
 	$scope.init();

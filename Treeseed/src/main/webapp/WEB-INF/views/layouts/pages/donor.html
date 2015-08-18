@@ -55,7 +55,11 @@
  						<div ng-controller="facebookController">
 	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
 									class="fa fa-facebook pull-left indigo"></i><label
-									translate="LOGIN.SHAREPROFILEFACEBOOK" ng-click="postInFacebook(1)" ></label></a>						
+									translate="LOGIN.SHAREPROFILEFACEBOOK" ng-click="postInFacebook(1)" ></label></a>		
+						<br>
+							<md-input-container flex>	
+          						<input type="text" ng-model="shareLink" class="form-control">   
+        					</md-input-container>							
 	        			</div>
  					</div>
  				</div>
