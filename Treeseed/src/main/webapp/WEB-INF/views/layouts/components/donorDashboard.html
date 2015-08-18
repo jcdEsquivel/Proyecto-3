@@ -1,0 +1,67 @@
+<meta charset="utf-8" />
+<div class="wrapper-md">
+	<div class="row divDashboard2">
+			<div class="col-md-2"></div>
+			<div class="col-md-8" style="text-align: center">
+				<span class="landing-header-text h1 "
+					style="color:#82c341 ;" translate="DASHBOARD2.WELCOME-MESSAGE">¡Bienvenido!</span>
+			</div>
+			<div class="col-md-2">
+			</div>
+			<!-- <p class="landing-header-parragraph" translate="LANDING.HEADER-TEXT">
+				HEADER-TEXT</p> -->
+
+	</div>
+	<div class="row">
+		<br>
+	</div>
+	<div class="row" style="padding-left: 8.3%;">
+
+		<div class="col-md-5 md-whiteframe-treeseed" ng-show="showNonprofit">
+			<span class="h3" translate="DASHBOARD2.TITLE1">Ultimas 10 donaciones</span>
+<hr>
+				<div set-ng-animate="false">
+					<carousel interval="myInterval" style="width: 408px; height: 408px; "> 
+						<slide href=""	ng-repeat="nonprofit in nonprofits" active="slide.active"> 
+							<img ng-src="{{nonprofit.profilePicture}}" style="width: 408px; height: 408px; ">
+							<div class="carousel-caption">
+								<a href="" ng-click="goNonprofit(nonprofit.id)">
+									<h4 style="color: #2382c8; font-size: 20px">{{nonprofit.name}}</h4>
+								</a>
+								<p ng-init="nonprofit.causeShow = getCause(nonprofit)">{{nonprofit.causeShow}}</p>
+							</div>
+						</slide> 
+					</carousel>
+			</div>
+				
+				<!-- <carousel interval="myInterval"> <slide
+					ng-repeat="nonprofit in nonprofits" active="slide.active"> <img
+					ng-src="{{nonprofit.profilePicture}}" class="img-full">
+				<div class="carousel-caption">
+					<a  ng-click="goNonprofit(nonprofit.id)"><h4>{{nonprofit.name}}</h4></a>
+					<p ng-init="nonprofit.causeShow = getCause(nonprofit)">{{nonprofit.causeShow}}</p>
+				</div>
+				</slide> </carousel>-->
+				
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-5 md-whiteframe-treeseed" ng-show="showCampaign">
+			<span class="h3" translate="DASHBOARD2.TITLE2">Ultimas 10 Subscripciones</span>
+			
+			<hr>
+			<div set-ng-animate="false" class="divDashboardRecom">
+					<carousel interval="myInterval" style="width: 425px; height: 239px; "> 
+						<slide href=""	ng-repeat="campaign in campaigns" active="slide.active"> 
+							<img ng-src="{{campaign.picture}}" style="width: 450px; height: 253px; ">
+							<div class="carousel-caption">
+								<a href="" ng-click="goCampaign(campaign.id)">
+									<h4 style="color: #2382c8; font-size: 20px">{{campaign.name}}</h4>
+								</a>
+								<p></p>
+							</div>
+						</slide> 
+					</carousel>
+			</div>
+		</div>
+	</div>
+</div>

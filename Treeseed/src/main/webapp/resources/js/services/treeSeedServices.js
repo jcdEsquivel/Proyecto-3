@@ -19,12 +19,36 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 				if (response.data.codeMessage == 'UNIQUE') {
 					return true;
-				} else {
+				}  else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
+				}else{
+					return true;
+				}
+			});
+		},
+		
+		isNameUnique : function(name) {
+
+			var request = {
+
+				name : name
+
+			};
+
+			return $http.post('rest/protected/nonprofit/isNameUnique',
+					JSON.stringify(request)).then(function(response) {
+
+				if (response.data.codeMessage == 'UNIQUE') {
+					return true;
+				} else if(response.data.codeMessage == 'NOT-UNIQUE'){
+					return false;
+				}else{
+					return true;
 				}
 			});
 		}
 	}
+	
 });
 
 treeSeedAppServices.service('$donationService', function($http) {
@@ -32,7 +56,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 	return {
 		createDonation : function(type, nonprofitId, campaignId, donorId,
 				stripeToken, plan, amount, fatherId) {
-
+				console.log(type);
 			if (plan == 'custom') {// simple donation
 				var request = {
 					id : '',
@@ -62,14 +86,16 @@ treeSeedAppServices.service('$donationService', function($http) {
 				} else {
 					request.donation.cardId = stripeToken;
 				}
-
-				return $http.post('rest/protected/donation/donate',
-						JSON.stringify(request)).then(function(response) {
-					return response.data;
-				});
-
-			} else {// monthly donation
-
+				
+				return $http.post('rest/protected/donation/donate', JSON.stringify(request))
+						.success(function(response) {				
+							return response.data;
+						}).error(function(error){
+							return error;
+						});
+			
+			}else{//monthly donation
+				
 				var requestSuscription = {
 					id : '',
 					campaignId : '',
@@ -96,12 +122,12 @@ treeSeedAppServices.service('$donationService', function($http) {
 				} else {
 					requestSuscription.donation.cardId = stripeToken;
 				}
-
-				return $http.post(
-						'rest/protected/recurrableDonation/subscription',
-						JSON.stringify(requestSuscription)).then(
-						function(response) {
+				
+				return $http.post('rest/protected/recurrableDonation/subscription', JSON.stringify(requestSuscription))
+						.success(function(response) {				
 							return response.data;
+						}).error(function(error){
+							return error;
 						});
 
 			}
@@ -305,7 +331,7 @@ treeSeedAppServices.service('Session', function() {
 
 treeSeedAppServices.service('StripeService', function() {
 
-	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y";
+	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y ";
 
 	return {
 		getStripeApiKey : function() {

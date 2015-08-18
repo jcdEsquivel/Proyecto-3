@@ -35,14 +35,19 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
+			<div ng-show="zeroReports">
+		      	<div>
+		         	<h3 class="text-danger" translate="NONPROFIT-PROFILE.ZERO-REPORTS"></h3>
+		      	</div>
+		   	</div>
 			<ul
 				class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
 				<li class="list-group-item li-posts-result" 
 	        		dir-paginate="r in reports | itemsPerPage: reportsRequest.pageSize" total-items="totalReports" pagination-id="report-pagin" current-page="reportsPaginCurrentPage">
 		          	<div class="clear">
 		            	<span class=" post-title h4 text-primary m-b-sm block" >{{r.dateS}}
-		            		<button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="NONPROFIT-PROFILE.DETAIL"></button>
-		            	</span>
+		            		<!-- <button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="NONPROFIT-PROFILE.DETAIL"></button>
+		            	--></span>
 		          	</div>
 		          	<div class="row">
 		          		<div class="col-sm-3">

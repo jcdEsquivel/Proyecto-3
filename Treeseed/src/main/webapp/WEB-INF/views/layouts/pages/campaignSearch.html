@@ -1,87 +1,83 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3" translate="CAMPAIGNSEARCH.HEADER-TITLE"></h1>
-
-<div >
- 	<div class="panel-body">
-	 	<div class="form-horizontal col-sm-12 col-sm-offset-0">
-		    <label class="control-label" translate="GENERALSEARCH.FILTERS"></label>
-		    <br><br><br>
-		    <div class="col-sm-12">
-		      <div class="row">
-		        <div class="col-md-2">
-		        <label class="labels-dropdowns" translate="GENERALSEARCH.NAME-FILTER">Name</label>
-		        <br>
-	        	<md-input-container flex>
-        			<input type="text" class="form-control" ng-model="campaign.name">
-	        	</md-input-container>
-		        </div>
-		        <div class="col-md-2">
-		        <label class="labels-dropdowns"  translate="GENERALSEARCH.NGONAME-FILTER"></label> 
-		        <br>
-	        	<md-input-container flex>
-			     <input type="text" class="form-control" ng-model="campaign.nonProfit.name">
-			     </md-input-container>
-		        </div>
-		        <div class="col-md-2">
-	        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
-				 	<md-input-container flex>
-			          	<md-select style="width:100%;" ng-model="campaign.cause" >
-			          		<md-option select disabled></md-option>
-			          		<md-option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
-			        	</md-select>
-					</md-input-container>       
-		        </div>
-		      <label class="labels-dropdowns"  translate="GENERALSEARCH.RANGEDATE">Range Date</label>
-		      <br>
-		      <md-input-container flex>
-		       <div class="col-md-6 col-sm-offset-0">
-		            	<input ng-model="campaign.rangeDate" ui-jq="daterangepicker" ui-options="{
-		                format: 'YYYY-MM-DD',
-		                startDate: '2015-01-01',
-		                endDate: '2015-12-31'
-		              	}" class="form-control w-md" />
-		       </div>
-         	  </md-input-container>
-         	  
-	         <div class="col-md-10 col-sm-offset-10">
-	          	<button type="button" class="btn btn-default" ng-click="searchCampaign(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
-	        </div>
+  	<h1 class="m-n font-thin h3" translate="CAMPAIGNSEARCH.HEADER-TITLE"></h1>
+	<div>
+ 		<div class="panel-body">
+	 		<div class="form-group md-whiteframe-treeseed">
+		    	<label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>	   
+			    <div class="col-sm-12">
+			     	<div class="row">
+			        	<div class="col-md-3">
+		        			
+	        				<label class="labels-dropdowns" translate="GENERALSEARCH.NAME-FILTER">Name</label>
+        					<input type="text" class="form-control" ng-model="campaign.name">
+	        				
+			        	</div>
+			        	<div class="col-md-3">
+		        			
+		        				<label class="labels-dropdowns"  translate="GENERALSEARCH.NGONAME-FILTER"></label>
+				  			   	<input type="text" class="form-control" ng-model="campaign.nonProfit.name">
+				    	 
+			        	</div>
+			        	<div class="col-md-3">
+			        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
+					 		
+				          		<!--<select class="form-control m-b" style="width:100%;" ng-model="campaign.cause" >
+				          			<option select disabled></option>
+				          			<option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</option>
+				        		<select>-->
+				        		<select ng-model="campaign.cause" class="form-control" ng-options="s as s.message for s in selectSortOptionsCause"></select>	       
+			        	</div>
+			        	
+		        	</div>
+		        	<br>
+		        	<div class="row">
+			      		
+				      	<div class="col-md-3">
+			        			<label class="labels-dropdowns"  translate="GENERALSEARCH.RANGEDATE">Range Date</label>
+				            	<input ng-model="campaign.rangeDate" ui-jq="daterangepicker" ui-options="{
+				                format: 'YYYY-MM-DD',
+				                startDate: '2015-01-01',
+				                endDate: '2015-12-31'
+				              	}" class="form-control w-md" style="width:100%;"/>
+							       
+			        	</div>
+			        	<div class="col-md-2">
+	         	  			<label class="labels-dropdowns"  translate="GENERALSEARCH.RESULTS-COUNT">Number of results</label>
+			        		<select  class="form-control m-b" style="width: 150px;" ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
+				      	</div>
+			         	<div class="col-md-3 ">
+			          		<button type="button" class="btn-search" ng-click="searchCampaign(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+			        	</div>
+	   				</div>
+			    </div>
 		    </div>
-		      <div class="row">
-		      	<div class="col-md-3">
-	        		<select ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
-		        </div>
-		      </div>
-		      <br>
-		    </div>
-	    </div>
-	</div>
-    <tabset class="tab-container">
-	   	<tab>
-     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
-		         
-	      	</tab-heading>
-	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
-	        	<li class="list-group-item li-search-size-result" dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
-		          	<a ui-sref="treeSeed.campaign({campaignId:'{{campaign.id}}'})" class="pull-left thumb-md m-r">
-	            		<img ng-src="{{campaign.picture}}" alt="..." class="img-circle search-image-size">
-		          	</a>
-		          	<div class="clear">
-		            	<a ui-sref="treeSeed.campaign({campaignId:'{{campaign.id}}'})" class="h4 text-primary m-b-sm block" >{{campaign.nonprofit.name}} - {{campaign.name}} </a>
-		            	<div><label>Description: </label> {{campaign.description}}</div>
-		            	<div><label>Amount Collected: </label> {{campaign.amountCollected}}, <label> Amount Goal: </label> {{campaign.amountGoal}}</div>	
-		          	</div>
-		        </li>	        
-      		</ul>
-      		<div class="other-controller">
-		    	<div class="text-center">
-		      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
-		      		</dir-pagination-controls>
-		      	</div>
-			</div>  
-	    </tab>
-	</tabset>      
-  </div>
+		</div>
+	    <tabset class="tab-container">
+		   	<tab>
+	     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
+			         
+		      	</tab-heading>
+		      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
+		        	<li class="list-group-item li-search-size-result" dir-paginate="campaign in campaigns | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
+			          	<a ui-sref="treeSeed.campaign({campaignId:'{{campaign.id}}'})" class="pull-left thumb-md m-r">
+		            		<img ng-src="{{campaign.picture}}" alt="..." class="img-circle search-image-size">
+			          	</a>
+			          	<div class="clear">
+			            	<a ui-sref="treeSeed.campaign({campaignId:'{{campaign.id}}'})" class="h4 text-primary m-b-sm block" >{{campaign.nonprofit.name}} - {{campaign.name}} </a>
+			            	<div><label>Description: </label> {{campaign.description}}</div>
+			            	<div><label>Amount Collected: </label> {{campaign.amountCollected}}, <label> Amount Goal: </label> {{campaign.amountGoal}}</div>	
+			          	</div>
+			        </li>	        
+	      		</ul>
+	      		<div class="other-controller">
+			    	<div class="text-center">
+			      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+			      		</dir-pagination-controls>
+			      	</div>
+				</div>  
+		    </tab>
+		</tabset>      
+	  </div>
 
 </div>
  

@@ -1,6 +1,8 @@
 package com.treeseed.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,16 +34,6 @@ public class DonationService implements DonationServiceInterface{
 	@Autowired
 	DonationRepository donationRepository;
 
-	
-	/* (non-Javadoc)
-	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
-	 */
-	@Override
-	@Transactional
-	public double findAmountPerMonthOfNonProfit(int nonProfitId,
-			Date startDate, Date endDate) {
-		return donationRepository.findAmountPerMonthOfNonProfit(nonProfitId, startDate, endDate);
-	}
 	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#findDonorsPerCampaign(int)
@@ -130,6 +122,54 @@ public class DonationService implements DonationServiceInterface{
 		return pageWrapper;		
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
+	@Override
+	public Page<Donation> getReportDonations(DonationRequest ur) {
+		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		Page<Donation> pageResult = null;
+		
+		int donorId = ur.getDonorId();
+		
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findAllDonations(donorId, ur.getMonth(), month, ur.getYear(), year, pr);
+		
+		return pageResult ;
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
 	 */
@@ -171,7 +211,53 @@ public class DonationService implements DonationServiceInterface{
 			ur.setYear(null);
 		}
 		
-		pageResult = donationRepository.findAllDonations(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		pageResult = donationRepository.findDonationsOfDonor(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		
+		return pageResult ;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonations(com.treeseed.contracts.DonationRequest)
+	 */
+	@Override
+	public Page<Donation> getDonationsDonor(DonationRequest ur) {
+		PageRequest pr;
+		int month = 0;
+		int year = 0;
+		
+		Sort.Direction direction = Sort.Direction.DESC;
+		if(ur.getDirection().equals("ASC")){
+			direction = Sort.Direction.ASC;
+		}
+		
+		if(ur.getSortBy().size() > 0){
+			Sort sort = new Sort(direction,ur.getSortBy());
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize(),sort);
+		}else{
+			pr = new PageRequest(ur.getPageNumber(),
+					ur.getPageSize());
+		}
+		
+		Page<Donation> pageResult = null;
+		
+		int donorId = ur.getDonorId();
+		
+		if(ur.getMonth() != null && ur.getMonth() != ""){
+			month = Integer.parseInt(ur.getMonth());
+		}
+		else{
+			ur.setMonth(null);
+		}
+		
+		if(ur.getYear() != null && ur.getYear() != ""){
+			year = Integer.parseInt(ur.getYear());
+		}
+		else{
+			ur.setYear(null);
+		}
+		
+		pageResult = donationRepository.findDonationsOfDonor(donorId, ur.getMonth(), month, ur.getYear(), year, pr);
 		
 		return pageResult ;
 	}
@@ -181,5 +267,34 @@ public class DonationService implements DonationServiceInterface{
 	 */
 	public double getSumDonationsByDonor(int idDonor){
 		return donationRepository.sumAmountByDonor(idDonor);
+	}
+
+	/*
+	 * 
+	 * /* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findAmountPerMonthOfNonProfit(int, java.sql.Date, java.sql.Date)
+	 */
+	@Override
+	@Transactional
+	public double findAmountPerMonthOfNonProfit(String pmonth, int nonProfitId) {
+		int month = Integer.parseInt(pmonth);
+		return donationRepository.findAmountPerMonthOfNonProfit(month, nonProfitId);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#getDonationsByNonprofit(int, int)
+	 */
+	@Override
+	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId) {
+		PageRequest pr=new PageRequest(0,10);
+		List<Donation> donations =donationRepository.findTop10getByNonProfitIdDashboard(nonProfitId,pr).getContent();
+		List<DonationWrapper> donationsWrapper = new ArrayList<DonationWrapper>();
+		
+		for(Donation donation:donations){
+			DonationWrapper donationWrapper = new DonationWrapper(donation);
+			donationsWrapper.add(donationWrapper);
+		}
+		
+		return donationsWrapper;
 	}
 }

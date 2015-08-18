@@ -18,6 +18,16 @@ public class GeneralSearchResultRowMapper implements RowMapper{
 		result.setType(rs.getString("TYPE"));
 		result.setImageURL(rs.getString("IMG"));
 		result.setCount(rs.getInt("COUNTVALUE"));
+		
+		
+		if(result.getType().equals("nonProfit")){
+			result.setParam("nonProfitId");
+		}else if(result.getType().equals("campaign")){
+			result.setParam("campaignId");
+		}else{
+			result.setParam("donorId");
+		}
+		
 		return result;
 		
 	}

@@ -1,5 +1,6 @@
-<div ng-controller = "donorPortfolioController">
-	<button type="button"  class="btn  btn-success btn-rounded" ng-if="isOwner"
+<div >
+	<h3 ng-if="noDonationsMessage" style="color: red;" translate="DONOR-PROFILE.PORTFOLIO-EMPTY"></h3>
+	<button type="button"  class="btn  btn-success btn-rounded" ng-if="isOwner && noDonations"
 	ng-click="recurrableDonations()" translate="DONOR-PROFILE.EDIT-PORTFOLIO">Edit</button>
 	<div class="panel-body">
 	    <div ui-jq="plot" ui-options="

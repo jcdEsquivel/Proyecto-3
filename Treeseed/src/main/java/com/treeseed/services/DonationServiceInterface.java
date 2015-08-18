@@ -1,6 +1,7 @@
 package com.treeseed.services;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.treeseed.contracts.DonationRequest;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -23,11 +24,10 @@ public interface DonationServiceInterface {
 	 * Find amount per month of non profit.
 	 *
 	 * @param nonProfitId the non profit id
-	 * @param startDate the start date
-	 * @param endDate the end date
+	 * @param month the month
 	 * @return the double
 	 */
-	double findAmountPerMonthOfNonProfit(int nonProfitId, Date startDate, Date endDate);
+	double findAmountPerMonthOfNonProfit(String month, int nonProfitId);
 	
 	/**
 	 * Find donors per campaign.
@@ -83,4 +83,16 @@ public interface DonationServiceInterface {
 	 * @return the sum donations by donor
 	 */
 	double getSumDonationsByDonor(int idDonor);
+
+	Page<Donation> getDonationsDonor(DonationRequest ur);
+
+	Page<Donation> getReportDonations(DonationRequest ur);
+
+	/**
+	 * Gets the donations by nonprofit.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @return the donations by nonprofit
+	 */
+	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId);
 }

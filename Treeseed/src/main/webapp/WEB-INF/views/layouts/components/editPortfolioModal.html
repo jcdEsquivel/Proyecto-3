@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h3 class="modal-title" translate="DONATION-MODAL.TITLE">TITLE</h3>
+	<h3 class="modal-title" translate="PORTFOLIO-MODAL.TITLE">TITLE</h3>
 </div>
 
 <div class="modal-body">
@@ -7,7 +7,6 @@
 
 	<form name="frmEditDonations" class="form-validation" >
  
-		<h3 translate="PORTFOLIO-MODAL.TITLE">Your donations</h3>
 		
 		<div class="row" ng-repeat="r in request.donations">
 			<div class="col-md-4">
@@ -36,6 +35,8 @@
 					<button type="button" ng-disabled="isSubmited" 
 						class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="saveDonations()"
 						translate="PORTFOLIO-MODAL.SAVE">SAVE</button>
+						<button type="button" class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="close()"
+		translate="DONATION-MODAL.CANCEL">Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -46,10 +47,4 @@
 </tabset>
 
 </div>
-<div class="modal-footer">
 
-	<button type="button" class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="close()"
-		translate="DONATION-MODAL.CANCEL">Cancel</button>
-	
-
-</div>

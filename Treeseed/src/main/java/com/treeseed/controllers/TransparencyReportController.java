@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treeseed.contracts.DonationRequest;
+import com.treeseed.contracts.DonationResponse;
 import com.treeseed.contracts.TransparencyReportRequest;
 import com.treeseed.contracts.TransparencyReportResponse;
 import com.treeseed.ejb.TransparencyReport;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.TransparencyReportWrapper;
+import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.TransparencyReportPOJO;
+import com.treeseed.services.DonationServiceInterface;
 import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.TransparencyReportServiceInterface;
 import com.treeseed.utils.PageWrapper;
@@ -36,6 +41,10 @@ public class TransparencyReportController {
 	/** The transparency report service. */
 	@Autowired
 	TransparencyReportServiceInterface transparencyReportService;
+	
+	/** The donation report service. */
+	@Autowired
+	DonationServiceInterface donationService;
 	
 	/** The servlet context. */
 	@Autowired
@@ -58,37 +67,48 @@ public class TransparencyReportController {
 	@RequestMapping(value ="/create", method = RequestMethod.POST)
 	public TransparencyReportResponse createTransparencyReport(@RequestBody TransparencyReportRequest tr){	
 		
-		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(tr.getTransparencyReport().getNonProfitId());
-		TransparencyReport transparencyReport = new TransparencyReport();
-		TransparencyReportPOJO transparencyReportPOJO = new TransparencyReportPOJO();
-		TransparencyReportWrapper transparancyReportWrapper = new TransparencyReportWrapper();
 		TransparencyReportResponse ts = new TransparencyReportResponse();
 		
-		if(nonprofit != null){
+		try{
+		
+			NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(tr.getTransparencyReport().getNonProfitId());
+			TransparencyReport transparencyReport = new TransparencyReport();
+			TransparencyReportPOJO transparencyReportPOJO = new TransparencyReportPOJO();
+			TransparencyReportWrapper transparancyReportWrapper = new TransparencyReportWrapper();
 			
-			transparancyReportWrapper.setAmountIn(tr.getTransparencyReport().getAmountIn());
-			transparancyReportWrapper.setAmountOut(tr.getTransparencyReport().getAmountOut());
-			transparancyReportWrapper.setDateTime(new Date());
-			transparancyReportWrapper.setDescription(tr.getTransparencyReport().getDescription());
-			transparancyReportWrapper.setNonprofit(nonprofit.getWrapperObject());
-			
-			transparencyReport = transparencyReportService.saveTransparencyReport(transparancyReportWrapper);
-			
-			if(transparencyReport!=null){
+			if(nonprofit != null){
 				
-				transparencyReportPOJO.setAmountIn(transparencyReport.getAmountIn());
-				transparencyReportPOJO.setAmountOut(transparencyReport.getAmountOut());
-				//transparencyReportPOJO.setDate(transparencyReport.getDateTime());
-				transparencyReportPOJO.setDescription(transparencyReport.getDescription());
-				transparencyReportPOJO.setId(transparencyReport.getId());
+				transparancyReportWrapper.setAmountIn(tr.getTransparencyReport().getAmountIn());
+				transparancyReportWrapper.setAmountOut(tr.getTransparencyReport().getAmountOut());
+				transparancyReportWrapper.setDateTime(new Date());
+				transparancyReportWrapper.setDescription(tr.getTransparencyReport().getDescription());
+				transparancyReportWrapper.setNonprofit(nonprofit.getWrapperObject());
 				
+				transparencyReport = transparencyReportService.saveTransparencyReport(transparancyReportWrapper);
+				
+				if(transparencyReport!=null){
+					
+					transparencyReportPOJO.setAmountIn(transparencyReport.getAmountIn());
+					transparencyReportPOJO.setAmountOut(transparencyReport.getAmountOut());
+					//transparencyReportPOJO.setDate(transparencyReport.getDateTime());
+					transparencyReportPOJO.setDescription(transparencyReport.getDescription());
+					transparencyReportPOJO.setId(transparencyReport.getId());
+					
+				}
+				
+				ts.setTransparencyReport(transparencyReportPOJO);
+				
+				ts.setCode(200);
+				ts.setCodeMessage("Transaparency Report created successfully");
 			}
-			
-			ts.setTransparencyReport(transparencyReportPOJO);
-			
-			ts.setCode(200);
-			ts.setCodeMessage("Transaparency Report created successfully");
-		}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				ts.setCode(10);
+				ts.setErrorMessage("Data Base error");
+			}else{
+				ts.setCode(500);
+			}
+		}	
 		return ts;	
 	}
 	
@@ -102,38 +122,48 @@ public class TransparencyReportController {
 	@Transactional
 	public TransparencyReportResponse getTransparencyReports(@RequestBody TransparencyReportRequest tr){	
 		
-		TransparencyReportPOJO transparencyReportPOJO = null;		
 		TransparencyReportResponse ts = new TransparencyReportResponse();
-		PageWrapper<TransparencyReportWrapper> pageResults = null;
-		List<TransparencyReportPOJO> transparencyReportsPOJO = new ArrayList<TransparencyReportPOJO>();
 		
-		tr.setPageNumber(tr.getPageNumber()-1);
-		pageResults = transparencyReportService.findTransparencyReport(tr);		
-		
-		ts.setTotalElements(pageResults.getTotalItems());
-		
-		for(TransparencyReportWrapper objeto: pageResults.getResults())
-		{
-			transparencyReportPOJO = new TransparencyReportPOJO();
-			transparencyReportPOJO.setId(objeto.getId());
-			transparencyReportPOJO.setDate(objeto.getDateTime());
-			transparencyReportPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
-			transparencyReportPOJO.setDescription(objeto.getDescription());
-			transparencyReportPOJO.setAmountIn(objeto.getAmountIn());
-			transparencyReportPOJO.setAmountOut(objeto.getAmountOut());
+		try{
+			TransparencyReportPOJO transparencyReportPOJO = null;	
+			PageWrapper<TransparencyReportWrapper> pageResults = null;
+			List<TransparencyReportPOJO> transparencyReportsPOJO = new ArrayList<TransparencyReportPOJO>();
 			
-			transparencyReportsPOJO.add(transparencyReportPOJO);
-		};
-
-		ts.setTransparencyReports(transparencyReportsPOJO);
-		
-		if(transparencyReportsPOJO.size()>0){
-			ts.setCodeMessage("Transparency reports fetch successfully");
-			ts.setCode(200);
-		}else{
-			ts.setErrorMessage("Transparency reports fetch unsuccessfully");
-			ts.setCode(400);
-		}
+			tr.setPageNumber(tr.getPageNumber()-1);
+			pageResults = transparencyReportService.findTransparencyReport(tr);		
+			
+			ts.setTotalElements(pageResults.getTotalItems());
+			
+			for(TransparencyReportWrapper objeto: pageResults.getResults())
+			{
+				transparencyReportPOJO = new TransparencyReportPOJO();
+				transparencyReportPOJO.setId(objeto.getId());
+				transparencyReportPOJO.setDate(objeto.getDateTime());
+				transparencyReportPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+				transparencyReportPOJO.setDescription(objeto.getDescription());
+				transparencyReportPOJO.setAmountIn(objeto.getAmountIn());
+				transparencyReportPOJO.setAmountOut(objeto.getAmountOut());
+				
+				transparencyReportsPOJO.add(transparencyReportPOJO);
+			};
+	
+			ts.setTransparencyReports(transparencyReportsPOJO);
+			
+			if(transparencyReportsPOJO.size()>0){
+				ts.setCodeMessage("Transparency reports fetch successfully");
+				ts.setCode(200);
+			}else{
+				ts.setErrorMessage("Transparency reports fetch unsuccessfully");
+				ts.setCode(400);
+			}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				ts.setCode(10);
+				ts.setErrorMessage("Data Base error");
+			}else{
+				ts.setCode(500);
+			}
+		}	
 		
 		return ts;
 	}

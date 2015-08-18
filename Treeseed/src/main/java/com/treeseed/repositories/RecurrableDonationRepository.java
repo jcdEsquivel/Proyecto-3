@@ -43,7 +43,8 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	/**
 	 * Find by nonprofit id.
 	 *
-	 * @param id the id
+	 * @param nonprofitId the nonprofit id
+	 * @param donorId the donor id
 	 * @return the list
 	 */
 	List<RecurrableDonation> findByNonProfitIdAndDonorId(int nonprofitId, int donorId);
@@ -51,7 +52,8 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	/**
 	 * Find by campaign id.
 	 *
-	 * @param id the id
+	 * @param campaignId the campaign id
+	 * @param donorId the donor id
 	 * @return the list
 	 */
 	List<RecurrableDonation> findByCampaingIdAndDonorId(int campaignId, int donorId);
@@ -59,9 +61,18 @@ public interface RecurrableDonationRepository extends CrudRepository<RecurrableD
 	/**
 	 * Find by donor id.
 	 *
-	 * @param donorid the donorid
+	 * @param donorId the donor id
 	 * @return the list
 	 */
 	List<RecurrableDonation> findByDonorId(int donorId);
+	
+	/**
+	 * Gets the by non profit id dashboard.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @return the by non profit id dashboard
+	 */
+	@Query("SELECT r FROM RecurrableDonation r where r.nonProfitId = :nonProfitId and r.isActive = true order by r.dateTime Desc ") 
+	Page<RecurrableDonation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, Pageable pageable);
 	
 }

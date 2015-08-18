@@ -24,12 +24,21 @@ treeSeedAppControllers.controller('indexController', function($state,
 });
 
 treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
-		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
-
+		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal, USER_ROLES) {
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
 	$sharedData.getUserCountry();
 	$scope.country = "";
+	
+	$scope.goDashboard=function(){
+		if(Session.userRole==USER_ROLES.nonprofit){
+			$state.go('treeSeed.nonProfitDashboard');
+		}else if(Session.userRole==USER_ROLES.donor){
+			$state.go('treeSeed.donorDashboard');
+		}else{
+			$state.go('treeSeed.index');
+		}
+	}
 
 	$scope.goProfile = function() {
 		if (Session.userRole == $scope.userRoles.nonprofit) {
@@ -42,9 +51,19 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			});
 		}
 	}
+	
+	$scope.goSettings = function() {
+		if (Session.userRole == $scope.userRoles.nonprofit) {
+			$state.go('treeSeed.nonProfitSettings');
+		} else if (Session.userRole == $scope.userRoles.donor) {
+			$state.go('treeSeed.donorSettings');
+		}
+	}
 
 	$scope.temps = [];
 
+	
+	
 	$scope.generalSearch = function(val) {
 		$scope.country = $sharedData.getUserCountry();
 		console.log('in');
@@ -52,8 +71,16 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			filter : val,
 			country : $scope.country
 		}).then(function(response) {
-			return response.data.results;
+			if(response.data.code == 200){
+				return response.data.results;
+			}else{
+				$scope.errorServer(response.data.code);
+				return null;
+			}
+			
 
+		},function(status){
+			$scope.errorServer(status.status);
 		}); // end $http.post
 	};// end generalSearch
 
@@ -153,9 +180,18 @@ treeSeedAppControllers.controller('navigateController', function($state,
 treeSeedAppControllers.controller('sideMenuNonprofitController', function(
 		$state, $scope, Session) {
 	$scope.goProfile = function() {
-
 		$state.go('treeSeed.nonProfit', {
 			nonProfitId : Session.userId
+		});
+	}
+
+});
+
+treeSeedAppControllers.controller('sideMenuDonorController', function(
+		$state, $scope, Session) {
+	$scope.goProfile = function() {
+		$state.go('treeSeed.donor', {
+			donorId : Session.userId
 		});
 	}
 
@@ -202,3 +238,41 @@ treeSeedAppControllers.controller('feedbackCtrl', function($modalInstance ,  $sc
 
 });
 
+
+treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $scope, code, $state, AUTH_EVENTS, 
+		$rootScope, AuthService, $location, $sharedData) {
+	
+	$scope.title= "FEEDBACK-MODAL.GENERAL-TITLE"
+	
+	switch(code) {
+    case 400:
+        $scope.text = "FEEDBACK-MODAL.ERROR-400-TEXT";
+        break;
+    case 401:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-401-TEXT";
+        break;
+    case 408:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-408-TEXT";
+        break;
+    case 404:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-404-TEXT";
+        break;
+    case 500:
+		$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+		break;
+    case 520:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-520-TEXT";
+        break;
+    case 10:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-10-TEXT";
+        break;
+    default:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+	   
+	}
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	};
+
+});

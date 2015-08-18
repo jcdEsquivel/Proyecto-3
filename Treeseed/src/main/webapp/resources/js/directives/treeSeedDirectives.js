@@ -477,6 +477,29 @@ treeSeedAppDirectives.directive("isEmailUnique", function($http,
 		}
 	}
 });
+
+
+treeSeedAppDirectives.directive("isNameUnique", function($http,
+		$uniqueDataService) {
+	return {
+		restrict : 'A',
+		require : 'ngModel',
+		link : function(scope, element, attrs, ngModel) {
+			element.bind('blur', function(e) {// blur-> after input losses
+				// focus
+				var currentValue = element.val();
+				$uniqueDataService.isNameUnique(currentValue).then(
+						function(value) {
+							
+							ngModel.$setValidity('unique', value);
+
+						});
+			});
+		}
+	}
+});
+
+
 treeSeedAppDirectives.directive('loginDialog', function(AUTH_EVENTS) {
 	return {
 		restrict : 'A',
