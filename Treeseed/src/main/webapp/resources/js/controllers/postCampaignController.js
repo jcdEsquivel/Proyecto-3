@@ -70,6 +70,9 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				},
 				campaignId: function(){
 					return $scope.postRequest.postCampaign.campaignId
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 
@@ -90,6 +93,9 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				},
 				post: function(){
 					return p
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 		})
@@ -138,7 +144,7 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 
 });
 
-treeSeedAppControllers.controller('createPostCampaignController', function($http,
+treeSeedAppControllers.controller('createPostCampaignController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts,  campaignId ,Session,
 		$modalInstance) {
 
@@ -218,11 +224,11 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 					if(data.code == 200){
 						$scope.close();
 					}else{
-						$scope.errorServer(data.code);		
+						errorFunction(data.code);		
 					}
 			
 		}).error(function(status) {
-			$scope.errorServer(status);
+			errorFunction(status);
 		});
 
 	};
@@ -236,7 +242,7 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 });
 
 
-treeSeedAppControllers.controller('editPostCampaignController', function($http,
+treeSeedAppControllers.controller('editPostCampaignController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
 		$modalInstance, $stateParams) {
 
@@ -320,11 +326,11 @@ treeSeedAppControllers.controller('editPostCampaignController', function($http,
 					if(data.code==200){
 						$scope.close();
 					}else{
-						$scope.errorServer(data.code);
+						errorFunction(data.code);
 						
 					}
 		}).error(function(status) {
-			$scope.errorServer(status);
+			errorFunction(status);
 		});
 
 	};

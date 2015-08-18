@@ -904,6 +904,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 				},
 				pictureFace: function(){
 					return $scope.campaign.picture;
+				},
+				errorFunction: function(){
+					return  $scope.errorServer
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

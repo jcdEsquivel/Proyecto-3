@@ -86,8 +86,12 @@ public class CardController {
 	@RequestMapping(value ="/getByDonor", method = RequestMethod.POST)
 	public CardResponse getCardByDonor(@RequestBody CardRequest prams) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
 		CardResponse us = new CardResponse();
+		
+		try{
 		DonorWrapper donor=donorService.getDonorProfileByID(prams.getCard().getDonor().getId());
 		List<CardPOJO> viewCardPOJO = new ArrayList<CardPOJO>();
+		
+		us.setErrorMessage("Success");
 		
 		if(donor.getWrapperObject()!=null){
 			if(donor.getStripeId()!=null){
@@ -108,17 +112,29 @@ public class CardController {
 					}
 					viewCardPOJO.add(cardPojo);
 				}
-			}else{
-				us.setCode(400);
-				us.setErrorMessage("No cards");
+			
 			}
+			us.setCode(200);
+			us.setErrorMessage("Fetch cards");
 		}else{
 			us.setCode(400);
 			us.setErrorMessage("Donor not found");
 		}
 		us.setCards(viewCardPOJO);		
 		return us;
-	}	
+		
+	}catch(Exception e){
+		if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+			us.setCode(10);
+			us.setErrorMessage("Data Base error");
+		}else{
+			us.setCode(500);
+		}
+		
+		return us;
+	}
+		
+	}
 }
 
 

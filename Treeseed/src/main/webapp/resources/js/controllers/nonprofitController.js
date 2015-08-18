@@ -624,6 +624,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				},
 				pictureFace: function(){
 					return $scope.nonprofit.profilePicture;
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

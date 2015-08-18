@@ -72,6 +72,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 				},
 				nonprofitId: function(){
 					return $scope.postRequest.postNonprofit.nonprofitId
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 
@@ -91,6 +94,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 					},
 					post: function(){
 						return p
+					},
+					errorFunction: function(){
+						return $scope.errorServer;
 					}
 				}
 			})
@@ -136,7 +142,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 
 });
 
-treeSeedAppControllers.controller('createPostController', function($http,
+treeSeedAppControllers.controller('createPostController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, nonprofitId, Session,
 		$modalInstance) {
 
@@ -214,11 +220,11 @@ treeSeedAppControllers.controller('createPostController', function($http,
 					if(data.code==200){
 						$scope.close();
 					}else{
-						$scope.errorServer(data.code);
+						errorFunction(data.code);
 						
 					}
 		}).error(function(status) {
-			$scope.errorServer(status);
+			errorFunction(status);
 		});
 
 	};
@@ -232,7 +238,7 @@ treeSeedAppControllers.controller('createPostController', function($http,
 });
 
 
-treeSeedAppControllers.controller('editPostController', function($http,
+treeSeedAppControllers.controller('editPostController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
 		$modalInstance) {
 
@@ -318,11 +324,11 @@ treeSeedAppControllers.controller('editPostController', function($http,
 					if(data.code==200){
 						$scope.close();
 					}else{
-						$scope.errorServer(data.code);
+						errorFunction(data.code);
 						
 					}
 		}).error(function(status) {
-			$scope.errorServer(status);
+			errorFunction(status);
 		});
 
 	};
