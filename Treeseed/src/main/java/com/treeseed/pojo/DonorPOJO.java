@@ -27,6 +27,15 @@ public class DonorPOJO {
 	/** The country. */
 	private int country;
 	
+	/** The country s. */
+	private String countryS;
+	
+	/** The type s spanish. */
+	private String typeSSpanish;
+
+	/** The type s english. */
+	private String typeSEnglish;
+	
 	/** The father. */
 	private DonorPOJO father;
 	
@@ -220,6 +229,60 @@ public class DonorPOJO {
 	 */
 	public void setWebPage(String webPage) {
 		this.webPage = webPage;
+	}
+
+	/**
+	 * Gets the country s.
+	 *
+	 * @return the country s
+	 */
+	public String getCountryS() {
+		return countryS;
+	}
+
+	/**
+	 * Sets the country s.
+	 *
+	 * @param countryS the new country s
+	 */
+	public void setCountryS(String countryS) {
+		this.countryS = countryS;
+	}
+	
+	/**
+	 * Gets the type s spanish.
+	 *
+	 * @return the type s spanish
+	 */
+	public String getTypeSSpanish() {
+		return typeSSpanish;
+	}
+
+	/**
+	 * Sets the type s spanish.
+	 *
+	 * @param typeSSpanish the new type s spanish
+	 */
+	public void setTypeSSpanish(String typeSSpanish) {
+		this.typeSSpanish = typeSSpanish;
+	}
+
+	/**
+	 * Gets the type s english.
+	 *
+	 * @return the type s english
+	 */
+	public String getTypeSEnglish() {
+		return typeSEnglish;
+	}
+
+	/**
+	 * Sets the type s english.
+	 *
+	 * @param typeSEnglish the new type s english
+	 */
+	public void setTypeSEnglish(String typeSEnglish) {
+		this.typeSEnglish = typeSEnglish;
 	}
 
 }

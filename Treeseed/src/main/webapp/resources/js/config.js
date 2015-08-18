@@ -78,6 +78,20 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.donorDashboard',
+											{
+												url : 'dashboard2',
+												templateUrl : 'layouts/components/donorDashboard.html',
+												controller: "donorDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.donor ]
+
+												}
+											})
+									.state(
 											'treeSeed.nonProfit',
 											{
 												url : 'nonProfit/:nonProfitId',
@@ -90,6 +104,20 @@ angular
 													authorizedRoles : [
 													USER_ROLES.donor,
 													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+
+												}
+											})
+									.state(
+											'treeSeed.nonProfitDashboard',
+											{
+												url : 'dashboard1',
+												templateUrl : 'layouts/components/nonprofitDashboard.html',
+												controller: "nonprofitDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
 													USER_ROLES.nonprofit ]
 
 												}

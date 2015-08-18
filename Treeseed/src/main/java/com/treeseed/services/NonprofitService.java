@@ -1,5 +1,8 @@
 package com.treeseed.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.NonprofitRequest;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.repositories.NonprofitRepository;
 
@@ -165,6 +170,44 @@ public class NonprofitService implements NonprofitServiceInterface{
 		nonprofitsRepository.delete(nonProfit.getId());
 		
 		return nonprofitsRepository.findOne(nonProfit.getId());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#donorRecomendation(int)
+	 */
+	@Override
+	public List<NonprofitWrapper> donorRecomendation(int idDonor) {
+		PageRequest pr=new PageRequest(0,10);
+		List<Nonprofit> nonprofits = nonprofitsRepository.findTop10DonorRecomendations(idDonor,pr).getContent();
+		List<NonprofitWrapper> nonprofitsWrapper = new ArrayList<NonprofitWrapper>();
+		
+		
+		for(Nonprofit nonprofit:nonprofits){
+			NonprofitWrapper nonprofitWrapper = new NonprofitWrapper(nonprofit);
+			nonprofitsWrapper.add(nonprofitWrapper);
+		}
+		
+		return  nonprofitsWrapper;
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.NonprofitServiceInterface#donorRecomendationRandom()
+	 */
+	@Override
+	public List<NonprofitWrapper> donorRecomendationRandom() {
+		PageRequest pr=new PageRequest(0,10);
+		
+		List<Nonprofit> nonprofits = nonprofitsRepository.findTop10DonorRecomendationsRandom(pr).getContent();
+		List<NonprofitWrapper> nonprofitsWrapper = new ArrayList<NonprofitWrapper>();
+		
+		
+		for(Nonprofit nonprofit:nonprofits){
+			NonprofitWrapper nonprofitWrapper = new NonprofitWrapper(nonprofit);
+			nonprofitsWrapper.add(nonprofitWrapper);
+		}
+		
+		return  nonprofitsWrapper;
 	}
 	
 	@Override

@@ -24,11 +24,21 @@ treeSeedAppControllers.controller('indexController', function($state,
 });
 
 treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
-		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal) {
+		$http, $rootScope, $sharedData, $scope, AUTH_EVENTS, Session, $modal, USER_ROLES) {
 	$scope.nom = $sharedData.getLoggedUser();
 	$scope.img = $sharedData.getImg();
 	$sharedData.getUserCountry();
 	$scope.country = "";
+	
+	$scope.goDashboard=function(){
+		if(Session.userRole==USER_ROLES.nonprofit){
+			$state.go('treeSeed.nonProfitDashboard');
+		}else if(Session.userRole==USER_ROLES.donor){
+			$state.go('treeSeed.donorDashboard');
+		}else{
+			$state.go('treeSeed.index');
+		}
+	}
 
 	$scope.goProfile = function() {
 		if (Session.userRole == $scope.userRoles.nonprofit) {
