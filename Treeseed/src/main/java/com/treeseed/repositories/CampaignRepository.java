@@ -75,7 +75,7 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 			+ "( :endDate is null or cp.dueDate <= :endDate ) and "		
 			+ "( :startDateSoon is null or ( cp.startDate >= :startDateSoon and cp.isActive = 1 ) ) and "		
 			+ "( :startDateActive is null or ( cp.startDate <= :startDateActive and cp.isActive = 1 ) ) and "
-			+ "( :endDateActive is null or cp.dueDate >= :endDateActive ) and "
+			+ "( :endDateActive is null or (cp.dueDate >= :endDateActive or cp.dueDate = null)) and "
 			+"( :endDateFinished is null or (cp.dueDate <= :endDateFinished or cp.isActive = 0 ) ) and "
 			+ "n.id = :nonprofitId ")
 	   public Page<Campaign> findFromNonprofit(@Param("campaignNameNull") String campaignNameNull, @Param("campaignName") String campaignName,

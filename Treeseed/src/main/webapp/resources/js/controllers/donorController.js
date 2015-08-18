@@ -1097,6 +1097,8 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 	$scope.myInterval = 5000;
 	$scope.nonprofits;
 	$scope.campaigns;
+	$scope.showCampaign=true;
+	$scope.showNonprofit=true;
 	
 	$scope.requestObject.idUser=$scope.currentUser.idUser;
 	$scope.requestObject.id=Session.id;
@@ -1105,6 +1107,16 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 				if(mydata.code==200){
 					$scope.nonprofits = mydata.dashboardNonprofits;
 					$scope.campaigns = mydata.dashboardCampaigns;
+					
+					if($scope.campaigns.length==0){
+						$scope.showCampaign=false;
+					}
+					if($scope.nonprofits.length==0){
+						$scope.showNonprofit=false;
+					}
+					
+				}else{
+					$scope.errorServer(status);
 				}else if(mydata.code == 400){
 					$scope.errorServer(mydata.code);
 				}
