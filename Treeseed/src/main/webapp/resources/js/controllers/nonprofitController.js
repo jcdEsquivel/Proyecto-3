@@ -589,4 +589,25 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	
 });
 
+treeSeedAppControllers.controller('nonprofitDashboardController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	$scope.requestObject={};
+	$scope.showList = true;
+	$scope.donations;
+	$scope.subscriptions;
+	
+	$scope.requestObject.idUser=$scope.currentUser.idUser;
+	$scope.requestObject.id=Session.id;
+	
+	$http.post('rest/protected/nonprofit/getdashboard',
+			$scope.requestObject).success(function(mydata, status) {
+				$scope.donations = mydata.dashboardDonations;
+				$scope.subscriptions = mydata.dashboardSubscription;
+		
+	}).error(function(mydata, status) {
+		alert(status);
+	});	
+});
+
  

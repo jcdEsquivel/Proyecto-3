@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonationWrapper;
@@ -94,6 +95,24 @@ public class RecurrableDonationService implements RecurrableDonationServiceInter
 		}
 		
 		return wrapperList;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.RecurrableDonationServiceInterface#getRecurrableDonationsByNonprofit(int, int)
+	 */
+	@Override
+	public List<RecurrableDonationWrapper> getRecurrableDonationsByNonprofit(int nonProfitId) {
+
+		List<RecurrableDonation> recurrableDonations =recurrableDonationRepository.findTop10getByNonProfitIdDashboard(nonProfitId);
+		List<RecurrableDonationWrapper> recurrableDonationsWrapper = new ArrayList<RecurrableDonationWrapper>();
+		
+		for(RecurrableDonation subscription:recurrableDonations){
+			RecurrableDonationWrapper subscriptionWrapper = new RecurrableDonationWrapper(subscription);
+			recurrableDonationsWrapper.add(subscriptionWrapper);
+		}
+		
+		return recurrableDonationsWrapper;
+		
 	}
 
 }

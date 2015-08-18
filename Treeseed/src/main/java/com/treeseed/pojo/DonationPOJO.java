@@ -15,6 +15,8 @@ public class DonationPOJO {
 	
 	/** The campaign id. */
 	private int campaignId;
+	
+	/** The donor father id. */
 	private int donorFatherId;
 	
 	/** The non profit id. */
@@ -22,6 +24,8 @@ public class DonationPOJO {
 	
 	/** The amount. */
 	private double amount;
+	
+	/** The card id. */
 	private int cardId;
 	
 	
@@ -31,7 +35,7 @@ public class DonationPOJO {
 	/** The donation date. */
 	private Date donationDate;
 	
-	/** The amount. */
+	/**  The date s. */
 	private String dateS;
 	
 	/** The amount. */
@@ -61,7 +65,7 @@ public class DonationPOJO {
 	/**
 	 * Sets the non profit name.
 	 *
-	 * @param non profit name
+	 * @param nonprofitName the new nonprofit name
 	 */
 	public void setNonprofitName(String nonprofitName) {
 		this.nonprofitName = nonprofitName;
@@ -79,12 +83,17 @@ public class DonationPOJO {
 	/**
 	 * Sets the non profit name.
 	 *
-	 * @param non profit name
+	 * @param dateS the new date s
 	 */
 	public void setDateS(String dateS) {
 		this.dateS = dateS;
 	}
 
+	/**
+	 * Gets the nonprofit.
+	 *
+	 * @return the nonprofit
+	 */
 	public NonprofitPOJO getNonprofit() {
 		return nonprofit;
 	}
@@ -92,7 +101,7 @@ public class DonationPOJO {
 	/**
 	 * Sets the non profit name.
 	 *
-	 * @param non profit name
+	 * @param nonprofit the new nonprofit
 	 */
 	public void setNonprofit(NonprofitPOJO nonprofit) {
 		this.nonprofit = nonprofit;
@@ -244,21 +253,57 @@ public class DonationPOJO {
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
 	}
+	
+	/**
+	 * Gets the donor id.
+	 *
+	 * @return the donor id
+	 */
 	public int getDonorId() {
 		return donorId;
 	}
+	
+	/**
+	 * Sets the donor id.
+	 *
+	 * @param donorId the new donor id
+	 */
 	public void setDonorId(int donorId) {
 		this.donorId = donorId;
 	}
+	
+	/**
+	 * Gets the donor father id.
+	 *
+	 * @return the donor father id
+	 */
 	public int getDonorFatherId() {
 		return donorFatherId;
 	}
+	
+	/**
+	 * Sets the donor father id.
+	 *
+	 * @param donorFatherId the new donor father id
+	 */
 	public void setDonorFatherId(int donorFatherId) {
 		this.donorFatherId = donorFatherId;
 	}
+	
+	/**
+	 * Gets the card id.
+	 *
+	 * @return the card id
+	 */
 	public int getCardId() {
 		return cardId;
 	}
+	
+	/**
+	 * Sets the card id.
+	 *
+	 * @param cardId the new card id
+	 */
 	public void setCardId(int cardId) {
 		this.cardId = cardId;
 	}
