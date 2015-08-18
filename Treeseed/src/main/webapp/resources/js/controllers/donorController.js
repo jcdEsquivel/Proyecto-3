@@ -1101,13 +1101,16 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 	$scope.requestObject.id=Session.id;
 	$http.post('rest/protected/donor/getdashboard',
 			$scope.requestObject).success(function(mydata) {
-				$scope.nonprofits = mydata.dashboardNonprofits;
-				$scope.campaigns = mydata.dashboardCampaigns;
-				
+				if(mydata.code==200){
+					$scope.nonprofits = mydata.dashboardNonprofits;
+					$scope.campaigns = mydata.dashboardCampaigns;
+				}else{
+					$scope.errorServer(status);
+				}
 		
-	}).error(function(mydata, status) {
-		alert(status);
-	});	
+	}).error(function(status) {
+		$scope.errorServer(status);
+	});
 	
 	$scope.goNonprofit = function(id){
 		$state.go('treeSeed.nonProfit', {nonProfitId: id});
