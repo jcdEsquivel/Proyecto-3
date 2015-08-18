@@ -199,6 +199,7 @@ treeSeedAppControllers
 												name : $scope.requestObject.donor.name,
 												lastName : $scope.requestObject.donor.lastName,
 												country : $scope.requestObject.donor.country.id,
+												fatherId:"0",
 												facebookId : $scope.requestObject.donor.facebookId,
 												facebookToken : $scope.requestObject.donor.facebookToken
 											},

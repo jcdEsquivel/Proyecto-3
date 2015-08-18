@@ -83,6 +83,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 					password:$scope.donor.password,
 					name:$scope.donor.name,
 					lastName:$scope.donor.lastName,
+					fatherId: "0",
 					country: "",
 					facebookId: "",
 					facebookToken: ""
@@ -97,7 +98,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 					  $donationService.createDonation('newCard', nonprofitId, $scope.campaignId, response.donorId,
 							  result.id, $scope.donationInfo.donationPlan, $scope.donationInfo.amount,
 							  0).success(function(data){ 
-								  
+							//father here	  
 								  if(data.code == 200){
 									  $scope.loadDonation.isLoading = 0;
 									  $scope.close();
@@ -190,7 +191,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 		});
 	}
 	
-	$scope.createDonation = function(idDonor, stripeToken){
+	/*$scope.createDonation = function(idDonor, stripeToken){
 		$donationService.createDonation(idDonor, stripeToken,
 										$scope.donationInfo.donationPlan, 
 										$scope.donationInfo.amount)
@@ -210,7 +211,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 					    					    }, 250);
 						    			});//end then
 		
-	};
+	};*/
 	
 	
 	$scope.logIn = function(email, password ){

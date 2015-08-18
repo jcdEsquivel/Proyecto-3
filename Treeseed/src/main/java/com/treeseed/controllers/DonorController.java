@@ -93,6 +93,7 @@ public class DonorController extends UserGeneralController{
 							    @RequestParam("email") String email,
 							    @RequestParam("password") String password,
 							    @RequestParam("country") String country,
+							    @RequestParam("fatherId") String fatherId,
 							    @RequestParam("facebookId") String facebookId,
 							    @RequestParam("facebookToken") String facebookToken,
 							    @RequestParam(value ="file", required=false) MultipartFile file)
@@ -102,7 +103,7 @@ public class DonorController extends UserGeneralController{
 		String resultFileName = "";
 		CatalogWrapper Countrytype = null;
 		CatalogWrapper userType = null;
-		
+		DonorWrapper father = null;
 		DonorResponse us = new DonorResponse();
 		
 		try{
@@ -136,7 +137,9 @@ public class DonorController extends UserGeneralController{
 					{
 						resultFileName = Utils.writeToFile(file,servletContext);
 					}
-			
+					
+					
+					
 					DonorWrapper user = new DonorWrapper();
 					user.setName(name);
 					user.setLastName(lastName);
@@ -145,6 +148,11 @@ public class DonorController extends UserGeneralController{
 					user.setCountry(Countrytype.getWrapperObject());
 					user.setType(userType.getWrapperObject());
 				
+					if(!fatherId.equals("0")){
+						father = donorService.getDonorById(Integer.parseInt(fatherId));
+						user.setFather(father.getWrapperObject());
+					}
+					
 					int donorID = donorService.saveDonor(user);
 					if(donorID>0){	
 					    UserGeneralRequest ug = new UserGeneralRequest();
