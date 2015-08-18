@@ -62,6 +62,8 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 
 	$scope.temps = [];
 
+	
+	
 	$scope.generalSearch = function(val) {
 		$scope.country = $sharedData.getUserCountry();
 		console.log('in');
@@ -69,8 +71,16 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			filter : val,
 			country : $scope.country
 		}).then(function(response) {
-			return response.data.results;
+			if(response.data.code == 200){
+				return response.data.results;
+			}else{
+				$scope.errorServer(response.data.code);
+				return null;
+			}
+			
 
+		},function(status){
+			$scope.errorServer(status.status);
 		}); // end $http.post
 	};// end generalSearch
 
@@ -228,3 +238,41 @@ treeSeedAppControllers.controller('feedbackCtrl', function($modalInstance ,  $sc
 
 });
 
+
+treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $scope, code, $state, AUTH_EVENTS, 
+		$rootScope, AuthService, $location, $sharedData) {
+	
+	$scope.title= "FEEDBACK-MODAL.GENERAL-TITLE"
+	
+	switch(code) {
+    case 400:
+        $scope.text = "FEEDBACK-MODAL.ERROR-400-TEXT";
+        break;
+    case 401:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-401-TEXT";
+        break;
+    case 408:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-408-TEXT";
+        break;
+    case 404:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-404-TEXT";
+        break;
+    case 500:
+		$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+		break;
+    case 520:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-520-TEXT";
+        break;
+    case 10:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-10-TEXT";
+        break;
+    default:
+    	$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
+	   
+	}
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	};
+
+});

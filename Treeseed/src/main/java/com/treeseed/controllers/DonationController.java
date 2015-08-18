@@ -119,10 +119,10 @@ public class DonationController {
 	@RequestMapping(value = "/getDonationOfNonProfitPerMonth", method = RequestMethod.POST)
 	public DonationResponse getNonprofits(@RequestBody DonationRequest dr) {
 
-		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(),
-				dr.getStartPeriodDate(), dr.getEndPeriodDate());
-
 		DonationResponse ds = new DonationResponse();
+		try{
+		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getMonth(),
+				dr.getNonProfitId());
 
 		DonationPOJO donation = new DonationPOJO();
 		donation.setAmount(totalDonations);
@@ -131,6 +131,14 @@ public class DonationController {
 		ds.setCode(200);
 		ds.setCodeMessage("Donations fetch success");
 		ds.setDonation(donation);
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				ds.setCode(10);
+				ds.setErrorMessage("Data Base error");
+			}else{
+				ds.setCode(500);
+			}
+		}
 		return ds;
 	}
 	
@@ -318,6 +326,7 @@ public class DonationController {
 		
 		dr.setCodeMessage("Donations fetch success");
 		
+		try{
 		
 		dr.setTotalElements(viewDonations.getTotalElements());
 		dr.setTotalPages(viewDonations.getTotalPages());
@@ -355,10 +364,25 @@ public class DonationController {
 
 			viewDonationsPOJO.add(donation);
 		};
+			dr.setDonations(viewDonationsPOJO);
 		
 		
-		dr.setDonations(viewDonationsPOJO);
-		dr.setCode(200);
+			if(viewDonationsPOJO.size()>0){
+				dr.setCodeMessage("Donations reports fetch successfully");
+				dr.setCode(200);
+			}else{
+				dr.setErrorMessage("Donations reports fetch unsuccessfully");
+				dr.setCode(400);
+			}
+		
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				dr.setCode(10);
+				dr.setErrorMessage("Data Base error");
+			}else{
+				dr.setCode(500);
+			}
+		}
 		return dr;
 			
 	}

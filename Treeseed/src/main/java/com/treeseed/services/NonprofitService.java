@@ -210,5 +210,16 @@ public class NonprofitService implements NonprofitServiceInterface{
 		return  nonprofitsWrapper;
 	}
 	
+	@Override
+	public boolean isNameUnique(String name){
+		Nonprofit n = nonprofitsRepository.findByName(name);
+		
+		if(n == null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 
 }

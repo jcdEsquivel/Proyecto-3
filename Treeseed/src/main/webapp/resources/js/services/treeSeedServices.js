@@ -19,12 +19,36 @@ treeSeedAppServices.service('$uniqueDataService', function($http) {
 
 				if (response.data.codeMessage == 'UNIQUE') {
 					return true;
-				} else {
+				}  else if(response.data.codeMessage == 'NOT-UNIQUE'){
 					return false;
+				}else{
+					return true;
+				}
+			});
+		},
+		
+		isNameUnique : function(name) {
+
+			var request = {
+
+				name : name
+
+			};
+
+			return $http.post('rest/protected/nonprofit/isNameUnique',
+					JSON.stringify(request)).then(function(response) {
+
+				if (response.data.codeMessage == 'UNIQUE') {
+					return true;
+				} else if(response.data.codeMessage == 'NOT-UNIQUE'){
+					return false;
+				}else{
+					return true;
 				}
 			});
 		}
 	}
+	
 });
 
 treeSeedAppServices.service('$donationService', function($http) {
@@ -32,7 +56,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 	return {
 		createDonation : function(type, nonprofitId, campaignId, donorId,
 				stripeToken, plan, amount, fatherId) {
-
+				console.log(type);
 			if (plan == 'custom') {// simple donation
 				var request = {
 					id : '',
@@ -307,7 +331,7 @@ treeSeedAppServices.service('Session', function() {
 
 treeSeedAppServices.service('StripeService', function() {
 
-	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y";
+	var stripeApiKey = "pk_test_uLHafCqM7q7GeVZxDkabaA2y ";
 
 	return {
 		getStripeApiKey : function() {

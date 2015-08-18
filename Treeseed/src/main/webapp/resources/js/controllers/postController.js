@@ -39,12 +39,12 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 				$scope.totalPosts = data.totalElements;
 				console.log($scope.totalPosts);
 			}else{
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(data.code);
+				
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 		
 	};//end getPosts
@@ -72,6 +72,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 				},
 				nonprofitId: function(){
 					return $scope.postRequest.postNonprofit.nonprofitId
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 
@@ -91,6 +94,9 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 					},
 					post: function(){
 						return p
+					},
+					errorFunction: function(){
+						return $scope.errorServer;
 					}
 				}
 			})
@@ -100,16 +106,17 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 	{
 		$scope.postRequest.postNonprofit.nonprofitId= Session.id;
 		$http.post('rest/protected/postNonprofit/deletePostNonProfit',
-				$scope.postRequest).then(function(response) {
-					if(response.data.code=="200"){
+				$scope.postRequest).success(function(response) {
+					if(response.code==200){
 						$scope.postRequest.postNonprofit.nonprofitId= $stateParams.nonProfitId;
 						$scope.getPosts(1);						
+					}else{
+						$scope.errorServer(data.code);
+						
 					}
-					else if(response.data.code=="400")
-					{
-						console.log("ERROR");
-					}
-		});
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});;
 	};
 	
 	$scope.openModalDeletePost = function(p) {
@@ -135,7 +142,7 @@ treeSeedAppControllers.controller('postAdminController', function($http,
 
 });
 
-treeSeedAppControllers.controller('createPostController', function($http,
+treeSeedAppControllers.controller('createPostController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, nonprofitId, Session,
 		$modalInstance) {
 
@@ -210,7 +217,14 @@ treeSeedAppControllers.controller('createPostController', function($http,
 					}
 
 				}).success(function(data, status, headers, config) {
-			$scope.close();
+					if(data.code==200){
+						$scope.close();
+					}else{
+						errorFunction(data.code);
+						
+					}
+		}).error(function(status) {
+			errorFunction(status);
 		});
 
 	};
@@ -224,7 +238,7 @@ treeSeedAppControllers.controller('createPostController', function($http,
 });
 
 
-treeSeedAppControllers.controller('editPostController', function($http,
+treeSeedAppControllers.controller('editPostController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
 		$modalInstance) {
 
@@ -307,7 +321,14 @@ treeSeedAppControllers.controller('editPostController', function($http,
 					}
 
 				}).success(function(data, status, headers, config) {
-			$scope.close();
+					if(data.code==200){
+						$scope.close();
+					}else{
+						errorFunction(data.code);
+						
+					}
+		}).error(function(status) {
+			errorFunction(status);
 		});
 
 	};

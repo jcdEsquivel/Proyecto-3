@@ -149,4 +149,7 @@ public interface NonprofitRepository extends
 	@Query("select DISTINCT p from Nonprofit p where p.isActive = true order by rand()") 
 	  public Page<Nonprofit> findTop10DonorRecomendationsRandom(Pageable pageable);
 			  
+	
+	public Nonprofit findByName(String name);
+	
 }

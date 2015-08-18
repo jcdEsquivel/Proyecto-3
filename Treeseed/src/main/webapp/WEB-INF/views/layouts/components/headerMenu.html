@@ -50,7 +50,7 @@
         <!-- / link and dropdown -->
 
       	<script type="text/ng-template" id="customTemplate.html">
-  			<a  ui-sref="treeSeed.{{match.model.type}}({nonProfitId:'{{match.model.id}}'})" class="general-search-result">
+  			<a  href="#/{{match.model.type}}/{{match.model.id}}" class="general-search-result">
 				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
  				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
  				
@@ -129,11 +129,6 @@
               </li>
               <li>
                 <a ng-click='goProfile()' translate="MENU-HEADER.PROFILE">Profile</a>
-              </li>
-              <li>
-                <a  translate="MENU-HEADER.HELP">
-                  help
-                </a>
               </li>
               <li class="divider"></li>
               <li ng-controller='logoutController'>

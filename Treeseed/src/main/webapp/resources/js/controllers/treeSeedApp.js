@@ -1,5 +1,5 @@
 var treeSeedAppMainControllers = angular.module('treeSeedMainController',['treeSeedServices', 'treeSeedConstants','ngCookies', 'angularPayments']);
-treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session ) {
+treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookies, $scope, AUTH_EVENTS,  $translate,   $localStorage,   $window, $sharedData, USER_ROLES,AuthService, Session, $modal) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -9,11 +9,12 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       $scope.currentUser = null;
       $scope.remebermeUser = false;
       //fatherId coming from URL
-      $scope.GenericfFatherId = "";
+      $scope.GenericfFatherId = "0";
       
       $scope.setFatherId = function(newId)
       {
-    	  $scope.GenericfFatherId = newId;  
+    	$scope.GenericfFatherId = newId;  
+    	  
       }
       
       $scope.getFatherId = function()
@@ -24,7 +25,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       //Stripe public key setup
       //$window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
       //Llave Aramis
-      $window.Stripe.setPublishableKey('pk_test_AtFfQvJrqNu2WtBJdTPUSz2L');
+      $window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
 /*
       $window.onbeforeunload = function (e) {
     	  alert("hola");
@@ -138,6 +139,24 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
           // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
           return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
       }
+      
+      
+	$scope.errorServer = function(status) {
+		
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl :'layouts/components/feedbackModal.html',
+			controller : 'errorHandlerCtlr',
+			size : 'sm',//,
+			resolve : {
+				code : function() {
+					return status;
+				}
+			}
+		});
+	}
+
+    	
       
 
   });

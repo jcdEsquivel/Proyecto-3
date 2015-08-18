@@ -40,9 +40,13 @@ public class RecurrableInformationController {
 			response.setCode(200);
 			response.setCodeMessage("Recurrable Information Fetched correctly");
 			
-		}catch(Exception ex){
-			response.setCode(500);
-			response.setErrorMessage("Server error");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
 		}		
 		
 		return response;

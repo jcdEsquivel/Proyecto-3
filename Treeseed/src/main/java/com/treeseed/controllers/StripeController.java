@@ -4,6 +4,7 @@ package com.treeseed.controllers;
 
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -64,21 +65,6 @@ public class StripeController {
 	CampaignServiceInterface campaignService;
 	
 	/**
-	 * Gets the.
-	 *
-	 * @return the response entity
-	 */
-	@RequestMapping(value ="stripe/get", method = RequestMethod.GET)
-	public ResponseEntity<String> get(){
-	
-		ResponseEntity<String> response;
-
-			response= new ResponseEntity<String>("Hola",HttpStatus.OK);
-		
-		return response;
-	}
-	
-	/**
 	 * Stripe webhook endpoint.
 	 *
 	 * @param request the stripe request
@@ -100,7 +86,6 @@ public class StripeController {
 		StripeResponse response;
 
 		String jsonBody = IOUtils.toString( request.getInputStream());
-		System.out.println(jsonBody);
 		Event eventRequest = Event.GSON.fromJson(jsonBody, Event.class);
 		Invoice invoice = (Invoice)eventRequest.getData().getObject();
 		Charge charge = StripeUtils.getCharge(invoice.getCharge());
@@ -117,13 +102,13 @@ public class StripeController {
 			paymentText = paymentText.replace("$", "");
 			
 			donation.setAmount(Double.parseDouble(paymentText));
-			donation.setDateTime(new Date(charge.getCreated()));
+			donation.setDateTime(new Date());
 			donation.setDonorId(Integer.parseInt(customer.getDescription()));
 			donation.setActive(true);
 			donation.setStripeId(charge.getId());
 			if(planIds.length>2){
 				try {
-					CampaignWrapper campaign = campaignService.getCampaignById(Integer.parseInt(planIds[2]));
+					CampaignWrapper campaign = campaignService.getCampaignById(Integer.parseInt(planIds[1]));
 					donation.setCampaingId(campaign.getId());
 					campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
 					campaignService.updateCampaign(campaign);

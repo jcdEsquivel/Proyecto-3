@@ -94,6 +94,9 @@ public interface NonprofitServiceInterface {
 	 */
 	Nonprofit deteteNonprofit(NonprofitWrapper nonProfit);	
 	
+	
+	boolean isNameUnique(String name);
+	
 	/**
 	 * Donor recomendation.
 	 *
