@@ -602,18 +602,35 @@ public class DonorController extends UserGeneralController{
 					
 					nonSize = nonprofits.size();
 					if(nonSize<10){
-						nonRan = 10-nonSize;					
-						nonprofitsRandom = nonprofitService.donorRecomendationRandom();
+						List<Integer> idList=new ArrayList<Integer>();
+						nonRan = 10-nonSize;
+						for(NonprofitWrapper non:nonprofits){
+							idList.add(non.getId());
+						}
+						if(idList.size()==0){
+							idList.add(0);
+						}
+						nonprofitsRandom = nonprofitService.donorRecomendationRandom(idList);
 						
 						for(int i=0;i<nonRan&&i<nonprofitsRandom.size();i++){
 							nonprofits.add(nonprofitsRandom.get(i));
 						}
 					}
 					
+					
 					campSize = campaigns.size();
 					if(campSize<10){
+						List<Integer> idListCamp=new ArrayList<Integer>();
 						campRan = 10 - campSize;
-						campaignsRandom = campaignService.donorRecomendationRandom();
+						
+						for(CampaignWrapper camp:campaigns){
+							idListCamp.add(camp.getId());
+						}
+						if(idListCamp.size()==0){
+							idListCamp.add(0);
+						}
+						
+						campaignsRandom = campaignService.donorRecomendationRandom(idListCamp);
 						
 						for(int y=0;y<campRan&&y<campaignsRandom.size();y++){
 							campaigns.add(campaignsRandom.get(y));
