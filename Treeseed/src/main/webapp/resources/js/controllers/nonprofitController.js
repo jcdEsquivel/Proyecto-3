@@ -631,6 +631,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				},
 				errorFunction: function(){
 					return $scope.errorServer;
+				},
+				fatherId: function(){
+					return $scope.getFatherId();
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

@@ -9,11 +9,12 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       $scope.currentUser = null;
       $scope.remebermeUser = false;
       //fatherId coming from URL
-      $scope.GenericfFatherId = "";
+      $scope.GenericfFatherId = "0";
       
       $scope.setFatherId = function(newId)
       {
-    	  $scope.GenericfFatherId = newId;  
+    	$scope.GenericfFatherId = newId;  
+    	  
       }
       
       $scope.getFatherId = function()
