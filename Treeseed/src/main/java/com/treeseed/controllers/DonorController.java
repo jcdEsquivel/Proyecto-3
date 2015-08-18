@@ -586,10 +586,10 @@ public class DonorController extends UserGeneralController{
 			HttpSession currentSession = request.getSession();
 			List<NonprofitPOJO> nonprofitPojos = new ArrayList<NonprofitPOJO>();
 			List<CampaignPOJO> campaignPojos=new ArrayList<CampaignPOJO>();
-			List<NonprofitWrapper> nonprofits;
-			List<CampaignWrapper> campaigns;
-			List<NonprofitWrapper> nonprofitsRandom;
-			List<CampaignWrapper> campaignsRandom;
+			List<NonprofitWrapper> nonprofits=new ArrayList<NonprofitWrapper>();
+			List<CampaignWrapper> campaigns=new ArrayList<CampaignWrapper>();
+			List<NonprofitWrapper> nonprofitsRandom=new ArrayList<NonprofitWrapper>();
+			List<CampaignWrapper> campaignsRandom=new ArrayList<CampaignWrapper>();
 			int nonSize = 0;
 			int campSize = 0;
 			int nonRan = 0;
@@ -605,7 +605,7 @@ public class DonorController extends UserGeneralController{
 						nonRan = 10-nonSize;					
 						nonprofitsRandom = nonprofitService.donorRecomendationRandom();
 						
-						for(int i=0;i<nonRan;i++){
+						for(int i=0;i<nonRan&&i<nonprofitsRandom.size();i++){
 							nonprofits.add(nonprofitsRandom.get(i));
 						}
 					}
@@ -615,7 +615,7 @@ public class DonorController extends UserGeneralController{
 						campRan = 10 - campSize;
 						campaignsRandom = campaignService.donorRecomendationRandom();
 						
-						for(int y=0;y<campRan;y++){
+						for(int y=0;y<campRan&&y<campaignsRandom.size();y++){
 							campaigns.add(campaignsRandom.get(y));
 						}
 					}
