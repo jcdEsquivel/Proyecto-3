@@ -62,7 +62,7 @@ select count(*) into vCount
 from RESULTS;
 
 
-
+/*
 IF vCount < 30 THEN
 --
 	  
@@ -105,7 +105,7 @@ IF vCount < 30 THEN
 END IF;
 
 select count(*) into vCount
-from RESULTS;
+from RESULTS;*/
 
 
 

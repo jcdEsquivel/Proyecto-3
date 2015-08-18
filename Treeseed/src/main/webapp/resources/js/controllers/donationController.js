@@ -487,7 +487,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 
 
-treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal,errorFunction,
+treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal, errorFunction,
 		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
 //VARIABLES DEFINITION	
@@ -496,6 +496,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.sameCard={
 		validation: false
 	};
+	
+	$scope.errorFunction = errorFunction;
 	
 	$scope.hideSubmit = false;
 	
@@ -878,7 +880,7 @@ treeSeedAppControllers.controller('summaryDonationController', function($http,
 
 
 treeSeedAppControllers.controller('editRecurrableDonation', function($http, $scope,
-		  $modal, Session, $timeout, errorFunction) { 
+		  $modal, Session, $timeout) { 
 	$scope.showFeedBackMessage = false;
 	$scope.disableEdit = false;
 	$scope.recurrableDonations = [];
@@ -910,10 +912,10 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 			if(response.code==200){
 				$scope.recurrableDonations = response.donations;
 			}else{
-				errorFunction(response.code);	
+				$scope.errorFunction(response.code);	
 			}
 		}).error(function(status) {
-			errorFunction(status);
+			$scope.errorFunction(status);
 		});
 		
 	};
@@ -932,10 +934,10 @@ treeSeedAppControllers.controller('editRecurrableDonation', function($http, $sco
 				$scope.showSuccessFeedBack();
 				$scope.disableEdit = false;
 			}else{
-				errorFunction(response.code);
+				$scope.errorFunction(response.code);
 			}
 		}).error(function(status) {
-			errorFunction(status);
+			$scope.errorFunction(status);
 		});
 	};
 	

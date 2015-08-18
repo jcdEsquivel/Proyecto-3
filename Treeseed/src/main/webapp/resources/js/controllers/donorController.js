@@ -635,17 +635,24 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		};
 	//Finish editing profile
 		
-		
+		$scope.noDonations = false;
+		$scope.noDonationsMessage = false;
 	//Portfolio functions
 		$scope.getRecurrableData = function() {
 			$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
 				$scope.porfolioRequest).success(function(response) {
 
-					if(response.code=="200"){
+					if(response.code==200){
 						$scope.d3 = response.results;
 						setData();
+						console.log(Object.keys(response.results).length);
+						if(Object.keys(response.results).length > 0){
+							$scope.noDonations = true;
+						}else{
+							$scope.noDonationsMessage = true;
+						}
 					}
-					else if(response.code=="400"){
+					else if(response.code==400){
 						console.log("ERROR");
 					}
 			}).error(function(status){
@@ -686,7 +693,11 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 					},
 					refreshPortfolio: function(){
 						return $scope.getRecurrableData;
+					},
+					errorFunction: function(){
+						return $scope.errorServer;
 					}
+					
 				}
 			
 			});//end modal
