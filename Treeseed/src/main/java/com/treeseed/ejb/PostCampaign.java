@@ -20,7 +20,8 @@ public class PostCampaign implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
-
+	
+	@Column(length=500)
 	private String description;
 
 	private String picture;
