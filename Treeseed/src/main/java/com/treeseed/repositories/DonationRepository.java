@@ -46,16 +46,13 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	/**
 	 * Find amount per month of non profit.
 	 *
-	 * @param id the id
-	 * @param start the start
-	 * @param end the end
-	 * @return the double
+	 * @param id the month
+	 * @param id of the nonprofit
 	 */
-	@Query("SELECT SUM(d.amount) FROM Donation d "
-			+ "WHERE d.dateTime BETWEEN :start AND :end "
-			+ "AND d.nonProfitId = :nonProfitid")
-	public double findAmountPerMonthOfNonProfit(@Param("nonProfitid") int id,
-			@Param("start") Date start, @Param("end") Date end);
+	@Query("SELECT COALESCE(SUM(d.amount),0) FROM Donation d "
+			+ "WHERE d.nonProfitId=:nonProfitid and MONTH(d.dateTime)=:month")
+	public double findAmountPerMonthOfNonProfit(@Param("month") int month,
+												@Param("nonProfitid") int id);
 	
 	/**
 	 * Count distinc donor id by campaing id.
@@ -148,5 +145,14 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 */
 	@Query("select COALESCE(sum(amount),0) From Donation where donorId = :id") 
  	public double sumAmountByDonor(@Param("id") int id);
+	
+	/**
+	 * Gets the by non profit id.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @return the by non profit id
+	 */
+	@Query("SELECT d FROM Donation d where d.nonProfitId = :nonProfitId and d.isActive = true order by d.dateTime Desc ") 
+	Page<Donation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, Pageable pageable);
 	
 }

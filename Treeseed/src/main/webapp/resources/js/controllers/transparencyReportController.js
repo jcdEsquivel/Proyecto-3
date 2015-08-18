@@ -3,6 +3,8 @@
  */
 var treeSeedAppControllers = angular.module('treeSeed.controller');
 
+
+
 treeSeedAppControllers.controller('createTransparencyReportController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, editableOptions, editableThemes) {
 
@@ -13,6 +15,26 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 	$scope.totalSpent;
 	$scope.description = "";
 	$scope.uiOptions = "{percent: '"+$scope.percentageSpent+"',lineWidth: 10,trackColor: '{{app.color.light}}',barColor: '{{app.color.success}}',scaleColor: '{{app.color.light}}',size: 188,lineCap: 'butt',animate: 1000}";
+
+	function getTotalCollected(){
+		//Today's date
+		var today = new Date();
+		$scope.mm = today.getMonth()+1;
+		//Donation request
+		$scope.donationRequest = {};
+		$scope.donationRequest.nonProfitId = Session.userId;
+		$scope.donationRequest.month = $scope.mm;
+		$http.post('rest/protected/donation/getDonationOfNonProfitPerMonth',
+				$scope.donationRequest).success(function(mydata, status) {
+					if(mydata.code==200){
+						$scope.totalCollected = mydata.donation.amount;
+					}else{
+						
+					}
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});
+	}
 
 	$scope.openCreateForm = function() {
 	    modalInstance = $modal.open({
@@ -72,6 +94,8 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 			$scope.errorServer(status);
 		});
 	}
+
+	getTotalCollected();
 });
 
 treeSeedAppControllers.controller('searchTransparencyReportController', function($http,
@@ -120,8 +144,6 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 
-		
-		
 		$http.post('rest/protected/transparencyReport/getTransparencyReports',
 				$scope.reportsRequest).success(function(data, status) {
 

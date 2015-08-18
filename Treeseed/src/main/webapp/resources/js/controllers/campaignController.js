@@ -906,7 +906,10 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					return $scope.campaign.picture;
 				},
 				errorFunction: function(){
-					return  $scope.errorServer
+					return  $scope.errorServer;
+				},
+				fatherId: function(){
+					return $scope.getFatherId();
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

@@ -84,12 +84,10 @@ public class DonationController {
 	@Autowired
 	DonationServiceInterface donationService;
 
-	
-	
-	
 	/** The donation service. */
 	@Autowired
 	DonorServiceInterface donorService;
+	
 	
 	/** The servlet context. */
 	@Autowired
@@ -123,10 +121,8 @@ public class DonationController {
 
 		DonationResponse ds = new DonationResponse();
 		try{
-		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getNonProfitId(),
-				dr.getStartPeriodDate(), dr.getEndPeriodDate());
-
-		
+		double totalDonations = donationService.findAmountPerMonthOfNonProfit(dr.getMonth(),
+				dr.getNonProfitId());
 
 		DonationPOJO donation = new DonationPOJO();
 		donation.setAmount(totalDonations);
@@ -295,6 +291,7 @@ public class DonationController {
 			donationPOJO.setNonprofitName(nonProfitService.getNonProfitById(objeto.getNonProfitId()).getName());
 			donationPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
 			
+			
 			donationsPOJO.add(donationPOJO);
 		};
 
@@ -367,10 +364,16 @@ public class DonationController {
 
 			viewDonationsPOJO.add(donation);
 		};
+			dr.setDonations(viewDonationsPOJO);
 		
 		
-		dr.setDonations(viewDonationsPOJO);
-		dr.setCode(200);
+			if(viewDonationsPOJO.size()>0){
+				dr.setCodeMessage("Donations reports fetch successfully");
+				dr.setCode(200);
+			}else{
+				dr.setErrorMessage("Donations reports fetch unsuccessfully");
+				dr.setCode(400);
+			}
 		
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
@@ -384,6 +387,106 @@ public class DonationController {
 			
 	}
 	
+	/**
+	 * Gets the donations reports.
+	 *
+	 * @param drt the Donation Request
+	 * @return the nonprofits
+	 */
+	@RequestMapping(value ="/getDonationDonorReport", method = RequestMethod.POST)
+	@Transactional
+	public DonationResponse getDonationDonorReport(@RequestBody DonationRequest drt){	
+		
+		drt.setPageNumber(drt.getPageNumber() - 1);
+		
+		Page<Donation> viewDonations = donationService.getDonationsDonor(drt);
+		
+		DonationResponse dr = new DonationResponse();
+		
+		dr.setCodeMessage("Donations fetch success");
+		
+		
+		dr.setTotalElements(viewDonations.getTotalElements());
+		dr.setTotalPages(viewDonations.getTotalPages());
+		
+		List<DonationPOJO> viewDonationsPOJO = new ArrayList<DonationPOJO>();
+		CampaignPOJO campaignPOJO = null;
+		DonorPOJO donorPOJO = null;
+		NonprofitPOJO nonprofitPOJO = null;
+		
+		for(Donation objeto:viewDonations.getContent())
+		{
+			DonationPOJO donation = new DonationPOJO();
+			
+			donation.setId(objeto.getId());
+			donation.setAmount(objeto.getAmount());;
+			donation.setCampaignId(objeto.getCampaingId());
+			donation.setNonProfitId(objeto.getNonProfitId());
+			donation.setDonorId(objeto.getDonorId());
+			donation.setDonationDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
+			
+			if(objeto.getCampaingId() != 0){
+				campaignPOJO = new CampaignPOJO();
+				CampaignWrapper campaignWrapper = new CampaignWrapper();
+				campaignWrapper = campaignService.getCampaignById(objeto.getCampaingId());
+				campaignPOJO.setName(campaignWrapper.getWrapperObject().getName());
+				donation.setCampaign(campaignPOJO);
+			}
+			
+			if(objeto.getDonorId() != 0){
+				donorPOJO = new DonorPOJO();
+				DonorWrapper donorWrapper = new DonorWrapper();
+				donorWrapper = donorService.getDonorById(objeto.getDonorId());
+				donorPOJO.setName(donorWrapper.getWrapperObject().getName());
+				donation.setDonor(donorPOJO);
+			}
+			
+			if(objeto.getNonProfitId() != 0){
+				nonprofitPOJO = new NonprofitPOJO();
+				NonprofitWrapper nonprofitWrapper = new NonprofitWrapper();
+				nonprofitWrapper = nonprofitService.getNonProfitById(objeto.getNonProfitId());
+				nonprofitPOJO.setName(nonprofitWrapper.getWrapperObject().getName());
+				donation.setNonprofit(nonprofitPOJO);
+			}
+
+			viewDonationsPOJO.add(donation);
+		};
+		
+		dr.setDonations(viewDonationsPOJO);
+		dr.setCode(200);
+		return dr;
+			
+	}
+	
+	/**
+	 * Gets the tree donation sons.
+	 *
+	 * @param donor the donor
+	 * @param levelX the level x
+	 * @param levelY the level y
+	 * @return the tree donation sons
+	 */
+	public double getTreeDonationSons(DonorWrapper donor, int levelX, int levelY){
+		double total=0;
+		int levelXDo = levelX;
+		List<Donor> sonslist = donor.getSons();
+		if(sonslist.size()>0){
+			int number = 0;
+			while(number<sonslist.size()&&levelXDo>0){
+				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
+				total=donationService.getSumDonationsByDonor(donorWrapper.getId());
+				if(donorWrapper.getSons().size()>0){
+					if(levelY>1){
+						total+=getTreeDonationSons(donorWrapper,levelX,levelY-1);
+					}
+				}
+				number++;
+				levelXDo--;
+			}
+		}
+		return total;
+	}
+
 	/**
 	 * Gets the donations of a donor.
 	 *
@@ -414,35 +517,6 @@ public class DonationController {
 		
 		
 		return response;
-	}
-	
-	/**
-	 * Gets the tree donation sons.
-	 *
-	 * @param donor the donor
-	 * @param levelX the level x
-	 * @param levelY the level y
-	 * @return the tree donation sons
-	 */
-	public double getTreeDonationSons(DonorWrapper donor, int levelX, int levelY){
-		double total=0;
-		int levelXDo = levelX;
-		List<Donor> sonslist = donor.getSons();
-		if(sonslist.size()>0){
-			int number = 0;
-			while(number<sonslist.size()&&levelXDo>0){
-				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
-				total=donationService.getSumDonationsByDonor(donorWrapper.getId());
-				if(donorWrapper.getSons().size()>0){
-					if(levelY>1){
-						total+=getTreeDonationSons(donorWrapper,levelX,levelY-1);
-					}
-				}
-				number++;
-				levelXDo--;
-			}
-		}
-		return total;
 	}
 }
 

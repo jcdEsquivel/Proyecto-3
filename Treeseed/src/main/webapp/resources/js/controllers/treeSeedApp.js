@@ -8,7 +8,19 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       
       $scope.currentUser = null;
       $scope.remebermeUser = false;
-     
+      //fatherId coming from URL
+      $scope.GenericfFatherId = "0";
+      
+      $scope.setFatherId = function(newId)
+      {
+    	$scope.GenericfFatherId = newId;  
+    	  
+      }
+      
+      $scope.getFatherId = function()
+      {
+    	  return $scope.GenericfFatherId; 
+      } 
       
       //Stripe public key setup
       //$window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
@@ -44,10 +56,10 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
     	  AuthService.guestSession();
       }
       
-   
       $scope.userRoles = USER_ROLES;
       
       $scope.isAuthorized = AuthService.isAuthorized;
+      
       
       
       $scope.setCurrentUser = function (idUser, userName, userImage) {
@@ -59,7 +71,6 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
     	    $cookies['userImageTree'] =  userImage;
     	    
       };
-      
       
       // config
       $scope.app = {

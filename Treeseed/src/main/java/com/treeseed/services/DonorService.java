@@ -58,6 +58,9 @@ public class DonorService implements DonorServiceInterface {
 				filterCountry, filterLastName, "%" + filterLastName + "%", pr);
 		return result;
 	}
+	
+	
+	
 
 	/* (non-Javadoc)
 	 * @see com.treeseed.services.DonorServiceInterface#saveDonor(com.treeseed.ejbWrapper.DonorWrapper)

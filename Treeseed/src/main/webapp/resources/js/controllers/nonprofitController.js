@@ -631,6 +631,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				},
 				errorFunction: function(){
 					return $scope.errorServer;
+				},
+				fatherId: function(){
+					return $scope.getFatherId();
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
@@ -647,6 +650,38 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}
 	}
 	
+});
+
+treeSeedAppControllers.controller('nonprofitDashboardController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	$scope.requestObject={};
+	$scope.showList1 = true;
+	$scope.showList2 = true;
+	$scope.donations;
+	$scope.subscriptions;
+	
+	$scope.requestObject.idUser=$scope.currentUser.idUser;
+	$scope.requestObject.id=Session.id;
+	
+	$http.post('rest/protected/nonprofit/getdashboard',
+			$scope.requestObject).success(function(mydata) {
+				if(mydata.code==200){
+					$scope.donations = mydata.dashboardDonations;
+					$scope.subscriptions = mydata.dashboardSubscription;
+					if($scope.donations.length==0){
+						$scope.showList1=false;
+					}
+					if($scope.subscriptions.length==0){
+						$scope.showList2=false;
+					}
+				}else{
+					$scope.errorServer(status);
+				}
+		
+	}).error(function(status) {
+		$scope.errorServer(status);
+	});	
 });
 
  

@@ -2,7 +2,6 @@ package com.treeseed.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -56,13 +55,15 @@ import com.treeseed.utils.Utils;
 @RestController
 @RequestMapping(value = "rest/protected/campaing")
 public class CampaignController {
-	/** The campaign service. */
-	@Autowired
-	DonationServiceInterface donationService;
 
 	/** The campaign service. */
 	@Autowired
 	CampaignServiceInterface campaignService;
+	
+	/** The donation service. */
+	@Autowired
+	DonationServiceInterface donationService;
+	
 
 	/** The servlet context. */
 	@Autowired
@@ -85,11 +86,13 @@ public class CampaignController {
 	 */
 	@RequestMapping(value = "/advanceGet", method = RequestMethod.POST)
 	public CampaignResponse getNonprofits(@RequestBody CampaignRequest cr) {
-		
-		CampaignResponse cs = new CampaignResponse();
-		cr.setPageNumber(cr.getPageNumber() - 1);
 
+		CampaignResponse cs = new CampaignResponse();
+		
 		try{
+		
+			cr.setPageNumber(cr.getPageNumber() - 1);
+	
 			Page<Campaign> viewCampaign = campaignService.getAllCampaigns(cr);
 	
 			cs.setCodeMessage("campaigns fetch success");
@@ -114,8 +117,7 @@ public class CampaignController {
 	
 				campaign.setNonprofit(cp);
 				viewCampaignPOJO.add(campaign);
-			}
-			;
+			};
 	
 			cs.setCampaigns(viewCampaignPOJO);
 			cs.setCode(200);
@@ -127,36 +129,27 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
-		
-		return cs;
+			return cs;
 
 	}
 
 	/**
 	 * Campaing create.
 	 *
-	 * @param name
-	 *            the name
-	 * @param description
-	 *            the description
-	 * @param date1
-	 *            the date1
-	 * @param date2
-	 *            the date2
-	 * @param amount
-	 *            the amount
-	 * @param idNonprofit
-	 *            the id nonprofit
-	 * @param file
-	 *            the file
+	 * @param name            the name
+	 * @param description            the description
+	 * @param date1            the date1
+	 * @param date2            the date2
+	 * @param amount            the amount
+	 * @param idNonprofit            the id nonprofit
+	 * @param file            the file
 	 * @return the campaign response
-	 * @throws APIException
-	 * @throws CardException
-	 * @throws APIConnectionException
-	 * @throws InvalidRequestException
-	 * @throws AuthenticationException
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
@@ -167,18 +160,21 @@ public class CampaignController {
 			@RequestParam("idNonprofit") String idNonprofit,
 			@RequestParam(value = "file", required = false) MultipartFile file) throws AuthenticationException,
 					InvalidRequestException, APIConnectionException, CardException, APIException {
-		String resultFileName = null;
-		NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
+		
 		CampaignResponse response = new CampaignResponse();
-		String[] dateTmp;
-		String[] dateTmp1;
-		GregorianCalendar dueDate = new GregorianCalendar();
-		GregorianCalendar startDate = new GregorianCalendar();
-		Boolean statePlans = false;
-		int[] amounts = {1000,1800,3600,5000,10000,25000};
-
+		
 		try{
 		
+			String resultFileName = null;
+			NonprofitWrapper nonprofit = nonprofitService.getSessionNonprofit(Integer.parseInt(idNonprofit));
+			
+			String[] dateTmp;
+			String[] dateTmp1;
+			GregorianCalendar dueDate = new GregorianCalendar();
+			GregorianCalendar startDate = new GregorianCalendar();
+			Boolean statePlans = false;
+			int[] amounts = {1000,1800,3600,5000,10000,25000};
+	
 			if (nonprofit.getWrapperObject() != null) {
 				if (file != null) {
 	
@@ -215,12 +211,6 @@ public class CampaignController {
 					campaign.setActive(true);
 					campaign.setCreationDate(new Date());
 					campaign.setDescription(description);
-			
-					startDate.set(Calendar.MILLISECOND, 0);
-					startDate.set(Calendar.SECOND, 0);
-					startDate.set(Calendar.MINUTE, 0);
-					startDate.set(Calendar.HOUR_OF_DAY, 0);
-					
 					campaign.setStartDate(startDate.getTime());
 					campaign.setNonprofit(nonprofit.getWrapperObject());
 	
@@ -258,7 +248,7 @@ public class CampaignController {
 				response.setCode(400);
 				response.setCodeMessage("NONPROFIT DO NOT EXIST");
 			}
-		
+
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				response.setCode(10);
@@ -266,9 +256,7 @@ public class CampaignController {
 			}else{
 				response.setCode(500);
 			}
-			
 		}
-
 		return response;
 
 	}
@@ -283,14 +271,14 @@ public class CampaignController {
 	@RequestMapping(value = "/nonprofitCampaigns", method = RequestMethod.POST)
 	@Transactional
 	public CampaignResponse getNonprofitCampaigns(@RequestBody CampaignRequest cr) {
+		
 		CampaignResponse cs = new CampaignResponse();
-		CampaignPOJO campaignPojo = null;
-		cr.setPageNumber(cr.getPageNumber() - 1);
 		
 		try{
 		
+			CampaignPOJO campaignPojo = null;
+			cr.setPageNumber(cr.getPageNumber() - 1);
 			PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
-			
 			cs.setTotalElements(pageResults.getTotalItems());
 	
 			List<CampaignPOJO> viewCampaignsPOJO = new ArrayList<CampaignPOJO>();
@@ -315,15 +303,19 @@ public class CampaignController {
 	
 				viewCampaignsPOJO.add(campaignPojo);
 	
-			};
+			}
+			;
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			
-			cs.setCodeMessage("campaigns fetch success");
-			cs.setCode(200);
-			
-			
+			if (viewCampaignsPOJO.size() > 0) {
+				cs.setCodeMessage("campaigns fetch success");
+				cs.setCode(200);
+			} else {
+				cs.setErrorMessage("campaigns fetch unsuccessful");
+				cs.setCode(400);
+			}
+
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				cs.setCode(10);
@@ -331,15 +323,29 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
-
+		
 		return cs;
 
 	}
 
 
 
+	/**
+	 * Creates the campaign plans.
+	 *
+	 * @param idNonprofit the id nonprofit
+	 * @param idCampaign the id campaign
+	 * @param nameNonprofit the name nonprofit
+	 * @param nameCampaign the name campaign
+	 * @param amounts the amounts
+	 * @return the boolean
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	private Boolean createCampaignPlans(int idNonprofit, int idCampaign, String nameNonprofit, String nameCampaign, int[] amounts)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
@@ -368,11 +374,12 @@ public class CampaignController {
 	@Transactional
 	public CampaignResponse searchCampaignForNonprofit(@RequestBody CampaignRequest cr) {
 
-		CampaignPOJO campaignPojo = null;
 		CampaignResponse cs = new CampaignResponse();
 		
 		try{
-
+		
+			CampaignPOJO campaignPojo = null;
+	
 			PageWrapper<CampaignWrapper> pageResults = campaignService.findCampaignsFromNonprofit(cr);
 	
 			cs.setTotalElements(pageResults.getTotalItems());
@@ -402,11 +409,13 @@ public class CampaignController {
 	
 			cs.setCampaigns(viewCampaignsPOJO);
 	
-			
-			cs.setCodeMessage("campaigns fetch success");
-			cs.setCode(200);
-		
-
+			if (viewCampaignsPOJO.size() > 0) {
+				cs.setCodeMessage("campaigns fetch success");
+				cs.setCode(200);
+			} else {
+				cs.setErrorMessage("campaigns fetch unsuccessful");
+				cs.setCode(400);
+			}
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				cs.setCode(10);
@@ -414,8 +423,8 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
+
 		return cs;
 
 	}
@@ -431,12 +440,13 @@ public class CampaignController {
 	@Transactional
 	public CampaignResponse getCampaignProfile(@RequestBody CampaignRequest cr) {
 
-		HttpSession currentSession = request.getSession();
-		int tempId = 0;
 		CampaignResponse cs = new CampaignResponse();
 		
 		try{
-
+		
+			HttpSession currentSession = request.getSession();
+			int tempId = 0;
+			
 			if (cr.getIdUser() != 0) {
 				tempId = (int) currentSession.getAttribute("idUser");
 			}
@@ -453,22 +463,7 @@ public class CampaignController {
 	
 					CampaignPOJO campaignPojo = new CampaignPOJO();
 	
-					campaignPojo = new CampaignPOJO();
-					campaignPojo.setId(campaign.getId());
-					campaignPojo.setName(campaign.getName());
-					campaignPojo.setDescription(campaign.getDescription());
-					campaignPojo.setPicture(campaign.getPicture());
-					campaignPojo.setAmountCollected(campaign.getAmountCollected());
-					campaignPojo.setAmountGoal(campaign.getAmountGoal());
-					campaignPojo.setPercent((int) Math.round(campaign.getPercent()));
-					campaignPojo.setStartDate(campaign.getStartDate());
-					campaignPojo.setStartDateS(campaign.getStartDateS());
-					campaignPojo.setStart(campaign.isStart());
-					campaignPojo.setEnd(campaign.isEnd());
-					campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
-					campaignPojo.setDueDate(campaign.getDueDate());
-					campaignPojo.setDueDateS(campaign.getDueDateS());
-					campaignPojo.setState(campaign.getState());
+					campaignPojo  = campaign.getCampaignPojo();
 	
 					NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 	
@@ -492,7 +487,7 @@ public class CampaignController {
 				cs.setCode(400);
 				cs.setErrorMessage("campaign do not received");
 			}
-
+		
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				cs.setCode(10);
@@ -500,8 +495,8 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
+		
 		return cs;
 
 	}
@@ -509,8 +504,10 @@ public class CampaignController {
 	/**
 	 * Edits the campaign.
 	 *
-	 * @param cr the campaign request
-	 * @param fileCampaign the campaign picture
+	 * @param cr
+	 *            the campaign request
+	 * @param fileCampaign
+	 *            the campaign picture
 	 * @return the campaign response
 	 */
 	@RequestMapping(value = "/editCampaign", method = RequestMethod.POST, consumes = { "multipart/form-data" })
@@ -519,55 +516,40 @@ public class CampaignController {
 
 		String campaignImageName = "";
 		CampaignResponse cs = new CampaignResponse();
-		CampaignPOJO campaignPOJO = new CampaignPOJO();
-		CampaignWrapper campaign = new CampaignWrapper();
-		GregorianCalendar dueDate = new GregorianCalendar();
-		GregorianCalendar startDate = new GregorianCalendar();
-		Date date2 = cr.getDueDateData();
-		Date date1 = cr.getStartDateData();
-		dueDate.setTime(date2);
-		startDate.setTime(date1);
-
-		if (fileCampaign != null) {
-			campaignImageName = Utils.writeToFile(fileCampaign, servletContext);
-		}
-
-		if (!campaignImageName.equals("")) {
-			campaign.setPicture(campaignImageName);
-		} else {
-			campaign.setPicture(cr.getPicture());
-		}
-
-		campaign.setId(cr.getId());
-		campaign.setName(cr.getName());
-		campaign.setStartDate(startDate.getTime());
-		campaign.setDueDate(dueDate.getTime());
-		campaign.setDescription(cr.getDescription());
-		campaign.setAmountGoal(cr.getAmountGoal());
-		campaign.setAmountCollected(cr.getAmountCollected());
-
-		try{
 		
+		try{
+			CampaignPOJO campaignPOJO = new CampaignPOJO();
+			CampaignWrapper campaign = new CampaignWrapper();
+			GregorianCalendar dueDate = new GregorianCalendar();
+			GregorianCalendar startDate = new GregorianCalendar();
+			Date date2 = cr.getDueDateData();
+			Date date1 = cr.getStartDateData();
+			dueDate.setTime(date2);
+			startDate.setTime(date1);
+	
+			if (fileCampaign != null) {
+				campaignImageName = Utils.writeToFile(fileCampaign, servletContext);
+			}
+	
+			if (!campaignImageName.equals("")) {
+				campaign.setPicture(campaignImageName);
+			} else {
+				campaign.setPicture(cr.getPicture());
+			}
+	
+			campaign.setId(cr.getId());
+			campaign.setName(cr.getName());
+			campaign.setStartDate(startDate.getTime());
+			campaign.setDueDate(dueDate.getTime());
+			campaign.setDescription(cr.getDescription());
+			campaign.setAmountGoal(cr.getAmountGoal());
+			campaign.setAmountCollected(cr.getAmountCollected());
+	
 			campaignService.updateCampaign(campaign);
 			CampaignWrapper campaignWrapper = campaignService.getCampaignById(cr.getId());
 	
-			campaignPOJO.setId(campaignWrapper.getId());
-			campaignPOJO.setName(campaignWrapper.getName());
-			campaignPOJO.setDescription(campaignWrapper.getDescription());
-			campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-			campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-			campaignPOJO.setPicture(campaignWrapper.getPicture());
-			campaignPOJO.setAmountCollected(campaignWrapper.getAmountCollected());
-			campaignPOJO.setAmountGoal(campaignWrapper.getAmountGoal());
-			campaignPOJO.setPercent((int) Math.round(campaignWrapper.getPercent()));
-			campaignPOJO.setStartDate(campaignWrapper.getStartDate());
-			campaignPOJO.setStartDateS(campaignWrapper.getStartDateS());
-			campaignPOJO.setStart(campaignWrapper.isStart());
-			campaignPOJO.setEnd(campaignWrapper.isEnd());
-			campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(campaignWrapper.getId()));
-			campaignPOJO.setDueDate(campaignWrapper.getDueDate());
-			campaignPOJO.setDueDateS(campaignWrapper.getDueDateS());
-			campaignPOJO.setState(campaignWrapper.getState());
+			campaignPOJO=campaignWrapper.getCampaignPojo();
+			campaignPOJO.setCantDonors(donationService.findDonorsPerCampaign(cr.getId()));
 	
 			NonprofitPOJO nonprofitPOJO = new NonprofitPOJO();
 	
@@ -580,7 +562,7 @@ public class CampaignController {
 			cs.setCode(200);
 			cs.setCodeMessage("Campaign updated sucessfully");
 			cs.setCampaign(campaignPOJO);
-			
+		
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
 				cs.setCode(10);
@@ -588,7 +570,6 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
 		return cs;
 	}
@@ -596,19 +577,21 @@ public class CampaignController {
 	/**
 	 * Delete non profit.
 	 *
-	 * @param cr the campaign request
+	 * @param cr
+	 *            the campaign request
 	 * @return the campaign response
 	 */
 	@RequestMapping(value = "/close", method = RequestMethod.POST)
 	public CampaignResponse deleteNonProfit(@RequestBody CampaignRequest cr) {
 
-		CampaignWrapper wrapper;
-		HttpSession currentSession = request.getSession();
 		CampaignResponse cs = new CampaignResponse();
-		int tempId = 0;
-
+		
 		try{
 		
+			CampaignWrapper wrapper;
+			HttpSession currentSession = request.getSession();
+			int tempId = 0;
+	
 			if (cr.getIdUser() != 0) {
 				tempId = (int) currentSession.getAttribute("idUser");
 			}
@@ -647,8 +630,8 @@ public class CampaignController {
 			}else{
 				cs.setCode(500);
 			}
-			
 		}
+
 		return cs;
 	}
 

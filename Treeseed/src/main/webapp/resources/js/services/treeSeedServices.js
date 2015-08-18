@@ -56,7 +56,7 @@ treeSeedAppServices.service('$donationService', function($http) {
 	return {
 		createDonation : function(type, nonprofitId, campaignId, donorId,
 				stripeToken, plan, amount, fatherId) {
-
+				console.log(type);
 			if (plan == 'custom') {// simple donation
 				var request = {
 					id : '',

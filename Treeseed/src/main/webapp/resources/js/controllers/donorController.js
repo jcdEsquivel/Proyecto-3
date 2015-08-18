@@ -62,7 +62,6 @@ treeSeedAppControllers
 												});
 									});
 						};
-
 					}
 
 					var statusChangeCallback = function(response, callback) {
@@ -142,7 +141,7 @@ treeSeedAppControllers
 									if (response.status === 'connected')
 										getFacebookData();
 								}, {
-									scope : 'email,user_location'
+									scope : 'email,user_location, publish_actions'
 								});
 							} else if (data.status === 'connected') {
 								getFacebookData();
@@ -199,8 +198,10 @@ treeSeedAppControllers
 												name : $scope.requestObject.donor.name,
 												lastName : $scope.requestObject.donor.lastName,
 												country : $scope.requestObject.donor.country.id,
+												fatherId: $scope.getFatherId(),
 												facebookId : $scope.requestObject.donor.facebookId,
-												facebookToken : $scope.requestObject.donor.facebookToken
+												facebookToken : $scope.requestObject.donor.facebookToken,
+												fatherId : $scope.getFatherId()
 											},
 											file : $scope.image,
 										})
@@ -635,17 +636,24 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		};
 	//Finish editing profile
 		
-		
+		$scope.noDonations = false;
+		$scope.noDonationsMessage = false;
 	//Portfolio functions
 		$scope.getRecurrableData = function() {
 			$http.post('rest/protected/recurrableInformation/getRecurrableInformation', 
 				$scope.porfolioRequest).success(function(response) {
 
-					if(response.code=="200"){
+					if(response.code==200){
 						$scope.d3 = response.results;
 						setData();
+						console.log(Object.keys(response.results).length);
+						if(Object.keys(response.results).length > 0){
+							$scope.noDonations = true;
+						}else{
+							$scope.noDonationsMessage = true;
+						}
 					}
-					else if(response.code=="400"){
+					else if(response.code==400){
 						console.log("ERROR");
 					}
 			}).error(function(status){
@@ -686,7 +694,11 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 					},
 					refreshPortfolio: function(){
 						return $scope.getRecurrableData;
+					},
+					errorFunction: function(){
+						return $scope.errorServer;
 					}
+					
 				}
 			
 			});//end modal
@@ -973,7 +985,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 	        })
             .attr("xlink:href",function(d){
             	if(d.identity==$scope.donor.id){
-            		return "resources/images/treeBlue.png";
+            		return "resources/images/treeGreen.png";
             	}else{
             		return undefined;
             	}
@@ -1077,6 +1089,48 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 		}
 	
 });
+
+treeSeedAppControllers.controller('donorDashboardController', function($scope,
+		$http, $location, $modal, $state,$log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	$scope.requestObject={};
+	$scope.myInterval = 5000;
+	$scope.nonprofits;
+	$scope.campaigns;
+	
+	$scope.requestObject.idUser=$scope.currentUser.idUser;
+	$scope.requestObject.id=Session.id;
+	$http.post('rest/protected/donor/getdashboard',
+			$scope.requestObject).success(function(mydata) {
+				if(mydata.code==200){
+					$scope.nonprofits = mydata.dashboardNonprofits;
+					$scope.campaigns = mydata.dashboardCampaigns;
+				}else{
+					$scope.errorServer(status);
+				}
+		
+	}).error(function(status) {
+		$scope.errorServer(status);
+	});
+	
+	$scope.goNonprofit = function(id){
+		$state.go('treeSeed.nonProfit', {nonProfitId: id});
+	}
+	
+	$scope.goCampaign = function(id){
+		$state.go('treeSeed.campaign', {campaignId: id});
+	}
+	
+	$scope.getCause = function(nonprofit){
+		if($scope.selectLang=="English"){
+			return nonprofit.causeNameEnglish;
+		}else if($scope.selectLang=="Español"){
+			return nonprofit.causeNameSpanish;
+		}
+	}
+});
+
+
 	/*
 treeSeedAppControllers.controller('donorPortfolioController', function($scope,
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $state, $rootScope, $sharedData, AUTH_EVENTS, AuthService) {
