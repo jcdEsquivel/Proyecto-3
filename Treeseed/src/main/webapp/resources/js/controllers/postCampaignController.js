@@ -5,7 +5,7 @@ var treeSeedAppControllers = angular.module('treeSeed.controller');
 
 treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modal,
-		$stateParams) {
+		$stateParams, Session) {
 
 	$scope.posts = [];
 	$scope.totalPosts = 0;
@@ -38,12 +38,11 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				$scope.totalPosts = data.totalElements;
 				console.log($scope.totalPosts);
 			}else{
-				console.log('Error : '+data.errorMessage);
+				$scope.errorServer(data.code);	
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});
 		
 	};//end getPosts
@@ -71,16 +70,81 @@ treeSeedAppControllers.controller('postCampaignAdminController', function($http,
 				},
 				campaignId: function(){
 					return $scope.postRequest.postCampaign.campaignId
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 
 		})
 
 	};
+	
+	
+	$scope.openModalFilled = function(p) {
+		var modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/createPostModal.html',
+			controller : 'editPostCampaignController',
+			size : 'lg',
+			resolve : {
+				getPosts : function() {
+					return $scope.getPosts;
+				},
+				post: function(){
+					return p
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
+				}
+			}
+		})
+	};
+	
+	$scope.deletePost = function()
+	{
+		
+		$scope.postRequest.postCampaign.campaignId= $stateParams.campaignId;
+		
+		$http.post('rest/protected/postCampaign/deletePostCampaign',
+				$scope.postRequest).success(function(response) {
+					if(response.code==200){
+						$scope.postRequest.postCampaign.campaignId = $stateParams.campaignId;
+						$scope.getPosts(1);						
+					}else{
+						$scope.errorServer(response.code);
+					
+					}
+		}).error(function(status) {
+			$scope.errorServer(status);
+		});
+	};
+	
+	$scope.openModalDeletePost = function(p) {
+
+		$scope.postRequest.postCampaign.id = p.id;
+		
+		modalInstance = $modal.open({
+			animation : $scope.animationsEnabled,
+			templateUrl : 'layouts/components/delete_confirmation_post.html',
+			scope: $scope,
+			
+			
+	    })
+	};
+	
+	$scope.closeModal = function() {		
+		modalInstance.close();
+		$scope.deletePost(); 
+	};
+	
+	$scope.closeModalWithoutEdit = function() {	
+		modalInstance.close();
+	};
 
 });
 
-treeSeedAppControllers.controller('createPostCampaignController', function($http,
+treeSeedAppControllers.controller('createPostCampaignController', function($http, errorFunction,
 		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts,  campaignId ,Session,
 		$modalInstance) {
 
@@ -159,8 +223,114 @@ treeSeedAppControllers.controller('createPostCampaignController', function($http
 				}).success(function(data, status, headers, config) {
 					if(data.code == 200){
 						$scope.close();
+					}else{
+						errorFunction(data.code);		
 					}
 			
+		}).error(function(status) {
+			errorFunction(status);
+		});
+
+	};
+
+	$scope.close = function() {
+		$scope.getPosts(1);
+		$modalInstance.close();
+		
+	}
+
+});
+
+
+treeSeedAppControllers.controller('editPostCampaignController', function($http, errorFunction,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, getPosts, post, Session,
+		$modalInstance, $stateParams) {
+
+	$scope.getPosts = getPosts;
+	$scope.post = {
+			nonprofitId : Session.userId,
+			title : post.title,
+			description : post.description,
+			picture : post.picture,
+			
+		};
+	
+	$scope.postRequestModal = {
+			postCampaign : {
+				id : post.id,
+				title : post.title,
+				picture : post.picture,
+				description : post.description,
+				nonprofitId : Session.id,
+				campaignId : $stateParams.campaignId
+			}
+			
+			
+		}
+	
+	
+	$scope.maxCarac = 500;
+	$scope.image =  post.picture;
+
+	$scope.$on('profilePicture', function(event, args) {
+		$scope.image = args;
+		$scope.uploadImage = true;
+
+		var file = args;
+		var imageType = /image.*/;
+
+		if (file.type.match(imageType)) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = new Image();
+				img.src = reader.result;
+				fileDisplayArea.src = img.src;
+			}
+			reader.readAsDataURL(file);
+
+		} else {
+			alert("File not supported!");
+		}
+
+	});
+
+
+	$scope.createPost = function() {
+		
+		$scope.postRequestModal.postCampaign.title = $scope.post.title;
+		$scope.postRequestModal.postCampaign.description =  $scope.post.description;
+			
+		$http(
+				{
+					method : 'POST',
+					url : 'rest/protected/postCampaign/editPostCampaign',
+					headers : {
+						'Content-Type' : undefined
+					},
+					transformRequest : function(data) {
+						var formData = new FormData();
+
+						formData.append('data', new Blob([ angular
+								.toJson(data.data) ], {
+							type : "application/json"
+						}));
+						formData.append("file", data.file);
+						return formData;
+					},
+					data : {
+						data : $scope.postRequestModal,
+						file : $scope.image
+					}
+
+				}).success(function(data, status, headers, config) {
+					if(data.code==200){
+						$scope.close();
+					}else{
+						errorFunction(data.code);
+						
+					}
+		}).error(function(status) {
+			errorFunction(status);
 		});
 
 	};

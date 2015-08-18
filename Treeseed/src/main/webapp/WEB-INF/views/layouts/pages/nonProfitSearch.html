@@ -1,75 +1,74 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3" translate="NONPROFITSEARCH.HEADER-TITLE"></h1>
-</div>
-<div >
- 	<div class="panel-body">
-	 	<div class="form-horizontal col-sm-10 col-sm-offset-0">
-		    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
-		    <div class="col-sm-12">
-		      <div class="row">
-		        <div class="col-md-3">
-		        	<md-input-container flex>
-		        		<label translate="GENERALSEARCH.NAME-FILTER">Name</label>
-	        			<input type="text" class="form-control" ng-model="name">
-		        	</md-input-container>
-		        </div>
-		        <div class="col-md-3">
-		        	 <label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label> 
-				     <md-input-container flex>	
-		          		<md-select style="width:100%;" ng-model="nonprofit.country" >
-		          			<md-option select disabled></md-option>
-			          		<md-option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.message }}</md-option>
-				        </md-select>
-		      		</md-input-container>
-		        </div>
-		        <div class="col-md-3">
-	        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
-				 	<md-input-container flex>
-			          	<md-select style="width:100%;" ng-model="nonprofit.cause" >
-			          		<md-option select disabled></md-option>
-			          		<md-option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
-			        	</md-select>
-					</md-input-container>       
-		        </div>
-		         <div class="col-md-3">
-		          	<button type="button" class="btn btn-default" ng-click="searchNonProfit(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
-		        </div>
-		      </div>
-		      <div class="row">
-		      	<div class="col-md-3">
-	        		<select ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
-		        </div>
-		      </div>
+	<h1 class="m-n font-thin h3" translate="NONPROFITSEARCH.HEADER-TITLE"></h1>
+	<div >
+	 	<div class="panel-body">
+		 	<div class="form-group md-whiteframe-treeseed">
+			    <label class="col-sm-2 control-label" translate="GENERALSEARCH.FILTERS"></label>
+			    <div class="col-sm-12">
+		      		<div class="row">
+			      		<div class="col-md-3">
+			        		<label translate="GENERALSEARCH.NAME-FILTER">Name</label>
+		        			<input type="text" class="form-control" ng-model="name">
+				        </div>
+				        <div class="col-md-3">
+		        	 		<label class="labels-dropdowns"  translate="GENERALSEARCH.COUNTRY-FILTER"></label>
+			          		<!-- <select class="form-control m-b" style="width:100%;" ng-model="nonprofit.country" >
+			          			<option select disabled></option>
+				          		<option  ng-value="country" ng-repeat="country in selectSortOptionsCountry">{{ country.message }}</option>
+					        </select> -->
+					        <select ng-model="nonprofit.country" class="form-control" ng-options="s as s.message for s in selectSortOptionsCountry"></select>	
+				        </div>
+				        <div class="col-md-3">
+			        		<label class="labels-dropdowns"  translate="GENERALSEARCH.CAUSE-FILTER"></label>
+				          <!-- 	<select class="form-control m-b" style="width:100%;" ng-model="nonprofit.cause" >
+				          		<option select disabled></md-option>
+				          		<option ng-value="cause" ng-repeat="cause in selectSortOptionsCause">{{ cause.message }}</md-option>
+				        	</select>
+				        	-->
+				        	<select ng-model="nonprofit.cause" class="form-control" ng-options="s as s.message for s in selectSortOptionsCause"></select>
+				        </div>
+		        	</div>
+		        	<br>
+		        	<div class="row">
+		        		<div class="col-md-2">
+		        			<label class="labels-dropdowns"  translate="GENERALSEARCH.RESULTS-COUNT">Number of results</label>
+			        		<select  class="form-control m-b" ng-model="requestObject.pageSize" ng-options="item for item in itemPerPage"></select>
+				        </div>
+				         <div class="col-md-3">
+				          	<button type="button" class="btn-search" ng-click="searchNonProfit(1)" translate="GENERALSEARCH.SEARCH-BUTTON"></button>
+				        </div>
+			      	</div>
+			    </div>
 		    </div>
-	    </div>
+		</div>
+	    <tabset class="tab-container">
+		   	<tab>
+	     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
+			         
+		      	</tab-heading>
+		      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
+		        	<li class="list-group-item li-search-size-result" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
+		          		<a ui-sref="treeSeed.nonProfit({nonProfitId:'{{nonprofit.id}}'})" class="pull-left thumb-md m-r">
+		            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle search-image-size">
+			          	</a>
+			          	<div class="clear">
+			            	<a ui-sref="treeSeed.nonProfit({nonProfitId:'{{nonprofit.id}}'})" class="h4 text-primary m-b-sm block" ui-sref="treeSeed.nonProfit({nonProfitId:'{{nonprofit.id}}'})"> {{nonprofit.name}}</a>
+			            	<div> {{nonprofit.description}}</div>
+			            	<div> {{nonprofit.webPage}}</div>
+			          	</div>
+			        </li>
+			        
+	      		</ul>
+	      		<div class="other-controller">
+			    	<div class="text-center">
+			      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
+			      		</dir-pagination-controls>
+			      	</div>
+				</div>  
+		    </tab>
+		</tabset>      
 	</div>
-    <tabset class="tab-container">
-	   	<tab>
-     		<tab-heading translate="GENERALSEARCH.SEARCH-RESULTS">
-		         
-	      	</tab-heading>
-	      	<ul class="list-group list-group-alt list-group-lg no-borders pull-in m-b-none advance-search-scroll">
-	        	<li class="list-group-item li-search-size-result" dir-paginate="nonprofit in nonprofits | itemsPerPage: requestObject.pageSize" total-items="totalItems" >
-	          		<a href="#" class="pull-left thumb-md m-r">
-	            		<img ng-src="{{nonprofit.profilePicture}}" alt="..." class="img-circle search-image-size">
-		          	</a>
-		          	<div class="clear">
-		            	<a href="#" class="h4 text-primary m-b-sm block" ui-sref="treeSeed.nonProfit({nonProfitId:'{{nonprofit.id}}'})"> {{nonprofit.name}}</a>
-		            	<div> {{nonprofit.description}}</div>
-		            	<div> {{nonprofit.webPage}}</div>
-		          	</div>
-		        </li>
-		        
-      		</ul>
-      		<div class="other-controller">
-		    	<div class="text-center">
-		      		<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="resources/js/libs/angular/dirPagination/dirPagination.tpl.html">
-		      		</dir-pagination-controls>
-		      	</div>
-			</div>  
-	    </tab>
-	</tabset>      
-  </div>
+</div>
 
 
  

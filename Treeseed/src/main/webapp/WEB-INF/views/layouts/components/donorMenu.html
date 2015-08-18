@@ -1,4 +1,4 @@
-<div class="aside-wrap">
+<div class="aside-wrap" ng-controller="sideMenuDonorController">
 
   <div class="navi-wrap">
 
@@ -14,18 +14,11 @@
     </a>
   </li>
   <li ui-sref-active="active">
-    <a ui-sref="app.calendar" md-ink-ripple>
+    <a ui-sref="treeSeed.donorReceipts" md-ink-ripple>
       <i class="glyphicon   glyphicon-book icon"></i>
       <span class="font-bold" translate="LEFT-MENU.DONATION-RECEIPTS">DONATION-RECEIPTS</span>
     </a>
   </li>
-  <li ui-sref-active="active">
-    <a ui-sref="app.mail.list" md-ink-ripple>
-      <i class="glyphicon glyphicon-briefcase icon"></i>
-      <span class="font-bold" translate="LEFT-MENU.PORTFOLIO">PORTFOLIO</span>
-    </a>
-  </li>
-
   <li ui-sref="treeSeed.donorSettings">
     <a ng-click="goProfileSettings()" md-ink-ripple class="auto">
       <i class="glyphicon  glyphicon-cog icon"></i>

@@ -1,5 +1,7 @@
 <div ng-controller="nonprofitCampaignSearchController">
+	
 	<div class="row m-b-md">
+	
 		<div class="col-sm-2"></div>
 		<div class="col-sm-3">
 			<i class="fa fa-circle-o " style="color: #27c24c"></i><span
@@ -18,6 +20,11 @@
 
 	<div class="row">
 		<div class="col-md-12">
+		<div ng-show="zeroCampaigns">
+	      	<div>
+	         	<h3 class="text-danger" translate="LISTCAMPAIGN.ZERO"></h3>
+	      	</div>
+	   	</div>
 			<ul
 				class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
 				<li class="list-group-item li-search-size-result-full"
@@ -50,13 +57,17 @@
 								{{campaign.description}}<a style="color: blue"
 									translate="LISTCAMPAIGN.READMORE"></a>
 							</div>
-							<div class="col-md-2">
-								<span translate="LISTCAMPAIGN.GOAL"></span>
-								<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
-								<span translate="LISTCAMPAIGN.COLLECTED"></span>
-								<div class="h4 text-success">${{campaign.amountCollected}}</div>
+							<div class="col-md-2" >
+								<div ng-if="campaign.dueDate">
+									<span translate="LISTCAMPAIGN.GOAL"></span>
+									<div class="h4 text-black m-b">${{campaign.amountGoal}}</div>
+								</div>
+								<div>
+									<span translate="LISTCAMPAIGN.COLLECTED"></span>
+									<div class="h4 text-success">${{campaign.amountCollected}}</div>
+								</div>
 							</div>
-							<div class="col-md-3 ">
+							<div class="col-md-3 " ng-if="campaign.dueDate">
 								<div>
 									<div ui-jq="easyPieChart"
 										ui-options="{

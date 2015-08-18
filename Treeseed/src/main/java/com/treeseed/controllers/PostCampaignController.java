@@ -74,53 +74,66 @@ public class PostCampaignController {
 	 * Creates the.
 	 *
 	 * @param file the file
-	 * @param requestObj the request obj
+	 * @param requestObj the post request
 	 * @return the post campaign response
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostCampaignResponse create(@RequestPart(value="file", required=false) MultipartFile file,
 			@RequestPart(value="data") PostCampaignRequest requestObj) {
 
-		String resultFileName = "";
-		int generalUserId = 0;
-		HttpSession currentSession = request.getSession();
 		PostCampaignResponse response = new PostCampaignResponse();
-		CampaignWrapper campaignWrapper = campaignService.getCampaignById(requestObj.getPostCampaign().getCampaignId());
 		
-		int sessionId = (int) currentSession.getAttribute("idUser");
+		try{
 		
-		NonprofitWrapper nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(requestObj.getNonprofitId());
-		
-		generalUserId = nonprofit.getUsergenerals().get(0).getId();
-		
-		
-		//Checks if the request comes from the logged user.
-		if (nonprofit != null && generalUserId == sessionId) {
-
-			PostCampaignWrapper post = new PostCampaignWrapper(new PostCampaign());
-
-			if (file == null) {
-				resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
+			String resultFileName = "";
+			int generalUserId = 0;
+			HttpSession currentSession = request.getSession();
+			
+			CampaignWrapper campaignWrapper = campaignService.getCampaignById(requestObj.getPostCampaign().getCampaignId());
+			
+			int sessionId = (int) currentSession.getAttribute("idUser");
+			
+			NonprofitWrapper nonprofit = nonprofitServiceInterface
+					.getSessionNonprofit(requestObj.getNonprofitId());
+			
+			generalUserId = nonprofit.getUsergenerals().get(0).getId();
+			
+			
+			//Checks if the request comes from the logged user.
+			if (nonprofit != null && generalUserId == sessionId) {
+	
+				PostCampaignWrapper post = new PostCampaignWrapper(new PostCampaign());
+	
+				if (file == null) {
+					resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
+				} else {
+					resultFileName = Utils.writeToFile(file, servletContext);
+				}
+	
+				post.setTittle(requestObj.getPostCampaign().getTitle());
+				post.setDescription(requestObj.getPostCampaign().getDescription());
+				post.setActive(true);
+				post.setPicture(resultFileName);
+				post.setCampaign(campaignWrapper.getWrapperObject());
+				post.setCreationDate(new Date());
+	
+				postCampaignService.savePost(post);
+	
+				response.setCode(200);
+				response.setCodeMessage("Post created");
+	
 			} else {
-				resultFileName = Utils.writeToFile(file, servletContext);
+				response.setCode(401);
+				response.setCodeMessage("Invalid request");
 			}
-
-			post.setTittle(requestObj.getPostCampaign().getTitle());
-			post.setDescription(requestObj.getPostCampaign().getDescription());
-			post.setActive(true);
-			post.setPicture(resultFileName);
-			post.setCampaign(campaignWrapper.getWrapperObject());
-			post.setCreationDate(new Date());
-
-			postCampaignService.savePost(post);
-
-			response.setCode(200);
-			response.setCodeMessage("Post created");
-
-		} else {
-			response.setCode(401);
-			response.setCodeMessage("Invalid request");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
 
 		return response;
@@ -132,36 +145,171 @@ public class PostCampaignController {
 	/**
 	 * Gets the post of campaigns.
 	 *
-	 * @param PostCampaignRequest postRequest
+	 * @param postRequest the post request
 	 * @return PostCampaignResponse
 	 */
 	@RequestMapping(value = "/getPostFromCampaign", method = RequestMethod.POST)
 	public PostCampaignResponse getNonprofitPost(@RequestBody PostCampaignRequest postRequest) {
 
 		PostCampaignResponse response = new PostCampaignResponse();
-		PageWrapper<PostCampaignWrapper> postsResults = postCampaignService.getPostsFromCampaign(postRequest);
-		List<PostCampaignPOJO> pojos = new ArrayList<PostCampaignPOJO>();
-		PostCampaignPOJO pojoTemp;
+		try{
 		
-		for(PostCampaignWrapper objeto:postsResults.getResults())
-		{
-			pojoTemp = new PostCampaignPOJO();
-			pojoTemp.setId(objeto.getId());
-			pojoTemp.setTitle(objeto.getTittle());
-			pojoTemp.setDescription(objeto.getDescription());
-			pojoTemp.setPicture(objeto.getPicture());
-			pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
-			pojos.add(pojoTemp);
+			PageWrapper<PostCampaignWrapper> postsResults = postCampaignService.getPostsFromCampaign(postRequest);
+			List<PostCampaignPOJO> pojos = new ArrayList<PostCampaignPOJO>();
+			PostCampaignPOJO pojoTemp;
+			
+			for(PostCampaignWrapper objeto:postsResults.getResults())
+			{
+				pojoTemp = new PostCampaignPOJO();
+				pojoTemp.setId(objeto.getId());
+				pojoTemp.setTitle(objeto.getTittle());
+				pojoTemp.setDescription(objeto.getDescription());
+				pojoTemp.setPicture(objeto.getPicture());
+				pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
+				pojos.add(pojoTemp);
+			}
+			
+			response.setTotalElements(postsResults.getTotalItems());
+			response.setTotalPages(postsResults.getTotalPages());
+			response.setPosts(pojos);
+			response.setCode(200);
+			response.setCodeMessage("Campaign posts");
+		
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
-		
-		response.setTotalElements(postsResults.getTotalItems());
-		response.setTotalPages(postsResults.getTotalPages());
-		response.setPosts(pojos);
-		response.setCode(200);
-		response.setCodeMessage("Campaign posts");
 		
 		return response;
 
+	}
+	
+	
+	/**
+	 * Edits the post campaign.
+	 *
+	 * @param pr the post Campaign request
+	 * @param file the file
+	 * @return the post campaign response
+	 */
+	@RequestMapping(value ="/editPostCampaign", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+	public PostCampaignResponse editPostCampaign(@RequestPart(value="data") PostCampaignRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
+	{
+		PostCampaignResponse us = new PostCampaignResponse();
+		
+		try{
+		
+		int generalUserId = 0;
+		HttpSession currentSession = request.getSession();
+		int sessionId = (int) currentSession.getAttribute("idUser");
+		
+		CampaignWrapper campaign = campaignService.getCampaignById(pr.getPostCampaign().getCampaignId());
+			
+		generalUserId = campaign.getNonprofit().getUsergenerals().get(0).getId();
+		
+		if(generalUserId==sessionId){
+			
+			String imagePost = "";
+			PostCampaignPOJO postCampaignPOJO = new PostCampaignPOJO();
+			postCampaignPOJO= pr.getPostCampaign();		
+			PostCampaignWrapper postCampaign = new PostCampaignWrapper();
+			
+			if(file!=null){
+				imagePost = Utils.writeToFile(file,servletContext);
+			}
+
+
+			if(!imagePost.equals("")){
+				postCampaign.setPicture(imagePost);
+			}else{
+				postCampaign.setPicture(postCampaignPOJO.getPicture());
+			}
+			
+			
+			postCampaign.setId(postCampaignPOJO.getId());
+			postCampaign.setTittle(pr.getPostCampaign().getTitle());
+			postCampaign.setDescription(pr.getPostCampaign().getDescription());
+			
+			postCampaign= postCampaignService.updatePostCampaign(postCampaign);
+			
+			
+			postCampaignPOJO.setTitle(postCampaign.getTittle());
+			postCampaignPOJO.setDescription(postCampaign.getDescription());
+			postCampaignPOJO.setPicture(postCampaign.getPicture());
+			
+			us.setPost(postCampaignPOJO);
+			us.setCode(200);
+			us.setCodeMessage("Post of Campaign updated sucessfully");
+			
+		}else{
+			us.setCode(401);
+			us.setCodeMessage("Invalid request");
+		}
+		
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
+			
+		}
+		return us;		
+	}
+	
+	
+	
+	/**
+	 * Delete post campaign.
+	 *
+	 * @param pnr the Post Campaign Request
+	 * @return the post campaign response
+	 */
+	@RequestMapping(value ="/deletePostCampaign", method = RequestMethod.POST)
+	public PostCampaignResponse deletePostCampaign(@RequestBody PostCampaignRequest pnr)
+	{
+		PostCampaignResponse us = new PostCampaignResponse();
+		
+		try{
+			int generalUserId = 0;
+			HttpSession currentSession = request.getSession();
+			int sessionId = (int) currentSession.getAttribute("idUser");
+			
+			CampaignWrapper campaign = campaignService.getCampaignById(pnr.getPostCampaign().getCampaignId());
+			
+			generalUserId = campaign.getNonprofit().getUsergenerals().get(0).getId();
+			
+			if(generalUserId== sessionId){
+			
+				try{
+					postCampaignService.deletePostCampaign(pnr);
+					us.setCode(200);
+					us.setCodeMessage("Post deleted sucessfully");
+			
+				}catch(Exception e){
+					us.setCode(400);
+					us.setCodeMessage("Invalid request");
+				}
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("Invalid request");
+			}
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
+			
+		}
+		return us;				
 	}
 	
 	

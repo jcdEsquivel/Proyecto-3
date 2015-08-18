@@ -12,16 +12,13 @@
 	  		</div>
 	  	<!-- / menu -->
 	  	
-	  	
 	  	 <!-- view -->
 	  		<div flex layout="column">
 	  			<div ui-butterbar></div>
     			<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".md-aside" ></a>
     			
-	  			<div  class=" main" ui-view></div>
+	  			<div class=" main" ui-view style="min-height:600px;" ></div>
 	  		</div>
 	  <!-- / view -->
 	 </div>
 	 
-	<div  ng-init="app.settings.container = false;" class="text-muted" data-ng-include=" 'layouts/components/page_footer.html' " >
-	</div>

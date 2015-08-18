@@ -16,11 +16,20 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.repositories.UserGeneralRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserGeneralService.
+ */
 @Service
 public class UserGeneralService implements UserGeneralServiceInterface{
+	
+	/** The users repository. */
 	@Autowired
 	UserGeneralRepository usersRepository;
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getAll(com.treeseed.contracts.UserGeneralRequest)
+	 */
 	@Override
 	@Transactional
 	public Page<UserGeneral> getAll(UserGeneralRequest ur) {
@@ -57,6 +66,10 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 
 		return result;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#saveUserGeneral(com.treeseed.ejbWrapper.UserGeneralWrapper)
+	 */
 	@Override
 	@Transactional
 	public Boolean saveUserGeneral(UserGeneralWrapper userGeneral) {
@@ -70,16 +83,33 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getSessionUserGeneral(int)
+	 */
 	@Override
 	public UserGeneral getSessionUserGeneral(int idUserGeneral) {
 		return usersRepository.findOne(idUserGeneral);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getUserByEmailAndPassword(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public UserGeneral getUserByEmailAndPassword(String ur, String pas) {
 		return  usersRepository.findByEmailAndPassword(ur, pas);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getUserByEmailAndPasswordAndIsActive(java.lang.String, java.lang.String, boolean)
+	 */
+	@Override
+	public UserGeneral getUserByEmailAndPasswordAndIsActive(String ur, String pas, boolean active) {
+		return  usersRepository.findByEmailAndPasswordAndIsActive(ur, pas, active);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#userExist(java.lang.String)
+	 */
 	@Override
 	public Boolean userExist(String email) {
 		Boolean exist = false;
@@ -91,6 +121,9 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		return exist;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#isEmailUnique(java.lang.String)
+	 */
 	@Override
 	public Boolean isEmailUnique(String email){
 		UserGeneral user = usersRepository.findByEmail(email.toLowerCase());
@@ -102,8 +135,13 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		}
 	}
 	
+	/** The jdbc template. */
 	@Autowired
     JdbcTemplate jdbcTemplate;
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#validateFacebookId(java.lang.String)
+	 */
 	@Transactional
 	public Boolean validateFacebookId(String facebookId){
 		
@@ -123,17 +161,26 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getUGByID(int)
+	 */
 	@Override
 	public UserGeneral getUGByID(int idUserGeneral) {
 		return usersRepository.findOne(idUserGeneral);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getUserByNonprofitId(int)
+	 */
 	@Override
 	public UserGeneral getUserByNonprofitId(int idNonprofit) {
 		return usersRepository.findByNonprofitId(idNonprofit);
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#updateUserGeneral(com.treeseed.ejbWrapper.UserGeneralWrapper)
+	 */
 	@Override
 	@Transactional
 	public void updateUserGeneral(UserGeneralWrapper userGeneral) {
@@ -142,6 +189,9 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 				);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#getUserByDonorId(int)
+	 */
 	@Override
 	public UserGeneralWrapper getUserByDonorId(int idDonor) {
 		UserGeneral userGeneral = usersRepository.findByDonorId(idDonor);
@@ -152,6 +202,9 @@ public class UserGeneralService implements UserGeneralServiceInterface{
 		return userGeneralWrapper;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.UserGeneralServiceInterface#deleteUserGeneral(com.treeseed.ejbWrapper.UserGeneralWrapper)
+	 */
 	@Override
 	@Transactional
 	public void deleteUserGeneral(UserGeneralWrapper ugw) {

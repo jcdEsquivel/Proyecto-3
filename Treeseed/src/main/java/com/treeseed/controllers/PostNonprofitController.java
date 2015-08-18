@@ -75,48 +75,59 @@ public class PostNonprofitController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse create(@RequestPart(value="file", required=false) MultipartFile file,
 			@RequestPart(value="data") PostNonprofitRequest requestObj) {
-
-		String resultFileName = "";
-		int generalUserId = 0;
-		HttpSession currentSession = request.getSession();
+		
 		PostNonprofitResponse response = new PostNonprofitResponse();
 		
-		int sessionId = (int) currentSession.getAttribute("idUser");
-		
-		NonprofitWrapper nonprofit = nonprofitServiceInterface
-				.getSessionNonprofit(requestObj.getPostNonprofit().getNonprofitId());
-		
-		generalUserId = nonprofit.getUsergenerals().get(0).getId();
-		
-		
-		//Checks if the request comes from the logged user.
-		if (nonprofit != null && generalUserId == sessionId) {
-
-			PostNonprofitWrapper post = new PostNonprofitWrapper(new PostNonprofit());
-
-			if (file == null) {
-				resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
+		try{
+			String resultFileName = "";
+			int generalUserId = 0;
+			HttpSession currentSession = request.getSession();
+			
+			
+			int sessionId = (int) currentSession.getAttribute("idUser");
+			
+			NonprofitWrapper nonprofit = nonprofitServiceInterface
+					.getSessionNonprofit(requestObj.getPostNonprofit().getNonprofitId());
+			
+			generalUserId = nonprofit.getUsergenerals().get(0).getId();
+			
+			
+			//Checks if the request comes from the logged user.
+			if (nonprofit != null && generalUserId == sessionId) {
+	
+				PostNonprofitWrapper post = new PostNonprofitWrapper(new PostNonprofit());
+	
+				if (file == null) {
+					resultFileName = TreeseedConstants.DEFAULT_POST_IMAGE;
+				} else {
+					resultFileName = Utils.writeToFile(file, servletContext);
+				}
+	
+				post.setTittle(requestObj.getPostNonprofit().getTitle());
+				post.setDescription(requestObj.getPostNonprofit().getDescription());
+				post.setIsActive(true);
+				post.setPicture(resultFileName);
+				post.setNonprofit(nonprofit.getWrapperObject());
+				post.setCreationDate(new Date());
+	
+				postNonprofitService.savePostNonprofit(post);
+	
+				response.setCode(200);
+				response.setCodeMessage("Post created");
+	
 			} else {
-				resultFileName = Utils.writeToFile(file, servletContext);
+				response.setCode(401);
+				response.setCodeMessage("Invalid request");
 			}
-
-			post.setTittle(requestObj.getPostNonprofit().getTitle());
-			post.setDescription(requestObj.getPostNonprofit().getDescription());
-			post.setIsActive(true);
-			post.setPicture(resultFileName);
-			post.setNonprofit(nonprofit.getWrapperObject());
-			post.setCreationDate(new Date());
-
-			postNonprofitService.savePostNonprofit(post);
-
-			response.setCode(200);
-			response.setCodeMessage("Post created");
-
-		} else {
-			response.setCode(401);
-			response.setCodeMessage("Invalid request");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
-
 		return response;
 
 	}
@@ -132,26 +143,38 @@ public class PostNonprofitController {
 	public PostNonprofitResponse getNonprofitPost(@RequestBody PostNonprofitRequest postRequest) {
 
 		PostNonprofitResponse response = new PostNonprofitResponse();
-		Page<PostNonprofit> postsResults = postNonprofitService.getPosts(postRequest);
-		List<PostNonprofitPOJO> pojos = new ArrayList<PostNonprofitPOJO>();
-		PostNonprofitPOJO pojoTemp;
 		
-		for(PostNonprofit objeto:postsResults.getContent())
-		{
-			pojoTemp = new PostNonprofitPOJO();
-			pojoTemp.setId(objeto.getId());
-			pojoTemp.setTitle(objeto.getTittle());
-			pojoTemp.setDescription(objeto.getDescription());
-			pojoTemp.setPicture(objeto.getPicture());
-			pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
-			pojos.add(pojoTemp);
+		try{
+		
+			Page<PostNonprofit> postsResults = postNonprofitService.getPosts(postRequest);
+			List<PostNonprofitPOJO> pojos = new ArrayList<PostNonprofitPOJO>();
+			PostNonprofitPOJO pojoTemp;
+			
+			for(PostNonprofit objeto:postsResults.getContent())
+			{
+				pojoTemp = new PostNonprofitPOJO();
+				pojoTemp.setId(objeto.getId());
+				pojoTemp.setTitle(objeto.getTittle());
+				pojoTemp.setDescription(objeto.getDescription());
+				pojoTemp.setPicture(objeto.getPicture());
+				pojoTemp.setDate(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getCreationDate()));
+				pojos.add(pojoTemp);
+			}
+			
+			response.setTotalElements(postsResults.getTotalElements());
+			response.setTotalPages(postsResults.getTotalPages());
+			response.setPosts(pojos);
+			response.setCode(200);
+			response.setCodeMessage("Nonprofit posts");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				response.setCode(10);
+				response.setErrorMessage("Data Base error");
+			}else{
+				response.setCode(500);
+			}
+			
 		}
-		
-		response.setTotalElements(postsResults.getTotalElements());
-		response.setTotalPages(postsResults.getTotalPages());
-		response.setPosts(pojos);
-		response.setCode(200);
-		response.setCodeMessage("Nonprofit posts");
 		
 		return response;
 
@@ -167,48 +190,59 @@ public class PostNonprofitController {
 	@RequestMapping(value ="/editPostNonProfit", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	public PostNonprofitResponse editPostNonProfit(@RequestPart(value="data") PostNonprofitRequest pr, @RequestPart(value="file", required=false) MultipartFile file)
 	{
-	
-		HttpSession currentSession = request.getSession();
 		PostNonprofitResponse us = new PostNonprofitResponse();
-		int sessionId = (int) currentSession.getAttribute("idUser");
 		
-		if(pr.getPostNonprofit().getNonprofitId()==sessionId){
+		try{
+		
+			HttpSession currentSession = request.getSession();
 			
-			String imagePost = "";
-			PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
-			postNonprofitPOJO= pr.getPostNonprofit();		
-			PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
+			int sessionId = (int) currentSession.getAttribute("idUser");
 			
-			if(file!=null){
-				imagePost = Utils.writeToFile(file,servletContext);
-			}
-
-
-			if(!imagePost.equals("")){
-				postNonprofit.setPicture(imagePost);
+			if(pr.getPostNonprofit().getNonprofitId()==sessionId){
+				
+				String imagePost = "";
+				PostNonprofitPOJO postNonprofitPOJO = new PostNonprofitPOJO();
+				postNonprofitPOJO= pr.getPostNonprofit();		
+				PostNonprofitWrapper postNonprofit = new PostNonprofitWrapper();
+				
+				if(file!=null){
+					imagePost = Utils.writeToFile(file,servletContext);
+				}
+	
+	
+				if(!imagePost.equals("")){
+					postNonprofit.setPicture(imagePost);
+				}else{
+					postNonprofit.setPicture(postNonprofitPOJO.getPicture());
+				}
+				
+				
+				postNonprofit.setId(postNonprofitPOJO.getId());
+				postNonprofit.setTittle(pr.getPostNonprofit().getTitle());
+				postNonprofit.setDescription(pr.getPostNonprofit().getDescription());
+				
+				postNonprofit= postNonprofitService.updatePostNonprofit(postNonprofit);
+				
+				
+				postNonprofitPOJO.setTitle(postNonprofit.getTittle());
+				postNonprofitPOJO.setDescription(postNonprofit.getDescription());
+				postNonprofitPOJO.setPicture(postNonprofit.getPicture());
+				
+				us.setPost(postNonprofitPOJO);
+				us.setCode(200);
+				us.setCodeMessage("Post of Nonprofit updated sucessfully");
+				
 			}else{
-				postNonprofit.setPicture(postNonprofitPOJO.getPicture());
+				us.setCode(401);
+				us.setCodeMessage("Invalid request");
 			}
-			
-			
-			postNonprofit.setId(postNonprofitPOJO.getId());
-			postNonprofit.setTittle(pr.getPostNonprofit().getTitle());
-			postNonprofit.setDescription(pr.getPostNonprofit().getDescription());
-			
-			postNonprofit= postNonprofitService.updatePostNonprofit(postNonprofit);
-			
-			
-			postNonprofitPOJO.setTitle(postNonprofit.getTittle());
-			postNonprofitPOJO.setDescription(postNonprofit.getDescription());
-			postNonprofitPOJO.setPicture(postNonprofit.getPicture());
-			
-			us.setPost(postNonprofitPOJO);
-			us.setCode(200);
-			us.setCodeMessage("Post of Nonprofit updated sucessfully");
-			
-		}else{
-			us.setCode(401);
-			us.setCodeMessage("Invalid request");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
 		}
 		
 		
@@ -226,25 +260,35 @@ public class PostNonprofitController {
 	@RequestMapping(value ="/deletePostNonProfit", method = RequestMethod.POST)
 	public PostNonprofitResponse deletePostNonProfit(@RequestBody PostNonprofitRequest pnr)
 	{
-	
-		HttpSession currentSession = request.getSession();
-		int sessionId = (int) currentSession.getAttribute("idUser");
 		PostNonprofitResponse us = new PostNonprofitResponse();
+	
+		try{
 		
-		if(pnr.getPostNonprofit().getNonprofitId()== sessionId){
-		
-			try{
-				postNonprofitService.deletePostNonprofit(pnr);
-				us.setCode(200);
-				us.setCodeMessage("Post deleted sucessfully");
-		
-			}catch(Exception e){
+			HttpSession currentSession = request.getSession();
+			int sessionId = (int) currentSession.getAttribute("idUser");
+
+			if(pnr.getPostNonprofit().getNonprofitId()== sessionId){
+			
+				try{
+					postNonprofitService.deletePostNonprofit(pnr);
+					us.setCode(200);
+					us.setCodeMessage("Post deleted sucessfully");
+			
+				}catch(Exception e){
+					us.setCode(400);
+					us.setCodeMessage("Invalid request");
+				}
+			}else{
 				us.setCode(400);
 				us.setCodeMessage("Invalid request");
 			}
-		}else{
-			us.setCode(400);
-			us.setCodeMessage("Invalid request");
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
+			}
 		}
 		
 		return us;				

@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,8 +22,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("com.treeseed.repositories")
 @EnableTransactionManagement
 @EntityScan(basePackages = "com.treeseed.ejb")
-
-public class TreeseedApplication{
+								//uncomment this to generate war
+public class TreeseedApplication{ //extends SpringBootServletInitializer{
+	
+	//uncomment this to generate war
+	 /*@Override
+	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	        return application.sources(TreeseedApplication.class);
+	    }*/
 	
     public static void main(String[] args) {
         SpringApplication.run(TreeseedApplication.class, args);

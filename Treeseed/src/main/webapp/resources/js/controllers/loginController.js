@@ -1,6 +1,6 @@
 var treeSeedAppLoginControllers = angular.module('treeSeedLoginController', [ 'treeSeedServices' ]);
 
-treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session) {
+treeSeedAppLoginControllers.controller('loginController', function($cookies, $http, $scope, $state, $rootScope, AUTH_EVENTS, AuthService, $modalInstance, setCurrentUser,USER_ROLES, Session, $modal) {
 	$scope.error = false;
 	$scope.rememberMe = false;
 	$scope.credentials = {
@@ -80,32 +80,32 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
   		
 		FB.api('/me?fields=id,first_name,last_name,location,email', function(response) {
 		  $scope.facebookId = response.id;
-  		  console.log(response);
-  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).then(
+  		  $http.get('rest/login/checkFacebookuser?facebookId='+$scope.facebookId).success(
   				function(res) {
-  					if (res.data.code == "200") {
-  					   console.log(res.data);
-			    	   if(res.data.type=="donor"){
+  					if (res.code == "200") {
+			    	   if(res.type=="donor"){
 			        		Session.destroy();
-							Session.create(res.data.idSession, res.data.idUser,
+							Session.create(res.idSession, res.idUser,
 									USER_ROLES.donor);
 							$cookies['userRoleTree'] = USER_ROLES.donor;
-			        		setCurrentUser(res.data.idUser, res.data.firstName+" "+res.data.lastName, res.data.img );
+			        		setCurrentUser(res.idUser, res.firstName+" "+res.lastName, res.img );
 			        	}
-			    		$cookies['idSessionTree'] = res.data.idSession;
-						$cookies['idUserTree'] = res.data.idUser;
+			    		$cookies['idSessionTree'] = res.idSession;
+						$cookies['idUserTree'] = res.idUser;
 						
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			    		//$scope.remebermeUser = $scope.rememberMe;
 			    		$modalInstance.close()	;
 			    		if(Session.userRole==USER_ROLES.donor){
-			    			$state.go('treeSeed.donor', {donorId: res.data.idUser});
+			    			$state.go('treeSeed.donorDashboard');
 			    		}
 			    	}else{
 			    		
 			    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed); 
 					    $scope.error=true;
 			    	}
+  				}).error(function(status) {
+  					$scope.errorServer(status);
   				});
 		});
   	}
@@ -123,23 +123,41 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 		    		//$scope.remebermeUser = $scope.rememberMe;
 		    		$modalInstance.close();
 		    		if(Session.userRole==USER_ROLES.nonprofit){
-		    			$state.go('treeSeed.nonProfit', {nonProfitId: user.idUser});
+		    			$state.go('treeSeed.nonProfitDashboard');
 		    		}else if(Session.userRole==USER_ROLES.donor){
-		    			$state.go('treeSeed.donor', {donorId: user.idUser});
+		    			$state.go('treeSeed.donorDashboard');
 		    		}
 		    	}else{
 		    		
 		    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-				     
 				      $scope.error=true;
 		    	}
 		      
-		    });
+		    },function(status){
+		    	$scope.errorServer(status);
+		      });
+			
 		  };
 		  
 		  $scope.close=function(){
 			  $modalInstance.close();
 		  }
+		  
+	
+		  $scope.errorServer = function(status) {
+				
+				var modalInstance = $modal.open({
+					animation : $scope.animationsEnabled,
+					templateUrl :'layouts/components/feedbackModal.html',
+					controller : 'errorHandlerCtlr',
+					size : 'sm',//,
+					resolve : {
+						code : function() {
+							return status;
+						}
+					}
+				});
+			}
 })
 ;
 

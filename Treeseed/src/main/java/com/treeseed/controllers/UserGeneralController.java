@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.treeseed.contracts.BaseResponse;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
+import com.treeseed.contracts.EmailUniqueRequest;
 import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
@@ -86,57 +87,67 @@ public class UserGeneralController {
 		
 		UserGeneralResponse us = new UserGeneralResponse();
 		
-		UserGeneralWrapper userGeneral = new UserGeneralWrapper();
-
-		Date fechaActual = new Date();
+		try{
 		
-		userGeneral.setEmail(ur.getUserGeneral().getEmail());
-		
-		byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
-		  String file_string="";
-		  
-		  for(int i = 0; i < hash.length; i++)
-		     {
-		         file_string += (char)hash[i];
-		     }  
-		  
-		userGeneral.setPassword(file_string);
-		userGeneral.setDateTime(fechaActual);
-		userGeneral.setIsActive(true);
-		
-		if(user instanceof NonprofitWrapper){
-			NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
-			userGeneral.setNonprofit(userNonprofit.getWrapperObject());
-		}else{
-			DonorWrapper userDonor = (DonorWrapper)user;
-			userGeneral.setDonor(userDonor.getWrapperObject());
-			if(ur.getUserGeneral().getFacebookId() == null)
-			{
-				userGeneral.setFacebookID("");
-			}
-			else
-			{
-				userGeneral.setFacebookID(ur.getUserGeneral().getFacebookId());
+			UserGeneralWrapper userGeneral = new UserGeneralWrapper();
+	
+			Date fechaActual = new Date();
+			
+			userGeneral.setEmail(ur.getUserGeneral().getEmail());
+			
+			byte[] hash = Utils.encryption(ur.getUserGeneral().getPassword());
+			  String file_string="";
+			  
+			  for(int i = 0; i < hash.length; i++)
+			     {
+			         file_string += (char)hash[i];
+			     }  
+			  
+			userGeneral.setPassword(file_string);
+			userGeneral.setDateTime(fechaActual);
+			userGeneral.setIsActive(true);
+			
+			if(user instanceof NonprofitWrapper){
+				NonprofitWrapper userNonprofit = (NonprofitWrapper)user;
+				userGeneral.setNonprofit(userNonprofit.getWrapperObject());
+			}else{
+				DonorWrapper userDonor = (DonorWrapper)user;
+				userGeneral.setDonor(userDonor.getWrapperObject());
+				if(ur.getUserGeneral().getFacebookId() == null)
+				{
+					userGeneral.setFacebookID("");
+				}
+				else
+				{
+					userGeneral.setFacebookID(ur.getUserGeneral().getFacebookId());
+				}
+				
+				if(ur.getUserGeneral().getFacebookToken() == null)
+				{
+					userGeneral.setFacebookToken("");
+				}
+				else
+				{
+					userGeneral.setFacebookToken(ur.getUserGeneral().getFacebookToken());
+				}
 			}
 			
-			if(ur.getUserGeneral().getFacebookToken() == null)
-			{
-				userGeneral.setFacebookToken("");
+			Boolean state = userGeneralService.saveUserGeneral(userGeneral);
+			if(state){
+				us.setCode(200);
+				us.setCodeMessage("user created succesfully");
+			}else{
+				us.setCode(400);
+				us.setCodeMessage("general User does not create");
 			}
-			else
-			{
-				userGeneral.setFacebookToken(ur.getUserGeneral().getFacebookToken());
+		}catch(Exception e){
+			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+				us.setCode(10);
+				us.setErrorMessage("Data Base error");
+			}else{
+				us.setCode(500);
 			}
-		}
-		
-		Boolean state = userGeneralService.saveUserGeneral(userGeneral);
-		if(state){
-			us.setCode(200);
-			us.setCodeMessage("user created succesfully");
-		}else{
-			us.setCode(400);
-			us.setCodeMessage("general User does not create");
-		}
+		}	
 	
 		return us;
 }
@@ -149,16 +160,29 @@ public class UserGeneralController {
 	 * @return the base response
 	 */
 	@RequestMapping(value ="/isEmailUnique", method = RequestMethod.POST)
-		public BaseResponse create(@RequestBody String email){	
+		public BaseResponse create(@RequestBody EmailUniqueRequest request){	
 	
-			Boolean isEmailUnique = userGeneralService.isEmailUnique(email);
 			BaseResponse response = new BaseResponse();
-			response.setCode(200);
 			
-			if(isEmailUnique){
-				response.setCodeMessage("UNIQUE");
-			}else{
-				response.setCodeMessage("NOT-UNIQUE");
+			try{
+			
+				Boolean isEmailUnique = userGeneralService.isEmailUnique(request.getEmail());
+				
+				response.setCode(200);
+				
+				if(isEmailUnique){
+					response.setCodeMessage("UNIQUE");
+				}else{
+					response.setCodeMessage("NOT-UNIQUE");
+				}
+			
+			}catch(Exception e){
+				if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){
+					response.setCode(10);
+					response.setErrorMessage("Data Base error");
+				}else{
+					response.setCode(500);
+				}
 			}
 			return response;
 	}

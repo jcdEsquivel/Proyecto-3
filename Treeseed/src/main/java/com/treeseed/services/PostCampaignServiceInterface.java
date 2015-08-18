@@ -29,8 +29,25 @@ public interface PostCampaignServiceInterface {
 	/**
 	 * Gets the posts.
 	 *
-	 * @param postRequest the post request
+	 * @param postRequest the PostCampaignRequest
 	 * @return the posts
 	 */
 	public PageWrapper<PostCampaignWrapper> getPostsFromCampaign(PostCampaignRequest postRequest);
+
+
+	/**
+	 * Update post campaign.
+	 *
+	 * @param wrapper the wrapper
+	 * @return the post campaign wrapper
+	 */
+	public PostCampaignWrapper updatePostCampaign(PostCampaignWrapper wrapper);
+	
+	
+	/**
+	 * Delete post campaign.
+	 *
+	 * @param request the PostCampaignRequest
+	 */
+	public void deletePostCampaign(PostCampaignRequest request);
 }
