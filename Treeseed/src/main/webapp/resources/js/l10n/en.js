@@ -193,7 +193,9 @@
         "PHILANTROPIC-PORTFOLIO": "Philanthropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: ",
-        "EDIT-PORTFOLIO": "Edit Portfolio"
+        "EDIT-PORTFOLIO": "Edit Portfolio",
+        "TITLE": "Bill Donation Report",
+        "BILLREPORT": "Bill Report"
     },
     "SELECT-USER":{
     	"TITLE":"Sign up as:"
@@ -226,7 +228,8 @@
     	"DATE":"Date",
     	"AMOUNT":"Donated Amount",
     	"CAMPAIGN":"Campaign",
-    	"DONOR":"Donor"
+    	"DONOR":"Donor",
+    	"NONPROFIT":"NGO"
     },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
