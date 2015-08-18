@@ -38,6 +38,16 @@ public class GeneralController {
 		return mav;
 	}
 	
+	
+	/**
+	 * User from facebook.
+	 *
+	 * @param locale the locale
+	 * @param model the model
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 */
 	@RequestMapping(value = "/sharedDonation", method = RequestMethod.GET)
 	public String userFromFacebook(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 
