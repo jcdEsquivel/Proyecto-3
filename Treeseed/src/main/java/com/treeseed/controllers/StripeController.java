@@ -108,7 +108,7 @@ public class StripeController {
 			donation.setStripeId(charge.getId());
 			if(planIds.length>2){
 				try {
-					CampaignWrapper campaign = campaignService.getCampaignById(Integer.parseInt(planIds[2]));
+					CampaignWrapper campaign = campaignService.getCampaignById(Integer.parseInt(planIds[1]));
 					donation.setCampaingId(campaign.getId());
 					campaign.setAmountCollected(campaign.getAmountCollected() + donation.getAmount());
 					campaignService.updateCampaign(campaign);
