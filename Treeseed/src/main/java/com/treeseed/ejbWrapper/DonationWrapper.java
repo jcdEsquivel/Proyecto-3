@@ -1,17 +1,22 @@
 package com.treeseed.ejbWrapper;
 
-
 import java.util.Date;
 
-import com.treeseed.ejb.Donation;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.treeseed.ejb.Donation;
+import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonationPOJO;
+import com.treeseed.services.CampaignServiceInterface;
+import com.treeseed.services.DonationServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class DonationWrapper.
  */
 public class DonationWrapper {
-	
+
 	/** The wrapper object. */
 	private Donation wrapperObject;
 
@@ -28,7 +33,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the stripe id.
 	 *
-	 * @param stripeId the new stripe id
+	 * @param stripeId
+	 *            the new stripe id
 	 */
 	public void setStripeId(String stripeId) {
 		wrapperObject.setStripeId(stripeId);
@@ -37,13 +43,20 @@ public class DonationWrapper {
 	/**
 	 * Instantiates a new donation wrapper.
 	 *
-	 * @param donation the donation
+	 * @param donation
+	 *            the donation
 	 */
 	public DonationWrapper(Donation donation) {
 		super();
 		setWrapperObject(donation);
 	}
 	
+	public DonationWrapper(int id) {
+		super();
+		setWrapperObject(new Donation());
+		setId(id);
+	}
+
 	/**
 	 * Instantiates a new donation wrapper.
 	 */
@@ -51,7 +64,7 @@ public class DonationWrapper {
 		super();
 		setWrapperObject(new Donation());
 	}
-	
+
 	/**
 	 * Gets the donor father id.
 	 *
@@ -64,7 +77,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the donor father id.
 	 *
-	 * @param donorFatherId the new donor father id
+	 * @param donorFatherId
+	 *            the new donor father id
 	 */
 	public void setDonorFatherId(int donorFatherId) {
 		wrapperObject.setDonorFatherId(donorFatherId);
@@ -82,13 +96,16 @@ public class DonationWrapper {
 	/**
 	 * Sets the wrapper object.
 	 *
-	 * @param wrapperObject the new wrapper object
+	 * @param wrapperObject
+	 *            the new wrapper object
 	 */
 	public void setWrapperObject(Donation wrapperObject) {
 		this.wrapperObject = wrapperObject;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
@@ -107,7 +124,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(int id) {
 		wrapperObject.setId(id);
@@ -125,7 +143,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the amount.
 	 *
-	 * @param amount the new amount
+	 * @param amount
+	 *            the new amount
 	 */
 	public void setAmount(double amount) {
 		wrapperObject.setAmount(amount);
@@ -143,7 +162,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the campaing id.
 	 *
-	 * @param campaingId the new campaing id
+	 * @param campaingId
+	 *            the new campaing id
 	 */
 	public void setCampaingId(int campaingId) {
 		wrapperObject.setCampaingId(campaingId);
@@ -176,7 +196,9 @@ public class DonationWrapper {
 		return wrapperObject.getNonProfitId();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
@@ -186,7 +208,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the date time.
 	 *
-	 * @param dateTime the new date time
+	 * @param dateTime
+	 *            the new date time
 	 */
 	public void setDateTime(Date dateTime) {
 		wrapperObject.setDateTime(dateTime);
@@ -195,7 +218,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the donor id.
 	 *
-	 * @param donorId the new donor id
+	 * @param donorId
+	 *            the new donor id
 	 */
 	public void setDonorId(int donorId) {
 		wrapperObject.setDonorId(donorId);
@@ -204,7 +228,8 @@ public class DonationWrapper {
 	/**
 	 * Sets the non profit id.
 	 *
-	 * @param nonProfitId the new non profit id
+	 * @param nonProfitId
+	 *            the new non profit id
 	 */
 	public void setNonProfitId(int nonProfitId) {
 		wrapperObject.setNonProfitId(nonProfitId);
@@ -222,18 +247,24 @@ public class DonationWrapper {
 	/**
 	 * Sets the active.
 	 *
-	 * @param isActive the new active
+	 * @param isActive
+	 *            the new active
 	 */
 	public void setActive(boolean isActive) {
 		wrapperObject.setActive(isActive);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
 		return wrapperObject.toString();
 	}
 
-	
+
+
+
+
 }

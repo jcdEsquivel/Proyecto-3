@@ -461,15 +461,17 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 
 			  }).
 			  success(function (data, status, headers, config) {
-				  if(data.code=="400"){
-		    		$scope.error = true;
-		    		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
-		    		
+				 if(data.code==200){
+					  $scope.nonprofit.mainPicture =  data.nonprofit.mainPicture;
+					  $scope.nonprofit.profilePicture = data.nonprofit.profilePicture;
+					  $scope.currentUser.userImage = data.nonprofit.profilePicture;
+
+				  }else if(data.code==400){
+					  	$scope.error = true;
+				  		$scope.nonprofit.userGeneral.email = data.nonprofit.userGeneral.email;
+				  }else{
+	    			$scope.errorServer(data.code);
 				  }
-				  
-				  $scope.nonprofit.mainPicture =  data.nonprofit.mainPicture;
-				  $scope.nonprofit.profilePicture = data.nonprofit.profilePicture;
-				  $scope.currentUser.userImage = data.nonprofit.profilePicture;
 			  }).error(function(status) {
 				$scope.errorServer(status);
 			  });
@@ -520,11 +522,13 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/drag_drop.html',
-			//controller : 'getNonProfitProfileController',
 			scope: $scope,
 			resolve : {
 				setCurrentUser : function() {
 					return $scope.image;
+				},
+				errorFunction: function(){
+					return $scope.errorServer;
 				}
 			}
 
@@ -643,6 +647,34 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		}
 	}
 	
+});
+
+treeSeedAppControllers.controller('nonprofitDashboardController', function($scope,
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	
+	$scope.requestObject={};
+	$scope.showList1 = true;
+	$scope.showList2 = true;
+	$scope.donations;
+	$scope.subscriptions;
+	
+	$scope.requestObject.idUser=$scope.currentUser.idUser;
+	$scope.requestObject.id=Session.id;
+	
+	$http.post('rest/protected/nonprofit/getdashboard',
+			$scope.requestObject).success(function(mydata) {
+				$scope.donations = mydata.dashboardDonations;
+				$scope.subscriptions = mydata.dashboardSubscription;
+				if($scope.donations.length==0){
+					$scope.showList1=false;
+				}
+				if($scope.subscriptions.length==0){
+					$scope.showList2=false;
+				}
+		
+	}).error(function(mydata, status) {
+		alert(status);
+	});	
 });
 
  

@@ -8,7 +8,7 @@
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
         <!-- brand -->
-        <a ui-sref="treeSeed.index"  class="navbar-brand treeseed-a-img">
+        <a href="" ng-click="goDashboard()" class="navbar-brand treeseed-a-img">
          
          <img src="resources/images/nombre.png"   alt="."  class="treeseed-img">
           
@@ -50,7 +50,7 @@
         <!-- / link and dropdown -->
 
       	<script type="text/ng-template" id="customTemplate.html">
-  			<a  ui-sref="treeSeed.{{match.model.type}}({'{{match.model.param}}':'{{match.model.id}}'})" class="general-search-result">
+  			<a  href="#/{{match.model.type}}/{{match.model.id}}" class="general-search-result">
 				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
  				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
  				

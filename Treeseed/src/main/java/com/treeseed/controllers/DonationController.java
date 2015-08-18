@@ -293,6 +293,7 @@ public class DonationController {
 			donationPOJO.setNonprofitName(nonProfitService.getNonProfitById(objeto.getNonProfitId()).getName());
 			donationPOJO.setDateS(new SimpleDateFormat("dd MMMMM yyyy").format(objeto.getDateTime()));
 			
+			
 			donationsPOJO.add(donationPOJO);
 		};
 
@@ -365,10 +366,16 @@ public class DonationController {
 
 			viewDonationsPOJO.add(donation);
 		};
+			dr.setDonations(viewDonationsPOJO);
 		
 		
-		dr.setDonations(viewDonationsPOJO);
-		dr.setCode(200);
+			if(viewDonationsPOJO.size()>0){
+				dr.setCodeMessage("Donations reports fetch successfully");
+				dr.setCode(200);
+			}else{
+				dr.setErrorMessage("Donations reports fetch unsuccessfully");
+				dr.setCode(400);
+			}
 		
 		}catch(Exception e){
 			if(e.getMessage().contains("Could not open JPA EntityManager for transaction")){

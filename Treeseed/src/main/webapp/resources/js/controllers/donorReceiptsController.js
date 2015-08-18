@@ -44,10 +44,11 @@ treeSeedAppControllers.controller('donorReceiptsController', function($scope,
 			if (data.code == 200) {
 				$scope.receipts = data.donations;
 				$scope.totalReceipts = data.totalElements;
-			}else{
+			}else if(data.code == 400){
 				$scope.receipts = [];
+				$scope.zeroReports = true;
+			}else{
 				$scope.errorServer(data.code);
-				
 			}
 			
 		}).error(function(status) {

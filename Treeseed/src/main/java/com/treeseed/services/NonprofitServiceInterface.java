@@ -96,4 +96,19 @@ public interface NonprofitServiceInterface {
 	
 	
 	boolean isNameUnique(String name);
+	
+	/**
+	 * Donor recomendation.
+	 *
+	 * @param idDonor the id donor
+	 * @return the list
+	 */
+	List<NonprofitWrapper> donorRecomendation(int idDonor);
+	
+	/**
+	 * Donor recomendation random.
+	 *
+	 * @return the list
+	 */
+	List<NonprofitWrapper> donorRecomendationRandom();
 }

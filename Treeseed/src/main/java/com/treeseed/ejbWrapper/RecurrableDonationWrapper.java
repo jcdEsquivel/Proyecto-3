@@ -2,7 +2,11 @@ package com.treeseed.ejbWrapper;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.treeseed.ejb.RecurrableDonation;
+import com.treeseed.services.CampaignServiceInterface;
+import com.treeseed.services.DonorServiceInterface;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,10 +14,14 @@ import com.treeseed.ejb.RecurrableDonation;
  */
 public class RecurrableDonationWrapper {
 
+
 	/** The wrapper object. */
 	RecurrableDonation wrapperObject;
 
+	/** The campaign. */
+	CampaignWrapper campaign;
 	
+
 
 	/**
 	 * Instantiates a new recurrable donation wrapper.
@@ -244,6 +252,11 @@ public class RecurrableDonationWrapper {
 		wrapperObject.setDonorFatherId(donorFatherId);
 	}
 	
+	/**
+	 * Gets the plan id.
+	 *
+	 * @return the plan id
+	 */
 	public int getPlanId(){
 		switch((int)getAmount()){
 		case 10:
@@ -262,6 +275,8 @@ public class RecurrableDonationWrapper {
 		
 		return 0;
 	}
+
+
 	
 	
 }

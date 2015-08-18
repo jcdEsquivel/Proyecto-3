@@ -146,4 +146,13 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	@Query("select COALESCE(sum(amount),0) From Donation where donorId = :id") 
  	public double sumAmountByDonor(@Param("id") int id);
 	
+	/**
+	 * Gets the by non profit id.
+	 *
+	 * @param nonProfitId the non profit id
+	 * @return the by non profit id
+	 */
+	@Query("SELECT d FROM Donation d where d.nonProfitId = :nonProfitId and d.isActive = true order by d.dateTime Desc ") 
+	Page<Donation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, Pageable pageable);
+	
 }
