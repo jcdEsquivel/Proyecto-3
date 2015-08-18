@@ -60,25 +60,19 @@ treeSeedAppControllers.controller('BillReportController', function($scope,
 		$scope.reportsRequest.month = $scope.month;
 		$scope.reportsRequest.year = $scope.year;
 		
-		console.log($scope.reportsRequest);
-
 		$http.post('rest/protected/donation/getDonationDonorReport',
 				$scope.reportsRequest).success(function(data, status) {
 			if (data.code == 200) {
-				
-				console.log(data);
-				
 				$scope.reports = data.donations;
 				$scope.totalReports = data.totalElements;
 				
-			}else{
+			}else if(data.code == 400){
 				$scope.reports = [];
-				console.log('Error : '+data.errorMessage);
+				$scope.zeroReports = true;
 			}
 			
-		}).error(function(mydata, status) {
-			console.log(status);
-			console.log("No data found");
+		}).error(function(status) {
+			$scope.errorServer(status);
 		});		
 	};
 	//end getReports

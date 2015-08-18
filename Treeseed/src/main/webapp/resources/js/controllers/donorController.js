@@ -479,6 +479,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.donorEdit ={
   				email: $scope.donor.userGeneral.email
   		}
+		
 	};
 
 	$scope.emailCancelEditing = function() {
@@ -489,6 +490,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.donor.userGeneral.email = $scope.donorEdit.email;
 		$scope.editDonor();
 		$scope.emailInEdition = false;
+		
 	};
 
 	// Webpage Edit
@@ -528,7 +530,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		$scope.requestObjectEdit.idUser = Session.id;
 		$scope.requestObjectEdit.coverImage = null;
 		$scope.requestObjectEdit.profilePicture = $scope.donor.profilePicture;
-
+	
 		$http(
 				{
 					method : 'POST',

@@ -482,7 +482,7 @@ public class DonorController extends UserGeneralController{
 				
 						UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 						userGeneral.setEmail(dr.getEmail());
-						userGeneral.setId(dr.getId());
+						userGeneral.setId(ug.getId());
 						
 						UserGeneral userGeneralobject = new UserGeneral();
 						UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
