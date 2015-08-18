@@ -781,3 +781,9 @@ border-radius: 15px;
  -webkit-text-stroke-width: 2px;
    -webkit-text-stroke-color: white;
 }
+
+.divDashboardRecom{
+	display: flex;
+    flex-flow: row wrap;
+    align-content:space-around; 
+}

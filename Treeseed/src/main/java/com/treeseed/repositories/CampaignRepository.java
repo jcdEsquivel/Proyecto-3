@@ -192,6 +192,6 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 	 * @return the list
 	 */
 	@Transactional
-	@Query("select DISTINCT c from Campaign c where c.isActive = true order by rand()") 
+	@Query("select DISTINCT c from Campaign c where c.isActive = true and (c.dueDate is null or c.dueDate > now()) order by rand()") 
 	  public Page<Campaign> findTop10DonorRecomendationsRandom(Pageable pageable);
 }

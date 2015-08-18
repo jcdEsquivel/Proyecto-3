@@ -20,8 +20,6 @@
 		<div class="col-md-5 md-whiteframe-treeseed">
 			<span class="h3" translate="DASHBOARD2.TITLE1">Ultimas 10 donaciones</span>
 <hr>
-				<br>
-				
 				<div set-ng-animate="false">
 					<carousel interval="myInterval" style="width: 408px; height: 408px; "> 
 						<slide href=""	ng-repeat="nonprofit in nonprofits" active="slide.active"> 
@@ -51,10 +49,10 @@
 			<span class="h3" translate="DASHBOARD2.TITLE2">Ultimas 10 Subscripciones</span>
 			
 			<hr>
-			<div set-ng-animate="false">
-					<carousel interval="myInterval" style="width: 408px; height: 230px; "> 
+			<div set-ng-animate="false" class="divDashboardRecom">
+					<carousel interval="myInterval" style="width: 425px; height: 239px; "> 
 						<slide href=""	ng-repeat="campaign in campaigns" active="slide.active"> 
-							<img ng-src="{{campaign.picture}}" style="width: 408px; height: 230px; ">
+							<img ng-src="{{campaign.picture}}" style="width: 450px; height: 253px; ">
 							<div class="carousel-caption">
 								<a href="" ng-click="goCampaign(campaign.id)">
 									<h4 style="color: #2382c8; font-size: 20px">{{campaign.name}}</h4>
