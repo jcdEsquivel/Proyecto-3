@@ -1115,11 +1115,12 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 						$scope.showNonprofit=false;
 					}
 					
-				}else{
-					$scope.errorServer(status);
 				}else if(mydata.code == 400){
 					$scope.errorServer(mydata.code);
+				}else{
+					$scope.errorServer(status);
 				}
+				
 		
 	}).error(function(status) {
 		$scope.errorServer(status);
