@@ -26,7 +26,7 @@ import com.treeseed.testBase.AbstractTestController;
 /**
  * The Class TestArbolInfluencia.
  */
-public class TestNonprofitDashboard extends AbstractTestController  {
+public class TestDonorDashboard extends AbstractTestController  {
 
 	/**
 	 * Sets the up.
@@ -49,24 +49,24 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 	
 
 	/**
-	 * Test get dashboard succes sful.
+	 * Test get donor dashboard succes sful.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testGetDashboardSuccesSful() throws Exception {
+	public void testGetDonorDashboardSuccesSful() throws Exception {
 
-		NonprofitWrapper nonprofit = createRandomNonprofit();
+		DonorWrapper donor = createRandomDonor();
 		
 		
-		NonprofitRequest request = new NonprofitRequest();
+		DonorRequest request = new DonorRequest();
 		
 		request.setId(99999);	
-		request.setIdUser(nonprofit.getId());
+		request.setIdUser(donor.getId());
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/nonprofit/getdashboard";
+		String uri = "/rest/protected/donor/getdashboard";
 
 		MvcResult result = mvc
 				.perform(
@@ -78,8 +78,8 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 
 		String content = result.getResponse().getContentAsString();
 
-		NonprofitResponse response = mapFromJson(content,
-				NonprofitResponse.class);
+		DonorResponse response = mapFromJson(content,
+				DonorResponse.class);
 
 		Assert.assertEquals("200", response.getCode().toString());
 
@@ -87,23 +87,21 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 	}
 	
 	/**
-	 * Test get dashboard without nonprofit.
+	 * Test get donor dashboard without nonprofit.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testGetDashboardWithoutNonprofit() throws Exception {
-
-		NonprofitWrapper nonprofit = createRandomNonprofit();
+	public void testGetDonorDashboardWithoutNonprofit() throws Exception {
 		
 		
-		NonprofitRequest request = new NonprofitRequest();
+		DonorRequest request = new DonorRequest();
 		
 		request.setId(99999);	
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/nonprofit/getdashboard";
+		String uri = "/rest/protected/donor/getdashboard";
 
 		MvcResult result = mvc
 				.perform(
@@ -115,8 +113,8 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 
 		String content = result.getResponse().getContentAsString();
 
-		NonprofitResponse response = mapFromJson(content,
-				NonprofitResponse.class);
+		DonorResponse response = mapFromJson(content,
+				DonorResponse.class);
 
 		Assert.assertEquals("400", response.getCode().toString());
 
@@ -124,24 +122,24 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 	}
 	
 	/**
-	 * Test get dashboard without session.
+	 * Test get donor dashboard without session.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testGetDashboardWithoutSession() throws Exception {
+	public void testGetDonorDashboardWithoutSession() throws Exception {
 
-		NonprofitWrapper nonprofit = createRandomNonprofit();
+		DonorWrapper donor = createRandomDonor();
 		
 		
-		NonprofitRequest request = new NonprofitRequest();
+		DonorRequest request = new DonorRequest();
 		
 		request.setId(0);	
-		request.setIdUser(nonprofit.getId());
+		request.setIdUser(donor.getId());
 		
 		String jsonObject = mapToJson(request);
 
-		String uri = "/rest/protected/nonprofit/getdashboard";
+		String uri = "/rest/protected/donor/getdashboard";
 
 		MvcResult result = mvc
 				.perform(
@@ -153,8 +151,8 @@ public class TestNonprofitDashboard extends AbstractTestController  {
 
 		String content = result.getResponse().getContentAsString();
 
-		NonprofitResponse response = mapFromJson(content,
-				NonprofitResponse.class);
+		DonorResponse response = mapFromJson(content,
+				DonorResponse.class);
 
 		Assert.assertEquals("400", response.getCode().toString());
 

@@ -156,6 +156,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	 * @return the by non profit id
 	 */
 	@Query("SELECT d FROM Donation d where d.nonProfitId = :nonProfitId and d.isActive = true order by d.dateTime Desc ") 
-	List<Donation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId);
+	Page<Donation> findTop10getByNonProfitIdDashboard(@Param("nonProfitId") int nonProfitId, Pageable pageable);
 	
 }

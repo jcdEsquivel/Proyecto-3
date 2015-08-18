@@ -50,6 +50,12 @@ public class DonationWrapper {
 		super();
 		setWrapperObject(donation);
 	}
+	
+	public DonationWrapper(int id) {
+		super();
+		setWrapperObject(new Donation());
+		setId(id);
+	}
 
 	/**
 	 * Instantiates a new donation wrapper.

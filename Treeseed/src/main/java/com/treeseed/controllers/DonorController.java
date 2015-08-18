@@ -1,5 +1,6 @@
 package com.treeseed.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,16 +32,24 @@ import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.CampaignPOJO;
+import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.DonorTreePOJO;
 import com.treeseed.pojo.NonprofitPOJO;
+import com.treeseed.pojo.RecurrableDonationPOJO;
 import com.treeseed.pojo.UserGeneralPOJO;
+import com.treeseed.services.CampaignServiceInterface;
 import com.treeseed.services.CatalogServiceInterface;
 import com.treeseed.services.DonorServiceInterface;
+import com.treeseed.services.NonprofitServiceInterface;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.ejbWrapper.DonorWrapper;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
 import com.treeseed.ejbWrapper.NonprofitWrapper;
+import com.treeseed.ejbWrapper.RecurrableDonationWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 
 // TODO: Auto-generated Javadoc
@@ -54,6 +63,14 @@ public class DonorController extends UserGeneralController{
 	/** The donor service. */
 	@Autowired
 	DonorServiceInterface donorService;
+	
+	/** The nonprofit service. */
+	@Autowired
+	NonprofitServiceInterface nonprofitService;
+	
+	/** The campaign service. */
+	@Autowired
+	CampaignServiceInterface campaignService;
 	
 	/** The catalog service. */
 	@Autowired
@@ -490,6 +507,103 @@ public class DonorController extends UserGeneralController{
 		}
 	
 		return us;		
+	}
+	
+	/**
+	 * Gets the dashboard.
+	 *
+	 * @param donorRequest the donor request
+	 * @return the dashboard
+	 */
+	@RequestMapping(value = "/getdashboard", method = RequestMethod.POST)
+	public DonorResponse getDashboard(@RequestBody DonorRequest donorRequest) {
+
+		DonorResponse us = new DonorResponse();
+		HttpSession currentSession = request.getSession();
+		List<NonprofitPOJO> nonprofitPojos = new ArrayList<NonprofitPOJO>();
+		List<CampaignPOJO> campaignPojos=new ArrayList<CampaignPOJO>();
+		List<NonprofitWrapper> nonprofits;
+		List<CampaignWrapper> campaigns;
+		List<NonprofitWrapper> nonprofitsRandom;
+		List<CampaignWrapper> campaignsRandom;
+		int nonSize = 0;
+		int campSize = 0;
+		int nonRan = 0;
+		int campRan = 0;
+		
+		if (donorRequest.getIdUser() > 0) {
+			if(donorRequest.getId() == (int) currentSession.getAttribute("idUser")){
+				nonprofits = nonprofitService.donorRecomendation(donorRequest.getIdUser());
+				campaigns = campaignService.donorRecomendation(donorRequest.getIdUser());
+				
+				nonSize = nonprofits.size();
+				if(nonSize<10){
+					nonRan = 10-nonSize;					
+					nonprofitsRandom = nonprofitService.donorRecomendationRandom();
+					
+					for(int i=0;i<nonRan;i++){
+						nonprofits.add(nonprofitsRandom.get(i));
+					}
+				}
+				
+				campSize = campaigns.size();
+				if(campSize<10){
+					campRan = 10 - campSize;
+					campaignsRandom = campaignService.donorRecomendationRandom();
+					
+					for(int y=0;y<campRan;y++){
+						campaigns.add(campaignsRandom.get(y));
+					}
+				}
+				
+								
+				for(NonprofitWrapper nonprofit: nonprofits){
+					NonprofitPOJO nonprofitPojo = new NonprofitPOJO();
+					nonprofitPojo.setId(nonprofit.getId());
+					nonprofitPojo.setName(nonprofit.getName());
+					nonprofitPojo.setCauseNameEnglish(nonprofit.getCause().getEnglish());
+					nonprofitPojo.setCauseNameSpanish(nonprofit.getCause().getSpanish());
+					nonprofitPojo.setProfilePicture(nonprofit.getProfilePicture());
+					nonprofitPojos.add(nonprofitPojo);
+				}
+				
+				for(CampaignWrapper campaign: campaigns){
+					CampaignPOJO campaignPojo = new CampaignPOJO();
+					
+					campaignPojo.setId(campaign.getId());
+					campaignPojo.setName(campaign.getName());
+					campaignPojo.setDescription(campaign.getDescription());
+					campaignPojo.setPicture(campaign.getPicture());
+					campaignPojo.setAmountCollected(campaign.getAmountCollected());
+					campaignPojo.setAmountGoal(campaign.getAmountGoal());
+					campaignPojo.setPercent((int) Math.round((campaign.getAmountCollected() / campaign.getAmountGoal()) * 100));
+					campaignPojo.setStartDate(campaign.getStartDate());
+					campaignPojo.setStartDateS(campaign.getStartDateS());
+					campaignPojo.setDueDate(campaign.getDueDate());
+					campaignPojo.setDueDateS(campaign.getDueDateS());
+					campaignPojo.setState(campaign.getState());
+					campaignPojo.setStart(campaign.isStart());
+					campaignPojo.setEnd(campaign.isEnd());
+					campaignPojos.add(campaignPojo);
+				}
+				
+				us.setDashboardNonprofits(nonprofitPojos);
+				us.setDashboardCampaigns(campaignPojos);
+				
+				us.setCode(200);
+				us.setErrorMessage("Success");
+			}else{
+				us.setCode(400);
+				us.setErrorMessage("User session do not match");
+			}
+		}else{
+			us.setCode(400);
+			us.setErrorMessage("Donor do not receive");
+		}
+		
+
+		
+		return us;
 	}
 	
 }

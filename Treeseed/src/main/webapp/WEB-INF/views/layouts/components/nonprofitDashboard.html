@@ -43,9 +43,14 @@
 				</div>
 			</div>
 			<hr>
+			<div ng-hide="showList1" style="text-align: center; width: 100%">
+				<span  translate="DASHBOARD1.MESSAGE1"></span>
+			</div>
+			
 			<div ng-repeat="donation in donations">
 				<br>
 				<div class="row">
+				
 					<div class="col-md-1">
 						<div class="md-list-item-left">
 							<img src="{{donation.donor.profilePicture}}"
@@ -53,7 +58,7 @@
 						</div>
 					</div>
 					<div class="col-md-11">
-						<div class="row">
+					
 							<div class="col-md-3">
 								<h3 class="text-md">{{donation.donor.name}}</h3>
 							</div>
@@ -67,7 +72,6 @@
 								<h3 class="text-md">{{donation.dateS}}</h3>
 							</div>
 
-						</div>
 
 
 					</div>
@@ -103,6 +107,10 @@
 				</div>
 			</div>
 			<hr>
+			<div ng-hide="showList2" style="text-align: center; width: 100%">
+				<span   translate="DASHBOARD1.MESSAGE2" ></span>
+			</div>
+			
 			<div ng-repeat="subscription in subscriptions">
 				<br>
 				<div class="row">
@@ -113,7 +121,7 @@
 						</div>
 					</div>
 					<div class="col-md-11">
-						<div class="row">
+					
 							<div class="col-md-3">
 								<h3 class="text-md">{{subscription.donor.name}}</h3>
 							</div>
@@ -127,7 +135,6 @@
 								<h3 class="text-md">{{subscription.dateS}}</h3>
 							</div>
 
-						</div>
 
 
 					</div>

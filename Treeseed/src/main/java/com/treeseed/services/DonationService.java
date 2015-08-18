@@ -190,8 +190,8 @@ public class DonationService implements DonationServiceInterface{
 	 */
 	@Override
 	public List<DonationWrapper> getDonationsByNonprofit(int nonProfitId) {
-		
-		List<Donation> donations =donationRepository.findTop10getByNonProfitIdDashboard(nonProfitId);
+		PageRequest pr=new PageRequest(0,10);
+		List<Donation> donations =donationRepository.findTop10getByNonProfitIdDashboard(nonProfitId,pr).getContent();
 		List<DonationWrapper> donationsWrapper = new ArrayList<DonationWrapper>();
 		
 		for(Donation donation:donations){

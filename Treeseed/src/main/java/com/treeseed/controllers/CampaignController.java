@@ -59,6 +59,7 @@ public class CampaignController {
 	@Autowired
 	CampaignServiceInterface campaignService;
 	
+	/** The donation service. */
 	@Autowired
 	DonationServiceInterface donationService;
 	
@@ -125,26 +126,19 @@ public class CampaignController {
 	/**
 	 * Campaing create.
 	 *
-	 * @param name
-	 *            the name
-	 * @param description
-	 *            the description
-	 * @param date1
-	 *            the date1
-	 * @param date2
-	 *            the date2
-	 * @param amount
-	 *            the amount
-	 * @param idNonprofit
-	 *            the id nonprofit
-	 * @param file
-	 *            the file
+	 * @param name            the name
+	 * @param description            the description
+	 * @param date1            the date1
+	 * @param date2            the date2
+	 * @param amount            the amount
+	 * @param idNonprofit            the id nonprofit
+	 * @param file            the file
 	 * @return the campaign response
-	 * @throws APIException
-	 * @throws CardException
-	 * @throws APIConnectionException
-	 * @throws InvalidRequestException
-	 * @throws AuthenticationException
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional(rollbackFor = { AuthenticationException.class, InvalidRequestException.class,
@@ -302,6 +296,21 @@ public class CampaignController {
 
 
 
+	/**
+	 * Creates the campaign plans.
+	 *
+	 * @param idNonprofit the id nonprofit
+	 * @param idCampaign the id campaign
+	 * @param nameNonprofit the name nonprofit
+	 * @param nameCampaign the name campaign
+	 * @param amounts the amounts
+	 * @return the boolean
+	 * @throws AuthenticationException the authentication exception
+	 * @throws InvalidRequestException the invalid request exception
+	 * @throws APIConnectionException the API connection exception
+	 * @throws CardException the card exception
+	 * @throws APIException the API exception
+	 */
 	private Boolean createCampaignPlans(int idNonprofit, int idCampaign, String nameNonprofit, String nameCampaign, int[] amounts)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException,
 			APIException {
