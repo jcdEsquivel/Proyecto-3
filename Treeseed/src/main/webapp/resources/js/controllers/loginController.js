@@ -130,11 +130,10 @@ treeSeedAppLoginControllers.controller('loginController', function($cookies, $ht
 		    	}else{
 		    		
 		    		$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-				     
 				      $scope.error=true;
 		    	}
 		      
-		    }, function(status){
+		    },function(status){
 		    	$scope.errorServer(status);
 		      });
 			

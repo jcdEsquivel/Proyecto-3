@@ -259,7 +259,6 @@ treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $
         break;
     case 500:
 		$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
-		$state.go("treeSeed.index");
 		break;
     case 520:
     	$scope.text = "FEEDBACK-MODAL.ERROR-520-TEXT";
@@ -269,8 +268,7 @@ treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $
         break;
     default:
     	$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
-	    $state.go("treeSeed.index");
-		
+	   
 	}
 	
 	$scope.close = function(){
