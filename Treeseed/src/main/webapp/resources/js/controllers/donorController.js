@@ -1117,6 +1117,8 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 					
 				}else{
 					$scope.errorServer(status);
+				}else if(mydata.code == 400){
+					$scope.errorServer(mydata.code);
 				}
 		
 	}).error(function(status) {

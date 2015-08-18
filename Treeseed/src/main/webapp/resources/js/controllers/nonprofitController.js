@@ -580,7 +580,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 			controller = 'donorDonationController'
 		}
 		
-		
+console.log( $scope.getFatherId());
 		
 			/*var modalInstance = $modal.open({
 				animation : $scope.animationsEnabled,
@@ -675,7 +675,7 @@ treeSeedAppControllers.controller('nonprofitDashboardController', function($scop
 					if($scope.subscriptions.length==0){
 						$scope.showList2=false;
 					}
-				}else{
+				}else if(mydata.code==400){
 					$scope.errorServer(status);
 				}
 		
