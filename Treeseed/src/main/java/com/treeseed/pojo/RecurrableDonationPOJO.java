@@ -43,6 +43,12 @@ public class RecurrableDonationPOJO {
 	/** The changed. */
 	private Boolean changed;
 	
+	/** The date s. */
+	private String dateS;
+	
+	/** The donor. */
+	private DonorPOJO donor;
+	
 	/**
 	 * Gets the nonprofit name.
 	 *
@@ -257,6 +263,42 @@ public class RecurrableDonationPOJO {
 	 */
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	/**
+	 * Gets the date s.
+	 *
+	 * @return the date s
+	 */
+	public String getDateS() {
+		return dateS;
+	}
+
+	/**
+	 * Sets the date s.
+	 *
+	 * @param dateS the new date s
+	 */
+	public void setDateS(String dateS) {
+		this.dateS = dateS;
+	}
+
+	/**
+	 * Gets the donor.
+	 *
+	 * @return the donor
+	 */
+	public DonorPOJO getDonor() {
+		return donor;
+	}
+
+	/**
+	 * Sets the donor.
+	 *
+	 * @param donor the new donor
+	 */
+	public void setDonor(DonorPOJO donor) {
+		this.donor = donor;
 	}
 	
 	

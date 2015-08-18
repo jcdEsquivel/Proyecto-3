@@ -106,7 +106,8 @@
     	"RANGEDATE" : "Range Date",
     	"ITEMS-PER-PAGE": "Items per page",
     	"CAMPAIGN-STATE": "State",
-    	"CAMPAIGN-NAME": "Campaign Name"
+    	"CAMPAIGN-NAME": "Campaign Name",
+    	"RESULTS-COUNT": "Number of results"
     	
     },
     "GENERAL-SETTINGS":{
@@ -145,7 +146,9 @@
     	"LINKEDIN": "Login with Linkedin",
     	"DO-YOU": "Do not have an account?",
 		"CREATE": "Create an account",
-		"EMAIL-ERROR": "Wrong email or password."	
+		"EMAIL-ERROR": "Wrong email or password.",
+		"SHAREPROFILEFACEBOOK": "Share profile facebook",
+		"SHAREFACEBOOK": "Share with facebook"
        },
 
    	"NONPROFIT-PROFILE": {
@@ -190,9 +193,7 @@
         "PHILANTROPIC-PORTFOLIO": "Philanthropic Portfolio",
         "TOTAL-DONATIONS": "Total donations: ",
         "MONEY-BROUGHT": "Money brought: ",
-        "EDIT-PORTFOLIO": "Edit Portfolio",
-		"TITLE": "Bill Report",
-        "BILLREPORT": "Bill Report"
+        "EDIT-PORTFOLIO": "Edit Portfolio"
     },
     "SELECT-USER":{
     	"TITLE":"Sign up as:"
@@ -225,8 +226,7 @@
     	"DATE":"Date",
     	"AMOUNT":"Donated Amount",
     	"CAMPAIGN":"Campaign",
-    	"DONOR":"Donor",
-    	"NONPROFIT":"NonProfit"
+    	"DONOR":"Donor"
     },
       "CREATE-CAMPAIGN": {
     	"BAR": "Creation progress:",
@@ -344,7 +344,7 @@
     	"LOADING-CARDS": "Loading Cards",
     	"DONATE": "Donate",
     	"SUCCESS-1":"Treeseed.org and ",
-    	"SUCCESS-2": " are thank full \for your donation! ",
+    	"SUCCESS-2": " are thankful for your donation! ",
     	"SUCCESS-DONATION-TYPE-CUSTOM": "Custom Donation" ,
     	"SUCCESS-DONATION-TYPE-PLAN": "Donation by suscription",
     	"SUCCESS-MONTH": "/month",
@@ -371,6 +371,36 @@
     "TREE":{
     	"MESSAGE":"You helped raise:",
     	"COMPLETE-MESSAGE": "Please complete your profile bringing at least three user to us!",
-    	"SHARE-MESSAGE": "You can bring more people to Treeseed by sharing nonprofits, campaigns, donations..."
+    	"SHARE-MESSAGE": "You can bring more people to Treeseed by sharing nonprofits, campaigns, donations...",
+    	"PLAN-MESSAGE": "Monthly "
+    },
+    "REGISTER-SELECT-NONPROFIT":{
+    	"TITLE": "What can i do as a Nonprofit",
+    	"ADVANTAGE1": "Create donation campaigns, in this way, they can receive money in an easy way, and without having to expend a lot of money.",
+    	"ADVANTAGE2": "Create transparecy reports, so this way donors can check where do the non-profit expenses go",
+    	"ADVANTAGE3": "Si fijo, manana mae"
+    },
+    "REGISTER-SELECT-DONOR":{
+    	"TITLE": "What can i do as a Donor",
+    	"ADVANTAGE1": "Centralize location where user can look for all of the nonprofits of his preference and get to know how are they contributing to the world",
+    	"ADVANTAGE2": "Create donations in an easy and secure way.",
+    	"ADVANTAGE3": "Share his donations on social networks and invites his friends to do the same thing."
+    },
+    "DASHBOARD1":{
+    	"WELCOME-MESSAGE":"Welcome!",
+    	"TITLE1":"Recent donations",
+    	"TITLE2":"Recent subscriptions",
+    	"HEADER1":"Donor",
+    	"HEADER2":"Amount",
+    	"HEADER3":"Campaign",
+    	"HEADER4":"Date",
+    	"MESSAGE1": "It's seems like you haven't receive any donation yet...",
+    	"MESSAGE2": "It's seems like you don't have any subscriber yet..."
+    },
+    "DASHBOARD2":{
+    	"WELCOME-MESSAGE":"Welcome!",
+    	"TITLE1":"Recomended Nonprofits",
+    	"TITLE2":"Recomended Campaigns"
     }
+				
 }

@@ -17,24 +17,42 @@ import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.testBase.AbstractTestController;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCrearCampannaONG.
+ */
 public class TestCrearCampannaONG extends AbstractTestController{
 	
+	/** The user general service. */
 	@Autowired UserGeneralServiceInterface userGeneralService;
 	 
 	 
 	 
-	  protected void setUp(NonprofitController controller) {
+	  /**
+  	 * Sets the up.
+  	 *
+  	 * @param controller the new up
+  	 */
+  	protected void setUp(NonprofitController controller) {
 	         mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	     }
 	 
-	   @Before
+	   /* (non-Javadoc)
+   	 * @see com.treeseed.testBase.AbstractTestController#setUp()
+   	 */
+   	@Before
 	     public void setUp() {
 	         super.setUp();
 	         
 	     }
 	   
 	   
-	    @Test
+	    /**
+    	 * Test create campaign successfully.
+    	 *
+    	 * @throws Exception the exception
+    	 */
+    	@Test
 	     public void testCreateCampaignSuccessfully() throws Exception {
 
 	      NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -73,7 +91,12 @@ public class TestCrearCampannaONG extends AbstractTestController{
 
 	     }
 	     
-	     @Test
+	     /**
+     	 * Test create campaign without image.
+     	 *
+     	 * @throws Exception the exception
+     	 */
+     	@Test
 	     public void testCreateCampaignWithoutImage() throws Exception {
 
 	      NonprofitWrapper nonprofit = createRandomNonprofit();
@@ -108,7 +131,12 @@ public class TestCrearCampannaONG extends AbstractTestController{
 
 	     }
 	     
-	     @Test
+	     /**
+     	 * Test create campaign without nonprofit.
+     	 *
+     	 * @throws Exception the exception
+     	 */
+     	@Test
 	     public void testCreateCampaignWithoutNonprofit() throws Exception {
 	     
 	     

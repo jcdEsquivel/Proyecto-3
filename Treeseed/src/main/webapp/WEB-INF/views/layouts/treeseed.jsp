@@ -21,7 +21,7 @@
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/appLogin.js"></script>
-<script	src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
+<script src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
 <script src="resources/js/services/d3Services.js"></script>
@@ -36,14 +36,16 @@
 <script src="resources/js/controllers/nonprofitController.js"></script>
 <script src="resources/js/controllers/donorController.js"></script>
 <script src="resources/js/controllers/postController.js"></script>
+<script src="resources/js/controllers/loadingController.js"></script>
 <script src="resources/js/controllers/postCampaignController.js"></script>
 <script src="resources/js/controllers/transparencyReportController.js"></script>
-<script src="resources/js/config.js"></script>
 <script src="resources/js/controllers/donorReceiptsController.js"></script>
 <script src="resources/js/controllers/donationReportController.js"></script>
+<script src="resources/js/controllers/facebookController.js"></script>
+<script src="resources/js/config.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
-
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 <!-- <base href="/treeseed.org" /> -->
 
 

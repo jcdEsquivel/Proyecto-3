@@ -1,4 +1,4 @@
-<div class="wrapper-md" >
+<div class="wrapper-md">
 	<!-- stats -->
 	<div class="row">
         <div class="col-md-12">
@@ -17,10 +17,7 @@
         		 </div>
  				<div class="row">
  					<div class="col-md-12">
- 					
- 						
- 					
- 					
+
  						<b translate="GENERAL-PROFILE.WEBPAGE"></b>
  						<b ng-hide="webPageInEdition">{{donor.webPage}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
  						<div ng-show="webPageInEdition">
@@ -54,6 +51,16 @@
  						<br>
  						<b translate="DONOR-PROFILE.MONEY-BROUGHT"></b> 1000
  						<br>
+ 						<br>
+ 						<div ng-controller="facebookController">
+	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.SHAREPROFILEFACEBOOK" ng-click="postInFacebook(1)" ></label></a>		
+						<br>
+							<md-input-container flex>	
+          						<input type="text" ng-model="shareLink" class="form-control">   
+        					</md-input-container>							
+	        			</div>
  					</div>
  				</div>
 	 		</div>
@@ -106,7 +113,7 @@
 						</div>
 
 			          	  <h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
-			          	  <div  data-ng-include=" 'layouts/components/donorPortfolio.html' " ></div>
+			          	  <div  data-ng-include=" portfolioURL " ></div>
 				        </li>
 				      </ul>
 				    </tab>

@@ -31,7 +31,6 @@ angular
 		.config(
 				function($stateProvider, $urlRouterProvider, $locationProvider,JQ_CONFIG,
 						MODULE_CONFIG, USER_ROLES) {
-
 					
 					$urlRouterProvider.otherwise('index');
 					$stateProvider
@@ -79,6 +78,35 @@ angular
 												}
 											})
 									.state(
+											'treeSeed.sharedDonation',
+											{
+												url : 'sharedDonation/:donorId',
+												templateUrl : 'layouts/pages/loading.html',
+												controller: "loadingController",
+												params: {donorId: null},
+												data : {
+													authorizedRoles : [
+															USER_ROLES.donor,
+															USER_ROLES.guest,
+															USER_ROLES.nonprofit ]
+												
+												}
+											})
+									.state(
+											'treeSeed.donorDashboard',
+											{
+												url : 'dashboard2',
+												templateUrl : 'layouts/components/donorDashboard.html',
+												controller: "donorDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
+													USER_ROLES.donor ]
+
+												}
+											})
+									.state(
 											'treeSeed.nonProfit',
 											{
 												url : 'nonProfit/:nonProfitId',
@@ -91,6 +119,20 @@ angular
 													authorizedRoles : [
 													USER_ROLES.donor,
 													USER_ROLES.guest,
+													USER_ROLES.nonprofit ]
+
+												}
+											})
+									.state(
+											'treeSeed.nonProfitDashboard',
+											{
+												url : 'dashboard1',
+												templateUrl : 'layouts/components/nonprofitDashboard.html',
+												controller: "nonprofitDashboardController",
+												resolve : load([
+																'angularUtils.directives.dirPagination']),
+												 data : {
+													authorizedRoles : [
 													USER_ROLES.nonprofit ]
 
 												}
@@ -305,12 +347,7 @@ angular
 													USER_ROLES.nonprofit 
 													]
 												}
-											 });
-									
-
-//$locationProvider.html5Mode(true);
-							
-							
+											 });							
 
 					function load(srcs, callback) {
 						return {

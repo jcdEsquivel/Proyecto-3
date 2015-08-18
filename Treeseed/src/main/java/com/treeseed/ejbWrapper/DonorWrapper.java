@@ -2,6 +2,7 @@ package com.treeseed.ejbWrapper;
 
 import java.util.List;
 
+
 import com.treeseed.ejb.Card;
 import com.treeseed.ejb.Catalog;
 import com.treeseed.ejb.Donor;
@@ -10,6 +11,7 @@ import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.NotificationDonor;
 import com.treeseed.ejb.RecurrableDonation;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.DonorPOJO;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -21,8 +23,6 @@ public class DonorWrapper extends ParentUserWrapper{
 	/** The wrapper object. */
 	private Donor wrapperObject;
 	
-
-
 
 
 	/** The complete name. */
@@ -513,6 +513,29 @@ public class DonorWrapper extends ParentUserWrapper{
 	public void setSubscriptionCard(Card subscriptionCard) {
 		wrapperObject.setSubscriptionCard(subscriptionCard);
 	}
+	
+	/**
+	 * Gets the donor pojo.
+	 *
+	 * @return the donor pojo
+	 */
+	public DonorPOJO getDonorPojo() {
+		DonorPOJO donorPojo = new DonorPOJO();
+		
+		donorPojo.setName(getName());
+		donorPojo.setLastName(getLastName());
+		donorPojo.setProfilePicture(getProfilePicture());
+		if(getCountry()!=null){
+			donorPojo.setCountryS(getCountry().getName());
+		}
+		if(getType()!=null){
+			donorPojo.setTypeSSpanish(getType().getSpanish());
+			donorPojo.setTypeSEnglish(getType().getEnglish());
+		}
+
+		return donorPojo;
+	}
+
 }
 
 

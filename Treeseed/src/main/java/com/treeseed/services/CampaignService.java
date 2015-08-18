@@ -1,7 +1,9 @@
 package com.treeseed.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,8 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.ejb.Campaign;
+import com.treeseed.ejb.Donation;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.DonationWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.repositories.CampaignRepository;
 import com.treeseed.utils.PageWrapper;
@@ -240,5 +245,42 @@ public class CampaignService implements CampaignServiceInterface{
 	@Override
 	public void closeCampaign(int id){
 		campaignRepository.updateIsActiveById(id, false);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#donorRecomendation(int)
+	 */
+	@Override
+	public List<CampaignWrapper> donorRecomendation(int idDonor) {
+		PageRequest pr=new PageRequest(0,10);
+		List<Campaign> campaings = campaignRepository.findTop10DonorRecomendations(idDonor,pr).getContent();
+		List<CampaignWrapper> campaignsWrapper = new ArrayList<CampaignWrapper>();
+		
+		
+		for(Campaign campaign:campaings){
+			CampaignWrapper campaignWrapper = new CampaignWrapper(campaign);
+			campaignsWrapper.add(campaignWrapper);
+		}
+		
+		return  campaignsWrapper;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.CampaignServiceInterface#donorRecomendationRandom()
+	 */
+	@Override
+	public List<CampaignWrapper> donorRecomendationRandom() {
+		PageRequest pr=new PageRequest(0,10);
+		List<Campaign> campaings = campaignRepository.findTop10DonorRecomendationsRandom(pr).getContent();
+		List<CampaignWrapper> campaignsWrapper = new ArrayList<CampaignWrapper>();
+		
+		
+		for(Campaign campaign:campaings){
+			CampaignWrapper campaignWrapper = new CampaignWrapper(campaign);
+			campaignsWrapper.add(campaignWrapper);
+		}
+		
+		return  campaignsWrapper;
 	}
 }

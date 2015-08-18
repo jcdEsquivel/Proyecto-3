@@ -1,6 +1,7 @@
 package com.treeseed.repositories;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.data.repository.query.Param;
 import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejbWrapper.CampaignWrapper;
+import com.treeseed.ejbWrapper.NonprofitWrapper;
 import com.treeseed.pojo.CampaignPOJO;
 
 // TODO: Auto-generated Javadoc
@@ -171,4 +173,25 @@ public interface CampaignRepository extends CrudRepository<Campaign, Integer> {
 			@Param("amountCollected") double amountCollected,
 			@Param("amountGoal") double amountGoal,
 			@Param("picture") String picture);
+	
+	/**
+	 * Find top10 donor recomendations.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
+	@Transactional
+	@Query("select DISTINCT c from Campaign c inner join c.nonprofit n  where c.id not in (select distinct d.campaingId from Donation d where d.donorId = :id  and d.campaingId <> 0 or  d.campaingId <> null) and n.id in (select distinct d.nonProfitId from Donation d where d.donorId =:id) and c.isActive = true order by rand()") 
+	  public Page<Campaign> findTop10DonorRecomendations(
+			   @Param("id") int id, Pageable pageable);
+	
+	/**
+	 * Find top10 donor recomendations random.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
+	@Transactional
+	@Query("select DISTINCT c from Campaign c where c.isActive = true and (c.dueDate is null or c.dueDate > now()) order by rand()") 
+	  public Page<Campaign> findTop10DonorRecomendationsRandom(Pageable pageable);
 }

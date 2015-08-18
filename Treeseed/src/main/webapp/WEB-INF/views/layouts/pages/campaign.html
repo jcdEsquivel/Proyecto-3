@@ -62,6 +62,13 @@
                <div class="col-md-12" ng-hide="aboutInEdition">
                   {{campaign.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="editable" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button>
                </div>
+               <br>
+               <br>
+               <div ng-controller="facebookController">
+	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebook(3)" ></label></a>						
+	        </div>
             </div>
             <div class="row">
                <div ng-show="aboutInEdition">
@@ -79,11 +86,10 @@
          </div>
          <div class="col wrapper-lg w-lg bg-light dk r-r">
          	<div class="row m-b-md">
-         		<div class="col-sm-2"></div>
-         		<div class="col-sm-10">
-	         	<md-button class="btn  btn-warning btn-addon" ng-if="showDonationButton" ng-click="showDonation()">
+         		<div class="col-sm-12">
+	         	<md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" ng-click="showDonation()" style="width:100%;">
 	        		 <i class="fa fa-dollar"></i>
-	        		<span translate="DONATION-MODAL.DONATE">Donate</span>
+	        		<h2 translate="DONATION-MODAL.DONATE">Donate</h2>
 	      		</md-button>
 	      		</div>
          	</div>
