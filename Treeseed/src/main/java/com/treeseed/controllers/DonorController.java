@@ -146,14 +146,14 @@ public class DonorController extends UserGeneralController{
 					userType = catalogService.getAllByType("DonorType").get(0);
 					
 					
-					if (file == null)
-					{
+					//if (file == null)
+					//{
 						resultFileName = "resources/file-storage/1436319975812.jpg";
-					}
+					/*}
 					else
 					{
 						resultFileName = Utils.writeToFile(file,servletContext);
-					}
+					}*/
 					
 					
 					

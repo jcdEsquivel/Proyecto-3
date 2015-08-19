@@ -1,3 +1,18 @@
+.main-style{
+	    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin-left: 5%;
+    margin-right: 10%;
+    margin-top: 2%;
+}
+
+
+.register-title{
+	    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .center-menu-item{
 
     text-align: center;
@@ -85,6 +100,20 @@ dragnDrop #file-drop{
     background-color: white;
     padding-bottom: 20px;
     padding-right: 20px
+}
+
+.md-whiteframe-treeseed-form {
+    box-shadow:0 2px 5px 0 rgba(0,
+    0,
+    0,
+    0.26);
+    min-height:250px;
+    min-width: 300px;
+    padding-top: 20px;
+    background-color: white;
+    padding-bottom: 20px;
+    padding-right: 50px;
+    padding-left:50px;
 }
 
  .md-select-label {

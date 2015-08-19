@@ -23,7 +23,7 @@ treeSeedAppControllers
 					$scope.requestObject.donor.userGeneral.password = "";
 					$scope.confirm_password = $scope.requestObject.donor.userGeneral.password;
 					$scope.requestObject.donor.userGeneral.confirmPassword = "";
-					$scope.image = "";
+					$scope.image = new Blob();
 					var app_id = '319610508162843';
 					$scope.facebookFail = false;
 
@@ -276,6 +276,7 @@ treeSeedAppControllers
 										$scope.requestObject)
 								.success(
 										function(response) {
+											 response.catalogs.unshift('');
 											$scope.requestObject.donor.country = response.catalogs[0];
 											$scope.selectSortOptions = response.catalogs;
 											// $scope.selectSortOptions.splice(0,1);

@@ -198,11 +198,11 @@ public class NonprofitController extends UserGeneralController {
 				CatalogWrapper countryW = catalogService.findCatalogById(Integer.parseInt(country));
 				CatalogWrapper causeW = catalogService.findCatalogById(Integer.parseInt(cause));
 
-				if (file != null) {
-					resultFileName = Utils.writeToFile(file, servletContext);
-				} else {
+				//if (file != null) {
+					//resultFileName = Utils.writeToFile(file, servletContext);
+				//} else {
 					resultFileName = "resources/file-storage/1436319975812.jpg";
-				}
+				//}
 
 				UserGeneralWrapper userGeneral = new UserGeneralWrapper();
 				NonprofitWrapper user = new NonprofitWrapper();
