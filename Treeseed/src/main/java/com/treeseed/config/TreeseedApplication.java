@@ -23,13 +23,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EntityScan(basePackages = "com.treeseed.ejb")
 								//uncomment this to generate war
-public class TreeseedApplication{ //extends SpringBootServletInitializer{
+public class TreeseedApplication extends SpringBootServletInitializer{
 	
 	//uncomment this to generate war
-	 /*@Override
+	 @Override
 	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 	        return application.sources(TreeseedApplication.class);
-	    }*/
+	    }
 	
     public static void main(String[] args) {
         SpringApplication.run(TreeseedApplication.class, args);
