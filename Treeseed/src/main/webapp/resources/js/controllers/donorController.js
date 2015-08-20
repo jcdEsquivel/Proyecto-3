@@ -18,6 +18,7 @@ treeSeedAppControllers
 					$scope.requestObject.donor.facebookId = "";
 					$scope.requestObject.donor.facebookToken = "";
 
+					$scope.showProcess=false;
 					$scope.requestObject.donor.userGeneral = {};
 					$scope.requestObject.donor.userGeneral.email = "";
 					$scope.requestObject.donor.userGeneral.password = "";
@@ -187,7 +188,7 @@ treeSeedAppControllers
 					});
 
 					$scope.create = function(event) {
-
+						$scope.showProcess=true;
 						$scope.upload = $upload
 								.upload(
 										{
@@ -249,6 +250,7 @@ treeSeedAppControllers
 																	}
 																}, function(status){
 																	$scope.errorServer(status.status);
+											
 																});
 											} else {
 												if (response.code == 400) {
@@ -256,7 +258,7 @@ treeSeedAppControllers
 													$scope.requestObject.donor.name = "";
 													$scope.requestObject.donor.lastName = "";
 													$scope.requestObject.donor.userGeneral.email = "";
-													
+
 												}
 												
 												$scope.errorServer(response.code);
