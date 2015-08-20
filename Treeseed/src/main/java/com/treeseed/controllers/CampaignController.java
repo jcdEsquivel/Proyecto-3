@@ -463,6 +463,7 @@ public class CampaignController {
 					nonprofitPOJO.setId(campaign.getNonprofit().getId());
 					nonprofitPOJO.setName(campaign.getNonprofit().getName());
 					nonprofitPOJO.setProfilePicture(campaign.getNonprofit().getProfilePicture());
+					campaignPojo.setCantDonors(donationService.findDonorsPerCampaign(campaign.getId()));
 	
 					campaignPojo.setNonprofit(nonprofitPOJO);
 	
