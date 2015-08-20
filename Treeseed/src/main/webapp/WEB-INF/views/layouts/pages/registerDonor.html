@@ -66,12 +66,13 @@
 				<div class="col-sm-6">
 					<label class="control-label" translate="REGISTER-DONOR.PASSWORD">Password</label>
 
-					<input type="password" name="password"
+					<input type="password" ng-minlength="8" name="password"
 						ng-model="requestObject.donor.userGeneral.password"
 						class="form-control" required>
 						
 					<span ng-show='registerForm.password.$error.required && registerForm.password.$touched'
 				translate="VALIDATIONS.VAL-PASSWORD"  class="validation-message"></span>
+				<span class="validation-message" ng-show="registerForm.password.$error.minlength"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
 				</div>
 
 				<div class="col-sm-6">
@@ -82,8 +83,11 @@
 						ui-validate=" '$value==requestObject.donor.userGeneral.password' "
 						ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
 						
-						<span ng-show='registerForm.confirm_password.$error.validator && registerForm.confirm_password.$touched'
-				translate="VALIDATIONS.PASSWORD-MESSAGE"  class="validation-message"></span>
+						<span
+						ng-show='registerForm.confirm_password.$error.validator && registerForm.confirm_password.$touched'
+						translate="REGISTER-DONOR.PASSWORD-MESSAGE"
+						class="validation-message"></span>
+				
 
 				</div>
 			</div>

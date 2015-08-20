@@ -76,9 +76,10 @@
 
 					<input type="password" name="password"
 						ng-model="nonprofit.userGeneral.password"
-						class="form-control" required> <span
+						class="form-control" ng-minlength="8" required> <span
 						ng-show='registerForm.password.$error.required && registerForm.password.$touched'
 						translate="VALIDATIONS.VAL-PASSWORD" class="validation-message"></span>
+						<span class="validation-message" ng-show="registerForm.password.$error.minlength"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
 				</div>
 
 				<div class="col-sm-6">
