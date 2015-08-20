@@ -76,9 +76,10 @@
 
 					<input type="password" name="password"
 						ng-model="nonprofit.userGeneral.password"
-						class="form-control" required> <span
+						class="form-control" ng-minlength="8" required> <span
 						ng-show='registerForm.password.$error.required && registerForm.password.$touched'
 						translate="VALIDATIONS.VAL-PASSWORD" class="validation-message"></span>
+						<span class="validation-message" ng-show="registerForm.password.$error.minlength && registerForm.confirm_password.$touched"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
 				</div>
 
 				<div class="col-sm-6">
@@ -97,10 +98,12 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4">
-					<button type="submit" ng-click="create()" class="btn btn-primary"
+				<div class="col-sm-4" style="text-align: center">
+					<button type="submit" ng-hide="showProcess" ng-click="create()" class="btn btn-primary pull-left"
 						ng-disabled="registerForm.$invalid"
 						translate="REGISTER-NONPROFIT.REGISTER-BUTTON">Register</button>
+						<md-progress-circular style="display: block;transform: scale(1);" 
+			 	class=" bg-info" md-mode="indeterminate" ng-show="showProcess"></md-progress-circular>
 					
 				</div>
 				<div class="col-sm-4"></div>

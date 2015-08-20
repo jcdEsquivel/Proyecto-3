@@ -68,6 +68,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject2={};
 	$scope.confirmPassword = "";
 	$scope.image = new Blob();
+	$scope.showProcess=false;
 	
 	$scope.init = function(){
 		$scope.requestObject1.lenguage=$scope.selectLang;
@@ -129,7 +130,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	
 	
 	$scope.create = function(event) {
-	
+		$scope.showProcess=true;
 		this.onError = false;
 		
 		$scope.upload = $upload.upload({
@@ -163,6 +164,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		        	}	    		
 		    	}else{
 					$scope.errorServer(user.code);
+					
 				}
 			}, function(status){
 				 $scope.errorServer(status.status);

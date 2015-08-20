@@ -66,12 +66,13 @@
 				<div class="col-sm-6">
 					<label class="control-label" translate="REGISTER-DONOR.PASSWORD">Password</label>
 
-					<input type="password" name="password"
+					<input type="password" ng-minlength="8" name="password"
 						ng-model="requestObject.donor.userGeneral.password"
 						class="form-control" required>
 						
 					<span ng-show='registerForm.password.$error.required && registerForm.password.$touched'
 				translate="VALIDATIONS.VAL-PASSWORD"  class="validation-message"></span>
+				<span class="validation-message" ng-show="registerForm.password.$error.minlength && registerForm.confirm_password.$touched"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
 				</div>
 
 				<div class="col-sm-6">
@@ -82,16 +83,21 @@
 						ui-validate=" '$value==requestObject.donor.userGeneral.password' "
 						ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
 						
-						<span ng-show='registerForm.confirm_password.$error.validator && registerForm.confirm_password.$touched'
-				translate="VALIDATIONS.PASSWORD-MESSAGE"  class="validation-message"></span>
+						<span
+						ng-show='registerForm.confirm_password.$error.validator && registerForm.confirm_password.$touched'
+						translate="REGISTER-DONOR.PASSWORD-MESSAGE"
+						class="validation-message"></span>
+				
 
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4">
-					<button type="submit" ng-click="create()" class="btn btn-primary"
+				<div class="col-sm-4" style="text-align: center">
+					<button type="submit" ng-click="create()" ng-hide="showProcess" class="btn btn-primary pull-left"
 						ng-disabled="registerForm.$invalid"
 						translate="REGISTER-DONOR.REGISTER">Register</button>
+						<md-progress-circular style="display: block;transform: scale(1);" 
+			 	class=" bg-info" md-mode="indeterminate" ng-show="showProcess"></md-progress-circular>
 					<br/>
 					<br/>
 					<a href="#" id="login" style="width:200px;" class="btn btn-primary btn-facebook  btn-block indigo" ><i
