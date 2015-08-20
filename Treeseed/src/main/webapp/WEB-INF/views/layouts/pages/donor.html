@@ -18,7 +18,7 @@
  				<div class="row">
  					<div class="col-md-12">
 
- 						<p class="donor-info"><b ng-hide="webPageInEdition">{{donor.webPage}}</b><button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></p>
+ 						<p class="profile-info"><b ng-hide="webPageInEdition">{{donor.webPage}}</b><button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-show="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></p>
  						<div ng-show="webPageInEdition">
 				          	<div>
 				          		<p><b translate="GENERAL-PROFILE.WEBPAGE"></b></p>
@@ -32,7 +32,7 @@
 					    </div>
  								
  						
- 						<p class="donor-info"><b ng-hide="emailInEdition">{{donor.userGeneral.email}}</b><button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></p>
+ 						<p class="profile-info"><b ng-hide="emailInEdition">{{donor.userGeneral.email}}</b><button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-show="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></p>
  						<div ng-show="emailInEdition">
 				          	<div>
 				          		<p><b translate="GENERAL-PROFILE.EMAIL"></b></p>
@@ -48,11 +48,12 @@
  						
  						
  						<div ng-controller="facebookController">
-	            				<a style="width:180px;" href class="btn btn-primary btn-facebook center-btn btn-block indigo"><i
-									class="fa fa-facebook pull-left indigo"></i><label
-									translate="LOGIN.SHAREPROFILEFACEBOOK" ng-click="postInFacebook(1)" ></label></a>		
-						<br>
-							
+	            				
+	            				
+	            		<button class="btn  btn-sm btn-facebook btn-addon m-b-sm" ng-click="postInFacebook(1)"><i class="fa fa-facebook"></i><span translate="LOGIN.SHAREPROFILEFACEBOOK">Primary</span></button>
+						
+	            				
+					
         				<input type="text" ng-show="false" ng-model="profileUrl" class="form-control">   
         					
         					

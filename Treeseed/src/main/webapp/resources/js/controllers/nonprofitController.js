@@ -270,6 +270,9 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.isOwner = true;	
 	$scope.showDonationButton = true;
 	
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.nonProfitId+'&t=nonProfit';
+	
+	
 
 	$scope.init = function() {
 		//Show donate button

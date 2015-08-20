@@ -20,11 +20,10 @@
 
 
 .cover-image{
- width: 85%;
  height: 50%;
- margin-left: 15px;
- margin-right: 15px;
- margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 15px;
 }
 
 .non-profit-profile{
@@ -367,7 +366,10 @@ font-weight: bold;
 .btn-facebook {
      color:#fff!important;
     background-color:#3f51b5!important;
-    border-color:#3f51b5!important
+    border-color:#3f51b5!important;
+        margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 textarea {
   resize: none;
@@ -835,7 +837,7 @@ border-radius: 15px;
 }
 
 
-.donor-info{
+.profile-info{
 	    margin-top: 5px;
 	    text-align:center;
 }
@@ -844,4 +846,20 @@ border-radius: 15px;
 	display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+
+/*porfolio **/
+
+.legendLabel {
+color: black;
+    font-size: 16px;
+
+}
+
+
+.legendColorBox div{
+    border-top-width: 15px !important;
+    border-right-width: 15px !important;
 }
