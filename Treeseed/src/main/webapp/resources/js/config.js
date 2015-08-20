@@ -610,6 +610,11 @@ angular
 							name : 'smart-table',
 							files : [ 'resources/js/libs/angular/angular-smart-table/dist/smart-table.min.js' ]
 						},
+						/*{
+							name:'clip',
+							files: ['resources/js/libs/angular/ng-clip/ZeroClipboard.js',
+							        'resources/js/libs/angular/ng-clip/.js']
+						},*/
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]

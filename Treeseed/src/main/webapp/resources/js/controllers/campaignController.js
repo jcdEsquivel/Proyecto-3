@@ -44,6 +44,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
+				response.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCause = response.catalogs;
 		}).error(function(status){
 			$scope.errorServer(status);

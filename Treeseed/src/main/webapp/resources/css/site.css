@@ -1,7 +1,7 @@
 .main-style{
 	    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     margin-left: 5%;
-    margin-right: 10%;
+    margin-right: 5%;
     margin-top: 2%;
 }
 
@@ -817,6 +817,31 @@ border-radius: 15px;
     align-content:space-around; 
 }
 
-.red-error{
+.validation-message{
 	color:red;
+}
+
+.general-search-campaign{
+	    
+	    
+}
+
+.general-search-nonProfit{
+	
+}
+
+.general-search-donor{
+	
+}
+
+
+.donor-info{
+	    margin-top: 5px;
+	    text-align:center;
+}
+
+.center-btn{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

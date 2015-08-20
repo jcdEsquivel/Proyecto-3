@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="resources/css/app.css" type="text/css" />
 <link rel="stylesheet" href="resources/css/site.css" type="text/css" />
 
+<link rel="shortcut icon" href="resources/images/circle.png">
+
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
@@ -46,6 +48,8 @@
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+<script src="resources/js/libs/angular/ng-clip/ZeroClipboard.js"></script>
+<script src="resources/js/libs/angular/ng-clip/ngClip.js"></script>
 <!-- <base href="/treeseed.org" /> -->
 
 

@@ -74,6 +74,9 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
 		    .then(function(response){
+		    	//order list
+		    	response.data.catalogs.sort($scope.catalogSort);
+		    	
 		    response.data.catalogs.unshift('');
 		     $scope.selectSortOptionsCountry =  response.data.catalogs;
 		     $scope.nonprofit.country =  response.data.catalogs[0];
@@ -84,6 +87,10 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		$scope.requestObject2.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
 		    .then(function(response){
+		    	
+		    //order list
+	    	response.data.catalogs.sort($scope.catalogSort);
+	    	
 		    response.data.catalogs.unshift('');
 		     $scope.selectSortOptionsCause =  response.data.catalogs;
 		     $scope.nonprofit.cause =  response.data.catalogs[0];
@@ -199,6 +206,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).then(function(response) {
+				response.data.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCountry = response.data.catalogs;
 			
 			
@@ -209,6 +217,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$scope.requestObject2.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject2).then(function(response) {
+					response.data.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCause = response.data.catalogs;
 
 		}, function(status){

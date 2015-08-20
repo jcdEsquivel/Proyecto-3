@@ -30,6 +30,7 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 	$sharedData.getUserCountry();
 	$scope.country = "";
 	
+	
 	$scope.goDashboard=function(){
 		if(Session.userRole==USER_ROLES.nonprofit){
 			$state.go('treeSeed.nonProfitDashboard');
@@ -83,6 +84,11 @@ treeSeedAppControllers.controller('headerMenuCtrl', function($state, $location,
 			$scope.errorServer(status.status);
 		}); // end $http.post
 	};// end generalSearch
+	
+	$scope.cleanSearch= function(){
+		console.log('delete');
+		$scope.selected = '';
+	}
 
 	$scope.animationsEnabled = true;
 

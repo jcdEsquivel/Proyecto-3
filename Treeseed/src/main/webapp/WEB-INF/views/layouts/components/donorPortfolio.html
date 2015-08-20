@@ -1,5 +1,6 @@
 <div >
-	<h3 ng-if="noDonationsMessage" style="color: red;" translate="DONOR-PROFILE.PORTFOLIO-EMPTY"></h3>
+	
+	<p ng-if="noDonationsMessage"><span  class="text-danger h4"  translate="DONOR-PROFILE.PORTFOLIO-EMPTY"></span></p>
 	<button type="button"  class="btn  btn-success btn-rounded" ng-if="isOwner && noDonations"
 	ng-click="recurrableDonations()" translate="DONOR-PROFILE.EDIT-PORTFOLIO">Edit</button>
 	<div class="panel-body">

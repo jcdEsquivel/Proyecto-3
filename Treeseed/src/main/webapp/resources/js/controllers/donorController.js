@@ -276,6 +276,7 @@ treeSeedAppControllers
 										$scope.requestObject)
 								.success(
 										function(response) {
+											response.catalogs.sort($scope.catalogSort);
 											 response.catalogs.unshift('');
 											$scope.requestObject.donor.country = response.catalogs[0];
 											$scope.selectSortOptions = response.catalogs;
@@ -331,7 +332,10 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
-			$scope.selectSortOptionsCountry = response.data.catalogs;
+			
+					response.data.catalogs.sort($scope.catalogSort);
+					
+				$scope.selectSortOptionsCountry = response.data.catalogs;
 		}).error(function(status){
 			$scope.errorServer(status);
 		});
@@ -391,7 +395,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.porfolioRequest.donorId = $stateParams.donorId;
 	//end portfolio variables
 	
-
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/sharedDonation?id='+$stateParams.donorId;
 	///
 	
 	// Declaration of donor object
@@ -740,7 +744,9 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).then(function(response) {
-			$scope.selectSortOptionsCountry = response.data.catalogs;
+					
+					response.data.catalogs.sort($scope.catalogSort);
+					$scope.selectSortOptionsCountry = response.data.catalogs;
 		});
 	}
 
