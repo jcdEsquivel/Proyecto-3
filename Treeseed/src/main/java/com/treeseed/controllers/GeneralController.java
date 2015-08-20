@@ -81,24 +81,30 @@ public class GeneralController {
 		response.setContentType("text/plain");
 		Enumeration<String> parameterNames = request.getParameterNames();
 		ModelAndView mav = new ModelAndView();
+		 String paramName = null;
+		 String[] paramValues = null;
+		 String id = null;
+		 String fatherId = null;
+		 String type = null;
 		
         while (parameterNames.hasMoreElements()) {
 
-            String paramName = parameterNames.nextElement();
-
-            String[] paramValues = request.getParameterValues(paramName);
-
-            String id = paramValues[0];
+        	 paramName = parameterNames.nextElement();
+             paramValues = request.getParameterValues(paramName);
+             type = paramValues[0];
+             	
+            paramName = parameterNames.nextElement();
+            paramValues = request.getParameterValues(paramName);
+            id = paramValues[0];
             
             paramName = parameterNames.nextElement();
-
             paramValues = request.getParameterValues(paramName);
-            
-            String type = paramValues[0];
+            fatherId = paramValues[0];
+           
             
             mav.setViewName("treeseed");
 
-    		return "redirect:/#/"+type+"/" + id;	
+    		return "redirect:/#/shared?type="+type+"&fatherId="+fatherId+"&id=" + id;	
             
         }
         mav.setViewName("treeseed");

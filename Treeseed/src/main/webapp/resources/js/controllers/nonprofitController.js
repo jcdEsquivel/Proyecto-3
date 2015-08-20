@@ -270,7 +270,12 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.isOwner = true;	
 	$scope.showDonationButton = true;
 	
-	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.nonProfitId+'&t=nonProfit';
+	var father = '0';
+	if(Session.userRole == USER_ROLES.donor){
+		father = Session.userId;
+	}
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+		'/treeseed.org/goTo?type=nonProfit&id='+$stateParams.nonProfitId+'&fatherId='+father;
 	
 	
 

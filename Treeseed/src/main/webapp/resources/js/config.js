@@ -78,12 +78,12 @@ angular
 												}
 											})
 									.state(
-											'treeSeed.sharedDonation',
+											'treeSeed.shared',
 											{
-												url : 'sharedDonation/:donorId',
+												url : 'shared?type&fatherId&id',
 												templateUrl : 'layouts/pages/loading.html',
-												controller: "loadingController",
-												params: {donorId: null},
+												controller: "sharedController",
+												params: {type: null, fatherId:null, id: null},
 												data : {
 													authorizedRoles : [
 															USER_ROLES.donor,

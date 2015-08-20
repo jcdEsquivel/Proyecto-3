@@ -43,6 +43,25 @@ public class DonationService implements DonationServiceInterface{
 
 		return donationRepository.countDistincDonorIdByCampaingId(campaignId);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findNonprofitMoney(int)
+	 */
+	@Override
+	public double findNonprofitMoney(int id) {
+
+		return donationRepository.countNonprofitMoney(id);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.treeseed.services.DonationServiceInterface#findDonorsPerNonprofit(int)
+	 */
+	@Override
+	public int findDonorsPerNonprofit(int id) {
+
+		return donationRepository.countDistincDonorIdByNonprofitId(id);
+	}
 
 
 	/* (non-Javadoc)

@@ -53,6 +53,10 @@
 					    </div>
 					     <label class="text-danger wrapper" ng-show="error" translate="GENERAL-PROFILE.EMAIL-ERROR"></label>
  						
+ 						<p class="profile-info"><b><span translate="NONPROFIT-PROFILE.DONORS">donors</span>{{nonprofit.cantDonors }}</button></b></p>
+ 						<p class="profile-info"><b><span translate="NONPROFIT-PROFILE.DONATIONS">donations</span>{{nonprofit.cantMoney | currency:"$"}}</button></b></p>
+ 						
+ 						
 						<div ng-controller="facebookController">
 						
 						<button class="btn  btn-sm btn-facebook btn-addon m-b-sm" ng-click="postInFacebook(1)"><i class="fa fa-facebook"></i><span translate="LOGIN.SHAREPROFILEFACEBOOK">Primary</span></button>
@@ -62,19 +66,17 @@
         				<input type="text" ng-show="false" ng-model="profileUrl" class="form-control">   
         					
         					
-        					<button class="btn m-b-xs w-xs btn-info btn-rounded center-btn" clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
+        					<button class="btn m-b-sm w-xs btn-info btn-rounded center-btn" clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
+	        			 
+	        			 
+	        			 <button ng-if="showDonationButton" ng-click="showDonation()" class="btn btn-success btn-addon btn-lg center-btn"><i class="fa fa-dollar"></i><span translate="DONATION-MODAL.DONATE">Donate</span></button>
+ 					
+	        			
 	        			</div>
 									
  					</div>
  				</div>
- 				<div class="row m-b-md">
- 					<div class="col-sm-12">
- 						<md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" style="width:100%;" ng-click="showDonation()" >
-	        		 		<i class="fa fa-dollar"></i>
-	        				<h2 translate="DONATION-MODAL.DONATE">Donate</h2>
-	      				</md-button>
- 					</div>
- 				</div>
+ 				
  				
 	 		</div>
 	 		<div class="col-md-9 " >	

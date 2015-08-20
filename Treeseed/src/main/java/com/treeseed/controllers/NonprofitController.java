@@ -387,6 +387,9 @@ public class NonprofitController extends UserGeneralController {
 			nonprofitPOJO.setMainPicture(nonprofit.getWrapperObject().getMainPicture());
 			nonprofitPOJO.setMision(nonprofit.getWrapperObject().getMision());
 			nonprofitPOJO.setReason(nonprofit.getWrapperObject().getReason());
+			nonprofitPOJO.setCantDonors(donationService.findDonorsPerNonprofit(nonprofit.getId()));
+			
+			nonprofitPOJO.setCantMoney(donationService.findNonprofitMoney(nonprofit.getId()));
 	
 			UserGeneralPOJO userGeneralPOJO = new UserGeneralPOJO();
 			UserGeneral userGeneral;
