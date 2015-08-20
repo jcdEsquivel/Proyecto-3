@@ -74,6 +74,39 @@ public class GeneralController {
 		return "";
 }
 	
+	
+	@RequestMapping(value = "/goTo", method = RequestMethod.GET)
+	public String donorProfile(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
+
+		response.setContentType("text/plain");
+		Enumeration<String> parameterNames = request.getParameterNames();
+		ModelAndView mav = new ModelAndView();
+		
+        while (parameterNames.hasMoreElements()) {
+
+            String paramName = parameterNames.nextElement();
+
+            String[] paramValues = request.getParameterValues(paramName);
+
+            String id = paramValues[0];
+            
+            paramName = parameterNames.nextElement();
+
+            paramValues = request.getParameterValues(paramName);
+            
+            String type = paramValues[0];
+            
+            mav.setViewName("treeseed");
+
+    		return "redirect:/#/"+type+"/" + id;	
+            
+        }
+        mav.setViewName("treeseed");
+		return "";
+}
+	
+	
+	
 	/**
 	 * Home.
 	 *

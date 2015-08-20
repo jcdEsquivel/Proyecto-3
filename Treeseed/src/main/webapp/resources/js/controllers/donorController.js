@@ -395,7 +395,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.porfolioRequest.donorId = $stateParams.donorId;
 	//end portfolio variables
 	
-	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/sharedDonation?id='+$stateParams.donorId;
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
 	///
 	
 	// Declaration of donor object
@@ -681,6 +681,11 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			$scope.portfolioURL = 'layouts/components/donorPortfolio.html';
 
 		};
+		
+		$scope.getlabel = function(label, series){
+			return "<p style='font-size: 18px;'>"+label+"</p>";
+		};
+		
 	
 		
 		$scope.getRecurrableData();
