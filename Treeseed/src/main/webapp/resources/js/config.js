@@ -114,7 +114,9 @@ angular
 												controller: "getNonProfitProfileController",
 												params: {nonProfitId: null},
 												resolve : load([
-																'angularUtils.directives.dirPagination']),
+																'angularUtils.directives.dirPagination',
+																'xeditable',
+																'resources/js/libs/angular/angular-xeditable/dist/js/xeditable.js' ]),
 												 data : {
 													authorizedRoles : [
 													USER_ROLES.donor,

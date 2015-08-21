@@ -517,12 +517,24 @@ public class CampaignController {
 			GregorianCalendar startDate = new GregorianCalendar();
 			Date date2 = cr.getDueDateData();
 			Date date1 = cr.getStartDateData();
-			dueDate.setTime(date2);
-			startDate.setTime(date1);
-	
-			if (fileCampaign != null) {
-				campaignImageName = Utils.writeToFile(fileCampaign, servletContext);
+			
+			if(date2 != null){
+				dueDate.setTime(date2);
 			}
+			else{
+				dueDate = null;
+			}
+				
+			if(date1 != null){
+				startDate.setTime(date1);
+			}
+			else{
+				startDate =  null;;
+			}
+	
+			if (fileCampaign != null)
+				campaignImageName = Utils.writeToFile(fileCampaign, servletContext);
+			
 	
 			if (!campaignImageName.equals("")) {
 				campaign.setPicture(campaignImageName);
@@ -532,8 +544,10 @@ public class CampaignController {
 	
 			campaign.setId(cr.getId());
 			campaign.setName(cr.getName());
-			campaign.setStartDate(startDate.getTime());
-			campaign.setDueDate(dueDate.getTime());
+			if(startDate != null)
+				campaign.setStartDate(startDate.getTime());
+			if(dueDate != null)
+				campaign.setDueDate(dueDate.getTime());
 			campaign.setDescription(cr.getDescription());
 			campaign.setAmountGoal(cr.getAmountGoal());
 			campaign.setAmountCollected(cr.getAmountCollected());
