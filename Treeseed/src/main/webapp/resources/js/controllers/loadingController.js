@@ -19,8 +19,8 @@ treeSeedAppControllers.controller('sharedController', function($scope,$state,
 		//var encry = $stateParams.donorId + "";
 		//var decrypted = CryptoJS.AES.decrypt(encry, "golondrinasTicas");
 		//var id = decrypted.toString(CryptoJS.enc.Utf8);
-		$scope.fatherId = fatherId;
-		
+
+		$scope.setFatherId(fatherId);
 		console.log('father '+fatherId);
 		
 		

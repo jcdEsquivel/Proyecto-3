@@ -577,6 +577,16 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						$scope.mindate2 = $scope.mindate1;
 					}
 					
+					
+					var father = '0';
+					if(Session.userRole == USER_ROLES.donor){
+						father = Session.userId;
+					}
+					$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+						'/treeseed.org/goTo?type=campaign&id='+$stateParams.campaignId+'&fatherId='+father;
+					
+					
+					
 					$scope.init = function() {
 						//show donate button
 						if(Session.userRole == USER_ROLES.nonprofit){

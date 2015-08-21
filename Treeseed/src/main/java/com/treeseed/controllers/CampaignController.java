@@ -473,8 +473,8 @@ public class CampaignController {
 					cs.setCodeMessage("campaign search success");
 	
 				} else {
-					cs.setCode(400);
-					cs.setErrorMessage("campaign search unsuccessful");
+					cs.setCode(404);
+					cs.setErrorMessage("Campaign not found");
 	
 				}
 			} else {
