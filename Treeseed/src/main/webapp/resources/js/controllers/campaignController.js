@@ -572,6 +572,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.postsLoaded = false;
 					$scope.minDate2 = new Date();
 					$scope.nonprofitId = 0;
+					$scope.hasRecurrable = false;
 
 					$scope.minDate = function() {
 						$scope.mindate2 = $scope.mindate1;
@@ -585,7 +586,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
 						'/treeseed.org/goTo?type=campaign&id='+$stateParams.campaignId+'&fatherId='+father;
 					
-					
+					console.log(JSON.stringify($location));
 					
 					$scope.init = function() {
 						//show donate button
@@ -605,6 +606,10 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 											if(mydata.code==200){
 												$scope.campaign = mydata.campaign;
 												$scope.nonprofitId = mydata.campaign.nonprofit.id;
+												
+												if(mydata.campaign.dueDateS == '∞'){
+													$scope.hasRecurrable = true;
+												}
 												
 												if ($scope.campaign == null) {
 													$state.go("treeSeed.index");
@@ -930,6 +935,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 				},
 				fatherId: function(){
 					return $scope.getFatherId();
+				},
+				recurrable: function(){
+					return $scope.hasRecurrable
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

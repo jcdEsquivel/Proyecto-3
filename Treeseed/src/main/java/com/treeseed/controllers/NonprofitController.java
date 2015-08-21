@@ -444,6 +444,8 @@ public class NonprofitController extends UserGeneralController {
 						.getReason());
 				nonprofitPOJO.setCantDonors(donationService
 						.findDonorsPerNonprofit(nonprofit.getId()));
+				
+				nonprofitPOJO.setActive(nonprofit.isActive());
 
 				nonprofitPOJO.setCantMoney(donationService
 						.findNonprofitMoney(nonprofit.getId()));

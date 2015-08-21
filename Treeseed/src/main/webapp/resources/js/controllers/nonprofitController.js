@@ -295,7 +295,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				$scope.requestObject).success(function(mydata, status) {
 					if(mydata.code==200){
 						$scope.nonprofit = mydata.nonprofit;
-						
+						console.log(mydata.nonprofit.active);
 						if(mydata.nonprofit.active == true){
 							if(mydata.owner==true){
 								$scope.isOwner=true;
@@ -663,6 +663,9 @@ console.log( $scope.getFatherId());
 				},
 				fatherId: function(){
 					return $scope.getFatherId();
+				},
+				recurrable: function(){
+					return true;
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])
