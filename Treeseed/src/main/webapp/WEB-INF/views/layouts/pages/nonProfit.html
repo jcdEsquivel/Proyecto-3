@@ -87,6 +87,7 @@
 				      <ul class="list-group no-borders pull-in m-b-none">
 				      	<li class="list-group-item">
 				        	<h2 ng-hide="nameInEdition"> {{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+			          	  	<h2 class="text-danger h4" ng-if="showDeleteMsj" translate="NONPROFIT-PROFILE.DELETED"></h2>
 			          	  	<div ng-show="nameInEdition">
 				          		<div>
 				          			<input class="form-control input-lg" ng-model=nonprofitEdit.name>

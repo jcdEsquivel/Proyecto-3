@@ -617,8 +617,12 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 												} else {
 													$scope.isOwner = false;
 												}
+												
 												if (mydata.campaign.state == "finished") {
 													$scope.isOpen = false;
+													$scope.showDonationButton = false;
+												}else if(mydata.campaign.state == "soon"){
+													$scope.showDonationButton = false;
 												}
 											}else{
 												$scope.errorServer(mydata.code);

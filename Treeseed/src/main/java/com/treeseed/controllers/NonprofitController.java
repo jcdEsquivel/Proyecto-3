@@ -56,6 +56,7 @@ import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
 import com.treeseed.pojo.DonationPOJO;
@@ -141,11 +142,15 @@ public class NonprofitController extends UserGeneralController {
 
 		NonprofitResponse us = new NonprofitResponse();
 
-		NonprofitWrapper nonWrapper = new NonprofitWrapper();
-
-		nonWrapper.setId(dr.getId());
+		NonprofitWrapper nonWrapper =null;
 
 		try {
+			 nonWrapper =  nonProfitService.getNonProfitById(dr.getId());
+			 
+			 for(Campaign camp : nonWrapper.getCampaigns()){
+					campaignService.closeCampaign(camp.getId());
+			}
+			 
 			nonProfitService.deteteNonprofit(nonWrapper);
 			us.setCode(200);
 			us.setCodeMessage("USER DELETE");
@@ -155,6 +160,8 @@ public class NonprofitController extends UserGeneralController {
 			UserGeneralWrapper ugw = new UserGeneralWrapper();
 			ugw.setId(ug.getId());
 			userGeneralService.deleteUserGeneral(ugw);
+			
+			
 
 		} catch (Exception e) {
 			us.setCode(400);
