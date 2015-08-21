@@ -229,7 +229,7 @@ public class NonprofitController extends UserGeneralController {
 					// if (file != null) {
 					// resultFileName = Utils.writeToFile(file, servletContext);
 					// } else {
-					resultFileName = "resources/file-storage/1436319975812.jpg";
+					resultFileName = TreeseedConstants.DEFAULT_NONPROFIT_IMAGE;
 					// }
 
 					UserGeneralWrapper userGeneral = new UserGeneralWrapper();

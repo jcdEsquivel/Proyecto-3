@@ -28,6 +28,7 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
+import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
 import com.treeseed.ejb.Donor;
 import com.treeseed.ejb.Nonprofit;
@@ -153,7 +154,7 @@ public class DonorController extends UserGeneralController {
 
 					// if (file == null)
 					// {
-					resultFileName = "resources/file-storage/1436319975812.jpg";
+					resultFileName = TreeseedConstants.DEFAULT_DONOR_IMAGE;
 					/*
 					 * } else { resultFileName =
 					 * Utils.writeToFile(file,servletContext); }
