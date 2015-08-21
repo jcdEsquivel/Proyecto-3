@@ -693,10 +693,11 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						$scope.requestObjectEdit.description = $scope.campaign.description;
 						$scope.requestObjectEdit.amountGoal = $scope.campaign.amountGoal;
 						$scope.requestObjectEdit.amountCollected = $scope.campaign.amountCollected;
-						$scope.requestObjectEdit.startDateData = new Date(
-								$scope.campaign.startDate);
-						$scope.requestObjectEdit.dueDateData = new Date(
-								$scope.campaign.dueDate);
+						$scope.requestObjectEdit.startDateData = new Date($scope.campaign.startDate);
+						//It's not an endless campaign
+						if($scope.campaign.dueDate != undefined){
+							$scope.requestObjectEdit.dueDateData = new Date($scope.campaign.dueDate);
+						}
 						$scope.requestObjectEdit.picture = $scope.campaign.picture;
 
 						$http(
@@ -834,10 +835,14 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 
 					// Date Edit
 					$scope.dateEditClicked = function(type) {
+						$scope.notInfinite = false;
 						if (type.state == 'active') {
 							$scope.disabled = true;
 						} else {
 							$scope.disabled = false;
+						}
+						if($scope.campaign.dueDate != undefined){
+							$scope.notInfinite = true;
 						}
 						modalInstance = $modal
 								.open({
