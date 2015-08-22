@@ -4,7 +4,7 @@
 			data-ng-include=" 'layouts/components/headerMenu.html' " >
 	</div>
 	
-	 <div layout="row">
+	 <div layout="row"><!-- posible -->
 	 	 <!-- menu -->
 	  		<div  ng-init="app.settings.asideFixed = true;" flex class="bg-white-opacity md-whiteframe-z0 md-aside md-content hidden-xs" 
 	  		ng-controller="leftMenuCtrl"
@@ -17,7 +17,7 @@
 	  			<div ui-butterbar></div>
     			<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".md-aside" ></a>
     			
-	  			<div class=" main" ui-view style="min-height:600px;" ></div>
+	  			<div class=" main main-style" ui-view style="min-height:600px;" ></div>
 	  		</div>
 	  <!-- / view -->
 	 </div>

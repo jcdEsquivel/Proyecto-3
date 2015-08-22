@@ -18,12 +18,13 @@ treeSeedAppControllers
 					$scope.requestObject.donor.facebookId = "";
 					$scope.requestObject.donor.facebookToken = "";
 
+					$scope.showProcess=false;
 					$scope.requestObject.donor.userGeneral = {};
 					$scope.requestObject.donor.userGeneral.email = "";
 					$scope.requestObject.donor.userGeneral.password = "";
 					$scope.confirm_password = $scope.requestObject.donor.userGeneral.password;
 					$scope.requestObject.donor.userGeneral.confirmPassword = "";
-					$scope.image = "";
+					$scope.image = new Blob();
 					var app_id = '319610508162843';
 					$scope.facebookFail = false;
 
@@ -187,7 +188,7 @@ treeSeedAppControllers
 					});
 
 					$scope.create = function(event) {
-
+						$scope.showProcess=true;
 						$scope.upload = $upload
 								.upload(
 										{
@@ -249,6 +250,7 @@ treeSeedAppControllers
 																	}
 																}, function(status){
 																	$scope.errorServer(status.status);
+											
 																});
 											} else {
 												if (response.code == 400) {
@@ -256,7 +258,7 @@ treeSeedAppControllers
 													$scope.requestObject.donor.name = "";
 													$scope.requestObject.donor.lastName = "";
 													$scope.requestObject.donor.userGeneral.email = "";
-													
+
 												}
 												
 												$scope.errorServer(response.code);
@@ -276,6 +278,8 @@ treeSeedAppControllers
 										$scope.requestObject)
 								.success(
 										function(response) {
+											response.catalogs.sort($scope.catalogSort);
+											 response.catalogs.unshift('');
 											$scope.requestObject.donor.country = response.catalogs[0];
 											$scope.selectSortOptions = response.catalogs;
 											// $scope.selectSortOptions.splice(0,1);
@@ -330,7 +334,10 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
-			$scope.selectSortOptionsCountry = response.data.catalogs;
+			
+					response.data.catalogs.sort($scope.catalogSort);
+					
+				$scope.selectSortOptionsCountry = response.data.catalogs;
 		}).error(function(status){
 			$scope.errorServer(status);
 		});
@@ -380,7 +387,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 });
 
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, USER_ROLES) {
 
 
 	//portfolio variables
@@ -390,7 +397,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.porfolioRequest.donorId = $stateParams.donorId;
 	//end portfolio variables
 	
-
+	
+	var father = '0';
+	if(Session.userRole == USER_ROLES.donor){
+		father = Session.userId;
+	}
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+		'/treeseed.org/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
+	
+	
+	//$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
 	///
 	
 	// Declaration of donor object
@@ -676,6 +692,11 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 			$scope.portfolioURL = 'layouts/components/donorPortfolio.html';
 
 		};
+		
+		$scope.getlabel = function(label, series){
+			return "<p style='font-size: 18px;'>"+label+"</p>";
+		};
+		
 	
 		
 		$scope.getRecurrableData();
@@ -739,7 +760,9 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).then(function(response) {
-			$scope.selectSortOptionsCountry = response.data.catalogs;
+					
+					response.data.catalogs.sort($scope.catalogSort);
+					$scope.selectSortOptionsCountry = response.data.catalogs;
 		});
 	}
 
@@ -848,11 +871,11 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				$scope.totalAmount = response.treeDonation;			
 			}
 		}else{
-			$scope.errorServer(response.code);
+			//$scope.errorServer(response.code);
 			
 		}
 	}).error(function(status) {
-		$scope.errorServer(status);
+		//$scope.errorServer(status);
 	});
 	
 	$scope.donorArray = function(tree){

@@ -50,10 +50,11 @@
         <!-- / link and dropdown -->
 
       	<script type="text/ng-template" id="customTemplate.html">
-  			<a  href="#/{{match.model.type}}/{{match.model.id}}" class="general-search-result">
+  			<a  ng-href="#/{{match.model.type}}/{{match.model.id}}" class="general-search-result general-search-{{match.model.type}}" ng-click="cleanSearch()">
 				 <img ng-src="{{match.model.imageURL}}" alt="Smiley face" class="general-search-image"> 
- 				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span>
- 				
+ 				<span bind-html-unsafe="match.label | typeaheadHighlight:query" class="general-search-span"></span><br/>
+ 				<span style=" text-align: center; margin-left: 0px;">
+					<b translate="GENERALSEARCH.{{match.model.type}}"></b></span>
  			</a>
 	</script>
 
@@ -67,6 +68,7 @@
 						typeahead="value as value.name for value in generalSearch($viewValue)"
 						class=" input-sm bg-light no-border rounded general-search-input"
 						typeahead-template-url="customTemplate.html"
+						typeahead-on-select="selectMatch(selected); selected = '';" 
 						placeholder="{{'MENU-HEADER.SEARCH'| translate}}"> <span
 						class="input-group-btn">
 						

@@ -4,8 +4,8 @@
         <div class="col-md-12 ">
         
         	<div class="cover-image">
-        		<div style="background:url({{nonprofit.mainPicture}}); height: 280px; background-size: 100% 100%; background-repeat: no-repeat;">
-        		 <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
+        		<div style="background:url({{nonprofit.mainPicture}}); height: 290px; background-size: 100% 100%; background-repeat: no-repeat;">
+        		 <button class="btn btn-rounded btn-sm btn-icon btn-default " ng-if="isOwner" ng-click="openModalImage('cover')"><i class="fa fa-edit"></i></button>
         	 	</div>	
         	 </div>
     	
@@ -17,18 +17,18 @@
 		 	<div class="row">
 		 	<div class="col-md-3">
 		 		<div class="row">
-	        		<div style="background:url({{nonprofit.profilePicture}}); height: 225px; width: 270px; margin-left: auto; background-size: 100% 100%; background-repeat: no-repeat;">
+	        		<div style="background:url({{nonprofit.profilePicture}}); height: 220px; width: 220px;  margin-left: auto; margin-right: auto; background-size: 100% 100%; background-repeat: no-repeat;">
 	        			<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalImage('profile')"><i class="fa fa-edit"></i></button>
 	        	 	</div>	
         		 </div>
-	 			<br>
+	 			
  				<div class="row">
- 					<div class="col-md-12">
- 						<b translate="GENERAL-PROFILE.WEBPAGE"></b>
- 						<b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 					<div class="col-md-12">	
+ 						<p class="profile-info"><b  ng-hide="webPageInEdition">{{nonprofit.webPage}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="webPageEditClicked()"><i class="fa fa-edit"></i></button></b></p>
  						
  						<div ng-show="webPageInEdition">
 				          	<div>
+				          		<p><b translate="GENERAL-PROFILE.WEBPAGE"></b></p>
 				          		<input ng-model="nonprofitEdit.webPage">
 				          	</div>
 				          	<div>
@@ -38,11 +38,11 @@
 				          	</div>
 					    </div>
  						
- 						<br>
- 						<b translate="GENERAL-PROFILE.EMAIL"></b>
- 						<b ng-hide="emailInEdition">{{nonprofit.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b>
+ 					
+ 						<p class="profile-info"><b ng-hide="emailInEdition">{{nonprofit.userGeneral.email}}<button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="emailEditClicked()"><i class="fa fa-edit"></i></button></b></p>
  						<div ng-show="emailInEdition">
 				          	<div>
+				          		<p><b translate="GENERAL-PROFILE.EMAIL"></b></p>
 				          		<input ng-model="nonprofitEdit.email">
 				          	</div>
 				          	<div>
@@ -52,29 +52,42 @@
 				          	</div>
 					    </div>
 					     <label class="text-danger wrapper" ng-show="error" translate="GENERAL-PROFILE.EMAIL-ERROR"></label>
- 						<br>
  						
- 						<br>			
- 					</div>
- 				</div>
- 				<div class="row m-b-md">
- 					<div class="col-sm-12">
- 						<md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" style="width:100%;" ng-click="showDonation()" >
-	        		 		<i class="fa fa-dollar"></i>
-	        				<h2 translate="DONATION-MODAL.DONATE">Donate</h2>
-	      				</md-button>
+ 						<p class="profile-info"><b><span translate="NONPROFIT-PROFILE.DONORS">donors</span>{{nonprofit.cantDonors }}</button></b></p>
+ 						<p class="profile-info"><b><span translate="NONPROFIT-PROFILE.DONATIONS">donations</span>{{nonprofit.cantMoney | currency:"$"}}</button></b></p>
+ 						
+ 						
+						<div ng-controller="facebookController">
+						
+						<button class="btn  btn-sm btn-facebook btn-addon m-b-sm" ng-click="postInFacebook(1)"><i class="fa fa-facebook"></i><span translate="LOGIN.SHAREPROFILEFACEBOOK">Primary</span></button>
+						
+	            					
+	
+        				<input type="text" ng-show="false" ng-model="profileUrl" class="form-control">   
+        					
+        					
+        					<button class="btn m-b-sm w-xs btn-info btn-rounded center-btn" clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
+	        			 
+	        			 
+	        			 <button ng-if="showDonationButton" ng-click="showDonation()" class="btn btn-success btn-addon btn-lg center-btn"><i class="fa fa-dollar"></i><span translate="DONATION-MODAL.DONATE">Donate</span></button>
+ 					
+	        			
+	        			</div>
+									
  					</div>
  				</div>
  				
+ 				
 	 		</div>
-	 		<div class="col-md-8 m-l-xs" >	
+	 		<div class="col-md-9 " >	
  				<tabset class="tab-container">
 				    <tab>
 				      <tab-heading translate="NONPROFIT-PROFILE.PROFILE">
 				      </tab-heading>
 				      <ul class="list-group no-borders pull-in m-b-none">
 				      	<li class="list-group-item">
-				        	<h2 ng-hide="nameInEdition"> {{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+				        	<h2 ng-hide="nameInEdition"> {{nonprofit.name}} <button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="nameEditClicked()"><i class="fa fa-edit"></i></button></h2>
+			          	  	<h2 class="text-danger h4" ng-if="showDeleteMsj" translate="NONPROFIT-PROFILE.DELETED"></h2>
 			          	  	<div ng-show="nameInEdition">
 				          		<div>
 				          			<input class="form-control input-lg" ng-model=nonprofitEdit.name>
@@ -88,7 +101,7 @@
 			          	  	<hr>
 			          	  	<br>
 							<h3 translate="NONPROFIT-PROFILE.DESCRIPTION"></h3>
-				          	<p ng-hide="descriptionInEdition"> {{nonprofit.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>				           
+				          	<p ng-hide="descriptionInEdition"> {{nonprofit.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="descriptionEditClicked()"><i class="fa fa-edit"></i></button></p>				           
 						   	<div ng-show="descriptionInEdition">
 				          		<div>
 				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.description">
@@ -102,7 +115,7 @@
 					      	</div>
 				          	<br>
 				          	<h3 translate="NONPROFIT-PROFILE.MISSION"></h3>
-							<p ng-hide="misionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="misionEditClicked()"><i class="fa fa-edit"></i></button></p>						  
+							<p ng-hide="misionInEdition">{{nonprofit.mision}} <button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="misionEditClicked()"><i class="fa fa-edit"></i></button></p>						  
 						   	<div ng-show="misionInEdition">
 				          		<div>
 				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.mision">
@@ -116,7 +129,7 @@
 					      	</div> 
 				          	<br>
 			          	  	<h3 translate="NONPROFIT-PROFILE.REASON"></h3>
-			          	  	<p ng-hide="reasonInEdition">{{nonprofit.reason}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="reasonEditClicked()"><i class="fa fa-edit"></i></button></p>
+			          	  	<p ng-hide="reasonInEdition">{{nonprofit.reason}} <button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="reasonEditClicked()"><i class="fa fa-edit"></i></button></p>
 					  		<div ng-show="reasonInEdition">
 				          		<div>
 				          			<textarea rows="6" cols="90" ng-model="nonprofitEdit.reason">
@@ -150,7 +163,7 @@
 				    </tab>
   				</tabset>
 	 		</div>
-	 		<div class="col-md-1">
+	 		
 	 		</div>
  			</div>
 		 </div>

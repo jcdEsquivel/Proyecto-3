@@ -44,6 +44,7 @@ treeSeedAppControllers.controller('campaignSearchController', function($scope,
 		
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).success(function(response) {
+				response.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCause = response.catalogs;
 		}).error(function(status){
 			$scope.errorServer(status);
@@ -571,10 +572,21 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 					$scope.postsLoaded = false;
 					$scope.minDate2 = new Date();
 					$scope.nonprofitId = 0;
+					$scope.hasRecurrable = false;
 
 					$scope.minDate = function() {
 						$scope.mindate2 = $scope.mindate1;
 					}
+					
+					
+					var father = '0';
+					if(Session.userRole == USER_ROLES.donor){
+						father = Session.userId;
+					}
+					$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+						'/treeseed.org/goTo?type=campaign&id='+$stateParams.campaignId+'&fatherId='+father;
+					
+					console.log(JSON.stringify($location));
 					
 					$scope.init = function() {
 						//show donate button
@@ -595,6 +607,10 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 												$scope.campaign = mydata.campaign;
 												$scope.nonprofitId = mydata.campaign.nonprofit.id;
 												
+												if(mydata.campaign.dueDateS == '∞'){
+													$scope.hasRecurrable = true;
+												}
+												
 												if ($scope.campaign == null) {
 													$state.go("treeSeed.index");
 												}
@@ -606,8 +622,12 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 												} else {
 													$scope.isOwner = false;
 												}
+												
 												if (mydata.campaign.state == "finished") {
 													$scope.isOpen = false;
+													$scope.showDonationButton = false;
+												}else if(mydata.campaign.state == "soon"){
+													$scope.showDonationButton = false;
 												}
 											}else{
 												$scope.errorServer(mydata.code);
@@ -682,10 +702,11 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						$scope.requestObjectEdit.description = $scope.campaign.description;
 						$scope.requestObjectEdit.amountGoal = $scope.campaign.amountGoal;
 						$scope.requestObjectEdit.amountCollected = $scope.campaign.amountCollected;
-						$scope.requestObjectEdit.startDateData = new Date(
-								$scope.campaign.startDate);
-						$scope.requestObjectEdit.dueDateData = new Date(
-								$scope.campaign.dueDate);
+						$scope.requestObjectEdit.startDateData = new Date($scope.campaign.startDate);
+						//It's not an endless campaign
+						if($scope.campaign.dueDate != undefined){
+							$scope.requestObjectEdit.dueDateData = new Date($scope.campaign.dueDate);
+						}
 						$scope.requestObjectEdit.picture = $scope.campaign.picture;
 
 						$http(
@@ -823,10 +844,14 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 
 					// Date Edit
 					$scope.dateEditClicked = function(type) {
+						$scope.notInfinite = false;
 						if (type.state == 'active') {
 							$scope.disabled = true;
 						} else {
 							$scope.disabled = false;
+						}
+						if($scope.campaign.dueDate != undefined){
+							$scope.notInfinite = true;
 						}
 						modalInstance = $modal
 								.open({
@@ -910,6 +935,9 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 				},
 				fatherId: function(){
 					return $scope.getFatherId();
+				},
+				recurrable: function(){
+					return $scope.hasRecurrable
 				}
 			} 
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

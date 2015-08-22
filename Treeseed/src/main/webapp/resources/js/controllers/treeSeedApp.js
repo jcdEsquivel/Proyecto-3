@@ -25,7 +25,10 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
       //Stripe public key setup
       //$window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
       //Llave Aramis
-      $window.Stripe.setPublishableKey('pk_test_uLHafCqM7q7GeVZxDkabaA2y');
+      //$window.Stripe.setPublishableKey('pk_test_AtFfQvJrqNu2WtBJdTPUSz2L');
+      
+      //Llave treeseed pk_test_X6ydob8jQSxhKRGlXVaFXR4c
+      $window.Stripe.setPublishableKey('pk_test_X6ydob8jQSxhKRGlXVaFXR4c');
 /*
       $window.onbeforeunload = function (e) {
     	  alert("hola");
@@ -35,6 +38,7 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
     	  }
       };*/
       
+    
       if( $cookies['idUserTree']== undefined){
     	  
     	  AuthService.guestSession();
@@ -156,7 +160,11 @@ treeSeedAppMainControllers.controller('AppCtrl', function(   $rootScope, $cookie
 		});
 	}
 
-    	
+    
+	$scope.catalogSort = function(a, b){
+		return ((a.message < b.message) ? -1 : ((a.message > b.message) ? 1 : 0));
+	}
+	
       
 
   });

@@ -64,6 +64,52 @@ public class NonprofitPOJO {
 	/** The is active. */
 	private boolean isActive;
 	
+	
+	/** The nonprofit cant donors. */
+	private int cantDonors;
+	
+	/**  The nonprofit cant money. */
+	private double cantMoney;
+	
+
+	
+	/**
+	 * Gets the cant money.
+	 *
+	 * @return the cant money
+	 */
+	public double getCantMoney() {
+		return cantMoney;
+	}
+
+	/**
+	 * Sets the cant money.
+	 *
+	 * @param cantMoney the new cant money
+	 */
+	public void setCantMoney(double cantMoney) {
+		this.cantMoney = cantMoney;
+	}
+
+	
+	/**
+	 * Gets the cant donors.
+	 *
+	 * @return the cant donors
+	 */
+	public int getCantDonors() {
+		return cantDonors;
+	}
+
+	/**
+	 * Sets the cant donors.
+	 *
+	 * @param cantDonors the new cant donors
+	 */
+	public void setCantDonors(int cantDonors) {
+		this.cantDonors = cantDonors;
+	}
+
 	/**
 	 * Gets the id.
 	 *

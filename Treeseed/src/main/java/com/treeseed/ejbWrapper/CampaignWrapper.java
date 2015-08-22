@@ -20,10 +20,7 @@ public class CampaignWrapper {
 	/** The wrapper object. */
 	private Campaign wrapperObject;
 	
-	/** The campaign service. */
-	@Autowired
-	DonationServiceInterface donationService;
-	
+
 	/** The state. */
 	private String state;
 	

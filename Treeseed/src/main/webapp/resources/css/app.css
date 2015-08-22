@@ -1025,7 +1025,7 @@ th {
         bottom: 0;
         left: 0;
         z-index: 1000;
-        width: 199px;
+        width: 180px;
         overflow: hidden
     }
     .app-aside-fixed .aside-wrap .navi-wrap {
@@ -8214,8 +8214,8 @@ url("../fonts/Material-Design-Icons.svg?-g7cqhn#Material-Design-Icons") format("
 .md-aside {
     position:relative;
     z-index:40;
-    width:240px;
-    max-width:240px
+    width:180px;
+    max-width:180px
 }
 .md-content {
     display:block;

@@ -40,7 +40,7 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 		  	});
 	  	};	
 	  	
-	  	$scope.shareLink = "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + Session.userId;
+	  	//$scope.shareLink = "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + Session.userId;
 	}
 	
 	$scope.init();
