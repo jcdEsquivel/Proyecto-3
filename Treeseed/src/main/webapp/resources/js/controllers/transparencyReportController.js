@@ -152,6 +152,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 			if (data.code == 200) {
 				$scope.reports = data.transparencyReports;
 				$scope.totalReports = data.totalElements;
+				$scope.zeroReports = false;
 			}else{
 				$scope.reports = [];
 				$scope.zeroReports = true;
