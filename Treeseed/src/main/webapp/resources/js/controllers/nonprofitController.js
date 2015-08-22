@@ -271,6 +271,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.requestObject = {};
 	$scope.isOwner = true;	
 	$scope.showDonationButton = true;
+	$scope.showDeleteMsj = false;
 	
 	var father = '0';
 	if(Session.userRole == USER_ROLES.donor){
@@ -294,10 +295,17 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				$scope.requestObject).success(function(mydata, status) {
 					if(mydata.code==200){
 						$scope.nonprofit = mydata.nonprofit;
-						if(mydata.owner==true){
-							$scope.isOwner=true;
-						}else{
+						console.log(mydata.nonprofit.active);
+						if(mydata.nonprofit.active == true){
+							if(mydata.owner==true){
+								$scope.isOwner=true;
+							}else{
+								$scope.isOwner=false;
+							}
+						}else{//profile is deleted
 							$scope.isOwner=false;
+							$scope.showDonationButton = false;
+							$scope.showDeleteMsj = true;
 						}
 					}
 					else{
@@ -655,6 +663,9 @@ console.log( $scope.getFatherId());
 				},
 				fatherId: function(){
 					return $scope.getFatherId();
+				},
+				recurrable: function(){
+					return true;
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

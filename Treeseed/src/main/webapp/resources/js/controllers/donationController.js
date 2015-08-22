@@ -84,12 +84,12 @@ treeSeedAppControllers.controller('BillReportController', function($scope,
 });
 
 treeSeedAppControllers.controller('guestDonationController', function($http, Session, $donationService,StripeService, $stateParams, $modal,
-		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, fatherId,
+		$scope, $upload, $state, AuthService, AUTH_EVENTS, $modalInstance, $stateParams, $rootScope, setCurrentUser, fatherId, recurrable,
 		nonprofitId, USER_ROLES, titleFace, descriptionFace, pictureFace, $timeout, $translate, errorFunction) {
 
 	
 	$scope.percent = 0;
-	
+	$scope.recurrable = recurrable;
 	$scope.donor = {
 			name:'',
 			lastName:'',
@@ -567,7 +567,7 @@ treeSeedAppControllers.controller('guestDonationController', function($http, Ses
 
 
 
-treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal, errorFunction, fatherId,
+treeSeedAppControllers.controller('donorDonationController', function($http,$timeout, $donationService,StripeService, $stateParams, Session, $modal, errorFunction, fatherId, recurrable,
 		$scope, $upload, $state, AuthService,$translate, AUTH_EVENTS, $modalInstance,USER_ROLES, $stateParams, $rootScope, setCurrentUser, nonprofitId,  titleFace, descriptionFace, pictureFace) {
 
 //VARIABLES DEFINITION	
@@ -576,6 +576,8 @@ treeSeedAppControllers.controller('donorDonationController', function($http,$tim
 	$scope.sameCard={
 		validation: false
 	};
+	
+	$scope.recurrable = recurrable;
 	
 	$scope.errorFunction = errorFunction;
 	

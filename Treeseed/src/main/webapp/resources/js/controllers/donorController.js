@@ -387,7 +387,7 @@ treeSeedAppControllers.controller('donorSearchController', function($scope,
 });
 
 treeSeedAppControllers.controller('getDonorProfileController', function($scope,
-		$http, $location, $modal, $log, $timeout, $stateParams, Session) {
+		$http, $location, $modal, $log, $timeout, $stateParams, Session, USER_ROLES) {
 
 
 	//portfolio variables
@@ -397,7 +397,16 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.porfolioRequest.donorId = $stateParams.donorId;
 	//end portfolio variables
 	
-	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
+	
+	var father = '0';
+	if(Session.userRole == USER_ROLES.donor){
+		father = Session.userId;
+	}
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+		'/treeseed.org/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
+	
+	
+	//$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
 	///
 	
 	// Declaration of donor object
@@ -862,11 +871,11 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				$scope.totalAmount = response.treeDonation;			
 			}
 		}else{
-			$scope.errorServer(response.code);
+			//$scope.errorServer(response.code);
 			
 		}
 	}).error(function(status) {
-		$scope.errorServer(status);
+		//$scope.errorServer(status);
 	});
 	
 	$scope.donorArray = function(tree){

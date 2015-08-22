@@ -262,6 +262,7 @@ treeSeedAppControllers.controller('errorHandlerCtlr', function($modalInstance, $
         break;
     case 404:
     	$scope.text = "FEEDBACK-MODAL.ERROR-404-TEXT";
+    	$state.go('treeSeed.index');
         break;
     case 500:
 		$scope.text = "FEEDBACK-MODAL.ERROR-500-TEXT";
