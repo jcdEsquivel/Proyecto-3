@@ -37,6 +37,23 @@ public interface DonationServiceInterface {
 	 */
 	int findDonorsPerCampaign(int campaignId);
 	
+	
+	/**
+	 * Find donors per nonprofit.
+	 *
+	 * @param id the nonprofit id
+	 * @return the int
+	 */
+	int findDonorsPerNonprofit(int id);
+	
+	/**
+	 * Find money for nonprofit.
+	 *
+	 * @param id the nonprofit id
+	 * @return the double
+	 */
+	double findNonprofitMoney(int id);
+	
 	/**
 	 * Save donation.
 	 *

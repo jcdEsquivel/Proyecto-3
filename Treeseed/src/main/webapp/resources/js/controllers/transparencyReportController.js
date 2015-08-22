@@ -9,8 +9,7 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 		$http, $location, $modal, $log, $timeout, $stateParams, Session, $upload, editableOptions, editableThemes) {
 
 	$scope.percentageSpent = 0;
-	//The $scope.totalCollected be retrieved from the DB
-	$scope.totalCollected = 150;
+	$scope.totalCollected = 0;
 	$scope.spences = [];
 	$scope.totalSpent;
 	$scope.description = "";
@@ -37,6 +36,9 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 	}
 
 	$scope.openCreateForm = function() {
+		$scope.percentageSpent = 0;
+		$scope.spences = [];
+		getTotalCollected();
 	    modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
 			templateUrl : 'layouts/components/createTransparencyReport.html',
@@ -90,12 +92,12 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 					}else{
 						$scope.errorServer(mydata.code);
 					}
+					$scope.getReports(1);
+					modalInstance.close();
 		}).error(function(status) {
 			$scope.errorServer(status);
 		});
 	}
-
-	getTotalCollected();
 });
 
 treeSeedAppControllers.controller('searchTransparencyReportController', function($http,
@@ -150,6 +152,7 @@ treeSeedAppControllers.controller('searchTransparencyReportController', function
 			if (data.code == 200) {
 				$scope.reports = data.transparencyReports;
 				$scope.totalReports = data.totalElements;
+				$scope.zeroReports = false;
 			}else{
 				$scope.reports = [];
 				$scope.zeroReports = true;

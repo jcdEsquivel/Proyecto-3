@@ -1,72 +1,120 @@
-<div class="panel panel-default">
-    <div class="panel-heading font-bold">
-      <h1 class="m-n font-thin h3" translate="REGISTER-DONOR.TITTLE">Register Donor</h1>
-    </div>
-    <div class="panel-body">
-      <form class="form-horizontal col-sm-10 col-sm-offset-0" id="createDonorForm" name="registerForm" role="form">
-	  <div  class="col-sm-5 md-whiteframe-treeseed">
-      	<md-input-container flex>	
-          <label translate="REGISTER-DONOR.NAME">Name</label>
-          <input type="text" ng-model="requestObject.donor.name" class="form-control" required>   
-        </md-input-container>
-        <md-input-container flex>
-          <label translate="REGISTER-DONOR.LASTNAME">Last Name</label>
-         <input type="text" ng-model="requestObject.donor.lastName" class="form-control" required>  
-        </md-input-container>
-        <md-input-container flex id="emailValidate">
-          <label translate="REGISTER-DONOR.EMAIL">Email</label>
-          <input type="text" is-email-unique="" name="email" id="jsEmail" ng-keypress="validateEmail()" ng-model="requestObject.donor.userGeneral.email" class="form-control" required >   
-        </md-input-container>
-        <span class="input-error-message" ng-show="registerForm.email.$error.unique" translate="REGISTER-DONOR.EXISTEMAIL">
-		</span>
-        <md-input-container flex>
-          <label translate="REGISTER-DONOR.PASSWORD">Password</label>
-         <input type="password" ng-model="requestObject.donor.userGeneral.password" class="form-control" required>  
-        </md-input-container>
-        
-        <md-input-container flex>
-       <label  translate="REGISTER-DONOR.PASSWORD-CONFIRM"></label>
-       <input type="password" class="form-control" name="confirm_password" required ng-model="confirm_password" ui-validate=" '$value==requestObject.donor.userGeneral.password' " ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
-        </md-input-container>               
-         <span ng-show='registerForm.confirm_password.$error.validator' translate="REGISTER-DONOR.PASSWORD-MESSAGE"></span>
-        
-        <label class="labels-dropdowns" translate="REGISTER-DONOR.COUNTRY"></label> 
-        <md-input-container flex> 
-         <div>
-         <md-select style="width:100%;" ng-model="requestObject.donor.country">
-		    <md-select-label value="requestObject.donor.country">{{ requestObject.donor.country.message }}</md-select-label>
-		    <md-option ng-repeat="country in selectSortOptions"
-		               ng-value="country">
-		        {{ country.message  }}
-		    </md-option>
-		 </md-select>   
-         </div>
-         </md-input-container>  	    
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-6 md-whiteframe-treeseed" id="divIm" ng-controller="dragnDropController">
-        <md-input-container flex> 
-        <label translate="REGISTER-DONOR.PICTUREIMAGE">Picture Image</label>
-         </md-input-container>
-        <div class="panel wrapper">
-	        <img id="fileDisplayArea" style="width:200px;height:200px;"/>
-	        <div ng-controller="dragnDropController" id="file-drop" style="width:200px;height:200px;" class="col-lg-4 b-a b-2x b-dashed wrapper-lg lter text-center" imagedrop on-image-drop="imageDropped()">
-	    		<a translate="REGISTER-DONOR.DROPIMAGE">Drop an image here to upload.</a>
+
+
+<div class="panel-body">
+
+	<h1 class=" font-thin h2 register-title"
+		translate="REGISTER-DONOR.TITTLE">Register Donor</h1>
+
+
+
+	<div class="col-sm-12 md-whiteframe-treeseed-form">
+
+		<form class="form-horizontal" id="createDonorForm" name="registerForm"
+			role="form">
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label" translate="REGISTER-DONOR.NAME">Name</label>
+					<input type="text" id="name" name="name" ng-model="requestObject.donor.name"
+						class="form-control" required>
+						
+					<span ng-show='registerForm.name.$error.required && registerForm.name.$touched'
+				translate="VALIDATIONS.VAL-NAME" class="validation-message"></span>
+				</div>
+
+				<div class="col-sm-6">
+					<label for="lastname" class="control-label"
+						translate="REGISTER-DONOR.LASTNAME">Last Name</label> <input
+						type="text" id="lastname" name="lastName" ng-model="requestObject.donor.lastName"
+						class="form-control" required>
+						<span ng-show='registerForm.lastName.$error.required && registerForm.lastName.$touched'
+				translate="VALIDATIONS.VAL-LAST-NAME"  class="validation-message"></span>
+				</div>
 			</div>
-		</div>
-		<a href="#" id="login" style="width:200px;" class="btn btn-primary btn-facebook  btn-block indigo" ><i
-									class="fa fa-facebook pull-left indigo"></i><label
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label" translate="REGISTER-DONOR.EMAIL">Email</label>
+
+					<input type="email" is-email-unique="" name="email" id="jsEmail"		
+						ng-model="requestObject.donor.userGeneral.email"
+						class="form-control email-class" required> 
+						
+						<span
+						 class="validation-message"
+						ng-show="registerForm.email.$error.unique"
+						translate="REGISTER-DONOR.EXISTEMAIL"> </span>
+						
+							<span ng-if='registerForm.email.$error.required && registerForm.email.$touched'
+				translate="VALIDATIONS.VAL-EMAIL"  class="validation-message"></span>
+				<br/>
+					<span ng-if='registerForm.email.$invalid && registerForm.email.$touched && registerForm.email.$dirty'
+				translate="VALIDATIONS.VAL-EMAIL-FORMAT"  class="validation-message"></span>
+				</div>
+
+				<div class="col-sm-6">
+					<label for="lastname" class="control-label"
+						translate="REGISTER-DONOR.COUNTRY">Country</label> <select
+						ng-model="requestObject.donor.country" class="form-control" name="country"
+						ng-options="s as s.message for s in selectSortOptions" required></select>
+						
+							<span ng-show='registerForm.country.$error.required && registerForm.country.$touched'
+				translate="VALIDATIONS.VAL-COUNTRY"  class="validation-message"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label" translate="REGISTER-DONOR.PASSWORD">Password</label>
+
+					<input type="password" ng-minlength="8" name="password"
+						ng-model="requestObject.donor.userGeneral.password"
+						class="form-control" required>
+						
+					<span ng-show='registerForm.password.$error.required && registerForm.password.$touched'
+				translate="VALIDATIONS.VAL-PASSWORD"  class="validation-message"></span>
+				<span class="validation-message" ng-show="registerForm.password.$error.minlength && registerForm.confirm_password.$touched"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
+				</div>
+
+				<div class="col-sm-6">
+					<label for="lastname" class="control-label"
+						translate="REGISTER-DONOR.PASSWORD-CONFIRM">Confirm
+						Password</label> <input type="password" class="form-control"
+						name="confirm_password" required ng-model="confirm_password"
+						ui-validate=" '$value==requestObject.donor.userGeneral.password' "
+						ui-validate-watch=" 'requestObject.donor.userGeneral.password' ">
+						
+						<span
+						ng-show='registerForm.confirm_password.$error.validator && registerForm.confirm_password.$touched'
+						translate="REGISTER-DONOR.PASSWORD-MESSAGE"
+						class="validation-message"></span>
+				
+
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4" style="text-align: center">
+					<button type="submit" ng-click="create()" ng-hide="showProcess" class="btn btn-primary pull-left"
+						ng-disabled="registerForm.$invalid"
+						translate="REGISTER-DONOR.REGISTER">Register</button>
+						<md-progress-circular style="display: block;transform: scale(1);" 
+			 	class=" bg-info" md-mode="indeterminate" ng-show="showProcess"></md-progress-circular>
+					<br/>
+					<br/>
+					<a href="#" id="login" style="width:200px;" class="btn btn-primary btn-facebook-register  btn-block indigo" ><i
+									class="fa fa-facebook  indigo"></i><label
 									translate="REGISTER-DONOR.REGISTERFACEBOOK"></label></a>
-		<br>
-		<span class="input-error-message" ng-show="facebookFail" translate="REGISTER-DONOR.EXISTEMAIL">Correo ya registrado</span>
-		<br>
-		</div>
-		<div class="form-group">
-          <div class="col-sm-6 col-sm-offset-9">
-            <button type="submit" class="btn btn-default" translate="REGISTER-DONOR.CANCEL">Cancel</button>
-            <button type="submit" ng-click="create()" class="btn btn-primary" ng-disabled="registerForm.$invalid" translate="REGISTER-DONOR.REGISTER">Register</button>
-          </div>
-        </div>
-      </form>
-    </div>    
-</div>    
+									
+						
+					<span class="input-error-message" ng-show="facebookFail" translate="REGISTER-DONOR.EXISTEMAIL">Correo ya registrado</span>
+				</div>
+				<div class="col-sm-4">
+					
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</div>
+
+

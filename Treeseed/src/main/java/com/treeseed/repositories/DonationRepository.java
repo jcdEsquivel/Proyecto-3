@@ -63,6 +63,27 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 	@Query("SELECT COUNT(DISTINCT donorId) From Donation  WHERE campaingId = :campignId")
 	int countDistincDonorIdByCampaingId(@Param("campignId") int campaignId);
 	
+	
+
+	/**
+	 * Count distinc donor id by campaing id.
+	 *
+	 * @param nonProfit  id
+	 * @return the int
+	 */
+	@Query("SELECT COUNT(DISTINCT donorId) From Donation  WHERE nonProfitId = :id")
+	int countDistincDonorIdByNonprofitId(@Param("id") int id);
+	
+	
+	/**
+	 * Count distinc donor id by campaing id.
+	 *
+	 * @param nonProfit  id
+	 * @return the int
+	 */
+	@Query("SELECT COALESCE(SUM(amount),0) From Donation  WHERE nonProfitId = :id")
+	double countNonprofitMoney(@Param("id") int id);
+	
 	/**
 	 * Update.
 	 *

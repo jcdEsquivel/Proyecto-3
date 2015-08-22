@@ -1,4 +1,9 @@
 <div ng-controller="searchTransparencyReportController">
+	<div ng-controller = "createTransparencyReportController">
+		<div class="row m-b-md">
+			<button class="btn btn-success add-post-button" ng-if="isOwner" ng-click="openCreateForm()" translate="TRANSPARENCY-REPORT.CREATE">Create</button>
+		</div>
+	</div>
 	<div class="row m-b-md">
 		<div class="col-sm-2"></div>
 		<div class="col-sm-3">

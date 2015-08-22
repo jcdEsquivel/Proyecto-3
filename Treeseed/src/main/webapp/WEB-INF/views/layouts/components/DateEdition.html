@@ -24,11 +24,11 @@
                   <p translate="CREATE-CAMPAIGN.TAB-2.DATE2">Due Date:</p>
                   <div>
                      <div class="input-group ">
-                        <input type="text" name="date2" min-date="minDate2"
+                        <input ng-disabled="dueDateAvailable" type="text" name="date2" min-date="minDate2"
                            placeholder="{{'CREATE-CAMPAIGN.TAB-2.PLACEHOLDER-DATE2'| translate}}" class="form-control" datepicker-popup="{{format}}"ng-model="campaign.dueDate" is-open="opened"
                            datepicker-options="dateOptions" ng-required="true"	close-text="Close" ui-validate=" '$value>campaign.startDate' " />
                         <span class="input-group-btn">
-                        <button type="button" class="btn btn-default"	ng-click="open($event)">
+                        <button ng-disabled="dueDateAvailable" type="button" class="btn btn-default"	ng-click="open($event)">
                         <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                         </span>
