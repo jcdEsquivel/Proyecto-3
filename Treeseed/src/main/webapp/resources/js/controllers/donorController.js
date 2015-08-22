@@ -403,7 +403,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		father = Session.userId;
 	}
 	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
-		'/treeseed.org/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
+		'/treeseed/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
 	
 	
 	//$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
