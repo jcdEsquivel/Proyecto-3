@@ -117,7 +117,7 @@ public class CampaignController {
 	
 				campaign.setNonprofit(cp);
 				viewCampaignPOJO.add(campaign);
-			};
+			}
 	
 			cs.setCampaigns(viewCampaignPOJO);
 			cs.setCode(200);

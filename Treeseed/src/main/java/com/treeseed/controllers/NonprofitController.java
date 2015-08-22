@@ -46,6 +46,7 @@ import com.stripe.exception.InvalidRequestException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Plan;
 import com.treeseed.contracts.BaseResponse;
+import com.treeseed.contracts.CampaignRequest;
 import com.treeseed.contracts.DonorRequest;
 import com.treeseed.contracts.DonorResponse;
 import com.treeseed.contracts.EmailUniqueRequest;
@@ -54,10 +55,13 @@ import com.treeseed.contracts.NonprofitRequest;
 import com.treeseed.contracts.NonprofitResponse;
 import com.treeseed.contracts.UserGeneralRequest;
 import com.treeseed.contracts.UserGeneralResponse;
+import com.treeseed.utils.PageWrapper;
 import com.treeseed.utils.TreeseedConstants;
 import com.treeseed.utils.Utils;
+import com.treeseed.ejb.Campaign;
 import com.treeseed.ejb.Nonprofit;
 import com.treeseed.ejb.UserGeneral;
+import com.treeseed.pojo.CampaignPOJO;
 import com.treeseed.pojo.DonationPOJO;
 import com.treeseed.pojo.DonorPOJO;
 import com.treeseed.pojo.NonprofitPOJO;
@@ -74,6 +78,7 @@ import com.treeseed.services.UserGeneralService;
 import com.treeseed.services.UserGeneralServiceInterface;
 import com.treeseed.utils.PojoUtils;
 import com.treeseed.utils.StripeUtils;
+import com.treeseed.ejbWrapper.CampaignWrapper;
 import com.treeseed.ejbWrapper.DonorWrapper;
 import com.treeseed.ejbWrapper.UserGeneralWrapper;
 import com.treeseed.ejbWrapper.CatalogWrapper;
@@ -145,6 +150,16 @@ public class NonprofitController extends UserGeneralController {
 		nonWrapper.setId(dr.getId());
 
 		try {
+			
+			CampaignRequest cr = new CampaignRequest();
+			cr.setNonprofitId(dr.getId());
+			
+			PageWrapper<CampaignWrapper> pageResults = campaignService.getCampaignsByNonprofit(cr);
+			
+			//for (CampaignWrapper objeto : pageResults;) {
+				//campaignService.closeCampaign(objeto.getId());
+			//}
+			
 			nonProfitService.deteteNonprofit(nonWrapper);
 			us.setCode(200);
 			us.setCodeMessage("USER DELETE");

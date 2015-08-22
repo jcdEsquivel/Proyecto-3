@@ -177,21 +177,27 @@ public class CampaignService implements CampaignServiceInterface{
 	@Override
 	public PageWrapper<CampaignWrapper> getCampaignsByNonprofit(
 			CampaignRequest ur) {
-		PageRequest pr;
+		PageRequest pr = null;
 		int nonprofitId = 0;
 		PageWrapper<CampaignWrapper> pageWrapper = new PageWrapper<CampaignWrapper>();
 		Page<Campaign> result = null;
 
 		Sort.Direction direction = Sort.Direction.DESC;
-		if (ur.getDirection().equals("ASC")) {
-			direction = Sort.Direction.ASC;
+		
+		if (ur.getDirection() != null)
+		{
+			if (ur.getDirection().equals("ASC")) {
+				direction = Sort.Direction.ASC;
+			}
 		}
-
-		if (ur.getSortBy().size() > 0) {
-			Sort sort = new Sort(direction, ur.getSortBy());
-			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize(), sort);
-		} else {
-			pr = new PageRequest(ur.getPageNumber(), ur.getPageSize());
+		if (ur.getSortBy() != null)
+		{
+			if (ur.getSortBy().size() > 0) {
+				Sort sort = new Sort(direction, ur.getSortBy());
+				pr = new PageRequest(ur.getPageNumber(), ur.getPageSize(), sort);
+			} else {
+				pr = new PageRequest(ur.getPageNumber(), ur.getPageSize());
+			}
 		}
 
 		nonprofitId = ur.getNonprofitId();
