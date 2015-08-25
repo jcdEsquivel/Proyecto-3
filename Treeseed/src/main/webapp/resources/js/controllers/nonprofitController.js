@@ -67,13 +67,18 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	$scope.requestObject1={};
 	$scope.requestObject2={};
 	$scope.confirmPassword = "";
-	$scope.image = "";
+	$scope.image = new Blob();
+	$scope.showProcess=false;
 	
 	$scope.init = function(){
 		$scope.requestObject1.lenguage=$scope.selectLang;
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject1)
 		    .then(function(response){
+		    	//order list
+		    	response.data.catalogs.sort($scope.catalogSort);
+		    	
+		    response.data.catalogs.unshift('');
 		     $scope.selectSortOptionsCountry =  response.data.catalogs;
 		     $scope.nonprofit.country =  response.data.catalogs[0];
 		}, function(status){
@@ -83,6 +88,11 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		$scope.requestObject2.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',$scope.requestObject2)
 		    .then(function(response){
+		    	
+		    //order list
+	    	response.data.catalogs.sort($scope.catalogSort);
+	    	
+		    response.data.catalogs.unshift('');
 		     $scope.selectSortOptionsCause =  response.data.catalogs;
 		     $scope.nonprofit.cause =  response.data.catalogs[0];
 		}, function(status){
@@ -120,7 +130,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 	
 	
 	$scope.create = function(event) {
-	
+		$scope.showProcess=true;
 		this.onError = false;
 		
 		$scope.upload = $upload.upload({
@@ -154,6 +164,7 @@ treeSeedAppControllers.controller('nonProfitRegistrationController', function($h
 		        	}	    		
 		    	}else{
 					$scope.errorServer(user.code);
+					
 				}
 			}, function(status){
 				 $scope.errorServer(status.status);
@@ -197,6 +208,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$scope.requestObject1.type = "country";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject1).then(function(response) {
+				response.data.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCountry = response.data.catalogs;
 			
 			
@@ -207,6 +219,7 @@ treeSeedAppControllers.controller('nonProfitSearchController', function($scope,
 		$scope.requestObject2.type = "cause";
 		$http.post('rest/protected/catalog/getAllCatalog',
 				$scope.requestObject2).then(function(response) {
+					response.data.catalogs.sort($scope.catalogSort);
 			$scope.selectSortOptionsCause = response.data.catalogs;
 
 		}, function(status){
@@ -258,6 +271,15 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 	$scope.requestObject = {};
 	$scope.isOwner = true;	
 	$scope.showDonationButton = true;
+	$scope.showDeleteMsj = false;
+	
+	var father = '0';
+	if(Session.userRole == USER_ROLES.donor){
+		father = Session.userId;
+	}
+	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
+		'/treeseed/goTo?type=nonProfit&id='+$stateParams.nonProfitId+'&fatherId='+father;
+	
 	
 
 	$scope.init = function() {
@@ -273,10 +295,17 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 				$scope.requestObject).success(function(mydata, status) {
 					if(mydata.code==200){
 						$scope.nonprofit = mydata.nonprofit;
-						if(mydata.owner==true){
-							$scope.isOwner=true;
-						}else{
+						console.log(mydata.nonprofit.active);
+						if(mydata.nonprofit.active == true){
+							if(mydata.owner==true){
+								$scope.isOwner=true;
+							}else{
+								$scope.isOwner=false;
+							}
+						}else{//profile is deleted
 							$scope.isOwner=false;
+							$scope.showDonationButton = false;
+							$scope.showDeleteMsj = true;
 						}
 					}
 					else{
@@ -634,6 +663,9 @@ console.log( $scope.getFatherId());
 				},
 				fatherId: function(){
 					return $scope.getFatherId();
+				},
+				recurrable: function(){
+					return true;
 				}
 			}
 			// resolve : lazyService.load(['https://js.stripe.com/v2/'])

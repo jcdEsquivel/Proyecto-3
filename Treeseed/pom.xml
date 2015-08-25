@@ -23,16 +23,16 @@
     
     <dependencies>
     <!-- Comment this to generate war -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+        </dependency> -->
         <!-- Uncomment this to generate war -->
-         <!--  <dependency>
+            <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-tomcat</artifactId>
         <scope>provided</scope>
-    </dependency>-->
+    </dependency> 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -102,38 +102,40 @@
             <artifactId>scala-library</artifactId>
             <version>2.10.4</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+        </dependency> -->
 
         <dependency>
         	<groupId>com.stripe</groupId>
         	<artifactId>stripe-java</artifactId>
         	<version>1.32.1</version>
         </dependency>
-        <dependency>
+       <!--  <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-hornetq</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-data-gemfire</artifactId>
         </dependency>
-        <dependency>
+        
+        
+          <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>
-        		spring-boot-starter-cloud-connectors
+        		spring-boot-starter-data-elasticsearch
         	</artifactId>
         </dependency>
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>
-        		spring-boot-starter-data-elasticsearch
+        		spring-boot-starter-cloud-connectors
         	</artifactId>
         </dependency>
         <dependency>

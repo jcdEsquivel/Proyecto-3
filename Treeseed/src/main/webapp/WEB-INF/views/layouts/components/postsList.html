@@ -1,7 +1,9 @@
 <div ng-controller="postAdminController">
 	<div class="row">
 		<div class="col-md-12">
-			<button class="btn btn-success add-post-button" ng-if="isOwner" ng-click="openModal()" translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</button>
+			<button class="btn btn-success add-post-button btn-addon" ng-if="isOwner" ng-click="openModal()" ><i class="fa fa-plus"></i><span translate="POST-MODAL.MODAL-OPEN-MODAL">Add Post</span></button>
+		
+			
 			<div class="wrapper-md">
 			<ul class="list-group list-group-alt list-group-lg  pull-in m-b-none post-scroll">
 	        	<li class="list-group-item li-posts-result" 
@@ -10,17 +12,23 @@
 	            		<img ng-src="{{p.picture}}" alt="..." class="post-list-image" id="imagePanel">
 		          	</a>
 		          	<div class="clear">
-		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.date}} <button class="btn btn-rounded btn-sm btn-icon btn-default" ng-if="isOwner" ng-click="openModalFilled(p)"><i class="fa fa-edit"></i></button>
-		            		<button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="DELETE-MODAL-POST.DELETE"></button>
+		            	<span class=" post-title h4 text-primary m-b-sm block" > {{p.title}}{{' - '}}{{p.date}} 
+		            	
+		            	<button class="btn btn-success add-post-button" ng-if="isOwner" ng-click="openModalFilled(p)"" translate="POST-MODAL.MODAL-EDIT-MODAL">Edit Post</button>
+			
+		            	
+		            	<button style="width:80px;" ng-if="isOwner" class="btn m-b-xs w-xs btn-danger pull-right" ng-click="openModalDeletePost(p)" translate="DELETE-MODAL-POST.DELETE"></button>
 		            	</span> 
 		            	<span > {{p.description}}
-		            		<br>
-	            			<div ng-controller="facebookController">
-	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
-									class="fa fa-facebook pull-left indigo"></i><label
-									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebookBylist(p)" ></label></a>
-	        				</div>
 		            	</span>
+		            	<div ng-controller="facebookController">
+		            	
+		            	<button class="btn  btn-sm btn-facebook-post btn-addon m-b-sm" style="margin-top: 7px;"" ng-click="postInFacebookBylist(p)"><i class="fa fa-facebook"></i><span translate="LOGIN.SHAREFACEBOOK">Primary</span></button>
+						
+	            				<!-- <a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
+									class="fa fa-facebook pull-left indigo"></i><label
+									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebookBylist(p)" ></label></a> -->
+	        				</div>
 		          	</div>
 		        </li>        
       		</ul>

@@ -64,11 +64,7 @@
                </div>
                <br>
                <br>
-               <div ng-controller="facebookController">
-	            				<a style="width:180px;" href class="btn btn-primary btn-facebook  btn-block indigo"><i
-									class="fa fa-facebook pull-left indigo"></i><label
-									translate="LOGIN.SHAREFACEBOOK" ng-click="postInFacebook(3)" ></label></a>						
-	        </div>
+             
             </div>
             <div class="row">
                <div ng-show="aboutInEdition">
@@ -87,10 +83,17 @@
          <div class="col wrapper-lg w-lg bg-light dk r-r">
             <div class="row m-b-md">
                <div class="col-sm-12">
-               <md-button class="btn  btn-success btn-addon" ng-if="showDonationButton" ng-click="showDonation()" style="width:100%;">
-                <i class="fa fa-dollar"></i>
-               <h2 translate="DONATION-MODAL.DONATE">Donate</h2>
-               </md-button>
+               
+               <button ng-if="showDonationButton" ng-click="showDonation()" class="btn btn-success btn-addon btn-lg center-btn m-b-md"><i class="fa fa-dollar"></i><span translate="DONATION-MODAL.DONATE">Donate</span></button>
+ 					
+               
+               	<input type="text" ng-show="false" ng-model="profileUrl" class="form-control">   
+        								
+				<button class="btn m-b-xs w-xs btn-info btn-rounded center-btn m-b-md"  clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
+	        			
+               <button class="btn  btn-sm btn-facebook btn-addon m-b-sm" ng-click="postInFacebook(3)"><i class="fa fa-facebook"></i><span translate="LOGIN.SHAREPROFILEFACEBOOK">Primary</span></button>
+						
+									
                </div>
             </div>
             <h3 class="font-thin m-t-none m-b" translate="CAMPAIGN.TAB-1.SUMMARY">Resumen</h3>

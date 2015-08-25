@@ -19,49 +19,31 @@
 
 <link rel="shortcut icon" href="resources/images/circle.png">
 
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="resources/js/libs.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/appLogin.js"></script>
-<script src="resources/js/libs/angular/angular-payments/angular-payments.js"></script>
 <script src="resources/js/controllers/loginController.js"></script>
 <script src="resources/js/services/treeSeedServices.js"></script>
-<script src="resources/js/services/d3Services.js"></script>
 <script src="resources/js/controllers/generalControllers.js"></script>
 <script src="resources/js/filters/treeSeedFilters.js"></script>
 <script src="resources/js/directives/treeSeedDirectives.js"></script>
 <script src="resources/js/constants/treeSeedConstants.js"></script>
 <script src="resources/js/controllers/treeSeedApp.js"></script>
-<script src="resources/js/controllers/utilitiesControllers.js"></script>
-<script src="resources/js/controllers/campaignController.js"></script>
-<script src="resources/js/controllers/donationController.js"></script>
-<script src="resources/js/controllers/nonprofitController.js"></script>
-<script src="resources/js/controllers/donorController.js"></script>
-<script src="resources/js/controllers/postController.js"></script>
-<script src="resources/js/controllers/loadingController.js"></script>
-<script src="resources/js/controllers/postCampaignController.js"></script>
-<script src="resources/js/controllers/transparencyReportController.js"></script>
-<script src="resources/js/controllers/donorReceiptsController.js"></script>
-<script src="resources/js/controllers/donationReportController.js"></script>
-<script src="resources/js/controllers/facebookController.js"></script>
+
 <script src="resources/js/config.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload.min.js"></script>
 <script	src="resources/js/libs/angular/angular-upload/angular-file-upload-shim.min.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 <script src="resources/js/libs/angular/ng-clip/ZeroClipboard.js"></script>
-<script src="resources/js/libs/angular/ng-clip/ngClip.js"></script>
-<!-- <base href="/treeseed.org" /> -->
+
 
 
 <body layout="row" ng-controller="AppCtrl">
 
-	<div class="app" id="app"
-		ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"
-		ui-view></div>
+	<h2>Page not found</h2>	
+	
+	<button class="btn m-b-sm w-xs btn-info btn-rounded center-btn" clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
+	        			 
 
-	<!-- jQuery -->
-
-
-	<!-- Lazy loading -->
 </body>
 </html>

@@ -1,3 +1,18 @@
+.main-style{
+	    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+
+.register-title{
+	    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .center-menu-item{
 
     text-align: center;
@@ -5,11 +20,10 @@
 
 
 .cover-image{
- width: 85%;
  height: 50%;
- margin-left: 15px;
- margin-right: 15px;
- margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 15px;
 }
 
 .non-profit-profile{
@@ -85,6 +99,20 @@ dragnDrop #file-drop{
     background-color: white;
     padding-bottom: 20px;
     padding-right: 20px
+}
+
+.md-whiteframe-treeseed-form {
+    box-shadow:0 2px 5px 0 rgba(0,
+    0,
+    0,
+    0.26);
+    min-height:250px;
+    min-width: 300px;
+    padding-top: 20px;
+    background-color: white;
+    padding-bottom: 20px;
+    padding-right: 50px;
+    padding-left:50px;
 }
 
  .md-select-label {
@@ -338,8 +366,27 @@ font-weight: bold;
 .btn-facebook {
      color:#fff!important;
     background-color:#3f51b5!important;
-    border-color:#3f51b5!important
+    border-color:#3f51b5!important;
+        margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
+
+.btn-facebook-register {
+     color:#fff!important;
+    background-color:#3f51b5!important;
+    border-color:#3f51b5!important; 
+    display: block;
+}
+
+.btn-facebook-post {
+     color:#fff!important;
+    background-color:#3f51b5!important;
+    border-color:#3f51b5!important;
+       
+    display: block;
+}
+
 textarea {
   resize: none;
 }
@@ -788,6 +835,47 @@ border-radius: 15px;
     align-content:space-around; 
 }
 
-.red-error{
+.validation-message{
 	color:red;
+}
+
+.general-search-campaign{
+	    
+	    
+}
+
+.general-search-nonProfit{
+	
+}
+
+.general-search-donor{
+	
+}
+
+
+.profile-info{
+	    margin-top: 5px;
+	    text-align:center;
+}
+
+.center-btn{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+/*porfolio **/
+
+.legendLabel {
+color: black;
+    font-size: 16px;
+
+}
+
+
+.legendColorBox div{
+    border-top-width: 15px !important;
+    border-right-width: 15px !important;
 }

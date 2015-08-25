@@ -78,12 +78,12 @@ angular
 												}
 											})
 									.state(
-											'treeSeed.sharedDonation',
+											'treeSeed.shared',
 											{
-												url : 'sharedDonation/:donorId',
+												url : 'shared?type&fatherId&id',
 												templateUrl : 'layouts/pages/loading.html',
-												controller: "loadingController",
-												params: {donorId: null},
+												controller: "sharedController",
+												params: {type: null, fatherId:null, id: null},
 												data : {
 													authorizedRoles : [
 															USER_ROLES.donor,
@@ -114,7 +114,9 @@ angular
 												controller: "getNonProfitProfileController",
 												params: {nonProfitId: null},
 												resolve : load([
-																'angularUtils.directives.dirPagination']),
+																'angularUtils.directives.dirPagination',
+																'xeditable',
+																'resources/js/libs/angular/angular-xeditable/dist/js/xeditable.js' ]),
 												 data : {
 													authorizedRoles : [
 													USER_ROLES.donor,
@@ -610,6 +612,11 @@ angular
 							name : 'smart-table',
 							files : [ 'resources/js/libs/angular/angular-smart-table/dist/smart-table.min.js' ]
 						},
+						/*{
+							name:'clip',
+							files: ['resources/js/libs/angular/ng-clip/ZeroClipboard.js',
+							        'resources/js/libs/angular/ng-clip/.js']
+						},*/
 						{
 							name : 'angular-skycons',
 							files : [ 'resources/js/libs/angular/angular-skycons/angular-skycons.js' ]
