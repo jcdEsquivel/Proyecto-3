@@ -342,7 +342,11 @@
     	"CONFIRMATION":"Are you sure you want to finish your campaign?",
     	"CLOSE":"Finish",
     	"CANCEL":"Cancel",
-    	"CLOSE-BUTTON":"Finish Campaign"
+    	"CLOSE-BUTTON":"Finish Campaign",
+    	"CAMPAINGSTATEHELP":"Green: When a campaign is open, \nYellow: When the Campaign is near to finish and Red: When the Campaign was finish.",
+    	"CAMPAINGENDLESS":"Endless Campaign: Is when the Campaign doesn't have an End Date.",
+    	"DONATIONSINFORMATION":"We do not retain any information regarding of your credit card or debit cards.",
+    	"POWEREDBY":"Powered by Stripe."
     },
     "DONATION-PLAN":{
     	"SIMPLE": "Simple Donation",
@@ -453,14 +457,8 @@
     	"ZERO":"You still haven't do any donations",
     	"ZERO-REPORTS": "You still haven't received any donations",
     	"ZERO-DONATION-DONOR-REPORT": "No reports found"
-    },
-    "CAMPAIGN":
-    {
-    	"CAMPAINGSTATEHELP":"Green: When a campaign is open, \nYellow: When the Campaign is near to finish and Red: When the Campaign was finish.",
-    	"CAMPAINGENDLESS":"Endless Campaign: Is when the Campaign doesn't have an End Date.",
-    	"DONATIONSINFORMATION":"We do not retain any information regarding of your credit card or debit cards.",
-    	"POWEREDBY":"Powered by Stripe."
     }
+  
 				
 }
 				

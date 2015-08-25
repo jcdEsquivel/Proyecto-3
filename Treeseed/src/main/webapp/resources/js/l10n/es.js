@@ -334,7 +334,11 @@
     	"CONFIRMATION":"¿Está seguro de que desea finalizar su campaña?",
     	"CLOSE":"Finalizar",
     	"CANCEL":"Cancelar",
-    	"CLOSE-BUTTON":"Finalizar Campaña"
+    	"CLOSE-BUTTON":"Finalizar Campaña",
+    	"CAMPAINGSTATEHELP":"Verde: Cuando la Campaña esta abierta, Amarillo: Cuando la Campaña esta cerca de finalizar, Rojo: Cuando la Campaña ha finalizado.",
+    	"CAMPAINGENDLESS":"Campaña sin fin:  Cuando la Campaña no tiene una fecha fin.",
+    	"DONATIONSINFORMATION":"Nosotros no retenemos nigun tipo información referente a su(s) tarjeta(s) de crédito o débito.",
+    	"POWEREDBY":"Impulsado por Stripe."
     },
     
     "DONATION-PLAN":{
@@ -442,13 +446,7 @@
     	"ZERO":"Aún no has realizado ninguna donación",
     	"ZERO-REPORTS": "Aún no se ha recibido ninguna donación",
     	"ZERO-DONATION-DONOR-REPORT": "No se han encontrado reportes"
-    },
-    "CAMPAIGN":
-    {
-    	"CAMPAINGSTATEHELP":"Verde: Cuando la Campaña esta abierta, Amarillo: Cuando la Campaña esta cerca de finalizar, Rojo: Cuando la Campaña ha finalizado.",
-    	"CAMPAINGENDLESS":"Campaña sin fin:  Cuando la Campaña no tiene una fecha fin.",
-    	"DONATIONSINFORMATION":"Nosotros no retenemos nigun tipo información referente a su(s) tarjeta(s) de crédito o débito.",
-    	"POWEREDBY":"Impulsado por Stripe."
     }
+   
      
 }
