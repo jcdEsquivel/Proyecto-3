@@ -185,6 +185,11 @@ margin-right: 10px;
    font-weight:bold;
 }
 
+.dashboard-nonprofit{
+   font-size:50px;
+   font-weight:bold;
+}
+
 .landing-header-parragraph{
    font-size:20px;
    margin-top:15px;
@@ -997,3 +1002,27 @@ input:focus {
 }
 
 
+.dashboard-header-text {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.dashboard-list-item-left {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 16px;
+    line-height: 40px;
+    text-align: center;
+}
+
+
+.dashboard-title{
+	font-weight: bold;
+   
+}
+
+.dashboard-nonprofit-list{
+	max-height: 350px;
+	overflow: auto;
+}
