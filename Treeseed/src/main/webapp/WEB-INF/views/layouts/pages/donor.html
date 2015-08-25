@@ -62,7 +62,7 @@
 								class="text-success h3"> {{totalAmount| currency}}</span><br>
 		        			</p>
 	        			</div>
-	        			
+	        			 
  					</div>
  				</div>
 	 		</div>
@@ -93,7 +93,11 @@
 				        	</div>
 			        	  <hr>
 			        	  <br>
-			          	  <h3 translate = "DONOR-PROFILE.WHO"></h3>
+			          	  
+				          
+							<div class="row">
+			        	  	<div class="col-md-6">
+			        	  		<h3 translate = "DONOR-PROFILE.WHO"></h3>
 				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
@@ -106,8 +110,14 @@
 			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="aboutSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					      </div>
-				          <br>
-
+			        	  	</div>
+			        	  	<div class="col-md-6">
+			        	  		<h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
+			          	  <div  data-ng-include=" portfolioURL " ></div>
+	        			
+			        	  	</div>
+			        	  </div>
+			        	  <br>
 			          	  <h3 translate="DONOR-PROFILE.TREE"></h3>
 			          	  
 						<div  >
@@ -121,8 +131,7 @@
 						    </p>
 	        			</div>
 
-			          	  <h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
-			          	  <div  data-ng-include=" portfolioURL " ></div>
+			          	 
 				        </li>
 				      </ul>
 				    </tab>
