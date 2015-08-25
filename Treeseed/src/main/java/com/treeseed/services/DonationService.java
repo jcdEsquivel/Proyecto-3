@@ -230,7 +230,7 @@ public class DonationService implements DonationServiceInterface{
 			ur.setYear(null);
 		}
 		
-		pageResult = donationRepository.findDonationsOfDonor(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
+		pageResult = donationRepository.findAllDonations(nonProfitId, ur.getMonth(), month, ur.getYear(), year, pr);
 		
 		return pageResult ;
 	}

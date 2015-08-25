@@ -63,16 +63,26 @@
 			</div>
 
 			<div class="form-group">
-				<div class="col-sm-6">
+			<div class="control-group col-sm-6">
 					<label class="control-label" translate="REGISTER-DONOR.PASSWORD">Password</label>
-
-					<input type="password" ng-minlength="8" name="password"
-						ng-model="requestObject.donor.userGeneral.password"
-						class="form-control" required>
-						
-					<span ng-show='registerForm.password.$error.required && registerForm.password.$touched'
+					<div class="controls">
+						<input ng-model="requestObject.donor.userGeneral.password"
+							class="immediate-help form-control" password-format required
+							type="password" name="password">
+						<div class="input-help">
+							<h4 translate="VALIDATIONS.VAL-PASSWORD-FORMAT.TITLE">Password must meet the following requirements:</h4>
+							<ul>
+								<li ng-class="pwdHasLetter" translate="VALIDATIONS.VAL-PASSWORD-FORMAT.LETTER">At least <strong>one
+										letter</strong></li>
+								<li ng-class="pwdHasNumber" translate="VALIDATIONS.VAL-PASSWORD-FORMAT.NUMBER">At least <strong>one
+										number</strong></li>
+								<li ng-class="pwdValidLength" translate="VALIDATIONS.VAL-PASSWORD-FORMAT.LONG">At least <strong>8
+										characters long</strong></li>
+							</ul>
+						</div>
+						<span ng-show='registerForm.password.$error.required && registerForm.password.$touched'
 				translate="VALIDATIONS.VAL-PASSWORD"  class="validation-message"></span>
-				<span class="validation-message" ng-show="registerForm.password.$error.minlength && registerForm.confirm_password.$touched"  translate="VALIDATIONS.VAL-PASSWORD-LENGHT"></span>
+					</div>
 				</div>
 
 				<div class="col-sm-6">
@@ -100,10 +110,11 @@
 			 	class=" bg-info" md-mode="indeterminate" ng-show="showProcess"></md-progress-circular>
 					<br/>
 					<br/>
-					<a href="#" id="login" style="width:200px;" class="btn btn-primary btn-facebook  btn-block indigo" ><i
-									class="fa fa-facebook pull-left indigo"></i><label
+					<a href="#" id="login" style="width:200px;" class="btn btn-primary btn-facebook-register  btn-block indigo" ><i
+									class="fa fa-facebook  indigo"></i><label
 									translate="REGISTER-DONOR.REGISTERFACEBOOK"></label></a>
 									
+						
 					<span class="input-error-message" ng-show="facebookFail" translate="REGISTER-DONOR.EXISTEMAIL">Correo ya registrado</span>
 				</div>
 				<div class="col-sm-4">

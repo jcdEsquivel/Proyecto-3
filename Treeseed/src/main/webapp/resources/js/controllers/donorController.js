@@ -397,13 +397,18 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 	$scope.porfolioRequest.donorId = $stateParams.donorId;
 	//end portfolio variables
 	
+	$scope.showComplete=false;
+	
+	$scope.setShowComplete=function(param){
+		$scope.showComplete = param;
+	}
 	
 	var father = '0';
 	if(Session.userRole == USER_ROLES.donor){
 		father = Session.userId;
 	}
 	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
-		'/treeseed.org/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
+		'/treeseed/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
 	
 	
 	//$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
@@ -850,33 +855,13 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 		Session, $state, d3) {
 	$scope.fooBar = d3.version;
 	$scope.donorArrayList=[];
-	$scope.showAmount = false;
+	
 	
 	$scope.requestObject = {};
 	$scope.requestObject.treeLevelY=2;//Solo trae dos generaciones de donadore por debajo del usuario
 	$scope.requestObject.id=$scope.donor.id;
 	$scope.requestObject.treeLevelX=3;//Solo trae tres hijos por donador
-	$scope.showComplete=false;
 	
-	$scope.requestObject1 = {};
-	$scope.requestObject1.treeLevelY=$scope.requestObject.treeLevelY;
-	$scope.requestObject1.donorId=$scope.requestObject.id;
-	$scope.requestObject1.treeLevelX=$scope.requestObject.treeLevelX;
-	
-	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
-	.success(function(response){
-		if(response.code==200){
-			if(response.treeDonation!=0){
-				$scope.showAmount = true;
-				$scope.totalAmount = response.treeDonation;			
-			}
-		}else{
-			//$scope.errorServer(response.code);
-			
-		}
-	}).error(function(status) {
-		//$scope.errorServer(status);
-	});
 	
 	$scope.donorArray = function(tree){
 		$scope.list = [];
@@ -922,7 +907,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 			$scope.donors = $scope.donorArray(flare.tree);
 			if(flare.tree.children.length<3){
 				if($scope.isOwner){
-					$scope.showComplete=true;
+					$scope.setShowComplete(true);
 				}
 			}
 			
@@ -1167,6 +1152,31 @@ treeSeedAppControllers.controller('donorDashboardController', function($scope,
 		}
 	}
 });
+
+treeSeedAppControllers.controller('totalAmountController', function($scope,
+		$http, $location, $modal, $state,$log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
+	$scope.showAmount = false;
+	$scope.requestObject1 = {};
+	$scope.requestObject1.treeLevelY=1000000;
+	$scope.requestObject1.donorId=$scope.donor.id;
+	$scope.requestObject1.treeLevelX=1000000;
+	
+	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
+	.success(function(response){
+		if(response.code==200){
+			if(response.treeDonation!=0){
+				$scope.showAmount = true;
+				$scope.totalAmount = response.treeDonation;			
+			}
+		}else{
+			//$scope.errorServer(response.code);
+			
+		}
+	}).error(function(status) {
+		//$scope.errorServer(status);
+	});
+});
+
 
 
 	/*

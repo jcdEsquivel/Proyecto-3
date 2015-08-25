@@ -7,7 +7,7 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 	$scope.profilePicture = "";
 	$scope.idShareUser = "";
 	$scope.shareLink = "";
-	var app_id = '319610508162843';
+	var app_id = '1428568770742509';
 	$scope.idFacebook = "";
 	
 	$scope.init = function()
@@ -131,7 +131,7 @@ treeSeedAppLoginControllers.controller('facebookController', function($cookies, 
 		FB.api('/me/feed','post', { 
 			message: body, 
 			link: "http://127.0.0.1:8080/treeseed.org/sharedDonation?id=" + id,	
-			picture: picture,
+			//picture: picture,
 			name: name,
 			description: body
 		}, function(response) {
