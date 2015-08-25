@@ -7,5 +7,5 @@ public class TreeseedConstants {
 	public static final String DEFAULT_COVER_IMAGE = "resources/images/default-images/coverImage.png";
 	public static final String DEFAULT_NONPROFIT_IMAGE = "resources/images/default-images/nonprofitImg.png";
 
-	public static final String DEFAULT_DONOR_IMAGE = "resources/images/default-images/donorImg.jpg";
+	public static final String DEFAULT_DONOR_IMAGE = "resources/images/default-images/donorImg.png";
 }

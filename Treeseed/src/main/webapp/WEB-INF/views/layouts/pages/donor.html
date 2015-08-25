@@ -46,7 +46,6 @@
 					    </div>
 					    <label class="text-danger wrapper" ng-show="error" translate="GENERAL-PROFILE.EMAIL-ERROR"></label>
  						
- 						
  						<div ng-controller="facebookController">
 	            				
 	            				
@@ -57,6 +56,13 @@
         					    					
         					<button class="btn m-b-xs w-xs btn-info btn-rounded center-btn" clip-copy="profileUrl" ><span translate="BUTTONS.COPY-CLIP">copy</span></button>					
 	        			</div>
+	        			<div ng-controller="totalAmountController" style="text-align: center;">
+		        			<p ng-show="showAmount">
+		        				<span class=" h3" translate="TREE.MESSAGE"></span><span
+								class="text-success h3"> {{totalAmount| currency}}</span><br>
+		        			</p>
+	        			</div>
+	        			 
  					</div>
  				</div>
 	 		</div>
@@ -87,7 +93,11 @@
 				        	</div>
 			        	  <hr>
 			        	  <br>
-			          	  <h3 translate = "DONOR-PROFILE.WHO"></h3>
+			          	  
+				          
+							<div class="row">
+			        	  	<div class="col-md-6">
+			        	  		<h3 translate = "DONOR-PROFILE.WHO"></h3>
 				          <p ng-hide="aboutInEdition">{{donor.description}}<button class="btn btn-rounded btn-sm btn-icon btn-default m-l-xs" ng-if="isOwner" ng-click="aboutEditClicked()"><i class="fa fa-edit"></i></button></p>
 				          <div ng-show="aboutInEdition">
 				          	<div>
@@ -100,16 +110,28 @@
 			          	  		<button class="btn btn-rounded btn-sm btn-info" ng-click="aboutSaveEditing()" translate="BUTTONS.SAVE"></button>
 				          	</div>
 					      </div>
-				          <br>
-
+			        	  	</div>
+			        	  	<div class="col-md-6">
+			        	  		<h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
+			          	  <div  data-ng-include=" portfolioURL " ></div>
+	        			
+			        	  	</div>
+			        	  </div>
+			        	  <br>
 			          	  <h3 translate="DONOR-PROFILE.TREE"></h3>
 			          	  
 						<div  >
 							<div data-ng-include=" 'layouts/components/donorTree.html' " ></div>
 						</div>
+						<div>
+	        				<p ng-show="showComplete" style="text-align: center;">
+								<span  class="text-danger "translate="TREE.COMPLETE-MESSAGE"> </span>
+								<button class="btn btn-rounded btn-sm btn-icon btn-info " ui-toggle-class="show" target="#moreless" ><i style="text-align: center" class="icon-question"></i></button>
+						       <br> <span translate="TREE.SHARE-MESSAGE" id="moreless" class="hide"></span>
+						    </p>
+	        			</div>
 
-			          	  <h3 translate="DONOR-PROFILE.PHILANTROPIC-PORTFOLIO"></h3>
-			          	  <div  data-ng-include=" portfolioURL " ></div>
+			          	 
 				        </li>
 				      </ul>
 				    </tab>
@@ -171,7 +193,7 @@
 								          		</div>
 								          		<div class="col-sm-4">
 								          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.AMOUNT">Amount</span>
-								          			<span>{{r.amount}}</span>
+								          			<span>${{r.amount}}</span>
 								          		</div>
 								          		<div class="col-sm-3">
 								          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.CAMPAIGN">Campaign</span>

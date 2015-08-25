@@ -10,9 +10,12 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 
 	$scope.percentageSpent = 0;
 	$scope.totalCollected = 0;
+	$scope.overDraft = 0;
+	$scope.isOverDraft = false;
 	$scope.spences = [];
 	$scope.totalSpent;
 	$scope.description = "";
+	$scope.notSpecified;
 	$scope.uiOptions = "{percent: '"+$scope.percentageSpent+"',lineWidth: 10,trackColor: '{{app.color.light}}',barColor: '{{app.color.success}}',scaleColor: '{{app.color.light}}',size: 188,lineCap: 'butt',animate: 1000}";
 
 	function getTotalCollected(){
@@ -37,7 +40,11 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 
 	$scope.openCreateForm = function() {
 		$scope.percentageSpent = 0;
+		$scope.totalSpent = 0;
+		$scope.notSpecified = 0;
 		$scope.spences = [];
+		$scope.started = false;
+		$scope.isOverDraft = false;
 		getTotalCollected();
 	    modalInstance = $modal.open({
 			animation : $scope.animationsEnabled,
@@ -67,10 +74,29 @@ treeSeedAppControllers.controller('createTransparencyReportController', function
 
     function updatePercentage(){
       $scope.totalSpent = 0;
+      $scope.notSpecified = 0;
       for (var i = $scope.spences.length - 1; i >= 0; i--) {
       	$scope.totalSpent += $scope.spences[i].amount;
+      	$scope.notSpecified = $scope.totalCollected - $scope.totalSpent;
       };
-      $scope.percentageSpent = Math.round($scope.totalSpent*100/$scope.totalCollected)
+      $scope.percentageSpent = Math.round($scope.totalSpent*100/$scope.totalCollected);
+      if($scope.percentageSpent>100)
+      {
+      	$scope.isOverDraft = true;
+      	$scope.overDraft = $scope.totalSpent - $scope.totalCollected;
+      }
+      else
+      {
+      	$scope.isOverDraft = false;
+      }
+      if($scope.spences.length>0)
+      {
+      	$scope.started =  true;
+      }
+      else
+      {
+      	$scope.started = false;
+      }
     }
 
 	$scope.createReport = function(){
