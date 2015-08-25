@@ -39,6 +39,10 @@
 		<div class="input-group">
 		<div class="row"><label class="md-switch pull-right" style="padding-right: 20px"> <input  ng-model="noEndCampaign" type="checkbox" ng-click="progressControl(0,noEndCampaign)">
 									<i class="green"></i><span translate="CREATE-CAMPAIGN.TAB-2.NO-END-CAMPAIGN"> No end Campaign</span> </label></div>
+		<button class="btn btn-rounded btn-sm btn-icon btn-info " ui-toggle-class="show" target="#moreless" ><i style="text-align: center" class="icon-question"></i></button>
+		<br>
+		<span translate="CAMPAIGN.CAMPAINGENDLESS" id="moreless" class="hide"></span>
+		<br>
 		<div class="row">
 			<div class="col-sm-6">
 				<p translate="CREATE-CAMPAIGN.TAB-2.DATE1">Due Date:</p>

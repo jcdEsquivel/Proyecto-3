@@ -1,7 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3" translate="RECEIPT-SEARCH.TITLE"></h1>
 </div>
-<div class="row m-b-md" style="padding: 50px;">
+<div class="row m-b-md" style="padding: 20px;">
 	<div class="col-sm-2"></div>
 	<div class="col-sm-3">
 		<div class="input-group-btn dropdown" dropdown>
@@ -33,7 +33,6 @@
 	<div class="col-sm-3">
 		<button type="submit" class="btn btn-info m-b-lg " ng-click="getReceipts(1)" translate="NONPROFIT-PROFILE.SEARCH"></button>
 	</div>
-	<div class="col-sm-1"></div>
 </div>
 <div class="panel-body">
 	<div class="row">
@@ -43,22 +42,22 @@
 		         	<h3 class="text-danger" translate="DONATION.ZERO"></h3>
 		      	</div>
 		   	</div>
-			<ul class="list-group list-group-alt list-group-lg  pull-in m-b-none campaign-scroll">
-				<li class="list-group-item li-posts-result" 
-        		dir-paginate="r in receipts | itemsPerPage: receiptsRequest.pageSize" total-items="totalReceipts" pagination-id="receipt-pagin" current-page="receiptsPaginCurrentPage">	          
-		          	<div class="row">
-		          		<div class="col-sm-2">
-		          		</div>
+			<ul class="list-group list-group-alt   pull-in m-b-none campaign-scroll" style="padding-right: 20px; padding-left: 20px">
+				<li class="list-group-item" dir-paginate="r in receipts | itemsPerPage: receiptsRequest.pageSize" total-items="totalReceipts" pagination-id="receipt-pagin" current-page="receiptsPaginCurrentPage">	          
+		          	<div class="row" style="height:70px">
 		          		<div class="col-sm-3">
-		          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.DATE">Date</span>
+		          			<span class=" post-title h4 text-primary m-b-sm " translate="NONPROFIT-DONATION-REPORT.DATE">Date</span>
+		          			<br>
 		          			<span> {{r.dateS}}</span>
 		          		</div>
 		          		<div class="col-sm-3">
-		          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.AMOUNT">Amount</span>
-		          			<span>{{r.amount}}</span>
+		          			<span class=" post-title h4 text-primary m-b-sm " translate="NONPROFIT-DONATION-REPORT.AMOUNT"></span>
+		          			<br>
+		          			<span>${{r.amount}}</span>
 		          		</div>
 		          		<div class="col-sm-4">
-		          			<span class=" post-title h4 text-primary m-b-sm block" translate="MENU-HEADER.NGO"></span>
+		          			<span class=" post-title h4 text-primary m-b-sm " translate="MENU-HEADER.NGO"></span>
+		          			<br>
 		          			<span>{{r.nonprofitName}}</span>
 	          			</div>
 		          	</div>
@@ -78,7 +77,6 @@
 		</div>
 	</div>
 </div>
-
 
  
 <!--<div class="bg-light lter b-b wrapper-md">
@@ -131,8 +129,8 @@
 	          			<span> {{r.dateS}}</span>
 	          		</div>
 	          		<div class="col-sm-4">
-	          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT.AMOUNT">Amount</span>
-	          			<span>{{r.amount}}</span>
+	          			<span class=" post-title h4 text-primary m-b-sm block" translate="NONPROFIT-DONATION-REPORT."></span>
+	          			<span>{{r.}}</span>
 	          		</div>
 	          		<div class="col-sm-4">
 	          			<span class=" post-title h4 text-primary m-b-sm block" translate="MENU-HEADER.NGO"></span>
