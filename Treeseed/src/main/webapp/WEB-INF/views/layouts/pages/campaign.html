@@ -107,13 +107,13 @@
             </div>
             <div class="">
                <h4>
-                  <span class="pull-right text-success">{{campaign.amountCollected}}</span>
+                  <span class="pull-right text-success">${{campaign.amountCollected}}</span>
                </h4>
                <span translate="CAMPAIGN.TAB-1.AMOUNT-COLLECTED">Amount Collected</span>
             </div>
             <div class="" ng-if="campaign.dueDate">
                <h4 ng-hide="amountGoalInEdition">
-                  <span class="pull-right text-info" >{{campaign.amountGoal}}</span>
+                  <span class="pull-right text-info" >${{campaign.amountGoal}}</span>
                </h4>
                <div class="input-group m-b" ng-show="amountGoalInEdition">
                   <span class="input-group-addon">$</span> <input type="number"
