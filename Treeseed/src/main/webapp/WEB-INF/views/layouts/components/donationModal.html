@@ -12,7 +12,8 @@
 
 	<form name="frmNewDonation" id="payment-form" class="form-validation" stripe-form="stripeCallback">
 		<div class="form-group">
-		
+			<h5><span style="font-weight: bold;" translate="CAMPAIGN.DONATIONSINFORMATION"></span></h5>
+			<br>
 			 <label for="card" translate="DONATION-MODAL.CARD-NUMBER" class="control-label">Select a credit Card</label>
 			 <div class="row" >
 		 		<div class="col-sm-1">
@@ -103,7 +104,7 @@
 		</div>
 		<div ng-if="loadDonation.isLoading == '1'">
 			 	<br/>
-			 	<p class="loading-paragraph" translate="DONATION-MODAL.DONATING">Realizando la donación</p>
+			 	<p class="loading-paragraph" translate="DONATION-MODAL.DONATING">Realizando la donaciï¿½n</p>
 			 	<md-progress-circular style="display: block;margin-right: auto;transform: scale(1);margin-left: auto;" 
 			 	class=" bg-info" md-mode="indeterminate"></md-progress-circular>
 			 	<br/>
@@ -167,10 +168,9 @@
 				</form>
 			</div>
 		</div>
-	
 	</tab>
-	
 </tabset>
-
+<label class="md-switch pull-right" style="padding-right: 20px; font-weight: bold;" translate="CAMPAIGN.POWEREDBY"></label>
+<br>
 </div>
 
