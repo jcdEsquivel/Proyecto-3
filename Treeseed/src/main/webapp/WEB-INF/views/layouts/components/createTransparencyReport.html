@@ -15,6 +15,18 @@
               </div>
             </div>
           </div>
+          <br>
+          <div ng-show="started">
+            <div class="text-left">
+             <span translate = "TRANSPARENCY-REPORT.TOTAL-AMOUNT-OUT"></span><span>${{totalSpent}}</span>
+            </div>
+            <div ng-hide="isOverDraft" class="text-left">
+              <span translate = "TRANSPARENCY-REPORT.NOT-SPECIFIED"></span><span>${{notSpecified}}</span>
+            </div>
+            <div ng-show="isOverDraft" class="text-left text-danger">
+              <span translate = "TRANSPARENCY-REPORT.OVERDRAFT"></span><span>${{overDraft}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
