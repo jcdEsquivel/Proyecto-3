@@ -493,7 +493,7 @@ public class DonationController {
 			int number = 0;
 			while(number<sonslist.size()&&levelXDo>0){
 				DonorWrapper donorWrapper = new DonorWrapper(sonslist.get(number));
-				total=donationService.getSumDonationsByDonor(donorWrapper.getId());
+				total+=donationService.getSumDonationsByDonor(donorWrapper.getId());
 				if(donorWrapper.getSons().size()>0){
 					if(levelY>1){
 						total+=getTreeDonationSons(donorWrapper,levelX,levelY-1);

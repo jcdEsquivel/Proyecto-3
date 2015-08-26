@@ -584,7 +584,7 @@ treeSeedAppControllers.controller('getCampaingProfileController', function($scop
 						father = Session.userId;
 					}
 					$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
-						'/treeseed/goTo?type=campaign&id='+$stateParams.campaignId+'&fatherId='+father;
+						'/treeseed.org/goTo?type=campaign&id='+$stateParams.campaignId+'&fatherId='+father;
 					
 					console.log(JSON.stringify($location));
 					
