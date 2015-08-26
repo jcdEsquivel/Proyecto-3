@@ -408,7 +408,7 @@ treeSeedAppControllers.controller('getDonorProfileController', function($scope,
 		father = Session.userId;
 	}
 	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
-		'/treeseed/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
+		'/treeseed.org/goTo?type=donor&id='+$stateParams.donorId+'&fatherId='+father;
 	
 	
 	//$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+'/treeseed.org/goTo?id='+$stateParams.donorId+'&t=donor';
@@ -925,6 +925,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 
 			// root.children.forEach(collapse);
 			update(root);
+			$scope.$apply();
 		}).header("Content-Type","application/json").send("POST", JSON.stringify($scope.requestObject));
 
 		d3.select(self.frameElement).style("height", "700px");
@@ -1096,8 +1097,7 @@ treeSeedAppControllers.controller('treeController', function($scope, $http,
 				d._children = null;
 			}
 			update(d);
-		}
-	
+		}	
 });
 
 treeSeedAppControllers.controller('donorDashboardController', function($scope,
@@ -1157,9 +1157,9 @@ treeSeedAppControllers.controller('totalAmountController', function($scope,
 		$http, $location, $modal, $state,$log, $timeout, $stateParams, Session, $upload, USER_ROLES) {
 	$scope.showAmount = false;
 	$scope.requestObject1 = {};
-	$scope.requestObject1.treeLevelY=1000000;
+	$scope.requestObject1.treeLevelY=100000;
 	$scope.requestObject1.donorId=$scope.donor.id;
-	$scope.requestObject1.treeLevelX=1000000;
+	$scope.requestObject1.treeLevelX=100000;
 	
 	$http.post("rest/protected/donation/gettreedonation",$scope.requestObject1)
 	.success(function(response){
@@ -1175,6 +1175,8 @@ treeSeedAppControllers.controller('totalAmountController', function($scope,
 	}).error(function(status) {
 		//$scope.errorServer(status);
 	});
+	
+	
 });
 
 
