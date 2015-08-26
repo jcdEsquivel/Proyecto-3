@@ -405,7 +405,7 @@
     	"UPDATED-DONATIONS-TITLE": "Updated Donations"    	
     },
     "TREE":{
-    	"MESSAGE":"Have raise:",
+    	"MESSAGE":"Amount raised:",
     	"COMPLETE-MESSAGE": "Please complete your profile bringing at least three users to us!",
     	"SHARE-MESSAGE": "You can bring more people to Treeseed by sharing nonprofits, campaigns, donations...",
     	"PLAN-MESSAGE": "Monthly "

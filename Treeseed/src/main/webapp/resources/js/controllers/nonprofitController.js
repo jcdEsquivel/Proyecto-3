@@ -278,7 +278,7 @@ treeSeedAppControllers.controller('getNonProfitProfileController', function($sco
 		father = Session.userId;
 	}
 	$scope.profileUrl = 'http://'+$location.host() +':'+  $location.port()+
-		'/treeseed/goTo?type=nonProfit&id='+$stateParams.nonProfitId+'&fatherId='+father;
+		'/treeseed.org/goTo?type=nonProfit&id='+$stateParams.nonProfitId+'&fatherId='+father;
 	
 	
 
